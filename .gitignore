@@ -1,0 +1,12 @@
+# Tokens y credenciales locales
+.github/config/gh-token.txt
+tools/mcp-jira/.env
+
+# Cache de PR (generada por pr-fetch.ps1)
+.github/pr-cache/
+
+# Dependencias
+tools/mcp-jira/node_modules/
+
+# Código fuente legacy (no se sube al repo del reviewer)
+ueno_core/
