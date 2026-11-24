@@ -1,0 +1,94 @@
+-- Crear tabla temporal de simulaciones
+CREATE TABLE IT.GE_CLA_TMP_SIMULACION (
+  FECHA_CIERRE                    DATE,
+  TIPO                           VARCHAR2(1 BYTE),
+  TIP_CLIENTE                    VARCHAR2(4000 BYTE),
+  COD_RUBRO                      VARCHAR2(50 BYTE),
+  COD_MODULO                     NUMBER(3, 0),
+  COD_MODALIDAD                  NUMBER(3, 0),
+  NRO_CUENTA                     VARCHAR2(15 BYTE),
+  COD_PERSONA                    VARCHAR2(10 BYTE),
+  NRO_DOCUMENTO                  VARCHAR2(20 BYTE),
+  NOM_COMPLETO                   VARCHAR2(120 BYTE),
+  FEC_INICIO                     DATE,
+  FEC_VENCIMIENTO                DATE,
+  VAL_TASA                       NUMBER,
+  PLAZO                          NUMBER,
+  COD_TIP_DEUDOR                 VARCHAR2(10 BYTE),
+  TIP_OPERACION                  VARCHAR2(4000 BYTE),
+  COD_ESTADO                     VARCHAR2(1 BYTE),
+  DIA_ATRASO                     NUMBER(5, 0),
+  CAT_AUTOMATICA                 NUMBER(3, 2),
+  CAT_RIESGO                     VARCHAR2(1 BYTE),
+  COD_MONEDA                     VARCHAR2(3 BYTE),
+  COTIZACION                     NUMBER,
+  SAL_CAPITAL                    NUMBER,
+  DEV_NO_COBRADO                 NUMBER,
+  SAL_CAPITAL_GUARANIZADO        NUMBER,
+  DEV_NO_COBRADO_GUARANIZADO     NUMBER,
+  SAL_INT                        NUMBER,
+  VAL_INT_DEVENGAR               NUMBER,
+  TOTAL_PREVISION                NUMBER,
+  PREVISION_CARTERA              NUMBER,
+  PREVISION_DIFERIDA             NUMBER,
+  PREVISION_CTA_ORDEN            NUMBER,
+  PREVISION_ANTERIOR             NUMBER,
+  SALDO_CONTINGENTE              NUMBER,
+  GAR_COMPUTABLE                 NUMBER
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+  INITIAL     65536
+  NEXT        1048576
+  MINEXTENTS  1
+  MAXEXTENTS  UNLIMITED
+  BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+-- Comentarios de tabla y columnas
+COMMENT ON TABLE IT.GE_CLA_TMP_SIMULACION IS 'Tabla temporal para almacenar los resultados de simulación de previsiones consolidadas';
+
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.FECHA_CIERRE IS 'Fecha de cierre del reporte (fecha de ejecución)';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.TIPO IS 'Tipo de operación: P (préstamo), T (tarjeta), V (vencida)';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.TIP_CLIENTE IS 'Descripción del tipo de cliente según clasificación del sistema';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_RUBRO IS 'Código del rubro de la operación (actualmente nulo)';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_MODULO IS 'Código del módulo financiero asociado';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_MODALIDAD IS 'Código de modalidad de la operación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.NRO_CUENTA IS 'Número de cuenta del producto';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_PERSONA IS 'Identificador de la persona titular de la cuenta';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.NRO_DOCUMENTO IS 'Número de documento del cliente';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.NOM_COMPLETO IS 'Nombre completo del cliente';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.FEC_INICIO IS 'Fecha de inicio del crédito u operación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.FEC_VENCIMIENTO IS 'Fecha de vencimiento de la operación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.VAL_TASA IS 'Tasa de interés aplicada';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.PLAZO IS 'Plazo de la operación en días';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_TIP_DEUDOR IS 'Código del tipo de deudor (actualmente nulo)';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.TIP_OPERACION IS 'Descripción de la operación según modalidad';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_ESTADO IS 'Código del estado de la operación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.DIA_ATRASO IS 'Cantidad de días de atraso';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.CAT_AUTOMATICA IS 'Categoría automática de clasificación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.CAT_RIESGO IS 'Categoría de riesgo del cliente';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COD_MONEDA IS 'Moneda de origen de la operación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.COTIZACION IS 'Cotización de la moneda al día de ejecución';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.SAL_CAPITAL IS 'Saldo actual del capital';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.DEV_NO_COBRADO IS 'Importe devuelto aún no cobrado';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.SAL_CAPITAL_GUARANIZADO IS 'Saldo capital convertido a guaraníes';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.DEV_NO_COBRADO_GUARANIZADO IS 'Devolución no cobrada convertida a guaraníes';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.SAL_INT IS 'Saldo de intereses acumulado';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.VAL_INT_DEVENGAR IS 'Valor de interés aún por devengar';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.TOTAL_PREVISION IS 'Total de previsiones acumuladas';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.PREVISION_CARTERA IS 'Previsión correspondiente a cartera activa';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.PREVISION_DIFERIDA IS 'Previsión diferida (estimada para eventos futuros)';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.PREVISION_CTA_ORDEN IS 'Previsión reflejada en cuenta de orden';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.PREVISION_ANTERIOR IS 'Previsión histórica registrada anteriormente';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.SALDO_CONTINGENTE IS 'Saldo contingente relacionado a la operación';
+COMMENT ON COLUMN IT.GE_CLA_TMP_SIMULACION.GAR_COMPUTABLE IS 'Monto de garantía computable asociada';
+
+CREATE PUBLIC SYNONYM GE_CLA_TMP_SIMULACION FOR IT.GE_CLA_TMP_SIMULACION;
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.GE_CLA_TMP_SIMULACION TO IT_TEMPORAL;

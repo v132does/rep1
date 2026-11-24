@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_REF_000
+minvalue 1
+maxvalue 9999999999999999999999999
+start with 258233
+increment by 1
+cache 20;
+

@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION IT.FUG_OBT_LIM_ACUMULAD
+ (P_NRO_SOLICITUD IN NUMBER
+ )
+ RETURN NUMBER
+ IS
+
+V_LIM_ACUMULADO GE_SOL_APROBACIONES.MTO_LIMITE%TYPE;
+BEGIN
+        V_LIM_ACUMULADO := 0;
+        select sum(MTO_LIMITE)
+        into V_LIM_ACUMULADO
+        from GE_SOL_APROBACIONES
+        where NRO_SOLICITUD = P_NRO_SOLICITUD;
+        return V_LIM_ACUMULADO;
+EXCEPTION
+   when no_data_found then
+        raise_application_error(-20000,'No existe limite en GE_SOL_APROBACIONES');
+
+END;
+/
+

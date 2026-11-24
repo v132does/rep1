@@ -1,0 +1,28 @@
+create table IT.MI_BA_PER_SOCIEDADES
+(
+  cod_persona        VARCHAR2(10) not null,
+  cod_moneda         VARCHAR2(3),
+  tip_accion         VARCHAR2(1),
+  can_acc_portador   NUMBER,
+  mto_cap_suscrito   NUMBER(18,2),
+  mto_cap_integrado  NUMBER(18,2),
+  mto_nom_accion     NUMBER(18,2),
+  estado             VARCHAR2(1),
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) not null,
+  fec_modificacion   DATE not null,
+  can_acc_nominativa NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

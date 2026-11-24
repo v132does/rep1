@@ -1,0 +1,26 @@
+begin pre_ini_aplicacion;pae_cnf.g_cod_modulo := '1'; end;  
+/
+update it.ba_tab_depuradas w set w.limite=500000 where w.nro_orden  = 1    and w.nom_tabla = 'GE_CLA_OPERACIONES';
+update it.ba_tab_depuradas w set w.limite=500000 where w.nro_orden  = 2    and w.nom_tabla = 'CB_SAL_INVENTARIOS';
+update it.ba_tab_depuradas w set w.limite=1000000 where w.nro_orden = 3    and w.nom_tabla = 'CB_SAL_INVENTARIOS_DET';
+update it.ba_tab_depuradas w set w.limite=500000 where w.nro_orden  = 4    and w.nom_tabla = 'GE_CLIENTES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 6    and w.nom_tabla = 'TA_DET_CONCILIACIONES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 7    and w.nom_tabla = 'TA_RES_CONCILIACIONES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 8    and w.nom_tabla = 'TA_TOT_CONCILIACIONES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 9    and w.nom_tabla = 'TA_MOV_EXTRACTO_TMP';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 11   and w.nom_tabla = 'PR_CTA_PRESTAMOS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 12   and w.nom_tabla = 'AH_CON_DIA_CAB';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 13   and w.nom_tabla = 'AH_CON_DIA_DET';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 14   and w.nom_tabla = 'AH_CON_DIA_RES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 15   and w.nom_tabla = 'CJ_LOG_GLO_PRO';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 16   and w.nom_tabla = 'CC_CHE_DET_BALANCES_TMP';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 17   and w.nom_tabla = 'GE_MOVIMIENTOS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 18   and w.nom_tabla = 'PR_AUDITORIAS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 19   and w.nom_tabla = 'AH_AUDITORIAS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 20   and w.nom_tabla = 'GE_AUDITORIAS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 21   and w.nom_tabla = 'BW_AUDITORIAS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 22   and w.nom_tabla = 'GE_LOG_ERRORES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 23   and w.nom_tabla = 'GE_SNP_TRANSFERENCIAS';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 24   and w.nom_tabla = 'GE_SNP_MENSAJES';
+update it.ba_tab_depuradas w set w.limite=80000 where w.nro_orden   = 25   and w.nom_tabla = 'BA_LOG_MENSAJERIAS';
+commit;

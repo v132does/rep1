@@ -1,0 +1,79 @@
+create table IT.GE_PLANILLAS
+(
+  nro_planilla         NUMBER(8) not null,
+  tipo                 NUMBER(2) not null,
+  estado               NUMBER(1),
+  cod_pla_responsable  VARCHAR2(15),
+  fec_emision          DATE,
+  fec_rendicion        DATE,
+  cod_usu_emision      VARCHAR2(10),
+  cod_usu_rendicion    VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  fec_autorizacion     DATE,
+  cod_usu_autorizacion VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PLANILLAS
+  is 'Planillas de Tarjetas de Debito.';
+comment on column IT.GE_PLANILLAS.nro_planilla
+  is 'Nro Planilla.';
+comment on column IT.GE_PLANILLAS.tipo
+  is 'Tipo de Planilla.';
+comment on column IT.GE_PLANILLAS.estado
+  is 'Estado de la Planilla.';
+comment on column IT.GE_PLANILLAS.cod_pla_responsable
+  is 'Responsable de la Planilla.';
+comment on column IT.GE_PLANILLAS.fec_emision
+  is 'Fecha de Emision de la Planilla.';
+comment on column IT.GE_PLANILLAS.fec_rendicion
+  is 'Fecha de Rendicion de la Planilla.';
+comment on column IT.GE_PLANILLAS.cod_usu_emision
+  is 'Usuario que emitio la planilla.';
+comment on column IT.GE_PLANILLAS.cod_usu_rendicion
+  is 'Usuario que rindio la planilla.';
+comment on column IT.GE_PLANILLAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PLANILLAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PLANILLAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_PLANILLAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PLANILLAS.fec_autorizacion
+  is 'Fecha en que se autorizo.';
+comment on column IT.GE_PLANILLAS.cod_usu_autorizacion
+  is 'Usuario que autorizo.';
+alter table IT.GE_PLANILLAS
+  add constraint PK_GE_PLANILLAS primary key (TIPO, NRO_PLANILLA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PLANILLAS
+  add constraint FK_GPLAN_USU_EMISION foreign key (COD_USU_EMISION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_PLANILLAS
+  add constraint FK_GPLAN_USU_RENDICION foreign key (COD_USU_RENDICION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

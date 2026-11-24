@@ -1,0 +1,40 @@
+-- Create table
+create table IT.CC_PRO_TMP_VENCIDOS
+(
+  nro_cuenta VARCHAR2(15) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CC_PRO_TMP_VENCIDOS
+  is 'Proceso para sobregiros vencidos.';
+-- Add comments to the columns 
+comment on column IT.CC_PRO_TMP_VENCIDOS.nro_cuenta
+  is 'Numero de cuenta.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CC_PRO_TMP_VENCIDOS
+  add constraint PK_CC_PRO_TMP_VENCIDOS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  novalidate;
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CC_PRO_TMP_VENCIDOS to IT_TEMPORAL;

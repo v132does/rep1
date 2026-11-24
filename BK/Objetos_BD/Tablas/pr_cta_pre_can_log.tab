@@ -1,0 +1,18 @@
+create table IT.PR_CTA_PRE_CAN_LOG
+(
+  nro_cuenta    VARCHAR2(15) not null,
+  msg_error     VARCHAR2(4000),
+  fec_insercion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

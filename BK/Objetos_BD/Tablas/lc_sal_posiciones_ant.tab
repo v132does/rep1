@@ -1,0 +1,76 @@
+create table IT.LC_SAL_POSICIONES_ANT
+(
+  cod_ofi_cambio   NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  tip_posicion     VARCHAR2(1) not null,
+  mto_efe_compra   NUMBER(18,2) default 0 not null,
+  mto_efe_venta    NUMBER(18,2) default 0 not null,
+  mto_nef_compra   NUMBER(18,2) default 0 not null,
+  mto_nef_venta    NUMBER(18,2) default 0 not null,
+  cot_efectivo     NUMBER(14,8) default 0 not null,
+  cot_no_efectivo  NUMBER(14,8) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_SAL_POSICIONES_ANT
+  is 'Saldos de Posiciones de Cambios y Contables para Operaciones de Cambios al cierre del dia anterior';
+comment on column IT.LC_SAL_POSICIONES_ANT.cod_ofi_cambio
+  is 'Codigo de oficina.';
+comment on column IT.LC_SAL_POSICIONES_ANT.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_SAL_POSICIONES_ANT.tip_posicion
+  is 'Tipo de posicion de cambios.';
+comment on column IT.LC_SAL_POSICIONES_ANT.mto_efe_compra
+  is 'Importe efectivo de compras.';
+comment on column IT.LC_SAL_POSICIONES_ANT.mto_efe_venta
+  is 'Importe efectivo de ventas.';
+comment on column IT.LC_SAL_POSICIONES_ANT.mto_nef_compra
+  is 'Importe no efectivo de compras.';
+comment on column IT.LC_SAL_POSICIONES_ANT.mto_nef_venta
+  is 'Importe no efectivo de ventas.';
+comment on column IT.LC_SAL_POSICIONES_ANT.cot_efectivo
+  is 'Cotizacion de efectivo.';
+comment on column IT.LC_SAL_POSICIONES_ANT.cot_no_efectivo
+  is 'Cotizacion de no efectivo.';
+comment on column IT.LC_SAL_POSICIONES_ANT.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_SAL_POSICIONES_ANT.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_SAL_POSICIONES_ANT.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_SAL_POSICIONES_ANT.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_SAL_POSICIONES_ANT
+  add constraint PK_LC_SAL_POSICIONES_ANT primary key (COD_OFI_CAMBIO, COD_MONEDA, TIP_POSICION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_SAL_POSICIONES_ANT
+  add constraint FK_LSPOA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_SAL_POSICIONES_ANT
+  add constraint FK_LSPOA_COD_OFICINA foreign key (COD_OFI_CAMBIO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

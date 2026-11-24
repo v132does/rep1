@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_COB_TARJETA
+minvalue 0
+maxvalue 999999999
+start with 214186
+increment by 1
+cache 20;
+

@@ -1,0 +1,7 @@
+create sequence IT.S_COD_PAR_LPC
+minvalue 1
+maxvalue 9999999999
+start with 5
+increment by 1
+nocache;
+

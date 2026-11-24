@@ -1,0 +1,103 @@
+create table IT.GE_CALENDARIOS
+(
+  cod_modulo            NUMBER(3) not null,
+  fec_actual            DATE not null,
+  nom_dia               VARCHAR2(10) not null,
+  nom_mes               VARCHAR2(10) not null,
+  nro_trimestre         NUMBER(2) not null,
+  fec_proxima           DATE not null,
+  fec_anterior          DATE not null,
+  pri_dia_mes           DATE not null,
+  pri_dia_mes_habil     DATE not null,
+  ult_dia_mes           DATE not null,
+  ult_dia_mes_habil     DATE not null,
+  pri_dia_trimestre     DATE not null,
+  pri_dia_hab_trimestre DATE not null,
+  ult_dia_trimestre     DATE not null,
+  ult_dia_hab_trimestre DATE not null,
+  mes_ini_trimestre     NUMBER(2) not null,
+  mes_fin_trimestre     NUMBER(2) not null,
+  can_dia_ano           NUMBER(3) not null,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CALENDARIOS
+  is 'Calendario.';
+comment on column IT.GE_CALENDARIOS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_CALENDARIOS.fec_actual
+  is 'Fecha de hoy.';
+comment on column IT.GE_CALENDARIOS.nom_dia
+  is 'Nombre del dia.';
+comment on column IT.GE_CALENDARIOS.nom_mes
+  is 'Nombre del mes.';
+comment on column IT.GE_CALENDARIOS.nro_trimestre
+  is 'Numero de trimestre.';
+comment on column IT.GE_CALENDARIOS.fec_proxima
+  is 'Proxima fecha.';
+comment on column IT.GE_CALENDARIOS.fec_anterior
+  is 'Fecha anterior.';
+comment on column IT.GE_CALENDARIOS.pri_dia_mes
+  is 'Primer dia del mes.';
+comment on column IT.GE_CALENDARIOS.pri_dia_mes_habil
+  is 'Primer dia habil del mes.';
+comment on column IT.GE_CALENDARIOS.ult_dia_mes
+  is 'Ultimo dia del mes.';
+comment on column IT.GE_CALENDARIOS.ult_dia_mes_habil
+  is 'Ultimo dia habil del mes.';
+comment on column IT.GE_CALENDARIOS.pri_dia_trimestre
+  is 'Primer dia del trimestre.';
+comment on column IT.GE_CALENDARIOS.pri_dia_hab_trimestre
+  is 'Primer dia habil del trimestre.';
+comment on column IT.GE_CALENDARIOS.ult_dia_trimestre
+  is 'Ultimo dia del trimestre.';
+comment on column IT.GE_CALENDARIOS.ult_dia_hab_trimestre
+  is 'Ultimo dia habil del trimestre.';
+comment on column IT.GE_CALENDARIOS.mes_ini_trimestre
+  is 'Mes inicial del trimestre.';
+comment on column IT.GE_CALENDARIOS.mes_fin_trimestre
+  is 'Mes final del trimestre.';
+comment on column IT.GE_CALENDARIOS.can_dia_ano
+  is 'Cantidad de dias del Año.';
+comment on column IT.GE_CALENDARIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CALENDARIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CALENDARIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CALENDARIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CALENDARIOS
+  add constraint PK_GE_CALENDARIOS primary key (COD_MODULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CALENDARIOS
+  add constraint FK_GCALE_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.GE_CALENDARIOS
+  add constraint AVCON_1080843414_COD_M_016
+  check (COD_MODULO BETWEEN 1 AND 999);
+

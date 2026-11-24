@@ -1,0 +1,61 @@
+create table IT.CB_COS_SUCURSALES
+(
+  ano              NUMBER(4) not null,
+  mes              NUMBER(2) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cod_plazo        NUMBER(3) not null,
+  mto_pro_activo   NUMBER(18,2),
+  mto_pro_pasivo   NUMBER(18,2),
+  mto_dif_promedio NUMBER(18,2),
+  val_tasa         NUMBER(20,4),
+  mto_interes      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_COS_SUCURSALES
+  is 'Costos Intersucursales.';
+comment on column IT.CB_COS_SUCURSALES.ano
+  is 'Año.';
+comment on column IT.CB_COS_SUCURSALES.mes
+  is 'Mes.';
+comment on column IT.CB_COS_SUCURSALES.cod_oficina
+  is 'Oficina.';
+comment on column IT.CB_COS_SUCURSALES.cod_moneda
+  is 'Moneda.';
+comment on column IT.CB_COS_SUCURSALES.cod_plazo
+  is 'Plazo Contable.';
+comment on column IT.CB_COS_SUCURSALES.mto_pro_activo
+  is 'Monto Promedio Activo.';
+comment on column IT.CB_COS_SUCURSALES.mto_pro_pasivo
+  is 'Monto Promedio Pasivo.';
+comment on column IT.CB_COS_SUCURSALES.mto_dif_promedio
+  is 'Monto Diferencia en Promedio.';
+comment on column IT.CB_COS_SUCURSALES.val_tasa
+  is 'Valor de la Tasa aplicada.';
+comment on column IT.CB_COS_SUCURSALES.mto_interes
+  is 'Monto de Interes.';
+alter table IT.CB_COS_SUCURSALES
+  add constraint PK_CB_COS_SUCURSAL primary key (ANO, MES, COD_OFICINA, COD_MONEDA, COD_PLAZO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,64 @@
+create table IT.PR_SOL_FACTURAS
+(
+  nro_solicitud    NUMBER(7) not null,
+  nro_cuota        NUMBER(3) not null,
+  cod_persona      VARCHAR2(10),
+  tip_operacion    VARCHAR2(1) not null,
+  monto            NUMBER(18,2) not null,
+  nro_factura      NUMBER(15) not null,
+  cod_ente         NUMBER(3),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SOL_FACTURAS
+  is 'Contiene las facturas de las solicitudes.';
+comment on column IT.PR_SOL_FACTURAS.nro_solicitud
+  is 'Nro Solicitud.';
+comment on column IT.PR_SOL_FACTURAS.nro_cuota
+  is 'Nro Cuotas.';
+comment on column IT.PR_SOL_FACTURAS.cod_persona
+  is 'Persona.';
+comment on column IT.PR_SOL_FACTURAS.tip_operacion
+  is 'Tipo Operación.';
+comment on column IT.PR_SOL_FACTURAS.monto
+  is 'Monto.';
+comment on column IT.PR_SOL_FACTURAS.nro_factura
+  is 'Nro Factura.';
+comment on column IT.PR_SOL_FACTURAS.cod_ente
+  is 'Ente.';
+comment on column IT.PR_SOL_FACTURAS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.PR_SOL_FACTURAS.usu_insercion
+  is 'Insertado por.';
+comment on column IT.PR_SOL_FACTURAS.fec_modificacion
+  is 'Fecha de modificación.';
+comment on column IT.PR_SOL_FACTURAS.usu_modificacion
+  is 'Modificado por.';
+alter table IT.PR_SOL_FACTURAS
+  add constraint PSA_PK_PR_SOL_FACTURAS primary key (NRO_SOLICITUD, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

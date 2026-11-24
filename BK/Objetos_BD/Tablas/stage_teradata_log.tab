@@ -1,0 +1,7 @@
+create global temporary table IT.STAGE_TERADATA_LOG
+(
+  line      NUMBER,
+  logstring VARCHAR2(2000 CHAR)
+)
+on commit preserve rows;
+

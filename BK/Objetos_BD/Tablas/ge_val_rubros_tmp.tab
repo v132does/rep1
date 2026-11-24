@@ -1,0 +1,45 @@
+create table IT.GE_VAL_RUBROS_TMP
+(
+  fecha            DATE,
+  cod_modulo       NUMBER,
+  cod_modalidad    NUMBER,
+  cod_transaccion  NUMBER,
+  cod_moneda       VARCHAR2(10),
+  cod_sec_contable VARCHAR2(30),
+  cod_tideudor     NUMBER,
+  residente        VARCHAR2(10),
+  cod_plazo        VARCHAR2(10),
+  timovimiento     VARCHAR2(10),
+  cod_rubro        VARCHAR2(50),
+  est_cuenta       VARCHAR2(10),
+  tirenovacion     VARCHAR2(10),
+  cat_automatica   NUMBER,
+  tiinteres        VARCHAR2(10),
+  ticuenta         VARCHAR2(10),
+  cod_sec_credito  NUMBER,
+  des_rubro        VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEVALRUB on IT.GE_VAL_RUBROS_TMP (FECHA, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,73 @@
+create table IT.RH_ANTECEDENTES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_ente         NUMBER(5) not null,
+  fecha            DATE not null,
+  mto_deuda        NUMBER(14),
+  cod_moneda       VARCHAR2(3),
+  sal_deuda        NUMBER(14),
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_ANTECEDENTES
+  is 'Antecedentes de los Empleados.';
+comment on column IT.RH_ANTECEDENTES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_ANTECEDENTES.cod_ente
+  is 'Codigo de la Empresa en que el Empleado posee deuda.';
+comment on column IT.RH_ANTECEDENTES.fecha
+  is 'Fecha en que se verifico el antecedente.';
+comment on column IT.RH_ANTECEDENTES.mto_deuda
+  is 'Monto de la Deuda.';
+comment on column IT.RH_ANTECEDENTES.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_ANTECEDENTES.sal_deuda
+  is 'Saldo de la Deuda.';
+comment on column IT.RH_ANTECEDENTES.observacion
+  is 'Observacion que se desee incluir. Ej: No posee antecedentes.';
+comment on column IT.RH_ANTECEDENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_ANTECEDENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_ANTECEDENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_ANTECEDENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_ANTECEDENTES
+  add constraint PK_RH_ANTECEDENTES primary key (COD_PERSONA, FECHA, COD_ENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_ANTECEDENTES
+  add constraint FK_HANTE_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.RH_ANTECEDENTES
+  add constraint FK_HANTE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_ANTECEDENTES
+  add constraint FK_HANTE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+

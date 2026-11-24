@@ -1,0 +1,140 @@
+﻿-- Create table
+create table IT.CC_CHE_DEVUELTOS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  nro_cheque        NUMBER(15) not null,
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  monto             NUMBER(18,2) default 0 not null,
+  cod_ofi_camara    NUMBER(3),
+  cod_causa         NUMBER(3) not null,
+  tipo              VARCHAR2(1) not null,
+  multa             NUMBER(18,2) default 0 not null,
+  sal_multa         NUMBER(18,2) default 0 not null,
+  cod_bco_receptor  NUMBER(3),
+  nro_caja          NUMBER(3),
+  regularizado      VARCHAR2(1) default 'N' not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  dev_com_directa   VARCHAR2(1) default 'N' not null,
+  cod_submotivo_det VARCHAR2(9),
+  cod_submotivo     NUMBER(1),
+  tip_importe       NUMBER(1),
+  cod_sub_motivo    VARCHAR2(10),
+  fec_regularizacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CC_CHE_DEVUELTOS
+  is 'Cheques devueltos.';
+-- Add comments to the columns 
+comment on column IT.CC_CHE_DEVUELTOS.nro_cuenta
+  is 'Nro de Cuenta.';
+comment on column IT.CC_CHE_DEVUELTOS.nro_cheque
+  is 'Nro de Cheque.';
+comment on column IT.CC_CHE_DEVUELTOS.fecha
+  is 'Fecha de Devolucion.';
+comment on column IT.CC_CHE_DEVUELTOS.hora
+  is 'Hora de Devolucion.';
+comment on column IT.CC_CHE_DEVUELTOS.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.CC_CHE_DEVUELTOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CC_CHE_DEVUELTOS.monto
+  is 'Monto del Cheque.';
+comment on column IT.CC_CHE_DEVUELTOS.cod_ofi_camara
+  is 'Oficina de camara.';
+comment on column IT.CC_CHE_DEVUELTOS.cod_causa
+  is 'Codigo de Causa de Devolucion.';
+comment on column IT.CC_CHE_DEVUELTOS.tipo
+  is 'Tipo de Causa de Devolucion.';
+comment on column IT.CC_CHE_DEVUELTOS.multa
+  is 'Monto de Multa.';
+comment on column IT.CC_CHE_DEVUELTOS.sal_multa
+  is 'Saldo de la Multa.';
+comment on column IT.CC_CHE_DEVUELTOS.cod_bco_receptor
+  is 'Codigo de Bco. Receptor.';
+comment on column IT.CC_CHE_DEVUELTOS.nro_caja
+  is 'Numero de caja.';
+comment on column IT.CC_CHE_DEVUELTOS.regularizado
+  is 'Indica si fue regularizado el cheque(S/N).';
+comment on column IT.CC_CHE_DEVUELTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_DEVUELTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_DEVUELTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_DEVUELTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_DEVUELTOS.dev_com_directa
+  is 'Devolución por compensación directa';
+comment on column IT.CC_CHE_DEVUELTOS.cod_submotivo_det
+  is 'Sub motivos de rechazos';
+comment on column IT.CC_CHE_DEVUELTOS.cod_submotivo
+  is 'Codigo de sub motivo de rechazo';
+comment on column IT.CC_CHE_DEVUELTOS.tip_importe
+  is 'Tipo de Importe (0 = Bajo Valor ; 1 = Alto Valor).';
+comment on column IT.CC_CHE_DEVUELTOS.cod_sub_motivo
+  is 'Sub-motivo';
+comment on column IT.CC_CHE_DEVUELTOS.fec_regularizacion
+  is 'Fecha de regularización';
+-- Create/Recreate indexes 
+create index IT.IN_CCDEV_COD_BCO_RECEPTOR on IT.CC_CHE_DEVUELTOS (COD_BCO_RECEPTOR, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CCDEV_NRO_CUENTA on IT.CC_CHE_DEVUELTOS (NRO_CUENTA, NRO_CHEQUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CC_CHE_DEVUELTOS
+  add constraint PK_CC_CHE_DEVUELTOS primary key (NRO_CUENTA, NRO_CHEQUE, FECHA, HORA, COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 960K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_DEVUELTOS
+  add constraint FK_CCDEV_COD_BCO_RECEPTOR foreign key (COD_BCO_RECEPTOR)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_DEVUELTOS
+  add constraint FK_CCDEV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);

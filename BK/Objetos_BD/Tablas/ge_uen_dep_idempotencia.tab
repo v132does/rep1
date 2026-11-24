@@ -1,0 +1,58 @@
+﻿-- Create table
+create table IT.GE_UEN_DEP_IDEMPOTENCIA
+(
+  cod_idempotencia VARCHAR2(255) not null,
+  estado           VARCHAR2(30) not null,
+  referencia       VARCHAR2(50),
+  fec_insercion    DATE default sysdate not null,
+  datos            VARCHAR2(500),
+  fec_modificacion DATE default sysdate not null,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_UEN_DEP_IDEMPOTENCIA
+  is 'UENO DEPOSITO IDEMPOTENCIA';
+-- Add comments to the columns 
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.cod_idempotencia
+  is 'Codigo de idempotencia';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.estado
+  is 'Estado del registro';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.referencia
+  is 'Referencia del registro';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.fec_insercion
+  is 'Fecha de insercion del registro';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.datos
+  is 'Datos del registro';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.fec_modificacion
+  is 'Fecha de modificacion del registro';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.GE_UEN_DEP_IDEMPOTENCIA.usu_modificacion
+  is 'Usuario que modifico el registro';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_UEN_DEP_IDEMPOTENCIA
+  add constraint PK_GE_UEN_DEP_IDEMPOTENCIA primary key (COD_IDEMPOTENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

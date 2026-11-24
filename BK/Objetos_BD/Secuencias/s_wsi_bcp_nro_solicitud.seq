@@ -1,0 +1,7 @@
+create sequence IT.S_WSI_BCP_NRO_SOLICITUD
+minvalue 1
+maxvalue 99999999999999
+start with 54448
+increment by 1
+nocache;
+

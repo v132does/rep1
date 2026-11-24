@@ -1,0 +1,42 @@
+create table IT.IN_ERR_MENSAJES
+(
+  tabla         VARCHAR2(30) not null,
+  clave         VARCHAR2(50) not null,
+  fecha         DATE not null,
+  hora          VARCHAR2(8) not null,
+  mensaje       VARCHAR2(200),
+  detalle       VARCHAR2(1000),
+  usu_insercion VARCHAR2(30) default SUBSTR(USER,1,10),
+  fec_insercion DATE default sysdate,
+  enviado       VARCHAR2(1) default 'N' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.IN_ERR_MENSAJES.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.IN_ERR_MENSAJES.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+alter table IT.IN_ERR_MENSAJES
+  add constraint PK_IN_ERR_MENSAJES primary key (TABLA, CLAVE, FECHA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,106 @@
+create table IT.AP_HERRAMIENTAS
+(
+  cod_herramienta   NUMBER(10) not null,
+  descripcion       VARCHAR2(240) not null,
+  cod_clasificacion NUMBER(3) not null,
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  clave             VARCHAR2(35),
+  version           VARCHAR2(35),
+  lic_adquiridas    NUMBER(6) default 0,
+  lic_instaladas    NUMBER(6) default 0,
+  lic_arrendadas    NUMBER(6) default 0,
+  cod_inventario    VARCHAR2(35),
+  observacion       VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_HERRAMIENTAS
+  is 'Herramientas.';
+comment on column IT.AP_HERRAMIENTAS.cod_herramienta
+  is 'Codigo de Herramienta.';
+comment on column IT.AP_HERRAMIENTAS.descripcion
+  is 'Descripcion.';
+comment on column IT.AP_HERRAMIENTAS.cod_clasificacion
+  is ' Clasificacion.';
+comment on column IT.AP_HERRAMIENTAS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_HERRAMIENTAS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AP_HERRAMIENTAS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_HERRAMIENTAS.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.AP_HERRAMIENTAS.clave
+  is 'Clave de Instalacion.';
+comment on column IT.AP_HERRAMIENTAS.version
+  is 'Version.';
+comment on column IT.AP_HERRAMIENTAS.lic_adquiridas
+  is 'Licencias Adquiridas.';
+comment on column IT.AP_HERRAMIENTAS.lic_instaladas
+  is 'Licencias Instaladas.';
+comment on column IT.AP_HERRAMIENTAS.lic_arrendadas
+  is 'Licencias arrendadas.';
+comment on column IT.AP_HERRAMIENTAS.cod_inventario
+  is 'Descripcion.';
+comment on column IT.AP_HERRAMIENTAS.observacion
+  is 'Observacion.';
+create index IT.IN_YHERR_COD_CLASIFICACION on IT.AP_HERRAMIENTAS (COD_CLASIFICACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_HERRAMIENTAS
+  add constraint PK_AP_HERRAMIENTAS primary key (COD_HERRAMIENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_HERRAMIENTAS
+  add constraint FK_YHERR_COD_CLASIFICACION foreign key (COD_CLASIFICACION)
+  references IT.AP_CLASIFICACIONES (COD_CLASIFICACION);
+alter table IT.AP_HERRAMIENTAS
+  add constraint AVCON_1077111591_COD_C_002
+  check (COD_CLASIFICACION BETWEEN 1 AND 999);
+alter table IT.AP_HERRAMIENTAS
+  add constraint AVCON_1077111591_COD_H_001
+  check (COD_HERRAMIENTA BETWEEN 1 AND 999999999);
+alter table IT.AP_HERRAMIENTAS
+  add constraint AVCON_1080847569_COD_C_002
+  check (COD_CLASIFICACION BETWEEN 1 AND 999);
+alter table IT.AP_HERRAMIENTAS
+  add constraint AVCON_1080847569_COD_H_001
+  check (COD_HERRAMIENTA BETWEEN 1 AND 999999999);
+alter table IT.AP_HERRAMIENTAS
+  add constraint AVCON_1081349332_COD_C_002
+  check (COD_CLASIFICACION BETWEEN 1 AND 999);
+alter table IT.AP_HERRAMIENTAS
+  add constraint AVCON_1081349332_COD_H_001
+  check (COD_HERRAMIENTA BETWEEN 1 AND 999999999);
+

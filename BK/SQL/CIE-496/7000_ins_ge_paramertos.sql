@@ -1,0 +1,22 @@
+﻿begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end;
+/
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_GEN_ASI_PARALLEL','EJEC PARALELA INSERT CB_ASI_AUT','GE_PAR_DINAMICOS','Activa la insersión en Paralelo en CB_ASI_AUTOMATICOS_DET','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_GEN_ASI_PARALLEL','PARALLEL_EXECUTE');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_GEN_ASI_TAM_FRAG','TAM FRAGMENTO INSERT CB_ASI_AUT','GE_PAR_DINAMICOS','Cantidad de registros por fragmento (chunk) al realizar la inserción en Paralelo en CB_ASI_AUTOMATICOS_DET','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_GEN_ASI_TAM_FRAG','50000');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_GEN_ASI_JOB_CANT','CANT JOBS PARA INSERT CB_ASI_AUT','GE_PAR_DINAMICOS','Cantidad de Jobs (workers) que se ejecutan al mismo tiempo para procesar los fragmentos (chunks) en la inserción en Paralelo en CB_ASI_AUTOMATICOS_DET','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_GEN_ASI_JOB_CANT','8');
+
+COMMIT;

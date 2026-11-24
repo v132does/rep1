@@ -1,0 +1,89 @@
+create table IT.GE_VAL_CUSTODIAS
+(
+  cod_val_custodia NUMBER(15) not null,
+  tipo             VARCHAR2(2) not null,
+  descripcion      VARCHAR2(610) not null,
+  cod_ente         NUMBER(5),
+  cod_moneda       VARCHAR2(3) not null,
+  observacion      VARCHAR2(1000),
+  fec_ingreso      DATE not null,
+  fec_pag_anterior DATE,
+  fec_ult_pago     DATE,
+  fec_vencimiento  DATE not null,
+  nro_cta_debito   VARCHAR2(10),
+  estado           VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  val_nominal      NUMBER(18,2),
+  mto_total        NUMBER(18,2),
+  can_total        NUMBER(10),
+  mto_capital      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_VAL_CUSTODIAS.cod_val_custodia
+  is 'Código del Valor en Custodia. Secuencia S_COD_VAL_CUSTODIA';
+comment on column IT.GE_VAL_CUSTODIAS.tipo
+  is 'Tipos de valores (Documentos). Dominio TIP_VAL_CUSTODIA,';
+comment on column IT.GE_VAL_CUSTODIAS.descripcion
+  is 'Descripción del Valor en Custodia.';
+comment on column IT.GE_VAL_CUSTODIAS.cod_ente
+  is 'Empresa Emisora del Valor en Custodia.';
+comment on column IT.GE_VAL_CUSTODIAS.cod_moneda
+  is 'Moneda del Valor Custodiado.';
+comment on column IT.GE_VAL_CUSTODIAS.observacion
+  is 'Observaciones.';
+comment on column IT.GE_VAL_CUSTODIAS.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.GE_VAL_CUSTODIAS.fec_pag_anterior
+  is 'Fecha de Pago Anterior.';
+comment on column IT.GE_VAL_CUSTODIAS.fec_ult_pago
+  is 'Fecha Ultimo Pago.';
+comment on column IT.GE_VAL_CUSTODIAS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_VAL_CUSTODIAS.nro_cta_debito
+  is 'N° de Cuenta de Débito.';
+comment on column IT.GE_VAL_CUSTODIAS.estado
+  is 'Estado.';
+comment on column IT.GE_VAL_CUSTODIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_VAL_CUSTODIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_VAL_CUSTODIAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_VAL_CUSTODIAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_VAL_CUSTODIAS.val_nominal
+  is 'Valor nominal del documentos';
+comment on column IT.GE_VAL_CUSTODIAS.mto_total
+  is 'Monto del Valor Custodiado.';
+comment on column IT.GE_VAL_CUSTODIAS.can_total
+  is 'Cantidad de Valores Custodiados.';
+comment on column IT.GE_VAL_CUSTODIAS.mto_capital
+  is 'Monto del Capital de la Empresa';
+alter table IT.GE_VAL_CUSTODIAS
+  add constraint PK_GE_VAL_CUSTODIAS primary key (COD_VAL_CUSTODIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

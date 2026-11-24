@@ -1,0 +1,52 @@
+-- Create table
+create table IT.TM_PER_INHIBIDAS
+(
+  tipo_documento   VARCHAR2(15),
+  nro_documento    VARCHAR2(20),
+  primer_nombre    VARCHAR2(120),
+  segundo_nombre   VARCHAR2(120),
+  primer_apellido  VARCHAR2(120),
+  segundo_apellido VARCHAR2(120),
+  causal           VARCHAR2(200),
+  comentario       VARCHAR2(4000),
+  cod_causa        NUMBER(3),
+  procesado        VARCHAR2(1) default 'N',
+  fecha            DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TM_PER_INHIBIDAS
+  is 'Tabla auxiliar para almacenar registros de importación de datos Personas Inhibidas - Cumplimiento';
+-- Add comments to the columns 
+comment on column IT.TM_PER_INHIBIDAS.tipo_documento
+  is 'Tipo Documento';
+comment on column IT.TM_PER_INHIBIDAS.nro_documento
+  is 'Número Documento';
+comment on column IT.TM_PER_INHIBIDAS.primer_nombre
+  is 'Primer nombre';
+comment on column IT.TM_PER_INHIBIDAS.segundo_nombre
+  is 'Segundo nombre';
+comment on column IT.TM_PER_INHIBIDAS.primer_apellido
+  is 'Primer apellido';
+comment on column IT.TM_PER_INHIBIDAS.segundo_apellido
+  is 'Segundo apellido';
+comment on column IT.TM_PER_INHIBIDAS.causal
+  is 'Causal de inhibición';
+comment on column IT.TM_PER_INHIBIDAS.comentario
+  is 'Comentario';
+comment on column IT.TM_PER_INHIBIDAS.cod_causa
+  is 'Cod_causa inhibición';
+comment on column IT.TM_PER_INHIBIDAS.procesado
+  is 'Para verificar si esta procesado S y no procesado N';
+comment on column IT.TM_PER_INHIBIDAS.fecha
+  is 'Fecha de procesamiento';

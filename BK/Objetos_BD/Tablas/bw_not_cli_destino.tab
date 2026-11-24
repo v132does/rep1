@@ -1,0 +1,69 @@
+create table IT.BW_NOT_CLI_DESTINO
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_destino      NUMBER(3) not null,
+  direccion        VARCHAR2(300) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  activo           VARCHAR2(1) default 'N',
+  cod_origen       VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_CLI_DESTINO.direccion
+  is 'El destino del mensaje email o nro telefono';
+comment on column IT.BW_NOT_CLI_DESTINO.cod_origen
+  is 'Origen de la suscripcion WEB:Originado en el Homebanking IOSX   Originado en dispositivos moviles. IOSX:ANDR   Originado en dispositivos moviles Android. ITGF:Originado en ITGF.';
+create index IT.IN_CLDES_COD_PERSONA on IT.BW_NOT_CLI_DESTINO (COD_PERSONA, ACTIVO, TRUNC(FEC_MODIFICACION))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CLDES_FEC_INSERCION on IT.BW_NOT_CLI_DESTINO (COD_PERSONA, COD_DESTINO, TRUNC(FEC_INSERCION))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_CLI_DESTINO
+  add constraint PK_CLI_DESTINO primary key (COD_PERSONA, DIRECCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_CLI_DESTINO
+  add constraint FK_NOTC_COD_DESTINO foreign key (COD_DESTINO)
+  references IT.BW_NOT_DESTINOS (COD_DESTINO);
+

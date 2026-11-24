@@ -1,0 +1,286 @@
+create table IT.PSA044_HIS
+(
+  psa044_hisfin VARCHAR2(8) not null,
+  psa044_hisffi VARCHAR2(8) not null,
+  psa044_hispai NUMBER(3) not null,
+  psa044_histdo NUMBER(4) not null,
+  psa044_hisndo VARCHAR2(25) not null,
+  psa044_hisent NUMBER(3),
+  psa044_hisden VARCHAR2(40),
+  psa044_hisncl VARCHAR2(70),
+  psa044_histpe VARCHAR2(8),
+  psa044_hissba VARCHAR2(40),
+  psa044_hissla NUMBER(9),
+  psa044_hisvsl NUMBER(9),
+  psa044_hisfab VARCHAR2(8),
+  psa044_hiscpn NUMBER(3),
+  psa044_hispnc VARCHAR2(9),
+  psa044_hisocu VARCHAR2(40),
+  psa044_hisaec NUMBER(9),
+  psa044_hisosl NUMBER(1),
+  psa044_hisfid NUMBER(1),
+  psa044_hispep NUMBER(1),
+  psa044_hislre NUMBER(1),
+  psa044_hisfaf VARCHAR2(8),
+  psa044_hisfei VARCHAR2(8),
+  psa044_hisvoc NUMBER(1),
+  psa044_hisvpa NUMBER(1),
+  psa044_hisvae NUMBER(1),
+  psa044_hiscpu NUMBER(10),
+  psa044_hisccp NUMBER(10),
+  psa044_histcp NUMBER(18,2),
+  psa044_histsp NUMBER(18,2),
+  psa044_histvc NUMBER(18,2),
+  psa044_hiscdp NUMBER(10),
+  psa044_histdp NUMBER(18,2),
+  psa044_hisprp NUMBER(18,2),
+  psa044_hisvpr NUMBER(9),
+  psa044_hisccu NUMBER(10),
+  psa044_hisccc NUMBER(10),
+  psa044_histcc NUMBER(18,2),
+  psa044_hiscdc NUMBER(10),
+  psa044_histdc NUMBER(18,2),
+  psa044_hisprc NUMBER(18,2),
+  psa044_hisvca NUMBER(9),
+  psa044_hiscju NUMBER(10),
+  psa044_hisccj NUMBER(10),
+  psa044_histcj NUMBER(18,2),
+  psa044_hiscdj NUMBER(10),
+  psa044_histdj NUMBER(18,2),
+  psa044_hisprj NUMBER(18,2),
+  psa044_hisvju NUMBER(9),
+  psa044_hispun NUMBER(4),
+  psa044_hisdpu VARCHAR2(50),
+  psa044_hisn01 NUMBER(18,2),
+  psa044_hisn02 NUMBER(18,2),
+  psa044_hisn03 NUMBER(18,2),
+  psa044_hisn04 NUMBER(18,2),
+  psa044_hisn05 NUMBER(18,2),
+  psa044_hisn06 NUMBER(18,2),
+  psa044_hisn07 NUMBER(18,2),
+  psa044_hisn08 NUMBER(18,2),
+  psa044_hisn09 NUMBER(18,2),
+  psa044_hisn10 NUMBER(18,2),
+  psa044_hisc01 VARCHAR2(100),
+  psa044_hisc02 VARCHAR2(100),
+  psa044_hisc03 VARCHAR2(100),
+  psa044_hisc04 VARCHAR2(100),
+  psa044_hisc05 VARCHAR2(100),
+  psa044_hisc06 VARCHAR2(100),
+  psa044_hisc07 VARCHAR2(100),
+  psa044_hisc08 VARCHAR2(100),
+  psa044_hisc09 VARCHAR2(100),
+  psa044_hisc10 VARCHAR2(100),
+  psa044_hisf01 VARCHAR2(8),
+  psa044_hisf02 VARCHAR2(8),
+  psa044_hisf03 VARCHAR2(8),
+  psa044_hisf04 VARCHAR2(8),
+  psa044_hisf05 VARCHAR2(8),
+  psa044_hisf06 VARCHAR2(8),
+  psa044_hisf07 VARCHAR2(8),
+  psa044_hisf08 VARCHAR2(8),
+  psa044_hisf09 VARCHAR2(8),
+  psa044_hisf10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA044_HIS
+  is 'TABLA PIC resultado';
+comment on column IT.PSA044_HIS.psa044_hisfin
+  is 'Fecha Inicial del Reporte';
+comment on column IT.PSA044_HIS.psa044_hisffi
+  is 'Fecha Final del Reporte';
+comment on column IT.PSA044_HIS.psa044_hispai
+  is 'Pais del Documento';
+comment on column IT.PSA044_HIS.psa044_histdo
+  is 'Tipo de Documento';
+comment on column IT.PSA044_HIS.psa044_hisndo
+  is 'Numero de Documento';
+comment on column IT.PSA044_HIS.psa044_hisent
+  is 'Entidad';
+comment on column IT.PSA044_HIS.psa044_hisden
+  is 'Descripcion Entidad';
+comment on column IT.PSA044_HIS.psa044_hisncl
+  is 'Nombre del Cliente';
+comment on column IT.PSA044_HIS.psa044_histpe
+  is 'Tipo de Persona';
+comment on column IT.PSA044_HIS.psa044_hissba
+  is 'Segmento de Banca';
+comment on column IT.PSA044_HIS.psa044_hissla
+  is 'Segmento LAFT';
+comment on column IT.PSA044_HIS.psa044_hisvsl
+  is 'Vulnerabilidad de Segmento LAFT';
+comment on column IT.PSA044_HIS.psa044_hisfab
+  is 'Fecha Actualizacion Basica';
+comment on column IT.PSA044_HIS.psa044_hiscpn
+  is 'Codigo Pais de Nacimiento - Constitucion';
+comment on column IT.PSA044_HIS.psa044_hispnc
+  is 'Descripcion Pais de Nacimiento - Constitucion';
+comment on column IT.PSA044_HIS.psa044_hisocu
+  is 'Ocupacion Persona Natural';
+comment on column IT.PSA044_HIS.psa044_hisaec
+  is 'Actividad Economica Cliente (CIIU)';
+comment on column IT.PSA044_HIS.psa044_hisosl
+  is 'Cliente con Actividad de Organizaciones Sin Fines de Lucro';
+comment on column IT.PSA044_HIS.psa044_hisfid
+  is 'Clasificacion del Cliente como Fideicomiso';
+comment on column IT.PSA044_HIS.psa044_hispep
+  is 'PEP';
+comment on column IT.PSA044_HIS.psa044_hislre
+  is 'Cliente en Lista Restrictiva';
+comment on column IT.PSA044_HIS.psa044_hisfaf
+  is 'Fecha Actualizacion Financiera';
+comment on column IT.PSA044_HIS.psa044_hisfei
+  is 'Fecha de Emision del Informe';
+comment on column IT.PSA044_HIS.psa044_hisvoc
+  is 'Vulnerabilidad de Ocupacion';
+comment on column IT.PSA044_HIS.psa044_hisvpa
+  is 'Vulnerabilidad de Pais';
+comment on column IT.PSA044_HIS.psa044_hisvae
+  is 'Vulnerabilidad de CIIU';
+comment on column IT.PSA044_HIS.psa044_hiscpu
+  is 'Cantidad de Productos Utilizados';
+comment on column IT.PSA044_HIS.psa044_hisccp
+  is 'Cantidad de Operaciones de Creditos Productos';
+comment on column IT.PSA044_HIS.psa044_histcp
+  is 'Total de Operaciones de Credito Productos';
+comment on column IT.PSA044_HIS.psa044_histsp
+  is 'Total de Saldo Productos';
+comment on column IT.PSA044_HIS.psa044_histvc
+  is 'Total de Valor Cuota Productos';
+comment on column IT.PSA044_HIS.psa044_hiscdp
+  is 'Cantidad de Operaciones de Debitos Productos';
+comment on column IT.PSA044_HIS.psa044_histdp
+  is 'Total de Operaciones de Debitos Productos';
+comment on column IT.PSA044_HIS.psa044_hisprp
+  is 'Promedio de Totales de Operaciones de Creditos y Debitos Productos';
+comment on column IT.PSA044_HIS.psa044_hisvpr
+  is 'Vulnerabilidad Productos';
+comment on column IT.PSA044_HIS.psa044_hisccu
+  is 'Cantidad de Canales Utilizados';
+comment on column IT.PSA044_HIS.psa044_hisccc
+  is 'Cantidad de Operaciones de Creditos Canales';
+comment on column IT.PSA044_HIS.psa044_histcc
+  is 'Total de Operaciones de Creditos Canales';
+comment on column IT.PSA044_HIS.psa044_hiscdc
+  is 'Cantidad de Operaciones de Debitos Canales';
+comment on column IT.PSA044_HIS.psa044_histdc
+  is 'Total de Operaciones de Debitos Canales';
+comment on column IT.PSA044_HIS.psa044_hisprc
+  is 'Promedio de Totales de Operaciones de Creditos y Debitos Canales';
+comment on column IT.PSA044_HIS.psa044_hisvca
+  is 'Vulnerabilidad Canales';
+comment on column IT.PSA044_HIS.psa044_hiscju
+  is 'Cantidad de Jurisdicciones Utilizadas';
+comment on column IT.PSA044_HIS.psa044_hisccj
+  is 'Cantidad de Operaciones de Creditos Jurisdicciones';
+comment on column IT.PSA044_HIS.psa044_histcj
+  is 'Total de Operaciones de Creditos Jurisdicciones';
+comment on column IT.PSA044_HIS.psa044_hiscdj
+  is 'Cantidad de Operaciones de Debitos Jurisdicciones';
+comment on column IT.PSA044_HIS.psa044_histdj
+  is 'Total de Operaciones de Debitos Jurisdicciones';
+comment on column IT.PSA044_HIS.psa044_hisprj
+  is 'Promedio de Totales de Operaciones de Creditos y Debitos Jurisdicciones';
+comment on column IT.PSA044_HIS.psa044_hisvju
+  is 'Vulnerabilidad Jurisdicciones';
+comment on column IT.PSA044_HIS.psa044_hispun
+  is 'Puntaje';
+comment on column IT.PSA044_HIS.psa044_hisdpu
+  is 'Descripcion del Puntaje';
+comment on column IT.PSA044_HIS.psa044_hisn01
+  is 'Auxiliar Numerico 01';
+comment on column IT.PSA044_HIS.psa044_hisn02
+  is 'Auxiliar Numerico 02';
+comment on column IT.PSA044_HIS.psa044_hisn03
+  is 'Auxiliar Numerico 03';
+comment on column IT.PSA044_HIS.psa044_hisn04
+  is 'Auxiliar Numerico 04';
+comment on column IT.PSA044_HIS.psa044_hisn05
+  is 'Auxiliar Numerico 05';
+comment on column IT.PSA044_HIS.psa044_hisn06
+  is 'Auxiliar Numerico 06';
+comment on column IT.PSA044_HIS.psa044_hisn07
+  is 'Auxiliar Numerico 07';
+comment on column IT.PSA044_HIS.psa044_hisn08
+  is 'Auxiliar Numerico 08';
+comment on column IT.PSA044_HIS.psa044_hisn09
+  is 'Auxiliar Numerico 09';
+comment on column IT.PSA044_HIS.psa044_hisn10
+  is 'Auxiliar Numerico 10';
+comment on column IT.PSA044_HIS.psa044_hisc01
+  is 'Auxiliar Caracter 01';
+comment on column IT.PSA044_HIS.psa044_hisc02
+  is 'Auxiliar Caracter 02';
+comment on column IT.PSA044_HIS.psa044_hisc03
+  is 'Auxiliar Caracter 03';
+comment on column IT.PSA044_HIS.psa044_hisc04
+  is 'Auxiliar Caracter 04';
+comment on column IT.PSA044_HIS.psa044_hisc05
+  is 'Auxiliar Caracter 05';
+comment on column IT.PSA044_HIS.psa044_hisc06
+  is 'Auxiliar Caracter 06';
+comment on column IT.PSA044_HIS.psa044_hisc07
+  is 'Auxiliar Caracter 07';
+comment on column IT.PSA044_HIS.psa044_hisc08
+  is 'Auxiliar Caracter 08';
+comment on column IT.PSA044_HIS.psa044_hisc09
+  is 'Auxiliar Caracter 09';
+comment on column IT.PSA044_HIS.psa044_hisc10
+  is 'Auxiliar Caracter 10';
+comment on column IT.PSA044_HIS.psa044_hisf01
+  is 'Auxiliar Fecha 01';
+comment on column IT.PSA044_HIS.psa044_hisf02
+  is 'Auxiliar Fecha 02';
+comment on column IT.PSA044_HIS.psa044_hisf03
+  is 'Auxiliar Fecha 03';
+comment on column IT.PSA044_HIS.psa044_hisf04
+  is 'Auxiliar Fecha 04';
+comment on column IT.PSA044_HIS.psa044_hisf05
+  is 'Auxiliar Fecha 05';
+comment on column IT.PSA044_HIS.psa044_hisf06
+  is 'Auxiliar Fecha 06';
+comment on column IT.PSA044_HIS.psa044_hisf07
+  is 'Auxiliar Fecha 07';
+comment on column IT.PSA044_HIS.psa044_hisf08
+  is 'Auxiliar Fecha 08';
+comment on column IT.PSA044_HIS.psa044_hisf09
+  is 'Auxiliar Fecha 09';
+comment on column IT.PSA044_HIS.psa044_hisf10
+  is 'Auxiliar Fecha 10';
+create index IT.IND_PSA004_FEC on IT.PSA044_HIS (PSA044_HISPAI, PSA044_HISTDO, LTRIM(RTRIM(PSA044_HISNDO)), TO_DATE(PSA044_HISFFI,'YYYYMMDD'))
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PSA044_HIS
+  add constraint PK_PSA044_HIS primary key (PSA044_HISFIN, PSA044_HISFFI, PSA044_HISPAI, PSA044_HISTDO, PSA044_HISNDO)
+  using index 
+  tablespace IT_HIS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

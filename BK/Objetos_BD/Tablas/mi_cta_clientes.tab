@@ -1,0 +1,105 @@
+create table IT.MI_CTA_CLIENTES
+(
+  cod_persona          VARCHAR2(10) not null,
+  nro_cta_itgf         VARCHAR2(15) not null,
+  nro_cta_bantotal     NUMBER(9) not null,
+  nro_sub_cta_bantotal NUMBER(5) not null,
+  principal            VARCHAR2(2),
+  referencia1          VARCHAR2(500),
+  referencia2          VARCHAR2(500),
+  referencia3          VARCHAR2(500),
+  usu_insercion        VARCHAR2(10),
+  fec_insercion        DATE,
+  usu_modificación     VARCHAR2(10),
+  fec_modificacion     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MI_CTA_CLIENTES.cod_persona
+  is 'cod_persona ITGF';
+comment on column IT.MI_CTA_CLIENTES.principal
+  is 'P = principal de la cuenta, N= Firmante ';
+create index IT.IN_CTACL_COD_PERSONA on IT.MI_CTA_CLIENTES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CTACL_CTA_BANTOTAL on IT.MI_CTA_CLIENTES (NRO_CTA_BANTOTAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CTACL_NRO_CTA_ITGF on IT.MI_CTA_CLIENTES (NRO_CTA_ITGF)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CTACL_PRINCIPAL on IT.MI_CTA_CLIENTES (PRINCIPAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CTACL_SUB_CUNTA on IT.MI_CTA_CLIENTES (NRO_SUB_CTA_BANTOTAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MI_CTA_CLIENTES
+  add constraint PK_MI_CTA_CLIENTES primary key (COD_PERSONA, NRO_CTA_ITGF, NRO_CTA_BANTOTAL, NRO_SUB_CTA_BANTOTAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

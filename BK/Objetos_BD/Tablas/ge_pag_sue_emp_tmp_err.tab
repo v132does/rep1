@@ -1,0 +1,117 @@
+create table IT.GE_PAG_SUE_EMP_TMP_ERR
+(
+  cod_empresa       NUMBER(5),
+  nro_cedula        VARCHAR2(20) not null,
+  pri_nombre        VARCHAR2(30),
+  seg_nombre        VARCHAR2(30),
+  pri_apellido      VARCHAR2(30),
+  seg_apellido      VARCHAR2(30),
+  fec_nacimiento    DATE not null,
+  sexo              VARCHAR2(1) default 'M' not null,
+  est_civil         VARCHAR2(20) not null,
+  direccion         VARCHAR2(100),
+  ciudad            VARCHAR2(100),
+  telefono          VARCHAR2(20),
+  sueldo            NUMBER(18,2) default 0,
+  mto_ant_sueldo    NUMBER(18,2),
+  mto_ant_aguinaldo NUMBER(18,2),
+  generar           VARCHAR2(1) default 'N',
+  nro_cta_ahorro    VARCHAR2(15),
+  fec_ingreso       DATE,
+  tip_documento     VARCHAR2(3) default 'CI',
+  tip_tarjeta       VARCHAR2(1),
+  fec_vto_documento DATE,
+  nro_direccion     NUMBER(6),
+  error             VARCHAR2(60),
+  ape_casada        VARCHAR2(15),
+  nro_solicitud     NUMBER(8),
+  gen_cuenta        VARCHAR2(1) default 'N',
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.cod_empresa
+  is 'Código de la Empresa';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.nro_cedula
+  is 'Número de Cédula';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.pri_nombre
+  is 'Primer Nombre';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.seg_nombre
+  is 'Segundo Nombre';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.pri_apellido
+  is 'Primer apellido';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.seg_apellido
+  is 'Segundo Apellido';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.fec_nacimiento
+  is 'Fecha de Nacimiento';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.sexo
+  is 'Sexo';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.est_civil
+  is 'Estado Civil';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.direccion
+  is 'Dirección';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.ciudad
+  is 'Ciudad';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.telefono
+  is 'Teléfono';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.sueldo
+  is 'Sueldo';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.mto_ant_sueldo
+  is 'Monto Anticipo de Sueldo';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.mto_ant_aguinaldo
+  is 'Monto Anticipo de Aguinaldo';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.generar
+  is 'Generar como cliente';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.nro_cta_ahorro
+  is 'Nro de cuenta de ahorro para combinar con la nueva cuenta';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.fec_ingreso
+  is 'Fecha de ingreso ';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.tip_documento
+  is 'Tipo de Documento';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.tip_tarjeta
+  is 'Tipo de Tarjeta de Débito';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.fec_vto_documento
+  is 'Fecha de Vencimiento del Documento';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.nro_direccion
+  is 'Nro. de Dirección.';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.error
+  is 'Registro de Error.';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.ape_casada
+  is 'Apellido de Casada.';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.nro_solicitud
+  is 'Número de Solicitud de Alta.';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.gen_cuenta
+  is 'Generar solo las cuentas, no las personas';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.usu_insercion
+  is 'Usuario que realizó la inserción';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.fec_insercion
+  is 'Fecha de la inserción';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.usu_modificacion
+  is 'Usuario que realizó la modificación';
+comment on column IT.GE_PAG_SUE_EMP_TMP_ERR.fec_modificacion
+  is 'Fecha de la modificación';
+create index IT.IN_GPSEE_COD_EMPRESA on IT.GE_PAG_SUE_EMP_TMP_ERR (COD_EMPRESA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

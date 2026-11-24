@@ -1,0 +1,215 @@
+﻿-- Create table
+create global temporary table IT.GE_CNS_DINAMICAS_TMP
+(
+  cod_consulta     VARCHAR2(10),
+  cod_session      NUMBER,
+  cod_usuario      VARCHAR2(10),
+  borrado          VARCHAR2(1),
+  columna01        VARCHAR2(1000),
+  columna02        VARCHAR2(500),
+  columna03        VARCHAR2(500),
+  columna04        VARCHAR2(500),
+  columna05        VARCHAR2(500),
+  columna06        VARCHAR2(500),
+  columna07        VARCHAR2(500),
+  columna08        VARCHAR2(500),
+  columna09        VARCHAR2(500),
+  columna10        VARCHAR2(500),
+  columna11        VARCHAR2(500),
+  columna12        VARCHAR2(500),
+  columna13        VARCHAR2(500),
+  columna14        VARCHAR2(500),
+  columna15        VARCHAR2(500),
+  columna16        VARCHAR2(500),
+  columna17        VARCHAR2(500),
+  columna18        VARCHAR2(500),
+  columna19        VARCHAR2(500),
+  columna20        VARCHAR2(500),
+  columna21        VARCHAR2(500),
+  columna22        VARCHAR2(500),
+  columna23        VARCHAR2(500),
+  columna24        VARCHAR2(500),
+  columna25        VARCHAR2(500),
+  columna26        VARCHAR2(500),
+  columna27        VARCHAR2(500),
+  columna28        VARCHAR2(500),
+  columna29        VARCHAR2(500),
+  columna30        VARCHAR2(500),
+  columna31        VARCHAR2(500),
+  columna32        VARCHAR2(500),
+  columna33        VARCHAR2(500),
+  columna34        VARCHAR2(500),
+  columna35        VARCHAR2(500),
+  columna36        VARCHAR2(500),
+  columna37        VARCHAR2(500),
+  columna38        VARCHAR2(500),
+  columna39        VARCHAR2(500),
+  columna40        VARCHAR2(500),
+  columna41        VARCHAR2(500),
+  columna42        VARCHAR2(500),
+  columna43        VARCHAR2(500),
+  columna44        VARCHAR2(500),
+  columna45        VARCHAR2(500),
+  columna46        VARCHAR2(500),
+  columna47        VARCHAR2(500),
+  columna48        VARCHAR2(500),
+  columna49        VARCHAR2(500),
+  columna50        VARCHAR2(500),
+  columna51        VARCHAR2(500),
+  columna52        VARCHAR2(500),
+  columna53        VARCHAR2(500),
+  columna54        VARCHAR2(500),
+  columna55        VARCHAR2(500),
+  columna56        VARCHAR2(500),
+  columna57        VARCHAR2(500),
+  columna58        VARCHAR2(500),
+  columna59        VARCHAR2(500),
+  columna60        VARCHAR2(500),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+on commit preserve rows;
+-- Add comments to the table 
+comment on table IT.GE_CNS_DINAMICAS_TMP
+  is 'Datos temporales para consultas dinamicas.';
+-- Add comments to the columns 
+comment on column IT.GE_CNS_DINAMICAS_TMP.cod_consulta
+  is 'Codigo de la consulta.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.cod_session
+  is 'Id_session para identificar una consulta.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.cod_usuario
+  is 'Usuario que ejecuta la consulta.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.borrado
+  is 'Borra el registro (S/N).';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna01
+  is 'Dato de la columna 01.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna02
+  is 'Dato de la columna 02.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna03
+  is 'Dato de la columna 03.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna04
+  is 'Dato de la columna 04.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna05
+  is 'Dato de la columna 05.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna06
+  is 'Dato de la columna 06.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna07
+  is 'Dato de la columna 07.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna08
+  is 'Dato de la columna 08.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna09
+  is 'Dato de la columna 09.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna10
+  is 'Dato de la columna 10.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna11
+  is 'Dato de la columna 11.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna12
+  is 'Dato de la columna 12.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna13
+  is 'Dato de la columna 13.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna14
+  is 'Dato de la columna 14.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna15
+  is 'Dato de la columna 15.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna16
+  is 'Dato de la columna 16.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna17
+  is 'Dato de la columna 17.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna18
+  is 'Dato de la columna 18.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna19
+  is 'Dato de la columna 19.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna20
+  is 'Dato de la columna 20.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna21
+  is 'Dato de la columna 21.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna22
+  is 'Dato de la columna 22.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna23
+  is 'Dato de la columna 23.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna24
+  is 'Dato de la columna 24.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna25
+  is 'Dato de la columna 25.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna26
+  is 'Dato de la columna 26.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna27
+  is 'Dato de la columna 27.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna28
+  is 'Dato de la columna 28.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna29
+  is 'Dato de la columna 29.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna30
+  is 'Dato de la columna 20.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna31
+  is 'Dato de la columna 31.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna32
+  is 'Dato de la columna 32.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna33
+  is 'Dato de la columna 33.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna34
+  is 'Dato de la columna 34.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna35
+  is 'Dato de la columna 35.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna36
+  is 'Dato de la columna 36.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna37
+  is 'Dato de la columna 37.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna38
+  is 'Dato de la columna 38.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna39
+  is 'Dato de la columna 39.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna40
+  is 'Dato de la columna 40.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna41
+  is 'Dato de la columna 41.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna42
+  is 'Dato de la columna 42.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna43
+  is 'Dato de la columna 43.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna44
+  is 'Dato de la columna 44.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna45
+  is 'Dato de la columna 45.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna46
+  is 'Dato de la columna 46.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna47
+  is 'Dato de la columna 47.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna48
+  is 'Dato de la columna 48.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna49
+  is 'Dato de la columna 49.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna50
+  is 'Dato de la columna 50.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna51
+  is 'Dato de la columna 51.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna52
+  is 'Dato de la columna 52.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna53
+  is 'Dato de la columna 53.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna54
+  is 'Dato de la columna 54.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna55
+  is 'Dato de la columna 55.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna56
+  is 'Dato de la columna 56.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna57
+  is 'Dato de la columna 57.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna58
+  is 'Dato de la columna 58.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna59
+  is 'Dato de la columna 59.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.columna60
+  is 'Dato de la columna 60.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CNS_DINAMICAS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_GCDTM_COD_USUARIO on IT.GE_CNS_DINAMICAS_TMP (COD_USUARIO, COD_CONSULTA, COD_SESSION);

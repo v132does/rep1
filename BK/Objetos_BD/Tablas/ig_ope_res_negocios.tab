@@ -1,0 +1,169 @@
+create table IT.IG_OPE_RES_NEGOCIOS
+(
+  cod_unidad               NUMBER(3),
+  fecha                    DATE not null,
+  cod_concepto             NUMBER(3) not null,
+  cod_sub_concepto         NUMBER(4) not null,
+  cod_moneda               VARCHAR2(3) not null,
+  cod_plazo                NUMBER(3) default 1 not null,
+  cod_periodo              NUMBER(3) not null,
+  sum_mto_apertura         NUMBER(18,2) default 0,
+  sum_saldo                NUMBER(18,2) default 0 not null,
+  sum_interes              NUMBER(18,2) default 0,
+  sum_int_devengado        NUMBER(18,2) default 0,
+  sum_int_devengar         NUMBER(18,2) default 0,
+  sum_int_dev_suspenso     NUMBER(18,2) default 0,
+  sum_int_recuperado       NUMBER(18,2) default 0,
+  sum_mto_mora             NUMBER(18,2) default 0,
+  sum_sal_promedio         NUMBER(18,2) default 0,
+  sum_con_mto_apertura     NUMBER(18,2) default 0,
+  sum_con_saldo            NUMBER(18,2) default 0,
+  sum_con_interes          NUMBER(18,2) default 0,
+  sum_con_int_devengado    NUMBER(18,2) default 0,
+  sum_con_int_devengar     NUMBER(18,2) default 0,
+  sum_con_int_dev_suspenso NUMBER(18,2) default 0,
+  sum_con_int_recuperado   NUMBER(18,2) default 0,
+  sum_con_mto_mora         NUMBER(18,2) default 0,
+  sum_con_sal_promedio     NUMBER(18,2) default 0,
+  por_mora                 NUMBER(5,2),
+  sum_logro                NUMBER(18,2) default 0,
+  sum_con_logro            NUMBER(18,2) default 0,
+  max_mora                 NUMBER(5),
+  pro_mora                 NUMBER(5),
+  can_cuentas              NUMBER(5),
+  can_clientes             NUMBER(5),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_OPE_RES_NEGOCIOS
+  is 'Resumen de Detalle de las Operaciones por Unidad de Negocios.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.cod_unidad
+  is 'Codigo de la unidad de negocios.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.fecha
+  is 'Fecha de proceso.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.cod_concepto
+  is 'Codigo de Concepto.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.cod_sub_concepto
+  is 'Codigo de Sub-Concepto.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.cod_plazo
+  is 'Codigo de Plazo.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_mto_apertura
+  is 'Sumatoria Monto Inicial.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_saldo
+  is 'Sumatoria Saldo actual.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_interes
+  is 'Sumatoria Interes actual.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_int_devengado
+  is 'Sumatoria Interes devengado a la fecha.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_int_devengar
+  is 'Sumatoria Interes a devengar a la fecha.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_int_dev_suspenso
+  is 'Sumatoria Interes devengado en suspenso a la fecha.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_int_recuperado
+  is 'Sumatoria Interes devengado recuperado a la fecha.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_mto_mora
+  is 'Sumatoria Monto de mora.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_sal_promedio
+  is 'Sumatoria Saldo Promedio en moneda origen.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_mto_apertura
+  is 'Sumatoria Monto Inicial en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_saldo
+  is 'Sumatoria Saldo en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_interes
+  is 'Sumatoria Interes actual en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_int_devengado
+  is 'Sumatoria Interes devengado a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_int_devengar
+  is 'Sumatoria Interes a devengar a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_int_dev_suspenso
+  is 'Sumatoria Interes devengado en suspenso a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_int_recuperado
+  is 'Sumatoria Interes devengado recuperado a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_mto_mora
+  is 'Sumatoria Monto de mora en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_sal_promedio
+  is 'Sumatoria Saldo Promedio en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.por_mora
+  is 'Porcentaje en mora.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_logro
+  is 'Sumatoria Monto del logro en moneda origen.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.sum_con_logro
+  is 'Sumatoria Monto del logro en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.max_mora
+  is 'Maximo dias de mora.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.pro_mora
+  is 'Promedio de dias de mora.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.can_cuentas
+  is 'Cantidad de cuentas.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.can_clientes
+  is 'Cantidad de clientes.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_OPE_RES_NEGOCIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_IORNE_FECHA on IT.IG_OPE_RES_NEGOCIOS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint UK_IG_OPE_RES_NEGOCIOS unique (COD_UNIDAD, COD_CONCEPTO, COD_SUB_CONCEPTO, FECHA, COD_MONEDA, COD_PLAZO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint FK_IORNE_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.IG_CONCEPTOS (COD_CONCEPTO);
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint FK_IORNE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint FK_IORNE_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint FK_IORNE_COD_PLAZO foreign key (COD_PLAZO)
+  references IT.IG_PLAZOS (COD_PLAZO);
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint FK_IORNE_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_OPE_RES_NEGOCIOS
+  add constraint FK_IORNE_COD_UNIDAD foreign key (COD_UNIDAD)
+  references IT.IG_UNI_NEGOCIOS (COD_UNIDAD);
+

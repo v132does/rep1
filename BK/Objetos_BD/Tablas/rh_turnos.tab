@@ -1,0 +1,94 @@
+create table IT.RH_TURNOS
+(
+  cod_turno        NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  dia_desde        NUMBER(1) not null,
+  dia_hasta        NUMBER(1) not null,
+  hor_desde        DATE not null,
+  hor_hasta        DATE not null,
+  ind_hor_cortado  VARCHAR2(1) default 'N',
+  hor_ini_descanso DATE,
+  hor_fin_descanso DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_TURNOS
+  is 'Tipos de Turnos.';
+comment on column IT.RH_TURNOS.cod_turno
+  is 'Codigo del Turno.';
+comment on column IT.RH_TURNOS.descripcion
+  is 'Descripcion del Turno.';
+comment on column IT.RH_TURNOS.dia_desde
+  is 'Dia Desde el cual se produce el Turno.';
+comment on column IT.RH_TURNOS.dia_hasta
+  is 'Dia Hasta el cual se produce el Turno.';
+comment on column IT.RH_TURNOS.hor_desde
+  is 'Hora Desde la cual se realiza el Turno.';
+comment on column IT.RH_TURNOS.hor_hasta
+  is 'Hora Hasta la cual se produce el Turno.';
+comment on column IT.RH_TURNOS.ind_hor_cortado
+  is 'Indica si el Horario es cortado o no.';
+comment on column IT.RH_TURNOS.hor_ini_descanso
+  is 'Hora Desde la cual se realiza el descanso.';
+comment on column IT.RH_TURNOS.hor_fin_descanso
+  is 'Hora Hasta la cual se produce el descanso.';
+comment on column IT.RH_TURNOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_TURNOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_TURNOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_TURNOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_TURNOS
+  add constraint PK_RH_TURNOS primary key (COD_TURNO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_TURNOS
+  add constraint UK_HTURN_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_TURNOS
+  add constraint AVCON_1191539862_IND_H_000
+  check (IND_HOR_CORTADO IN ('S', 'N'));
+alter table IT.RH_TURNOS
+  add constraint CK_IND_HOR_CORTADO
+  check ((IND_HOR_CORTADO = 'S' and HOR_INI_DESCANSO is not null)
+ or
+(IND_HOR_CORTADO = 'S' and HOR_FIN_DESCANSO is not null)
+ or
+(IND_HOR_CORTADO = 'N'));
+

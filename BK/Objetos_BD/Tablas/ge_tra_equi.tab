@@ -1,0 +1,20 @@
+create table IT.GE_TRA_EQUI
+(
+  cod_transaccion NUMBER(4) not null,
+  cod_modulo      NUMBER(3) not null,
+  cod_modalidad   NUMBER(3) not null,
+  descripcion     VARCHAR2(60) not null,
+  rutina1         VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

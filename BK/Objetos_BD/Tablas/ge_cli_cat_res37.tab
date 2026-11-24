@@ -1,0 +1,24 @@
+create table IT.GE_CLI_CAT_RES37
+(
+  cod_persona          VARCHAR2(10) not null,
+  tipo                 VARCHAR2(1),
+  tot_deu_real         NUMBER(18,2) default 0,
+  tot_deu_contingente  NUMBER(18,2) default 0,
+  cat_subjetiva        NUMBER(1),
+  tot_gar_computables  NUMBER(18,2) default 0,
+  tot_prevision        NUMBER(18,2) default 0,
+  cat_automatica       NUMBER(3,2) default 1 not null,
+  cat_renovaciones     NUMBER(1),
+  cat_riesgo           VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

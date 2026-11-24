@@ -1,0 +1,22 @@
+CREATE OR REPLACE PACKAGE IT.PAE_DIN IS
+
+/* Abrir cursor dinamico. */
+PROCEDURE PR_ABR_CURDINAM
+ (P_CURSOR IN OUT INTEGER
+ );
+/* Cerrar cursor dinamico. */
+PROCEDURE PR_CER_CURDINAM
+ (P_CURSOR IN OUT VARCHAR2
+ );
+/* Ejecutar cursor dinamico */
+PROCEDURE PR_EJE_CURDINAM
+ (P_SENTENCIA IN VARCHAR2
+ );
+/* Realiza el parce de la sentencia dinamica. */
+PROCEDURE PR_PAR_CURDINAM
+ (P_CURSOR IN INTEGER
+ ,P_SENTENCIA IN VARCHAR2
+ );
+END PAE_DIN;
+/
+

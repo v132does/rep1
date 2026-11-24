@@ -1,0 +1,69 @@
+create table IT.SB_FDG_PERSONAS
+(
+  fecha            DATE not null,
+  cod_persona      VARCHAR2(20) not null,
+  ind_exclusion    NUMBER(1) not null,
+  abr_documento    VARCHAR2(3) not null,
+  nro_documento    VARCHAR2(20) not null,
+  ape_raz_social   VARCHAR2(100),
+  nombres          VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_FDG_PERSONAS
+  is 'Contiene datos de las personas físicas o jurídicas que tienen depósitos en la Entidad Financiera, dichos depósitos corresponden a las cuentas especificadas en la Resolución 10, Articulo 1.';
+comment on column IT.SB_FDG_PERSONAS.fecha
+  is 'Fecha de Proceso.';
+comment on column IT.SB_FDG_PERSONAS.cod_persona
+  is 'Código interno de cliente, asignado por la misma Entidad Financiera. Si originalmente fuera numérico se considerara como caracteres alfanuméricos ajustados a la izquierda.';
+comment on column IT.SB_FDG_PERSONAS.ind_exclusion
+  is 'Indicador de persona vinculada. Considera:
+- Ley 2334, Art. 1, Inc. f)
+- Resolucion 10, Art. 2
+Valores:
+0= No excluido
+1= Si excluido.';
+comment on column IT.SB_FDG_PERSONAS.abr_documento
+  is 'Documento de identificación de la persona, la misma codificación empleada en CRC.';
+comment on column IT.SB_FDG_PERSONAS.nro_documento
+  is 'Número del documento de identificación.';
+comment on column IT.SB_FDG_PERSONAS.ape_raz_social
+  is 'Apellidos si es persona Física, o Razon Social si es una persona Jurídica.';
+comment on column IT.SB_FDG_PERSONAS.nombres
+  is 'Nombres. En blanco si es Persona Jurídica.';
+comment on column IT.SB_FDG_PERSONAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_FDG_PERSONAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_FDG_PERSONAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_FDG_PERSONAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.SB_FDG_PERSONAS
+  add constraint PK_SB_FDG_PERSONAS primary key (FECHA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

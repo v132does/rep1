@@ -1,0 +1,121 @@
+create table IT.CV_VAL_CUS_MOVIMIENTOS
+(
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  nro_secuencia     NUMBER not null,
+  monto             NUMBER(18,2),
+  cod_val_custodia  NUMBER(15),
+  cod_moneda        VARCHAR2(3) not null,
+  est_custodia      VARCHAR2(1),
+  tipo              VARCHAR2(3),
+  estado            VARCHAR2(1) not null,
+  cod_banco         NUMBER(3),
+  cod_ofi_destino   NUMBER(3),
+  cod_usu_destino   VARCHAR2(10),
+  ubicacion         VARCHAR2(25),
+  reversado         VARCHAR2(1) default 'N' not null,
+  cod_usu_reversion VARCHAR2(10),
+  hor_reversion     VARCHAR2(10),
+  nro_referencia    NUMBER(15),
+  observacion       VARCHAR2(100),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CV_VAL_CUS_MOVIMIENTOS
+  is 'Movimientos de Valores en Custodia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.fecha
+  is 'Fecha del Movimiento.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.hora
+  is 'Hora del Movimiento.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_usuario
+  is 'Código de usuario que realizó el Movimiento.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.monto
+  is 'Monto del Movimiento.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_val_custodia
+  is 'Código Identificador de la Custodia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.est_custodia
+  is 'Estado de la Custodia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.tipo
+  is 'Tipo de Movimiento.Dominio: TIP_MOV_CUSTODIAS.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.estado
+  is 'Estado del Movimiento.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_banco
+  is 'Código del Banco.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_ofi_destino
+  is 'Código Oficina Destino.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_usu_destino
+  is 'Código de Usuario Destino.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.ubicacion
+  is 'Ubicación de la Custodia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.reversado
+  is 'Reversado(N=No/S=Sí).';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.cod_usu_reversion
+  is 'Código del Usuario que realizó la Reversión.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.hor_reversion
+  is 'Hora de la Reversión.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.nro_referencia
+  is 'Nro. Referencia de la Custodia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.observacion
+  is 'Observaciones al Recepcionar/liberar un Documento en Custodia.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CV_VAL_CUS_MOVIMIENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint PK_CV_VAL_CUS_MOVIMIENTOS primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_OFI_DESTINO foreign key (COD_OFI_DESTINO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_USU_DESTINO foreign key (COD_USU_DESTINO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_USU_REVERSION foreign key (COD_USU_REVERSION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CV_VAL_CUS_MOVIMIENTOS
+  add constraint FK_CVCMO_COD_VAL_CUSTODIA foreign key (COD_VAL_CUSTODIA)
+  references IT.CV_VAL_CUSTODIAS (COD_VAL_CUSTODIA);
+

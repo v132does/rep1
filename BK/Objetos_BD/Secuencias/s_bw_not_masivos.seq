@@ -1,0 +1,7 @@
+create sequence IT.S_BW_NOT_MASIVOS
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 7925947
+increment by 1
+cache 20;
+

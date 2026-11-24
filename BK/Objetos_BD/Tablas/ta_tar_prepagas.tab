@@ -1,0 +1,124 @@
+create table IT.TA_TAR_PREPAGAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_tarjeta      VARCHAR2(25) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_oficina      NUMBER(3),
+  fec_solicitud    DATE,
+  cod_persona      VARCHAR2(10),
+  cod_estado       NUMBER(2) default 0 not null,
+  vigente          VARCHAR2(1) default 'N' not null,
+  cod_causa        NUMBER(3),
+  fec_emision      DATE,
+  fec_vencimiento  DATE,
+  usu_insercion    VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TAR_PREPAGAS
+  is 'Contiene los datos de los plasticos de las Tarjetas Prepagas.';
+comment on column IT.TA_TAR_PREPAGAS.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.TA_TAR_PREPAGAS.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_TAR_PREPAGAS.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.TA_TAR_PREPAGAS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.TA_TAR_PREPAGAS.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.TA_TAR_PREPAGAS.fec_solicitud
+  is 'Fecha de Solicitud.';
+comment on column IT.TA_TAR_PREPAGAS.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.TA_TAR_PREPAGAS.cod_estado
+  is 'Estado de la Tarjeta ( 0=Generada ).';
+comment on column IT.TA_TAR_PREPAGAS.vigente
+  is 'Indicador si esta vigente o no ( S=si, N=no ).';
+comment on column IT.TA_TAR_PREPAGAS.cod_causa
+  is 'Codigo de Motivo de Cancelacion.';
+comment on column IT.TA_TAR_PREPAGAS.fec_emision
+  is 'Fecha de Emision';
+comment on column IT.TA_TAR_PREPAGAS.fec_vencimiento
+  is 'Fecha de Vencimiento de la Tarjeta';
+comment on column IT.TA_TAR_PREPAGAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_TAR_PREPAGAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_TAR_PREPAGAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TAR_PREPAGAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_TTPRE_COD_PERSONA on IT.TA_TAR_PREPAGAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TTPRE_NRO_TARJETA on IT.TA_TAR_PREPAGAS (NRO_TARJETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_TAR_PREPAGAS
+  add constraint PK_TA_TAR_PREPAGAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_TAR_PREPAGAS
+  add constraint FK_TTPRE_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.TA_TAR_PREPAGAS
+  add constraint FK_TTPRE_COD_ESTADO foreign key (COD_ESTADO)
+  references IT.TA_TAR_ESTADOS (COD_ESTADO);
+alter table IT.TA_TAR_PREPAGAS
+  add constraint FK_TTPRE_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.TA_TAR_PREPAGAS
+  add constraint FK_TTPRE_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.TA_TAR_PREPAGAS
+  add constraint FK_TTPRE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.TA_TAR_PREPAGAS
+  add constraint AVCON_1192044914_COD_C_000
+  check (COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.TA_TAR_PREPAGAS
+  add constraint AVCON_1192044914_VIGEN_000
+  check (VIGENTE IN ('S', 'N'));
+

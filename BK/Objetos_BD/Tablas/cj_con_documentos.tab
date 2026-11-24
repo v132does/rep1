@@ -1,0 +1,27 @@
+create table IT.CJ_CON_DOCUMENTOS
+(
+  nro_documento    NUMBER(15) not null,
+  nro_caja         NUMBER(3) not null,
+  cod_oficina      NUMBER(3),
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  cod_usuario      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  hora             VARCHAR2(10),
+  cod_transaccion  NUMBER(4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

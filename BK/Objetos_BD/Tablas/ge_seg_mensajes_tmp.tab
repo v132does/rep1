@@ -1,0 +1,46 @@
+create table IT.GE_SEG_MENSAJES_TMP
+(
+  cod_seg_error_msg NUMBER(3) not null,
+  descripcion       VARCHAR2(400) not null,
+  cod_persona       VARCHAR2(10),
+  cod_seguro        NUMBER(18),
+  fec_insercion     DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SEG_MENSAJES_TMP
+  is 'Mensajes que devuelve el proceso de insercion de seguro';
+comment on column IT.GE_SEG_MENSAJES_TMP.cod_seg_error_msg
+  is 'Código del error del proceso.';
+comment on column IT.GE_SEG_MENSAJES_TMP.descripcion
+  is 'Descripción del mensaje de error.';
+comment on column IT.GE_SEG_MENSAJES_TMP.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.GE_SEG_MENSAJES_TMP.cod_seguro
+  is 'Código de seguro';
+comment on column IT.GE_SEG_MENSAJES_TMP.fec_insercion
+  is 'Fecha de insercion del registro';
+alter table IT.GE_SEG_MENSAJES_TMP
+  add constraint PK_GE_SEG_MENSAJES_TMP primary key (COD_SEG_ERROR_MSG, FEC_INSERCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

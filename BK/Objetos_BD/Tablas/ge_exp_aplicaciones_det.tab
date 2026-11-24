@@ -1,0 +1,91 @@
+create table IT.GE_EXP_APLICACIONES_DET
+(
+  cod_mensaje      NUMBER(5),
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  nro_sol_crm      NUMBER(7),
+  guid_crm         VARCHAR2(3000),
+  nro_solicitud    NUMBER(7),
+  cod_persona      VARCHAR2(10),
+  tip_operacion    VARCHAR2(1),
+  tip_venta        VARCHAR2(1),
+  cod_moneda       VARCHAR2(3),
+  mto_producto     NUMBER(18,2),
+  plazo            NUMBER(4),
+  fec_aprobacion   DATE,
+  tip_garantia     NUMBER(3),
+  cod_per_garante  VARCHAR2(10),
+  mto_gar_aplicado NUMBER(18,2),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  mto_sub_producto NUMBER(18,2),
+  cod_campana      NUMBER(3),
+  cod_oficina      NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  est_sol_crm      VARCHAR2(11)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXP_APLICACIONES_DET
+  is 'Datos comunicacion entre aplicaciones.';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_mensaje
+  is 'Identificador Unico del Registro.';
+comment on column IT.GE_EXP_APLICACIONES_DET.fecha
+  is 'Fecha de Ejecucion del Proceso';
+comment on column IT.GE_EXP_APLICACIONES_DET.hora
+  is 'Hora de Ejecucion del Proceso';
+comment on column IT.GE_EXP_APLICACIONES_DET.nro_sol_crm
+  is 'Numero de Solicitud de CRM';
+comment on column IT.GE_EXP_APLICACIONES_DET.guid_crm
+  is 'Identificador unico del registro en CRM';
+comment on column IT.GE_EXP_APLICACIONES_DET.nro_solicitud
+  is 'Numero de Solicitud de IT';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_persona
+  is 'Codigo de Persona del Cliente Principal';
+comment on column IT.GE_EXP_APLICACIONES_DET.tip_operacion
+  is 'Tipo de Operacion L:Limite de Credito - P:Puntual';
+comment on column IT.GE_EXP_APLICACIONES_DET.tip_venta
+  is 'Tipo de Venta N:Nuevo, R:Renovacion, F:Refinanciacion, E:Restructuraion';
+comment on column IT.GE_EXP_APLICACIONES_DET.plazo
+  is 'Plazo de la Operacion';
+comment on column IT.GE_EXP_APLICACIONES_DET.fec_aprobacion
+  is 'Fecha de Sancion o Aprobacion del Producto';
+comment on column IT.GE_EXP_APLICACIONES_DET.tip_garantia
+  is 'Tipo de Garantia';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_per_garante
+  is 'Garante de la Operacion';
+comment on column IT.GE_EXP_APLICACIONES_DET.mto_gar_aplicado
+  is 'Monto aplicado para la garantia';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_modulo
+  is 'Modulo del Sub-Producto';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_modalidad
+  is 'Modalidad del Sub-Producto';
+comment on column IT.GE_EXP_APLICACIONES_DET.mto_sub_producto
+  is 'Monto del Sub-Producto';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_campana
+  is 'Campana Relacionada a la Venta';
+comment on column IT.GE_EXP_APLICACIONES_DET.cod_oficina
+  is 'Oficina del Cliente';
+comment on column IT.GE_EXP_APLICACIONES_DET.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_EXP_APLICACIONES_DET.fec_insercion
+  is 'fecha de insercion.';
+comment on column IT.GE_EXP_APLICACIONES_DET.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.GE_EXP_APLICACIONES_DET.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.GE_EXP_APLICACIONES_DET.est_sol_crm
+  is 'Estado solicitud en CRM';
+

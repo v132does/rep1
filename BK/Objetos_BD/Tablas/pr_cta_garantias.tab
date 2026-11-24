@@ -1,0 +1,130 @@
+create table IT.PR_CTA_GARANTIAS
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  nro_garantia         NUMBER(7),
+  cod_garantia         NUMBER(3) not null,
+  mto_aplicado         NUMBER(18,2) default 0 not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  mto_con_computable   NUMBER(18,2) default 0,
+  mto_apl_computable   NUMBER(18,2),
+  mto_con_nocomputable NUMBER(18,2),
+  porcentaje           NUMBER(7,2),
+  cod_persona          VARCHAR2(10),
+  mto_riesgo           NUMBER(18,2),
+  ind_pagare           VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CTA_GARANTIAS
+  is 'Contiene los datos de las Garantías por solicitud.';
+comment on column IT.PR_CTA_GARANTIAS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.PR_CTA_GARANTIAS.nro_garantia
+  is 'Número de la Garantía Asociada o Número de Cliente(codeudor).';
+comment on column IT.PR_CTA_GARANTIAS.cod_garantia
+  is 'Tipo de Garantía.';
+comment on column IT.PR_CTA_GARANTIAS.mto_aplicado
+  is 'Monto de Garantía que cubre a la operación.';
+comment on column IT.PR_CTA_GARANTIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CTA_GARANTIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_CTA_GARANTIAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_CTA_GARANTIAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_CTA_GARANTIAS.mto_con_computable
+  is 'Monto contable computable.';
+comment on column IT.PR_CTA_GARANTIAS.mto_apl_computable
+  is 'Monto aplicado de la garantia computable para prevision.';
+comment on column IT.PR_CTA_GARANTIAS.mto_con_nocomputable
+  is 'Monto contable no computable.';
+comment on column IT.PR_CTA_GARANTIAS.porcentaje
+  is 'Porcentaje Porcentaje de participación en seguro de vida.';
+comment on column IT.PR_CTA_GARANTIAS.cod_persona
+  is 'Código del cliente.';
+comment on column IT.PR_CTA_GARANTIAS.mto_riesgo
+  is 'Monto de riesgo del cliente.';
+comment on column IT.PR_CTA_GARANTIAS.ind_pagare
+  is 'Indicador de seguimiento de estados de los pagarés o actas de desembolsos.';
+create index IT.IN_PCGAR_COD_GARANTIA on IT.PR_CTA_GARANTIAS (COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PCGAR_NRO_GARANTIA on IT.PR_CTA_GARANTIAS (NRO_GARANTIA, COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 40
+  initrans 4
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PRCGAR_COD_PERSONA on IT.PR_CTA_GARANTIAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PRCGAR_NRO_GARANTIA_01 on IT.PR_CTA_GARANTIAS (NRO_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_GARANTIAS
+  add constraint UK_PR_CTA_GARANTIAS unique (NRO_CUENTA, NRO_GARANTIA, COD_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 448K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_GARANTIAS
+  add constraint FK_PCGAR_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.PR_CTA_PRESTAMOS (NRO_CUENTA);
+alter table IT.PR_CTA_GARANTIAS
+  add constraint AVCON_1087565239_COD_G_001
+  check (COD_GARANTIA BETWEEN 0 AND 999);
+

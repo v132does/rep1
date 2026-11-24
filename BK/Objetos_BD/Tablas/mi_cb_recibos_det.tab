@@ -1,0 +1,22 @@
+create table IT.MI_CB_RECIBOS_DET
+(
+  nro_recibo      NUMBER(15) not null,
+  nro_item        NUMBER(15) not null,
+  nro_timbrado    VARCHAR2(20),
+  nro_factura     VARCHAR2(20),
+  monto           NUMBER(18,2),
+  nro_cuenta      VARCHAR2(15),
+  fec_movimiento  DATE,
+  hor_movimiento  VARCHAR2(8),
+  usu_movimiento  VARCHAR2(10),
+  sec_movimiento  NUMBER(3),
+  nro_referencia  NUMBER(15),
+  cod_modulo      NUMBER(3),
+  cod_modalidad   NUMBER(3),
+  cod_transaccion NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

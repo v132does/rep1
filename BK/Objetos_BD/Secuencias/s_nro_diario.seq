@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_DIARIO
+minvalue 1
+maxvalue 999
+start with 649
+increment by 1
+nocache
+cycle;
+

@@ -1,0 +1,75 @@
+-- Create table
+create table IT.CR_PER_TIP_OPERACIONES_TMP
+(
+  cod_persona         VARCHAR2(10),
+  cod_moneda          VARCHAR2(3),
+  mto_limite          NUMBER(18,2),
+  fec_inicio          DATE,
+  fec_vencimiento     DATE,
+  tip_ope_otros       VARCHAR2(2000),
+  procesado           VARCHAR2(1) default 'N',
+  fecha               DATE default SYSDATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  fon_propio          VARCHAR2(1) default 'N',
+  fon_salario         VARCHAR2(1) default 'N',
+  fon_prestamos       VARCHAR2(1) default 'N',
+  fon_vta_activos     VARCHAR2(1) default 'N',
+  fon_ren_financieras VARCHAR2(1) default 'N',
+  fon_ahorro          VARCHAR2(1) default 'N',
+  fon_herencia        VARCHAR2(1) default 'N',
+  fon_transferencias  VARCHAR2(1) default 'N',
+  fon_otros           VARCHAR2(35),
+  pro_ingresos        VARCHAR2(1) default 'N',
+  pro_ahorros         VARCHAR2(1) default 'N',
+  pro_ven_alq         VARCHAR2(1) default 'N',
+  pro_gas_operativos  VARCHAR2(1) default 'N',
+  pro_otros           VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.procesado
+  is 'Para verificar si esta procesado S y no procesado N';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fecha
+  is 'Fecha de procesamiento';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_propio
+  is 'Indica si tiene Fondo Propio (S/N).';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_salario
+  is 'Salario';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_prestamos
+  is 'Préstamos.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_vta_activos
+  is 'Venta de Activos.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_ren_financieras
+  is 'Renovaciones Financieras.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_ahorro
+  is 'Ahorro';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_herencia
+  is 'Herencia.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_transferencias
+  is 'Transferencias.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.fon_otros
+  is 'Otros.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.pro_ingresos
+  is 'Ingresos.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.pro_ahorros
+  is 'Ahorros.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.pro_ven_alq
+  is 'Venta/Alquileres.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.pro_gas_operativos
+  is 'Gastos Operativos.';
+comment on column IT.CR_PER_TIP_OPERACIONES_TMP.pro_otros
+  is 'Otros.';
+  

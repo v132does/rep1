@@ -1,0 +1,61 @@
+create table IT.GE_CAM_OBLIGATORIOS
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  tabla            VARCHAR2(30) not null,
+  campo            VARCHAR2(30) not null,
+  msj_error        VARCHAR2(500),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CAM_OBLIGATORIOS
+  is 'Tabla de Parametrización de campos de tablas obligatorios a completar por Módulo y Modalidad.';
+comment on column IT.GE_CAM_OBLIGATORIOS.cod_modulo
+  is 'Código del Módulo de la Solicitud de Crédito.';
+comment on column IT.GE_CAM_OBLIGATORIOS.cod_modalidad
+  is 'Código de la Modalidad de la Solicitud de Crédito.';
+comment on column IT.GE_CAM_OBLIGATORIOS.tabla
+  is 'Nombre de la Tabla de ITGF.';
+comment on column IT.GE_CAM_OBLIGATORIOS.campo
+  is 'Nombre del Campo de la Tabla de ITGF que no deberá estar nulo.';
+comment on column IT.GE_CAM_OBLIGATORIOS.msj_error
+  is 'Mensaje a emitir en caso de que no se haya cargado el campo obligatorio.';
+comment on column IT.GE_CAM_OBLIGATORIOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_CAM_OBLIGATORIOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_CAM_OBLIGATORIOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_CAM_OBLIGATORIOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_CAM_OBLIGATORIOS
+  add constraint PK_GE_CAM_OBLIGATORIOS primary key (COD_MODULO, COD_MODALIDAD, TABLA, CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CAM_OBLIGATORIOS
+  add constraint FK_GMODA_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+

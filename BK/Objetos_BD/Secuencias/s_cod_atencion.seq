@@ -1,0 +1,7 @@
+create sequence IT.S_COD_ATENCION
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 79
+increment by 1
+nocache;
+

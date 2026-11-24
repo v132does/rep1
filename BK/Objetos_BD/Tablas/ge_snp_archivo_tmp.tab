@@ -1,0 +1,55 @@
+create table IT.GE_SNP_ARCHIVO_TMP
+(
+  cod_mensaje      VARCHAR2(35),
+  nro_linea        NUMBER(6) not null,
+  tex_linea        VARCHAR2(4000),
+  cod_archivo      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_ARCHIVO_TMP
+  is 'Tabla temporal de tratamiento del mensaje con la lógica de negocios.';
+comment on column IT.GE_SNP_ARCHIVO_TMP.cod_mensaje
+  is 'Código de Mensaje.';
+comment on column IT.GE_SNP_ARCHIVO_TMP.nro_linea
+  is 'Nro. de Linea correspondiente al Campo (Tag).';
+comment on column IT.GE_SNP_ARCHIVO_TMP.tex_linea
+  is 'Texto de la linea';
+comment on column IT.GE_SNP_ARCHIVO_TMP.cod_archivo
+  is 'Codido Identificador de Archivo';
+comment on column IT.GE_SNP_ARCHIVO_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SNP_ARCHIVO_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SNP_ARCHIVO_TMP.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SNP_ARCHIVO_TMP.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+alter table IT.GE_SNP_ARCHIVO_TMP
+  add constraint PK_GE_SNP_ARCHIVO_TMP primary key (COD_ARCHIVO, NRO_LINEA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,89 @@
+create table IT.TA_INF_FIN_CIERRE_TMP
+(
+  fec_cierre          DATE not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_moneda          NUMBER(3),
+  cod_entidad         NUMBER(3),
+  afinidad            NUMBER(6),
+  nro_tar_principal   VARCHAR2(19),
+  nom_tarjeta         VARCHAR2(42),
+  val_hasta           NUMBER(6),
+  fec_nac             DATE,
+  edad                NUMBER(3),
+  id_tip_doc          VARCHAR2(3),
+  nro_documento       VARCHAR2(16),
+  mto_bas_seg_vida    NUMBER(18,2),
+  mto_car_usuario     NUMBER(18,2),
+  mto_imp_car_usuario NUMBER(18,2),
+  mto_car_entidad     NUMBER(18,2),
+  afe_detalle         VARCHAR2(2),
+  mot_no_afe_detalle  VARCHAR2(15),
+  fec_ult_act         VARCHAR2(26),
+  ref_archivo         VARCHAR2(30) default 'TAR_INF_FIN_CIERRE' not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_INF_FIN_CIERRE_TMP
+  is 'Datos enviados por Bancard sobre Informe Financiero al Cierre (PBSEGVIDA).';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.fec_cierre
+  is 'Fecha de Cierre';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.cod_moneda
+  is 'Cód. Moneda';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.cod_entidad
+  is 'Cód. Entidad';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.afinidad
+  is 'Id. Afinidad';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.nro_tar_principal
+  is 'Nro. Tarjeta Principal';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.nom_tarjeta
+  is 'Nombre Tarjeta';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.val_hasta
+  is 'Vale Hasta';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.fec_nac
+  is 'Fecha Nacimiento';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.edad
+  is 'Edad';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.id_tip_doc
+  is 'Id. Tipo Documento';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.nro_documento
+  is 'Nro. Documento';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.mto_bas_seg_vida
+  is 'Importe Base para Seguro de Vida. Es el importe capital sobre el cual es calculado el cargo.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.mto_car_usuario
+  is 'Importe Cargo para Usuario. Es el importe afectado al usuario y coincidente con el importe en Cierre-Detalle Extracto.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.mto_imp_car_usuario
+  is 'Importe Impuesto Cargo para Usuario';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.mto_car_entidad
+  is 'Importe Cargo Entidad/Compañía. Es el importe calculado según porcentaje en parámetro afinidad.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.afe_detalle
+  is 'Afectación en Detalle';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.mot_no_afe_detalle
+  is 'Motivo No Afectación en Detalle';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.fec_ult_act
+  is 'FH Ultima Actualización';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_INF_FIN_CIERRE_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+

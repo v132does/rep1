@@ -1,0 +1,74 @@
+create table IT.AH_PRE_DEV_CDA
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cupon        NUMBER(7) not null,
+  ano              NUMBER(4) not null,
+  mes              NUMBER(2) not null,
+  mto_interes      NUMBER(18,2) default 0 not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_oficina      NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fec_inicio       DATE not null,
+  fec_final        DATE not null,
+  dias             NUMBER(7) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_PRE_DEV_CDA
+  is 'Contiene la Prevision de los Intereses Devengados por Cupones de Cda.';
+comment on column IT.AH_PRE_DEV_CDA.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_PRE_DEV_CDA.nro_cupon
+  is 'Numero de Cupon.';
+comment on column IT.AH_PRE_DEV_CDA.ano
+  is 'Año del Devengamiento.';
+comment on column IT.AH_PRE_DEV_CDA.mes
+  is 'Mes del Devengamiento.';
+comment on column IT.AH_PRE_DEV_CDA.mto_interes
+  is 'Valor del Interes Devengado.';
+comment on column IT.AH_PRE_DEV_CDA.cod_modulo
+  is 'Codigo de Modulo de la cuenta.';
+comment on column IT.AH_PRE_DEV_CDA.cod_modalidad
+  is 'Codigo de Modalidad de la cuenta.';
+comment on column IT.AH_PRE_DEV_CDA.cod_oficina
+  is 'Codigo de Oficina de la cuenta.';
+comment on column IT.AH_PRE_DEV_CDA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_PRE_DEV_CDA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_PRE_DEV_CDA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_PRE_DEV_CDA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_PRE_DEV_CDA.fec_inicio
+  is 'Inicio del Devengamiento.';
+comment on column IT.AH_PRE_DEV_CDA.fec_final
+  is 'Fin del Devengamiento.';
+comment on column IT.AH_PRE_DEV_CDA.dias
+  is 'Dias del Periodo.';
+create index IT.IN_AH_PRE_DEV_CDA on IT.AH_PRE_DEV_CDA (NRO_CUENTA, NRO_CUPON, ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,164 @@
+create table IT.GE_EQU_PER_JURIDICAS
+(
+  fecha             DATE not null,
+  nro_secuencia     VARCHAR2(15) not null,
+  tip_accion        VARCHAR2(1),
+  cod_sucursal      VARCHAR2(5),
+  tip_transaccion   VARCHAR2(2),
+  id_operacion      VARCHAR2(50),
+  tip_vinculacion   VARCHAR2(2),
+  nro_cliente       VARCHAR2(20),
+  can_dia_atraso    VARCHAR2(5),
+  ope_cerrada       VARCHAR2(1),
+  periodo           VARCHAR2(6),
+  consentimiento    VARCHAR2(1),
+  fec_valor         VARCHAR2(8),
+  tip_documento     VARCHAR2(5),
+  cod_pai_documento VARCHAR2(2),
+  nro_documento     VARCHAR2(30) not null,
+  raz_social        VARCHAR2(160),
+  nom_empresa       VARCHAR2(160),
+  act_comercial     VARCHAR2(255),
+  ini_actividades   VARCHAR2(8),
+  calle             VARCHAR2(255),
+  nro_puerta        VARCHAR2(5),
+  apartamento       VARCHAR2(5),
+  piso              VARCHAR2(5),
+  complemento       VARCHAR2(100),
+  kilometro         VARCHAR2(10),
+  manzana           VARCHAR2(10),
+  lote              VARCHAR2(10),
+  block             VARCHAR2(30),
+  esquina1          VARCHAR2(30),
+  esquina2          VARCHAR2(30),
+  tip_vivienda      VARCHAR2(1),
+  id_ciudad         VARCHAR2(15),
+  ciudad            VARCHAR2(50),
+  barrio            VARCHAR2(200),
+  departamento      VARCHAR2(2),
+  cod_postal        VARCHAR2(5),
+  telefono          VARCHAR2(80),
+  tip_proceso       VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EQU_PER_JURIDICAS
+  is 'Es la tabla donde se generan los datos de Altas de Personas Físicas a enviar a Equifax Mensualmente.';
+comment on column IT.GE_EQU_PER_JURIDICAS.fecha
+  is 'Fecha en que es ejecutado el proceso.';
+comment on column IT.GE_EQU_PER_JURIDICAS.nro_secuencia
+  is 'Identificador único de cada registro generado';
+comment on column IT.GE_EQU_PER_JURIDICAS.tip_accion
+  is 'Tipo de operación a realizar ("I"nclusión, "M"odificación, "E"liminación)';
+comment on column IT.GE_EQU_PER_JURIDICAS.cod_sucursal
+  is 'Nro de sucursal del cliente en sistema de Equifax';
+comment on column IT.GE_EQU_PER_JURIDICAS.tip_transaccion
+  is 'Tipo de transacción que se registra (1P, 3T,etc)';
+comment on column IT.GE_EQU_PER_JURIDICAS.id_operacion
+  is 'Identificación única del cliente/operación';
+comment on column IT.GE_EQU_PER_JURIDICAS.tip_vinculacion
+  is 'Tipo de vinculación de la persona con la operación (Titular, Garante, etc)';
+comment on column IT.GE_EQU_PER_JURIDICAS.nro_cliente
+  is 'Identificación interna del cliente en la entidad reportante';
+comment on column IT.GE_EQU_PER_JURIDICAS.can_dia_atraso
+  is 'Días de atraso en pago.';
+comment on column IT.GE_EQU_PER_JURIDICAS.ope_cerrada
+  is 'Indica si el mes reportado es el último para la operación (se cierra).';
+comment on column IT.GE_EQU_PER_JURIDICAS.periodo
+  is 'Período (año y mes) a que corresponde la información(AAAAMM).';
+comment on column IT.GE_EQU_PER_JURIDICAS.consentimiento
+  is 'Consentimiento brindado por la persona para el tratamiento de sus datos personales.';
+comment on column IT.GE_EQU_PER_JURIDICAS.fec_valor
+  is 'Fecha valor de la información de la persona enviada (no de la operación) (Formato AAAAMMDD)';
+comment on column IT.GE_EQU_PER_JURIDICAS.tip_documento
+  is 'Tipo de documento de identificación de la persona';
+comment on column IT.GE_EQU_PER_JURIDICAS.cod_pai_documento
+  is 'País de emitido el documento de identificación de la persona';
+comment on column IT.GE_EQU_PER_JURIDICAS.nro_documento
+  is 'Número de Documento de identificación de la persona';
+comment on column IT.GE_EQU_PER_JURIDICAS.raz_social
+  is 'Razón Social de la empresa';
+comment on column IT.GE_EQU_PER_JURIDICAS.nom_empresa
+  is 'Nombre de la empresa';
+comment on column IT.GE_EQU_PER_JURIDICAS.act_comercial
+  is 'Actividad Comercial de la empresa';
+comment on column IT.GE_EQU_PER_JURIDICAS.ini_actividades
+  is 'Fecha de Inicio de actividades de la empresa.';
+comment on column IT.GE_EQU_PER_JURIDICAS.calle
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.nro_puerta
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.apartamento
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.piso
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.complemento
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.kilometro
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.manzana
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.lote
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.block
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.esquina1
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.esquina2
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.tip_vivienda
+  is 'Dirección Personal. Propietario, inquilino, copropietario, etc.';
+comment on column IT.GE_EQU_PER_JURIDICAS.id_ciudad
+  is 'Dirección Personal. Propietario, inquilino, copropietario, etc.';
+comment on column IT.GE_EQU_PER_JURIDICAS.ciudad
+  is 'Dirección Personal. Nombre de la Ciudad/Distrito del domicilio personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.barrio
+  is 'Dirección Personal. Nombre de la  Localidad/Barrio del domicilio personal';
+comment on column IT.GE_EQU_PER_JURIDICAS.departamento
+  is 'Dirección Personal. Departamento del domicilio personal.';
+comment on column IT.GE_EQU_PER_JURIDICAS.cod_postal
+  is 'Dirección Personal. Código postal del domicilio personal.';
+comment on column IT.GE_EQU_PER_JURIDICAS.telefono
+  is 'Dirección Personal. Teléfono(s) personales';
+comment on column IT.GE_EQU_PER_JURIDICAS.tip_proceso
+  is 'Tipo de Proceso (M-Manual / A-Automático)';
+create index IT.IN_EQUIJ_INDEX on IT.GE_EQU_PER_JURIDICAS (FECHA, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQU_PER_JURIDICAS
+  add constraint PK_GE_EQU_PER_JURIDICAS primary key (FECHA, NRO_SECUENCIA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

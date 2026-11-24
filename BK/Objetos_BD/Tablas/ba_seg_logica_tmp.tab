@@ -1,0 +1,18 @@
+create table IT.BA_SEG_LOGICA_TMP
+(
+  cod_usuario  VARCHAR2(10) not null,
+  new_password VARCHAR2(20),
+  bloqueo      VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

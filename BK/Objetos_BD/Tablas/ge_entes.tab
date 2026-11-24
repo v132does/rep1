@@ -1,0 +1,72 @@
+create table IT.GE_ENTES
+(
+  cod_ente         NUMBER(5) not null,
+  descripcion      VARCHAR2(60) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(2) default 'SE' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ENTES
+  is 'Catalogo unico de Entes.';
+comment on column IT.GE_ENTES.cod_ente
+  is 'Codigo de Ente.';
+comment on column IT.GE_ENTES.descripcion
+  is 'Descripcion del Ente.';
+comment on column IT.GE_ENTES.cod_persona
+  is 'Codigo de la Persona Relacionada.';
+comment on column IT.GE_ENTES.tipo
+  is 'Tipo de Ente (Seguro, Concesionario, Pago de Sueldos, Pago a Proveedores, etc.).';
+comment on column IT.GE_ENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GENTE_COD_PERSONA on IT.GE_ENTES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ENTES
+  add constraint PK_GE_ENTES primary key (COD_ENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ENTES
+  add constraint FK_GENTE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA)
+  disable
+  novalidate;
+

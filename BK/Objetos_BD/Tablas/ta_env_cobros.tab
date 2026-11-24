@@ -1,0 +1,86 @@
+create table IT.TA_ENV_COBROS
+(
+  cod_ent_procesadora NUMBER(5),
+  cod_banco           NUMBER(2),
+  cod_sucursal        NUMBER(2),
+  nro_cuenta          VARCHAR2(15),
+  nro_tarjeta         VARCHAR2(16),
+  monto               NUMBER(18,2),
+  fec_valor           DATE,
+  fec_envio           DATE,
+  hor_envio           VARCHAR2(8),
+  tip_pago            VARCHAR2(1),
+  estado              VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  reg_cobro           VARCHAR2(20),
+  cod_moneda          VARCHAR2(3),
+  descripcion         VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ENV_COBROS
+  is 'Envios de cobros de tarjetas.';
+comment on column IT.TA_ENV_COBROS.cod_ent_procesadora
+  is 'Codigo de la procesadora.';
+comment on column IT.TA_ENV_COBROS.cod_banco
+  is 'Codigo de banco de la procesadora.';
+comment on column IT.TA_ENV_COBROS.cod_sucursal
+  is 'Codigo de sucursal de la procesadora.';
+comment on column IT.TA_ENV_COBROS.nro_cuenta
+  is 'Numero de Cuenta de la Tarjeta.';
+comment on column IT.TA_ENV_COBROS.nro_tarjeta
+  is 'Nro de tarjeta de la procesadora.';
+comment on column IT.TA_ENV_COBROS.monto
+  is 'Monto del pago.';
+comment on column IT.TA_ENV_COBROS.fec_valor
+  is 'fecha del pago.';
+comment on column IT.TA_ENV_COBROS.fec_envio
+  is 'fecha de envio del pago.';
+comment on column IT.TA_ENV_COBROS.hor_envio
+  is 'hora de envio del pago.';
+comment on column IT.TA_ENV_COBROS.tip_pago
+  is 'tipo de pago (V=Valor, N=Normal).';
+comment on column IT.TA_ENV_COBROS.estado
+  is 'Estado del Pago (G=Generado,E=Enviado,A=Anulado).';
+comment on column IT.TA_ENV_COBROS.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.TA_ENV_COBROS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.TA_ENV_COBROS.usu_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.TA_ENV_COBROS.fec_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.TA_ENV_COBROS.reg_cobro
+  is 'Identificador del registro de ta_cobros.';
+comment on column IT.TA_ENV_COBROS.cod_moneda
+  is 'Código de Moneda de Pago.';
+comment on column IT.TA_ENV_COBROS.descripcion
+  is 'Descripción del Pago.';
+create index IT.IN_TECOB_COD_ENT_PROCESADORA on IT.TA_ENV_COBROS (COD_ENT_PROCESADORA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_ENV_COBROS
+  add constraint FK_TENCO_COD_PROCESADORA foreign key (COD_ENT_PROCESADORA)
+  references IT.GE_ENTES (COD_ENTE);
+

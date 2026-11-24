@@ -1,0 +1,30 @@
+create table IT.PV_RET_PROVEEDORES
+(
+  cod_proveedor   NUMBER(10) not null,
+  fec_pago        DATE,
+  nro_factura     VARCHAR2(20) not null,
+  importe         NUMBER(18,2),
+  cod_moneda      VARCHAR2(3),
+  nro_retencion   NUMBER(12),
+  monto_iva       NUMBER(18,2),
+  monto_retencion NUMBER(18,2),
+  estado          VARCHAR2(1),
+  cotizacion      NUMBER(18,2),
+  mto_renta       NUMBER(18,2),
+  mto_ret_renta   NUMBER(18,2),
+  tipo_ret        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PV_RET_PROVEEDORES.tipo_ret
+  is 'Tipo de Retencion: ''E'' = Factura del Exterior, ''N'' = Factura Normal';
+

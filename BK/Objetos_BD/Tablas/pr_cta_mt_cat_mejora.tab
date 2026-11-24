@@ -1,0 +1,50 @@
+create table IT.PR_CTA_MT_CAT_MEJORA
+(
+  nro_cuenta       NUMBER(15) not null,
+  mejora           NUMBER not null,
+  fec_mejora       DATE not null,
+  usu_insercion    VARCHAR2(10) default user,
+  fec_insercion    DATE default sysdate,
+  fec_modificacion DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default user
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CTA_MT_CAT_MEJORA
+  is 'Mejoras de categoria pre diferida por cuenta para operaciones MT';
+create index IT.IND_PR_CTA_MT_CAT_CUENTA on IT.PR_CTA_MT_CAT_MEJORA (NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_MT_CAT_MEJORA
+  add constraint PK_PR_CTA_MT_CAT_MEJORA primary key (NRO_CUENTA, MEJORA, FEC_MEJORA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

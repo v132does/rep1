@@ -1,0 +1,40 @@
+create table IT.CB_COR_RUB_DETJ
+(
+  fecha           DATE not null,
+  hora            VARCHAR2(8),
+  cod_usuario     VARCHAR2(10) not null,
+  nro_secuencia   NUMBER(3),
+  nro_cuenta      VARCHAR2(15),
+  monto           NUMBER(18,2),
+  cod_moneda      VARCHAR2(3) not null,
+  mto_equ_local   NUMBER(18,2),
+  cotizacion      NUMBER(14,8),
+  cod_oficina     NUMBER(3) not null,
+  cod_ofi_origen  NUMBER(3),
+  concepto        VARCHAR2(100),
+  nro_documento   NUMBER(15),
+  cod_transaccion NUMBER(4),
+  cod_modulo      NUMBER(3),
+  cod_modalidad   NUMBER(3),
+  nro_documento4  NUMBER(15),
+  nro_asiento     NUMBER,
+  nro_linea       NUMBER,
+  descripcion     VARCHAR2(100),
+  reversado       VARCHAR2(1),
+  cod_rubro       VARCHAR2(15) not null,
+  tip_mov         VARCHAR2(1),
+  fec_proceso     DATE not null,
+  mov_cuadre      NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,38 @@
+create table IT.TM_PER_OFAC
+(
+  nro_documento   VARCHAR2(10),
+  nom_completo    VARCHAR2(200),
+  tip_persona     VARCHAR2(12),
+  pais            VARCHAR2(20),
+  cargo           VARCHAR2(250),
+  dat_adicionales VARCHAR2(300),
+  msj_error       VARCHAR2(3000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_PER_OFAC
+  is 'Archivo temporal de carga de Personas de OFAC.';
+comment on column IT.TM_PER_OFAC.nro_documento
+  is 'Numero de documento.';
+comment on column IT.TM_PER_OFAC.nom_completo
+  is 'Nombre completo de la persona.';
+comment on column IT.TM_PER_OFAC.tip_persona
+  is 'Tipo de persona segun OFAC.';
+comment on column IT.TM_PER_OFAC.pais
+  is 'Pais de la persona.';
+comment on column IT.TM_PER_OFAC.cargo
+  is 'Cargo de la persona.';
+comment on column IT.TM_PER_OFAC.dat_adicionales
+  is 'Datos adicionales.';
+comment on column IT.TM_PER_OFAC.msj_error
+  is 'Mensaje de Error del Proceso de carga de datos.';
+

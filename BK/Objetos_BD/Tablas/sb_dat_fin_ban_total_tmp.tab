@@ -1,0 +1,34 @@
+create table IT.SB_DAT_FIN_BAN_TOTAL_TMP
+(
+  cod_persona          NUMBER(10),
+  nro_doc_identidad    VARCHAR2(30),
+  nom_cliente          VARCHAR2(150),
+  segmento             VARCHAR2(10),
+  sub_segmentacion     VARCHAR2(10),
+  des_sub_segmentacion VARCHAR2(30),
+  actividad            VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PK_SB_DAT_FIN_BAN_TOT on IT.SB_DAT_FIN_BAN_TOTAL_TMP (COD_PERSONA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

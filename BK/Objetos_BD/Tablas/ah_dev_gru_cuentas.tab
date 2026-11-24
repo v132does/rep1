@@ -1,0 +1,79 @@
+create table IT.AH_DEV_GRU_CUENTAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_grupo        VARCHAR2(20) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  tipo             VARCHAR2(1) not null,
+  for_dis_interes  VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.AH_DEV_GRU_CUENTAS.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.AH_DEV_GRU_CUENTAS.cod_grupo
+  is 'Grupo de Devengado';
+comment on column IT.AH_DEV_GRU_CUENTAS.nro_cuenta
+  is 'Nro. de Cuenta';
+comment on column IT.AH_DEV_GRU_CUENTAS.tipo
+  is 'Tipo de Cta Dev, Grupal (P-Cta Principal, D-Grupo Devengamiento)';
+comment on column IT.AH_DEV_GRU_CUENTAS.for_dis_interes
+  is 'Forma de Pago Capitalizacion de Interes (C-Centralizado a Cuenta Principal, D-Distribuido a todas las cuentas)';
+comment on column IT.AH_DEV_GRU_CUENTAS.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.AH_DEV_GRU_CUENTAS.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.AH_DEV_GRU_CUENTAS.usu_modificacion
+  is 'Usuario de Mpdificacion';
+comment on column IT.AH_DEV_GRU_CUENTAS.fec_modificacion
+  is 'Fecha de Modificacion';
+alter table IT.AH_DEV_GRU_CUENTAS
+  add constraint PK_AH_DEV_GRU_CUENTAS primary key (COD_PERSONA, COD_GRUPO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_DEV_GRU_CUENTAS
+  add constraint UK3_DEVAH_NRO_CUENTA unique (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_DEV_GRU_CUENTAS
+  add constraint FK3_DEVAH_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.AH_CTA_VISTAS (NRO_CUENTA);
+alter table IT.AH_DEV_GRU_CUENTAS
+  add constraint CK3_DEVAH_FOR_DIS_INTERES
+  check (FOR_DIS_INTERES IN ('C', 'D'));
+alter table IT.AH_DEV_GRU_CUENTAS
+  add constraint CK3_DEVAH_TIPO
+  check (TIPO IN ('P', 'D'));
+

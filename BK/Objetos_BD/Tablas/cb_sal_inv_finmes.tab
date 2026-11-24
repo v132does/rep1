@@ -1,0 +1,97 @@
+create table IT.CB_SAL_INV_FINMES
+( fecha            DATE,
+  nro_cuenta       VARCHAR2(15),
+  cod_persona      VARCHAR2(10),
+  nombre           VARCHAR2(120),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  modal            VARCHAR2(35),
+  cod_oficina      NUMBER(3),
+  desc_ofi         VARCHAR2(50),
+  cod_moneda       VARCHAR2(3),
+  tip_saldo        VARCHAR2(1),
+  situacion        VARCHAR2(1),
+  estado           VARCHAR2(20),
+  fec_apertura     DATE,
+  fec_vencimiento  DATE,
+  val_tasa         NUMBER(20,4),
+  cod_rubro        VARCHAR2(100),
+  des_rubro        VARCHAR2(100),
+  sal_actual       NUMBER(18,2),
+  cod_sec_contable VARCHAR2(1),
+  cod_tip_deudor   NUMBER(2),
+  nro_documento    VARCHAR2(20),
+  tip_deudor       VARCHAR2(100)
+)TABLESPACE it_data ;
+
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.FECHA 
+    IS 'Fecha';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.NRO_CUENTA 
+    IS 'Número de cuenta';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_PERSONA 
+    IS 'Código persona.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.NOMBRE 
+    IS 'Nombre.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_MODULO 
+    IS 'Código del módulo al que pertenece la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_MODALIDAD 
+    IS 'Código de modalidad del tipo de producto asociado a la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.MODAL 
+    IS 'Descripción de la modalidad del producto asociado a la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_OFICINA 
+    IS 'Código de la oficina donde se administra la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.DESC_OFI 
+    IS 'Descripción de la oficina donde se encuentra registrada la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_MONEDA 
+    IS 'Código de moneda en que está expresada la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.TIP_SALDO 
+    IS 'Tipo de saldo';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.SITUACION 
+    IS 'Situación de la cuenta';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.ESTADO 
+    IS 'Estado';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.FEC_APERTURA 
+    IS 'Fecha de apertura de la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.FEC_VENCIMIENTO 
+    IS 'Fecha de vencimiento';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.VAL_TASA 
+    IS 'Valor tasa';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_RUBRO 
+    IS 'Código del rubro contable asignado a la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.DES_RUBRO 
+    IS 'Descripción del rubro contable asignado a la cuenta.';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.SAL_ACTUAL 
+    IS 'Saldo actual';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_SEC_CONTABLE 
+    IS 'Código contable';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.COD_TIP_DEUDOR 
+    IS 'Código del tipo de deudor';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.NRO_DOCUMENTO 
+    IS 'Número de documento';
+
+COMMENT ON COLUMN IT.CB_SAL_INV_FINMES.TIP_DEUDOR 
+    IS 'Descripción del tipo de deudor';
+
+

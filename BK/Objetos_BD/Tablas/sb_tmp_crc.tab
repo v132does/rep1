@@ -1,0 +1,38 @@
+create table IT.SB_TMP_CRC
+(
+  cod_persona VARCHAR2(20) not null,
+  cod_modulo  NUMBER(3) not null,
+  saldo       NUMBER(20) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_TMP_CRC
+  is 'Datos temporales de CRC.';
+comment on column IT.SB_TMP_CRC.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.SB_TMP_CRC.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.SB_TMP_CRC.saldo
+  is 'Saldo.';
+create index IT.IN_STMCR_COD_PERSONA on IT.SB_TMP_CRC (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

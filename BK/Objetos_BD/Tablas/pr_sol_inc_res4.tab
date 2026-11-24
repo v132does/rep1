@@ -1,0 +1,65 @@
+create table IT.PR_SOL_INC_RES4
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(15),
+  nro_cta_nueva    VARCHAR2(15),
+  can_cta_ant      VARCHAR2(1) default 'N',
+  gen_cta_nueva    VARCHAR2(1) default 'N',
+  hor_canc         VARCHAR2(12),
+  hor_nue          VARCHAR2(12),
+  error            VARCHAR2(3000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_SOL_INC_RES4.nro_cuenta
+  is 'Nro de Cuenta original';
+comment on column IT.PR_SOL_INC_RES4.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.PR_SOL_INC_RES4.nro_cta_nueva
+  is 'Nro. Cuenta Nueva';
+comment on column IT.PR_SOL_INC_RES4.can_cta_ant
+  is 'Cancelacion de Cta. Anterior';
+comment on column IT.PR_SOL_INC_RES4.gen_cta_nueva
+  is 'Generacion de Cta. Nueva';
+comment on column IT.PR_SOL_INC_RES4.hor_canc
+  is 'Hora de Mov de Cancelacion';
+comment on column IT.PR_SOL_INC_RES4.hor_nue
+  is 'Hora de Mov de Nuevo Prestamo';
+comment on column IT.PR_SOL_INC_RES4.error
+  is 'Detalle de Error';
+comment on column IT.PR_SOL_INC_RES4.usu_insercion
+  is 'Usuario Insercion';
+comment on column IT.PR_SOL_INC_RES4.fec_insercion
+  is 'Fecha insercion';
+comment on column IT.PR_SOL_INC_RES4.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.PR_SOL_INC_RES4.fec_modificacion
+  is 'Hora Modificacion';
+alter table IT.PR_SOL_INC_RES4
+  add constraint PK_PR_SOL_INC_RES4 primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

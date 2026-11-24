@@ -1,0 +1,44 @@
+create table IT.TM_LOG_SUELDOS
+(
+  nro_cuenta    VARCHAR2(30),
+  nro_documento VARCHAR2(50),
+  cod_ente      VARCHAR2(30),
+  monto         NUMBER(18,2),
+  lugar         VARCHAR2(200),
+  observacion   VARCHAR2(200),
+  origen        VARCHAR2(50),
+  usu_insercion VARCHAR2(20) default SUBSTR(USER,1,10),
+  fec_insercion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_LOG_SUELDOS
+  is 'Log de Errores de Pago de Sueldos.';
+comment on column IT.TM_LOG_SUELDOS.nro_cuenta
+  is 'Número de Cuenta del Cliente.';
+comment on column IT.TM_LOG_SUELDOS.nro_documento
+  is 'Número de Documento del Cliente.';
+comment on column IT.TM_LOG_SUELDOS.cod_ente
+  is 'Código de Ente vinculado al cliente.';
+comment on column IT.TM_LOG_SUELDOS.monto
+  is 'Monto de la operación del pago de sueldo.';
+comment on column IT.TM_LOG_SUELDOS.lugar
+  is 'Lugar donde ocurrió el error.';
+comment on column IT.TM_LOG_SUELDOS.observacion
+  is 'Descripción de la observación detallada.';
+comment on column IT.TM_LOG_SUELDOS.origen
+  is 'Lugar de donde es insertado los datos del log.';
+comment on column IT.TM_LOG_SUELDOS.usu_insercion
+  is 'Usuario que realizó la insercion del registro.';
+comment on column IT.TM_LOG_SUELDOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+

@@ -1,0 +1,115 @@
+create table IT.CR_PER_PROPIEDADES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_finca        VARCHAR2(20) not null,
+  cod_distrito     NUMBER(3) not null,
+  ubicacion        VARCHAR2(80),
+  cta_catastral    VARCHAR2(20),
+  met_terreno      NUMBER(10),
+  met_construido   NUMBER(10),
+  cod_moneda       VARCHAR2(3) not null,
+  val_comercial    NUMBER(18,2) default 0,
+  hipotecado       VARCHAR2(1) default 'N',
+  hip_a_quien      VARCHAR2(80),
+  val_hipoteca     NUMBER(18,2) default 0,
+  fec_hip_desde    DATE,
+  fec_hip_hasta    DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tip_propiedad    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_PROPIEDADES
+  is 'Propiedades por Persona.';
+comment on column IT.CR_PER_PROPIEDADES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_PROPIEDADES.nro_finca
+  is 'Numero de Finca.';
+comment on column IT.CR_PER_PROPIEDADES.cod_distrito
+  is 'Codigo de Distrito.';
+comment on column IT.CR_PER_PROPIEDADES.ubicacion
+  is 'Ubicacion de la Propiedad.';
+comment on column IT.CR_PER_PROPIEDADES.cta_catastral
+  is 'Cuenta Catastral.';
+comment on column IT.CR_PER_PROPIEDADES.met_terreno
+  is 'Metro Terreno.';
+comment on column IT.CR_PER_PROPIEDADES.met_construido
+  is 'Metro Construido.';
+comment on column IT.CR_PER_PROPIEDADES.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CR_PER_PROPIEDADES.val_comercial
+  is 'Valor Comercial de la Propiedad.';
+comment on column IT.CR_PER_PROPIEDADES.hipotecado
+  is 'Indica si esta Hipotecado (S/N).';
+comment on column IT.CR_PER_PROPIEDADES.hip_a_quien
+  is 'Hipotecado a Quien.';
+comment on column IT.CR_PER_PROPIEDADES.val_hipoteca
+  is 'Valor de la Hipoteca.';
+comment on column IT.CR_PER_PROPIEDADES.fec_hip_desde
+  is 'Fecha de Hipoteca Desde.';
+comment on column IT.CR_PER_PROPIEDADES.fec_hip_hasta
+  is 'Fecha de Hipoteca Hasta.';
+comment on column IT.CR_PER_PROPIEDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_PROPIEDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_PROPIEDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PROPIEDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PROPIEDADES.tip_propiedad
+  is 'Tipo de la Propiedad.';
+create index IT.IN_RPPRO_COD_PERSONA on IT.CR_PER_PROPIEDADES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_PROPIEDADES
+  add constraint PK_CR_PER_PROPIEDADES primary key (COD_PERSONA, NRO_FINCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_PROPIEDADES
+  add constraint FK_PPPRO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PER_PROPIEDADES
+  add constraint FK_RPPRO_COD_DISTRITO foreign key (COD_DISTRITO)
+  references IT.GE_DISTRITOS (COD_DISTRITO);
+alter table IT.CR_PER_PROPIEDADES
+  add constraint FK_RPPRO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PER_PROPIEDADES
+  add constraint AVCON_1080843837_HIPOT_000
+  check (HIPOTECADO IN ('S', 'N'));
+alter table IT.CR_PER_PROPIEDADES
+  add constraint AVCON_1083093454_COD_D_001
+  check (COD_DISTRITO BETWEEN 0 AND 999);
+

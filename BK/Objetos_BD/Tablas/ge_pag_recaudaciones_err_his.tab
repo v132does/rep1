@@ -1,0 +1,113 @@
+create table IT.GE_PAG_RECAUDACIONES_ERR_HIS
+(
+  cod_ente         NUMBER(5) not null,
+  nro_cta_debito   VARCHAR2(15) not null,
+  nro_cta_credito  VARCHAR2(15) not null,
+  fec_operacion    DATE not null,
+  nro_archivo      NUMBER(10) not null,
+  monto            NUMBER(18,2),
+  cod_error        NUMBER(3) not null,
+  msj_error        VARCHAR2(4000),
+  observacion      VARCHAR2(4000),
+  fec_insercion    DATE default sysdate,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  nro_factura      VARCHAR2(60),
+  cod_moneda       VARCHAR2(3),
+  tip_cobranza     VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_RECAUDACIONES_ERR_HIS
+  is 'Registra los errores en el cobro de servicios de recaudaciones.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.nro_cta_debito
+  is 'Número de Cuenta Débito.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.nro_cta_credito
+  is 'Número de Cuenta Crédito.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.fec_operacion
+  is 'Fecha de operación.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.nro_archivo
+  is 'Número de archivo.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.monto
+  is 'Monto de la Transacción.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.cod_error
+  is 'Código de Error.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.msj_error
+  is 'Mensaje del Error.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.observacion
+  is 'Observación.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.fec_insercion
+  is 'Fecha de inserción.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.usu_insercion
+  is 'Usuario inserción.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.fec_modificacion
+  is 'Fecha de modificación';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.usu_modificacion
+  is 'Usuario modificación';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.nro_factura
+  is 'Número de Referencia de Pago.';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.cod_moneda
+  is 'Moneda';
+comment on column IT.GE_PAG_RECAUDACIONES_ERR_HIS.tip_cobranza
+  is 'Tipo de Cobranza';
+create index IT.IND_COD_ENTE_SR on IT.GE_PAG_RECAUDACIONES_ERR_HIS (COD_ENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_FEC_OPE_SR on IT.GE_PAG_RECAUDACIONES_ERR_HIS (FEC_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_CTA_CRE_SR on IT.GE_PAG_RECAUDACIONES_ERR_HIS (NRO_CTA_CREDITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_CTA_DEB_SR on IT.GE_PAG_RECAUDACIONES_ERR_HIS (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

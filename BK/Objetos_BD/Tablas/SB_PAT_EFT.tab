@@ -1,0 +1,48 @@
+-- =====================================================================
+-- TABLA: IT.SB_PAT_EFT
+-- Descripción: Patrimonio efectivo del proceso de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_PAT_EFT (
+    ID                    NUMBER,
+    FECHA                 DATE,
+    DESCRIPCION           VARCHAR2(4000),
+    SECCION               VARCHAR2(60),
+    MONTO                 NUMBER,
+    TOTAL                 NUMBER,
+    COD_RUBRO             VARCHAR2(60),
+    ORDEN                 NUMBER,
+    USU_CREACION          VARCHAR2(30)        DEFAULT USER NOT NULL,
+    FEC_CREACION          DATE                DEFAULT SYSDATE NOT NULL,
+    USU_MODIFICACION      VARCHAR2(30)        DEFAULT USER NOT NULL,
+    FEC_MODIFICACION      DATE                DEFAULT SYSDATE NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.SB_PAT_EFT IS 'Patrimonio efectivo calculado por concepto para el informe de solvencia';
+COMMENT ON COLUMN IT.SB_PAT_EFT.ID IS 'Identificador unico del registro';
+COMMENT ON COLUMN IT.SB_PAT_EFT.FECHA IS 'Fecha de corte del calculo';
+COMMENT ON COLUMN IT.SB_PAT_EFT.DESCRIPCION IS 'Descripcion del concepto patrimonial';
+COMMENT ON COLUMN IT.SB_PAT_EFT.SECCION IS 'Seccion del patrimonio efectivo';
+COMMENT ON COLUMN IT.SB_PAT_EFT.MONTO IS 'Monto del concepto en guaranies';
+COMMENT ON COLUMN IT.SB_PAT_EFT.TOTAL IS 'Total acumulado de la seccion';
+COMMENT ON COLUMN IT.SB_PAT_EFT.COD_RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.SB_PAT_EFT.ORDEN IS 'Orden de presentacion en el informe';
+COMMENT ON COLUMN IT.SB_PAT_EFT.USU_CREACION IS 'Usuario que creo el registro';
+COMMENT ON COLUMN IT.SB_PAT_EFT.FEC_CREACION IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_PAT_EFT.USU_MODIFICACION IS 'Usuario que realizo la ultima modificacion';
+COMMENT ON COLUMN IT.SB_PAT_EFT.FEC_MODIFICACION IS 'Fecha de la ultima modificacion del registro';
+

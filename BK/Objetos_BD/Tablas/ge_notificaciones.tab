@@ -1,0 +1,82 @@
+create table IT.GE_NOTIFICACIONES
+(
+  nro_notificacion NUMBER(20) not null,
+  fecha            DATE,
+  env_por          VARCHAR2(100),
+  env_para         VARCHAR2(500),
+  asunto           VARCHAR2(500),
+  detalle          LONG,
+  cod_usuario      VARCHAR2(10),
+  tipo             VARCHAR2(100),
+  formato          VARCHAR2(100),
+  enviado          VARCHAR2(1) default 'N',
+  error            VARCHAR2(1) default 'N',
+  det_error        VARCHAR2(4000),
+  tip_notificacion NUMBER(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_NOTIFICACIONES
+  is 'Prueba de Mails.';
+comment on column IT.GE_NOTIFICACIONES.nro_notificacion
+  is 'Nro de Notificacion';
+comment on column IT.GE_NOTIFICACIONES.fecha
+  is 'Fecha de Notificacion';
+comment on column IT.GE_NOTIFICACIONES.env_por
+  is 'Enviado Por';
+comment on column IT.GE_NOTIFICACIONES.env_para
+  is 'Destinarario';
+comment on column IT.GE_NOTIFICACIONES.asunto
+  is 'Asunto';
+comment on column IT.GE_NOTIFICACIONES.detalle
+  is 'Detalle de email';
+comment on column IT.GE_NOTIFICACIONES.cod_usuario
+  is 'Codigo del Usuario.';
+comment on column IT.GE_NOTIFICACIONES.tipo
+  is 'Tipo de Notificacion';
+comment on column IT.GE_NOTIFICACIONES.formato
+  is 'Formato';
+comment on column IT.GE_NOTIFICACIONES.enviado
+  is 'Enviado S/N';
+comment on column IT.GE_NOTIFICACIONES.error
+  is 'Error S/N';
+comment on column IT.GE_NOTIFICACIONES.det_error
+  is 'Detalle de Error';
+comment on column IT.GE_NOTIFICACIONES.tip_notificacion
+  is 'Tipo de Notificacion';
+comment on column IT.GE_NOTIFICACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_NOTIFICACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_NOTIFICACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_NOTIFICACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_NOTIFICACIONES
+  add constraint PK_GE_NOTIFICACIONES primary key (NRO_NOTIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

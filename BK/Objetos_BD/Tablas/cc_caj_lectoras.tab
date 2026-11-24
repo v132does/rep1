@@ -1,0 +1,67 @@
+create table IT.CC_CAJ_LECTORAS
+(
+  cod_ofi_camara   NUMBER(3) not null,
+  nro_caj_lectora  NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  nro_caja         NUMBER(3),
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CAJ_LECTORAS
+  is 'Cajas definidas en la lectora.';
+comment on column IT.CC_CAJ_LECTORAS.cod_ofi_camara
+  is 'Oficina de Camara.';
+comment on column IT.CC_CAJ_LECTORAS.nro_caj_lectora
+  is 'Nro de caja definida en la lectora.';
+comment on column IT.CC_CAJ_LECTORAS.descripcion
+  is 'Descripcion de la caja.';
+comment on column IT.CC_CAJ_LECTORAS.nro_caja
+  is 'Numero de Caja en GESTION.';
+comment on column IT.CC_CAJ_LECTORAS.cod_ofi_origen
+  is 'Oficina origen de la caja.';
+comment on column IT.CC_CAJ_LECTORAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CAJ_LECTORAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CAJ_LECTORAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CAJ_LECTORAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CC_CAJ_LECTORAS
+  add constraint PK_CC_CAJ_LECTORAS primary key (COD_OFI_CAMARA, NRO_CAJ_LECTORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CAJ_LECTORAS
+  add constraint FK_CCCAL_COD_OFI_CAMARA foreign key (COD_OFI_CAMARA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CAJ_LECTORAS
+  add constraint FK_CCCAL_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CAJ_LECTORAS
+  add constraint FK_CCCAL_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+

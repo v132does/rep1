@@ -1,0 +1,103 @@
+-- Create table
+create table IT.BW_NOT_PAG_SUELDOS
+(
+  id               NUMBER default IT.S_BW_NOT_PAG_SUELDOS.NEXTVAL not null,
+  cod_persona      VARCHAR2(20) not null,
+  nro_cuenta       VARCHAR2(25) not null,
+  concepto         VARCHAR2(50) not null,
+  estado           VARCHAR2(50) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BW_NOT_PAG_SUELDOS
+  is 'Tabla para almacenar notificaciones de pagos de sueldos en el sistema de Homebanking.';
+-- Add comments to the columns 
+comment on column IT.BW_NOT_PAG_SUELDOS.id
+  is 'Identificador único autogenerado de la notificación.';
+comment on column IT.BW_NOT_PAG_SUELDOS.cod_persona
+  is 'Código de la persona asociada a la notificación.';
+comment on column IT.BW_NOT_PAG_SUELDOS.nro_cuenta
+  is 'Número de cuenta asociada a la notificación.';
+comment on column IT.BW_NOT_PAG_SUELDOS.concepto
+  is 'Concepto o descripción de la notificación de pago.';
+comment on column IT.BW_NOT_PAG_SUELDOS.estado
+  is 'Estado actual de la notificación (ej: PENDIENTE, PROCESADA, FALLIDA).';
+comment on column IT.BW_NOT_PAG_SUELDOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_NOT_PAG_SUELDOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_NOT_PAG_SUELDOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_NOT_PAG_SUELDOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_WNPSUE_COD_PERSONA on IT.BW_NOT_PAG_SUELDOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WNPSUE_ESTADO on IT.BW_NOT_PAG_SUELDOS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WNPSUE_FEC_INSERCION on IT.BW_NOT_PAG_SUELDOS (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BW_NOT_PAG_SUELDOS
+  add constraint PK_BW_NOT_PAG_SUELDOS primary key (ID)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_PAG_SUELDOS
+  add constraint FK_WNPSUE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BW_NOT_PAG_SUELDOS to IT_TEMPORAL;

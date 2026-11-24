@@ -1,0 +1,124 @@
+create table IT.CC_CHE_PAGADOS
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_cheque         NUMBER(15) not null,
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  monto              NUMBER(18,2) default 0 not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_transaccion    NUMBER(4) not null,
+  nro_caja           NUMBER(3),
+  cod_banco          NUMBER(3),
+  cod_ofi_origen     NUMBER(3) not null,
+  cod_cau_devolucion NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  nro_che_reactivado NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_PAGADOS
+  is 'Datos de Cheques Pagados.';
+comment on column IT.CC_CHE_PAGADOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CHE_PAGADOS.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_PAGADOS.fecha
+  is 'Fecha de Pago.';
+comment on column IT.CC_CHE_PAGADOS.hora
+  is 'Hora de Pago.';
+comment on column IT.CC_CHE_PAGADOS.cod_usuario
+  is 'Usuario que realizo el Pago.';
+comment on column IT.CC_CHE_PAGADOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.CC_CHE_PAGADOS.monto
+  is 'Monto Pagado.';
+comment on column IT.CC_CHE_PAGADOS.cod_modulo
+  is 'Codigo del Modulo Padre.';
+comment on column IT.CC_CHE_PAGADOS.cod_modalidad
+  is 'Codigo de la Modalidad Padre.';
+comment on column IT.CC_CHE_PAGADOS.cod_transaccion
+  is 'Codigo de Transaccion Padre.';
+comment on column IT.CC_CHE_PAGADOS.nro_caja
+  is 'Codigo de Transaccion Padre.';
+comment on column IT.CC_CHE_PAGADOS.cod_banco
+  is 'Codigo de Banco.';
+comment on column IT.CC_CHE_PAGADOS.cod_ofi_origen
+  is 'Codigo de Oficina Origen.';
+comment on column IT.CC_CHE_PAGADOS.cod_cau_devolucion
+  is 'Causa de Devolucion.';
+comment on column IT.CC_CHE_PAGADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_PAGADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_PAGADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_PAGADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_PAGADOS.nro_che_reactivado
+  is 'Numero de Cheque Reactivado (anterior).';
+create index IT.IN_CCPA_FECHA on IT.CC_CHE_PAGADOS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_PAGADOS
+  add constraint PK_CC_CHE_PAGADOS primary key (NRO_CHEQUE, NRO_CUENTA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_COD_CAU_DEVOLUCION foreign key (COD_CAU_DEVOLUCION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.CC_CHE_PAGADOS
+  add constraint FK_CCPAG_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

@@ -1,0 +1,70 @@
+create table IT.GE_EST_CUENTAS
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  estado           VARCHAR2(1) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  activo           VARCHAR2(1) default 'N' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EST_CUENTAS
+  is 'Catalogos de Estados de Cuentas.';
+comment on column IT.GE_EST_CUENTAS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.GE_EST_CUENTAS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.GE_EST_CUENTAS.estado
+  is 'Codigo de Estado.';
+comment on column IT.GE_EST_CUENTAS.descripcion
+  is 'Descripcion del Estado.';
+comment on column IT.GE_EST_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EST_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EST_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EST_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EST_CUENTAS.activo
+  is 'Indica si el estado corresponde a una cuenta activa o inactiva.';
+alter table IT.GE_EST_CUENTAS
+  add constraint PK_GE_EST_CUENTAS primary key (COD_MODULO, COD_MODALIDAD, ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EST_CUENTAS
+  add constraint FK_GECUE_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_EST_CUENTAS
+  add constraint AVCON_1104422393_ACTIV_000
+  check (ACTIVO IN ('S', 'N'));
+alter table IT.GE_EST_CUENTAS
+  add constraint AVCON_1104422393_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_EST_CUENTAS
+  add constraint AVCON_1104422393_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+

@@ -1,0 +1,37 @@
+create table IT.GE_MAI_ONB_TEMPLATES
+(
+  tip_producto     NUMBER not null,
+  descripcion      VARCHAR2(250) not null,
+  asunto           NVARCHAR2(500) not null,
+  template         CLOB not null,
+  ini_vigencia     DATE not null,
+  fin_vigencia     DATE not null,
+  fec_insercion    DATE default SYSDATE,
+  usu_insercion    VARCHAR2(10) default substr(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default substr(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_MAI_ONB_TEMPLATES.tip_producto
+  is 'Tipo de producto';
+comment on column IT.GE_MAI_ONB_TEMPLATES.descripcion
+  is 'Nombre del tipo de producto';
+comment on column IT.GE_MAI_ONB_TEMPLATES.asunto
+  is 'Asunto que se debe enviar en el mail';
+comment on column IT.GE_MAI_ONB_TEMPLATES.template
+  is 'Html a utilizar para armar el mail';
+comment on column IT.GE_MAI_ONB_TEMPLATES.ini_vigencia
+  is 'Inicio de vigencia';
+comment on column IT.GE_MAI_ONB_TEMPLATES.fin_vigencia
+  is 'Fin de vigencia';
+

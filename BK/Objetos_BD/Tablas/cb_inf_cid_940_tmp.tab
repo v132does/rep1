@@ -1,0 +1,36 @@
+create table IT.CB_INF_CID_940_TMP
+(
+  cidesa          VARCHAR2(200) not null,
+  cod_bco_central VARCHAR2(4) not null,
+  cod_moneda      VARCHAR2(4),
+  cod_modalidad   NUMBER(3),
+  tipo            VARCHAR2(1),
+  frecuencia      VARCHAR2(1),
+  fecha           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_INF_CID_940_TMP.cidesa
+  is 'Archivo Generado';
+comment on column IT.CB_INF_CID_940_TMP.cod_bco_central
+  is 'Codigo de Baco Central';
+comment on column IT.CB_INF_CID_940_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.CB_INF_CID_940_TMP.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.CB_INF_CID_940_TMP.tipo
+  is 'Tipo';
+comment on column IT.CB_INF_CID_940_TMP.frecuencia
+  is 'Frecuencia';
+comment on column IT.CB_INF_CID_940_TMP.fecha
+  is 'Fecha';
+

@@ -1,0 +1,64 @@
+create table IT.CR_PUN_PERSONAS_HIS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_puntaje      NUMBER(3) not null,
+  cod_campo        VARCHAR2(10) not null,
+  val_campo        VARCHAR2(30),
+  puntaje          NUMBER(3),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  fecha            DATE not null,
+  cod_gru_concepto VARCHAR2(3)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUN_PERSONAS_HIS
+  is 'Historico de Puntajes de Scoring por Concepto por Persona.';
+comment on column IT.CR_PUN_PERSONAS_HIS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PUN_PERSONAS_HIS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUN_PERSONAS_HIS.cod_campo
+  is 'Codigo de Campo.';
+comment on column IT.CR_PUN_PERSONAS_HIS.val_campo
+  is 'Valor del campo.';
+comment on column IT.CR_PUN_PERSONAS_HIS.puntaje
+  is 'Puntaje.';
+comment on column IT.CR_PUN_PERSONAS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PUN_PERSONAS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PUN_PERSONAS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_PERSONAS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_PERSONAS_HIS.fecha
+  is 'Fecha en que se realizo el calculo.';
+comment on column IT.CR_PUN_PERSONAS_HIS.cod_gru_concepto
+  is 'Codigo de Grupo de Concepto.';
+alter table IT.CR_PUN_PERSONAS_HIS
+  add constraint PK_CR_PUN_PERSONAS_HIS primary key (COD_PERSONA, COD_PUNTAJE, COD_CAMPO, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,72 @@
+create table IT.SIMGIA_TCC_CTA_CORRIENTES
+(
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_oficina         NUMBER(3) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  dig_verificador     NUMBER(1),
+  cod_moneda          VARCHAR2(3) not null,
+  denominacion        VARCHAR2(65) not null,
+  can_fir_requeridas  NUMBER(2),
+  can_fir_registradas NUMBER(2),
+  fec_apertura        DATE not null,
+  ret_personalizada   VARCHAR2(1) not null,
+  tas_personalizada   VARCHAR2(1) not null,
+  sal_minimo          NUMBER(18,2),
+  aut_pendiente       VARCHAR2(1) not null,
+  acu_sobregiro       VARCHAR2(1),
+  tra_prohibida       VARCHAR2(1) not null,
+  cta_combinada       VARCHAR2(1) not null,
+  cod_usu_promotor    VARCHAR2(10),
+  estado              VARCHAR2(1) not null,
+  fec_ult_extracto    DATE,
+  sal_ult_extracto    NUMBER(18,2),
+  nro_folio           NUMBER(7),
+  fec_cam_estado      DATE,
+  fec_ult_movimiento  DATE,
+  hor_ult_movimiento  VARCHAR2(8),
+  sal_ret_batch       NUMBER(18,2) not null,
+  sal_retenido        NUMBER(18,2) not null,
+  sal_blo_batch       NUMBER(18,2) not null,
+  sal_bloqueado       NUMBER(18,2) not null,
+  sal_tot_batch       NUMBER(18,2) not null,
+  sal_total           NUMBER(18,2) not null,
+  nom_chequera        VARCHAR2(60),
+  mto_apertura        NUMBER(18,2),
+  cod_canal           NUMBER(3),
+  cod_campana         NUMBER(3),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  est_batch           VARCHAR2(1),
+  fre_extracto        VARCHAR2(1),
+  mto_cre_pendientes  NUMBER(18,2),
+  mto_cre_a_confirmar NUMBER(18,2),
+  cod_ente            NUMBER(5),
+  mto_deb_pendientes  NUMBER(18,2),
+  reg_firma           VARCHAR2(600),
+  en_juicio           VARCHAR2(1),
+  fec_juicio          DATE,
+  cod_ent_juicio      NUMBER(5),
+  cod_cau_cancelacion NUMBER(3),
+  dia_atraso          NUMBER(5),
+  max_atraso          NUMBER(5),
+  pro_atraso          NUMBER(5),
+  mto_mora            NUMBER(18,2),
+  mto_sob_suspenso    NUMBER(18,2),
+  cod_banco           NUMBER(3),
+  cod_sub_modalidad   NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

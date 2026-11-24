@@ -1,0 +1,58 @@
+create table IT.TA_COB_ESP_VIP_TMP
+(
+  cod_transaccion VARCHAR2(3) not null,
+  fecha           DATE not null,
+  nro_tarjeta     VARCHAR2(20) not null,
+  marca           VARCHAR2(5),
+  tip_tarjeta     VARCHAR2(5),
+  cod_servicio    VARCHAR2(5),
+  cod_prestacion  VARCHAR2(5),
+  tip_transaccion VARCHAR2(20),
+  monto           NUMBER(18,2) not null,
+  cod_respuesta   NUMBER(5) not null,
+  nro_boleta      NUMBER(18) not null,
+  procesado       VARCHAR2(1) default 'N',
+  observacion     VARCHAR2(1000),
+  fec_insercion   DATE default SYSDATE,
+  usu_insercion   VARCHAR2(10) default USER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_COB_ESP_VIP_TMP
+  is 'Tabla temporal de transacciones generadas por uso del espacio VIP en Aereopuerto ';
+comment on column IT.TA_COB_ESP_VIP_TMP.cod_transaccion
+  is 'Codigo de Transaccion';
+comment on column IT.TA_COB_ESP_VIP_TMP.fecha
+  is 'Fecha de Transaccion';
+comment on column IT.TA_COB_ESP_VIP_TMP.nro_tarjeta
+  is 'Nro. de Tarjeta';
+comment on column IT.TA_COB_ESP_VIP_TMP.marca
+  is 'Marca de Tarjeta: VISA, MASTERCARD, BANCARDCHECK';
+comment on column IT.TA_COB_ESP_VIP_TMP.tip_tarjeta
+  is 'Tipo de Tarjeta: Oro, Black, Clasica';
+comment on column IT.TA_COB_ESP_VIP_TMP.cod_servicio
+  is 'Codigo de Servicio: Atm, Pos, Web';
+comment on column IT.TA_COB_ESP_VIP_TMP.cod_prestacion
+  is 'Codigo de Prestacion del Servico: TC, TD';
+comment on column IT.TA_COB_ESP_VIP_TMP.tip_transaccion
+  is 'Tipo de Transaccion: L-Local, I-Internacional';
+comment on column IT.TA_COB_ESP_VIP_TMP.monto
+  is 'Monto de la Transaccion';
+comment on column IT.TA_COB_ESP_VIP_TMP.cod_respuesta
+  is 'Codigo de respuesta';
+comment on column IT.TA_COB_ESP_VIP_TMP.nro_boleta
+  is 'Nro. de boleta';
+comment on column IT.TA_COB_ESP_VIP_TMP.fec_insercion
+  is 'Fecha Insercion';
+comment on column IT.TA_COB_ESP_VIP_TMP.usu_insercion
+  is 'Usuario Insercion';
+

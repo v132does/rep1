@@ -1,0 +1,97 @@
+create table IT.RH_IDIOMAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_tip_idioma   NUMBER(3) not null,
+  ind_habla        VARCHAR2(1) default 'N' not null,
+  ind_lee          VARCHAR2(1) default 'N' not null,
+  ind_escribe      VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_IDIOMAS
+  is 'Idiomas que habla el Empleado.';
+comment on column IT.RH_IDIOMAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_IDIOMAS.cod_tip_idioma
+  is 'Codigo del Tipo de Idioma.';
+comment on column IT.RH_IDIOMAS.ind_habla
+  is 'Indica si habla o no en dicho Idioma.';
+comment on column IT.RH_IDIOMAS.ind_lee
+  is 'Indica si lee o no en dicho Idioma.';
+comment on column IT.RH_IDIOMAS.ind_escribe
+  is 'Indica si escribe o no en dicho Idioma.';
+comment on column IT.RH_IDIOMAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_IDIOMAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_IDIOMAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro';
+comment on column IT.RH_IDIOMAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HIDIO_COD_PERSONA on IT.RH_IDIOMAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HIDIO_COD_TIP_IDIOMA on IT.RH_IDIOMAS (COD_TIP_IDIOMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_IDIOMAS
+  add constraint PK_RH_IDIOMAS primary key (COD_PERSONA, COD_TIP_IDIOMA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_IDIOMAS
+  add constraint FK_HIDIO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_IDIOMAS
+  add constraint FK_HIDIO_TIP_IDIOMA foreign key (COD_TIP_IDIOMA)
+  references IT.RH_TIP_IDIOMAS (COD_TIP_IDIOMA);
+alter table IT.RH_IDIOMAS
+  add constraint AVCON_1191539475_IND_E_000
+  check (IND_ESCRIBE IN ('S', 'N'));
+alter table IT.RH_IDIOMAS
+  add constraint AVCON_1191539475_IND_H_000
+  check (IND_HABLA IN ('S', 'N'));
+alter table IT.RH_IDIOMAS
+  add constraint AVCON_1191539475_IND_L_000
+  check (IND_LEE IN ('S', 'N'));
+

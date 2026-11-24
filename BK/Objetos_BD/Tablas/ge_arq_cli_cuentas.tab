@@ -1,0 +1,124 @@
+create table IT.GE_ARQ_CLI_CUENTAS
+(
+  cod_persona       VARCHAR2(10) not null,
+  fec_extracto      DATE not null,
+  cod_extracto      NUMBER(5) not null,
+  fre_extracto      VARCHAR2(1) not null,
+  nro_cuenta        VARCHAR2(20) not null,
+  tip_cuenta        VARCHAR2(1),
+  cod_modalidad     NUMBER(3),
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  sal_anterior      NUMBER(18,2) default 0,
+  sal_actual        NUMBER(18,2) default 0,
+  sal_a_confirmar   NUMBER(18,2) default 0,
+  nro_folio         NUMBER(7),
+  tas_retorno       NUMBER(20,4),
+  tas_nominal       NUMBER(20,4),
+  tas_efectiva      NUMBER(20,4),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE,
+  sal_promedio      NUMBER(18,2) default 0,
+  nro_cta_combinada VARCHAR2(15),
+  concepto          VARCHAR2(100),
+  cod_per_empresa   VARCHAR2(10),
+  sal_bloqueado     NUMBER(18,2) default 0,
+  sal_blo_anterior  NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARQ_CLI_CUENTAS
+  is 'Saldos de Cuentas de Clientes del Extracto Unico ** Mantener seis meses **';
+comment on column IT.GE_ARQ_CLI_CUENTAS.cod_persona
+  is 'Codigo del Cliente.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.fec_extracto
+  is 'Fecha del Extracto.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.cod_extracto
+  is 'Codigo de Extracto.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.fre_extracto
+  is 'Frecuencia del Extracto (M=MENSUAL, S=SEMANAL, D=DIARIA).';
+comment on column IT.GE_ARQ_CLI_CUENTAS.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.tip_cuenta
+  is 'Tipo de Cuenta (A=Activa / P = Pasiva).';
+comment on column IT.GE_ARQ_CLI_CUENTAS.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.cod_oficina
+  is 'Oficina de la Cuenta.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.sal_anterior
+  is 'Saldo Anterior.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.sal_actual
+  is 'Saldo Actual.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.sal_a_confirmar
+  is 'Saldo a confirmar.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.nro_folio
+  is 'Numero de Folio.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.tas_retorno
+  is 'Valor de la Tasa de Retorno.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.tas_nominal
+  is 'Valor de la Tasa Nominal.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.tas_efectiva
+  is 'Valor de la Tasa Efectiva.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.sal_promedio
+  is 'Saldo Promedio.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.nro_cta_combinada
+  is 'Numero de cuenta de cuenta combinada.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.concepto
+  is 'Dato Adicional para denominacion de la cuenta';
+comment on column IT.GE_ARQ_CLI_CUENTAS.cod_per_empresa
+  is 'Codigo de persona de la empresa pagadora.';
+comment on column IT.GE_ARQ_CLI_CUENTAS.sal_bloqueado
+  is 'Total de Saldo Bloqueado';
+comment on column IT.GE_ARQ_CLI_CUENTAS.sal_blo_anterior
+  is 'Total de Saldo Bloqueado anterior';
+create index IT.IN_GEDAU_NRO_CUENTA on IT.GE_ARQ_CLI_CUENTAS (NRO_CUENTA, FEC_EXTRACTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARQ_CLI_CUENTAS
+  add constraint PK_GE_ARQ_CLI_CUENTAS primary key (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARQ_CLI_CUENTAS
+  add constraint AVCOT_1085596035_TIP_C_000
+  check (TIP_CUENTA IN ('P', 'A'));
+

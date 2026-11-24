@@ -1,0 +1,47 @@
+-- =====================================================================
+-- TABLA: IT.SB_ANX_SOL_RESULTADOS
+-- Descripción: Resultados para los anexos de garantías de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_ANX_SOL_RESULTADOS (
+    ID_ANEXO              NUMBER,
+    FECHA                 DATE,
+    CLASIFICACION         VARCHAR2(1),
+    RUBRO                 VARCHAR2(100),
+    DESCRIPCION           VARCHAR2(100),
+    COD_MONEDA            VARCHAR2(3),
+    TOTAL_BALANCE         NUMBER,
+    SECCION               VARCHAR2(100),
+    FUENTE_DATOS          VARCHAR2(100),
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_ANX_SOL_ID_ANX  ON IT.SB_ANX_SOL_RESULTADOS(ID_ANEXO) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_ANX_SOL_RESULTADOS IS 'Resultados del anexo de garantias de solvencia por rubro y moneda';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.ID_ANEXO IS 'Identificador unico del registro';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.FECHA IS 'Fecha de corte del anexo';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.CLASIFICACION IS 'Clasificacion del rubro (a, b, c, d, e, f)';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.DESCRIPCION IS 'Descripcion del rubro o concepto';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.COD_MONEDA IS 'Codigo de moneda (ISO 4217)';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.TOTAL_BALANCE IS 'Saldo total del rubro en la moneda indicada';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.SECCION IS 'Seccion del informe a la que pertenece el rubro';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.FUENTE_DATOS IS 'Fuente de datos utilizada';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_ANX_SOL_RESULTADOS.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';

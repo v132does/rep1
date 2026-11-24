@@ -1,0 +1,44 @@
+-- Create table
+create table IT.BA_PER_INF_BASICAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  ibc              CLOB,
+  usu_insercion    VARCHAR2(10) default substr(user, 1, 10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user, 1, 10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BA_PER_INF_BASICAS
+  is 'Tabla para almacenar IBC (información básica del cliente)';
+-- Add comments to the columns 
+comment on column IT.BA_PER_INF_BASICAS.cod_persona
+  is 'Código de la persona';
+comment on column IT.BA_PER_INF_BASICAS.ibc
+  is 'Información básica del cliente';
+comment on column IT.BA_PER_INF_BASICAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BA_PER_INF_BASICAS.fec_insercion
+  is 'Fecha de inserción del registro';
+comment on column IT.BA_PER_INF_BASICAS.usu_modificacion
+  is 'Usuario que realizó la modificación del registro';
+comment on column IT.BA_PER_INF_BASICAS.fec_modificacion
+  is 'Fecha de modificación del registro';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BA_PER_INF_BASICAS
+  add constraint PK_BA_PER_INF_BASICAS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255;

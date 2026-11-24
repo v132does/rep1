@@ -1,0 +1,49 @@
+create table IT.SB_ANA_LIQ_TMP_AS400
+(
+  moneda        NUMBER,
+  cuentas       VARCHAR2(15),
+  monto         NUMBER,
+  cuenta        VARCHAR2(15),
+  dias          NUMBER,
+  dias_real     NUMBER,
+  cod_modulo    NUMBER(3),
+  cod_modalidad NUMBER(3),
+  cod_persona   VARCHAR2(10),
+  analiq        VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ANA_LIQ_AS400_CUENTA on IT.SB_ANA_LIQ_TMP_AS400 (CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ANA_LIQ_AS400_CUENTAS on IT.SB_ANA_LIQ_TMP_AS400 (CUENTAS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

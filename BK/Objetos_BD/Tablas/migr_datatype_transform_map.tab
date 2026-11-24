@@ -1,0 +1,48 @@
+create table IT.MIGR_DATATYPE_TRANSFORM_MAP
+(
+  id                NUMBER not null,
+  project_id_fk     NUMBER not null,
+  map_name          VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MIGR_DATATYPE_TRANSFORM_MAP
+  is 'Table for storing data type maps.  A map is simply a collection of rules';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_MAP.id
+  is 'Primary Key';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_MAP.project_id_fk
+  is '//PARENTFIELD';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_MAP.map_name
+  is 'A name for the map';
+alter table IT.MIGR_DATATYPE_TRANSFORM_MAP
+  add constraint MIGR_DATATYPE_TRANSFORM_M_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MIGR_DATATYPE_TRANSFORM_MAP
+  add constraint MIGR_DATATYPE_TRANSFORM_M_FK1 foreign key (PROJECT_ID_FK)
+  references IT.MD_PROJECTS (ID) on delete cascade;
+

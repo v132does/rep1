@@ -1,0 +1,4 @@
+create or replace force view it.simgia_maegarante_anterior as
+select "RCLIENTE","RMODALIDAD","RNUMERO","RSUCURSAL","RCUENTA","RFCHACONST","RFCHAVCTO","RDIVISA","RMONTO","RTASACION","REXCESO","RSEGVCTO","RFCHATASAC","RNESCRITU","RESCRIBA","RDESCRIP","RBANDBENEF","RSERVICIO","FECHA_HIS"
+from simgia_maegarante_bkp a;
+

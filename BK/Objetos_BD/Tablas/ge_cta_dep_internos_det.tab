@@ -1,0 +1,103 @@
+create table IT.GE_CTA_DEP_INTERNOS_DET
+(
+  ano                VARCHAR2(4) not null,
+  mes                VARCHAR2(2) not null,
+  tip_saldo          VARCHAR2(1) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  fec_ult_proceso    DATE,
+  estado             VARCHAR2(1),
+  cod_moneda         VARCHAR2(3),
+  cod_oficina        NUMBER(3) not null,
+  cod_transaccion    NUMBER(4),
+  can_dia_acumulados NUMBER(3),
+  sal_acumulado      NUMBER(18,2),
+  sal_promedio       NUMBER(18,2),
+  val_tasa           NUMBER(20,4) not null,
+  mto_dep_interno    NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default substr(user,1,10),
+  fec_insercion      DATE default sysdate,
+  usu_modificacion   VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion   DATE default sysdate,
+  mto_dep_mon_local  NUMBER(18,2),
+  cod_tasa           NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_DEP_INTERNOS_DET
+  is 'Tabla que registra el cálculo del costo de Depositos Internos por Cuenta de Clientes.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.ano
+  is 'Año.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.mes
+  is 'Mes.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.tip_saldo
+  is 'Tipo de Saldo de la Cuenta (A - Activa, P - Pasiva).';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.fec_ult_proceso
+  is 'Indica la última fecha en que se ejecuto el proceso.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.cod_moneda
+  is 'Código de la Moneda de la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.cod_oficina
+  is 'Código de Oficina de la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.cod_transaccion
+  is 'Código de Transacción.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.can_dia_acumulados
+  is 'Cantidad de días acumulados de la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.sal_acumulado
+  is 'Saldo acumulado de la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.sal_promedio
+  is 'Saldo promedio de la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.val_tasa
+  is 'Valor de la tasa aplicado para el cálculo del costo por Deposito Interno.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.mto_dep_interno
+  is 'Importe del costo por Deposito Interno aplicado a la Cuenta.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.fec_modificacion
+  is 'Fecha de modificación del registro.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.mto_dep_mon_local
+  is 'Acumulado diario DI de las operaciones en moneda extranjera expresando en moneda local.';
+comment on column IT.GE_CTA_DEP_INTERNOS_DET.cod_tasa
+  is 'Código de la tasa aplicado para el cálculo del costo por Deposito Interno.';
+create index IT.IN_GCTM_ANHO on IT.GE_CTA_DEP_INTERNOS_DET (ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CTA_DEP_INTERNOS_DET
+  add constraint PK_GE_CTA_DEP_INTERNOS_DET_TMP primary key (ANO, MES, TIP_SALDO, NRO_CUENTA, VAL_TASA, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,103 @@
+create table IT.CJ_MOV_PRODEP
+(
+  nro_referencia   VARCHAR2(15) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) default 1 not null,
+  cod_tra_padre    NUMBER(4),
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_oficina      NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  nro_caja         NUMBER(3),
+  nro_cuenta       VARCHAR2(15),
+  monto            NUMBER(18,2) default 0 not null,
+  estado           VARCHAR2(1) default 'N' not null,
+  nro_documento    NUMBER(15),
+  tip_monto        VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_MOV_PRODEP
+  is 'Transacciones en Caja a registrar en Sistema Prodep **';
+comment on column IT.CJ_MOV_PRODEP.nro_referencia
+  is 'Numero de Referencia (Referencia en Prodep).';
+comment on column IT.CJ_MOV_PRODEP.fecha
+  is 'Fecha de la Transaccion.';
+comment on column IT.CJ_MOV_PRODEP.hora
+  is 'Hora de la Transaccion.';
+comment on column IT.CJ_MOV_PRODEP.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.CJ_MOV_PRODEP.nro_secuencia
+  is 'Numero de Secuencia.';
+comment on column IT.CJ_MOV_PRODEP.cod_tra_padre
+  is 'Codigo de Transaccion.';
+comment on column IT.CJ_MOV_PRODEP.cod_mod_padre
+  is 'Codigo de Modulo Padre.';
+comment on column IT.CJ_MOV_PRODEP.cod_mad_padre
+  is 'Codigo de Modalidad Padre.';
+comment on column IT.CJ_MOV_PRODEP.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CJ_MOV_PRODEP.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CJ_MOV_PRODEP.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CJ_MOV_PRODEP.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CJ_MOV_PRODEP.monto
+  is 'Importe de la Transaccion.';
+comment on column IT.CJ_MOV_PRODEP.estado
+  is 'Estado del Movimiento.';
+comment on column IT.CJ_MOV_PRODEP.nro_documento
+  is 'Numero de Documento (Boleta).';
+comment on column IT.CJ_MOV_PRODEP.tip_monto
+  is 'Tipo de Monto (C=Cargo Nuestro, O=Cargo Otros(RET. 1), T=Otros.Bcos(RET 2), S=Otros.Bcos(RET 3).';
+comment on column IT.CJ_MOV_PRODEP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_MOV_PRODEP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_MOV_PRODEP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_MOV_PRODEP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_BBVA_MOV_PRODEP on IT.CJ_MOV_PRODEP (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FEC_PRODEP on IT.CJ_MOV_PRODEP (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_MOV_PRODEP
+  add constraint PK_CJ_MOV_PRODEP primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA);
+

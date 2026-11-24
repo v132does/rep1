@@ -1,0 +1,26 @@
+create table IT.GE_CTA_CLIENTES_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  dig_verificador  NUMBER(1) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  relacion         VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

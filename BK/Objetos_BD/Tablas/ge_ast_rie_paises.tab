@@ -1,0 +1,49 @@
+create table IT.GE_AST_RIE_PAISES
+(
+  cod_rie_pais     NUMBER(8) not null,
+  descripcion      VARCHAR2(60),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AST_RIE_PAISES
+  is 'Tabla de Definición de Riesgo Países.';
+comment on column IT.GE_AST_RIE_PAISES.cod_rie_pais
+  is 'Codigo de Grupo de Transacción ASSIST.';
+comment on column IT.GE_AST_RIE_PAISES.descripcion
+  is 'Descripción del Grupo de ASSIST.';
+comment on column IT.GE_AST_RIE_PAISES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_AST_RIE_PAISES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_AST_RIE_PAISES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AST_RIE_PAISES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_AST_RIE_PAISES
+  add constraint PK_GE_AST_RIE_PAISES primary key (COD_RIE_PAIS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

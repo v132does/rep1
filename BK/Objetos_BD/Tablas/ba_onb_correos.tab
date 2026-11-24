@@ -1,0 +1,72 @@
+create table IT.BA_ONB_CORREOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  apodo            VARCHAR2(120),
+  tip_producto     NUMBER not null,
+  estado           VARCHAR2(1) default 'P' not null,
+  fec_registro     DATE default sysdate,
+  fec_envio        DATE,
+  mensaje          LONG,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  nro_correo       NUMBER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ONB_CORREOS
+  is 'Registro de mails a enviar a los clientes';
+comment on column IT.BA_ONB_CORREOS.cod_persona
+  is 'codigo de persona ITGF';
+comment on column IT.BA_ONB_CORREOS.apodo
+  is 'apodo de la persona';
+comment on column IT.BA_ONB_CORREOS.tip_producto
+  is 'tipo de producto';
+comment on column IT.BA_ONB_CORREOS.estado
+  is 'estados (P)pendiente (S)enviado (E)error';
+comment on column IT.BA_ONB_CORREOS.fec_registro
+  is 'fecha de registro';
+comment on column IT.BA_ONB_CORREOS.fec_envio
+  is 'fecha de envio del mensaje';
+comment on column IT.BA_ONB_CORREOS.mensaje
+  is 'mensaje a enviar';
+comment on column IT.BA_ONB_CORREOS.nro_correo
+  is 'contador de correos por persona';
+-- Create/Recreate indexes 
+create index IT.IN_BONBCO_ESTADO on IT.BA_ONB_CORREOS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ONB_CORREOS
+  add constraint PK_BA_ONB_CORREOS primary key (NRO_CORREO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

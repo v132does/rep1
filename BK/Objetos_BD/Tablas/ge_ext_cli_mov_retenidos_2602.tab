@@ -1,0 +1,32 @@
+create table IT.GE_EXT_CLI_MOV_RETENIDOS_2602
+(
+  fec_extracto     DATE not null,
+  cod_retencion    NUMBER(3) not null,
+  nro_documento    NUMBER(15),
+  cod_persona      VARCHAR2(10) not null,
+  monto            NUMBER(18,2),
+  fec_movimiento   DATE not null,
+  fec_liberacion   DATE,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  fre_extracto     VARCHAR2(1) not null,
+  cod_extracto     NUMBER(5) not null,
+  nro_linea        NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,21 @@
+create table IT.TA_CLI_ADHERIDOS
+(
+  cod_persona  VARCHAR2(10) not null,
+  id_titular   VARCHAR2(20) not null,
+  id_pais      VARCHAR2(3),
+  fec_adhesion DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CLI_ADHERIDOS
+  is 'Tabla de clientes adheridos del proyecto Futbol Non Stop';
+

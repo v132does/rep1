@@ -1,0 +1,33 @@
+create table IT.SB_LOG_CRC
+(
+  fecha          DATE,
+  nom_referencia VARCHAR2(10),
+  usu_insercion  VARCHAR2(10),
+  fec_insercion  DATE,
+  mensaje        VARCHAR2(1000),
+  nro_registro   NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_LOG_CRC.fecha
+  is 'Fecha de Generación del Log.';
+comment on column IT.SB_LOG_CRC.nom_referencia
+  is 'Nombre de Archivos Referencia (Ej.: VINCULOS)';
+comment on column IT.SB_LOG_CRC.usu_insercion
+  is 'Usuario que Realiza la Inserción del Registro.';
+comment on column IT.SB_LOG_CRC.fec_insercion
+  is 'Fecha Inserción del Proceso.';
+comment on column IT.SB_LOG_CRC.mensaje
+  is 'Mensaje de Error.';
+comment on column IT.SB_LOG_CRC.nro_registro
+  is 'Nro. de Registro para Identificar el registro con error.';
+

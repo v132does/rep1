@@ -1,0 +1,84 @@
+create table IT.GE_EQF_FAJ_SCORING
+(
+  nro_solicitud      NUMBER(10) not null,
+  nro_secuencia      NUMBER(5) not null,
+  cod_persona        VARCHAR2(10) not null,
+  fec_consulta       DATE,
+  hor_consulta       VARCHAR2(10),
+  nom_ser_webservice VARCHAR2(50),
+  faja               VARCHAR2(5),
+  pro_inicial        NUMBER(20,2),
+  pro_final          NUMBER(20,2),
+  ran_sco_inicial    NUMBER(20,2),
+  ran_sco_final      NUMBER(20,2),
+  msg_error          VARCHAR2(4000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_FAJ_SCORING.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_FAJ_SCORING.nro_secuencia
+  is 'Nro de secuencia por solicitud';
+comment on column IT.GE_EQF_FAJ_SCORING.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_FAJ_SCORING.fec_consulta
+  is 'Fecha de la consulta al servicio web';
+comment on column IT.GE_EQF_FAJ_SCORING.hor_consulta
+  is 'Hora de la consulta al servicio web';
+comment on column IT.GE_EQF_FAJ_SCORING.nom_ser_webservice
+  is 'Nombre del servicio web consultado';
+comment on column IT.GE_EQF_FAJ_SCORING.faja
+  is 'Faja buró informconf';
+comment on column IT.GE_EQF_FAJ_SCORING.pro_inicial
+  is 'Probabilidad inicial';
+comment on column IT.GE_EQF_FAJ_SCORING.pro_final
+  is 'Probabilidad final';
+comment on column IT.GE_EQF_FAJ_SCORING.ran_sco_inicial
+  is 'Rango score inicial';
+comment on column IT.GE_EQF_FAJ_SCORING.ran_sco_final
+  is 'Rango score final';
+comment on column IT.GE_EQF_FAJ_SCORING.msg_error
+  is 'Mensaje de error del webservice si lo hubiere';
+create index IT.IN_SCORI_PER_SOL_FEC on IT.GE_EQF_FAJ_SCORING (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_FAJ_SCORING
+  add constraint PK_GE_EQF_FAJ_SCORING primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_FAJ_SCORING
+  add constraint FK_EQFSC_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_EQF_SOLICITUDES (NRO_SOLICITUD) on delete cascade;
+

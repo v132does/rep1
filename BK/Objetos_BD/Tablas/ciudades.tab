@@ -1,0 +1,45 @@
+create table IT.CIUDADES
+(
+  cod_ciudad       NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  cod_pais         NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_departamento NUMBER(3),
+  cod_postal       VARCHAR2(10),
+  cod_ciu          NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CIUDADES
+  is 'Ciudades.';
+comment on column IT.CIUDADES.cod_ciudad
+  is 'Codigo de Ciudad.';
+comment on column IT.CIUDADES.descripcion
+  is 'Nombre de Ciudad.';
+comment on column IT.CIUDADES.cod_pais
+  is 'Codigo de Pais.';
+comment on column IT.CIUDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CIUDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CIUDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CIUDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CIUDADES.cod_departamento
+  is 'Codigo de Departamento o Provincia.';
+comment on column IT.CIUDADES.cod_postal
+  is 'Codigo Postal.';
+

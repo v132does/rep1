@@ -1,0 +1,134 @@
+create table IT.GE_VAL_CTA_GNB
+(
+  nro_cuenta       VARCHAR2(100) not null,
+  nro_documento    VARCHAR2(100),
+  cod_mod_it       VARCHAR2(100),
+  cod_mod_bt       VARCHAR2(100),
+  mon_cta_cli_bt   VARCHAR2(10),
+  mon_cta_cli_it   VARCHAR2(10),
+  nro_referencia   VARCHAR2(50),
+  nro_ref_bt       VARCHAR2(50),
+  fecha            DATE,
+  imp_ttr          NUMBER(18,4),
+  imp_cre          NUMBER(18,4),
+  cotizacion       NUMBER(18,4),
+  nom_cliente      VARCHAR2(3000),
+  mon_cta_cli_itbt VARCHAR2(10),
+  hor_ini          VARCHAR2(30),
+  hor_fin          VARCHAR2(30),
+  observacion      VARCHAR2(3000),
+  dat_adicional    VARCHAR2(3000),
+  respuesta        VARCHAR2(3000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_VAL_CTA_GNB
+  is 'Validacion de Cuentas GNB';
+comment on column IT.GE_VAL_CTA_GNB.nro_cuenta
+  is 'Numero de Cuenta de GNB';
+comment on column IT.GE_VAL_CTA_GNB.nro_documento
+  is 'Nro Documento de Cliente';
+comment on column IT.GE_VAL_CTA_GNB.cod_mod_it
+  is 'Modulo IT';
+comment on column IT.GE_VAL_CTA_GNB.cod_mod_bt
+  is 'Modulo BT';
+comment on column IT.GE_VAL_CTA_GNB.mon_cta_cli_bt
+  is 'Moneda BT';
+comment on column IT.GE_VAL_CTA_GNB.mon_cta_cli_it
+  is 'Moneda ITGF';
+comment on column IT.GE_VAL_CTA_GNB.nro_referencia
+  is 'Nro de Referencia de la operacion';
+comment on column IT.GE_VAL_CTA_GNB.nro_ref_bt
+  is 'Nro de Referencia BT';
+comment on column IT.GE_VAL_CTA_GNB.fecha
+  is 'Fecha';
+comment on column IT.GE_VAL_CTA_GNB.imp_ttr
+  is 'Importe de Transferencia';
+comment on column IT.GE_VAL_CTA_GNB.imp_cre
+  is 'Importe de Crédito';
+comment on column IT.GE_VAL_CTA_GNB.cotizacion
+  is 'Cotizacion';
+comment on column IT.GE_VAL_CTA_GNB.nom_cliente
+  is 'Nombre Cliente';
+comment on column IT.GE_VAL_CTA_GNB.mon_cta_cli_itbt
+  is 'Moneda BT/ITGF';
+comment on column IT.GE_VAL_CTA_GNB.hor_ini
+  is 'Hora Inicio Llamado';
+comment on column IT.GE_VAL_CTA_GNB.hor_fin
+  is 'Hora Fin Llamado';
+comment on column IT.GE_VAL_CTA_GNB.observacion
+  is 'Observacion';
+comment on column IT.GE_VAL_CTA_GNB.dat_adicional
+  is 'Dato Adicional';
+comment on column IT.GE_VAL_CTA_GNB.respuesta
+  is 'Respuesta GNB';
+comment on column IT.GE_VAL_CTA_GNB.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.GE_VAL_CTA_GNB.fec_insercion
+  is 'Fecha de Insercion del Registro';
+comment on column IT.GE_VAL_CTA_GNB.usu_modificacion
+  is 'Usuario Modificación';
+comment on column IT.GE_VAL_CTA_GNB.fec_modificacion
+  is 'Fecha de Modificación';
+create index IT.IND_FEC_NRO_REF on IT.GE_VAL_CTA_GNB (FECHA, NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_FEC_PROCESO on IT.GE_VAL_CTA_GNB (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_VAL_CTA_GNB on IT.GE_VAL_CTA_GNB (NRO_CUENTA, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_REFERENCIA on IT.GE_VAL_CTA_GNB (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

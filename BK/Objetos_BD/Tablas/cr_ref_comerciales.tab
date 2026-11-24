@@ -1,0 +1,172 @@
+create table IT.CR_REF_COMERCIALES
+(
+  cod_persona         VARCHAR2(10) not null,
+  cod_referencia      NUMBER(1) not null,
+  tip_referencia      VARCHAR2(1) not null,
+  nro_secuencia       NUMBER(5) not null,
+  des_entidad         VARCHAR2(50) not null,
+  cod_tip_cuenta      NUMBER(3),
+  nro_cuenta          VARCHAR2(16),
+  cod_moneda          VARCHAR2(3),
+  val_credito         NUMBER(18,2) default 0,
+  sal_credito         NUMBER(18,2) default 0,
+  val_cuota           NUMBER(18,2) default 0,
+  fec_apertura        DATE,
+  fec_vencimiento     DATE,
+  des_garantia        VARCHAR2(160),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  cod_ente            NUMBER(5),
+  telefono            VARCHAR2(20),
+  est_verificacion    VARCHAR2(1) default 'N' not null,
+  cod_usu_verificador VARCHAR2(10),
+  obs_verificacion    VARCHAR2(1000),
+  fec_verificacion    DATE,
+  can_cuotas          NUMBER(4),
+  can_pagadas         NUMBER(4),
+  mto_linea           NUMBER(18,2) default 0,
+  mto_mensual         NUMBER(18,2) default 0,
+  max_atraso          NUMBER(4),
+  pro_atraso          NUMBER(4),
+  adm_tarjeta         VARCHAR2(1) default 'B',
+  sal_administradora  NUMBER(18,2),
+  dia_atraso          NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_REF_COMERCIALES
+  is 'Referencia Comercial - Bancaria.';
+comment on column IT.CR_REF_COMERCIALES.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.CR_REF_COMERCIALES.cod_referencia
+  is 'Evaluacion de la Referencia.';
+comment on column IT.CR_REF_COMERCIALES.tip_referencia
+  is 'Tipo de Referencia C - Comercial, B - Bancaria, T -  Tarjetas.';
+comment on column IT.CR_REF_COMERCIALES.nro_secuencia
+  is 'Secuencia.';
+comment on column IT.CR_REF_COMERCIALES.des_entidad
+  is 'Nombre de la Entidad.';
+comment on column IT.CR_REF_COMERCIALES.cod_tip_cuenta
+  is 'Tipo de Cuenta.';
+comment on column IT.CR_REF_COMERCIALES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CR_REF_COMERCIALES.cod_moneda
+  is 'Moneda.';
+comment on column IT.CR_REF_COMERCIALES.val_credito
+  is 'Valor del Credito.';
+comment on column IT.CR_REF_COMERCIALES.sal_credito
+  is 'Saldo del Credito.';
+comment on column IT.CR_REF_COMERCIALES.val_cuota
+  is 'Valor de la Cuota.';
+comment on column IT.CR_REF_COMERCIALES.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.CR_REF_COMERCIALES.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.CR_REF_COMERCIALES.des_garantia
+  is 'Descripcion de la Garantia.';
+comment on column IT.CR_REF_COMERCIALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_REF_COMERCIALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_REF_COMERCIALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_REF_COMERCIALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_REF_COMERCIALES.observacion
+  is 'Observacion.';
+comment on column IT.CR_REF_COMERCIALES.cod_ente
+  is 'Codigo de la Entidad.';
+comment on column IT.CR_REF_COMERCIALES.telefono
+  is 'Telefono de la entidad a la que se pidio referencia.';
+comment on column IT.CR_REF_COMERCIALES.est_verificacion
+  is 'Estado de la verificacion.';
+comment on column IT.CR_REF_COMERCIALES.cod_usu_verificador
+  is 'Usuario que realizo la verificacion.';
+comment on column IT.CR_REF_COMERCIALES.obs_verificacion
+  is 'Observacion sobre la verificacion.';
+comment on column IT.CR_REF_COMERCIALES.fec_verificacion
+  is 'Fecha en que se realizo la verificacion.';
+comment on column IT.CR_REF_COMERCIALES.can_cuotas
+  is 'Cantidad de Cuotas.';
+comment on column IT.CR_REF_COMERCIALES.can_pagadas
+  is 'Cantidad de Cuotas Pagadas.';
+comment on column IT.CR_REF_COMERCIALES.mto_linea
+  is 'Monto de la Linea de Credito.';
+comment on column IT.CR_REF_COMERCIALES.mto_mensual
+  is 'Pago mensual.';
+comment on column IT.CR_REF_COMERCIALES.max_atraso
+  is 'Cant. Maxima de Atraso.';
+comment on column IT.CR_REF_COMERCIALES.pro_atraso
+  is 'Promedio de Dias de Atraso.';
+comment on column IT.CR_REF_COMERCIALES.adm_tarjeta
+  is 'Administrador de Tarjetas.';
+comment on column IT.CR_REF_COMERCIALES.sal_administradora
+  is 'Saldo de Administradora.';
+comment on column IT.CR_REF_COMERCIALES.dia_atraso
+  is 'Dias de Atraso.';
+create index IT.IN_RRCOM_NRO_CUENTA on IT.CR_REF_COMERCIALES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REF_COMERCIALES
+  add constraint PK_CR_REF_COMERCIALES primary key (COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REF_COMERCIALES
+  add constraint FK_RRCOM_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.CR_REF_COMERCIALES
+  add constraint FK_RRCOM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_REF_COMERCIALES
+  add constraint FK_RRCOM_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_REF_COMERCIALES
+  add constraint FK_RRCOM_COD_REFERENCIA foreign key (COD_REFERENCIA, TIP_REFERENCIA)
+  references IT.CR_REFERENCIAS (COD_REFERENCIA, TIP_REFERENCIA);
+alter table IT.CR_REF_COMERCIALES
+  add constraint FK_RRCOM_COD_TIP_CUENTA foreign key (COD_TIP_CUENTA, TIP_REFERENCIA)
+  references IT.CR_REF_CUENTAS (COD_TIP_CUENTA, TIP_REFERENCIA);
+alter table IT.CR_REF_COMERCIALES
+  add constraint FK_RRCOM_COD_USU_VERIFICADOR foreign key (COD_USU_VERIFICADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_REF_COMERCIALES
+  add constraint AVCON_1086981622_COD_T_000
+  check (COD_TIP_CUENTA BETWEEN 0 AND 999);
+alter table IT.CR_REF_COMERCIALES
+  add constraint AVCON_1086981622_EST_V_000
+  check (EST_VERIFICACION IN ('N', 'V', 'S'));
+alter table IT.CR_REF_COMERCIALES
+  add constraint AVCON_1086981622_TIP_R_000
+  check (TIP_REFERENCIA IN ('C', 'B', 'T', 'A'));
+

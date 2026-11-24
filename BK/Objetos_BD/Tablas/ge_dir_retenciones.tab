@@ -1,0 +1,61 @@
+create table IT.GE_DIR_RETENCIONES
+(
+  cod_dir_retencion NUMBER(3) not null,
+  descripcion       VARCHAR2(35) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_ciudad        NUMBER(3),
+  cod_pais          NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DIR_RETENCIONES
+  is 'Tipos de retenciones de direccion.';
+comment on column IT.GE_DIR_RETENCIONES.cod_dir_retencion
+  is 'Codigo de Direccion de Retencion.';
+comment on column IT.GE_DIR_RETENCIONES.descripcion
+  is 'Descripcion.';
+comment on column IT.GE_DIR_RETENCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DIR_RETENCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DIR_RETENCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DIR_RETENCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DIR_RETENCIONES.cod_ciudad
+  is 'Codigo de Ciudad.';
+comment on column IT.GE_DIR_RETENCIONES.cod_pais
+  is 'Codigo del Pais.';
+alter table IT.GE_DIR_RETENCIONES
+  add constraint PK_GE_DIR_RETENCIONES primary key (COD_DIR_RETENCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DIR_RETENCIONES
+  add constraint FK_GDRET_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.GE_DIR_RETENCIONES
+  add constraint CK_COD_DIR_RETENCION
+  check (cod_dir_retencion between 1 and 999);
+

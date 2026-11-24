@@ -1,0 +1,20 @@
+create global temporary table IT.SB_MEN_SWIFT_TMP
+(
+  plazo_de NUMBER(10),
+  plazo_a  NUMBER(10),
+  moneda   VARCHAR2(3),
+  fecha    DATE,
+  monto    NUMBER(18,2)
+)
+on commit preserve rows;
+comment on column IT.SB_MEN_SWIFT_TMP.plazo_de
+  is 'Plazo desde : del encaje legal';
+comment on column IT.SB_MEN_SWIFT_TMP.plazo_a
+  is 'Plazo hasta : del encaje legal';
+comment on column IT.SB_MEN_SWIFT_TMP.moneda
+  is 'Código de la Moneda del encaje legal';
+comment on column IT.SB_MEN_SWIFT_TMP.fecha
+  is 'Fecha ';
+comment on column IT.SB_MEN_SWIFT_TMP.monto
+  is 'Saldos del Encaje legal';
+

@@ -1,0 +1,34 @@
+-- =====================================================================================
+-- Tabla de relación COD_CTA - ACOD para filtrar cuentas permitidas en TSC
+-- =====================================================================================
+CREATE TABLE IT.GE_REL_CTA_ACOD_TAS_INT (
+    ID_REL        NUMBER(18)        NOT NULL,
+    COD_CTA       VARCHAR2(20 BYTE) NOT NULL,
+    DESC_COD_CTA  VARCHAR2(150 BYTE),
+    ACOD          NUMBER(4),
+    DESC_ACOD     VARCHAR2(150 BYTE),
+    CONSTRAINT PK_GE_REL_CTA_ACOD_TAS_INT PRIMARY KEY (ID_REL)
+) TABLESPACE IT_DATA;
+
+-- Comentarios descriptivos
+COMMENT ON TABLE  IT.GE_REL_CTA_ACOD_TAS_INT              IS 'Relación entre código contable y ACOD para filtrar cuentas permitidas en Tasas Saldos Contables';
+COMMENT ON COLUMN IT.GE_REL_CTA_ACOD_TAS_INT.ID_REL       IS 'Identificador único de la relación (por secuencia)';
+COMMENT ON COLUMN IT.GE_REL_CTA_ACOD_TAS_INT.COD_CTA      IS 'Código de cuenta contable (CODCTA)';
+COMMENT ON COLUMN IT.GE_REL_CTA_ACOD_TAS_INT.DESC_COD_CTA IS 'Descripción funcional del código de cuenta';
+COMMENT ON COLUMN IT.GE_REL_CTA_ACOD_TAS_INT.ACOD         IS 'Código de área (ACOD) asociado';
+COMMENT ON COLUMN IT.GE_REL_CTA_ACOD_TAS_INT.DESC_ACOD    IS 'Descripción del ACOD';
+
+-- Índices para búsquedas por COD_CTA / ACOD
+CREATE INDEX IT.IDX_REL_CTA_ACOD_1
+    ON IT.GE_REL_CTA_ACOD_TAS_INT (COD_CTA)
+TABLESPACE IT_IND;
+
+CREATE INDEX IT.IDX_REL_CTA_ACOD_2
+    ON IT.GE_REL_CTA_ACOD_TAS_INT (COD_CTA, ACOD)
+TABLESPACE IT_IND;
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_REL_CTA_ACOD_TAS_INT FOR IT.GE_REL_CTA_ACOD_TAS_INT;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+  ON IT.GE_REL_CTA_ACOD_TAS_INT TO IT_TEMPORAL;

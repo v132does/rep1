@@ -1,0 +1,82 @@
+create table IT.MD_CTA_DOC_MIGRACION
+(
+  cod_modulo           NUMBER(3) not null,
+  nro_cuenta           VARCHAR2(15) not null,
+  cod_modalidad        NUMBER(3) not null,
+  cod_oficina          NUMBER(3) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  cod_persona          VARCHAR2(10) not null,
+  nro_documento        VARCHAR2(20),
+  denominacion         VARCHAR2(65) not null,
+  fec_inicio           DATE not null,
+  fec_vencimiento      DATE,
+  monto                NUMBER(18,2) not null,
+  val_tasa             NUMBER(12,6) not null,
+  cantidad             NUMBER(10) not null,
+  estado               VARCHAR2(1) not null,
+  fec_cam_estado       DATE not null,
+  fec_cancelacion      VARCHAR2(240),
+  mto_interes          NUMBER(18,2),
+  val_presente         NUMBER(18,2),
+  sal_interes          NUMBER(18,2),
+  est_batch            VARCHAR2(1),
+  sal_val_pre_batch    NUMBER(18,2),
+  sal_int_batch        NUMBER(18,2),
+  fec_ult_devengado    DATE,
+  beneficiario         VARCHAR2(200),
+  dev_acumulado        NUMBER(18,2),
+  tip_calculo          VARCHAR2(1),
+  cod_causa            NUMBER(3),
+  nro_cta_padre        VARCHAR2(15),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  com_doc_relacionados VARCHAR2(1) default 'N',
+  sal_val_presente     NUMBER(18,2),
+  val_int_devengar     NUMBER(20,4),
+  cod_instruccion      VARCHAR2(1),
+  observacion          VARCHAR2(1000),
+  cod_per_adquirido    VARCHAR2(10),
+  for_pago             VARCHAR2(1),
+  nro_ref_credito      VARCHAR2(15),
+  cod_per_vendido      VARCHAR2(10),
+  mto_venta            NUMBER(18,2),
+  mto_int_venta        NUMBER(18,2),
+  dia_ano              NUMBER(3),
+  comision             NUMBER(18,2),
+  sal_batch            NUMBER(18,2),
+  mto_dev_dia          NUMBER(18,2),
+  dia_devengado        NUMBER(10),
+  mto_impuesto         NUMBER(18,2),
+  sal_capital          NUMBER(18,2),
+  tot_int_descontado   NUMBER(18,2),
+  cod_ofi_credito      NUMBER(3),
+  cod_ofi_interes      NUMBER(3),
+  mto_ofi_interes      NUMBER(18,2),
+  cod_sec_credito      NUMBER(3),
+  cod_bco_central      VARCHAR2(3),
+  tip_cob_interes      VARCHAR2(1),
+  tip_amortizacion     VARCHAR2(1),
+  fec_ult_pago         DATE,
+  per_adquirido        VARCHAR2(120),
+  fec_ini_repo         DATE,
+  fec_ven_repo         DATE,
+  val_tas_repo         NUMBER(10,4),
+  val_bas_repo         NUMBER(18,2),
+  cod_sit_contable     VARCHAR2(20),
+  mer_secundario       VARCHAR2(1),
+  nro_cta_repo         VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

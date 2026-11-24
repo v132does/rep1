@@ -1,0 +1,87 @@
+create table IT.BU_BIE_CANCELACIONES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_oficina      NUMBER(3) not null,
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  forma            VARCHAR2(1) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  tip_pago         VARCHAR2(1),
+  mto_pagado       NUMBER(18,2),
+  cod_grupo        NUMBER(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BU_BIE_CANCELACIONES.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.BU_BIE_CANCELACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BU_BIE_CANCELACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BU_BIE_CANCELACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIE_CANCELACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIE_CANCELACIONES.tip_pago
+  is 'Si es un Pago Parcial o Total.';
+comment on column IT.BU_BIE_CANCELACIONES.mto_pagado
+  is 'Monto Pagado por el Bien.';
+comment on column IT.BU_BIE_CANCELACIONES.cod_grupo
+  is 'Código de grupo de Bienes.';
+create index IT.IN_UBCAN_NRO_CUENTA on IT.BU_BIE_CANCELACIONES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_CANCELACIONES
+  add constraint PK_BU_BIE_CANCELACIONES primary key (COD_GRUPO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_CANCELACIONES
+  add constraint UK_BU_BIE_CANCELACIONES unique (COD_PERSONA, COD_OFICINA, FECHA, COD_MONEDA, FORMA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_CANCELACIONES
+  add constraint FK_BBGRU foreign key (COD_GRUPO)
+  references IT.BU_BIE_GRUPOS (COD_GRUPO);
+

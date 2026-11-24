@@ -1,0 +1,95 @@
+create table IT.GE_MOV_CRE_CTA_BAS
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  fec_valor        DATE,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  nro_cuenta       VARCHAR2(20),
+  cod_tra_padre    NUMBER(4),
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  nro_documento    NUMBER(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_CRE_CTA_BAS
+  is 'Creditos de Cuenta basica.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.fecha
+  is 'Fecha.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.hora
+  is 'Hora.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.cod_usuario
+  is 'Cod. Usuario.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.nro_secuencia
+  is 'Nro Secuencia.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.fec_valor
+  is 'Fecha de Valor.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.cod_modulo
+  is 'Codigo de módulo.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.cod_tra_padre
+  is 'Código de Transaccion Padre';
+comment on column IT.GE_MOV_CRE_CTA_BAS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.monto
+  is 'Monto.';
+comment on column IT.GE_MOV_CRE_CTA_BAS.nro_documento
+  is 'Número de Documento.';
+create index IT.ID_GCRCB_FECHA on IT.GE_MOV_CRE_CTA_BAS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ID_GCRCB_NRO_CUENTA on IT.GE_MOV_CRE_CTA_BAS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_CRE_CTA_BAS
+  add constraint PK_GE_MOV_CRE_CTA_BAS primary key (FECHA, COD_USUARIO, HORA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

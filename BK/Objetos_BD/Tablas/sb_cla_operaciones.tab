@@ -1,0 +1,175 @@
+create table IT.SB_CLA_OPERACIONES
+(
+  cod_persona         VARCHAR2(10) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_estado          VARCHAR2(1) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  tot_deu_real        NUMBER(18,2) default 0,
+  tot_deu_contingente NUMBER(18,2) default 0,
+  tot_gar_computables NUMBER(18,2) default 0,
+  dev_no_cobrado      NUMBER(18,2) default 0,
+  tot_prevision       NUMBER(18,2) default 0,
+  cat_automatica      NUMBER(3,2),
+  dia_atraso          NUMBER(5) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_oficina         NUMBER(3),
+  tipo                VARCHAR2(1) not null,
+  mto_original        NUMBER(18,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tip_destino         NUMBER(2),
+  cod_sec_credito     NUMBER(3),
+  cat_renovaciones    NUMBER(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CLA_OPERACIONES
+  is 'Operaciones clasificadas segun Resolucion 8 (vieja).';
+comment on column IT.SB_CLA_OPERACIONES.cod_persona
+  is 'Codigo del cliente.';
+comment on column IT.SB_CLA_OPERACIONES.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.SB_CLA_OPERACIONES.cod_estado
+  is 'Estado de la cuenta.';
+comment on column IT.SB_CLA_OPERACIONES.cod_modulo
+  is 'Tipo de producto.';
+comment on column IT.SB_CLA_OPERACIONES.cod_modalidad
+  is 'Sub tipo de Producto.';
+comment on column IT.SB_CLA_OPERACIONES.tot_deu_real
+  is 'Total de la deuda real.';
+comment on column IT.SB_CLA_OPERACIONES.tot_deu_contingente
+  is 'Total de la deuda contingente.';
+comment on column IT.SB_CLA_OPERACIONES.tot_gar_computables
+  is 'Monto total de la garantias computables.';
+comment on column IT.SB_CLA_OPERACIONES.dev_no_cobrado
+  is 'Devengado no cobrado.';
+comment on column IT.SB_CLA_OPERACIONES.tot_prevision
+  is 'Monto total de la Prevision.';
+comment on column IT.SB_CLA_OPERACIONES.cat_automatica
+  is 'Categoria automatica del Sistema.';
+comment on column IT.SB_CLA_OPERACIONES.dia_atraso
+  is 'dias de atraso.';
+comment on column IT.SB_CLA_OPERACIONES.cod_moneda
+  is 'moneda de la cuenta.';
+comment on column IT.SB_CLA_OPERACIONES.cod_oficina
+  is 'Codigo de la sucursal.';
+comment on column IT.SB_CLA_OPERACIONES.tipo
+  is 'Tipo A-nuevo, N-Renovado, R-Refinanciado, E-Restructurado.';
+comment on column IT.SB_CLA_OPERACIONES.mto_original
+  is 'Monto original de la operacion.';
+comment on column IT.SB_CLA_OPERACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_CLA_OPERACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_CLA_OPERACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CLA_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CLA_OPERACIONES.tip_destino
+  is 'Destino del Credito (1=Grandes Deudores-2=Peque?os Deudores-3=Vivienda-4=Consumo-5=Microcreditos.';
+comment on column IT.SB_CLA_OPERACIONES.cod_sec_credito
+  is 'Codigo de sector de credito.';
+comment on column IT.SB_CLA_OPERACIONES.cat_renovaciones
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones.';
+create index IT.FK_SCOPE_COD_ESTADO_I on IT.SB_CLA_OPERACIONES (COD_MODULO, COD_MODALIDAD, COD_ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.FK_SCOPE_COD_MONEDA_I on IT.SB_CLA_OPERACIONES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.FK_SCOPE_COD_OFICINA_I on IT.SB_CLA_OPERACIONES (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.FK_SCOPE_COD_PERSONA_I on IT.SB_CLA_OPERACIONES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.FK_SCOPE_COD_SEC_CREDITO_I on IT.SB_CLA_OPERACIONES (COD_SEC_CREDITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CLA_OPERACIONES
+  add constraint PK_SB_CLA_OPERACIONES primary key (NRO_CUENTA, COD_PERSONA, COD_ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CLA_OPERACIONES
+  add constraint FK_SCOPE_COD_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, COD_ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.SB_CLA_OPERACIONES
+  add constraint FK_SCOPE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.SB_CLA_OPERACIONES
+  add constraint FK_SCOPE_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.SB_CLA_OPERACIONES
+  add constraint FK_SCOPE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.SB_CLIENTES (COD_PERSONA);
+alter table IT.SB_CLA_OPERACIONES
+  add constraint FK_SCOPE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

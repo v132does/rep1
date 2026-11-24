@@ -1,0 +1,47 @@
+create table IT.TA_TAS_INT_CUOTAS_TMP
+(
+  cod_entidad          NUMBER(3),
+  cod_afinidad         NUMBER(6),
+  cod_moneda           NUMBER(3),
+  cod_plan             VARCHAR2(2),
+  ori_transaccion      CHAR(1),
+  tip_tas_financiacion CHAR(1),
+  cuo_hasta            NUMBER(4),
+  val_tasa             NUMBER(5,2),
+  fec_actualizacion    DATE default sysdate,
+  usu_actualizacion    VARCHAR2(10) default substr(user,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TAS_INT_CUOTAS_TMP
+  is 'Tabla de Tasas de Interés  General de Tarjetas';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.cod_entidad
+  is 'Código de Entidad.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.cod_afinidad
+  is 'Código de Afinidad';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.cod_plan
+  is 'Código del Plan.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.ori_transaccion
+  is 'Origen de la transacción L=Local, E=Exterior.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.tip_tas_financiacion
+  is 'Tipo de tasa de financiación.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.cuo_hasta
+  is 'Cuota Hasta.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.val_tasa
+  is 'Valor de Tasa.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.fec_actualizacion
+  is 'Fecha de la última actualización del registro.';
+comment on column IT.TA_TAS_INT_CUOTAS_TMP.usu_actualizacion
+  is 'Usuario responsable de la última actualización del registro.';
+

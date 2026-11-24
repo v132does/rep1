@@ -1,0 +1,32 @@
+create table IT.ENTIDADES
+(
+  cdentid       NUMBER(6),
+  pathroot      VARCHAR2(10),
+  estado        VARCHAR2(1),
+  riesgo        VARCHAR2(30),
+  cdestado_oper VARCHAR2(1),
+  nmentid       VARCHAR2(30),
+  reg_ca        VARCHAR2(30),
+  reg_cb        VARCHAR2(30),
+  reg_cc        VARCHAR2(30),
+  fechainf      DATE,
+  periodo       VARCHAR2(30),
+  modulo        VARCHAR2(3),
+  orden         VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.ENTIDADES.riesgo
+  is 'Riesgo';
+comment on column IT.ENTIDADES.cdestado_oper
+  is 'Estado de Operación';
+

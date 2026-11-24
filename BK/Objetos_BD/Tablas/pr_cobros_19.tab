@@ -1,0 +1,39 @@
+create table IT.PR_COBROS_19
+(
+  nro_cta         VARCHAR2(20),
+  nro_cta_nue     VARCHAR2(20),
+  nro_cuota       NUMBER,
+  fecha           DATE,
+  hora            VARCHAR2(20),
+  cod_usuario     VARCHAR2(20),
+  sal_capital_pre NUMBER(18,2),
+  mto_capital_cuo NUMBER(18,2),
+  cod_moneda      VARCHAR2(10),
+  tabla           VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_COBROS_19
+  is 'Paises.';
+create index IT.IND_TAB on IT.PR_COBROS_19 (NRO_CTA, NRO_CTA_NUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

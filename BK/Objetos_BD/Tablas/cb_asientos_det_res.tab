@@ -1,0 +1,85 @@
+-- Create table
+create table IT.CB_ASIENTOS_DET_RES
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  tip_movimiento   VARCHAR2(1) not null,
+  mto_mon_rubro    NUMBER(18,2) default 0,
+  mto_mon_local    NUMBER(18,2) default 0,
+  descripcion      VARCHAR2(60),
+  referencia       VARCHAR2(11),
+  protegido        VARCHAR2(1) default 'N',
+  actualizado      VARCHAR2(1) default 'N',
+  val_cotizacion   NUMBER(14,8) default 0,
+  distribuido      VARCHAR2(1) default 'N',
+  ref_movimiento   NUMBER(7),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_valor        DATE,
+  cod_area         NUMBER(3),
+  cod_persona      VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_ASIENTOS_DET_RES
+  is 'Contiene la copia de los datos correspondientes a las lineas de detalle de los asientos contables.';
+-- Add comments to the columns 
+comment on column IT.CB_ASIENTOS_DET_RES.fecha
+  is 'Fecha del asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.cod_oficina
+  is 'Codigo de la oficina del asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.nro_linea
+  is 'Numero de linea del asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.cod_rubro
+  is 'Codigo de la cuenta contable imputada.';
+comment on column IT.CB_ASIENTOS_DET_RES.tip_movimiento
+  is 'Tipo de movimiento ( D=Debito, C=Credito ).';
+comment on column IT.CB_ASIENTOS_DET_RES.mto_mon_rubro
+  is 'Importe del movimiento en la moneda del rubro.';
+comment on column IT.CB_ASIENTOS_DET_RES.mto_mon_local
+  is 'Importe del movimiento en moneda local.';
+comment on column IT.CB_ASIENTOS_DET_RES.descripcion
+  is 'Descripcion de la linea de asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.referencia
+  is 'Referencia de la linea.';
+comment on column IT.CB_ASIENTOS_DET_RES.protegido
+  is 'Registro IND_PROTEGIDO ? ( S=IND_PROTEGIDO, no puede ser eliminado, N=No IND_PROTEGIDO, se puede eliminar ).';
+comment on column IT.CB_ASIENTOS_DET_RES.actualizado
+  is 'Registro actualizado ? ( S=El asiento ya actualizo el saldo de la cuenta, N=El asiento no actualizo el saldo de la cuenta ).';
+comment on column IT.CB_ASIENTOS_DET_RES.val_cotizacion
+  is 'Valor de la tasa de cambio usada para generacion de asientos de cuentas de moneda extranjera.';
+comment on column IT.CB_ASIENTOS_DET_RES.distribuido
+  is 'Tiene cuenta de distribucion ? ( S=La cuenta debe ser distribuida, N=La cuenta no debe ser distribuida ).';
+comment on column IT.CB_ASIENTOS_DET_RES.ref_movimiento
+  is 'Numero de referencia para desglosar el asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASIENTOS_DET_RES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASIENTOS_DET_RES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_DET_RES.fec_modificacion
+  is 'Fecha de ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_DET_RES.fec_valor
+  is 'Fecha valor del asiento.';
+comment on column IT.CB_ASIENTOS_DET_RES.cod_area
+  is 'Codigo del Area.';
+comment on column IT.CB_ASIENTOS_DET_RES.cod_persona
+  is 'Codigo de Persona.';

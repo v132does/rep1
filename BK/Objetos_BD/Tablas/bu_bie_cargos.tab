@@ -1,0 +1,134 @@
+create table IT.BU_BIE_CARGOS
+(
+  cod_bien         NUMBER(10) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_transaccion  NUMBER(4) not null,
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER not null,
+  estado           VARCHAR2(1) default 'I' not null,
+  fec_pago         DATE,
+  mto_prevision    NUMBER,
+  fec_prevision    DATE,
+  observacion      VARCHAR2(60),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BU_BIE_CARGOS.cod_bien
+  is 'Codigo del Bien.';
+comment on column IT.BU_BIE_CARGOS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.BU_BIE_CARGOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.BU_BIE_CARGOS.cod_transaccion
+  is 'Codigo de Transaccion.';
+comment on column IT.BU_BIE_CARGOS.fecha
+  is 'Fecha de ingreso o imputacion del cargo.';
+comment on column IT.BU_BIE_CARGOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.BU_BIE_CARGOS.monto
+  is 'Monto del Cargo.';
+comment on column IT.BU_BIE_CARGOS.estado
+  is 'Estado (Ingresado, Suspenso, Perdida, Bien). Dominio EST_CAR_BIEN';
+comment on column IT.BU_BIE_CARGOS.fec_pago
+  is 'Fecha de pago del cargo.';
+comment on column IT.BU_BIE_CARGOS.mto_prevision
+  is 'Monto Prevision.';
+comment on column IT.BU_BIE_CARGOS.fec_prevision
+  is 'Fecha de Prevision.';
+comment on column IT.BU_BIE_CARGOS.observacion
+  is 'Observacion.';
+comment on column IT.BU_BIE_CARGOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BU_BIE_CARGOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BU_BIE_CARGOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIE_CARGOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_UBCAR_COD_BIEN on IT.BU_BIE_CARGOS (COD_BIEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_UBCAR_COD_MONEDA on IT.BU_BIE_CARGOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_UBCAR_COD_TRANSACCION on IT.BU_BIE_CARGOS (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_CARGOS
+  add constraint PK_BU_BIE_CARGOS primary key (FECHA, COD_BIEN, COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_CARGOS
+  add constraint FK_UBCAR_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.BU_BIE_CARGOS
+  add constraint FK_UBCAR_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.BU_BIE_CARGOS
+  add constraint AVCON_1208438563_COD_M_000
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.BU_BIE_CARGOS
+  add constraint AVCON_1208438563_COD_M_001
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.BU_BIE_CARGOS
+  add constraint AVCON_1209147035_COD_M_000
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.BU_BIE_CARGOS
+  add constraint AVCON_1209147035_COD_M_001
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.BU_BIE_CARGOS
+  add constraint AVCON_1209147035_ESTAD_000
+  check (ESTADO IN ('I', 'S', 'P', 'B'));
+

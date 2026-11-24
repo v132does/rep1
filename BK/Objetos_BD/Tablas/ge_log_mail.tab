@@ -1,0 +1,41 @@
+create table IT.GE_LOG_MAIL
+(
+  fec_envio   DATE not null,
+  cod_persona VARCHAR2(10),
+  dir_correo  VARCHAR2(255),
+  mensaje     VARCHAR2(2000),
+  det_error   VARCHAR2(4000),
+  nro_cuenta  VARCHAR2(15),
+  hor_inicio  VARCHAR2(8),
+  hor_fin     VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_MAIL
+  is 'Log de los mails.';
+comment on column IT.GE_LOG_MAIL.fec_envio
+  is 'Fecha de envio del mail.';
+comment on column IT.GE_LOG_MAIL.cod_persona
+  is 'Codigo de la persona a la cual se envio el mail.';
+comment on column IT.GE_LOG_MAIL.dir_correo
+  is 'Direccion de correo electronico.';
+comment on column IT.GE_LOG_MAIL.mensaje
+  is 'Mensaje de correo electronico.';
+comment on column IT.GE_LOG_MAIL.det_error
+  is 'Detalle del error provocado al enviar el email.';
+comment on column IT.GE_LOG_MAIL.nro_cuenta
+  is 'Número de cuenta';
+comment on column IT.GE_LOG_MAIL.hor_inicio
+  is 'Hora de Inicio del envío.';
+comment on column IT.GE_LOG_MAIL.hor_fin
+  is 'Hora fin del envio';
+

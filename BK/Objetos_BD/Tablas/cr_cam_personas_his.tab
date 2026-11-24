@@ -1,0 +1,94 @@
+create table IT.CR_CAM_PERSONAS_HIS
+(
+  fec_historial       DATE not null,
+  cod_campana         NUMBER(3) not null,
+  cod_persona         VARCHAR2(10) not null,
+  estado              NUMBER(3) not null,
+  cod_estado_act      NUMBER(2) not null,
+  det_actividad       VARCHAR2(2000),
+  usu_insercion       VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  fec_actividad       DATE,
+  cod_usu_responsable VARCHAR2(10),
+  fec_ini_asignacion  DATE,
+  cod_agenda          NUMBER(10)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_CAM_PERSONAS_HIS
+  is 'Historial de personas por campaña.';
+comment on column IT.CR_CAM_PERSONAS_HIS.fec_historial
+  is 'Fecha en que se proceso el historial.';
+comment on column IT.CR_CAM_PERSONAS_HIS.cod_campana
+  is 'Codigo de campaña.';
+comment on column IT.CR_CAM_PERSONAS_HIS.cod_persona
+  is 'Codigo de persona asignada a la campaña.';
+comment on column IT.CR_CAM_PERSONAS_HIS.estado
+  is 'Estado de la persona dentro de la campaña. (1) Generada, (3) Realizada, (4) Efectivizada, (9) Anulada.';
+comment on column IT.CR_CAM_PERSONAS_HIS.cod_estado_act
+  is 'Estado de la actividad generada en la agenda.';
+comment on column IT.CR_CAM_PERSONAS_HIS.det_actividad
+  is 'Detalle de la actividad generada en la agenda.';
+comment on column IT.CR_CAM_PERSONAS_HIS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CR_CAM_PERSONAS_HIS.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.CR_CAM_PERSONAS_HIS.usu_modificacion
+  is 'Fecha de insercion del registro.';
+comment on column IT.CR_CAM_PERSONAS_HIS.fec_modificacion
+  is 'Fecha de modificacion del registro.';
+comment on column IT.CR_CAM_PERSONAS_HIS.fec_actividad
+  is 'Fecha de asignacion de la actividad.';
+comment on column IT.CR_CAM_PERSONAS_HIS.cod_usu_responsable
+  is 'Usuario al que se le asigno la acvtividad.';
+comment on column IT.CR_CAM_PERSONAS_HIS.fec_ini_asignacion
+  is 'Fecha inicial de asignacion de la actividad.';
+comment on column IT.CR_CAM_PERSONAS_HIS.cod_agenda
+  is 'Codigo de la agenda generada.';
+create index IT.IN_RCPEH_COD_PERSONA on IT.CR_CAM_PERSONAS_HIS (COD_CAMPANA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CAM_PERSONAS_HIS
+  add constraint PK_CR_CAM_PERSONA primary key (FEC_HISTORIAL, COD_CAMPANA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CAM_PERSONAS_HIS
+  add constraint AVCON_1118670401_COD_C_001
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.CR_CAM_PERSONAS_HIS
+  add constraint AVCON_1118670401_COD_E_000
+  check (COD_ESTADO_ACT BETWEEN 0 AND 999);
+alter table IT.CR_CAM_PERSONAS_HIS
+  add constraint AVCON_1118670401_ESTAD_000
+  check (ESTADO BETWEEN 0 AND 999);
+

@@ -1,0 +1,23 @@
+create table IT.TM_BACKUP
+(
+  estado VARCHAR2(1),
+  fecha  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_BACKUP
+  is 'Control de Backup diario.';
+comment on column IT.TM_BACKUP.estado
+  is 'Estado del backup (1=No realizado, 2=Realizado).';
+comment on column IT.TM_BACKUP.fecha
+  is 'Fecha del estado.';
+

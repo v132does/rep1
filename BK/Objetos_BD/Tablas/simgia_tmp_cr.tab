@@ -1,0 +1,33 @@
+create table IT.SIMGIA_TMP_CR
+(
+  cod_oficina VARCHAR2(3),
+  cod_persona VARCHAR2(6),
+  nom_persona VARCHAR2(50),
+  nom_gestor  VARCHAR2(50),
+  monto_gs    VARCHAR2(20),
+  monto_usd   VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_TMP_CR on IT.SIMGIA_TMP_CR (COD_OFICINA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

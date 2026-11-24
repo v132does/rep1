@@ -1,0 +1,104 @@
+create table IT.GE_IMPUESTOS
+(
+  fec_cierre      DATE,
+  nro_cuenta      NUMBER(9),
+  secuencia       NUMBER(5),
+  fec_proceso     DATE,
+  cod_iva         NUMBER(4),
+  des_movimiento  VARCHAR2(30),
+  mon_iva         NUMBER(18,2),
+  mon_movimiento  NUMBER(18,2),
+  porc_iva        NUMBER(4,2),
+  cod_entidad     NUMBER(2),
+  nro_tarjeta     VARCHAR2(25),
+  dig_verificador NUMBER(1),
+  nro_documento   VARCHAR2(20),
+  nro_factura     NUMBER(15),
+  nro_cta_aho     VARCHAR2(15),
+  cod_modulo      NUMBER(3),
+  orden           NUMBER(7),
+  cod_persona     VARCHAR2(10),
+  impreso         VARCHAR2(1),
+  hora            VARCHAR2(8),
+  cod_usuario     VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_IMPUESTOS
+  is 'Datos enviados por las procesadoras de tarjetas.';
+comment on column IT.GE_IMPUESTOS.fec_cierre
+  is 'Fecha de Cierre.';
+comment on column IT.GE_IMPUESTOS.nro_cuenta
+  is 'Numero de la Cuenta de la tarjeta.';
+comment on column IT.GE_IMPUESTOS.secuencia
+  is 'Tipo de Envio.';
+comment on column IT.GE_IMPUESTOS.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.GE_IMPUESTOS.cod_iva
+  is 'Codigo de I.V.A.';
+comment on column IT.GE_IMPUESTOS.des_movimiento
+  is 'Descripcion del Movimiento.';
+comment on column IT.GE_IMPUESTOS.mon_iva
+  is 'Importe I.V.A.';
+comment on column IT.GE_IMPUESTOS.mon_movimiento
+  is 'Importe Movimiento.';
+comment on column IT.GE_IMPUESTOS.porc_iva
+  is '% I.V.A.';
+comment on column IT.GE_IMPUESTOS.cod_entidad
+  is 'codigo de la Entidad.';
+comment on column IT.GE_IMPUESTOS.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.GE_IMPUESTOS.dig_verificador
+  is 'Digito verificador de la tarjeta.';
+comment on column IT.GE_IMPUESTOS.nro_documento
+  is 'Numero de documento de identidad.';
+comment on column IT.GE_IMPUESTOS.nro_factura
+  is 'Numero de Factura.';
+comment on column IT.GE_IMPUESTOS.nro_cta_aho
+  is 'Numero de cuenta de ahorros.';
+comment on column IT.GE_IMPUESTOS.cod_modulo
+  is 'Codigo del modulo.';
+comment on column IT.GE_IMPUESTOS.orden
+  is 'Orden de la cuenta en el archivo.';
+comment on column IT.GE_IMPUESTOS.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.GE_IMPUESTOS.impreso
+  is 'Indicador de impresion de la factura.';
+comment on column IT.GE_IMPUESTOS.hora
+  is 'Hora.';
+comment on column IT.GE_IMPUESTOS.cod_usuario
+  is 'Usuario.';
+create index IT.IN_GEIMP_NRO_FACTURA on IT.GE_IMPUESTOS (NRO_FACTURA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEIMP_NRO_TARJETA on IT.GE_IMPUESTOS (NRO_TARJETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,80 @@
+﻿-- Create table
+create table it.GE_PROCESOS_DET_HIS
+(
+  fecha            DATE default SYSDATE not null,
+  cod_proceso      NUMBER(3) not null,
+  nro_orden        NUMBER(3) not null,
+  cod_programa     VARCHAR2(30) not null,
+  frecuencia       VARCHAR2(1) default 'M' not null,
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  duracion         VARCHAR2(8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_secuencia    NUMBER(3) not null,
+  origen           VARCHAR2(10),
+  estado           VARCHAR2(1),
+  volumen          NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table GE_PROCESOS_DET_HIS
+  is 'Historico de Ejecucion de Procesos - Cierre Operativo';
+-- Add comments to the columns 
+comment on column GE_PROCESOS_DET_HIS.fecha
+  is 'Fecha del proceso hijo.';
+comment on column GE_PROCESOS_DET_HIS.cod_proceso
+  is 'Codigo del proceso padre.';
+comment on column GE_PROCESOS_DET_HIS.nro_orden
+  is 'Numero de orden.';
+comment on column GE_PROCESOS_DET_HIS.cod_programa
+  is 'Nombre del programa.';
+comment on column GE_PROCESOS_DET_HIS.frecuencia
+  is 'Frecuencia del proceso.';
+comment on column GE_PROCESOS_DET_HIS.hor_inicio
+  is 'Hora de inicio de ejecucion.';
+comment on column GE_PROCESOS_DET_HIS.hor_fin
+  is 'Hora de fin de ejecucion.';
+comment on column GE_PROCESOS_DET_HIS.duracion
+  is 'Duracion del proceso.';
+comment on column GE_PROCESOS_DET_HIS.nro_secuencia
+  is 'Nro de secuencia indica la cantidad de ejecuciones realizadas';
+comment on column GE_PROCESOS_DET_HIS.origen
+  is 'Origen de insercion PLSQL(Operador) o GPPROFIN(Pantalla de cierre operativo)';
+comment on column GE_PROCESOS_DET_HIS.estado
+  is 'Estado al momento de la insercion (E)rror o F(inalizado)';
+comment on column GE_PROCESOS_DET_HIS.volumen
+  is 'Volumen de datos procesados. ';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table GE_PROCESOS_DET_HIS
+  add constraint PK_GE_PROCESOS_DET_HIS primary key (FECHA, COD_PROCESO, NRO_ORDEN, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate check constraints --
+alter table GE_PROCESOS_DET_HIS 
+  add constraint AVCON_1080843414_FRECU_001
+  check (FRECUENCIA IN ('M', 'D'));
+-- Grant/Revoke object privileges  
+grant select, insert, update, delete on GE_PROCESOS_DET_HIS to IT_TEMPORAL;

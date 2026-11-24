@@ -1,0 +1,55 @@
+create table IT.MI_PSA_PROCESOS
+(
+  nom_tab_proceso  VARCHAR2(500) not null,
+  fec_proceso      DATE not null,
+  cod_estado       VARCHAR2(2) not null,
+  observacion      VARCHAR2(4000),
+  fec_insercion    DATE default SYSDATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_PSA_PROCESOS
+  is 'Tabla de procesos de cumplimiento, PSAML, PIC, Scoring masivo';
+comment on column IT.MI_PSA_PROCESOS.nom_tab_proceso
+  is 'nombre tabla del proceso';
+comment on column IT.MI_PSA_PROCESOS.fec_proceso
+  is 'fecha del proceso de generación de datos';
+comment on column IT.MI_PSA_PROCESOS.cod_estado
+  is 'P= Procesado, R= Reprocesado, T= transferido, E= con error';
+comment on column IT.MI_PSA_PROCESOS.observacion
+  is 'obvervaciones del proceso';
+comment on column IT.MI_PSA_PROCESOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.MI_PSA_PROCESOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.MI_PSA_PROCESOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.MI_PSA_PROCESOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+alter table IT.MI_PSA_PROCESOS
+  add constraint PK_MI_PSA_PROCESOS primary key (NOM_TAB_PROCESO, FEC_PROCESO, COD_ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

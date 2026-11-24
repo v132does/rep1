@@ -1,0 +1,70 @@
+create table IT.GE_SPI_CAT_COMERCIOS
+(
+  cod_catastro     NUMBER(20) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(35) not null,
+  fec_inicio       DATE not null,
+  fec_vencimiento  DATE not null,
+  estado           VARCHAR2(1) not null,
+  observacion      VARCHAR2(2000),
+  cat_modificado   NUMBER(20),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(128) default USER not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(128) default USER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_CAT_COMERCIOS
+  is 'Se registran solicitudes para adherise a un servicio de SPI';
+comment on column IT.GE_SPI_CAT_COMERCIOS.cod_catastro
+  is 'Codigo de catastro PK.';
+comment on column IT.GE_SPI_CAT_COMERCIOS.cod_persona
+  is 'Codigo de la persona quien solicita el servicio.';
+comment on column IT.GE_SPI_CAT_COMERCIOS.nro_cuenta
+  is 'Numero de cuenta adherida al servicio';
+comment on column IT.GE_SPI_CAT_COMERCIOS.fec_inicio
+  is 'Fecha de inicio del contrato';
+comment on column IT.GE_SPI_CAT_COMERCIOS.fec_vencimiento
+  is 'Fecha de vencimiento del contrato';
+comment on column IT.GE_SPI_CAT_COMERCIOS.estado
+  is 'Indica el estado del catrastro.A(Activo)-I(INACTIVO)-R(RECHAZADO)-E(EN PROCESO)-M(MODIFICADO)';
+comment on column IT.GE_SPI_CAT_COMERCIOS.observacion
+  is 'Observaciones.';
+comment on column IT.GE_SPI_CAT_COMERCIOS.cat_modificado
+  is 'Codigo del catastro modificado';
+comment on column IT.GE_SPI_CAT_COMERCIOS.fec_insercion
+  is 'Fecha/hora de insercion del registro.';
+comment on column IT.GE_SPI_CAT_COMERCIOS.usu_insercion
+  is 'Usuario de insercion del registro.';
+comment on column IT.GE_SPI_CAT_COMERCIOS.fec_modificacion
+  is 'Fecha/hora de la ultima modificacion del registro.';
+comment on column IT.GE_SPI_CAT_COMERCIOS.usu_modificacion
+  is 'Ultimo usuario quien modifico el registro.';
+alter table IT.GE_SPI_CAT_COMERCIOS
+  add constraint PK_GE_SNP_CAT_COMERCIOS primary key (COD_CATASTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SPI_CAT_COMERCIOS
+  add constraint FK_GCCOM_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

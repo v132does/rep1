@@ -1,0 +1,79 @@
+
+CREATE TABLE IT.GE_CTA_DIF_SAL_DIARIO (
+    FECHA             DATE            NOT NULL,
+    NRO_CUENTA        VARCHAR2(50)    NOT NULL,
+    COD_MODALIDAD     NUMBER          NOT NULL,
+    MODALIDAD         VARCHAR2(50)    NOT NULL,
+    COD_MONEDA        VARCHAR2(5)     NOT NULL,
+    DENOMINACION      VARCHAR2(100)   NOT NULL,
+    TIP_SALDO         VARCHAR2(50),
+    SAL_ONLINE        NUMBER,
+    SAL_BATCH         NUMBER,
+    DIF_SALDO         NUMBER,
+    VAR_DIF_SALDO     NUMBER,
+    NUEVA             CHAR(1),
+    ESTADO            VARCHAR2(50)    NOT NULL,
+    FEC_ESTADO        DATE,
+    USU_INSERCION     VARCHAR2(50)    NOT NULL,
+    FEC_INSERCION     DATE            NOT NULL,
+    USU_MODIFICACION  VARCHAR2(50),  
+    FEC_MODIFICACION  DATE,
+
+    CONSTRAINT pk_ge_cta_dif_sal_diario
+        PRIMARY KEY (FECHA, NRO_CUENTA) )
+
+TABLESPACE it_data;
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.FECHA IS
+'Fecha';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.NRO_CUENTA IS
+'Número de cuenta';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.COD_MODALIDAD IS
+'Código de la modalidad de la cuenta';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.MODALIDAD IS
+'Descripción de la modalidad de la cuenta';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.COD_MONEDA IS
+'Código de moneda';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.DENOMINACION IS
+'Denominación o nombre del titular de la cuenta.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.TIP_SALDO IS
+'Tipo de saldo, DISPONIBLE, BLOQUEADO, RETENIDO';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.SAL_ONLINE IS
+'Saldo online';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.SAL_BATCH IS
+'Saldo batch';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.DIF_SALDO IS
+'Diferencia calculada entre el saldo online y el saldo batch.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.VAR_DIF_SALDO IS
+'Variación de la diferencia de saldo respecto al día anterior.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.NUEVA IS
+'Indicador de cuenta nueva en el proceso diario (S/N).';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.ESTADO IS
+'Estado';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.FEC_ESTADO IS
+'Fecha en que se asignó el estado actual de la diferencia.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.USU_INSERCION IS
+'Usuario que realizó la inserción del registro.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.FEC_INSERCION IS
+'Fecha y hora de inserción del registro.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.USU_MODIFICACION IS
+'Usuario que realizó la última modificación del registro.';
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SAL_DIARIO.FEC_MODIFICACION IS
+'Fecha y hora de la última modificación del registro.';

@@ -1,0 +1,63 @@
+create table IT.BW_NOT_EVENTOS
+(
+  cod_evento       NUMBER(4) not null,
+  descripcion      VARCHAR2(50),
+  mandatorio       VARCHAR2(1) default 'N',
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  mto_minimo       VARCHAR2(1) default 'N',
+  nombre           VARCHAR2(50),
+  ocurrencia       VARCHAR2(1) default 'N',
+  horario          VARCHAR2(1) default 'N',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_tip_evento   VARCHAR2(10) not null,
+  mto_mandatorio   NUMBER(10,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_EVENTOS.descripcion
+  is 'Descripcion amigable del evento';
+comment on column IT.BW_NOT_EVENTOS.mandatorio
+  is 'S o N, Si es S el usuario no puede personalizarlo y se debe notificar si o si';
+comment on column IT.BW_NOT_EVENTOS.mto_minimo
+  is 'S o N, indica si se puede personalizar por monto minimo';
+comment on column IT.BW_NOT_EVENTOS.nombre
+  is 'Nombre del evento';
+comment on column IT.BW_NOT_EVENTOS.ocurrencia
+  is 'Indica si se puede personalizar por ocurrencia. Si es N, entonces es por frecuencia';
+comment on column IT.BW_NOT_EVENTOS.horario
+  is 'Indica si se puede personalizar el horario';
+comment on column IT.BW_NOT_EVENTOS.cod_tip_evento
+  is 'Tipo del evento a notificar';
+comment on column IT.BW_NOT_EVENTOS.mto_mandatorio
+  is 'Monto minimo para notificar un evento mandatorio';
+alter table IT.BW_NOT_EVENTOS
+  add constraint PK_BW_NOT_EVENTOS primary key (COD_EVENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_EVENTOS
+  add constraint FK_NOTE_COD_TIP_EVENTO foreign key (COD_TIP_EVENTO)
+  references IT.BW_NOT_TIP_EVENTOS (COD_TIP_EVENTO);
+

@@ -1,0 +1,20 @@
+create table IT.ROB_DEBUG
+(
+  fecha    DATE,
+  lugar    VARCHAR2(30),
+  mensaje  VARCHAR2(30),
+  programa VARCHAR2(15),
+  modulo   VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,94 @@
+create table IT.PSA006
+(
+  psa006pa NUMBER(9) not null,
+  psa006td NUMBER(9) not null,
+  psa006do VARCHAR2(25) not null,
+  psa006mo NUMBER(9) not null,
+  psa006ct NUMBER(9) not null,
+  psa006so NUMBER(5) not null,
+  psa006st NUMBER(2),
+  psa006fc VARCHAR2(8),
+  psa006cp NUMBER(9),
+  psa006lt NUMBER(18,2),
+  psa006fo TIMESTAMP(6),
+  psa006ej NUMBER(9),
+  psa006bc NUMBER(9),
+  psa006nc VARCHAR2(70),
+  psa006co NUMBER(2),
+  psa006tf VARCHAR2(1),
+  psa006br CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA006
+  is 'Tabla Productos';
+comment on column IT.PSA006.psa006pa
+  is 'Pais';
+comment on column IT.PSA006.psa006td
+  is 'Tipo doc';
+comment on column IT.PSA006.psa006do
+  is 'Doc cliente';
+comment on column IT.PSA006.psa006mo
+  is 'Cod Producto BT';
+comment on column IT.PSA006.psa006ct
+  is 'Numero de Cuenta';
+comment on column IT.PSA006.psa006so
+  is 'Sub Operación';
+comment on column IT.PSA006.psa006st
+  is 'Estado';
+comment on column IT.PSA006.psa006fc
+  is 'Fecha de creación';
+comment on column IT.PSA006.psa006cp
+  is 'Cod Producto';
+comment on column IT.PSA006.psa006lt
+  is 'Limite de TC';
+comment on column IT.PSA006.psa006fo
+  is 'Fecha y hora de ingraso';
+comment on column IT.PSA006.psa006ej
+  is 'Oficial Ejecutivo';
+comment on column IT.PSA006.psa006bc
+  is 'Nombre cuenta';
+comment on column IT.PSA006.psa006nc
+  is 'Nombre cuenta';
+comment on column IT.PSA006.psa006co
+  is 'Codigo Titular';
+comment on column IT.PSA006.psa006tf
+  is 'Titular Firmante';
+comment on column IT.PSA006.psa006br
+  is 'Banco Remitente';
+create index IT.IN_PSA006EJ on IT.PSA006 (PSA006EJ)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PSA006
+  add constraint PK_PSA006 primary key (PSA006PA, PSA006TD, PSA006DO, PSA006MO, PSA006CT, PSA006SO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,19 @@
+create table IT.BA_DAT_PERSONAS_TMP
+(
+  cod_persona VARCHAR2(10) not null,
+  dir_correo  VARCHAR2(1000),
+  telefono    VARCHAR2(1000),
+  direccion   VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

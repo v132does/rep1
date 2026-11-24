@@ -1,0 +1,43 @@
+create table IT.MI_TASAS
+(
+  nro_cuenta  VARCHAR2(15) not null,
+  val_tasa    NUMBER(6,2),
+  ano         VARCHAR2(4) not null,
+  cod_oficina NUMBER(2) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_TASAS
+  is 'Contiene datos de Interes de los Certificados de Depositos de Ahorros';
+comment on column IT.MI_TASAS.nro_cuenta
+  is 'Número de cuenta del CDA';
+comment on column IT.MI_TASAS.val_tasa
+  is 'Tasa';
+comment on column IT.MI_TASAS.ano
+  is 'año';
+comment on column IT.MI_TASAS.cod_oficina
+  is 'codigo de oficina';
+alter table IT.MI_TASAS
+  add constraint PK_MI_TASAS primary key (COD_OFICINA, ANO, NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

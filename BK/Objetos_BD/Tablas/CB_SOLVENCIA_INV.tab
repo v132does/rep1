@@ -1,0 +1,65 @@
+-- =====================================================================
+-- TABLA: IT.CB_SOLVENCIA_INV
+-- Descripción: Inventario de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.CB_SOLVENCIA_INV (
+    FECHA                 DATE,
+    TIP_DEUDOR            VARCHAR2(128 BYTE),
+    NRO_CUENTA            NUMBER(38, 0),
+    COD_PERSONA           NUMBER(38, 0),
+    NRO_DOCUMENTO         VARCHAR2(26 BYTE),
+    NOMBRE                VARCHAR2(128 BYTE),
+    COD_MODULO            NUMBER(38, 0),
+    COD_MODALIDAD         NUMBER(38, 0),
+    MODAL                 VARCHAR2(26 BYTE),
+    COD_OFICINA           NUMBER(38, 0),
+    DESC_OFI              VARCHAR2(26 BYTE),
+    COD_MONEDA            VARCHAR2(26 BYTE),
+    TIP_SALDO             VARCHAR2(26 BYTE),
+    SITUACION             VARCHAR2(26 BYTE),
+    ESTADO                VARCHAR2(26 BYTE),
+    FEC_APERTURA          DATE,
+    FEC_VENCIMIENTO       DATE,
+    VAL_TASA              VARCHAR2(26 BYTE),
+    COD_RUBRO             NUMBER(38, 0),
+    DES_RUBRO             VARCHAR2(26 BYTE),
+    SAL_ACTUAL            NUMBER(38, 0)
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.CB_SOLVENCIA_INV IS 'Inventario de solvencia con detalle de operaciones por cliente y rubro';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.FECHA IS 'Fecha del inventario';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.TIP_DEUDOR IS 'Tipo de deudor';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.NRO_CUENTA IS 'Numero de cuenta';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.COD_PERSONA IS 'Codigo de persona en el sistema';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.NRO_DOCUMENTO IS 'Numero de documento de identidad';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.NOMBRE IS 'Nombre del cliente';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.COD_MODULO IS 'Codigo del modulo contable';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.COD_MODALIDAD IS 'Codigo de modalidad del credito';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.MODAL IS 'Descripcion de la modalidad';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.COD_OFICINA IS 'Codigo de oficina';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.DESC_OFI IS 'Descripcion de la oficina';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.COD_MONEDA IS 'Codigo de moneda';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.TIP_SALDO IS 'Tipo de saldo';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.SITUACION IS 'Situacion del credito';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.ESTADO IS 'Estado del credito';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.FEC_APERTURA IS 'Fecha de apertura de la operacion';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.FEC_VENCIMIENTO IS 'Fecha de vencimiento de la operacion';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.VAL_TASA IS 'Valor de la tasa de interes';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.COD_RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.DES_RUBRO IS 'Descripcion del rubro contable';
+COMMENT ON COLUMN IT.CB_SOLVENCIA_INV.SAL_ACTUAL IS 'Saldo actual de la operacion';

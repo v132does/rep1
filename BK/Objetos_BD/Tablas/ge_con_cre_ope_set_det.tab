@@ -1,0 +1,83 @@
+create table IT.GE_CON_CRE_OPE_SET_DET
+(
+  nro_proceso           NUMBER(15) not null,
+  fecha                 DATE,
+  hora                  VARCHAR2(8),
+  nro_ord_transferencia NUMBER(15) not null,
+  cod_ban_clearing      VARCHAR2(3),
+  cod_mod_cta_clearing  NUMBER(3),
+  cod_mad_cta_clearing  NUMBER(3),
+  nro_cta_clearing      VARCHAR2(15),
+  cod_ban_destino       VARCHAR2(3),
+  cod_mod_cta_destino   NUMBER(3),
+  cod_mad_cta_destino   NUMBER(3),
+  nro_cta_destino       VARCHAR2(15) not null,
+  monto                 NUMBER(18,2),
+  cod_moneda            VARCHAR2(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion         DATE default SYSDATE,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion      DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CON_CRE_OPE_SET_DET.nro_proceso
+  is 'Nro. Proceso.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.fecha
+  is 'Fecha.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.hora
+  is 'Hora.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.nro_ord_transferencia
+  is 'Nro. Orden de Transferencia.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_ban_clearing
+  is 'Cód. Banco Clearing';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_mod_cta_clearing
+  is 'Cód. Módulo de la cuenta Clearing.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_mad_cta_clearing
+  is 'Cód. Modalidad de la cuenta Clearing.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.nro_cta_clearing
+  is 'Nro. Cuenta Clearing.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_ban_destino
+  is 'Cód. Banco Destino';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_mod_cta_destino
+  is 'Cód. Módulo de la cuenta Destino.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_mad_cta_destino
+  is 'Cód. Modalidad de la cuenta Destino.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.nro_cta_destino
+  is 'Nro. Cuenta Destino.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.monto
+  is 'Monto.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.cod_moneda
+  is 'Cód. de Moneda.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.usu_insercion
+  is 'Usuario Inserción.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.fec_insercion
+  is 'Fecha Inserción.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.usu_modificacion
+  is 'Usuario Modificación.';
+comment on column IT.GE_CON_CRE_OPE_SET_DET.fec_modificacion
+  is 'Fecha Modificación.';
+alter table IT.GE_CON_CRE_OPE_SET_DET
+  add constraint PK_GE_CON_CRE_OPE_SET_DET primary key (NRO_PROCESO, NRO_ORD_TRANSFERENCIA, NRO_CTA_DESTINO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

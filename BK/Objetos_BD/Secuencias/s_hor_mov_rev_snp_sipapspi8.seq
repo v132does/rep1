@@ -1,0 +1,8 @@
+create sequence IT.S_HOR_MOV_REV_SNP_SIPAPSPI8
+minvalue 1
+maxvalue 99999999999999999999999
+start with 30953
+increment by 1
+nocache
+cycle;
+

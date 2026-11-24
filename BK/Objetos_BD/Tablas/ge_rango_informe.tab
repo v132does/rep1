@@ -1,0 +1,33 @@
+create table IT.GE_RANGO_INFORME
+(
+  cod_rango  NUMBER not null,
+  cod_moneda VARCHAR2(3) not null,
+  rango_min  NUMBER,
+  rango_max  NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RANGO_INFORME
+  add constraint PK_RANGO primary key (COD_RANGO, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

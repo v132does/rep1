@@ -1,0 +1,107 @@
+create table IT.GE_COB_SERVICIOS_TMP
+(
+  cod_servicio      NUMBER(3),
+  referencia1       VARCHAR2(20),
+  referencia2       VARCHAR2(20),
+  monto             NUMBER(18,2),
+  estado            VARCHAR2(1),
+  cod_usuario       VARCHAR2(10),
+  comentarios       VARCHAR2(2000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  tip_cobro         VARCHAR2(1),
+  nro_operacion     NUMBER(10),
+  fecha             DATE,
+  hora              VARCHAR2(8),
+  cod_ofi_origen    NUMBER(3),
+  nro_caja          NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  mto_debito        NUMBER(18,2),
+  mto_efectivo      NUMBER(18,2),
+  mto_che_nue_banco NUMBER(18,2),
+  mto_che_otr_banco NUMBER(18,2),
+  nro_remision      NUMBER(7),
+  fec_remision      DATE,
+  mto_comision      NUMBER(18,2),
+  mto_impuesto      NUMBER(18,2),
+  nro_cta_debito    VARCHAR2(15),
+  cod_error         VARCHAR2(10),
+  referencia3       VARCHAR2(50),
+  referencia4       VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SERVICIOS_TMP
+  is 'Temporal para levantar los ASCII de Cobro de Servicios.';
+comment on column IT.GE_COB_SERVICIOS_TMP.cod_servicio
+  is 'Codigo de Servicio.';
+comment on column IT.GE_COB_SERVICIOS_TMP.referencia1
+  is 'Numero de Documento 1.';
+comment on column IT.GE_COB_SERVICIOS_TMP.referencia2
+  is 'Numero de Documento 2.';
+comment on column IT.GE_COB_SERVICIOS_TMP.monto
+  is 'Monto.';
+comment on column IT.GE_COB_SERVICIOS_TMP.estado
+  is 'Estado .';
+comment on column IT.GE_COB_SERVICIOS_TMP.cod_usuario
+  is 'Codigo del Usuario.';
+comment on column IT.GE_COB_SERVICIOS_TMP.comentarios
+  is 'Comentarios.';
+comment on column IT.GE_COB_SERVICIOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del Registro.';
+comment on column IT.GE_COB_SERVICIOS_TMP.fec_insercion
+  is 'Fecha en que se realizo la insercion del Registro.';
+comment on column IT.GE_COB_SERVICIOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del Registro.';
+comment on column IT.GE_COB_SERVICIOS_TMP.fec_modificacion
+  is 'Fecha de la ultima modificacion del Registro.';
+comment on column IT.GE_COB_SERVICIOS_TMP.tip_cobro
+  is 'Tipo de Cobro.';
+comment on column IT.GE_COB_SERVICIOS_TMP.nro_operacion
+  is 'Numero de Operacion.';
+comment on column IT.GE_COB_SERVICIOS_TMP.fecha
+  is 'Fecha de la  Operacion.';
+comment on column IT.GE_COB_SERVICIOS_TMP.hora
+  is 'Hora de la Operacion.';
+comment on column IT.GE_COB_SERVICIOS_TMP.cod_ofi_origen
+  is 'Codigo de Oficina Origen.';
+comment on column IT.GE_COB_SERVICIOS_TMP.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.GE_COB_SERVICIOS_TMP.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.GE_COB_SERVICIOS_TMP.mto_debito
+  is 'Monto del Debito.';
+comment on column IT.GE_COB_SERVICIOS_TMP.mto_efectivo
+  is 'Monto Efectivo.';
+comment on column IT.GE_COB_SERVICIOS_TMP.mto_che_nue_banco
+  is 'Monto Cheques Cargo Nuestro Banco.';
+comment on column IT.GE_COB_SERVICIOS_TMP.mto_che_otr_banco
+  is 'Monto Cheques Cargo Otros Bancos.';
+comment on column IT.GE_COB_SERVICIOS_TMP.nro_remision
+  is 'Numero de Remision.';
+comment on column IT.GE_COB_SERVICIOS_TMP.fec_remision
+  is 'Fecha de Remision.';
+comment on column IT.GE_COB_SERVICIOS_TMP.mto_comision
+  is 'Monto Comision.';
+comment on column IT.GE_COB_SERVICIOS_TMP.mto_impuesto
+  is 'Monto Impuesto.';
+comment on column IT.GE_COB_SERVICIOS_TMP.nro_cta_debito
+  is 'Numero de Cuenta de Debito.';
+comment on column IT.GE_COB_SERVICIOS_TMP.cod_error
+  is 'Codigo de Errror.';
+comment on column IT.GE_COB_SERVICIOS_TMP.referencia3
+  is 'Referencia.';
+comment on column IT.GE_COB_SERVICIOS_TMP.referencia4
+  is 'Referencia.';
+

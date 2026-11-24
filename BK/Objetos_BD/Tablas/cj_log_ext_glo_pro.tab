@@ -1,0 +1,34 @@
+create table IT.CJ_LOG_EXT_GLO_PRO
+(
+  cod_transaccion VARCHAR2(2000) not null,
+  cod_accion      VARCHAR2(2000),
+  motivo          VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_LOG_EXT_GLO_PRO
+  is 'Registro de Transaccion de extorno para reversion';
+alter table IT.CJ_LOG_EXT_GLO_PRO
+  add constraint PK_CJ_LOG_EXT_GLO_PRO primary key (COD_TRANSACCION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

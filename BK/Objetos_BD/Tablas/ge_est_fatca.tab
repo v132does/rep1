@@ -1,0 +1,103 @@
+create table IT.GE_EST_FATCA
+(
+  est_fatca           VARCHAR2(5) not null,
+  descripcion         VARCHAR2(120),
+  tip_estado          VARCHAR2(1),
+  tip_asignacion      VARCHAR2(1),
+  tip_doc_fatca       VARCHAR2(30),
+  plz_vencimiento     NUMBER(3),
+  plz_caducidad       NUMBER(3),
+  msj_nue_estado      VARCHAR2(240),
+  ind_bloqueo         VARCHAR2(1) default 'N' not null,
+  tip_persona         VARCHAR2(1),
+  ind_emi_msj_usuario VARCHAR2(1),
+  ind_env_mail        VARCHAR2(1),
+  est_exp_vencimiento VARCHAR2(30),
+  est_exp_caducidad   VARCHAR2(30),
+  cod_reporte         VARCHAR2(30),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tip_tit_cuenta      VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EST_FATCA
+  is 'Tabla que permitirá configurar Estados FATCA con Fec. Vto., Fec. Caducidad, Mensaje y tipo de documento FATCA requerido. Las asignaciones previstas son Manual (por pantalla) y Automática(procedimiento base de datos). ';
+comment on column IT.GE_EST_FATCA.est_fatca
+  is 'Nuevo Estado a Asignar a la persona en FATCA.';
+comment on column IT.GE_EST_FATCA.descripcion
+  is 'Descripción del Estado FATCA.';
+comment on column IT.GE_EST_FATCA.tip_estado
+  is 'Indica si el estado es P-rovisorio (con cumplimiento de plazos), E-Pendiente, o D-Definitivo.';
+comment on column IT.GE_EST_FATCA.tip_asignacion
+  is 'Tipo de Asignación (A-utomática : procedimiento, M-anual: por pantalla de mantenimiento FATCA, G-estor, V Proceso de Vencimiento, C Proceso de Caducidad).';
+comment on column IT.GE_EST_FATCA.tip_doc_fatca
+  is 'Tipo de Documento que se deberá exigir al cliente por el nuevo estado asignado. No todos los estados requieren documentación.';
+comment on column IT.GE_EST_FATCA.plz_vencimiento
+  is 'Plazo que tendrá el cliente para acercar al oficial de cuentas la documentación correspondiente consecuencia del estado asignado en FATCA.';
+comment on column IT.GE_EST_FATCA.plz_caducidad
+  is 'Caducidad en el sistema del estado FATCA asignado a un cliente.';
+comment on column IT.GE_EST_FATCA.msj_nue_estado
+  is 'Mensaje a emitir cuando se asigna un determinado estado, no todos los estados deberán emitir mensaje de alerta.';
+comment on column IT.GE_EST_FATCA.ind_bloqueo
+  is 'Indica si el estado a asignar deberá bloquear el registro del estado de la persona en FATCA (ba_per_fatca)  para actualización por proceso automático. El indicador de Bloqueo deberá utilizarse solamente para asignación manual.';
+comment on column IT.GE_EST_FATCA.tip_persona
+  is 'Tipo de Persona (F-isica , J-urídica, A-mbas), indica a que tipo de persona puede aplicarse un determinado estado.';
+comment on column IT.GE_EST_FATCA.ind_emi_msj_usuario
+  is 'Indica si se deberá desplegar mensaje por nuevo estado al Usuario que actualiza el registro de persona.';
+comment on column IT.GE_EST_FATCA.ind_env_mail
+  is 'Indica si se deberá enviar mail o por el nuevo estado asignado al Cliente.';
+comment on column IT.GE_EST_FATCA.est_exp_vencimiento
+  is 'Estado a asignar cuando expira la fecha de VENCIMIENTO del estado, este dato debe ser obligatorio cuando se asigna un plazo para VENCIMIENTO.';
+comment on column IT.GE_EST_FATCA.est_exp_caducidad
+  is 'Estado a asignar cuando expira la fecha de CADUCIDAD del estado, este dato debe ser obligatorio cuando se asigna un plazo para CADUCIDAD.';
+comment on column IT.GE_EST_FATCA.cod_reporte
+  is 'Indica en que reporte se debe incluir el estado FATCA(reporting).';
+comment on column IT.GE_EST_FATCA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_EST_FATCA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_EST_FATCA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_EST_FATCA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_EST_FATCA.tip_tit_cuenta
+  is 'Indica el Tipo de Titular de Cuenta FATCA, los valores son definidos en el dominio TIP_TIT_CTA_FATCA, el dato se utiliza en el archivo xml generado para la IRS.';
+alter table IT.GE_EST_FATCA
+  add constraint PK_GE_EST_FATCA primary key (EST_FATCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EST_FATCA
+  add constraint CK_GESFA_IND_BLOQUEO
+  check (IND_BLOQUEO IN ('N','S'));
+alter table IT.GE_EST_FATCA
+  add constraint CK_GESFA_IND_ENV_MAIL
+  check (IND_ENV_MAIL IN ('S','N'));
+alter table IT.GE_EST_FATCA
+  add constraint CK_GESFA_TIP_ASIGNACION
+  check (TIP_ASIGNACION IN ('M','G','A','V','C'));
+alter table IT.GE_EST_FATCA
+  add constraint CK_GESFA_TIP_PERSONA
+  check (TIP_PERSONA IN ('F','J','A'));
+

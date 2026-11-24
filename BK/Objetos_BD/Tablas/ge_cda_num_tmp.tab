@@ -1,0 +1,29 @@
+create table IT.GE_CDA_NUM_TMP
+(
+  serie         VARCHAR2(10),
+  numero        VARCHAR2(10),
+  usu_insercion VARCHAR2(30) default SUBSTR(USER,1,10),
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CDA_NUM_TMP
+  is 'Tabla temporal para Imprimir Numeración en cartones CDA.';
+comment on column IT.GE_CDA_NUM_TMP.serie
+  is 'Serie del CDA.';
+comment on column IT.GE_CDA_NUM_TMP.numero
+  is 'Número del CDA.';
+comment on column IT.GE_CDA_NUM_TMP.usu_insercion
+  is 'Usuario de Inserción';
+comment on column IT.GE_CDA_NUM_TMP.fec_insercion
+  is 'Fecha de Inserción.';
+

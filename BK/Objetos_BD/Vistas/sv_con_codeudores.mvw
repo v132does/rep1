@@ -1,0 +1,167 @@
+CREATE MATERIALIZED VIEW IT.SV_CON_CODEUDORES
+REFRESH FORCE ON DEMAND
+AS
+SELECT cod_persona, p.nro_cuenta, relacion,
+       nvl((pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local,
+                                           decode(p.est_batch, 'I',
+                                                   (nvl(p.sal_cap_batch, 0) + nvl(p.sal_int_batch, 0) +
+                                                    nvl(p.sal_int_ade_batch, 0)),
+                                                   (nvl(sal_cap_batch, 0) + nvl(dev_no_cobrado, 0))),
+                                           NULL)), 0) sal_capital, 0 nro_cheque, null documento
+  FROM pr_cta_prestamos p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND relacion <> 'P'
+   AND p.cod_modulo = 6
+ --  AND nvl(fup_obt_tip_descuento(p.cod_modalidad), 'X') NOT IN ('D', 'C')
+   AND (p.est_batch NOT IN ('N', 'I')
+   OR (p.estado = 'I' AND
+       to_date(fug_obt_paradicional(p.nro_cuenta, 'FEC_PAS_INCOBRABLE'), 'dd/mm/yyyy') IS NULL) OR
+       (p.est_batch = 'I' AND
+       to_date(fug_obt_paradicional(p.nro_cuenta, 'FEC_PAS_INCOBRABLE'), 'dd/mm/yyyy') IS NOT NULL AND
+       ((pag_cal.fu_obt_fec_actual(1) -
+       to_date(fug_obt_paradicional(p.nro_cuenta, 'FEC_PAS_INCOBRABLE'), 'dd/mm/yyyy')) <=
+       (SELECT val_parametro FROM ge_par_dinamicos x WHERE x.parametro = 'CRC_CAN_DIA_INCOBRABLE'))))
+UNION ALL
+SELECT cod_persona, p.nro_cuenta, relacion,
+       nvl(pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local,
+                                           nvl(sal_facturar, 0) + nvl(sal_facturado, 0) +
+                                           nvl(sal_financiado, 0) + nvl(sal_cuo_pendientes, 0),
+                                           NULL),0) sal_capital, 0 nro_cheque, null documento
+  FROM ta_cta_tarjetas p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND relacion NOT IN ('P','A')
+   AND p.cod_modulo = 5
+   AND p.estado <> 'C'
+UNION ALL
+SELECT cod_persona, p.nro_cuenta, relacion,
+       nvl(pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local,
+                                           abs(nvl(sal_tot_batch, 0) - nvl(sal_ret_batch, 0) -
+                                            nvl(sal_blo_batch, 0)), NULL), 0) sal_capital, 0 nro_cheque, null documento
+  FROM cc_cta_corrientes p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND relacion <> 'P'
+   AND p.cod_modulo = 4
+   AND nvl(sal_tot_batch, 0) - nvl(sal_ret_batch, 0) - nvl(sal_blo_batch, 0) < 0
+   AND p.est_batch <> 'C'
+UNION ALL
+SELECT cod_persona, p.nro_cuenta, relacion,
+       nvl(pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local, nvl(sal_batch, 0),
+                                           NULL), 0) sal_capital, 0 nro_cheque, null documento
+  FROM cx_cta_importaciones p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND b.relacion <> 'P'
+   AND p.cod_modulo = 8
+   AND p.estado <> 'C'
+UNION ALL
+SELECT cod_persona, p.nro_cuenta, relacion,
+       nvl(pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local, nvl(sal_batch, 0),
+                                           NULL), 0) sal_capital, 0 nro_cheque, null documento
+  FROM cx_cta_exportaciones p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND relacion <> 'P'
+   AND p.cod_modulo = 8
+   AND p.estado <> 'C'
+UNION ALL
+SELECT b.cod_persona, p.nro_cuenta, relacion,
+       nvl(pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local,
+                                           nvl(sal_capital, 0) + nvl(sal_interes, 0), NULL), 0) sal_capital, 0 nro_cheque, null documento
+  FROM md_cta_documentos p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND relacion <> 'P'
+   AND p.cod_modulo = 10
+   AND p.estado <> 'N'
+UNION ALL
+SELECT cod_persona, p.nro_cuenta, relacion,
+       nvl(pag_gen.fu_con_mon_a_moneda(p.cod_moneda, pag_gen.fu_obt_mon_local,
+                                           nvl(sal_tot_batch, 0), NULL), 0) sal_capital,0 nro_cheque, null documento
+  FROM ov_cta_vencidas p, ge_cta_clientes b
+ WHERE p.nro_cuenta = b.nro_cuenta
+   AND relacion <> 'P'
+   AND p.cod_modulo = 15
+   AND (p.estado NOT IN ('C', 'I')
+    OR (p.est_batch = 'I' AND
+       ((pag_cal.fu_obt_fec_actual(1) -
+       NVL(p.fec_cam_estado, p.fec_apertura)) <=
+       (SELECT val_parametro FROM ge_par_dinamicos x WHERE x.parametro = 'CRC_CAN_DIA_INCOBRABLE'))))
+ UNION ALL
+SELECT distinct z.cod_persona, pr.nro_cuenta, 'L',
+nvl(pag_gen.fu_con_mon_a_moneda(pr.cod_moneda, pag_gen.fu_obt_mon_local,nvl(t.monto, 0), NULL), 0) sal_capital,
+t.nro_cheque, null documento
+ FROM ge_che_custodias   t,
+      pr_rel_chq_lib     x,
+      pr_chq_libradores  y,
+      ba_personas        z,
+      pr_cta_prestamos   pr
+WHERE x.cod_banco = t.cod_banco
+  AND x.nro_cheque = t.nro_cheque
+  AND x.cta_libradora = t.cta_libradora
+  AND t.estado in ('C', 'A', 'B') -- a = en compensacion / b = devuelto / c = custodio -
+  AND y.nro_documento = x.nro_documento
+  AND y.cod_tip_documento = x.cod_tip_documento
+  AND z.nro_documento = x.nro_documento
+  AND z.cod_tip_documento = x.cod_tip_documento
+  AND t.nro_referencia = pr.nro_cuenta
+  AND pr.est_batch <> 'N'
+  --no informar descuento de cheques propios.
+  AND NOT EXISTS (SELECT 1
+                    FROM ge_cta_clientes s
+                   WHERE s.nro_cuenta = pr.nro_cuenta
+                     AND s.cod_persona = z.cod_persona
+                     AND s.relacion = 'P')
+  AND fug_obt_pardinamico('SIB_CRC_INC_CLA_EMISORES') = 'S'
+UNION ALL
+--cheques devueltos
+SELECT DISTINCT z.cod_persona,
+                pr.nro_cuenta,
+                'L',
+                nvl(pag_gen.fu_con_mon_a_moneda(pr.cod_moneda, pag_gen.fu_obt_mon_local,
+                                                nvl(t.monto, 0), NULL), 0) sal_capital,
+                t.nro_cheque,
+                NULL documento
+  FROM ge_che_custodias t,
+       pr_rel_chq_lib x,
+       pr_chq_libradores y,
+       ba_personas z,
+       (SELECT c.nro_cuenta,
+               substr(c.descripcion, instr(c.descripcion, 'CTA:') + 4, length(c.descripcion)) nro_cta_origen,
+               substr(c.descripcion, instr(c.descripcion, 'CHE:') + 4, instr(c.descripcion, 'CTA:')-6) nro_che_origen,
+               c.est_batch,
+               c.cod_moneda
+          FROM pr_cta_prestamos c
+         WHERE c.cod_modalidad = 660
+           AND c.est_batch <> 'N') pr
+ WHERE x.cod_banco = t.cod_banco
+   AND x.nro_cheque = t.nro_cheque
+   AND x.cta_libradora = t.cta_libradora
+   AND t.estado IN ('B') --b = devuelto
+   AND y.nro_documento = x.nro_documento
+   AND y.cod_tip_documento = x.cod_tip_documento
+   AND z.nro_documento = x.nro_documento
+   AND z.cod_tip_documento = x.cod_tip_documento
+   AND t.nro_referencia = pr.nro_cta_origen
+   AND t.nro_cheque = pr.nro_che_origen
+   AND pr.est_batch <> 'N'
+      --no informar descuento de cheques propios.
+   AND NOT EXISTS (SELECT 1
+          FROM ge_cta_clientes s
+         WHERE s.nro_cuenta = pr.nro_cuenta
+           AND s.cod_persona = z.cod_persona
+           AND s.relacion = 'P')
+   AND fug_obt_pardinamico('SIB_CRC_INC_CLA_EMISORES') = 'S'
+UNION ALL
+SELECT distinct p.cod_persona, pr.nro_cuenta, 'L',
+nvl((pag_gen.fu_con_mon_a_moneda(pr.cod_moneda, pag_gen.fu_obt_mon_local,
+                                 nvl(d.monto, 0), NULL)), 0) sal_capital, 0 nro_cheque, d.documento
+ FROM pr_documentos d, ba_personas p, pr_cta_prestamos pr
+WHERE d.estado = 'C'
+  AND p.cod_tip_documento = d.cod_tip_documento
+  AND p.nro_documento  = d.nro_documento
+  AND d.nro_referencia = pr.nro_cuenta
+  AND pr.est_batch <> 'N'
+  AND NOT EXISTS (SELECT 1
+                    FROM ge_cta_clientes s
+                   WHERE s.nro_cuenta = pr.nro_cuenta
+                     AND s.cod_persona = p.cod_persona
+                     AND s.relacion = 'P')
+  AND fug_obt_pardinamico('SIB_CRC_INC_CLA_EMISORES') = 'S';
+

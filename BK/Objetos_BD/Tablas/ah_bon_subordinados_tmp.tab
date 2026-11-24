@@ -1,0 +1,107 @@
+create table IT.AH_BON_SUBORDINADOS_TMP
+(
+  nom_completo      VARCHAR2(120),
+  nro_documento     VARCHAR2(20),
+  ruc               VARCHAR2(20),
+  nro_operacion     NUMBER(15),
+  comitente         NUMBER(15),
+  cod_bolsa         NUMBER(15),
+  cod_persona       VARCHAR2(10),
+  emisor            VARCHAR2(120),
+  serie             VARCHAR2(15),
+  fec_ini_serie     DATE,
+  fec_vto_serie     DATE,
+  val_tasa          NUMBER(20,4),
+  fec_venta         DATE,
+  can_bonos         NUMBER(10),
+  mto_corte         NUMBER(18,2),
+  mto_total         NUMBER(18,2),
+  precio            NUMBER(18,2),
+  dia_transcurridos NUMBER(5),
+  int_acumulado     NUMBER(18,2),
+  mto_desembolsar   NUMBER(18,2),
+  cotizacion        NUMBER(14,8),
+  variacion         NUMBER(20,4),
+  mercado           VARCHAR2(30),
+  moneda            VARCHAR2(30),
+  mto_interes       NUMBER(18,2),
+  estado            VARCHAR2(30),
+  nro_cta_credito   VARCHAR2(15),
+  tip_colocacion    VARCHAR2(1),
+  mto_plu_precio    NUMBER(18,2),
+  mto_min_precio    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_BON_SUBORDINADOS_TMP
+  is 'Tabla temporal para importación de datos de planilla enviada por la Casa de Bolsa.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.nom_completo
+  is 'Nombres y Apellidos de los Clientes Físicos asi como el nombre de las empresas Jurídicas.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.nro_documento
+  is 'Número de Documento de Identidad.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.ruc
+  is 'Número de Registo Único de Contribuyente.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.nro_operacion
+  is 'Número de operación asignanda por el Sistema de la Bolsa de Valores y Productos de Asunción.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.comitente
+  is 'Número que se le asigna los Clientes para que puedan negociar en le Sistema Elestrónico de Negociación.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.cod_bolsa
+  is 'Código del Cliente en la Casa de Bolsa.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.cod_persona
+  is 'Código del Cliente en el Banco.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.emisor
+  is 'Nombre de la Empresa que está emitiendo los Títulos de Deuda (Emisor).';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.serie
+  is 'Número de Serie que está adquiriendo el Inversor.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.fec_ini_serie
+  is 'Fecha desde la cual se emitió el Título. Fecha desde cuando corren los Intereses.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.fec_vto_serie
+  is 'Fecha en la cual va a vencer el Título.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.val_tasa
+  is 'Porcentaje de interés nominal que rinde el Título.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.fec_venta
+  is 'Fecha en la cual se cierra la operación con el cliente, pudiendo ser esta diferente a la que se opere en Bolsa.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.can_bonos
+  is 'Cantidad de bonos que adquiere el Inversor.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mto_corte
+  is 'Monto mínimo de inversión requerido.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mto_total
+  is 'Resultado de multiplicar la cantidad de Bonos por el corte mínimo (MTO_CORTE).';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.precio
+  is 'Valor por el cual es vendido el Bono.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.dia_transcurridos
+  is 'Diferencia entre la Fecha de Venta y la Fecha de Habilitación de las Series.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.int_acumulado
+  is 'Valor calculado por los días transcurridos desde la Fecha de Habilitación de las Series.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mto_desembolsar
+  is 'Es el resultado de multiplicar el Monto Total * Precio + Interés Acumulado.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.cotizacion
+  is 'Resultado de la división de Total a Desembolsar / Volumen Total.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.variacion
+  is 'Variación que existe entre cada Cotización del Día.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mercado
+  is 'Corresponde a determinar si es Primario o Secundario.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.moneda
+  is 'Moneda en la cual esté emitido el Título.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mto_interes
+  is 'Total de los intereses a ser devengados por el Título.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.estado
+  is 'Indica si la operación está Cerrada o Pendiente de Cierre.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.nro_cta_credito
+  is 'Número de Cuenta a la cual el Cliente solicita se le acrediten los intereses en el Banco.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.tip_colocacion
+  is 'Indica si es una colocación del B/Banco o de la C/Casa de Bolsa.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mto_plu_precio
+  is 'Determina la ganancia (plusvalía) por la venta del Título. En este caso se podria dar cuando el Banco ya tiene un Serie emitida con tasa fija y decide reducir la tasa de rendimiento por lo cual aumenta el precio de venta.';
+comment on column IT.AH_BON_SUBORDINADOS_TMP.mto_min_precio
+  is 'Determina la pérdida (minusvalía) por la venta del Título. En este caso se podría dar cuando el Banco ya tiene una Serie emitida con tasa fija y decide aumentar la tasa de rendimiento por lo cual disminuye el precio de venta.';
+

@@ -1,0 +1,74 @@
+create table IT.GE_BCP_CLASIFICACION_TMP
+(
+  tip_documento   VARCHAR2(3),
+  nro_documento   VARCHAR2(15),
+  tip_formulario  NUMBER(2),
+  nombre          VARCHAR2(60),
+  apellido        VARCHAR2(60),
+  fec_nacimiento  NUMBER(8),
+  fec_baja        NUMBER(8),
+  cla_entidad     VARCHAR2(2),
+  cla_sistema     VARCHAR2(2),
+  tot_deu_entidad NUMBER(15),
+  tot_deu_sistema NUMBER(15),
+  tot_con_entidad NUMBER(15),
+  tot_con_sistema NUMBER(15),
+  tot_cou_entidad NUMBER(15),
+  tot_cou_sistema NUMBER(15),
+  tot_riesgo      NUMBER(18),
+  nro_registro    NUMBER(6),
+  cod_persona     VARCHAR2(10),
+  periodo         NUMBER(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_BCP_CLASIFICACION_TMP
+  is 'Contiene los registros Temporales del consolidado de CRC enviado mensualmente por BCP.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.nro_documento
+  is 'Numero del Documento de Identidad.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tip_formulario
+  is 'Tipo de Formulario.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.nombre
+  is 'Nombre de la Persona Fisica o Juridica.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.apellido
+  is 'Apellido de la Persona Juridica.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.fec_nacimiento
+  is 'Fecha de Nacimiento.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.fec_baja
+  is 'Fecha de baja o inactivacion.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.cla_entidad
+  is 'Clasificacion informada por la Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.cla_sistema
+  is 'Clasificacion del Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_deu_entidad
+  is 'Total Deuda Contable de la Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_deu_sistema
+  is 'Total Deuda Contable resto del Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_con_entidad
+  is 'Total Contingencia Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_con_sistema
+  is 'Total Contingencia resto Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_cou_entidad
+  is 'Total Codeudoria de la Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_cou_sistema
+  is 'Total Codeudoria del Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.tot_riesgo
+  is 'Total Riesgos.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.nro_registro
+  is 'Numero de registros correlativos.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_BCP_CLASIFICACION_TMP.periodo
+  is 'Periodo Consultado (YYYYMMDD)';
+

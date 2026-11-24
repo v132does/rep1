@@ -1,0 +1,37 @@
+create table IT.PR_CUOTAS_MAECARTERA
+(
+  nro_cuenta          VARCHAR2(15),
+  nro_cuota           NUMBER,
+  sal_capital         NUMBER,
+  sal_interes         NUMBER,
+  sal_int_documentado NUMBER,
+  fec_inicio_dev      DATE,
+  fec_vencimiento     DATE,
+  a_devengar          NUMBER,
+  dev_suspenso        NUMBER,
+  congru              VARCHAR2(12)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PK_IND on IT.PR_CUOTAS_MAECARTERA (NRO_CUENTA, NRO_CUOTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,101 @@
+create table IT.MD_DEP_MSJ_AUTOMATICOS
+(
+  fecha             DATE not null,
+  cod_tip_ope       VARCHAR2(240) not null,
+  cod_ejecucion     VARCHAR2(20) not null,
+  nro_orden         NUMBER(10) not null,
+  cod_msj_enviado   VARCHAR2(35),
+  nro_ref_enviado   VARCHAR2(20),
+  hor_enviado       VARCHAR2(8),
+  cod_msj_respuesta VARCHAR2(35),
+  nro_ref_respuesta VARCHAR2(20),
+  hor_respuesta     VARCHAR2(8),
+  estado            VARCHAR2(1),
+  error             VARCHAR2(1000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  ref_campo1        VARCHAR2(4000),
+  val_campo1        VARCHAR2(4000),
+  ref_campo2        VARCHAR2(4000),
+  val_campo2        VARCHAR2(4000),
+  ref_campo3        VARCHAR2(4000),
+  val_campo3        VARCHAR2(4000),
+  ref_campo4        VARCHAR2(4000),
+  val_campo4        VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.fecha
+  is 'Fecha';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.cod_tip_ope
+  is 'Referencia de Codigo de Tipo de Operacion DEPO';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.cod_ejecucion
+  is 'Codigo de Ejecucion';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.nro_orden
+  is 'Nro de Orden';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.cod_msj_enviado
+  is 'Codigo de Mensaje Enviado';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.nro_ref_enviado
+  is 'Nro de Ref Mensaje Enviado';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.hor_enviado
+  is 'Hora de Mensaje Enviado';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.cod_msj_respuesta
+  is 'Codigo de Mensaje Respuesta';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.nro_ref_respuesta
+  is 'Nro de Ref Mensaje Respuesta';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.hor_respuesta
+  is 'Hora de Mensaje Respuesta';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.estado
+  is 'Estado';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.error
+  is 'Descripcion de Error';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.fec_modificacion
+  is 'Fecha de Insercion';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.ref_campo1
+  is 'Referencia Campo1';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.val_campo1
+  is 'Valor de Campo1';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.ref_campo2
+  is 'Referencia Campo2';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.val_campo2
+  is 'Valor de Campo2';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.ref_campo3
+  is 'Referencia Campo3';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.val_campo3
+  is 'Valor de Campo3';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.ref_campo4
+  is 'Referencia Campo4';
+comment on column IT.MD_DEP_MSJ_AUTOMATICOS.val_campo4
+  is 'Valor de Campo4';
+alter table IT.MD_DEP_MSJ_AUTOMATICOS
+  add constraint PK_MD_DEP_MSJ_AUTOMATICOS primary key (FECHA, COD_TIP_OPE, COD_EJECUCION, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

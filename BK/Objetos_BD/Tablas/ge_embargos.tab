@@ -1,0 +1,162 @@
+create table IT.GE_EMBARGOS
+(
+  cod_embargo         NUMBER(9) not null,
+  cod_persona         VARCHAR2(10) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  nro_resolucion      VARCHAR2(10),
+  cod_ofi_origen      NUMBER(3) not null,
+  nro_oficio          VARCHAR2(10),
+  fec_oficio          DATE,
+  estado              VARCHAR2(2),
+  cod_moneda          VARCHAR2(3) not null,
+  importe             NUMBER(18,2) default 0,
+  gas_justicia        NUMBER(18,2) default 0,
+  lev_nro_oficio      VARCHAR2(10),
+  lev_fec_oficio      DATE,
+  lev_cod_usuario     VARCHAR2(10),
+  lev_cod_autorizador VARCHAR2(10),
+  lev_fecha           DATE,
+  juzgado             VARCHAR2(60),
+  circunscripcion     VARCHAR2(60),
+  motivo              VARCHAR2(60),
+  demandante          VARCHAR2(40),
+  observacion         VARCHAR2(1000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cotizacion          NUMBER(14,8),
+  mto_aplicado        NUMBER(18,2),
+  sal_embargo         NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EMBARGOS
+  is 'Detalle del embargo a clientes.';
+comment on column IT.GE_EMBARGOS.cod_embargo
+  is 'Codigo de Embargo.';
+comment on column IT.GE_EMBARGOS.cod_persona
+  is 'Codigo del Cliente.';
+comment on column IT.GE_EMBARGOS.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.GE_EMBARGOS.fecha
+  is 'Fecha de insercion.';
+comment on column IT.GE_EMBARGOS.hora
+  is 'Hora de insercion.';
+comment on column IT.GE_EMBARGOS.nro_resolucion
+  is 'Nro. de Resolucion.';
+comment on column IT.GE_EMBARGOS.cod_ofi_origen
+  is 'Codigo de Oficina.';
+comment on column IT.GE_EMBARGOS.nro_oficio
+  is 'Nro. de Oficio.';
+comment on column IT.GE_EMBARGOS.fec_oficio
+  is 'Fecha de Oficio.';
+comment on column IT.GE_EMBARGOS.estado
+  is 'Estado del Oficio.';
+comment on column IT.GE_EMBARGOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.GE_EMBARGOS.importe
+  is 'Importe Embargado.';
+comment on column IT.GE_EMBARGOS.gas_justicia
+  is 'Gastos Judiciales.';
+comment on column IT.GE_EMBARGOS.lev_nro_oficio
+  is 'Nro. de Oficio de levantamiento.';
+comment on column IT.GE_EMBARGOS.lev_fec_oficio
+  is 'Fecha de levantamiento.';
+comment on column IT.GE_EMBARGOS.lev_cod_usuario
+  is 'Codigo de usuario del levantamiento.';
+comment on column IT.GE_EMBARGOS.lev_cod_autorizador
+  is 'Codigo del usuario autorizador del levantamiento.';
+comment on column IT.GE_EMBARGOS.lev_fecha
+  is 'Fecha de insercion del levantamiento.';
+comment on column IT.GE_EMBARGOS.juzgado
+  is 'Juzgado / Turno.';
+comment on column IT.GE_EMBARGOS.circunscripcion
+  is 'Circunscripcion.';
+comment on column IT.GE_EMBARGOS.motivo
+  is 'Motivo del Jucio.';
+comment on column IT.GE_EMBARGOS.demandante
+  is 'Demandante.';
+comment on column IT.GE_EMBARGOS.observacion
+  is 'Observacion.';
+comment on column IT.GE_EMBARGOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EMBARGOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EMBARGOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EMBARGOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EMBARGOS.cotizacion
+  is '		Cotizacion de la Moneda.';
+create index IT.IN_GEMBA_COD_MONEDA on IT.GE_EMBARGOS (COD_MONEDA, COD_OFI_ORIGEN, COD_USUARIO, LEV_COD_AUTORIZADOR, LEV_COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEMBA_COD_PERSONA on IT.GE_EMBARGOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EMBARGOS
+  add constraint PK_GE_EMBARGOS primary key (COD_EMBARGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EMBARGOS
+  add constraint FK_GEMBA_COD_AUTORIZADOR foreign key (LEV_COD_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_EMBARGOS
+  add constraint FK_GEMBA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_EMBARGOS
+  add constraint FK_GEMBA_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_EMBARGOS
+  add constraint FK_GEMBA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_EMBARGOS
+  add constraint FK_GEMBA_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_EMBARGOS
+  add constraint FK_GEMBA_LEV_COD_USUARIO foreign key (LEV_COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_EMBARGOS
+  add constraint AVCON_1117226818_ESTAD_000
+  check (ESTADO IN ('S', 'R', 'A', 'L', 'E', 'LP', 'EP', 'AP'));
+

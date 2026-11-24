@@ -1,0 +1,50 @@
+CREATE OR REPLACE FORCE VIEW IT.GV_QRY_TARJETAS AS
+Select CTA.NRO_CUENTA, CLI.COD_PERSONA, CTA.DENOMINACION, CTA.COD_MONEDA, det.fec_activacion FEC_INICIO, det.fec_cancelacion FEC_VENCIMIENTO,
+       CLI.RELACION, CTA.COD_MODULO, CTA.COD_MODALIDAD, CTA.ESTADO, DECODE(dat.val_parametro,null,EST.DESCRIPCION,'CARTERA VENDIDA') DESCRIPCION, EST.ACTIVO, --tarjetas
+       MAD.DESCRIPCION SC_NMMODAL, null DES_TIPO
+  from GE_MODALIDADES MAD,GE_EST_CUENTAS EST, ta_cta_tarjetas det, GE_CUENTAS CTA, GE_CTA_CLIENTES CLI,
+      (select nro_cuenta, val_parametro from ge_cta_dat_adicionales where parametro = 'ENT_ADM_CARTERA') DAT
+ where EST.COD_MODULO = CTA.COD_MODULO
+   AND EST.COD_MODALIDAD = CTA.COD_MODALIDAD
+   AND EST.ESTADO = CTA.ESTADO
+   AND CTA.NRO_CUENTA = CLI.NRO_CUENTA
+   AND MAD.COD_MODULO = CTA.COD_MODULO
+   AND MAD.COD_MODALIDAD = CTA.COD_MODALIDAD
+   and cta.nro_cuenta = det.nro_cuenta
+   and cta.nro_cuenta = dat.nro_cuenta(+)
+UNION ALL
+--solicitudes
+Select 'Prop.Nro.'||to_char(det.nro_solicitud) nro_cuenta, DET.COD_PERSONA, DET.NOM_EMBOZADO, DET.COD_MONEDA, det.fec_solicitud FEC_INICIO, null FEC_VENCIMIENTO,
+       DECODE(DET.tipo,'T','P',det.tipo) RELACION, DET.COD_MODULO, DET.COD_MODALIDAD, DET.COD_ESTADO, EST.DESCRIPCION, DECODE(DET.cod_ESTADO,'ANU','N','RCH','N','RTE','N','S') ACTIVO,
+       MAD.DESCRIPCION SC_NMMODAL, des_tipo
+  from GE_MODALIDADES MAD,GE_SOL_ESTADOS EST, tV_solicitudes det
+ where EST.COD_ESTADO = DET.COD_ESTADO
+   AND MAD.COD_MODULO = DET.COD_MODULO
+   AND MAD.COD_MODALIDAD = DET.COD_MODALIDAD
+   and DET.NRO_SOLICITUD IS NOT NULL
+  --AND DET.nro_cuenta IS NULL
+   AND NOT EXISTS (SELECT 0 FROM TA_TARJETAS T, TA_CTA_TARJETAS C
+                   WHERE C.NRO_SOLICITUD = DET.NRO_SOLICITUD
+                     AND T.NRO_CUENTA    = C.NRO_CUENTA
+                     AND T.COD_PERSONA   = DET.COD_PERSONA)  -- Ya son tarjetas no incluir
+   AND NOT EXISTS (SELECT 0
+                     FROM TA_SOL_LINEAS L
+                    WHERE L.NRO_SOLICITUD = DET.NRO_SOLICITUD) -- No incluir solicitudes de línea                   
+UNION ALL
+--Solicitudes adicionales de cuentas activas
+Select to_char(nro_cuenta) nro_cuenta, DET.COD_PERSONA, DET.NOM_EMBOZADO, DET.COD_MONEDA, det.fec_solicitud FEC_INICIO, null FEC_VENCIMIENTO,
+       DECODE(DET.tipo,'T','P',det.tipo) RELACION, DET.COD_MODULO, DET.COD_MODALIDAD, DET.COD_ESTADO, EST.DESCRIPCION, DECODE(DET.cod_ESTADO,'ANU','N','RCH','N','RTE','N','S') ACTIVO,
+       MAD.DESCRIPCION SC_NMMODAL, des_tipo
+  from GE_MODALIDADES MAD,GE_SOL_ESTADOS EST, tV_solicitudes det
+ where EST.COD_ESTADO = DET.COD_ESTADO
+   AND MAD.COD_MODULO = DET.COD_MODULO
+   AND MAD.COD_MODALIDAD = DET.COD_MODALIDAD
+   AND DET.NRO_SOLICITUD IS NULL
+   AND EXISTS (SELECT 0 FROM TA_SOL_ADICIONALES S
+                   WHERE S.NRO_CUENTA    = DET.NRO_CUENTA
+                     AND S.COD_PERSONA   = DET.COD_PERSONA)
+   AND NOT EXISTS (SELECT 0 FROM TA_TARJETAS T
+                   WHERE T.NRO_CUENTA    = DET.NRO_CUENTA
+                     AND T.COD_PERSONA   = DET.COD_PERSONA)  -- Ya son tarjetas no incluir
+;
+

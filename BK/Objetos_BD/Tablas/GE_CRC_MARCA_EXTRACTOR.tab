@@ -1,0 +1,75 @@
+--------------------------------------------------------------------------------
+-- Tabla: IT.GE_CRC_MARCA_EXTRACTOR
+-- Descripción: Marca de disponibilidad CRC para el extractor.
+--              Registra el resultado consolidado de controles posteriores
+--              a la ejecución del orquestador.
+--------------------------------------------------------------------------------
+
+CREATE TABLE IT.GE_CRC_MARCA_EXTRACTOR (
+    ID_MARCA        NUMBER(18)     NOT NULL,
+    ID_EJECUCION    NUMBER(18)     NOT NULL,
+    FECHA_PROCESO   DATE           NOT NULL,
+
+    ESTADO          VARCHAR2(10)   NOT NULL,   -- OK | WARNING | ERROR
+    DETALLE         VARCHAR2(1000) NULL,
+
+    FH_MARCA        TIMESTAMP      NOT NULL,
+    USUARIO         VARCHAR2(30)   NOT NULL,
+
+    CONSTRAINT PK_GE_CRC_MARCA_EXTRACTOR
+        PRIMARY KEY (ID_MARCA),
+
+    CONSTRAINT UK_GE_CRC_MARCA_EXTR
+        UNIQUE (ID_EJECUCION),
+
+    CONSTRAINT CK_GE_CRC_MARCA_EXTR_EST
+        CHECK (ESTADO IN ('OK', 'WARNING', 'ERROR'))
+)
+TABLESPACE IT_DATA;
+
+--------------------------------------------------------------------------------
+-- Comentarios
+--------------------------------------------------------------------------------
+
+COMMENT ON TABLE IT.GE_CRC_MARCA_EXTRACTOR IS
+'Marca de disponibilidad CRC para extractor. Indica el estado consolidado de controles posteriores a la ejecución del orquestador.';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.ID_MARCA IS
+'Identificador único de la marca de disponibilidad (PK).';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.ID_EJECUCION IS
+'Identificador de la ejecución del orquestador CRC asociada a la marca. Es único por ejecución.';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.FECHA_PROCESO IS
+'Fecha de proceso FinDía asociada a la ejecución CRC.';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.ESTADO IS
+'Estado consolidado para el extractor: OK (habilitado), WARNING (habilitado con advertencias), ERROR (no habilitado).';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.DETALLE IS
+'Detalle resumido del resultado de controles (último error o advertencia relevante).';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.FH_MARCA IS
+'Fecha y hora en que se registró la marca de disponibilidad.';
+
+COMMENT ON COLUMN IT.GE_CRC_MARCA_EXTRACTOR.USUARIO IS
+'Usuario que generó la marca de disponibilidad (ejecución automática o manual).';
+
+--------------------------------------------------------------------------------
+-- Índices
+--------------------------------------------------------------------------------
+
+CREATE INDEX IT.IDX_CRC_MARCA_EXTR_FEC
+    ON IT.GE_CRC_MARCA_EXTRACTOR (FECHA_PROCESO, ESTADO)
+TABLESPACE IT_IND;
+
+--------------------------------------------------------------------------------
+-- Sinónimo y permisos
+--------------------------------------------------------------------------------
+
+CREATE PUBLIC SYNONYM GE_CRC_MARCA_EXTRACTOR
+FOR IT.GE_CRC_MARCA_EXTRACTOR;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+ON IT.GE_CRC_MARCA_EXTRACTOR
+TO IT_TEMPORAL;

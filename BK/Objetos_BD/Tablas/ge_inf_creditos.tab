@@ -1,0 +1,158 @@
+create table IT.GE_INF_CREDITOS
+(
+  nro_inf_credito          NUMBER not null,
+  nro_solicitud            NUMBER(7),
+  cod_persona              VARCHAR2(10),
+  fec_evaluacion           DATE,
+  estado                   VARCHAR2(1) default 'A',
+  ope_planteada            CLOB,
+  dat_personal             CLOB,
+  con_antecedente          CLOB,
+  inf_eco_financiera       CLOB,
+  eva_scoring              CLOB,
+  conclusion               LONG,
+  proponente               VARCHAR2(300),
+  area_remitente           VARCHAR2(300),
+  antiguedad               DATE,
+  tip_cliente              VARCHAR2(240),
+  tip_vinculo              VARCHAR2(35),
+  nro_documento            VARCHAR2(20),
+  obs_rie_entidad          VARCHAR2(4000),
+  obs_rie_bbva             VARCHAR2(4000),
+  nom_cliente              VARCHAR2(120),
+  obs_ope_planteada        VARCHAR2(4000),
+  obs_dat_personales       VARCHAR2(4000),
+  obs_inf_eco_financiera   VARCHAR2(4000),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  obs_pos_grupo            VARCHAR2(4000),
+  inf_eco_fin_aux          CLOB,
+  obs_inf_eco_fin_auxiliar VARCHAR2(4000),
+  sue_fijo_inc             NUMBER(1),
+  sue_variable_inc         NUMBER(1),
+  ing_independiente_inc    NUMBER(1),
+  ing_venta_inc            NUMBER(1),
+  alq_cobrado_inc          NUMBER(1),
+  int_ahorro_inc           NUMBER(1),
+  ren_accion_inc           NUMBER(1),
+  jub_pencion_inc          NUMBER(1),
+  gas_familiar_inc         NUMBER(1),
+  cuo_consumo_inc          NUMBER(1),
+  cuo_tarjeta_inc          NUMBER(1),
+  cuo_hipoteca_inc         NUMBER(1),
+  nue_cuota_inc            NUMBER(1),
+  alq_pagado_inc           NUMBER(1),
+  otr_cuota_inc            NUMBER(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_CREDITOS.nro_inf_credito
+  is 'Número del Informe de Crédito.';
+comment on column IT.GE_INF_CREDITOS.nro_solicitud
+  is 'Número de Solicitud al cual corresponde el Informe de Crédito.';
+comment on column IT.GE_INF_CREDITOS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_INF_CREDITOS.fec_evaluacion
+  is 'Fecha de Evaluación.';
+comment on column IT.GE_INF_CREDITOS.estado
+  is 'Estado del Informe (A=Activo, B=Bloqueado).';
+comment on column IT.GE_INF_CREDITOS.ope_planteada
+  is 'Contiene los datos que corresponde al bloque de datos de la Operación Planteada.';
+comment on column IT.GE_INF_CREDITOS.dat_personal
+  is 'Contiene los datos que corresponde al bloque de datos de Datos Personales.';
+comment on column IT.GE_INF_CREDITOS.con_antecedente
+  is 'Contiene los datos que corresponde al bloque de datos de Consulta de Antecedentes.';
+comment on column IT.GE_INF_CREDITOS.inf_eco_financiera
+  is 'Contiene los datos que corresponde al bloque de datos de Información Económico/Financiera.';
+comment on column IT.GE_INF_CREDITOS.eva_scoring
+  is 'Contiene los datos que corresponde al bloque de datos de la Evaluación Scoring.';
+comment on column IT.GE_INF_CREDITOS.conclusion
+  is 'Conclusiones, Recomendación y Argumentación del área Comercial.';
+comment on column IT.GE_INF_CREDITOS.proponente
+  is 'Usuario que cargo la solicitud.';
+comment on column IT.GE_INF_CREDITOS.area_remitente
+  is 'Área del usuario que cargo la solicitud. ';
+comment on column IT.GE_INF_CREDITOS.antiguedad
+  is 'Antigüedad del cliente.';
+comment on column IT.GE_INF_CREDITOS.tip_cliente
+  is 'Tipo de cliente.';
+comment on column IT.GE_INF_CREDITOS.tip_vinculo
+  is 'Tipo de Vinculo.';
+comment on column IT.GE_INF_CREDITOS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.GE_INF_CREDITOS.obs_rie_entidad
+  is 'Observaciones de riesgos en entidades.';
+comment on column IT.GE_INF_CREDITOS.obs_rie_bbva
+  is 'Observaciones de relaciones con el BBVA.';
+comment on column IT.GE_INF_CREDITOS.nom_cliente
+  is 'Nombre del cliente.';
+comment on column IT.GE_INF_CREDITOS.obs_ope_planteada
+  is 'Observaciones de operación planteada.';
+comment on column IT.GE_INF_CREDITOS.obs_dat_personales
+  is 'Observaciones de datos personales.';
+comment on column IT.GE_INF_CREDITOS.obs_inf_eco_financiera
+  is 'Observaciones de información económica financiera.';
+comment on column IT.GE_INF_CREDITOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_INF_CREDITOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_INF_CREDITOS.obs_pos_grupo
+  is 'Observacion de posición de grupo';
+comment on column IT.GE_INF_CREDITOS.inf_eco_fin_aux
+  is 'Contiene los datos que corresponde al bloque de datos de Información Económico/Financiera AUXILIAR.';
+comment on column IT.GE_INF_CREDITOS.obs_inf_eco_fin_auxiliar
+  is 'Observaciones de información económica financiera AUXILIAR';
+comment on column IT.GE_INF_CREDITOS.sue_fijo_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.sue_variable_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.ing_independiente_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.ing_venta_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.alq_cobrado_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.int_ahorro_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.ren_accion_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.jub_pencion_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.gas_familiar_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.cuo_consumo_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.cuo_tarjeta_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.cuo_hipoteca_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.nue_cuota_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.alq_pagado_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+comment on column IT.GE_INF_CREDITOS.otr_cuota_inc
+  is 'CHECK de pestaña auxiliar (0 = APAGADO | 1= PRENDIDO)';
+alter table IT.GE_INF_CREDITOS
+  add constraint PK_GE_INF_CREDITOS primary key (NRO_INF_CREDITO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

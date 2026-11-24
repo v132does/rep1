@@ -1,0 +1,59 @@
+create table IT.GE_CHE_CUSTODIAS_DET
+(
+  nro_cheque       NUMBER(15) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cuota        NUMBER(7) not null,
+  monto            NUMBER(18,2),
+  cod_banco        NUMBER(3),
+  cta_libradora    VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CHE_CUSTODIAS_DET.nro_cheque
+  is 'Número de Cheque.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.nro_cuota
+  is 'Número de Cuota.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.monto
+  is 'Monto a aplicar.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.cod_banco
+  is 'Banco';
+comment on column IT.GE_CHE_CUSTODIAS_DET.cta_libradora
+  is 'Cta. Libradora';
+comment on column IT.GE_CHE_CUSTODIAS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CHE_CUSTODIAS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CHE_CUSTODIAS_DET
+  add constraint PK_GE_CHE_CUSTODIAS_DET primary key (NRO_CHEQUE, NRO_CUENTA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,35 @@
+create table IT.BA_CON_DOC_CHECKLIST
+(
+  cod_tip_documento VARCHAR2(10) not null,
+  descripcion       VARCHAR2(120),
+  vigencia          NUMBER,
+  fec_insercion     DATE default SYSDATE,
+  usu_insercion     VARCHAR2(10) default substr(USER,1,10),
+  fec_modificacion  DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default substr(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BA_CON_DOC_CHECKLIST.cod_tip_documento
+  is 'Codigo del Tipo de Documento';
+comment on column IT.BA_CON_DOC_CHECKLIST.descripcion
+  is 'Descripcion del Tipo de Documento';
+comment on column IT.BA_CON_DOC_CHECKLIST.vigencia
+  is 'Vigencia de Documento ChekList';
+alter table IT.BA_CON_DOC_CHECKLIST
+  add constraint PK_BA_CON_DOC_CHECKLIST primary key (COD_TIP_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

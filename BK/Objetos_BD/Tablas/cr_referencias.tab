@@ -1,0 +1,55 @@
+create table IT.CR_REFERENCIAS
+(
+  cod_referencia   NUMBER(1) not null,
+  tip_referencia   VARCHAR2(1) not null,
+  descripcion      VARCHAR2(80) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_REFERENCIAS
+  is 'Referencias por Tipo.';
+comment on column IT.CR_REFERENCIAS.cod_referencia
+  is 'Codigo de Evaluacion de la Referencia (Peor (0) a Mejor (9)).';
+comment on column IT.CR_REFERENCIAS.tip_referencia
+  is 'Tipo de Referencia.';
+comment on column IT.CR_REFERENCIAS.descripcion
+  is 'Descripcion de la Evaluacion de la Referencia.';
+comment on column IT.CR_REFERENCIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_REFERENCIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_REFERENCIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_REFERENCIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_REFERENCIAS
+  add constraint PK_CR_REFERENCIAS primary key (COD_REFERENCIA, TIP_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REFERENCIAS
+  add constraint AVCON_1086981622_TIP_R_001
+  check (TIP_REFERENCIA IN ('L', 'C', 'B', 'P', 'T', 'A'));
+

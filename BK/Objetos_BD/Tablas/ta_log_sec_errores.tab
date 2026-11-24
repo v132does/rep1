@@ -1,0 +1,47 @@
+create table IT.TA_LOG_SEC_ERRORES
+(
+  cod_error        NUMBER not null,
+  des_error        VARCHAR2(270),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_alta         DATE,
+  fec_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LOG_SEC_ERRORES.cod_error
+  is 'ErrorReferenceNumber';
+comment on column IT.TA_LOG_SEC_ERRORES.des_error
+  is 'Message';
+comment on column IT.TA_LOG_SEC_ERRORES.usu_insercion
+  is 'Usuario Creacion';
+comment on column IT.TA_LOG_SEC_ERRORES.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.TA_LOG_SEC_ERRORES.fec_alta
+  is 'Fecha Alta';
+comment on column IT.TA_LOG_SEC_ERRORES.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.TA_LOG_SEC_ERRORES
+  add constraint PK_TA_LOG_SEC_ERRORES primary key (COD_ERROR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

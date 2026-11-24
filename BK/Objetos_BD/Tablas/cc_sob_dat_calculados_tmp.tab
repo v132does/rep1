@@ -1,0 +1,22 @@
+create table IT.CC_SOB_DAT_CALCULADOS_TMP
+(
+  nro_cuenta         VARCHAR2(20),
+  can_dias           NUMBER(6),
+  can_dia_sobregiro  NUMBER(6),
+  dif_dias           NUMBER(5),
+  tie_linea          VARCHAR2(1),
+  can_dia_actual     NUMBER(6),
+  can_dia_sob_actual NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,35 @@
+create table IT.CB_BAL_DIARIO_TMP
+(
+  cod_rubro     VARCHAR2(10),
+  deb_hoy       NUMBER(18,2) default 0,
+  cre_hoy       NUMBER(18,2) default 0,
+  sal_mon_local NUMBER(18,2) default 0,
+  sal_mon_me    NUMBER(18,2) default 0,
+  sal_anterior  NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_BAL_DIARIO_TMP
+  is 'Contiene los datos del el balance diario temporal.';
+comment on column IT.CB_BAL_DIARIO_TMP.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_BAL_DIARIO_TMP.deb_hoy
+  is 'Debitos de hoy.';
+comment on column IT.CB_BAL_DIARIO_TMP.cre_hoy
+  is 'Creditos de hoy.';
+comment on column IT.CB_BAL_DIARIO_TMP.sal_mon_local
+  is 'Saldo en guaranies.';
+comment on column IT.CB_BAL_DIARIO_TMP.sal_mon_me
+  is 'Saldo en moneda extranjera.';
+comment on column IT.CB_BAL_DIARIO_TMP.sal_anterior
+  is 'Saldo Anterior.';
+

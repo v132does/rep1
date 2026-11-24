@@ -1,0 +1,45 @@
+create table IT.TA_REN_PLANILLAS_TMP
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  nom_embozar         VARCHAR2(26),
+  fec_vencimiento     DATE,
+  fec_emision         DATE,
+  descripcion         VARCHAR2(35),
+  estado              VARCHAR2(35),
+  nro_planilla        NUMBER(8),
+  cod_pla_responsable VARCHAR2(15),
+  nom_responsable     VARCHAR2(60),
+  nro_tarjeta         VARCHAR2(25) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_REN_PLANILLAS_TMP.nro_cuenta
+  is 'Numero de cuenta de la Tarjeta';
+comment on column IT.TA_REN_PLANILLAS_TMP.nom_embozar
+  is 'Embozado';
+comment on column IT.TA_REN_PLANILLAS_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento';
+comment on column IT.TA_REN_PLANILLAS_TMP.fec_emision
+  is 'Fecha de Emision';
+comment on column IT.TA_REN_PLANILLAS_TMP.descripcion
+  is 'Estado de la Tarjeta';
+comment on column IT.TA_REN_PLANILLAS_TMP.estado
+  is 'Estado de la Planilla';
+comment on column IT.TA_REN_PLANILLAS_TMP.nro_planilla
+  is 'Numero de la Planilla';
+comment on column IT.TA_REN_PLANILLAS_TMP.cod_pla_responsable
+  is 'Codigo del responsable de la planilla';
+comment on column IT.TA_REN_PLANILLAS_TMP.nom_responsable
+  is 'Nombre del Responsable';
+comment on column IT.TA_REN_PLANILLAS_TMP.nro_tarjeta
+  is 'Numero de la Tarjeta';
+

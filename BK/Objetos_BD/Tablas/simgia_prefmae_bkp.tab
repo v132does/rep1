@@ -1,0 +1,38 @@
+create table IT.SIMGIA_PREFMAE_BKP
+(
+  prefnumcli    VARCHAR2(10),
+  preftipopr    VARCHAR2(1),
+  prefnro       VARCHAR2(4000),
+  preftipor     CHAR(1),
+  preftipocl    CHAR(1),
+  prefmoneda    VARCHAR2(2),
+  prefvto       VARCHAR2(8),
+  prefmonto     NUMBER,
+  prefsuc       NUMBER,
+  prefcuenta    VARCHAR2(4000),
+  preffeini     VARCHAR2(8),
+  prefdeveng    NUMBER,
+  prefchcont    VARCHAR2(8),
+  preftasa      NUMBER,
+  doc_ult_pago  DATE,
+  det_ult_pago  DATE,
+  mto_capital   NUMBER(18,2),
+  doc_estado    VARCHAR2(1),
+  det_estado    VARCHAR2(1),
+  venc_gral     DATE,
+  venc_registro DATE,
+  fec_ult_dev2  DATE,
+  fecha_his     DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

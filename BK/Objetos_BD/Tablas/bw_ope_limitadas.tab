@@ -1,0 +1,91 @@
+create table IT.BW_OPE_LIMITADAS
+(
+  nro_secuencia    NUMBER(27) not null,
+  nro_cuenta       VARCHAR2(15),
+  cod_tip_mensaje  VARCHAR2(3),
+  cod_canal        VARCHAR2(3),
+  fecha            DATE,
+  monto            NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OPE_LIMITADAS
+  is 'Almacena las operaciones limitadas por cliente y canal.';
+comment on column IT.BW_OPE_LIMITADAS.nro_secuencia
+  is 'Número secuencial que permite mantener una clave única para cada registro.';
+comment on column IT.BW_OPE_LIMITADAS.nro_cuenta
+  is 'Número de Cuenta del Cliente que realizo la operación.';
+comment on column IT.BW_OPE_LIMITADAS.cod_tip_mensaje
+  is 'Indica el tipo de operación: transferencia a terceros, pago de tarjeta de terceros, pago de servicios.';
+comment on column IT.BW_OPE_LIMITADAS.cod_canal
+  is 'Código del Canal Alternativo, 993 para Mobile Banking.';
+comment on column IT.BW_OPE_LIMITADAS.fecha
+  is 'Fecha que se realizó la operación.';
+comment on column IT.BW_OPE_LIMITADAS.monto
+  is 'Monto de la transacción.';
+comment on column IT.BW_OPE_LIMITADAS.cod_moneda
+  is 'Código de la Moneda de la operación.';
+comment on column IT.BW_OPE_LIMITADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_OPE_LIMITADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_OPE_LIMITADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificación en el registro.';
+comment on column IT.BW_OPE_LIMITADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificación en el registro.';
+create index IT.IN_WOLIM_COD_TIP_MENSAJE on IT.BW_OPE_LIMITADAS (COD_TIP_MENSAJE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WOLIM_NRO_CUENTA on IT.BW_OPE_LIMITADAS (NRO_CUENTA, FECHA, COD_CANAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_LIMITADAS
+  add constraint PK_BW_OPE_LIMITADAS primary key (NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_LIMITADAS
+  add constraint FK_WOLIM_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+

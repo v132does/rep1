@@ -1,0 +1,47 @@
+create table IT.GE_LOG_PROCESOS
+(
+  fecha            DATE not null,
+  cod_programa     VARCHAR2(60) not null,
+  cod_proceso      VARCHAR2(60) not null,
+  hor_inicio       VARCHAR2(8) not null,
+  hor_fin          VARCHAR2(8) not null,
+  observacion      VARCHAR2(400),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_PROCESOS
+  is 'Tabla de registro de duracion de procesos internos de programas';
+comment on column IT.GE_LOG_PROCESOS.fecha
+  is 'Fecha de ejecución del proceso';
+comment on column IT.GE_LOG_PROCESOS.cod_programa
+  is 'Código o Nombre del Programa desde el cual se ejecuta el proceso.';
+comment on column IT.GE_LOG_PROCESOS.cod_proceso
+  is 'Código de Proceso - Nombre proceso ejecutado';
+comment on column IT.GE_LOG_PROCESOS.hor_inicio
+  is 'Hora Inicio de ejecución';
+comment on column IT.GE_LOG_PROCESOS.hor_fin
+  is 'Hora Fin de ejecución';
+comment on column IT.GE_LOG_PROCESOS.observacion
+  is 'Observación sobre ejecución de proceso.';
+comment on column IT.GE_LOG_PROCESOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_LOG_PROCESOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_LOG_PROCESOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_LOG_PROCESOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

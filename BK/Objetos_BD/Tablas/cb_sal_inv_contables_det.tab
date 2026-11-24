@@ -1,0 +1,29 @@
+create table IT.CB_SAL_INV_CONTABLES_DET
+(
+  nro_referencia NUMBER(10) not null,
+  nro_cuenta     VARCHAR2(15) not null,
+  sal_actual     NUMBER(18,2),
+  sal_anterior   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INV_CONTABLES_DET
+  is 'Saldos manuales y ajustes contables detallados de inventarios fisicos.';
+comment on column IT.CB_SAL_INV_CONTABLES_DET.nro_referencia
+  is 'Nro. de referencia.';
+comment on column IT.CB_SAL_INV_CONTABLES_DET.nro_cuenta
+  is 'Nro. de cuenta.';
+comment on column IT.CB_SAL_INV_CONTABLES_DET.sal_actual
+  is 'Saldo actual.';
+comment on column IT.CB_SAL_INV_CONTABLES_DET.sal_anterior
+  is 'Saldo anterior.';
+

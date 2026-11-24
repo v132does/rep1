@@ -1,0 +1,73 @@
+create table IT.CB_COM_MANUALES_DET
+(
+  nro_comprobante  NUMBER(20) not null,
+  nro_secuencia    NUMBER(3) not null,
+  descripcion      VARCHAR2(120) not null,
+  val_tas_impuesto NUMBER(2) default 0 not null,
+  monto            NUMBER(18,2),
+  impuesto         NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default sysdate,
+  cantidad         NUMBER(5) default 0,
+  mto_gravada      NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_COM_MANUALES_DET
+  is 'Detalle de lineas de comprobantes manuales';
+comment on column IT.CB_COM_MANUALES_DET.nro_comprobante
+  is 'Nro de comprobante.';
+comment on column IT.CB_COM_MANUALES_DET.nro_secuencia
+  is 'Nro. de linea de detalle';
+comment on column IT.CB_COM_MANUALES_DET.descripcion
+  is 'Descripción del Movimiento.';
+comment on column IT.CB_COM_MANUALES_DET.val_tas_impuesto
+  is 'Valor de Tasa de IVA: 0-Excento, 10-10%, 5%. Solo debe permitir estos tres datos';
+comment on column IT.CB_COM_MANUALES_DET.monto
+  is 'Monto de la linea';
+comment on column IT.CB_COM_MANUALES_DET.impuesto
+  is 'Impuesto ';
+comment on column IT.CB_COM_MANUALES_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CB_COM_MANUALES_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_COM_MANUALES_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CB_COM_MANUALES_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CB_COM_MANUALES_DET.cantidad
+  is 'Cantidad';
+comment on column IT.CB_COM_MANUALES_DET.mto_gravada
+  is 'Monto Gravada';
+alter table IT.CB_COM_MANUALES_DET
+  add constraint PK_CB_COM_MANUALES_DET primary key (NRO_COMPROBANTE, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_COM_MANUALES_DET
+  add constraint FK_BCMDE_NRO_COMPROBANTE foreign key (NRO_COMPROBANTE)
+  references IT.CB_COM_MANUALES (NRO_COMPROBANTE);
+alter table IT.CB_COM_MANUALES_DET
+  add constraint CK_VAL_TAS_IMPUESTO
+  check (VAL_TAS_IMPUESTO IN (0,10,5));
+

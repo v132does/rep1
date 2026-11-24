@@ -1,0 +1,61 @@
+create table IT.GE_SEG_PREFERENTES_CRM
+(
+  cod_seg_preferente NUMBER(3) not null,
+  descripcion        VARCHAR2(60),
+  rgb                VARCHAR2(15),
+  fin_nom_archivo    VARCHAR2(3),
+  nom_cam_color      VARCHAR2(40),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   TIMESTAMP(6) default current_timestamp not null,
+  tip_accion         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SEG_PREFERENTES_CRM
+  is 'Segmentos Preferentes de Clientes';
+comment on column IT.GE_SEG_PREFERENTES_CRM.cod_seg_preferente
+  is 'Código del Segmento Preferente.';
+comment on column IT.GE_SEG_PREFERENTES_CRM.descripcion
+  is 'Descripción del Segmento Preferente';
+comment on column IT.GE_SEG_PREFERENTES_CRM.rgb
+  is 'Color de la fuente a utilizar. RGB Indica el Porcentaje  de Red, Green y Blue (r<valor>g<valor>b<valor>). Ejemplo: r100b88g0.';
+comment on column IT.GE_SEG_PREFERENTES_CRM.fin_nom_archivo
+  is 'Código para la generación de archivos que identifica el segmento preferente dentro del archivo generado y como nombre del mismo';
+comment on column IT.GE_SEG_PREFERENTES_CRM.nom_cam_color
+  is 'Nombre del campo donde se encuentra el color seleccionado para el preferente';
+comment on column IT.GE_SEG_PREFERENTES_CRM.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SEG_PREFERENTES_CRM.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SEG_PREFERENTES_CRM.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_SEG_PREFERENTES_CRM.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_SEG_PREFERENTES_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+alter table IT.GE_SEG_PREFERENTES_CRM
+  add constraint PK_GE_SEG_PREFERENTES_CRM primary key (FEC_MODIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

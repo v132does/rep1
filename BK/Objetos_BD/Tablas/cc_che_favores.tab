@@ -1,0 +1,113 @@
+create table IT.CC_CHE_FAVORES
+(
+  cod_che_favor       NUMBER(10) not null,
+  cod_persona         VARCHAR2(10) not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  denominacion        VARCHAR2(65) not null,
+  can_fir_requeridas  NUMBER(2),
+  can_fir_registradas NUMBER(2),
+  fec_apertura        DATE not null,
+  fec_aprobacion      DATE,
+  fec_vencimiento     DATE,
+  fec_cancelacion     DATE,
+  tip_servicio        VARCHAR2(1),
+  val_total           NUMBER(18,2),
+  saldo               NUMBER(18,2),
+  mto_comision        NUMBER(18,2),
+  estado              VARCHAR2(1),
+  est_batch           VARCHAR2(1),
+  nro_cta_credito     VARCHAR2(15) not null,
+  can_documentos      NUMBER(5) not null,
+  reg_firma           VARCHAR2(600),
+  cod_tasa            NUMBER(3),
+  val_tasa            NUMBER(20,4),
+  for_pago            VARCHAR2(1),
+  cobrado             VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CC_CHE_FAVORES.cod_che_favor
+  is 'Código del Cheque de Favor.';
+comment on column IT.CC_CHE_FAVORES.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.CC_CHE_FAVORES.cod_oficina
+  is 'Código de la Oficina.';
+comment on column IT.CC_CHE_FAVORES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CC_CHE_FAVORES.denominacion
+  is 'Denominación de la Cuenta.';
+comment on column IT.CC_CHE_FAVORES.can_fir_requeridas
+  is 'Cantidad de Firmas Requeridas para la Cuenta.';
+comment on column IT.CC_CHE_FAVORES.can_fir_registradas
+  is 'Cantidad de Firmas Registradas para la Cuenta.';
+comment on column IT.CC_CHE_FAVORES.fec_apertura
+  is 'Fecha de apertura de la Cuenta de Caja de Seguridad.';
+comment on column IT.CC_CHE_FAVORES.fec_aprobacion
+  is 'Fecha de Aprobacion de la Cuenta.';
+comment on column IT.CC_CHE_FAVORES.fec_vencimiento
+  is 'Fecha de Vencimiento segun Contrato de Arrendamiento.';
+comment on column IT.CC_CHE_FAVORES.fec_cancelacion
+  is 'Fecha de cancelación de la Cuenta.';
+comment on column IT.CC_CHE_FAVORES.tip_servicio
+  is 'C- Custodia A- Administracion';
+comment on column IT.CC_CHE_FAVORES.val_total
+  is 'Monto Total por el Valor de los Documentos Custodiados.';
+comment on column IT.CC_CHE_FAVORES.saldo
+  is 'Saldo del actual por los Documentos Custodiados.';
+comment on column IT.CC_CHE_FAVORES.mto_comision
+  is 'Monto de la Comisión asociada a la Operación.';
+comment on column IT.CC_CHE_FAVORES.estado
+  is 'Estado actual de la Cuenta de Caja de seguridad: I-Ingresado N-Aprobado/Normal C-Cancelada V-Vencida.';
+comment on column IT.CC_CHE_FAVORES.est_batch
+  is 'Estado Batch de la Cuenta de Caja de seguridad: A-Abierta N-Aprobado/Normal C-Cancelada V-Vencida.';
+comment on column IT.CC_CHE_FAVORES.nro_cta_credito
+  is 'Indica el Nro de Cuenta para los Creditos si la operación es Administración.';
+comment on column IT.CC_CHE_FAVORES.can_documentos
+  is 'Cantidad de Documentos Custodiados.';
+comment on column IT.CC_CHE_FAVORES.reg_firma
+  is 'Regimen de Firma para Acceso a Caja de Seguridad.';
+comment on column IT.CC_CHE_FAVORES.cod_tasa
+  is 'Código de Tasa a aplicar para el cobro de comisión.';
+comment on column IT.CC_CHE_FAVORES.val_tasa
+  is 'Valor de tasa utilizado para la Comisión.';
+comment on column IT.CC_CHE_FAVORES.for_pago
+  is 'Indica la forma de Pago: -(C)ontado -(D)ebito en Cuenta.';
+comment on column IT.CC_CHE_FAVORES.cobrado
+  is 'Indica si la Custodia está Cobrada.';
+comment on column IT.CC_CHE_FAVORES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_FAVORES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_FAVORES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_FAVORES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CC_CHE_FAVORES
+  add constraint PK_CC_CHE_FAVORES primary key (COD_CHE_FAVOR)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

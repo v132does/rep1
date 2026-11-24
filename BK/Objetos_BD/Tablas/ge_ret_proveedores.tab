@@ -1,0 +1,90 @@
+create table IT.GE_RET_PROVEEDORES
+(
+  cod_proveedor    NUMBER(10) not null,
+  fec_pago         DATE,
+  nro_factura      VARCHAR2(20) not null,
+  importe          NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  nro_retencion    NUMBER(12) not null,
+  monto_iva        NUMBER(18,2),
+  monto_retencion  NUMBER(18,2),
+  estado           VARCHAR2(1) default 'C',
+  cotizacion       NUMBER(18,2),
+  mto_renta        NUMBER(18,2),
+  mto_ret_renta    NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  fec_cam_estado   DATE,
+  nro_timbrado     VARCHAR2(20) not null,
+  fec_vig_timbrado DATE,
+  nro_ret_virtual  VARCHAR2(20),
+  est_ret_virtual  VARCHAR2(1),
+  fec_ret_virtual  DATE,
+  nro_orden        NUMBER(10),
+  nro_cuota        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_RET_PROVEEDORES.estado
+  is 'Estado de la Retencion. C=Cargado, N=Pagado, A=Anulado, R=Reactivado.'';';
+comment on column IT.GE_RET_PROVEEDORES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_RET_PROVEEDORES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_RET_PROVEEDORES.fec_cam_estado
+  is 'Fecha de cambio de Estado de la Retención.';
+comment on column IT.GE_RET_PROVEEDORES.nro_timbrado
+  is 'Numero de Timbrado.';
+comment on column IT.GE_RET_PROVEEDORES.fec_vig_timbrado
+  is 'Fecha de validez del Timbrado.';
+comment on column IT.GE_RET_PROVEEDORES.nro_ret_virtual
+  is 'Nro. de Retención Virtual.';
+comment on column IT.GE_RET_PROVEEDORES.est_ret_virtual
+  is 'Estado de la Retención Virtual.';
+comment on column IT.GE_RET_PROVEEDORES.fec_ret_virtual
+  is 'Fecha de la Retención Virtual.';
+comment on column IT.GE_RET_PROVEEDORES.nro_orden
+  is 'Número de orden de pago, el mismo se encuentra en la tabla pv_cuotas, seria el indicador en el caso de la reversión para dejar en estado pendiente tanto la cuota como la orden de pago en ge_pag_proveedores.';
+comment on column IT.GE_RET_PROVEEDORES.nro_cuota
+  is 'Número de cuota. Cuando se trata de factura contado se agrega cero, cuando es factura de crédito es diferente a 0.';
+alter table IT.GE_RET_PROVEEDORES
+  add constraint PK_GE_RET_PROVEEDORES primary key (NRO_RETENCION, NRO_TIMBRADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RET_PROVEEDORES
+  add constraint UK_GE_RET_PROVEEDORES unique (NRO_RETENCION, FEC_PAGO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RET_PROVEEDORES
+  add constraint FK_GRPRO_COD_PROVEEDOR foreign key (COD_PROVEEDOR)
+  references IT.GE_ENTES (COD_ENTE);
+

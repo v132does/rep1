@@ -1,0 +1,79 @@
+create table IT.CR_AGE_EST_ACTIVIDADES
+(
+  cod_actividad      NUMBER(3) not null,
+  cod_estado         NUMBER(2) not null,
+  descripcion        VARCHAR2(35) not null,
+  grupo              VARCHAR2(1) default 'P',
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  ind_reprogramacion VARCHAR2(1) default 'N',
+  ind_reasignacion   VARCHAR2(1) default 'N',
+  ind_cancelacion    VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AGE_EST_ACTIVIDADES
+  is 'Estados por Tipo de Actividad.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.cod_actividad
+  is 'Codigo de actividad.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.cod_estado
+  is 'Codigo de estado.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.descripcion
+  is 'Descripcion del estado.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.grupo
+  is 'Grupo de estados: P=pendiente, R=realizado.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.ind_reprogramacion
+  is 'Indica si la actividad es una reprogramacion de tareas.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.ind_reasignacion
+  is 'Indica si la actividad es una reasignacion de tareas por parte de un supervisor.';
+comment on column IT.CR_AGE_EST_ACTIVIDADES.ind_cancelacion
+  is 'Indica que el cliente se encuentra cancelado, y no se deben volver a generar actividades para el mismo.';
+alter table IT.CR_AGE_EST_ACTIVIDADES
+  add constraint PK_CR_AGE_EST_ACTIVIDADES primary key (COD_ACTIVIDAD, COD_ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_AGE_EST_ACTIVIDADES
+  add constraint FK_RESAC_COD_ACTIVIDAD foreign key (COD_ACTIVIDAD)
+  references IT.CR_AGE_ACTIVIDADES (COD_ACTIVIDAD);
+alter table IT.CR_AGE_EST_ACTIVIDADES
+  add constraint AVCON_1081181407_GRUPO_000
+  check (GRUPO IN ('P', 'R', 'C'));
+alter table IT.CR_AGE_EST_ACTIVIDADES
+  add constraint AVCON_1121462488_COD_A_001
+  check (COD_ACTIVIDAD BETWEEN 0 AND 999);
+alter table IT.CR_AGE_EST_ACTIVIDADES
+  add constraint AVCON_1121462488_IND_R_000
+  check (IND_REPROGRAMACION IN ('S', 'N'));
+alter table IT.CR_AGE_EST_ACTIVIDADES
+  add constraint AVCON_1121462488_IND_R_001
+  check (IND_REASIGNACION IN ('S', 'N'));
+

@@ -1,0 +1,96 @@
+create table IT.BW_SOL_CLAVES
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_per_vinculada VARCHAR2(10),
+  tipo_documento    NUMBER(3),
+  nro_documento     VARCHAR2(20),
+  fec_nacimiento    DATE,
+  tip_tarjeta       VARCHAR2(3),
+  nro_tarjeta       VARCHAR2(19),
+  cod_origen        VARCHAR2(200) default 'CLAVE FACIL' not null,
+  token             VARCHAR2(200),
+  estado            VARCHAR2(1) default 'S',
+  fec_verificacion  DATE,
+  fec_confirmacion  DATE,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  tipo              VARCHAR2(1) default 'A' not null,
+  serial            VARCHAR2(100),
+  cod_oficina       NUMBER(3),
+  nro_ip            VARCHAR2(15),
+  cod_canal         VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_SOL_CLAVES
+  is 'Guarda la bitácora de las claves solicitadas.';
+comment on column IT.BW_SOL_CLAVES.cod_persona
+  is 'Código de persona.';
+comment on column IT.BW_SOL_CLAVES.cod_per_vinculada
+  is 'Código de persona vinculada.';
+comment on column IT.BW_SOL_CLAVES.tipo_documento
+  is 'Tipo de documento de identidad.';
+comment on column IT.BW_SOL_CLAVES.nro_documento
+  is 'Nro. de documento.';
+comment on column IT.BW_SOL_CLAVES.fec_nacimiento
+  is 'Fecha de nacimiento.';
+comment on column IT.BW_SOL_CLAVES.tip_tarjeta
+  is 'D:Debito C:Credito solo debito inicialmente.';
+comment on column IT.BW_SOL_CLAVES.nro_tarjeta
+  is 'Nro. de Tarjeta.';
+comment on column IT.BW_SOL_CLAVES.cod_origen
+  is 'Numero de IP o identificador desde donde se origino el PEDIDO de clave';
+comment on column IT.BW_SOL_CLAVES.token
+  is 'Token de autorizacion para solicitar la creacion de una clave.';
+comment on column IT.BW_SOL_CLAVES.estado
+  is '*S:*Solicitado *C:*Confirmado.';
+comment on column IT.BW_SOL_CLAVES.fec_verificacion
+  is 'Fecha y hora que se realizo la insercion de la solicitud';
+comment on column IT.BW_SOL_CLAVES.fec_confirmacion
+  is 'Fecha y hora que se realizo la actualizacion una vez asignada la clave con exito';
+comment on column IT.BW_SOL_CLAVES.fec_insercion
+  is 'Campos de auditoria.';
+comment on column IT.BW_SOL_CLAVES.usu_insercion
+  is 'Campos de auditoria';
+comment on column IT.BW_SOL_CLAVES.fec_modificacion
+  is 'Campos de auditoria';
+comment on column IT.BW_SOL_CLAVES.usu_modificacion
+  is 'Campos de auditoria';
+comment on column IT.BW_SOL_CLAVES.tipo
+  is 'Tipo de clave solicitada A Acceso T Transaccional F Token Fisico K Token Virtual';
+comment on column IT.BW_SOL_CLAVES.serial
+  is 'Numero Serial del Token asignado';
+comment on column IT.BW_SOL_CLAVES.cod_oficina
+  is 'Codigo de oficina del Token o del usuario para tipo A o T';
+comment on column IT.BW_SOL_CLAVES.nro_ip
+  is 'Número de ip del cliente.';
+comment on column IT.BW_SOL_CLAVES.cod_canal
+  is 'Código del canal.';
+create index IT.IN_BW_SOL_CLAVES on IT.BW_SOL_CLAVES (COD_PERSONA, FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  reverse;
+alter table IT.BW_SOL_CLAVES
+  add constraint CK_EST_SOL
+  check (ESTADO IN ('S', 'C', 'V', 'R'));
+

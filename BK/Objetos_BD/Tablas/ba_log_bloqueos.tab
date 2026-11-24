@@ -1,0 +1,86 @@
+create table IT.BA_LOG_BLOQUEOS
+(
+  nro_secuencia    NUMBER(20) not null,
+  fecha            DATE not null,
+  fec_proceso      DATE,
+  prev_exec_start  DATE,
+  last_active_time DATE,
+  tie_ejecucion    VARCHAR2(8),
+  sid              NUMBER not null,
+  object           VARCHAR2(20),
+  username         VARCHAR2(30),
+  program          VARCHAR2(64),
+  lock_type        VARCHAR2(26),
+  mode_held        VARCHAR2(40),
+  mode_requested   VARCHAR2(40),
+  sql_text         VARCHAR2(1000),
+  sql_fulltext     CLOB,
+  action           VARCHAR2(64),
+  usu_insercion    VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BA_LOG_BLOQUEOS.nro_secuencia
+  is 'Nro de secuencia de ejecución de proceso de seguimiento de objetos bloqueados ';
+comment on column IT.BA_LOG_BLOQUEOS.fecha
+  is 'Fecha sin hora para índice de la tabla ';
+comment on column IT.BA_LOG_BLOQUEOS.fec_proceso
+  is 'Fecha de proceso de búsqueda de objeto bloqueados';
+comment on column IT.BA_LOG_BLOQUEOS.prev_exec_start
+  is 'Fecha/hora inicio de ejecución de la sentencia DML';
+comment on column IT.BA_LOG_BLOQUEOS.last_active_time
+  is 'Fecha/hora de ejecución actual del proceso';
+comment on column IT.BA_LOG_BLOQUEOS.tie_ejecucion
+  is 'Tiempo que lleva ejecutandose el proceso';
+comment on column IT.BA_LOG_BLOQUEOS.object
+  is 'Objeto de base de datos Bloqueado';
+comment on column IT.BA_LOG_BLOQUEOS.program
+  is 'Programa utilizado para ejecución de procesos ';
+comment on column IT.BA_LOG_BLOQUEOS.lock_type
+  is 'Tipo de bloqueo';
+comment on column IT.BA_LOG_BLOQUEOS.mode_held
+  is 'Modo';
+comment on column IT.BA_LOG_BLOQUEOS.sql_text
+  is 'Texto SQL de';
+comment on column IT.BA_LOG_BLOQUEOS.sql_fulltext
+  is 'Texto SQL completo';
+comment on column IT.BA_LOG_BLOQUEOS.action
+  is 'Acción de base de datos';
+comment on column IT.BA_LOG_BLOQUEOS.usu_insercion
+  is 'usuario que inserta los registros en la tabla';
+create index IT.IN_LOGBLO_FECHA on IT.BA_LOG_BLOQUEOS (FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_LOG_BLOQUEOS
+  add constraint PK_BA_LOG_BLOQUEOS primary key (NRO_SECUENCIA, FECHA, SID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

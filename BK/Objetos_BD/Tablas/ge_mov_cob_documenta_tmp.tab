@@ -1,0 +1,43 @@
+create table IT.GE_MOV_COB_DOCUMENTA_TMP
+(
+  terminal      VARCHAR2(8),
+  fec_proceso   DATE,
+  fec_pago      DATE,
+  hor_pago      VARCHAR2(8),
+  nro_boleta    VARCHAR2(9),
+  referencia    VARCHAR2(30),
+  nro_operacion VARCHAR2(9),
+  nro_tarjeta   VARCHAR2(15),
+  nro_cuenta    VARCHAR2(15),
+  importe       NUMBER(18,2),
+  comision      NUMBER(18,2),
+  cod_producto  VARCHAR2(2),
+  moneda        VARCHAR2(4),
+  bco_emisor    VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.fec_proceso
+  is 'AAAAMMDD';
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.fec_pago
+  is 'AAAAMMDD';
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.hor_pago
+  is 'hhmmss';
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.importe
+  is '14 enteros, 2 decimales';
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.comision
+  is '14 enteros, 2 decimales';
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.cod_producto
+  is '01 = Pago Préstamo, 02 = Pago TC';
+comment on column IT.GE_MOV_COB_DOCUMENTA_TMP.moneda
+  is '6900 = Guaraníes, 01 = Dólares ';
+

@@ -1,0 +1,47 @@
+create table IT.CC_LIN_SOBREGIROS_TMP
+(
+  nro_cuenta       VARCHAR2(15),
+  mto_linea        NUMBER,
+  cod_persona      VARCHAR2(10),
+  cod_sec_contable VARCHAR2(1),
+  residente        VARCHAR2(1),
+  cod_tip_deudor   NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_LIN_SOBREGIROS_TMP
+  is 'Tabla temporal para registrar datos de sobregiros y los clientes principales de la cuenta, para utilizar en la generación de asientos automáticos proceso PRC_AJU_SOBREGIROS_TMP';
+comment on column IT.CC_LIN_SOBREGIROS_TMP.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.CC_LIN_SOBREGIROS_TMP.mto_linea
+  is 'Monto Línea (este monto se obtiene de la suma de las lineas que dispone la cuenta en cc_lin_sobregiros)';
+comment on column IT.CC_LIN_SOBREGIROS_TMP.cod_persona
+  is 'Código de Persona principal de la cuenta';
+comment on column IT.CC_LIN_SOBREGIROS_TMP.cod_sec_contable
+  is 'Código de sector.';
+comment on column IT.CC_LIN_SOBREGIROS_TMP.residente
+  is 'Indica si es IND_RESIDENTE (S/N).';
+comment on column IT.CC_LIN_SOBREGIROS_TMP.cod_tip_deudor
+  is 'Tipo de deudor.';
+create index IT.IN_CLINS_NRO_CUENTA on IT.CC_LIN_SOBREGIROS_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

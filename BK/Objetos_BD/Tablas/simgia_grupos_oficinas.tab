@@ -1,0 +1,20 @@
+create table IT.SIMGIA_GRUPOS_OFICINAS
+(
+  grupo_oficina VARCHAR2(50),
+  compite       VARCHAR2(2),
+  tipo          VARCHAR2(20),
+  cod_oficina   NUMBER(3),
+  sub_region    NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

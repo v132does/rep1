@@ -1,0 +1,98 @@
+create table IT.AH_DEV_GRU_PEDIDOS_TMP
+(
+  cod_modulo             NUMBER(3),
+  cod_modalidad          NUMBER(3),
+  cod_oficina            NUMBER(3),
+  nro_cuenta             VARCHAR2(15),
+  cod_moneda             VARCHAR2(3),
+  fec_apertura           DATE,
+  fec_ult_capitalizacion DATE,
+  sal_minimo             NUMBER(18,2),
+  tas_personalizada      VARCHAR2(1),
+  sal_total              NUMBER(18,2),
+  cod_tasa               NUMBER(3),
+  sal_disponible         NUMBER,
+  sal_ult_capitalizacion NUMBER(18,2),
+  cod_persona            VARCHAR2(10),
+  funcionario            VARCHAR2(1) default 'N',
+  cod_sub_modalidad      NUMBER(3),
+  sal_min_pactado        NUMBER(18,2),
+  sal_acumulado          NUMBER(18,2),
+  sal_promedio           NUMBER(18,2),
+  can_dia_acumulado      NUMBER(4),
+  fec_inicio             DATE,
+  fec_final              DATE,
+  cod_paralelo           VARCHAR2(20),
+  fecha                  DATE,
+  val_tasa               NUMBER(20,4),
+  fec_tasa               DATE,
+  can_dia_interes        NUMBER(6),
+  mto_interes            NUMBER(18,2) default 0,
+  dia_dev_anterior       NUMBER(6),
+  mto_dev_anterior       NUMBER(18,2),
+  mto_dev_acumulado      NUMBER(18,2),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion          DATE default SYSDATE,
+  fec_modificacion       DATE default SYSDATE,
+  mto_ajuste             NUMBER(18,2),
+  referencia             VARCHAR2(30),
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.fec_apertura
+  is 'Fecha de Apertura de la Cuenta';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.fec_ult_capitalizacion
+  is 'Fecha de Ultima Capitalizacion';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_minimo
+  is 'Saldo Minimo';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.tas_personalizada
+  is 'Tasa Personalizada (S/N)';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_total
+  is 'Saldo Total';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_tasa
+  is 'Codigo de Tasa';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_disponible
+  is 'Saldo Disponible';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_ult_capitalizacion
+  is 'Saldo en la Ultima Capitalizacion';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.funcionario
+  is 'Si es Funcionario (S/N)';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_sub_modalidad
+  is 'Codigo de Sub-Modalidad';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_min_pactado
+  is 'Saldo Minimo Pactado';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_acumulado
+  is 'Saldo Acumulado';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.sal_promedio
+  is 'Saldo Promedio';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.can_dia_acumulado
+  is 'Cantidad de Dias Acumulados';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.fec_inicio
+  is 'Fecha de Inicio de Periodo de Devengamiento';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.fec_final
+  is 'Fecha de Fin de Periodo de Devengamiento';
+comment on column IT.AH_DEV_GRU_PEDIDOS_TMP.cod_paralelo
+  is 'Codigo de Grupo de Procesamiento en Paralelo';
+

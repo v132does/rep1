@@ -1,0 +1,29 @@
+﻿begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '10000000', 10, 101, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '10000000', 10, 104, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '10000000', 10, 106, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '10000000', 10, 123, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '10000000', 10, 124, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '10000000', 10, 126, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '1000000', 10, 127, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('SNP_MTO_UNI_TITULO', '1000000', 10, 149, null, null, 'MIGRA', to_date('16-09-2023 14:59:04', 'dd-mm-yyyy hh24:mi:ss'), 'RUPGONZALE', to_date('15-07-2024 12:17:48', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+commit;
+
+

@@ -1,0 +1,7 @@
+create sequence IT.S_MI_IT_CR_INF_LABORALES
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 302967
+increment by 1
+nocache;
+

@@ -1,0 +1,7 @@
+﻿BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:= 1; END;
+/
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('COD_MAD_MER_SECUNDARIO', ',101,106,114,123,124,', null, null, null, null, 'ACASCO', to_date('20-11-2024 18:49:04', 'dd-mm-yyyy hh24:mi:ss'), 'ACASCO', to_date('20-11-2024 18:49:04', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+commit;

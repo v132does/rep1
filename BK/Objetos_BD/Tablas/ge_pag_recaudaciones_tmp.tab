@@ -1,0 +1,56 @@
+create table IT.GE_PAG_RECAUDACIONES_TMP
+(
+  cod_ente        VARCHAR2(10),
+  fec_operacion   DATE,
+  nro_archivo     NUMBER(10),
+  nro_cta_debito  VARCHAR2(15),
+  denominacion    VARCHAR2(100),
+  nro_cta_credito VARCHAR2(15),
+  cod_moneda      VARCHAR2(3),
+  monto           NUMBER(18,2),
+  estado          VARCHAR2(1),
+  nro_factura     VARCHAR2(60),
+  tip_cobranza    VARCHAR2(3),
+  usu_insercion   VARCHAR2(10) default user,
+  fec_insercion   DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_RECAUDACIONES_TMP
+  is 'Datos correspondiente a órdenes de pago.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.cod_ente
+  is 'Codigo de Ente.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.fec_operacion
+  is 'Fecha de Operación.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.nro_archivo
+  is 'Número del Archivo Importado.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.nro_cta_debito
+  is 'Número de Cuenta de Debito.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.denominacion
+  is 'Denominacion de la Cuenta de Debito.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.nro_cta_credito
+  is 'Número de Cuenta de Crédito.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.monto
+  is 'Monto de la Transacción';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.estado
+  is 'Estado en el que se encuentra la Orden.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.nro_factura
+  is 'Número de Referencia de Pago.';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.tip_cobranza
+  is 'Tipo de Concepto de Cobranza Realizada';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.usu_insercion
+  is 'Usuario de inserción';
+comment on column IT.GE_PAG_RECAUDACIONES_TMP.fec_insercion
+  is 'Fecha de inserción.';
+

@@ -1,0 +1,12 @@
+﻿BEGIN 
+PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO := 1; 
+DBMS_SESSION.SET_IDENTIFIER('SRER-1847');
+
+END;
+/
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('MDD_MAD_ENCAJE', ',145,', null, null, null, null, 'EVERA', to_date('09-03-2026 14:34:21', 'dd-mm-yyyy hh24:mi:ss'), 'EVERA', to_date('09-03-2026 14:34:21', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+commit; 
+
+

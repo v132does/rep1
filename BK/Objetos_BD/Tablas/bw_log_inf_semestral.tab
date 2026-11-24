@@ -1,0 +1,42 @@
+create table IT.BW_LOG_INF_SEMESTRAL
+(
+  fec_envio        DATE not null,
+  cod_persona      VARCHAR2(20) not null,
+  archivo          VARCHAR2(2000),
+  lugar            VARCHAR2(2000),
+  det_error        VARCHAR2(4000),
+  fec_insercion    DATE default SYSDATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_LOG_INF_SEMESTRAL.fec_envio
+  is 'Fecha de Envio';
+comment on column IT.BW_LOG_INF_SEMESTRAL.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.BW_LOG_INF_SEMESTRAL.archivo
+  is 'Archivo';
+comment on column IT.BW_LOG_INF_SEMESTRAL.lugar
+  is 'Lugar del error';
+comment on column IT.BW_LOG_INF_SEMESTRAL.det_error
+  is 'Detalle de Error';
+comment on column IT.BW_LOG_INF_SEMESTRAL.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_LOG_INF_SEMESTRAL.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_LOG_INF_SEMESTRAL.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_LOG_INF_SEMESTRAL.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

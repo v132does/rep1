@@ -1,0 +1,88 @@
+create table IT.BW_CLA_ACCIONES
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_per_vinculada VARCHAR2(10),
+  accion            VARCHAR2(1),
+  nro_hoj_seguridad NUMBER(6),
+  tip_clave         VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CLA_ACCIONES
+  is 'Acciones que se realizan sobre la clave transaccional y de accesos.';
+comment on column IT.BW_CLA_ACCIONES.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.BW_CLA_ACCIONES.cod_per_vinculada
+  is 'Código de la Persona a la que está vinculada el Cliente.';
+comment on column IT.BW_CLA_ACCIONES.accion
+  is 'Acción realizada. Los posibles valores se definirán en la referencia general CLA_ACCIONES.';
+comment on column IT.BW_CLA_ACCIONES.nro_hoj_seguridad
+  is 'Código de hoja de seguridad.';
+comment on column IT.BW_CLA_ACCIONES.tip_clave
+  is 'Tipo de clave (T/Transaccional, A/Acceso).';
+comment on column IT.BW_CLA_ACCIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_CLA_ACCIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_CLA_ACCIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_CLA_ACCIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_WCACC_COD_PERSONA on IT.BW_CLA_ACCIONES (COD_PERSONA, FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WCACC_COD_PER_VINCULADA on IT.BW_CLA_ACCIONES (COD_PER_VINCULADA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLA_ACCIONES
+  add constraint UK_BW_CLA_ACCIONES unique (NRO_HOJ_SEGURIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLA_ACCIONES
+  add constraint FK_WCACC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_CLA_ACCIONES
+  add constraint FK_WCACC_COD_PER_VINCULADA foreign key (COD_PER_VINCULADA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

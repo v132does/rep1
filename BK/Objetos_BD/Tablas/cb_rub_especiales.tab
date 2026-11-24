@@ -1,0 +1,79 @@
+create table IT.CB_RUB_ESPECIALES
+(
+  cod_rub_origen      VARCHAR2(15) not null,
+  cod_rub_destino     VARCHAR2(15) not null,
+  tip_saldo           VARCHAR2(1) not null,
+  cod_rub_tra_origen  VARCHAR2(15),
+  cod_rub_tra_destino VARCHAR2(15),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_ESPECIALES
+  is 'Cuentas Especiales.';
+comment on column IT.CB_RUB_ESPECIALES.cod_rub_origen
+  is 'Codigo de cuenta ormgen.';
+comment on column IT.CB_RUB_ESPECIALES.cod_rub_destino
+  is 'Codigo de cuenta destino.';
+comment on column IT.CB_RUB_ESPECIALES.tip_saldo
+  is 'Tipo de saldo a transferir: 1- Saldo deudor, 2- Saldo acreedor y 3- Saldo neto.';
+comment on column IT.CB_RUB_ESPECIALES.cod_rub_tra_origen
+  is 'Contra cuenta origen para el traslado de los saldos (deudores o acreedores).';
+comment on column IT.CB_RUB_ESPECIALES.cod_rub_tra_destino
+  is 'Contra cuenta destino para el traslado de los saldos (deudores o acreedores).';
+comment on column IT.CB_RUB_ESPECIALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_RUB_ESPECIALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_RUB_ESPECIALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_ESPECIALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_RUB_ESPECIALES
+  add constraint PK_CB_RUB_ESPECIALES primary key (COD_RUB_ORIGEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_ESPECIALES
+  add constraint FK_BRESP_COD_RUB_DESTINO foreign key (COD_RUB_DESTINO)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_RUB_ESPECIALES
+  add constraint FK_BRESP_COD_RUB_ORIGEN foreign key (COD_RUB_ORIGEN)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_RUB_ESPECIALES
+  add constraint FK_BRESP_COD_RUB_TRA_DESTINO foreign key (COD_RUB_TRA_DESTINO)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_RUB_ESPECIALES
+  add constraint FK_BRESP_COD_RUB_TRA_ORIGEN foreign key (COD_RUB_TRA_ORIGEN)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_RUB_ESPECIALES
+  add constraint AVCON_1082384743_TIP_S_000
+  check (TIP_SALDO IN ('1', '2', '3'));
+alter table IT.CB_RUB_ESPECIALES
+  add constraint AVCON_1085418068_TIP_S_000
+  check (TIP_SALDO IN ('1', '2', '3'));
+alter table IT.CB_RUB_ESPECIALES
+  add constraint AVCON_1086033593_TIP_S_000
+  check (TIP_SALDO IN ('1', '2', '3'));
+

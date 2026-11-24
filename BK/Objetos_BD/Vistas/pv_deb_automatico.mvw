@@ -1,0 +1,38 @@
+CREATE MATERIALIZED VIEW IT.PV_DEB_AUTOMATICO
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT pr.nro_cuenta,
+       cl.cod_persona,
+       pr.nro_cta_debito,
+       pr.cod_oficina,
+       cu.nro_cuota,
+       pr.cod_moneda,
+       pr.cod_modulo,
+       pr.cod_modalidad,
+       cu.nro_documento,
+       x.cuo_hasta,
+      (NVL(cu.sal_capital, 0) + NVL(cu.sal_interes, 0) + NVL(cu.sal_int_documentado, 0))sal_tot_cuota,
+       cu.fec_vencimiento
+  FROM ge_cta_clientes cl,
+       pr_cta_prestamos pr,
+       pr_cuotas cu,
+       pv_cuo_pendientes x
+ WHERE pr.nro_cuenta = cu.nro_cuenta
+   AND pr.nro_cuenta = cl.nro_cuenta
+   AND pr.cod_modalidad NOT IN (608) --- no incluir asociaciones ni descuentos documentos
+   AND NVL(fug_obt_pardinamico('MAD_ANTICIPOS', pr.cod_modulo,pr.cod_modalidad),'N') = 'N' --No debe incluir Anticipos al Personal
+   AND cl.relacion = 'P' --- Cliente principal
+   AND pr.estado <> 'N' --- Préstamos no cancelados
+   AND pr.nro_cta_debito is not null
+   AND pr.cob_automatico = 'S'
+   AND cu.fec_vencimiento <= pag_cal.FU_OBT_FEC_ACTUAL(6)
+   AND x.nro_cta_prestamo = cu.nro_cuenta
+   AND cu.nro_cuota > 0
+            /*and cu.nro_cuota = (select min(nro_cuota)
+                                                    from pr_cuotas
+                                                   where nro_cuenta = pr.nro_cuenta
+                                                     and (nvl(sal_capital,0) <> 0 or nvl(sal_interes,0) <> 0) -- Cuotas con saldo
+                                                     and nro_cuota > 0
+                                                 ) */ -- comentado para que no se filtre solo la minima cuota atrasada de cada préstamo
+   AND cu.estado <> 'N';
+

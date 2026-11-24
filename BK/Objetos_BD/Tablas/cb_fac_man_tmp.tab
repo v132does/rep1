@@ -1,0 +1,48 @@
+create table IT.CB_FAC_MAN_TMP
+(
+  cod_persona      VARCHAR2(10),
+  nro_documento    VARCHAR2(15),
+  nombre           VARCHAR2(120),
+  descripcion      VARCHAR2(120),
+  mto_gravado      NUMBER(18,2),
+  impuesto         NUMBER(18,2),
+  tasa             NUMBER(18,2) default 10,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_FAC_MAN_TMP.cod_persona
+  is 'Código de Persona';
+comment on column IT.CB_FAC_MAN_TMP.nro_documento
+  is 'Nro. de Documento';
+comment on column IT.CB_FAC_MAN_TMP.nombre
+  is 'Nombre de la Persona';
+comment on column IT.CB_FAC_MAN_TMP.descripcion
+  is 'Descripción del detalle de la factura';
+comment on column IT.CB_FAC_MAN_TMP.mto_gravado
+  is 'Importe de la Gravada';
+comment on column IT.CB_FAC_MAN_TMP.impuesto
+  is 'Importe del IVA';
+comment on column IT.CB_FAC_MAN_TMP.tasa
+  is 'Tasa del IVA';
+comment on column IT.CB_FAC_MAN_TMP.usu_insercion
+  is 'Usuario de Inserción';
+comment on column IT.CB_FAC_MAN_TMP.fec_insercion
+  is 'Fecha de Inserción';
+comment on column IT.CB_FAC_MAN_TMP.usu_modificacion
+  is 'Usuario de Modificación';
+comment on column IT.CB_FAC_MAN_TMP.fec_modificacion
+  is 'Fecha de Modificación';
+

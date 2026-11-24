@@ -1,0 +1,56 @@
+create table IT.CO_DOMICILIOS_TMP
+(
+  cod_cliente   VARCHAR2(20),
+  tip_domicilio VARCHAR2(10),
+  cod_domicilio VARCHAR2(10),
+  origen        VARCHAR2(10),
+  calle         VARCHAR2(80),
+  nro_casa      VARCHAR2(10),
+  piso          VARCHAR2(10),
+  departamento  VARCHAR2(10),
+  localidad     VARCHAR2(30),
+  partido       VARCHAR2(30),
+  provincia     VARCHAR2(30),
+  cod_postal    VARCHAR2(10),
+  valido        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_DOMICILIOS_TMP
+  is 'Registros de Domicilios del día proveniente del Recovery Strategy.';
+comment on column IT.CO_DOMICILIOS_TMP.cod_cliente
+  is 'Código del Cliente.';
+comment on column IT.CO_DOMICILIOS_TMP.tip_domicilio
+  is 'Tipo de Domicilio.';
+comment on column IT.CO_DOMICILIOS_TMP.cod_domicilio
+  is 'Código de Domicilio.';
+comment on column IT.CO_DOMICILIOS_TMP.origen
+  is 'Origen del Domicilio.';
+comment on column IT.CO_DOMICILIOS_TMP.calle
+  is 'Nombre de Calle.';
+comment on column IT.CO_DOMICILIOS_TMP.nro_casa
+  is 'Número de Casa.';
+comment on column IT.CO_DOMICILIOS_TMP.piso
+  is 'Piso.';
+comment on column IT.CO_DOMICILIOS_TMP.departamento
+  is 'Departamento o Apartamento.';
+comment on column IT.CO_DOMICILIOS_TMP.localidad
+  is 'Localidad.';
+comment on column IT.CO_DOMICILIOS_TMP.partido
+  is 'Partido.';
+comment on column IT.CO_DOMICILIOS_TMP.provincia
+  is 'Provincia.';
+comment on column IT.CO_DOMICILIOS_TMP.cod_postal
+  is 'Código Postal.';
+comment on column IT.CO_DOMICILIOS_TMP.valido
+  is 'Marca de Validez del domicilio (1 válido, 0 inválido).';
+

@@ -1,0 +1,175 @@
+create table IT.IG_OPE_RES_CLIENTES
+(
+  cod_persona              VARCHAR2(10) not null,
+  cod_concepto             NUMBER(3) not null,
+  cod_sub_concepto         NUMBER(4) not null,
+  fecha                    DATE not null,
+  cod_moneda               VARCHAR2(3) not null,
+  cod_plazo                NUMBER(3) default 1 not null,
+  cod_periodo              NUMBER(3) not null,
+  cod_oficina              NUMBER(3) not null,
+  cod_unidad               NUMBER(3),
+  cod_gru_economico        NUMBER(5),
+  cod_usu_oficial          VARCHAR2(10),
+  cat_riesgo               VARCHAR2(1),
+  sum_mto_apertura         NUMBER(18,2) default 0,
+  sum_saldo                NUMBER(18,2) default 0 not null,
+  sum_interes              NUMBER(18,2) default 0,
+  sum_int_devengado        NUMBER(18,2) default 0,
+  sum_int_devengar         NUMBER(18,2) default 0,
+  sum_int_dev_suspenso     NUMBER(18,2) default 0,
+  sum_int_recuperado       NUMBER(18,2) default 0,
+  sum_mto_mora             NUMBER(18,2) default 0,
+  sum_sal_promedio         NUMBER(18,2) default 0,
+  sum_con_mto_apertura     NUMBER(18,2) default 0,
+  sum_con_saldo            NUMBER(18,2) default 0,
+  sum_con_interes          NUMBER(18,2) default 0,
+  sum_con_int_devengado    NUMBER(18,2) default 0,
+  sum_con_int_devengar     NUMBER(18,2) default 0,
+  sum_con_int_dev_suspenso NUMBER(18,2) default 0,
+  sum_con_int_recuperado   NUMBER(18,2) default 0,
+  sum_con_mto_mora         NUMBER(18,2) default 0,
+  sum_con_sal_promedio     NUMBER(18,2) default 0,
+  por_mora                 NUMBER(5,2),
+  sum_logro                NUMBER(18,2) default 0,
+  sum_con_logro            NUMBER(18,2) default 0,
+  max_mora                 NUMBER(5),
+  pro_mora                 NUMBER(5),
+  can_cuentas              NUMBER(5),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_OPE_RES_CLIENTES
+  is 'Resumen de Detalle de las Operaciones por Cliente.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_persona
+  is 'Codigo de Cliente Principal.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_concepto
+  is 'Codigo de Concepto.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_sub_concepto
+  is 'Codigo de Sub-Concepto.';
+comment on column IT.IG_OPE_RES_CLIENTES.fecha
+  is 'Fecha de proceso.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_plazo
+  is 'Codigo de Plazo.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_unidad
+  is 'Unidad de negocios en la que se encuentra el oficial.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_gru_economico
+  is 'Codigo de grupo economico.';
+comment on column IT.IG_OPE_RES_CLIENTES.cod_usu_oficial
+  is 'Codigo del oficial de cuentas.';
+comment on column IT.IG_OPE_RES_CLIENTES.cat_riesgo
+  is 'Categoria de Riesgo (1- Normal ; 2- Potencial; 3- Real ; 4-Alto Riesgo; 5-Irrecuperable).';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_mto_apertura
+  is 'Sumatoria Monto Inicial.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_saldo
+  is 'Sumatoria Saldo actual.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_interes
+  is 'Sumatoria Interes actual.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_int_devengado
+  is 'Sumatoria Interes devengado a la fecha.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_int_devengar
+  is 'Sumatoria Interes a devengar a la fecha.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_int_dev_suspenso
+  is 'Sumatoria Interes devengado en suspenso a la fecha.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_int_recuperado
+  is 'Sumatoria Interes devengado recuperado a la fecha.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_mto_mora
+  is 'Sumatoria Monto de mora.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_sal_promedio
+  is 'Sumatoria Saldo Promedio Actual en moneda origen.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_mto_apertura
+  is 'Sumatoria Monto Inicial en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_saldo
+  is 'Sumatoria Saldo actual en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_interes
+  is 'Sumatoria Interes actual en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_int_devengado
+  is 'Sumatoria Interes devengado a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_int_devengar
+  is 'Sumatoria Interes a devengar a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_int_dev_suspenso
+  is 'Sumatoria Interes devengado en suspenso a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_int_recuperado
+  is 'Sumatoria Interes devengado recuperado a la fecha en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_mto_mora
+  is 'Sumatoria Monto de mora en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_sal_promedio
+  is 'Sumatoria Saldo Promedio Actual en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.por_mora
+  is 'Porcentaje en mora.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_logro
+  is 'Sumatoria Monto del logro en moneda origen.';
+comment on column IT.IG_OPE_RES_CLIENTES.sum_con_logro
+  is 'Sumatoria Monto del logro en moneda de consolidacion.';
+comment on column IT.IG_OPE_RES_CLIENTES.max_mora
+  is 'Maximo dias de mora.';
+comment on column IT.IG_OPE_RES_CLIENTES.pro_mora
+  is 'Promedio de dias de mora.';
+comment on column IT.IG_OPE_RES_CLIENTES.can_cuentas
+  is 'Cantidad de cuentas.';
+comment on column IT.IG_OPE_RES_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_OPE_RES_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_OPE_RES_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_OPE_RES_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint PK_IG_OPE_RES_CLIENTES primary key (COD_PERSONA, COD_CONCEPTO, COD_SUB_CONCEPTO, FECHA, COD_MONEDA, COD_PLAZO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 960K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.IG_CONCEPTOS (COD_CONCEPTO);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.GE_CLIENTES (COD_PERSONA);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_PLAZO foreign key (COD_PLAZO)
+  references IT.IG_PLAZOS (COD_PLAZO);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_OPE_RES_CLIENTES
+  add constraint FK_IORCL_COD_UNIDAD foreign key (COD_UNIDAD)
+  references IT.IG_UNI_NEGOCIOS (COD_UNIDAD);
+

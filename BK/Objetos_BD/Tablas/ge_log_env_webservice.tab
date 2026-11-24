@@ -1,0 +1,44 @@
+create table IT.GE_LOG_ENV_WEBSERVICE
+(
+  proceso       VARCHAR2(60),
+  mensaje       LONG,
+  respuesta     VARCHAR2(4000),
+  usu_insercion VARCHAR2(10) default substr(user,1,10),
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_ENV_WEBSERVICE
+  is 'Log de Envíos y Respuestas de Mensajerías WebServices.';
+comment on column IT.GE_LOG_ENV_WEBSERVICE.proceso
+  is 'Nombre del Proceso ejecutado.';
+comment on column IT.GE_LOG_ENV_WEBSERVICE.mensaje
+  is 'Mensaje Enviado.';
+comment on column IT.GE_LOG_ENV_WEBSERVICE.respuesta
+  is 'Respuesta Recibida.';
+comment on column IT.GE_LOG_ENV_WEBSERVICE.usu_insercion
+  is 'Usuario de Inserción';
+comment on column IT.GE_LOG_ENV_WEBSERVICE.fec_insercion
+  is 'Fecha de Inserción.';
+create index IT.IN_GLWS_FEC_INSERCION on IT.GE_LOG_ENV_WEBSERVICE (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

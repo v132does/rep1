@@ -1,0 +1,70 @@
+-- Create table
+create table IT.GE_AUD_GENERAL
+(
+  clave         NUMBER(10) generated always as identity (order),
+  condicion     VARCHAR2(120),
+  novedad       VARCHAR2(1),
+  terminal      VARCHAR2(40),
+  origen        VARCHAR2(40),
+  cod_persona   VARCHAR2(15),
+  nro_documento VARCHAR2(20),
+  fec_insercion DATE default SYSDATE,
+  cod_usuario   VARCHAR2(10) default USER
+)
+partition by range (FEC_INSERCION) INTERVAL (NUMTODSINTERVAL(7, 'DAY')) 
+ (PARTITION P2023  VALUES LESS THAN (TO_DATE(' 2024-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+  SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE IT_AUD 
+);
+-- Add comments to the columns 
+comment on column IT.GE_AUD_GENERAL.clave
+  is 'Clave';
+comment on column IT.GE_AUD_GENERAL.condicion
+  is 'Condición de búsqueda';
+comment on column IT.GE_AUD_GENERAL.novedad
+  is 'Tipo de búsqueda';
+comment on column IT.GE_AUD_GENERAL.terminal
+  is 'Terminal';
+comment on column IT.GE_AUD_GENERAL.origen
+  is 'Programa de origen';
+comment on column IT.GE_AUD_GENERAL.cod_persona
+  is 'Codigo persona';
+comment on column IT.GE_AUD_GENERAL.nro_documento
+  is 'Numero documento de la persona';
+comment on column IT.GE_AUD_GENERAL.fec_insercion
+  is 'Fecha de inserción';
+comment on column IT.GE_AUD_GENERAL.cod_usuario
+  is 'Codigo usuario';
+-- Create/Recreate indexes 
+create index IT.IN_GE_AUD_GEN_FEC on IT.GE_AUD_GENERAL (FEC_INSERCION)
+  tablespace IT_AUD
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_AUD_GENERAL
+  add constraint PK_GE_AUD_GEN primary key (CLAVE)
+  using index 
+  tablespace IT_AUD
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

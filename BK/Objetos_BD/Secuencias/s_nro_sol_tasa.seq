@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_SOL_TASA
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 140006
+increment by 1
+cache 20;
+

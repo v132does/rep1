@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_PED_AUT_SOL
+minvalue 1
+maxvalue 999999999999999
+start with 1332
+increment by 1
+nocache;
+

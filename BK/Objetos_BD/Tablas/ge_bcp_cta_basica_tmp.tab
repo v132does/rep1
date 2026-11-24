@@ -1,0 +1,50 @@
+create table IT.GE_BCP_CTA_BASICA_TMP
+(
+  tipo_formulario NUMBER(3),
+  tipo_ident      VARCHAR2(3),
+  nrident         VARCHAR2(15),
+  nombres         VARCHAR2(255),
+  apellidos       VARCHAR2(100),
+  fecha_nac       VARCHAR2(10),
+  cant_ef         VARCHAR2(1),
+  cant_sis        VARCHAR2(1),
+  nro_registro    NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_BCP_CTA_BASICA_TMP
+  is 'Archivo BCP: CTA_BASICA-1007';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.tipo_formulario
+  is 'Tipo de formulario (013)
+';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.tipo_ident
+  is 'Tipo de documento de Identidad (CI=Cedula
+de Identidad / CRC=C�digo de Persona no
+residente / CRP=Carn� de Residencia
+Permanente / RUC=Registro �nico
+Contribuyente)';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.nrident
+  is 'Nombre del documento de Identidad';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.nombres
+  is 'Nombre de la Persona F�sica o Jur�dica';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.apellidos
+  is 'Apellido de la Persona F�sica';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.fecha_nac
+  is 'Fecha de Nacimiento';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.cant_ef
+  is 'Cantidad Cuentas B�sicas en la Entidad
+';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.cant_sis
+  is 'Cantidad Cuentas B�sicas Resto del Sistema';
+comment on column IT.GE_BCP_CTA_BASICA_TMP.nro_registro
+  is 'N�mero correlativo de registros';
+

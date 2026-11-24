@@ -1,0 +1,77 @@
+create table IT.AH_TAR_DEBITOS_NOV
+(
+  fila            VARCHAR2(4000),
+  nro_tarjeta     VARCHAR2(19),
+  adherente       VARCHAR2(2),
+  nro_emision     VARCHAR2(2),
+  fec_vencimiento VARCHAR2(7),
+  fec_alta        DATE,
+  embozado        VARCHAR2(26),
+  cod_embozado    VARCHAR2(6),
+  fec_ult_mov_pos DATE,
+  estado          VARCHAR2(1),
+  fec_ult_mov_atm DATE,
+  fec_embozado    DATE,
+  tip_corte       VARCHAR2(1),
+  est_pin         VARCHAR2(1),
+  sucursal        NUMBER(2),
+  nro_documento   VARCHAR2(16),
+  ruc             VARCHAR2(11),
+  req_embozado    VARCHAR2(1),
+  direccion       VARCHAR2(60),
+  telefono        VARCHAR2(25)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEBITOS_NOV
+  is 'Temporal para recibir datos de embozado.';
+comment on column IT.AH_TAR_DEBITOS_NOV.fila
+  is 'Fila del archivo MAE_DEB.TXT';
+comment on column IT.AH_TAR_DEBITOS_NOV.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.AH_TAR_DEBITOS_NOV.adherente
+  is 'Adherente.';
+comment on column IT.AH_TAR_DEBITOS_NOV.nro_emision
+  is 'Numero de Emisión.';
+comment on column IT.AH_TAR_DEBITOS_NOV.fec_vencimiento
+  is 'Vencimiento de la tarjeta.';
+comment on column IT.AH_TAR_DEBITOS_NOV.fec_alta
+  is 'Fecha del Alta.';
+comment on column IT.AH_TAR_DEBITOS_NOV.embozado
+  is 'Titular.';
+comment on column IT.AH_TAR_DEBITOS_NOV.cod_embozado
+  is 'Codigo Formato de Embozado.';
+comment on column IT.AH_TAR_DEBITOS_NOV.fec_ult_mov_pos
+  is 'Fecha Ultimo Movimiento del POS.';
+comment on column IT.AH_TAR_DEBITOS_NOV.estado
+  is 'Estado. 1=Activo 0=Bloqueado.';
+comment on column IT.AH_TAR_DEBITOS_NOV.fec_ult_mov_atm
+  is 'Fecha Ultimo Movimiento ATM.';
+comment on column IT.AH_TAR_DEBITOS_NOV.fec_embozado
+  is 'Fecha de Embozado.';
+comment on column IT.AH_TAR_DEBITOS_NOV.tip_corte
+  is 'Tipo de Corte. M=Mañana, T=Tarde, E=Especial';
+comment on column IT.AH_TAR_DEBITOS_NOV.est_pin
+  is 'Estado de PIN. A=Activo, G=Generado/Inactivo, N=No Generado';
+comment on column IT.AH_TAR_DEBITOS_NOV.sucursal
+  is 'Sucursal.';
+comment on column IT.AH_TAR_DEBITOS_NOV.nro_documento
+  is 'Nro. de Documento';
+comment on column IT.AH_TAR_DEBITOS_NOV.ruc
+  is 'R.U.C.';
+comment on column IT.AH_TAR_DEBITOS_NOV.req_embozado
+  is 'Requiere Embozado. 1=Genera Plástico, 0=No Genera Plástico';
+comment on column IT.AH_TAR_DEBITOS_NOV.direccion
+  is 'Dirección.';
+comment on column IT.AH_TAR_DEBITOS_NOV.telefono
+  is 'Teléfono';
+

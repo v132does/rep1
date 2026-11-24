@@ -1,0 +1,56 @@
+create table IT.MD_CATALOGS
+(
+  id                NUMBER not null,
+  connection_id_fk  NUMBER not null,
+  catalog_name      VARCHAR2(4000),
+  dummy_flag        CHAR(1) default 'N',
+  native_sql        CLOB,
+  native_key        VARCHAR2(4000),
+  comments          VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_CATALOGS
+  is 'Store catalogs in this table.';
+comment on column IT.MD_CATALOGS.connection_id_fk
+  is 'Foreign key into the connections table - Shows what connection this catalog belongs to //PARENTFIELD';
+comment on column IT.MD_CATALOGS.catalog_name
+  is 'Name of the catalog //OBJECTNAME';
+comment on column IT.MD_CATALOGS.dummy_flag
+  is 'Flag to show if this catalog is a "dummy" catalog which is used as a placeholder for those platforms that do not support catalogs.  ''N'' signifies that this is NOT a dummy catalog, while ''Y'' signifies that it is.';
+comment on column IT.MD_CATALOGS.native_sql
+  is 'THe SQL used to create this catalog';
+comment on column IT.MD_CATALOGS.native_key
+  is 'A unique identifier used to identify the catalog at source.';
+alter table IT.MD_CATALOGS
+  add constraint MD_CATALOGS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_CATALOGS
+  add constraint MD_CATALOGS_MD_CONNECTION_FK1 foreign key (CONNECTION_ID_FK)
+  references IT.MD_CONNECTIONS (ID) on delete cascade;
+

@@ -1,0 +1,22 @@
+CREATE OR REPLACE PROCEDURE IT.PRS_TRA_SB_CLA_OPERA
+ IS
+v_fecha  ge_calendarios.fec_actual%type;
+BEGIN
+   v_fecha := pag_cal.fu_obt_fec_actual(6);
+   INSERT INTO SB_CLA_OPERACIONES_HIS
+       (FECHA, COD_PERSONA,        NRO_CUENTA,     COD_MODULO,
+        COD_MODALIDAD,      COD_ESTADO,     TOT_DEU_REAL,
+        TOT_DEU_CONTINGENTE,DEV_NO_COBRADO, CAT_AUTOMATICA,
+        DIA_ATRASO,         COD_MONEDA,     TOT_GAR_COMPUTABLES,
+        COD_OFICINA,        TIPO,           TOT_PREVISION,
+        MTO_ORIGINAL,        TIP_DESTINO,    COD_SEC_CREDITO)
+   SELECT v_fecha, COD_PERSONA,        NRO_CUENTA,     COD_MODULO,
+        COD_MODALIDAD,      COD_ESTADO,     TOT_DEU_REAL,
+        TOT_DEU_CONTINGENTE,DEV_NO_COBRADO, CAT_AUTOMATICA,
+        DIA_ATRASO,         COD_MONEDA,     TOT_GAR_COMPUTABLES,
+        COD_OFICINA,        TIPO,           TOT_PREVISION,
+        MTO_ORIGINAL,        TIP_DESTINO,    COD_SEC_CREDITO
+   FROM sb_cla_operaciones;
+END;
+/
+

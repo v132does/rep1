@@ -1,0 +1,127 @@
+create table IT.GE_SAL_INV_VTA_CARTERA_TMP
+(
+  fecha                DATE,
+  cod_persona          VARCHAR2(10),
+  nom_completo         VARCHAR2(120),
+  nro_documento        VARCHAR2(20),
+  cli_nomina           VARCHAR2(1) default 'N',
+  fec_ult_acreditacion DATE,
+  cod_oficina          NUMBER(3),
+  nro_cuenta           VARCHAR2(15) not null,
+  tip_producto         VARCHAR2(120),
+  nro_tarjeta          VARCHAR2(25),
+  afinidad             VARCHAR2(240),
+  cod_per_codeudor     VARCHAR2(120),
+  gestor               VARCHAR2(120),
+  mto_deuda            NUMBER(18,2),
+  mto_previsiones      NUMBER(18,2),
+  dia_atrasos          NUMBER(5),
+  cat_cliente          NUMBER(3,2),
+  tot_riesgo           NUMBER(18,2),
+  fec_ult_cat_sistema  DATE,
+  cat_sistema          NUMBER(3,2),
+  tot_deu_sistema      NUMBER(18,2),
+  tot_deu_con_sistema  NUMBER(18,2),
+  tot_deu_cod_sistema  NUMBER(18,2),
+  tot_cuotas           NUMBER(5),
+  tot_cuo_vencidas     NUMBER(5),
+  tel_particular       VARCHAR2(20),
+  dir_particular       VARCHAR2(80),
+  tel_laboral          VARCHAR2(20),
+  dir_laboral          VARCHAR2(80),
+  gar_cliente          VARCHAR2(240),
+  gar_ven_cliente      VARCHAR2(240),
+  gar_codeudor         VARCHAR2(240),
+  gar_ven_codeudor     VARCHAR2(240),
+  tip_bloqueo          VARCHAR2(240),
+  tip_inhibicion       VARCHAR2(240),
+  estado               VARCHAR2(1) default 'N',
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  mot_exclucion        VARCHAR2(30),
+  usu_exclucion        VARCHAR2(10),
+  observacion          VARCHAR2(2000),
+  ruc_comprador        VARCHAR2(30),
+  nom_comprador        VARCHAR2(100),
+  ref_lote             NUMBER not null,
+  hor_cancelacion      VARCHAR2(8),
+  mon_venta            NUMBER,
+  usu_venta            VARCHAR2(10),
+  cod_ente             NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SAL_INV_VTA_CARTERA_TMP
+  is 'Temporal de Cartera de Clientes a vender.';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.estado
+  is 'N (en cartera), E (excluido), C (confirmado), V (vendido)';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.cod_modulo
+  is 'Modulo de la cuenta';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.cod_modalidad
+  is 'Modalidad de la cuenta';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.mot_exclucion
+  is 'Lista de motivos de exclucion de la cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.usu_exclucion
+  is 'Usuario que realizo la exclucion de la cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.observacion
+  is 'Observacion por registro de cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.ruc_comprador
+  is 'RUC del comprador de la cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.nom_comprador
+  is 'Nombre del comprador de la cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.ref_lote
+  is 'Numero de referencia de la cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.hor_cancelacion
+  is 'Se almacenará la hora en el momento de su cancelación';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.mon_venta
+  is 'Monto por el cual se vendio la cartera';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_TMP.usu_venta
+  is 'Usuario que procesó la venta';
+create index IT.IN_GIVCA_COD_PERSONA on IT.GE_SAL_INV_VTA_CARTERA_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GIVCA_NRO_CUENTA on IT.GE_SAL_INV_VTA_CARTERA_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SAL_INV_VTA_CARTERA_TMP
+  add constraint PK_GE_SAL_INV_VTA_CARTERA_TMP primary key (NRO_CUENTA, REF_LOTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,55 @@
+create table IT.WF_GRU_ROLES
+(
+  cod_grupo        VARCHAR2(5) not null,
+  cod_rol          VARCHAR2(20) not null,
+  estado           VARCHAR2(1) default 'A' not null,
+  ve_oficinas      VARCHAR2(1) default 'N',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_GRU_ROLES
+  is 'Detalle de usuarios por Roles.';
+comment on column IT.WF_GRU_ROLES.cod_grupo
+  is 'Código de Grupo.';
+comment on column IT.WF_GRU_ROLES.cod_rol
+  is 'Código del Rol.';
+comment on column IT.WF_GRU_ROLES.estado
+  is 'Estado del Rol en el Grupo de Roles: A-Activo I-Inactivo.';
+comment on column IT.WF_GRU_ROLES.ve_oficinas
+  is 'Indica si el rol puede ver todas las oficinas.';
+comment on column IT.WF_GRU_ROLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_GRU_ROLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_GRU_ROLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_GRU_ROLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_WF_GRU_ROLES_COD on IT.WF_GRU_ROLES (COD_ROL, COD_GRUPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.WF_GRU_ROLES
+  add constraint PK_WF_GRU_ROLES primary key (COD_GRUPO, COD_ROL);
+

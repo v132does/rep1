@@ -1,0 +1,39 @@
+create table IT.GE_RET_VIR_CLIENTES_TMP
+(
+  tipo              VARCHAR2(100) not null,
+  estado            VARCHAR2(100),
+  nro_retencion     VARCHAR2(100) not null,
+  ruc_informante    VARCHAR2(100),
+  informante        VARCHAR2(300),
+  tip_doc_informado VARCHAR2(100),
+  nro_doc_informado VARCHAR2(100),
+  identificacion    VARCHAR2(100),
+  nombre            VARCHAR2(300),
+  nro_control       VARCHAR2(100),
+  fec_retencion     DATE,
+  nro_factura       VARCHAR2(100),
+  timbrado          NUMBER,
+  tot_retencion     VARCHAR2(100),
+  tot_iva           VARCHAR2(100),
+  tot_cabezas       VARCHAR2(100),
+  tot_toneladas     VARCHAR2(100),
+  fec_anulacion     DATE,
+  nro_fac_comision  VARCHAR2(100),
+  tim_fac_comision  VARCHAR2(100),
+  fec_recepcion     DATE,
+  for_presentacion  VARCHAR2(100),
+  con_iva           VARCHAR2(100),
+  con_renta         VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

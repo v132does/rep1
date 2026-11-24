@@ -1,0 +1,13 @@
+create materialized view IT.VW_PER_VINCULADAS
+refresh force on demand
+as
+select trim(b.pri_nombre) || ' ' || trim(b.seg_nombre) NOM_CONYUGE,
+               trim(b.pri_apellido) || ' ' || trim(b.seg_apellido) as APE_CONYUGE,
+               c.nro_documento,
+               c.cod_tip_documento,
+               b.cod_sexo,
+               a.cod_persona
+          from ba_vinculos a, ba_per_fisicas b, ba_personas c
+         where a.cod_per_vinculo = b.cod_persona
+           and a.tipo = 'E'
+           and c.cod_persona = b.cod_persona;

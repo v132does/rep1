@@ -1,0 +1,75 @@
+create table IT.CC_CTA_COMBINADAS
+(
+  nro_cta_ahorro   VARCHAR2(15) not null,
+  nro_cta_cte      VARCHAR2(15) not null,
+  sal_minimo       NUMBER(16,2),
+  fec_apertura     DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(240) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observaciones    VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CTA_COMBINADAS
+  is 'Maestro de Cuentas Combinadas.';
+comment on column IT.CC_CTA_COMBINADAS.nro_cta_ahorro
+  is 'Numero de cuenta de ahorro a la vista.';
+comment on column IT.CC_CTA_COMBINADAS.nro_cta_cte
+  is 'Numero de cuenta de cuenta corriente.';
+comment on column IT.CC_CTA_COMBINADAS.sal_minimo
+  is 'Saldo minimo pactado.';
+comment on column IT.CC_CTA_COMBINADAS.fec_apertura
+  is 'Fecha de apertura.';
+comment on column IT.CC_CTA_COMBINADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CTA_COMBINADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CTA_COMBINADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CTA_COMBINADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CTA_COMBINADAS.observaciones
+  is 'Observaciones.';
+alter table IT.CC_CTA_COMBINADAS
+  add constraint PK_CC_CTA_COMBINADAS primary key (NRO_CTA_CTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_COMBINADAS
+  add constraint UK_CCCOM_NRO_CTA_AHORRO unique (NRO_CTA_AHORRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_COMBINADAS
+  add constraint FK_CCCOM_NRO_CTA_AHORRO foreign key (NRO_CTA_AHORRO)
+  references IT.AH_CTA_VISTAS (NRO_CUENTA);
+

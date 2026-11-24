@@ -1,0 +1,11 @@
+CREATE MATERIALIZED VIEW IT.PV_CUO_PENDIENTES
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT nro_cuenta nro_cta_prestamo,
+   MAX(nro_cuota) cuo_hasta
+  FROM pr_cuotas
+ WHERE fec_vencimiento <= pag_cal.FU_OBT_FEC_ACTUAL(6)
+   AND estado <> 'N'
+   AND NVL(sal_capital, 0) + NVL(sal_interes, 0) + NVL(sal_int_documentado, 0) > 0
+   GROUP BY nro_cuenta;
+

@@ -1,0 +1,75 @@
+create table IT.GE_POS_CON_CLIENTE
+(
+  fec_generacion   DATE,
+  cod_persona      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  cod_tasa         NUMBER(3),
+  val_tasa         NUMBER(20,4),
+  cod_moneda       VARCHAR2(3),
+  fec_apertura     DATE,
+  fec_vencimiento  DATE,
+  saldo            NUMBER(18,2),
+  observacion      VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_POS_CON_CLIENTE
+  is 'Se va a guardar los datos de la posición contable del cliente';
+comment on column IT.GE_POS_CON_CLIENTE.fec_generacion
+  is 'Fecha de generación';
+comment on column IT.GE_POS_CON_CLIENTE.cod_persona
+  is 'Cod Cliente (riesgo)';
+comment on column IT.GE_POS_CON_CLIENTE.nro_cuenta
+  is 'Nro Cuenta o Nro Documento del producto que posee el cliente';
+comment on column IT.GE_POS_CON_CLIENTE.cod_tasa
+  is 'Cod de tasa';
+comment on column IT.GE_POS_CON_CLIENTE.val_tasa
+  is 'Valor de la tasa';
+comment on column IT.GE_POS_CON_CLIENTE.cod_moneda
+  is 'Moneda de la cuenta ';
+comment on column IT.GE_POS_CON_CLIENTE.fec_apertura
+  is 'Fecha de apertura de la cuenta ';
+comment on column IT.GE_POS_CON_CLIENTE.fec_vencimiento
+  is 'Fecha de vencimiento de la cuenta';
+comment on column IT.GE_POS_CON_CLIENTE.saldo
+  is 'Saldo a la fecha';
+comment on column IT.GE_POS_CON_CLIENTE.observacion
+  is 'Observación del registro';
+create index IT.IN_COD_PERSONA_GE_POS on IT.GE_POS_CON_CLIENTE (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FEC_GENERACION_GE_POS on IT.GE_POS_CON_CLIENTE (FEC_GENERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

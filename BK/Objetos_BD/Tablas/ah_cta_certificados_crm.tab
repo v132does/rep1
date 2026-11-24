@@ -1,0 +1,170 @@
+create table IT.AH_CTA_CERTIFICADOS_CRM
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1),
+  cod_modulo             NUMBER(3),
+  cod_modalidad          NUMBER(3),
+  cod_oficina            NUMBER(3),
+  cod_moneda             VARCHAR2(3),
+  denominacion           VARCHAR2(65),
+  tipo                   VARCHAR2(1),
+  serie                  VARCHAR2(5),
+  nro_certificado        NUMBER(7),
+  beneficiario           VARCHAR2(200),
+  tas_personalizada      VARCHAR2(1),
+  cod_tasa               NUMBER(3),
+  fec_apertura           DATE,
+  fec_vencimiento        DATE,
+  capital                NUMBER(18,2),
+  cod_usu_promotor       VARCHAR2(10),
+  fec_pago               DATE,
+  est_batch              VARCHAR2(1),
+  estado                 VARCHAR2(1),
+  est_cer_batch          VARCHAR2(1),
+  est_certificado        VARCHAR2(1),
+  fec_ult_movimiento     DATE,
+  hor_ult_movimiento     VARCHAR2(8),
+  fec_cam_estado         DATE,
+  aut_pendiente          VARCHAR2(1),
+  sal_blo_batch          NUMBER(18,2),
+  sal_bloqueado          NUMBER(18,2),
+  sal_ret_batch          NUMBER(18,2),
+  sal_retenido           NUMBER(18,2),
+  sal_tot_batch          NUMBER(18,2),
+  sal_total              NUMBER(18,2),
+  tra_prohibida          VARCHAR2(1),
+  fec_ult_capitalizacion DATE,
+  cod_canal              NUMBER(5),
+  cod_campana            NUMBER(3),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       TIMESTAMP(6) default current_timestamp not null,
+  tip_capitalizacion     NUMBER(2),
+  nro_cta_renovada       VARCHAR2(15),
+  cod_cau_cancelacion    NUMBER(3),
+  fec_hor_emision        DATE,
+  cod_usu_emision        VARCHAR2(10),
+  bloqueado              VARCHAR2(1),
+  nro_cta_credito        VARCHAR2(15),
+  cre_automatico         VARCHAR2(1),
+  ser_titulo             VARCHAR2(5),
+  nro_titulo             VARCHAR2(10),
+  tip_accion             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CTA_CERTIFICADOS_CRM
+  is 'Contiene datos de los Certificados de Depósitos de Ahorro.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.dig_verificador
+  is 'Dígito Verificador de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_modulo
+  is 'Código del Módulo de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_modalidad
+  is 'Código de Modalidad de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_oficina
+  is 'Código de Oficina de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_moneda
+  is 'Código de Moneda de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.tipo
+  is 'Tipo de Certificado (O/P).';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.serie
+  is 'Serie.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.nro_certificado
+  is 'Número de Certificado de Depósito.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.beneficiario
+  is 'Apellido del Beneficiario.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.tas_personalizada
+  is 'Tiene Tasa Personalizada (S/N).';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_tasa
+  is 'Código de Tasa Asignado.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_apertura
+  is 'Fecha de Apertura del CDA.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_vencimiento
+  is 'Fecha de Vencimiento del CDA.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.capital
+  is 'Importe del Capital pactado.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_usu_promotor
+  is 'Código del Promotor.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_pago
+  is 'Fecha de Pago del Certificado.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.est_batch
+  is 'Estado de la Cuenta Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.estado
+  is 'Estado de la Cuenta On-line (B=Bloqueada / N=Normal / T=Totalmente Pagado / V=Vencido).';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.est_cer_batch
+  is 'Estado del Certificado de Depósito Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.est_certificado
+  is 'Estado del Certificado de Depósito On-line.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_ult_movimiento
+  is 'Fecha del Ultimo Movimiento.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.hor_ult_movimiento
+  is 'Hora del Ultimo Movimiento.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_cam_estado
+  is 'Fecha del Ultimo Cambio del Estado.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.aut_pendiente
+  is 'Tiene Autorización Pendiente(S/N).';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.sal_blo_batch
+  is 'Saldo Bloqueado Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.sal_bloqueado
+  is 'Saldo Bloqueado On line.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.sal_ret_batch
+  is 'Saldo Retenido Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.sal_retenido
+  is 'Saldo Retenido On line.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.sal_tot_batch
+  is 'Saldo Total Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.sal_total
+  is 'Saldo Total On line.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.tra_prohibida
+  is 'Tiene Transacción Prohibida (S/N).';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_ult_capitalizacion
+  is 'Fecha de Ultima Capitalización.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_canal
+  is 'Código de Canal.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.tip_capitalizacion
+  is 'Forma de Pago.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.nro_cta_renovada
+  is 'Número de Cuenta que esta Renovando.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_cau_cancelacion
+  is 'Motivo de Cancelación.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.fec_hor_emision
+  is 'Fecha de Emision.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cod_usu_emision
+  is 'Usuario de Emisión.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.bloqueado
+  is 'Bloqueado(Si/No).';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.nro_cta_credito
+  is 'Cuenta para Crédito de Cupones.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.cre_automatico
+  is 'Tiene Crédito Automático de Cupones.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.ser_titulo
+  is 'Serie del Título Representativo.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.nro_titulo
+  is 'Código del Título Representativo.';
+comment on column IT.AH_CTA_CERTIFICADOS_CRM.tip_accion
+  is 'Indica el tipo de acción realizado con el registro en el Core.-';
+

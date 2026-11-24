@@ -1,0 +1,112 @@
+create table IT.SB_CLIENTES
+(
+  cod_persona         VARCHAR2(10) not null,
+  cod_gru_economico   NUMBER(5),
+  tipo                VARCHAR2(1),
+  tot_deu_real        NUMBER(18,2) default 0,
+  tot_deu_contingente NUMBER(18,2) default 0,
+  tot_gar_computables NUMBER(18,2) default 0,
+  tot_prevision       NUMBER(18,2) default 0,
+  cat_subjetiva       NUMBER(1),
+  cat_automatica      NUMBER(3,2),
+  cat_anterior        NUMBER(3,2),
+  fec_ult_clasif      DATE,
+  fec_cat_anterior    DATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cat_riesgo          NUMBER(1),
+  cat_sistema         NUMBER(1),
+  cat_renovaciones    NUMBER(1),
+  cat_gru_economico   NUMBER(1),
+  tot_deu_sistema     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CLIENTES
+  is 'Clientes (vieja resolucion 8).';
+comment on column IT.SB_CLIENTES.cod_persona
+  is 'Codigo de cliente.';
+comment on column IT.SB_CLIENTES.cod_gru_economico
+  is 'Codigo de grupo economico.';
+comment on column IT.SB_CLIENTES.tipo
+  is 'Tipo de cliente (R = Comercial Mayor Vinculado a la Entidad, M = Comercial Mayores, r = Comercial Menor Vinculado a la Entidad, C = Comercial Menor, P = Personal - Credito de Consumo, V = Personal - Credito de Vivienda).';
+comment on column IT.SB_CLIENTES.tot_deu_real
+  is 'Total de la deuda real.';
+comment on column IT.SB_CLIENTES.tot_deu_contingente
+  is 'Total de la deuda contingente.';
+comment on column IT.SB_CLIENTES.tot_gar_computables
+  is 'Monto total de la garantias computables.';
+comment on column IT.SB_CLIENTES.tot_prevision
+  is 'Monto total de la Prevision.';
+comment on column IT.SB_CLIENTES.cat_subjetiva
+  is 'Categoria subjetiva.';
+comment on column IT.SB_CLIENTES.cat_automatica
+  is 'Categoria ponderada.';
+comment on column IT.SB_CLIENTES.cat_anterior
+  is 'Categoria anterior.';
+comment on column IT.SB_CLIENTES.fec_ult_clasif
+  is 'Fecha de ultima clasificacion o categorizacion.';
+comment on column IT.SB_CLIENTES.fec_cat_anterior
+  is 'Fecha de categorizacion anterior.';
+comment on column IT.SB_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CLIENTES.cat_riesgo
+  is 'Categoria de Riesgo (1- Normal ; 2- Potencial; 3- Real ; 4-Alto Riesgo; 5-Irrecuperable).';
+comment on column IT.SB_CLIENTES.cat_sistema
+  is 'Categoria final del sistema financiero.(ultima informacion).';
+comment on column IT.SB_CLIENTES.cat_renovaciones
+  is 'Categoria de las renovaciones, refinanciaciones o restructuraciones.';
+comment on column IT.SB_CLIENTES.cat_gru_economico
+  is 'Categoria del grupo economico al que corresponde.';
+comment on column IT.SB_CLIENTES.tot_deu_sistema
+  is 'Total de la deuda del sistema financiero global.';
+create index IT.FK_SCLIE_COD_GRU_ECONOMICO_I on IT.SB_CLIENTES (COD_GRU_ECONOMICO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CLIENTES
+  add constraint PK_SB_CLIENTES primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CLIENTES
+  add constraint FK_SCLIE_COD_GRU_ECONOMICO foreign key (COD_GRU_ECONOMICO)
+  references IT.SB_GRU_ECONOMICOS (COD_GRU_ECONOMICO);
+alter table IT.SB_CLIENTES
+  add constraint FK_SCLIE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

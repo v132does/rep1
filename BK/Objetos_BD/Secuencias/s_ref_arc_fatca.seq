@@ -1,0 +1,7 @@
+create sequence IT.S_REF_ARC_FATCA
+minvalue 100000
+maxvalue 999999999
+start with 100001
+increment by 1
+nocache;
+

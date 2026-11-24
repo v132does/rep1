@@ -1,0 +1,8 @@
+create sequence IT.S_COD_REG_ONB
+minvalue 0
+maxvalue 9999999999
+start with 579284
+increment by 1
+nocache
+order;
+

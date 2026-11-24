@@ -1,0 +1,87 @@
+﻿-- Create table
+create table IT.GE_LOG_CONTROLES
+(
+  fecha          DATE default SYSDATE not null,
+  cod_control    NUMBER not null,
+  nro_registro   NUMBER,
+  cod_usuario    VARCHAR2(10),
+  descripcion    VARCHAR2(500),
+  observacion    VARCHAR2(500),
+  clave          VARCHAR2(1000),
+  prioridad      VARCHAR2(1),
+  det_sql        CLOB,
+  filtros        VARCHAR2(3000),
+  usu_insercion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion  DATE default SYSDATE not null,
+  est_correccion VARCHAR2(50),
+  msj_auditoria  VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_LOG_CONTROLES
+  is 'Definicion de control log pre-cierre.';
+-- Add comments to the columns 
+comment on column IT.GE_LOG_CONTROLES.fecha
+  is 'Fecha del control.';
+comment on column IT.GE_LOG_CONTROLES.cod_control
+  is 'Codigo del control.';
+comment on column IT.GE_LOG_CONTROLES.nro_registro
+  is 'Cantidad de Registros.';
+comment on column IT.GE_LOG_CONTROLES.cod_usuario
+  is 'Usuario dueño de la consulta.';
+comment on column IT.GE_LOG_CONTROLES.descripcion
+  is 'Descripcion del control.';
+comment on column IT.GE_LOG_CONTROLES.observacion
+  is 'Observaciones sobre el control.';
+comment on column IT.GE_LOG_CONTROLES.clave
+  is 'Clave del control.';
+comment on column IT.GE_LOG_CONTROLES.prioridad
+  is 'Prioridad del Control.';
+comment on column IT.GE_LOG_CONTROLES.det_sql
+  is 'detalle de la Sentencia Sql.';
+comment on column IT.GE_LOG_CONTROLES.filtros
+  is 'Detalle de los filtros.';
+comment on column IT.GE_LOG_CONTROLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_LOG_CONTROLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_GLPCI_COD_CONTROL on IT.GE_LOG_CONTROLES (COD_CONTROL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GLPCI_FECHA on IT.GE_LOG_CONTROLES (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.GE_LOG_CONTROLES to IT_TEMPORAL;
+-- Grant/Revoke object privileges 
+create or replace public synonym GE_LOG_CONTROLES for IT.GE_LOG_CONTROLES;
+grant all on IT.GE_LOG_CONTROLES to it_temporal;

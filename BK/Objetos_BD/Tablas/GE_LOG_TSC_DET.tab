@@ -1,0 +1,42 @@
+-- =====================================================================================
+-- Log de errores a nivel de cuenta para el proceso TSC
+-- =====================================================================================
+CREATE TABLE IT.GE_LOG_TSC_DET (
+    ID_LOG_DET      NUMBER(18)        NOT NULL,
+    ID_EJECUCION    NUMBER(18),
+    FECHA_LOG       DATE              DEFAULT SYSDATE,
+    PASO            VARCHAR2(50 BYTE),
+    NRO_CUENTA      VARCHAR2(15 BYTE),
+    COD_RUBRO       VARCHAR2(15 BYTE),
+    COD_MODULO      NUMBER(3,0),
+    COD_MODALIDAD   NUMBER(3,0),
+    MENSAJE         VARCHAR2(500 BYTE),
+    COD_ERROR       VARCHAR2(50 BYTE),
+    DETALLE_ERROR   VARCHAR2(2000 BYTE),
+    CONSTRAINT PK_GE_LOG_TSC_DET PRIMARY KEY (ID_LOG_DET)
+) TABLESPACE IT_DATA;
+
+-- Comentarios
+COMMENT ON TABLE  IT.GE_LOG_TSC_DET               IS 'Log de errores específicos por cuenta/rubro para el proceso de Tasas Saldos Contables';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.ID_LOG_DET    IS 'Identificador único del detalle de log (por secuencia)';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.ID_EJECUCION  IS 'ID de ejecución del proceso TSC';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.FECHA_LOG     IS 'Fecha y hora del error';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.PASO          IS 'Paso del proceso donde ocurrió el error';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.NRO_CUENTA    IS 'Número de cuenta afectada';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.COD_RUBRO     IS 'Código de rubro relacionado al error';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.COD_MODULO    IS 'Código de módulo de la operación';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.COD_MODALIDAD IS 'Código de modalidad de la operación';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.MENSAJE       IS 'Mensaje funcional del error';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.COD_ERROR     IS 'Código de error técnico (ORA-XXXX o propio)';
+COMMENT ON COLUMN IT.GE_LOG_TSC_DET.DETALLE_ERROR IS 'Detalle técnico del error';
+
+-- Índice para búsqueda por ejecución y cuenta
+CREATE INDEX IT.IDX_GE_LOG_TSC_DET_EJEC_CTA
+    ON IT.GE_LOG_TSC_DET (ID_EJECUCION, NRO_CUENTA)
+TABLESPACE IT_IND;
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_LOG_TSC_DET FOR IT.GE_LOG_TSC_DET;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+  ON IT.GE_LOG_TSC_DET TO IT_TEMPORAL;

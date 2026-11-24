@@ -1,0 +1,48 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_AUDITORIA
+-- Descripción: Auditoría de cambios en resultados de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_AUDITORIA (
+    id_auditoria          NUMBER,
+    id_resultado          NUMBER,
+    ano                   NUMBER(4),
+    mes                   NUMBER(2),
+    cod_rubro             VARCHAR2(50),
+    balance_anterior      NUMBER(20,2),
+    balance_nuevo         NUMBER(20,2),
+    fuente_datos          VARCHAR2(100),
+    tipo_cambio           VARCHAR2(20), -- INSERT, UPDATE, DELETE
+    usuario               VARCHAR2(100)       DEFAULT USER,
+    fecha_cambio          TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_SOL_AUD_FECHA      ON IT.SB_SOL_AUDITORIA(fecha_cambio) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_AUD_RESULTADO  ON IT.SB_SOL_AUDITORIA(id_resultado) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_SOL_AUDITORIA IS 'Auditoria de cambios en los resultados del proceso de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.id_auditoria IS 'Identificador unico del registro de auditoria';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.id_resultado IS 'Referencia al resultado auditado';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.ano IS 'Anno del periodo procesado';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.mes IS 'Mes del periodo procesado';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.cod_rubro IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.balance_anterior IS 'Valor del balance antes del cambio';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.balance_nuevo IS 'Valor del balance despues del cambio';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.fuente_datos IS 'Fuente de datos utilizada';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.tipo_cambio IS 'Tipo de operacion realizada: INSERT, UPDATE, DELETE';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.usuario IS 'Usuario que realizo el cambio';
+COMMENT ON COLUMN IT.SB_SOL_AUDITORIA.fecha_cambio IS 'Fecha y hora del cambio registrado';

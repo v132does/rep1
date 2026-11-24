@@ -1,0 +1,148 @@
+create table IT.PR_RE4_DIF_PREVISIONES
+(
+  cod_persona             VARCHAR2(10) not null,
+  nro_cuenta              VARCHAR2(15) not null,
+  mto_capital             NUMBER(18,2) not null,
+  can_mes_diferimiento    NUMBER(6),
+  can_mes_diferido        NUMBER(6),
+  fec_actualizacion       DATE,
+  mto_prevision           NUMBER(18,2),
+  por_pre_cta_madre       NUMBER(5,2),
+  mto_pre_diferido        NUMBER(18,2),
+  mto_pre_dif_acumulado   NUMBER(18,2),
+  dia_atraso              NUMBER(5),
+  usu_insercion           VARCHAR2(10) not null,
+  fec_insercion           DATE not null,
+  usu_modificacion        VARCHAR2(10) not null,
+  fec_modificacion        DATE not null,
+  fec_ini_cta_nueva       DATE not null,
+  cat_aut_cta_madre       NUMBER(3,2),
+  cat_ren_cta_madre       NUMBER(3,2),
+  mto_pre_mon_original    NUMBER(18,2),
+  cotizacion              NUMBER(14,8),
+  cod_mon_cta_madre       VARCHAR2(3),
+  por_pre_cta_hijo        NUMBER(5,2),
+  cat_ren_cta_hijo        NUMBER(3,2),
+  fec_pre_ini_cta_ori     DATE,
+  fec_pre_cta_madre       DATE,
+  fec_pre_cta_hijo        DATE,
+  mto_prev_cta_madre      NUMBER(18,2),
+  por_cta_mad_fec_ini     NUMBER(5,2),
+  mto_pre_cta_mad_fec_ini NUMBER(18,2),
+  por_cta_hij_fec_ini     NUMBER(5,2),
+  mto_pre_cta_hij_fec_ini NUMBER(18,2),
+  observacion             VARCHAR2(400),
+  mto_tot_deu_cta_madre   NUMBER(18,2),
+  cod_mon_cta_hijo        VARCHAR2(3),
+  cat_rie_cliente         NUMBER(3,2),
+  fec_dat_rie_cliente     DATE,
+  mto_deu_real            NUMBER(18,2),
+  mto_dev_no_cobrado      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_RE4_DIF_PREVISIONES
+  is 'Previsiones Diferidas de Producto Resolución 4';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cod_persona
+  is 'Código de Persona';
+comment on column IT.PR_RE4_DIF_PREVISIONES.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_capital
+  is 'Saldo Capital Original Nueva Operación - en moneda original';
+comment on column IT.PR_RE4_DIF_PREVISIONES.can_mes_diferimiento
+  is 'Cantidad de Mes para Diferimiento de Previsiones';
+comment on column IT.PR_RE4_DIF_PREVISIONES.can_mes_diferido
+  is 'Cantidad de Mes Diferido de la Cuenta';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_actualizacion
+  is 'Fecha de Actualización Registro';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_prevision
+  is 'Monto Total Previsión a Diferir - en Guaranies';
+comment on column IT.PR_RE4_DIF_PREVISIONES.por_pre_cta_madre
+  is 'Porcentaje que fue aplicado para Previsión Cta. Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_pre_diferido
+  is 'Monto de Previsión Diferido Actual - en Guaranies';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_pre_dif_acumulado
+  is 'Monto Previsión Diferido Acumulado - en Guaranies';
+comment on column IT.PR_RE4_DIF_PREVISIONES.dia_atraso
+  is 'Días de atraso de la cuenta Original al momento del desembolso de la nueva cuenta.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_ini_cta_nueva
+  is 'Fecha de inicio del Préstamo';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cat_aut_cta_madre
+  is 'Categoria automatica Cta. Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cat_ren_cta_madre
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones Cta. Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_pre_mon_original
+  is 'Monto Total Previsión Diferir en moneda original';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cotizacion
+  is 'Cotización';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cod_mon_cta_madre
+  is 'Código de moneda Cta Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.por_pre_cta_hijo
+  is 'Porcentaje que fue aplicado para Previsión Cta. Hijo';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cat_ren_cta_hijo
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones Cta. Hijo';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_pre_ini_cta_ori
+  is 'Fecha previsión Cuenta Origen antes de Nueva Operación';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_pre_cta_madre
+  is 'Fecha Previsión Cta Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_pre_cta_hijo
+  is 'Fecha Previsión Cta Hijo ';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_prev_cta_madre
+  is 'Monto Previsión Cta Madre ';
+comment on column IT.PR_RE4_DIF_PREVISIONES.por_cta_mad_fec_ini
+  is 'Porcentaje que fue aplicado para Previsión Cta. Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_pre_cta_mad_fec_ini
+  is 'Monto Previsión Cta Madre realizada en fecha de inicio de nueva operación';
+comment on column IT.PR_RE4_DIF_PREVISIONES.por_cta_hij_fec_ini
+  is 'Porcentaje que fue aplicado para Previsión Cta. Hijo';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_pre_cta_hij_fec_ini
+  is 'Monto Previsión Cta Hijo realizada en fecha de inicio de nueva operación';
+comment on column IT.PR_RE4_DIF_PREVISIONES.observacion
+  is 'Observación';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_tot_deu_cta_madre
+  is 'Mto. Deuda Cta. Madre';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cod_mon_cta_hijo
+  is 'Código de moneda Cta Hijo';
+comment on column IT.PR_RE4_DIF_PREVISIONES.cat_rie_cliente
+  is 'Categoria de Riesgo del Cliente antes del nacimiento de la nueva cuenta.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.fec_dat_rie_cliente
+  is 'Fecha obtenida para Categoria de Riesgo del Cliente antes del nacimiento de la nueva cuenta.';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_deu_real
+  is 'Monto Deuda Real Fecha inicial';
+comment on column IT.PR_RE4_DIF_PREVISIONES.mto_dev_no_cobrado
+  is 'Monto Devengado no Cobrado';
+alter table IT.PR_RE4_DIF_PREVISIONES
+  add constraint PK_PR_RE4_PREVISIONES primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_RE4_DIF_PREVISIONES
+  add constraint FK_PRPRE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

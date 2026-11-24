@@ -1,0 +1,118 @@
+create table IT.CB_SAL_PROMEDIOS
+(
+  cod_oficina           NUMBER(3) not null,
+  cod_rubro             VARCHAR2(15) not null,
+  ano                   NUMBER(4) not null,
+  mes                   NUMBER(2) not null,
+  cod_moneda            VARCHAR2(3) not null,
+  tot_acumulado         NUMBER(18,2) default 0,
+  tot_acu_mon_local     NUMBER(18,2) default 0,
+  tot_acu_mon_fuerte    NUMBER(18,2) default 0,
+  tot_acu_debitos       NUMBER(18,2) default 0,
+  tot_acu_creditos      NUMBER(18,2) default 0,
+  tot_acu_deb_mon_local NUMBER(18,2) default 0,
+  tot_acu_cre_mon_local NUMBER(18,2) default 0,
+  can_dia_acumulado     NUMBER(6),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  tot_acu_equ_local     NUMBER(18,2) default 0,
+  tot_acu_deb_equ_loc   NUMBER(18,2) default 0,
+  tot_acu_cre_equ_loc   NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_PROMEDIOS
+  is 'Contiene los datos de saldos promedios de cuentas contables **  Mantener un a?o completo **';
+comment on column IT.CB_SAL_PROMEDIOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_SAL_PROMEDIOS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_SAL_PROMEDIOS.ano
+  is 'Codigo de año del saldo.';
+comment on column IT.CB_SAL_PROMEDIOS.mes
+  is 'Codigo de mes del saldo.';
+comment on column IT.CB_SAL_PROMEDIOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acumulado
+  is 'Acumulado del saldo en moneda extranjera.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_mon_local
+  is 'Acumulado del saldo en moneda local.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_mon_fuerte
+  is 'Acumulado en dolares.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_debitos
+  is 'Importe acumulado de debitos en moneda extranjera.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_creditos
+  is 'Importe acumulado de creditos en moneda extranjera.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_deb_mon_local
+  is 'Importe acumulado de debitos.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_cre_mon_local
+  is 'Importe acumulado de creditos.';
+comment on column IT.CB_SAL_PROMEDIOS.can_dia_acumulado
+  is 'Cantidad de dias.';
+comment on column IT.CB_SAL_PROMEDIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SAL_PROMEDIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SAL_PROMEDIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_PROMEDIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_equ_local
+  is 'Total  acumulado del equivalente en moneda local del acumulado en m/e.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_deb_equ_loc
+  is 'Total acumulado de debitos equivalente en moneda local del acumulado en m/e.';
+comment on column IT.CB_SAL_PROMEDIOS.tot_acu_cre_equ_loc
+  is 'Total acumulado de creditos equivalente en moneda local del acumulado en m/e.';
+create index IT.IN_BSPRO_COD_RUBRO on IT.CB_SAL_PROMEDIOS (COD_RUBRO, ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_PROMEDIOS
+  add constraint PK_CB_SAL_PROMEDIOS primary key (COD_OFICINA, COD_RUBRO, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_PROMEDIOS
+  add constraint FK_BSPRO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CB_SAL_PROMEDIOS
+  add constraint FK_BSPRO_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_SAL_PROMEDIOS
+  add constraint AVCON_1082384743_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_SAL_PROMEDIOS
+  add constraint AVCON_1085418068_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_SAL_PROMEDIOS
+  add constraint AVCON_1086033593_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

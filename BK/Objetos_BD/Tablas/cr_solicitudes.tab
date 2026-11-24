@@ -1,0 +1,79 @@
+create table IT.CR_SOLICITUDES
+(
+  nro_solicitud    NUMBER(10) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tip_solicitud    VARCHAR2(5) not null,
+  fecha            DATE not null,
+  detalle          VARCHAR2(2000),
+  fec_aprobacion   DATE,
+  estado           VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_SOLICITUDES
+  is 'Tabla de solicitudes';
+comment on column IT.CR_SOLICITUDES.nro_solicitud
+  is 'Numero de secuencia unico.';
+comment on column IT.CR_SOLICITUDES.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.CR_SOLICITUDES.tip_solicitud
+  is 'Tipo de Solicitud. Ver ba_cod_referencias. TIP_SOLICITUD';
+comment on column IT.CR_SOLICITUDES.fecha
+  is 'Fecha de solicitud.';
+comment on column IT.CR_SOLICITUDES.detalle
+  is 'Detalle del solicitud';
+comment on column IT.CR_SOLICITUDES.fec_aprobacion
+  is 'Fecha de aprobacion';
+comment on column IT.CR_SOLICITUDES.estado
+  is 'Estado actual de la solicitud';
+comment on column IT.CR_SOLICITUDES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_SOLICITUDES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_RSOLI_COD_PERSONA on IT.CR_SOLICITUDES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_SOLICITUDES
+  add constraint PK_CR_SOLICITUDES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_SOLICITUDES
+  add constraint FK_RSOLI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

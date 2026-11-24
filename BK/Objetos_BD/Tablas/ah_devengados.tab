@@ -1,0 +1,124 @@
+create table IT.AH_DEVENGADOS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fecha             DATE not null,
+  cod_moneda        VARCHAR2(3) not null,
+  val_tasa          NUMBER(20,4) not null,
+  fec_tasa          DATE not null,
+  can_dia_interes   NUMBER(6) not null,
+  sal_acumulado     NUMBER(18,2) default 0 not null,
+  mto_interes       NUMBER(18,2) default 0 not null,
+  dia_dev_anterior  NUMBER(6),
+  mto_dev_anterior  NUMBER(18,2),
+  fec_inicio        DATE not null,
+  mto_dev_acumulado NUMBER(18,2) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  mto_ajuste        NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_DEVENGADOS
+  is 'Contiene los datos Correspondientes al Devengado del Modulo de Ahorros ** Mantener un a?o completo **';
+comment on column IT.AH_DEVENGADOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_DEVENGADOS.fecha
+  is 'Fecha de Devengamiento.';
+comment on column IT.AH_DEVENGADOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.AH_DEVENGADOS.val_tasa
+  is 'Valor de la Tasa Aplicado.';
+comment on column IT.AH_DEVENGADOS.fec_tasa
+  is 'Fecha de la Tasa Aplicada.';
+comment on column IT.AH_DEVENGADOS.can_dia_interes
+  is 'Cantidad de Dias del Interes.';
+comment on column IT.AH_DEVENGADOS.sal_acumulado
+  is 'Acumulado del Saldo.';
+comment on column IT.AH_DEVENGADOS.mto_interes
+  is 'Interes Devengado Calculado.';
+comment on column IT.AH_DEVENGADOS.dia_dev_anterior
+  is 'Deas de Interes Devengado Anterior.';
+comment on column IT.AH_DEVENGADOS.mto_dev_anterior
+  is 'Interes Devengado Anterior.';
+comment on column IT.AH_DEVENGADOS.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.AH_DEVENGADOS.mto_dev_acumulado
+  is 'Devengamiento Acumulado.';
+comment on column IT.AH_DEVENGADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_DEVENGADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_DEVENGADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_DEVENGADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_DEVENGADOS.mto_ajuste
+  is 'Ajuste realizado en el Vencimiento del Cupon si es necesario.';
+create index IT.IN_ADEVE_COD_MONEDA on IT.AH_DEVENGADOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_AIDEV_FECHA on IT.AH_DEVENGADOS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_AIDEV_FECHA_CTA on IT.AH_DEVENGADOS (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_DEVENGADOS
+  add constraint PK_AH_INT_DEVENGADOS primary key (NRO_CUENTA, FEC_INICIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 11M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_DEVENGADOS
+  add constraint FK_AIDEV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_DEVENGADOS
+  add constraint FK_AIDEV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

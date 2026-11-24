@@ -1,0 +1,21 @@
+create table IT.BW_LIS_NEGRA
+(
+  clave     NUMBER(6),
+  clave_md5 VARCHAR2(32)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_LIS_NEGRA.clave
+  is 'Clave ingresada por el usuario, sin aplicar MD5.';
+comment on column IT.BW_LIS_NEGRA.clave_md5
+  is 'Clave convertida en MD5.';
+

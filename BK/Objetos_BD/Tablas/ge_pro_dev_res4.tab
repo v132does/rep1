@@ -1,0 +1,83 @@
+create table IT.GE_PRO_DEV_RES4
+(
+  nro_cuenta       VARCHAR2(30) not null,
+  nro_orden        NUMBER(20) not null,
+  mes              NUMBER(2) not null,
+  anho             NUMBER(4),
+  nro_cuo_dev      NUMBER(3),
+  mto_devengado    NUMBER(18,2) default 0,
+  mto_dev_dia      NUMBER(18,2),
+  can_dias_dev     NUMBER(3),
+  nro_cuo_inicial  NUMBER(3),
+  nro_cuo_final    NUMBER(3),
+  dias_sig_cuo     NUMBER(3),
+  mto_sig_cuo      NUMBER(18,2),
+  cod_moneda       VARCHAR2(10),
+  fec_cancelacion  DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PRO_DEV_RES4
+  is 'Contiene los datos de Devenggados RE4.';
+comment on column IT.GE_PRO_DEV_RES4.nro_cuenta
+  is 'Número de Préstamo.';
+comment on column IT.GE_PRO_DEV_RES4.nro_orden
+  is 'Numero de Orden de Insercion';
+comment on column IT.GE_PRO_DEV_RES4.mes
+  is 'Mes';
+comment on column IT.GE_PRO_DEV_RES4.anho
+  is 'Año';
+comment on column IT.GE_PRO_DEV_RES4.nro_cuo_dev
+  is 'Numero de Cuota Devengada';
+comment on column IT.GE_PRO_DEV_RES4.mto_devengado
+  is 'Monto Devengado';
+comment on column IT.GE_PRO_DEV_RES4.mto_dev_dia
+  is 'Mto. Dev Dia';
+comment on column IT.GE_PRO_DEV_RES4.can_dias_dev
+  is 'Cantidad de Dias Devengado';
+comment on column IT.GE_PRO_DEV_RES4.nro_cuo_inicial
+  is 'Numero de Cuota Inicial';
+comment on column IT.GE_PRO_DEV_RES4.nro_cuo_final
+  is 'Numero de Cuota Final';
+comment on column IT.GE_PRO_DEV_RES4.dias_sig_cuo
+  is 'Dias que Devenga Siguiente cuota';
+comment on column IT.GE_PRO_DEV_RES4.mto_sig_cuo
+  is 'Monto Dev Siguiente Cuota';
+comment on column IT.GE_PRO_DEV_RES4.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_PRO_DEV_RES4.fec_cancelacion
+  is 'Fecha de Cancelacion';
+comment on column IT.GE_PRO_DEV_RES4.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PRO_DEV_RES4.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PRO_DEV_RES4.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PRO_DEV_RES4.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_PRO_NRO_CTA on IT.GE_PRO_DEV_RES4 (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

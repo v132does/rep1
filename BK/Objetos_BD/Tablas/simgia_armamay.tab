@@ -1,0 +1,81 @@
+create table IT.SIMGIA_ARMAMAY
+(
+  msuc          NUMBER(2),
+  mcta          NUMBER(6),
+  msubcta       NUMBER(6),
+  fum           NUMBER(6),
+  saldoene      NUMBER(14),
+  saldofeb      NUMBER(14),
+  saldomar      NUMBER(14),
+  saldoabr      NUMBER(14),
+  saldomay      NUMBER(14),
+  saldojun      NUMBER(14),
+  saldojul      NUMBER(14),
+  saldoago      NUMBER(14),
+  saldoset      NUMBER(14),
+  saldooct      NUMBER(14),
+  saldonov      NUMBER(14),
+  saldodic      NUMBER(14),
+  saldoact      NUMBER(14),
+  saldoactme    NUMBER(13,2),
+  sadoantme     NUMBER(13,2),
+  debihoy       NUMBER(13),
+  credihoy      NUMBER(13),
+  acudeb        NUMBER(14),
+  acucre        NUMBER(14),
+  acudeme       NUMBER(15,2),
+  acucreme      NUMBER(15,2),
+  divisa        NUMBER(2),
+  promemiles    NUMBER(13),
+  acudias       NUMBER(4),
+  ctabcp        NUMBER(6),
+  fec_migracion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_SMG_ARMAMAY1 on IT.SIMGIA_ARMAMAY (MSUC, MCTA, MSUBCTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_SMG_ARMAMAY2 on IT.SIMGIA_ARMAMAY (MCTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_SMG_ARMAMAY3 on IT.SIMGIA_ARMAMAY (MSUC)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

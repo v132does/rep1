@@ -1,0 +1,86 @@
+create table IT.CB_MOV_BCO_CLEARING
+(
+  cod_sucursal     NUMBER(2),
+  nro_cuenta       VARCHAR2(15),
+  fec_valor        DATE,
+  fec_contable     DATE,
+  cod_movimiento   NUMBER(3),
+  importe          NUMBER(18,2),
+  tipo             NUMBER(1),
+  concepto         VARCHAR2(30),
+  nro_referencia   NUMBER(10),
+  est_conciliado   VARCHAR2(1),
+  mes              NUMBER(2),
+  ano              NUMBER(4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  ubicacion        VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_MOV_BCO_CLEARING.cod_sucursal
+  is 'Codigo de Sucursal.';
+comment on column IT.CB_MOV_BCO_CLEARING.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.CB_MOV_BCO_CLEARING.fec_valor
+  is 'Fecha Valor.';
+comment on column IT.CB_MOV_BCO_CLEARING.fec_contable
+  is 'Fecha Contable.';
+comment on column IT.CB_MOV_BCO_CLEARING.cod_movimiento
+  is 'Codigo de movimiento.';
+comment on column IT.CB_MOV_BCO_CLEARING.importe
+  is 'Importe.';
+comment on column IT.CB_MOV_BCO_CLEARING.tipo
+  is '1-Debe 2-Haber.';
+comment on column IT.CB_MOV_BCO_CLEARING.concepto
+  is 'Concepto.';
+comment on column IT.CB_MOV_BCO_CLEARING.nro_referencia
+  is 'Nro. de referencia.';
+comment on column IT.CB_MOV_BCO_CLEARING.est_conciliado
+  is 'S=Si Encontrado.';
+comment on column IT.CB_MOV_BCO_CLEARING.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_MOV_BCO_CLEARING.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_MOV_BCO_CLEARING.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_MOV_BCO_CLEARING.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+comment on column IT.CB_MOV_BCO_CLEARING.ubicacion
+  is 'Lugar donde fue ubicado.';
+create index IT.IN_CBBCO_ANO4 on IT.CB_MOV_BCO_CLEARING (ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CBBCO_NRO_REFERENCIA4 on IT.CB_MOV_BCO_CLEARING (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

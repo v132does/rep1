@@ -1,0 +1,148 @@
+create table IT.SB_CRC_VTA_CARTERAS
+(
+  cod_ente           VARCHAR2(15),
+  fec_ope_ente       DATE default TRUNC(SYSDATE),
+  nro_cuenta         VARCHAR2(20),
+  nro_cuenta_bt      VARCHAR2(100),
+  cod_oficina        NUMBER(3),
+  cod_moneda         VARCHAR2(3),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  fec_inicio         DATE,
+  fec_vencimiento    DATE,
+  mto_capital        NUMBER(18,2),
+  can_cuotas         NUMBER(5),
+  cod_sec_credito    NUMBER(3),
+  val_tasa           NUMBER(20,4),
+  cod_persona        VARCHAR2(10),
+  tipo               VARCHAR2(1) default 'A',
+  estado             VARCHAR2(1),
+  est_batch          VARCHAR2(1),
+  cat_cliente        VARCHAR2(5),
+  dia_atraso         NUMBER(5),
+  tot_riesgo         NUMBER(18,2),
+  ope_recaptada      VARCHAR2(1) default 'N',
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  sal_capital        NUMBER(18,2),
+  dev_no_cobrado     NUMBER(18,2),
+  nro_cuenta_2       VARCHAR2(15),
+  tip_operacion      NUMBER(3),
+  tip_documento      VARCHAR2(3),
+  nro_documento      VARCHAR2(20),
+  fec_nacimiento     DATE,
+  nombres            VARCHAR2(120),
+  apellidos          VARCHAR2(60),
+  estado_vta_cartera VARCHAR2(1) default 'C',
+  cat_cliente_clasif VARCHAR2(5),
+  observacion        VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+CREATE INDEX IT.IN_SBCVC_NRO_DOCUMENTOS ON IT.SB_CRC_VTA_CARTERAS (NRO_DOCUMENTO ASC)  
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+( 
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+) 
+NOPARALLEL;
+create index IT.IN_SCVCA_ESTADO_VTA_CARTERA on IT.SB_CRC_VTA_CARTERAS (ESTADO_VTA_CARTERA, NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_SCVCA_ESTADO_VTA_CARTERA_01 on IT.SB_CRC_VTA_CARTERAS (ESTADO_VTA_CARTERA, NRO_CUENTA_BT)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_VTA_CARTERAS
+  is 'Inventario de cartera vendida para mantenimiento de datos Res 75 ver.2';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_ente
+  is 'C digo del ente que adquiri  la cartera.';
+comment on column IT.SB_CRC_VTA_CARTERAS.fec_ope_ente
+  is 'Fecha de operaci n de compra de cartera con el ente.';
+comment on column IT.SB_CRC_VTA_CARTERAS.nro_cuenta
+  is 'Numero de Prestamo Cuenta.';
+comment on column IT.SB_CRC_VTA_CARTERAS.nro_cuenta_bt
+  is 'Numero de Prestamo Cuenta Bantotal.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_oficina
+  is 'Codigo de Oficina del Prestamo.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_modulo
+  is 'Codigo de Modulo del Prestamo.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_modalidad
+  is 'Codigo de Modalidad del Prestamo.';
+comment on column IT.SB_CRC_VTA_CARTERAS.fec_inicio
+  is 'Fecha de Inicio del Prestamo.';
+comment on column IT.SB_CRC_VTA_CARTERAS.fec_vencimiento
+  is 'Fecha de Vencimiento del Prestamo.';
+comment on column IT.SB_CRC_VTA_CARTERAS.mto_capital
+  is 'Monto Capital.';
+comment on column IT.SB_CRC_VTA_CARTERAS.can_cuotas
+  is 'Cantidad de Cuotas.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_sec_credito
+  is 'Codigo de Sector de Credito.';
+comment on column IT.SB_CRC_VTA_CARTERAS.val_tasa
+  is 'Valor de la Tasa de Interes.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cod_persona
+  is 'C digo de Persona.';
+comment on column IT.SB_CRC_VTA_CARTERAS.tipo
+  is 'Tipo de Prestamo (Amortizable, Plazo Fijo, Descto. de Documentos).';
+comment on column IT.SB_CRC_VTA_CARTERAS.estado
+  is 'Estado de Cuenta on line (C=Vigente, V=Vencido, G=En Gestion, M=Moroso, I=Incobrable, N=Cancelado).';
+comment on column IT.SB_CRC_VTA_CARTERAS.est_batch
+  is 'Estado de Cuenta Batch.';
+comment on column IT.SB_CRC_VTA_CARTERAS.cat_cliente
+  is 'Categoria del cliente.';
+comment on column IT.SB_CRC_VTA_CARTERAS.dia_atraso
+  is 'Cantidad de d as de atraso';
+comment on column IT.SB_CRC_VTA_CARTERAS.tot_riesgo
+  is 'Total de riesgo.';
+comment on column IT.SB_CRC_VTA_CARTERAS.ope_recaptada
+  is 'Operaci n Recaptada (S, N).';
+comment on column IT.SB_CRC_VTA_CARTERAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_CRC_VTA_CARTERAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_CRC_VTA_CARTERAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CRC_VTA_CARTERAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CRC_VTA_CARTERAS.estado_vta_cartera
+  is 'Estado de Cuenta Venta de Cartera (C=Vigente,  N=Cancelado).';
+comment on column IT.SB_CRC_VTA_CARTERAS.cat_cliente_clasif
+  is 'Categoria del cliente Clasifica';
+

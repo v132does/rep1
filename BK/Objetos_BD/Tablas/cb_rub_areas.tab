@@ -1,0 +1,73 @@
+create table IT.CB_RUB_AREAS
+(
+  cod_area          NUMBER(4) not null,
+  descripcion       VARCHAR2(300) not null,
+  sec_capitulo      VARCHAR2(100),
+  ind_sec_capitulo  VARCHAR2(1) default 'S' not null,
+  mod_inf_rubro     VARCHAR2(100),
+  ind_mod_inf_rubro VARCHAR2(1) default 'S' not null,
+  plazo             VARCHAR2(100),
+  ind_plazo         VARCHAR2(1) default 'S' not null,
+  sec_prestamo      VARCHAR2(100),
+  ind_sec_prestamo  VARCHAR2(1) default 'S' not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_AREAS
+  is 'Definición de Áreas asignadas por Rubro.';
+comment on column IT.CB_RUB_AREAS.cod_area
+  is 'Código del Área.';
+comment on column IT.CB_RUB_AREAS.descripcion
+  is 'Descripción del Área.';
+comment on column IT.CB_RUB_AREAS.sec_capitulo
+  is 'Corresponde al Sector y Capítulo del Rubro.';
+comment on column IT.CB_RUB_AREAS.ind_sec_capitulo
+  is 'Indica si debe condicionarse el campo sec_capitulo con IN o NOT IN.';
+comment on column IT.CB_RUB_AREAS.mod_inf_rubro
+  is 'Corresponde al Módulo inferior del Rubro.';
+comment on column IT.CB_RUB_AREAS.ind_mod_inf_rubro
+  is 'Indica si debe condicionarse el campo mod_inf_rubro con IN ó NOT IN.';
+comment on column IT.CB_RUB_AREAS.plazo
+  is 'Corresponde al Plazo del Rubro.';
+comment on column IT.CB_RUB_AREAS.ind_plazo
+  is 'Indica si debe condicionarse el campo plazo con IN ó NOT IN.';
+comment on column IT.CB_RUB_AREAS.sec_prestamo
+  is 'Código de Sector para Préstamos.';
+comment on column IT.CB_RUB_AREAS.ind_sec_prestamo
+  is 'Indica si debe condicionarse el campo sec_prestamo con IN ó NOT IN.';
+comment on column IT.CB_RUB_AREAS.usu_insercion
+  is 'Usuario que insertó el registro';
+comment on column IT.CB_RUB_AREAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_RUB_AREAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CB_RUB_AREAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CB_RUB_AREAS
+  add constraint PK_CB_RUB_AREAS primary key (COD_AREA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

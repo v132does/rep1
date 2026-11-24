@@ -1,0 +1,19 @@
+create table IT.AUX_GRU_ECONOMICO
+(
+  cod_grupo   NUMBER(12),
+  descripcion VARCHAR2(120),
+  cod_persona VARCHAR2(10),
+  grupo_it    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

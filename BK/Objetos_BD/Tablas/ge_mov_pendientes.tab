@@ -1,0 +1,198 @@
+create table IT.GE_MOV_PENDIENTES
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_transaccion    NUMBER(4) not null,
+  cod_mod_padre      NUMBER(3) not null,
+  cod_mad_padre      NUMBER(3) not null,
+  cod_tra_padre      NUMBER(4) not null,
+  monto              NUMBER(18,2) default 0 not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_movimiento     NUMBER(20) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_error          VARCHAR2(10),
+  estado             VARCHAR2(1),
+  cod_ofi_origen     NUMBER(3) not null,
+  concepto           VARCHAR2(35),
+  cod_tasa           NUMBER(3),
+  val_tasa           NUMBER(20,4),
+  nro_documento      NUMBER(15),
+  saldo              NUMBER(18,2),
+  mto_exonerado      NUMBER(18,2) default 0,
+  cod_usu_exonerador VARCHAR2(10),
+  motivo             VARCHAR2(100),
+  observacion        VARCHAR2(500),
+  cod_persona        VARCHAR2(10),
+  referencia         VARCHAR2(20),
+  car_manual         VARCHAR2(1) default 'N' not null,
+  fec_vencimiento    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_PENDIENTES
+  is 'Movimientos Pendientes.';
+comment on column IT.GE_MOV_PENDIENTES.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_MOV_PENDIENTES.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.GE_MOV_PENDIENTES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_MOV_PENDIENTES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MOV_PENDIENTES.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_MOV_PENDIENTES.cod_mod_padre
+  is 'Codigo del Modulo padre.';
+comment on column IT.GE_MOV_PENDIENTES.cod_mad_padre
+  is 'Codigo de la modalidad padre.';
+comment on column IT.GE_MOV_PENDIENTES.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_MOV_PENDIENTES.monto
+  is 'Monto del movimiento.';
+comment on column IT.GE_MOV_PENDIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MOV_PENDIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MOV_PENDIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_PENDIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_PENDIENTES.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_PENDIENTES.cod_movimiento
+  is 'Codigo de Movimiento.';
+comment on column IT.GE_MOV_PENDIENTES.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_MOV_PENDIENTES.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_MOV_PENDIENTES.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_MOV_PENDIENTES.cod_error
+  is 'Codigo de error.';
+comment on column IT.GE_MOV_PENDIENTES.estado
+  is 'Estado del movimiento.';
+comment on column IT.GE_MOV_PENDIENTES.cod_ofi_origen
+  is 'Codigo oficina de origen.';
+comment on column IT.GE_MOV_PENDIENTES.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.GE_MOV_PENDIENTES.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.GE_MOV_PENDIENTES.val_tasa
+  is 'Importe de la tasa.';
+comment on column IT.GE_MOV_PENDIENTES.nro_documento
+  is 'Numero de documento.';
+comment on column IT.GE_MOV_PENDIENTES.saldo
+  is 'Saldo pendiente de cobro.';
+comment on column IT.GE_MOV_PENDIENTES.mto_exonerado
+  is 'Sumatoria de monto exonerado.';
+comment on column IT.GE_MOV_PENDIENTES.cod_usu_exonerador
+  is 'Usuario que realizo la exoneracion del registro.';
+comment on column IT.GE_MOV_PENDIENTES.motivo
+  is 'Motivo de la exoneracion.';
+comment on column IT.GE_MOV_PENDIENTES.observacion
+  is 'Observacion';
+comment on column IT.GE_MOV_PENDIENTES.cod_persona
+  is 'Persona Asociada al Movimiento';
+comment on column IT.GE_MOV_PENDIENTES.referencia
+  is 'Referencia General';
+comment on column IT.GE_MOV_PENDIENTES.car_manual
+  is 'Cargo Manual (S=Si, N=No)';
+comment on column IT.GE_MOV_PENDIENTES.fec_vencimiento
+  is 'Fecha de Vencimiento de Comisiones Diferidas.';
+create index IT.IN_GMPEN_COD_MAD_PADRE on IT.GE_MOV_PENDIENTES (COD_MAD_PADRE, COD_MODALIDAD, COD_MOD_PADRE, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_OFI_ORIGEN, COD_TASA, COD_TRANSACCION, COD_TRA_PADRE, COD_USUARIO, COD_USU_EXONERADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMPEN_NRO_CUENTA on IT.GE_MOV_PENDIENTES (NRO_CUENTA, FECHA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.PK_GE_MOV_PENDIENTES on IT.GE_MOV_PENDIENTES (COD_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_COD_USU_EXONERADOR foreign key (COD_USU_EXONERADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMOPE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint FK_GMPEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint AVCON_1102684649_COD_M_004
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint AVCON_1102684649_COD_M_005
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint AVCON_1102684649_COD_M_006
+  check (COD_MOD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint AVCON_1102684649_COD_M_007
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PENDIENTES
+  add constraint AVCON_1221593769_ESTAD_000
+  check (ESTADO IN ('P', 'V', 'E', 'I', 'X', 'N'));
+

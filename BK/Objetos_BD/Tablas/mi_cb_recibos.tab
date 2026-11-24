@@ -1,0 +1,20 @@
+create table IT.MI_CB_RECIBOS
+(
+  nro_recibo    NUMBER(15) not null,
+  fecha         DATE,
+  cod_persona   VARCHAR2(10),
+  cod_mod_padre NUMBER(3),
+  cod_mad_padre NUMBER(3),
+  cod_tra_padre NUMBER(4),
+  cod_oficina   NUMBER(3),
+  cod_moneda    VARCHAR2(3),
+  cotizacion    NUMBER(14,8),
+  anulado       VARCHAR2(1),
+  impreso       VARCHAR2(1),
+  tot_recibo    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

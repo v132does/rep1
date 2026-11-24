@@ -1,0 +1,35 @@
+create table IT.GE_DNA_PROCS
+(
+  id     NUMBER(10) not null,
+  estado VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DNA_PROCS.id
+  is 'Identificador del Registro, es igual al ID en GE_DNA_LOG.';
+comment on column IT.GE_DNA_PROCS.estado
+  is 'Estado del Registro de Pago (P-Pendiente F-Finalizado).';
+alter table IT.GE_DNA_PROCS
+  add constraint PK_GE_DNA_PROCS primary key (ID)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

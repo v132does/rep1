@@ -1,0 +1,97 @@
+create table IT.AP_GRU_TIP_REQ
+(
+  cod_tip_requerimiento NUMBER(3) not null,
+  orden                 NUMBER(2) not null,
+  cod_grupo             NUMBER(3) not null,
+  cod_gru_aprueba       NUMBER(3) not null,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_GRU_TIP_REQ
+  is 'Grupos y Tipos de Requerimientos.';
+comment on column IT.AP_GRU_TIP_REQ.cod_tip_requerimiento
+  is 'Codigo del Tipo de Requerimiento.';
+comment on column IT.AP_GRU_TIP_REQ.orden
+  is 'Orden de Aprobacion.';
+comment on column IT.AP_GRU_TIP_REQ.cod_grupo
+  is 'Codigo del Grupo.';
+comment on column IT.AP_GRU_TIP_REQ.cod_gru_aprueba
+  is 'Codigo del Grupo.';
+comment on column IT.AP_GRU_TIP_REQ.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_GRU_TIP_REQ.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_GRU_TIP_REQ.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_GRU_TIP_REQ.fec_modificacion
+  is 'Fecha de modificacion.';
+create index IT.IN_YGTRE_COD_GRU_APRUEBA on IT.AP_GRU_TIP_REQ (COD_GRU_APRUEBA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YGTRE_COD_GRUPO on IT.AP_GRU_TIP_REQ (COD_GRUPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_GRU_TIP_REQ
+  add constraint PK_AP_GRU_TIP_REQUERIMIENTOS primary key (COD_TIP_REQUERIMIENTO, ORDEN, COD_GRUPO, COD_GRU_APRUEBA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_GRU_TIP_REQ
+  add constraint FK_YGTRE_COD_GRU_APRUEBA foreign key (COD_GRU_APRUEBA)
+  references IT.AP_GRUPOS (COD_GRUPO);
+alter table IT.AP_GRU_TIP_REQ
+  add constraint FK_YGTRE_COD_GRUPO foreign key (COD_GRUPO)
+  references IT.AP_GRUPOS (COD_GRUPO);
+alter table IT.AP_GRU_TIP_REQ
+  add constraint FK_YGTRE_COD_TIP_REQUERIMIENT foreign key (COD_TIP_REQUERIMIENTO)
+  references IT.AP_TIP_REQUERIMIENTOS (COD_TIP_REQUERIMIENTO);
+alter table IT.AP_GRU_TIP_REQ
+  add constraint AVCON_1081349332_COD_G_000
+  check (COD_GRUPO BETWEEN 1 AND 999);
+alter table IT.AP_GRU_TIP_REQ
+  add constraint AVCON_1081349332_COD_G_001
+  check (COD_GRU_APRUEBA BETWEEN 1 AND 999);
+alter table IT.AP_GRU_TIP_REQ
+  add constraint AVCON_1081349332_COD_T_000
+  check (COD_TIP_REQUERIMIENTO BETWEEN 1 AND 999);
+

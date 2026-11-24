@@ -1,0 +1,161 @@
+create table IT.CB_COR_RUB_DET_HIS
+(
+  fecha             DATE not null,
+  cod_oficina       NUMBER(3) not null,
+  nro_asiento       NUMBER not null,
+  nro_linea         NUMBER not null,
+  pk_movimiento     VARCHAR2(50) not null,
+  cod_rubro         VARCHAR2(15) not null,
+  fecha_mov         DATE,
+  hora_mov          VARCHAR2(8),
+  cod_usuario_mov   VARCHAR2(10),
+  nro_secuencia_mov NUMBER(3),
+  ref_movimiento    NUMBER(15),
+  fec_conciliacion  DATE not null,
+  mov_cuadre        NUMBER,
+  con_forma         VARCHAR2(50),
+  cod_usu_con       VARCHAR2(10),
+  nro_cuenta        VARCHAR2(15),
+  monto             NUMBER(18,2),
+  cod_moneda        VARCHAR2(3),
+  mto_equ_local     NUMBER(18,2),
+  cotizacion        NUMBER(14,8),
+  cod_ofi_origen    NUMBER(3),
+  concepto          VARCHAR2(100),
+  nro_documento     NUMBER(15),
+  cod_transaccion   NUMBER(4),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  descripcion       VARCHAR2(100),
+  reversado         VARCHAR2(1),
+  tip_mov           VARCHAR2(1),
+  fec_proceso       DATE,
+  observacion       VARCHAR2(1000),
+  grupo             VARCHAR2(100),
+  excepcion         VARCHAR2(100),
+  modificado        CHAR(1) default 0 not null,
+  fec_valor         DATE,
+  nro_documento4    NUMBER(15)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_COD_RUBRO on IT.CB_COR_RUB_DET_HIS (COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 5M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_COD_USUARIO on IT.CB_COR_RUB_DET_HIS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_FECHA on IT.CB_COR_RUB_DET_HIS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_FEC_PROCESO on IT.CB_COR_RUB_DET_HIS (FEC_CONCILIACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_MOV_CUADRE on IT.CB_COR_RUB_DET_HIS (MOV_CUADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_NRO_ASIENTO on IT.CB_COR_RUB_DET_HIS (NRO_ASIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_NRO_LINEA on IT.CB_COR_RUB_DET_HIS (NRO_LINEA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_RUB_HIS_PROCESO on IT.CB_COR_RUB_DET_HIS (MOV_CUADRE, FEC_CONCILIACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_COR_RUB_DET_HIS
+  add constraint PK_CB_COR_RUB_DET_HIS primary key (FECHA, COD_OFICINA, NRO_ASIENTO, NRO_LINEA, PK_MOVIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

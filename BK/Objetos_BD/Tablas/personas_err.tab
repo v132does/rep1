@@ -1,0 +1,44 @@
+create table IT.PERSONAS_ERR
+(
+  rf_tipo_ident VARCHAR2(3),
+  rf_numero     NUMBER,
+  rf_pais_swift VARCHAR2(15),
+  rf_nombre     VARCHAR2(30),
+  rf_apellido   VARCHAR2(30),
+  rf_tipo_per   VARCHAR2(15),
+  cdent         VARCHAR2(15) not null,
+  anomes        VARCHAR2(30),
+  estado        VARCHAR2(1),
+  secuencia     VARCHAR2(15),
+  rf_fecha_nac  DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PERSONAS_ERR.rf_tipo_ident
+  is 'Tipo de Identidad';
+comment on column IT.PERSONAS_ERR.rf_numero
+  is 'Número de Identidad';
+comment on column IT.PERSONAS_ERR.rf_pais_swift
+  is 'Pais Swift';
+comment on column IT.PERSONAS_ERR.rf_nombre
+  is 'Nombre';
+comment on column IT.PERSONAS_ERR.rf_apellido
+  is 'Apellido';
+comment on column IT.PERSONAS_ERR.rf_tipo_per
+  is 'Tipo de Persona';
+comment on column IT.PERSONAS_ERR.cdent
+  is 'Código de Identidad';
+comment on column IT.PERSONAS_ERR.estado
+  is 'Estado';
+comment on column IT.PERSONAS_ERR.secuencia
+  is 'Secuencia';
+

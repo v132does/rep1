@@ -1,0 +1,131 @@
+create table IT.CB_LIB_VENTAS_DET_DEL
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  nro_factura      VARCHAR2(20) not null,
+  nro_timbrado     VARCHAR2(20) not null,
+  cod_ofi_origen   NUMBER(3) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  nro_documento    NUMBER(15),
+  descripcion      VARCHAR2(35),
+  cod_moneda       VARCHAR2(3) not null,
+  mto_exento       NUMBER(18,2),
+  mto_exento_gs    NUMBER(18,2),
+  mto_gravado_5    NUMBER(18,2),
+  mto_gra_5_gs     NUMBER(18,2),
+  mto_gravado_10   NUMBER(18,2),
+  mto_gra_10_gs    NUMBER(18,2),
+  impuesto_5       NUMBER(18,2),
+  impuesto_5_gs    NUMBER(18,2),
+  impuesto_10      NUMBER(18,2),
+  impuesto_10_gs   NUMBER(18,2),
+  cotizacion       NUMBER(14,4),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  nro_cuenta       VARCHAR2(15),
+  aju_impuesto_5   NUMBER(5),
+  aju_impuesto_10  NUMBER(5),
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_LIB_VENTAS_DET_DEL
+  is 'Libro de Venta Detalle Borradas.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.fecha
+  is 'Fecha de Generacion del Movimiento.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.hora
+  is 'Hora de Generacion del Movimiento.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.nro_factura
+  is 'Numero de Factura.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.nro_timbrado
+  is 'Numero Timbrado.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_ofi_origen
+  is 'Codigo Oficina del Movimiento.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_tra_padre
+  is 'Codigo Transaccion Padre.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.nro_documento
+  is 'Numero Documento del Movimiento.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.descripcion
+  is 'Descripcion del Movimiento.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_moneda
+  is 'Codigo Moneda.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.mto_exento
+  is 'Monto Exento.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.mto_exento_gs
+  is 'Monto Exento en GS.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.mto_gravado_5
+  is 'Monto Gravado 5%.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.mto_gra_5_gs
+  is 'Monto Gravado 5% en GS.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.mto_gravado_10
+  is 'Monto Gravado 10% .';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.mto_gra_10_gs
+  is 'Monto Gravado 10% en GS.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.impuesto_5
+  is 'Impuesto 5%.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.impuesto_5_gs
+  is 'Impuesto 5% en GS.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.impuesto_10
+  is 'Impuesto 10%.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.impuesto_10_gs
+  is 'Impuesto 10% en GS.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cotizacion
+  is 'Cotizacion.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.aju_impuesto_5
+  is 'Ajuste en el monto de IVA 5%';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.aju_impuesto_10
+  is 'Ajuste en el monto de IVA 10%';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_mod_padre
+  is 'Codigo Modulo Padre.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_mad_padre
+  is 'Codigo Modalidad Padre.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CB_LIB_VENTAS_DET_DEL.cod_modalidad
+  is 'Codigo de modalidad.';
+alter table IT.CB_LIB_VENTAS_DET_DEL
+  add constraint PK_CB_LIB_VENTAS_DET_DEL primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA, NRO_FACTURA, NRO_TIMBRADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

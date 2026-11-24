@@ -1,0 +1,175 @@
+create table IT.PR_PRE_CHE_ROGA_TMP
+(
+  nro_oferta          NUMBER(10) not null,
+  nro_doc_solicitante VARCHAR2(20),
+  cod_per_solicitante VARCHAR2(10),
+  nro_doc_invitado    VARCHAR2(20),
+  cod_per_invitado    VARCHAR2(10),
+  fec_oferta          DATE,
+  fec_vencimiento     DATE,
+  mto_total           VARCHAR2(20),
+  mto_proyecto        VARCHAR2(20),
+  mto_equipamiento    VARCHAR2(20),
+  mto_cuota           VARCHAR2(20),
+  can_cuotas          NUMBER(5),
+  cod_moneda          VARCHAR2(3),
+  tip_producto        VARCHAR2(100),
+  ubi_vivienda        VARCHAR2(100),
+  nom_proyecto        VARCHAR2(100),
+  tip_vivienda        VARCHAR2(100),
+  sub_tip_vivienda    VARCHAR2(100),
+  constructora        VARCHAR2(100),
+  detalle_1           VARCHAR2(1000),
+  detalle_2           VARCHAR2(1000),
+  detalle_3           VARCHAR2(1000),
+  detalle_4           VARCHAR2(1000),
+  detalle_5           VARCHAR2(1000),
+  estado              VARCHAR2(50),
+  inv_acepto          VARCHAR2(1) default 'N',
+  nro_solicitud       NUMBER,
+  dimension           VARCHAR2(10),
+  can_dormitorios     NUMBER,
+  cod_oficina         NUMBER(3),
+  cod_usu_oficial     VARCHAR2(10),
+  tip_amortizacion    VARCHAR2(1),
+  cod_modalidad       NUMBER(3),
+  cod_rub_economico   VARCHAR2(6),
+  mot_estado          VARCHAR2(500),
+  unidad              VARCHAR2(15),
+  pto_equilibrio      VARCHAR2(15),
+  tip_garantia        VARCHAR2(20),
+  mto_garantia        VARCHAR2(20),
+  mto_notario         VARCHAR2(20),
+  mto_tasacion        VARCHAR2(20),
+  mto_adm_gastos      VARCHAR2(20),
+  mto_cuo_contruccion VARCHAR2(20),
+  equipamiento        VARCHAR2(20),
+  usu_insercion       VARCHAR2(10) default substr(user,1,10),
+  fec_insercion       DATE default sysdate,
+  usu_modificacion    VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion    DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_PRE_CHE_ROGA_TMP
+  is 'Contiene los datos temporales de Ofertas Che Roga.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.nro_oferta
+  is 'Numero de oferta.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.nro_doc_solicitante
+  is 'Nro. Documento Solicitante.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_per_solicitante
+  is 'Codigo Persona Solicitante.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.nro_doc_invitado
+  is 'Nro. Documento Invitado.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_per_invitado
+  is 'Codigo Persona Invitado.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.fec_oferta
+  is 'Fecha de solicitud.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_total
+  is 'Monto Total.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_proyecto
+  is 'Monto Proyecto.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_equipamiento
+  is 'Monto Equipamiento.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_cuota
+  is 'Monto Cuota.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.can_cuotas
+  is 'Cantidad de Cuotas.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.tip_producto
+  is 'Tipo de Producto.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.ubi_vivienda
+  is 'Ubicacion de la vivienda.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.nom_proyecto
+  is 'Nombre del Proyecto.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.tip_vivienda
+  is 'Tipo de vivienta.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.sub_tip_vivienda
+  is 'Sub Tipo de vivienda.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.constructora
+  is 'Constructora.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.detalle_1
+  is 'Detalle 1.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.detalle_2
+  is 'Detalle 2.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.detalle_3
+  is 'Detalle 3.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.detalle_4
+  is 'Detalle 4.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.detalle_5
+  is 'Detalle 5.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.estado
+  is 'Estado oferta: (P = Pendiente, A = Pendiente analizar calif. credito, I = Aprobado IFI, E = Pendiente punto de equilibrio, F = Pendiente aprobación AFD, D = Aprobado AFD, C = Pendiente continuidad cliente, V = Avanzar solicitud, X = Cancelado por el cliente, Y = Pendiente desembolso AFD, Z = Desembolsado AFD,,W = Desembolsado IFI, U = Continuar solicitud, G = Pendiente gestion AFD, B = Pendiente desembolso BNF, N = Desembolsado BNF)';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.inv_acepto
+  is 'Invitado acepto Oferta.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.nro_solicitud
+  is 'Numero de solicitud.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.dimension
+  is 'Dimension.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.can_dormitorios
+  is 'Cantidad de dormitorios.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_oficina
+  is 'Oficina.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_usu_oficial
+  is 'Usuario Oficial. ';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.tip_amortizacion
+  is 'Tipo de Amortizacion.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.cod_rub_economico
+  is 'Codigo Rubro Economico.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mot_estado
+  is 'Motivo de Rechazo.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.unidad
+  is 'Unidad.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.pto_equilibrio
+  is 'Punto de Equilibrio.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.tip_garantia
+  is 'Tipo de garantia.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_garantia
+  is 'Costo de la Fiducia de Garantía.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_notario
+  is 'Costo de Notarios y Registros.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_tasacion
+  is 'Tasación Obra Terminada.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_adm_gastos
+  is 'Gastos Administrativos.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.mto_cuo_contruccion
+  is 'Monto de Cuotas del Periodo Constructivo.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.equipamiento
+  is 'Equipamiento.';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.usu_insercion
+  is 'Usuario que realizo la insercion';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.usu_modificacion
+  is 'Usuario que realizo la modificacion';
+comment on column IT.PR_PRE_CHE_ROGA_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion';
+alter table IT.PR_PRE_CHE_ROGA_TMP
+  add constraint PK_PR_PRE_CHE_ROGA_TMP primary key (NRO_OFERTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

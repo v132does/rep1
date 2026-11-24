@@ -1,0 +1,63 @@
+create table IT.CB_LOG_DOC_ELECTRONICO
+(
+  id_documento  NUMBER(15) not null,
+  cod_usuario   VARCHAR2(10) not null,
+  fecha         DATE not null,
+  hora          VARCHAR2(10) not null,
+  itide         NUMBER(3),
+  dnumdoc       VARCHAR2(7),
+  dcodcliente   VARCHAR2(15),
+  cod_respuesta VARCHAR2(10),
+  msj_respuesta VARCHAR2(20),
+  det_xml       VARCHAR2(4000),
+  cod_error     NUMBER(3) default 0,
+  msj_error     VARCHAR2(200),
+  usu_insercion VARCHAR2(10) default user,
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_LOG_DOC_ELECTRONICO
+  is 'Contiene los datos enviados y respuesta de FACTURY';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.id_documento
+  is 'ID del Documento Electronico.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.cod_usuario
+  is 'Usuario que realizó el pedido.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.fecha
+  is 'Fecha del pedido.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.hora
+  is 'Hora del pedido.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.itide
+  is 'Tipo de Documento Electronico.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.dnumdoc
+  is 'Número del Documento Electronico.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.dcodcliente
+  is 'Código del cliente.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.cod_respuesta
+  is 'Código de respuesta recibido de WB de FACTURY.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.msj_respuesta
+  is 'Mensaje de respuesta recibido de WB de FACTURY.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.det_xml
+  is 'Detalle XML recibido.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.cod_error
+  is 'Código de error si existe.0 sin errores.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.msj_error
+  is 'Mensaje de error si existe. Nulo si no hubo errores.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_LOG_DOC_ELECTRONICO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+alter table IT.CB_LOG_DOC_ELECTRONICO
+  add constraint PK_CB_LOG_DOC_ELECTRONICO primary key (ID_DOCUMENTO)
+  disable
+  novalidate;
+

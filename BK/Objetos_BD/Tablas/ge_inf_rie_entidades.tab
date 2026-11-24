@@ -1,0 +1,36 @@
+create table IT.GE_INF_RIE_ENTIDADES
+(
+  nro_inf_credito NUMBER not null,
+  cod_banco       VARCHAR2(40),
+  productos       VARCHAR2(120),
+  monto           NUMBER,
+  cuotas          VARCHAR2(30),
+  saldo           NUMBER,
+  garantia        VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_RIE_ENTIDADES.nro_inf_credito
+  is 'Número del Informe de Crédito.';
+comment on column IT.GE_INF_RIE_ENTIDADES.cod_banco
+  is 'Banco al cual corresponde el producto.';
+comment on column IT.GE_INF_RIE_ENTIDADES.productos
+  is 'Descripción del producto. ';
+comment on column IT.GE_INF_RIE_ENTIDADES.monto
+  is 'Monto del producto';
+comment on column IT.GE_INF_RIE_ENTIDADES.cuotas
+  is 'Canitdad de cuotas pendientes.';
+comment on column IT.GE_INF_RIE_ENTIDADES.saldo
+  is 'Saldo a la Fecha';
+comment on column IT.GE_INF_RIE_ENTIDADES.garantia
+  is 'Tipo de garantia del producto.';
+

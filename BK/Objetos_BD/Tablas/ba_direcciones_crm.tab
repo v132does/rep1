@@ -1,0 +1,99 @@
+create table IT.BA_DIRECCIONES_CRM
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_direccion    NUMBER(3) not null,
+  tipo             VARCHAR2(1),
+  principal        VARCHAR2(1),
+  direccion        VARCHAR2(80),
+  cod_pais         NUMBER(3),
+  cod_ciudad       NUMBER(3),
+  cod_barrio       NUMBER(4),
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion TIMESTAMP(6) default current_timestamp not null,
+  numero           VARCHAR2(8),
+  departamento     VARCHAR2(8),
+  piso             VARCHAR2(8),
+  edificio         VARCHAR2(35),
+  cod_postal       VARCHAR2(10),
+  dir_lateral      VARCHAR2(50),
+  tip_accion       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_DIRECCIONES_CRM
+  is 'Direcciones por Persona.';
+comment on column IT.BA_DIRECCIONES_CRM.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BA_DIRECCIONES_CRM.cod_direccion
+  is 'Numero de direcciones por cada Persona.';
+comment on column IT.BA_DIRECCIONES_CRM.tipo
+  is 'Tipo de Direccion. (P=Particular, L=Laboral, C=Chequera en Casa, M=Marketing, O=Otra).';
+comment on column IT.BA_DIRECCIONES_CRM.principal
+  is 'Indica si es Direccion default o principal (S=SI / N= NO).';
+comment on column IT.BA_DIRECCIONES_CRM.direccion
+  is 'Direccion o Nombre de la Calle.';
+comment on column IT.BA_DIRECCIONES_CRM.cod_pais
+  is 'Codigo de Pais.';
+comment on column IT.BA_DIRECCIONES_CRM.cod_ciudad
+  is 'Codigo de Ciudad.';
+comment on column IT.BA_DIRECCIONES_CRM.cod_barrio
+  is 'Codigo de Barrio.';
+comment on column IT.BA_DIRECCIONES_CRM.observacion
+  is 'Observacion de la Direccion.';
+comment on column IT.BA_DIRECCIONES_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_DIRECCIONES_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_DIRECCIONES_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_DIRECCIONES_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_DIRECCIONES_CRM.numero
+  is 'Numero o altura de la vivienda en la Calle.';
+comment on column IT.BA_DIRECCIONES_CRM.departamento
+  is 'Numero o Identificador del Departamento.';
+comment on column IT.BA_DIRECCIONES_CRM.piso
+  is 'Piso del Departamento en el Edificio.';
+comment on column IT.BA_DIRECCIONES_CRM.edificio
+  is 'Edificio y Bloque o Cuerpo.';
+comment on column IT.BA_DIRECCIONES_CRM.cod_postal
+  is 'Codigo Postal.';
+comment on column IT.BA_DIRECCIONES_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.CRM_DIRECCIONES on IT.BA_DIRECCIONES_CRM (TO_NUMBER(COD_PERSONA), COD_DIRECCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CRM_PERSONAS on IT.BA_DIRECCIONES_CRM (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

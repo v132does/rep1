@@ -1,0 +1,36 @@
+create table IT.AH_CTA_CAPITALIZADAS
+(
+  nro_cuenta VARCHAR2(15) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.AH_CTA_CAPITALIZADAS
+  is 'Contiene las cuentas ahorro vista que capitalizan.';
+-- Add comments to the columns 
+comment on column IT.AH_CTA_CAPITALIZADAS.nro_cuenta
+  is 'Número de cuenta';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.AH_CTA_CAPITALIZADAS
+  add constraint PK_AH_CTA_CAPITALIZADAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

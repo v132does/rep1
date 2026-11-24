@@ -1,0 +1,59 @@
+create table IT.CB_RUB_OFICINAS
+(
+  cod_oficina      NUMBER(3) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  ult_nro_extracto NUMBER(5),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_OFICINAS
+  is 'Contiene los datos del Plan de Cuentas por Oficina.';
+comment on column IT.CB_RUB_OFICINAS.cod_oficina
+  is 'Codigo de oficina de la cuenta contable.';
+comment on column IT.CB_RUB_OFICINAS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_RUB_OFICINAS.ult_nro_extracto
+  is 'Ultimo numero de extracto de mayor generado.';
+comment on column IT.CB_RUB_OFICINAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_RUB_OFICINAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_RUB_OFICINAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_OFICINAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_RUB_OFICINAS
+  add constraint PK_CB_RUB_OFICINAS primary key (COD_OFICINA, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_OFICINAS
+  add constraint FK_BROFI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_RUB_OFICINAS
+  add constraint FK_BROFI_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO)
+  deferrable initially deferred;
+

@@ -1,0 +1,26 @@
+create table IT.SB_DAT_FIN_PARAMETROS
+(
+  cod_informe      NUMBER(4),
+  tipo             VARCHAR2(10),
+  cod_tip_moneda   VARCHAR2(2),
+  niv_actividad    NUMBER(2),
+  cod_actividad    VARCHAR2(100),
+  filtro           VARCHAR2(100),
+  descripcion      VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

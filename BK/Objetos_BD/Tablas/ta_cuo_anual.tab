@@ -1,0 +1,100 @@
+create table IT.TA_CUO_ANUAL
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  nro_tarjeta       VARCHAR2(25) not null,
+  concepto          VARCHAR2(35),
+  cod_persona       VARCHAR2(10) not null,
+  fec_vencimiento   DATE not null,
+  cod_moneda        VARCHAR2(3) not null,
+  mto_cuo_anual     NUMBER,
+  can_cuo_anual     NUMBER,
+  cuo_cobro         NUMBER,
+  por_exo_cuo_anual NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  ano               NUMBER(4) not null,
+  mes               NUMBER(2) not null,
+  estado            VARCHAR2(1),
+  nro_cuota         NUMBER(4),
+  periodo           NUMBER(4) not null,
+  fec_mov           DATE,
+  hor_mov           VARCHAR2(8),
+  cod_usu_mov       VARCHAR2(10),
+  fec_generacion    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CUO_ANUAL
+  is 'Tabla de Registro de Cuota Anual Tarjetas.';
+comment on column IT.TA_CUO_ANUAL.nro_cuenta
+  is 'Número de Cuenta de la Tarjeta.';
+comment on column IT.TA_CUO_ANUAL.nro_tarjeta
+  is 'Número de Tarjeta.';
+comment on column IT.TA_CUO_ANUAL.concepto
+  is 'Concepto del Cobro.';
+comment on column IT.TA_CUO_ANUAL.cod_persona
+  is 'Código de Persona.';
+comment on column IT.TA_CUO_ANUAL.fec_vencimiento
+  is 'Fecha de Vencimiento de la Tarjeta.';
+comment on column IT.TA_CUO_ANUAL.cod_moneda
+  is 'Código de Móneda.';
+comment on column IT.TA_CUO_ANUAL.mto_cuo_anual
+  is 'Monto a cobrar de la Cuota anual.';
+comment on column IT.TA_CUO_ANUAL.can_cuo_anual
+  is 'Cantidad de cuotas a fraccionar.';
+comment on column IT.TA_CUO_ANUAL.cuo_cobro
+  is 'Número de la Cuota Cobrada.';
+comment on column IT.TA_CUO_ANUAL.por_exo_cuo_anual
+  is 'Porcentaje de exoneración de la cuota anual.';
+comment on column IT.TA_CUO_ANUAL.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_CUO_ANUAL.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_CUO_ANUAL.usu_modificacion
+  is 'SUBSTR(USER,1,10)';
+comment on column IT.TA_CUO_ANUAL.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.TA_CUO_ANUAL.ano
+  is 'Año de la cuota';
+comment on column IT.TA_CUO_ANUAL.mes
+  is 'Mes de la cuota';
+comment on column IT.TA_CUO_ANUAL.estado
+  is 'Estado de la cuota (G-Generado, P-Procesado/Cobrado)';
+comment on column IT.TA_CUO_ANUAL.nro_cuota
+  is 'Numero de la cuota';
+comment on column IT.TA_CUO_ANUAL.periodo
+  is 'Perido al que corresponde';
+comment on column IT.TA_CUO_ANUAL.fec_mov
+  is 'Fecha del Movimiento';
+comment on column IT.TA_CUO_ANUAL.hor_mov
+  is 'Hora del Movimiento';
+comment on column IT.TA_CUO_ANUAL.cod_usu_mov
+  is 'Usuario del Movimiento';
+comment on column IT.TA_CUO_ANUAL.fec_generacion
+  is 'Fecha de Generacion de Registros';
+alter table IT.TA_CUO_ANUAL
+  add constraint PK_TA_CUO_ANUAL primary key (NRO_CUENTA, ANO, MES, PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

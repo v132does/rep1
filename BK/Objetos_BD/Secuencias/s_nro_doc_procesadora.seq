@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_DOC_PROCESADORA
+minvalue 1000000
+maxvalue 999999999
+start with 1000031
+increment by 1
+nocache;
+

@@ -1,0 +1,20 @@
+create table IT.AH_SALDOS_ENERO
+(
+  nro_cuenta     VARCHAR2(15),
+  sal_total      NUMBER(18,2),
+  sal_tota_bacht NUMBER(18,2),
+  sal_retenido   NUMBER(18,2),
+  sal_bloqueado  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

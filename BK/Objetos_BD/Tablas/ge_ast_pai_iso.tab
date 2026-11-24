@@ -1,0 +1,37 @@
+create table IT.GE_AST_PAI_ISO
+(
+  cod_iso_pais VARCHAR2(5) not null,
+  cod_pais     NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AST_PAI_ISO
+  is 'Relación de códigos ISO País contra código de paises ITGF.';
+comment on column IT.GE_AST_PAI_ISO.cod_iso_pais
+  is 'Código ISO País';
+comment on column IT.GE_AST_PAI_ISO.cod_pais
+  is 'Código País en ITGF';
+alter table IT.GE_AST_PAI_ISO
+  add constraint PK_GE_AST_PAI_ISO primary key (COD_ISO_PAIS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

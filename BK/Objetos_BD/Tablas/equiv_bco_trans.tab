@@ -1,0 +1,21 @@
+create table IT.EQUIV_BCO_TRANS
+(
+  cod_banco_as NUMBER(2),
+  nombre_banco VARCHAR2(255),
+  cod_swift    VARCHAR2(20),
+  cod_banco_it NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.EQUIV_BCO_TRANS
+  is 'Relacion entre tablas MAEPERM_CTASGYTAP de AS400 y GE_BANCOS de IT GF';
+

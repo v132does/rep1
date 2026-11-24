@@ -1,0 +1,53 @@
+create table IT.BA_LOG_SWIFT
+(
+  mensaje       VARCHAR2(4000),
+  respuesta     VARCHAR2(4000),
+  archivo       VARCHAR2(1000),
+  gpi           VARCHAR2(1),
+  codigo        VARCHAR2(100),
+  error         VARCHAR2(1000),
+  usu_insercion VARCHAR2(10) default user,
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_LOG_SWIFT
+  is 'Log de Envios y Respuestas de Swift.';
+comment on column IT.BA_LOG_SWIFT.mensaje
+  is 'Mensajeria de Entrada';
+comment on column IT.BA_LOG_SWIFT.respuesta
+  is 'Respuesta de Proceso';
+comment on column IT.BA_LOG_SWIFT.archivo
+  is 'Nombre de Archivo';
+comment on column IT.BA_LOG_SWIFT.gpi
+  is 'S-si/N-No';
+comment on column IT.BA_LOG_SWIFT.codigo
+  is 'Codigo de Mensaje';
+comment on column IT.BA_LOG_SWIFT.error
+  is 'Mensaje de Error';
+comment on column IT.BA_LOG_SWIFT.usu_insercion
+  is 'Usuario del sistema ';
+comment on column IT.BA_LOG_SWIFT.fec_insercion
+  is 'Fecha de insercion';
+create index IT.IN_BA_LOG_SWIFT on IT.BA_LOG_SWIFT (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

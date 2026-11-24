@@ -1,0 +1,8 @@
+CREATE OR REPLACE TYPE BODY IT."typ_ObtRegedictacas" IS
+  CONSTRUCTOR FUNCTION "typ_ObtRegedictacas" RETURN SELF AS result AS
+  BEGIN
+    RETURN;
+  END;
+END;
+/
+

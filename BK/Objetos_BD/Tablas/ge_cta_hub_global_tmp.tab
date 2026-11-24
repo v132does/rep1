@@ -1,0 +1,18 @@
+create table IT.GE_CTA_HUB_GLOBAL_TMP
+(
+  cod_ente      NUMBER(5) not null,
+  parametro     VARCHAR2(30) not null,
+  val_parametro VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

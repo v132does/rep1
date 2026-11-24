@@ -1,0 +1,80 @@
+create table IT.BA_PER_FATCA_HIS
+(
+  cod_persona        VARCHAR2(10),
+  cod_pais           NUMBER(3),
+  estado             VARCHAR2(5),
+  est_anterior       VARCHAR2(5),
+  nro_identificador  VARCHAR2(30),
+  tip_documento      VARCHAR2(30),
+  fec_vencimiento    DATE,
+  fec_caducidad      DATE,
+  observacion        VARCHAR2(4000),
+  ind_bloqueo        VARCHAR2(1),
+  usu_insercion      VARCHAR2(10),
+  fec_insercion      DATE,
+  usu_modificacion   VARCHAR2(10),
+  fec_modificacion   DATE,
+  usu_ins_historico  VARCHAR2(10),
+  fec_ins_historico  DATE,
+  tip_actualizacion  VARCHAR2(1),
+  tip_indicio        VARCHAR2(1),
+  pro_actualizacion  VARCHAR2(120),
+  fec_ult_act_estado DATE,
+  usu_ult_act_estado VARCHAR2(10)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_FATCA_HIS
+  is 'Para registrar informaciones que tengan que ver con obligaciones tributarias de FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.BA_PER_FATCA_HIS.cod_pais
+  is 'Indica el País relacionado al Cliente en FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.estado
+  is 'Estado de obligaciones tributarias en el extranjero.';
+comment on column IT.BA_PER_FATCA_HIS.est_anterior
+  is 'Estado anterior de obligaciones FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.nro_identificador
+  is 'Número Identificador TIN para Personas Físicas y EIN para Personas Jurídicas, este dato indica que es contribuyente ante el IRS (Servicio de Impuestos Internos, agencia federal del Gobierno de los Estados Unidos, encargada de la recaudación fiscal y del cumplimiento de las leyes tributarias).';
+comment on column IT.BA_PER_FATCA_HIS.tip_documento
+  is 'Tipo de documento respaldatorio a ser presentado por el Cliente.';
+comment on column IT.BA_PER_FATCA_HIS.fec_vencimiento
+  is 'Fecha Vencimiento Tope de Presentación. Período de tiempo que tiene el cliente para presentar al oficial de cuentasl los documentos respaldatorios.';
+comment on column IT.BA_PER_FATCA_HIS.fec_caducidad
+  is 'Fecha de Caducidad. Fecha en que expira el documento o el estado asignado en el sistema para el cliente en FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.observacion
+  is 'Observación sobre los indicios y valores recuperados al evaluar la situación de la Persona FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.ind_bloqueo
+  is 'Indica que el registro tiene estado actualizado por usuarios con rol de FATCA y el estado no es provisorio, por tanto no podrá ser modificado en proceso de asignación automática de estado FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_PER_FATCA_HIS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_PER_FATCA_HIS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_PER_FATCA_HIS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BA_PER_FATCA_HIS.usu_ins_historico
+  is 'Usuario que realizó la inserción del registro en el histórico.';
+comment on column IT.BA_PER_FATCA_HIS.fec_ins_historico
+  is 'Fecha en que se insertó el registro al histórico.';
+comment on column IT.BA_PER_FATCA_HIS.tip_actualizacion
+  is 'Tipo de Actualización A-utomática, M-anual.';
+comment on column IT.BA_PER_FATCA_HIS.tip_indicio
+  is 'Tipo de Indicio registrado para la persona.';
+comment on column IT.BA_PER_FATCA_HIS.pro_actualizacion
+  is 'proceso o programa mediante el cual fue modificado el registro en FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.fec_ult_act_estado
+  is 'Fecha de última actualización de Estado FATCA.';
+comment on column IT.BA_PER_FATCA_HIS.usu_ult_act_estado
+  is 'Usuario que realizó la última actualización de Estado FATCA.';
+

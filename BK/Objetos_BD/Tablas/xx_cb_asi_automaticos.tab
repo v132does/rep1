@@ -1,0 +1,34 @@
+create table IT.XX_CB_ASI_AUTOMATICOS
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  tot_control      NUMBER(18,2),
+  actualizado      VARCHAR2(1),
+  reversado        VARCHAR2(1),
+  ofi_integrada    VARCHAR2(1),
+  confirmado       VARCHAR2(1),
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  nro_asi_real     NUMBER(6),
+  cod_gru_asiento  NUMBER(3),
+  fec_valor        DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

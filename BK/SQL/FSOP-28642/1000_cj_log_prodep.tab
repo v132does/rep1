@@ -1,0 +1,33 @@
+--- Create table
+create table it.CJ_LOG_PRODEP
+(
+  nro_referencia VARCHAR2(25),
+  fec_insercion  DATE default sysdate,
+  usu_insercion  VARCHAR2(20) default user,
+  mensaje        VARCHAR2(3200),
+  estado         VARCHAR2(1),
+  nro_ref_dep    VARCHAR2(200),
+  nro_cuenta     VARCHAR2(200),
+  cod_mon_iso    VARCHAR2(3),
+  mon_total      NUMBER(18,2),
+  can_cheques    NUMBER,
+  cod_oficina    VARCHAR2(25),
+  dia            NUMBER,
+  estado_prodep  VARCHAR2(20),
+  tip_conector   VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+ 
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on it.CJ_LOG_PRODEP to IT_TEMPORAL;

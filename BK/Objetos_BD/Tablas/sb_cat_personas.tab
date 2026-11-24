@@ -1,0 +1,98 @@
+create table IT.SB_CAT_PERSONAS
+(
+  tip_formulario    VARCHAR2(2),
+  tip_identidad     VARCHAR2(3),
+  nro_documento     VARCHAR2(15),
+  nombre            VARCHAR2(60),
+  apellido          VARCHAR2(30),
+  fec_nacimiento    DATE,
+  fec_baja          NUMBER(8),
+  cla_informada     NUMBER(1),
+  cla_sistema       NUMBER(1),
+  tot_contable      NUMBER(15),
+  sum_totalcontable NUMBER(15),
+  tot_deuda         NUMBER(15),
+  tot_riesgo        NUMBER(15),
+  sum_totalriesgo   NUMBER(15),
+  tot_codeuda       NUMBER(15),
+  sum_deudacodeuda  NUMBER(18),
+  nro_reg           NUMBER(6),
+  fec_informado     DATE,
+  cod_persona       VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CAT_PERSONAS
+  is 'Categoria de Personas.';
+comment on column IT.SB_CAT_PERSONAS.tip_formulario
+  is 'Tipo de Formulario.';
+comment on column IT.SB_CAT_PERSONAS.tip_identidad
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.SB_CAT_PERSONAS.nro_documento
+  is 'Nro. de Documento de Identidad.';
+comment on column IT.SB_CAT_PERSONAS.nombre
+  is 'Nombre de la Persona.';
+comment on column IT.SB_CAT_PERSONAS.apellido
+  is 'Apellido(s) de la Persona.';
+comment on column IT.SB_CAT_PERSONAS.fec_nacimiento
+  is 'Fecha de Nacimiento.';
+comment on column IT.SB_CAT_PERSONAS.fec_baja
+  is 'Fecha de Baja.';
+comment on column IT.SB_CAT_PERSONAS.cla_informada
+  is 'Clasificacion Informada.';
+comment on column IT.SB_CAT_PERSONAS.cla_sistema
+  is 'Clasificacion del Sistema.';
+comment on column IT.SB_CAT_PERSONAS.tot_contable
+  is 'Total Contable.';
+comment on column IT.SB_CAT_PERSONAS.sum_totalcontable
+  is 'Sumatoria del Total Contable.';
+comment on column IT.SB_CAT_PERSONAS.tot_deuda
+  is 'Total de Deuda.';
+comment on column IT.SB_CAT_PERSONAS.tot_riesgo
+  is 'Total de Riesgo.';
+comment on column IT.SB_CAT_PERSONAS.sum_totalriesgo
+  is 'Sumatoria del Total de Riesgo.';
+comment on column IT.SB_CAT_PERSONAS.tot_codeuda
+  is 'Total de Deuda por Codeudoria.';
+comment on column IT.SB_CAT_PERSONAS.sum_deudacodeuda
+  is 'Sumatoria del Total de Deuda por Codeudoria.';
+comment on column IT.SB_CAT_PERSONAS.nro_reg
+  is 'Nro. de Registro.';
+comment on column IT.SB_CAT_PERSONAS.fec_informado
+  is 'Fecha de Informacion.';
+comment on column IT.SB_CAT_PERSONAS.cod_persona
+  is 'Codigo del Cliente.';
+create index IT.IN_SBCAT_COD_PERSONA on IT.SB_CAT_PERSONAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_SBCAT_NRO_DOCUMENTO on IT.SB_CAT_PERSONAS (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

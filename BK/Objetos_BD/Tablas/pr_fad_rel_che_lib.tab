@@ -1,0 +1,97 @@
+create table IT.PR_FAD_REL_CHE_LIB
+(
+  nro_solicitud     NUMBER(7) not null,
+  nro_cuota         NUMBER(3) not null,
+  cod_banco         NUMBER(3) not null,
+  nro_cheque        NUMBER(15) not null,
+  cta_libradora     VARCHAR2(20) not null,
+  cod_tip_documento NUMBER(3) default 1 not null,
+  nro_documento     VARCHAR2(20) not null,
+  relacion          VARCHAR2(20) default 'P' not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_FAD_REL_CHE_LIB
+  is 'Relacion Cheques con Libradores.';
+comment on column IT.PR_FAD_REL_CHE_LIB.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_FAD_REL_CHE_LIB.nro_cuota
+  is 'Numero de Cuota.';
+comment on column IT.PR_FAD_REL_CHE_LIB.cod_banco
+  is 'Cóodigo de banco.';
+comment on column IT.PR_FAD_REL_CHE_LIB.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.PR_FAD_REL_CHE_LIB.cta_libradora
+  is 'Número de cuenta libradora.';
+comment on column IT.PR_FAD_REL_CHE_LIB.cod_tip_documento
+  is 'Código de tipo de documento.';
+comment on column IT.PR_FAD_REL_CHE_LIB.nro_documento
+  is 'Número de documento (cédula de identidad o ruc).';
+comment on column IT.PR_FAD_REL_CHE_LIB.relacion
+  is 'Relación.';
+comment on column IT.PR_FAD_REL_CHE_LIB.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_FAD_REL_CHE_LIB.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_FAD_REL_CHE_LIB.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_FAD_REL_CHE_LIB.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_FADCH_LIBRADOR on IT.PR_FAD_REL_CHE_LIB (NRO_SOLICITUD, NRO_DOCUMENTO, COD_TIP_DOCUMENTO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FADLI_CTA_LIBRADORA on IT.PR_FAD_REL_CHE_LIB (NRO_SOLICITUD, NRO_CUOTA, CTA_LIBRADORA, COD_BANCO, NRO_CHEQUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 9M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_FAD_REL_CHE_LIB
+  add constraint PK_GE_FAD_REL_CHE_LIB primary key (NRO_SOLICITUD, NRO_CUOTA, COD_BANCO, NRO_CHEQUE, CTA_LIBRADORA, COD_TIP_DOCUMENTO, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 14M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_FAD_REL_CHE_LIB
+  add constraint FK_FADLI_CHEQUE foreign key (NRO_SOLICITUD, NRO_CUOTA, NRO_CHEQUE, COD_BANCO, CTA_LIBRADORA)
+  references IT.PR_FAD_CHE_CUSTODIAS (NRO_SOLICITUD, NRO_CUOTA, NRO_CHEQUE, COD_BANCO, CTA_LIBRADORA);
+alter table IT.PR_FAD_REL_CHE_LIB
+  add constraint FK_FADLI_LIBRADOR foreign key (NRO_DOCUMENTO, COD_TIP_DOCUMENTO)
+  references IT.PR_CHQ_LIBRADORES (NRO_DOCUMENTO, COD_TIP_DOCUMENTO);
+

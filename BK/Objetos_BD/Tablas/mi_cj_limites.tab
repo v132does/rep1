@@ -1,0 +1,19 @@
+create table IT.MI_CJ_LIMITES
+(
+  cod_usuario       VARCHAR2(10) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  mto_max_permitido NUMBER(18,2) default 0 not null,
+  cod_tra_padre     NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

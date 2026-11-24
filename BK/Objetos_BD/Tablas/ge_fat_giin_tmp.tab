@@ -1,0 +1,53 @@
+create table IT.GE_FAT_GIIN_TMP
+(
+  giin             VARCHAR2(30) not null,
+  nom_entidad      VARCHAR2(120),
+  des_pais         VARCHAR2(120),
+  origen           VARCHAR2(120) default 'IRS',
+  cod_persona      VARCHAR2(10),
+  des_pai_itgf     VARCHAR2(120),
+  nom_completo     VARCHAR2(120),
+  observacion      VARCHAR2(400),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_FAT_GIIN_TMP
+  is 'En esta tabla se registrarán los datos de GIIN importados desde la pagina de la IRS. Estos datos servirán para validar con los registros de personas en FATCA que tengan el dato de Nro. Identificador con la abreviatura de GIIN- dentro del campo, si coincide una de estas personas con la lista importada se actualizará el código de persona en el registro correspondiente de esta tabla. En caso de existir personas con dato de GIIN y que no exista en la lista de la IRS se deberá insertar el mismo en esta tabla como origen ITGF ademas de los datos y el comentario correspondiente. Por defecto el origen de los datos importados deberá ser IRS.';
+comment on column IT.GE_FAT_GIIN_TMP.giin
+  is ' Identificador tributario de entidades- Dato obtenido de lista de la IRS.';
+comment on column IT.GE_FAT_GIIN_TMP.nom_entidad
+  is 'Nombre de la entidad como esta registrada en la IRS- Dato obtenido de lista de la IRS.';
+comment on column IT.GE_FAT_GIIN_TMP.des_pais
+  is ' Descripción del País registrado para la entidad en la IRS- Dato obtenido de lista de la IRS.';
+comment on column IT.GE_FAT_GIIN_TMP.origen
+  is 'Origen de los datos cuyos valores posibles son ITGF e IRS. Por defecto el origen será IRS.';
+comment on column IT.GE_FAT_GIIN_TMP.cod_persona
+  is 'Código de Persona registrada en ITGF en el cual se encuentra el GIIN importado en la lista.';
+comment on column IT.GE_FAT_GIIN_TMP.des_pai_itgf
+  is 'Descripción del País registrado en la persona FATCA en ITGF. Dato obtenido de ITGF.';
+comment on column IT.GE_FAT_GIIN_TMP.nom_completo
+  is 'Nombre completo de la persona  FATCA registrado en ITGF. Dato obtenido de ITGF.';
+comment on column IT.GE_FAT_GIIN_TMP.observacion
+  is 'Observaciones sobre las validaciones realizadas en el proceso de validación de GIIN.';
+comment on column IT.GE_FAT_GIIN_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_FAT_GIIN_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_FAT_GIIN_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_FAT_GIIN_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

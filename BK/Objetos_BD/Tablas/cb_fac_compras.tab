@@ -1,0 +1,72 @@
+create table IT.CB_FAC_COMPRAS
+(
+  cod_proveedor     NUMBER(5) not null,
+  nro_factura       VARCHAR2(20) not null,
+  fec_factura       DATE,
+  fec_valor         DATE,
+  cod_moneda        VARCHAR2(3),
+  cotizacion        NUMBER(14,8),
+  tip_factura       VARCHAR2(1),
+  estado            VARCHAR2(1),
+  cod_persona       VARCHAR2(10),
+  con_lib_iva       VARCHAR2(1),
+  iva_incluido      VARCHAR2(1),
+  concepto          VARCHAR2(1000),
+  tot_factura       NUMBER(18,2),
+  tot_fac_equ_local NUMBER(18,2),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_rub_proveedor VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_FAC_COMPRAS
+  is 'Datos de Facturas de Compra.';
+comment on column IT.CB_FAC_COMPRAS.cod_proveedor
+  is 'Proveedor.';
+comment on column IT.CB_FAC_COMPRAS.nro_factura
+  is 'Nro. de Factura.';
+comment on column IT.CB_FAC_COMPRAS.fec_factura
+  is 'Fecha.';
+comment on column IT.CB_FAC_COMPRAS.fec_valor
+  is 'Fecha Valor.';
+comment on column IT.CB_FAC_COMPRAS.cod_moneda
+  is 'Moneda.';
+comment on column IT.CB_FAC_COMPRAS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.CB_FAC_COMPRAS.tip_factura
+  is 'Tipo de Factura.';
+comment on column IT.CB_FAC_COMPRAS.estado
+  is 'Estado Actual.';
+comment on column IT.CB_FAC_COMPRAS.cod_persona
+  is 'Persona asociada.';
+comment on column IT.CB_FAC_COMPRAS.con_lib_iva
+  is 'Conciliado en Libro IVA.';
+comment on column IT.CB_FAC_COMPRAS.iva_incluido
+  is 'Si tiene o no IVA incluido.';
+comment on column IT.CB_FAC_COMPRAS.concepto
+  is 'Concepto.';
+comment on column IT.CB_FAC_COMPRAS.tot_factura
+  is 'Total de la Factura.';
+comment on column IT.CB_FAC_COMPRAS.tot_fac_equ_local
+  is 'Total de la Factura Equivalente en Moneda Local.';
+comment on column IT.CB_FAC_COMPRAS.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_FAC_COMPRAS.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_FAC_COMPRAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_FAC_COMPRAS.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+

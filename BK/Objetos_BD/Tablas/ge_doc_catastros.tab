@@ -1,0 +1,87 @@
+create table IT.GE_DOC_CATASTROS
+(
+  cod_doc_catastro  NUMBER(15) not null,
+  cod_persona       VARCHAR2(10) not null,
+  nro_cuenta        VARCHAR2(15),
+  cod_tip_documento VARCHAR2(1) not null,
+  nro_documento     VARCHAR2(20),
+  fec_vto_documento DATE,
+  observacion       VARCHAR2(400),
+  estado            VARCHAR2(1) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DOC_CATASTROS
+  is 'Tabla de documentos Catastrados de personas y cuentas.';
+comment on column IT.GE_DOC_CATASTROS.cod_doc_catastro
+  is 'Código identificador único de los registros de los documentos de catastro.';
+comment on column IT.GE_DOC_CATASTROS.cod_persona
+  is 'Código de la persona cuyo documento se esta catastrando.';
+comment on column IT.GE_DOC_CATASTROS.nro_cuenta
+  is 'Número de cuenta cuyo documento se esta catastrando.';
+comment on column IT.GE_DOC_CATASTROS.cod_tip_documento
+  is 'Tipo de documento que se esta catastrando (definido en dominio=CAT_TIP_DOCUMENTO)';
+comment on column IT.GE_DOC_CATASTROS.nro_documento
+  is 'Número de documento dato no obligatorio.';
+comment on column IT.GE_DOC_CATASTROS.fec_vto_documento
+  is 'Fecha de vencimiento del documento.';
+comment on column IT.GE_DOC_CATASTROS.observacion
+  is 'Observación sobre el documento catastrado.';
+comment on column IT.GE_DOC_CATASTROS.estado
+  is 'Estado de la documentación registrada (definido en BA_COD_REFERENCIAS dominio=CAT_EST_DOCUMENTO).';
+comment on column IT.GE_DOC_CATASTROS.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.GE_DOC_CATASTROS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.GE_DOC_CATASTROS.usu_modificacion
+  is 'Último usuario que modificó el registro.';
+comment on column IT.GE_DOC_CATASTROS.fec_modificacion
+  is 'Fecha de última actualización del registro.';
+alter table IT.GE_DOC_CATASTROS
+  add constraint PK_GE_DOC_CATASTROS primary key (COD_DOC_CATASTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DOC_CATASTROS
+  add constraint UK_GDCAT_NRO_DOCUMENTO unique (COD_TIP_DOCUMENTO, COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DOC_CATASTROS
+  add constraint FK_GDCAT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_DOC_CATASTROS
+  add constraint FK_GDCAT_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

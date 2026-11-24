@@ -1,0 +1,33 @@
+create table IT.TA_MOV_LIQ_RES_TMP
+(
+  tip_registro        NUMBER(1),
+  cod_ent_procesadora VARCHAR2(5),
+  can_reg             NUMBER(12),
+  filler              VARCHAR2(482)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_LIQ_RES_TMP
+  is 'Resumen de importacion de archivo T2010S GP';
+comment on column IT.TA_MOV_LIQ_RES_TMP.tip_registro
+  is '3 - Trailer
+';
+comment on column IT.TA_MOV_LIQ_RES_TMP.cod_ent_procesadora
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_MOV_LIQ_RES_TMP.can_reg
+  is 'Cantidad de registros de detalle informados
+';
+comment on column IT.TA_MOV_LIQ_RES_TMP.filler
+  is 'Dato no Validable
+';
+

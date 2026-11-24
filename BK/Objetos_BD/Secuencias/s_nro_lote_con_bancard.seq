@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_LOTE_CON_BANCARD
+minvalue 1
+maxvalue 999999999999999
+start with 20481
+increment by 1
+cache 20;
+

@@ -1,0 +1,110 @@
+create table IT.CJ_SOBRANTES
+(
+  nro_sobrante     NUMBER(18) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(100) not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_caja         NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  saldo            NUMBER(18,2) default 0 not null,
+  estado           VARCHAR2(1) default 'A' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_SOBRANTES
+  is 'Sobrantes de Caja.';
+comment on column IT.CJ_SOBRANTES.nro_sobrante
+  is 'Nro. del Sobrante. Unico';
+comment on column IT.CJ_SOBRANTES.fecha
+  is 'Fecha de registro del Sobrante';
+comment on column IT.CJ_SOBRANTES.hora
+  is 'Hora de registro del Sobrante';
+comment on column IT.CJ_SOBRANTES.cod_usuario
+  is 'Codigo de Usuario del Cajero';
+comment on column IT.CJ_SOBRANTES.cod_oficina
+  is 'Oficina de la Caja';
+comment on column IT.CJ_SOBRANTES.nro_caja
+  is 'Nro de Caja';
+comment on column IT.CJ_SOBRANTES.cod_moneda
+  is 'Cod. de Moneda';
+comment on column IT.CJ_SOBRANTES.monto
+  is 'Monto del Sobrante';
+comment on column IT.CJ_SOBRANTES.saldo
+  is 'Saldo del Sobrante';
+comment on column IT.CJ_SOBRANTES.estado
+  is 'Estado. (A) Activo, (C)Cancelado, (S)Saldado';
+comment on column IT.CJ_SOBRANTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_SOBRANTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_SOBRANTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_SOBRANTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_JSOBR_NRO_CAJA on IT.CJ_SOBRANTES (NRO_CAJA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JSOBR_NRO_CUENTA on IT.CJ_SOBRANTES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_SOBRANTES
+  add constraint PK_CJ_SOBRANTES primary key (NRO_SOBRANTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_SOBRANTES
+  add constraint FK_JSOBR_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CJ_SOBRANTES
+  add constraint FK_JSOBR_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CJ_SOBRANTES
+  add constraint FK_JSOBR_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.CJ_SOBRANTES
+  add constraint FK_JSOBR_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

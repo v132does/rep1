@@ -1,0 +1,56 @@
+create table IT.GE_PAR_TRANSACCIONES
+(
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  parametro        VARCHAR2(30) not null,
+  val_parametro    VARCHAR2(200) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAR_TRANSACCIONES
+  is 'Parametros por Transaciones.';
+comment on column IT.GE_PAR_TRANSACCIONES.cod_transaccion
+  is 'Codigo de la transaccion.';
+comment on column IT.GE_PAR_TRANSACCIONES.cod_modulo
+  is 'Codigo del modulo.';
+comment on column IT.GE_PAR_TRANSACCIONES.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_PAR_TRANSACCIONES.parametro
+  is 'Parametro a ser configurado.';
+comment on column IT.GE_PAR_TRANSACCIONES.val_parametro
+  is 'Valor del parametro.';
+comment on column IT.GE_PAR_TRANSACCIONES.usu_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAR_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAR_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAR_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create unique index IT.PK_GE_PAR_TRANSACCIONES on IT.GE_PAR_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, PARAMETRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

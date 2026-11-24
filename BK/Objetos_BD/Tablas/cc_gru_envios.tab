@@ -1,0 +1,70 @@
+create table IT.CC_GRU_ENVIOS
+(
+  cod_gru_envio    NUMBER(5) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  estado           VARCHAR2(1) default 'G' not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_GRU_ENVIOS
+  is 'Agrupador de chequeras a ser enviadas a Impresion.';
+comment on column IT.CC_GRU_ENVIOS.cod_gru_envio
+  is 'Codigo del grupo de envio.';
+comment on column IT.CC_GRU_ENVIOS.cod_usuario
+  is 'Codigo de usuario que genero el envio.';
+comment on column IT.CC_GRU_ENVIOS.fecha
+  is 'Fecha en que se genero el grupo.';
+comment on column IT.CC_GRU_ENVIOS.hora
+  is 'Hora en la que se genero el envio.';
+comment on column IT.CC_GRU_ENVIOS.estado
+  is 'Estado del grupo de envio.';
+comment on column IT.CC_GRU_ENVIOS.observacion
+  is 'Observacion sobre el grupo.';
+comment on column IT.CC_GRU_ENVIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_GRU_ENVIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_GRU_ENVIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_GRU_ENVIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CC_GRU_ENVIOS
+  add constraint PK_CC_GRU_ENVIOS primary key (COD_GRU_ENVIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_GRU_ENVIOS
+  add constraint FK_CGENV_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_GRU_ENVIOS
+  add constraint AVCON_1099573852_COD_G_000
+  check (COD_GRU_ENVIO BETWEEN 0 AND 99999);
+alter table IT.CC_GRU_ENVIOS
+  add constraint AVCON_1099573852_ESTAD_000
+  check (ESTADO IN ('G', 'E', 'R'));
+

@@ -1,0 +1,51 @@
+-- Create table
+
+create table IT.ta_tar_garantizadas
+(
+  cod_persona     VARCHAR2(10) not null,
+  fec_tyc         date,
+  tyc_version             varchar2(5) default 'V1',
+  limite          number(18,2) default 1,
+  fec_limite      date,
+  nro_cuenta   VARCHAR2(20), 
+  nro_cta_garantizada VARCHAR2(20), 
+  cod_estado       varchar2(1),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  CONSTRAINT PK_ta_tar_garantizadas PRIMARY KEY (cod_persona),
+  CONSTRAINT FK_TTARJ_GAR_NRO_CUENTA FOREIGN KEY (nro_cuenta) REFERENCES IT.TA_CTA_TARJETAS(nro_cuenta)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  
+  -- Add comments to the table 
+comment on table IT.ta_tar_garantizadas
+  is 'TARJETAS GARANTIZADAS';
+-- Add comments to the columns 
+comment on column IT.ta_tar_garantizadas.cod_persona
+  is 'CODIGO IDENTIFICACION PERSONA';
+comment on column IT.ta_tar_garantizadas.fec_tyc
+  is 'FECHA ACEPTACION TERMINOS Y CONDICIONES';
+comment on column IT.ta_tar_garantizadas.tyc_version
+  is 'VERSION TERMINOS Y CONDICIONES';
+comment on column IT.ta_tar_garantizadas.limite
+  is 'LIMITE ASIGNADO A LA TARJETA';
+comment on column IT.ta_tar_garantizadas.fec_limite
+  is 'FECHA DE ASIGNACION DE LIMITE';
+comment on column IT.ta_tar_garantizadas.nro_cuenta
+  is 'NUMERO DE CUENTA DE LA TARJETA';
+comment on column IT.ta_tar_garantizadas.nro_cta_garantizada
+  is 'NUMERO DE CUENTA Garantizada';
+comment on column IT.ta_tar_garantizadas.cod_estado
+  is 'Estado del registro C= Creado- T= Aceptado- A=Actualizado';

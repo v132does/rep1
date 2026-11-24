@@ -1,0 +1,52 @@
+create table IT.CB_COR_RUBROS
+(
+  cod_rubro        VARCHAR2(15) not null,
+  estado           VARCHAR2(1) default 'I',
+  fec_proceso      DATE,
+  inicio           VARCHAR2(8),
+  fin              VARCHAR2(8),
+  fec_ult_proceso  DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_COR_RUBROS.estado
+  is 'A Activo; I Inactivo';
+comment on column IT.CB_COR_RUBROS.fec_proceso
+  is 'Fecha de procesamiento actual.';
+comment on column IT.CB_COR_RUBROS.inicio
+  is 'Hora de Inicio de procesamiento actual.';
+comment on column IT.CB_COR_RUBROS.fin
+  is 'Hora de finalización de procesamiento actual.';
+comment on column IT.CB_COR_RUBROS.fec_ult_proceso
+  is 'Fecha de último procesamiento del rubro.';
+alter table IT.CB_COR_RUBROS
+  add constraint PK_COR_RUB_COD_RUBRO primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_COR_RUBROS
+  add constraint FK_COR_RUB_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

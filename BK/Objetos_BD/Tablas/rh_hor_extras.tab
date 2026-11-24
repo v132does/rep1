@@ -1,0 +1,91 @@
+create table IT.RH_HOR_EXTRAS
+(
+  cod_persona         VARCHAR2(10) not null,
+  fecha               DATE not null,
+  hor_desde           DATE not null,
+  hor_hasta           DATE not null,
+  cod_cen_costo       NUMBER(3) not null,
+  ind_procesado       VARCHAR2(1) default 'N' not null,
+  cod_per_autorizador VARCHAR2(10),
+  observacion         VARCHAR2(1000),
+  hor_trabajada       NUMBER(8,2),
+  por_sueldo          NUMBER(5,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_HOR_EXTRAS
+  is 'Horas Extras del Empleado.';
+comment on column IT.RH_HOR_EXTRAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_HOR_EXTRAS.fecha
+  is 'Fecha de la Hora Extra.';
+comment on column IT.RH_HOR_EXTRAS.hor_desde
+  is 'Hora desde la cual realizara la Hora Extra.';
+comment on column IT.RH_HOR_EXTRAS.hor_hasta
+  is 'Hora hasta la cual realizara sus labores extraordinarias.';
+comment on column IT.RH_HOR_EXTRAS.cod_cen_costo
+  is 'Centro de Costo de la Hora Extra.';
+comment on column IT.RH_HOR_EXTRAS.ind_procesado
+  is 'Indica si ya fue procesado o no.';
+comment on column IT.RH_HOR_EXTRAS.cod_per_autorizador
+  is 'Persona que autoriza la Hora Extra.';
+comment on column IT.RH_HOR_EXTRAS.observacion
+  is 'Observacion.';
+comment on column IT.RH_HOR_EXTRAS.hor_trabajada
+  is 'Cantidad de Horas Trabajadas efectivamente por el Empleado.';
+comment on column IT.RH_HOR_EXTRAS.por_sueldo
+  is 'Porcentaje del sueldo para la Hora Extra.';
+comment on column IT.RH_HOR_EXTRAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_HOR_EXTRAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_HOR_EXTRAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_HOR_EXTRAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_HOR_EXTRAS
+  add constraint PK_RH_HOR_EXTRAS primary key (COD_PERSONA, FECHA, HOR_DESDE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_HOR_EXTRAS
+  add constraint FK_HHEXT_CEN_COSTO foreign key (COD_CEN_COSTO)
+  references IT.CB_CEN_COSTOS (COD_CEN_COSTO);
+alter table IT.RH_HOR_EXTRAS
+  add constraint FK_HHEXT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_HOR_EXTRAS
+  add constraint FK_HHEXT_PER_AUTORIZADOR foreign key (COD_PER_AUTORIZADOR)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_HOR_EXTRAS
+  add constraint AVCON_1191539462_IND_P_000
+  check (IND_PROCESADO IN ('S', 'N'));
+alter table IT.RH_HOR_EXTRAS
+  add constraint AVCON_1191539462_POR_S_000
+  check (POR_SUELDO IN (0, 30, 50, 100, 130));
+alter table IT.RH_HOR_EXTRAS
+  add constraint CK_RANGO_HORAS
+  check (HOR_DESDE < HOR_HASTA);
+

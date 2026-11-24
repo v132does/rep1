@@ -1,0 +1,45 @@
+-- =====================================================================
+-- TABLA: IT.SB_ANX_RESULTADOS
+-- Descripción: Resultados para los anexos de garantías
+-- =====================================================================
+
+CREATE TABLE IT.SB_ANX_RESULTADOS (
+    id_anexo              NUMBER,
+    fecha_anexo           DATE                NOT NULL,
+    nro_operacion         VARCHAR2(50)        NOT NULL,
+    nombre_cliente        VARCHAR2(255),
+    cod_moneda            VARCHAR2(255),
+    total_balance         NUMBER(20,2)        NOT NULL,
+    MONTO_USD             NUMBER,
+    fuente_datos          VARCHAR2(100)       NOT NULL,
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_ANX_RES_FECHA  ON IT.SB_ANX_RESULTADOS(fecha_anexo) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_ANX_RESULTADOS IS 'Resultados detallados de operaciones para los anexos de garantias';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.id_anexo IS 'Identificador unico del registro';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.fecha_anexo IS 'Fecha de corte del anexo';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.nro_operacion IS 'Numero de operacion o credito';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.nombre_cliente IS 'Nombre del cliente deudor';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.cod_moneda IS 'Codigo de moneda (ISO 4217)';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.total_balance IS 'Saldo total de la operacion en guaranies';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.MONTO_USD IS 'Equivalente en dolares americanos';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.fuente_datos IS 'Fuente de datos utilizada';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_ANX_RESULTADOS.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';

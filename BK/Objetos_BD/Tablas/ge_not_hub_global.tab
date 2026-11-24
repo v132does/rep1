@@ -1,0 +1,78 @@
+create table IT.GE_NOT_HUB_GLOBAL
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  nro_secuencia    NUMBER(3) not null,
+  cod_ente         NUMBER(5) not null,
+  cod_operacion    NUMBER(3) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(10),
+  est_notificacion VARCHAR2(1),
+  fec_envio        DATE,
+  campo1           VARCHAR2(4000),
+  valor1           VARCHAR2(4000),
+  campo2           VARCHAR2(4000),
+  valor2           VARCHAR2(4000),
+  campo3           VARCHAR2(4000),
+  valor3           VARCHAR2(4000),
+  campo4           VARCHAR2(4000),
+  valor4           VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_NOT_HUB_GLOBAL
+  is 'Tabla para Notificaciones de Eventos Altas / Bajas de Clientes en Global Hub.';
+comment on column IT.GE_NOT_HUB_GLOBAL.fecha
+  is 'Fecha del evento.';
+comment on column IT.GE_NOT_HUB_GLOBAL.hora
+  is 'Hora del evento.';
+comment on column IT.GE_NOT_HUB_GLOBAL.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.GE_NOT_HUB_GLOBAL.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_NOT_HUB_GLOBAL.cod_operacion
+  is 'Ver valores de Referencia COD_OPE_HUB_GLOBAL.';
+comment on column IT.GE_NOT_HUB_GLOBAL.cod_persona
+  is 'Código de Persona relacionada al Ente.';
+comment on column IT.GE_NOT_HUB_GLOBAL.tipo
+  is 'Tipo de Ente.';
+comment on column IT.GE_NOT_HUB_GLOBAL.est_notificacion
+  is 'Estado de la Notificacion I=Insertado, E=Enviado, F=Finalizado.';
+comment on column IT.GE_NOT_HUB_GLOBAL.fec_envio
+  is 'Fecha de envio al Global Hub.';
+comment on column IT.GE_NOT_HUB_GLOBAL.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.GE_NOT_HUB_GLOBAL.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_NOT_HUB_GLOBAL.usu_modificacion
+  is 'Usuario que realizo la ultima modificación en el registro.';
+comment on column IT.GE_NOT_HUB_GLOBAL.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificación en el registro.';
+alter table IT.GE_NOT_HUB_GLOBAL
+  add constraint PK_GE_NOT_HUB_GLOBAL primary key (FECHA, HORA, NRO_SECUENCIA, COD_ENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

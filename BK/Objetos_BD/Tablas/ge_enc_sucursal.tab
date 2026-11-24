@@ -1,0 +1,58 @@
+create table IT.GE_ENC_SUCURSAL
+(
+  cod_persona      VARCHAR2(10),
+  cod_oficina      NUMBER(3),
+  cod_aerea        NUMBER(3),
+  correo           VARCHAR2(60),
+  estado           VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ENC_SUCURSAL
+  is 'Tabla de registros de encargados de sucurcales.';
+comment on column IT.GE_ENC_SUCURSAL.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.GE_ENC_SUCURSAL.cod_oficina
+  is 'Codigo de la oficina';
+comment on column IT.GE_ENC_SUCURSAL.cod_aerea
+  is 'Codigo del aerea que corresponde el encargado.';
+comment on column IT.GE_ENC_SUCURSAL.correo
+  is 'Correo del encargado';
+comment on column IT.GE_ENC_SUCURSAL.estado
+  is 'Estado del registro A : Activo , I : Inactivo';
+comment on column IT.GE_ENC_SUCURSAL.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ENC_SUCURSAL.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ENC_SUCURSAL.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ENC_SUCURSAL.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_ENC_SUCURSAL
+  add constraint UQ_REG_UNICO unique (COD_PERSONA, COD_OFICINA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,12 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo :=1; end;
+/
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, FEC_INSERCION, USU_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('SNP_SOL_REPORTES', 'Reporte de Totales de Compensación', SYSDATE, USER, USER, SYSDATE, '9', 'MT985', 'MT985/TTLS', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, FEC_INSERCION, USU_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('SNP_SOL_REPORTES', 'Reporte de Limite de Compensación', SYSDATE, USER, USER, SYSDATE, '8', 'MT985', 'MT985/PCLT', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, FEC_INSERCION, USU_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('SNP_SOL_REPORTES', 'Solicitud de Reportes de Estados y Saldos (MT985)', SYSDATE, USER, USER, SYSDATE, '4', 'MT985', null, 'S');
+
+commit;

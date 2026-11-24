@@ -1,0 +1,30 @@
+create table IT.PR_PRO_RES_LOG
+(
+  nro_cuenta  VARCHAR2(15) not null,
+  cod_persona VARCHAR2(15) not null,
+  msg_error   VARCHAR2(4000),
+  fec_proceso DATE,
+  usuario     VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_PRO_RES_LOG.nro_cuenta
+  is 'Numero de Cuenta de prestamo';
+comment on column IT.PR_PRO_RES_LOG.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.PR_PRO_RES_LOG.msg_error
+  is 'Error';
+comment on column IT.PR_PRO_RES_LOG.fec_proceso
+  is 'Fecha de Proceso';
+comment on column IT.PR_PRO_RES_LOG.usuario
+  is 'Usuario que ejecuta';
+

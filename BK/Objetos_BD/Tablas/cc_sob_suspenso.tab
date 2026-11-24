@@ -1,0 +1,62 @@
+create table IT.CC_SOB_SUSPENSO
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_transaccion    NUMBER(4) not null,
+  monto              NUMBER(18,2) not null,
+  fec_regularizacion DATE,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificiacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_SOB_SUSPENSO
+  is 'Cuentas con Cargos x Sobregiros que se encontraban en Gestión.';
+comment on column IT.CC_SOB_SUSPENSO.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_SOB_SUSPENSO.fecha
+  is 'Fecha de Proceso.';
+comment on column IT.CC_SOB_SUSPENSO.cod_modulo
+  is 'Codigo de Módulo.';
+comment on column IT.CC_SOB_SUSPENSO.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CC_SOB_SUSPENSO.cod_transaccion
+  is 'Codigo de Transaccion.';
+comment on column IT.CC_SOB_SUSPENSO.monto
+  is 'Monto en Suspenso.';
+comment on column IT.CC_SOB_SUSPENSO.fec_regularizacion
+  is 'Fecha de Regularización.';
+comment on column IT.CC_SOB_SUSPENSO.usu_insercion
+  is 'Usuario que realizó la Inserción.';
+comment on column IT.CC_SOB_SUSPENSO.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.CC_SOB_SUSPENSO.usu_modificacion
+  is 'Usuario que realizó la Modificación.';
+comment on column IT.CC_SOB_SUSPENSO.fec_modificiacion
+  is 'Fecha de Modificación.';
+create index IT.IN_CC_SOB_SUSPENSO on IT.CC_SOB_SUSPENSO (NRO_CUENTA, FECHA, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

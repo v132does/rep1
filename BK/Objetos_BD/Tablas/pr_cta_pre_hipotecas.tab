@@ -1,0 +1,75 @@
+create table IT.PR_CTA_PRE_HIPOTECAS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  nro_cuo_desde     NUMBER(5),
+  nro_cuo_hasta     NUMBER(5),
+  cod_persona       VARCHAR2(15) not null,
+  sal_capital       NUMBER(18,2),
+  sal_interes       NUMBER(18,2),
+  mto_iva_interes   NUMBER(18,2),
+  mto_mora          NUMBER(18,2),
+  mto_mor_int       NUMBER(18,2),
+  mto_punitorio     NUMBER(18,2),
+  mto_impuesto      NUMBER(18,2),
+  mto_cargo         NUMBER(18,2),
+  mto_deu_neto      NUMBER(18,2),
+  fec_proceso       DATE,
+  nro_sol_nueva     NUMBER(7),
+  cot_mon_fuerte    NUMBER(14,8),
+  mto_tot_descuento NUMBER(18,2),
+  estado            VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_CTA_PRE_HIPOTECAS.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.nro_cuo_desde
+  is 'Numero de cuota desde';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.nro_cuo_hasta
+  is 'Numero de cuota hasta';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.sal_capital
+  is 'Saldo del Capital al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.sal_interes
+  is 'Saldo del Interes al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_iva_interes
+  is 'Monto de Iva interes';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_mora
+  is 'Monto de mora sobre capital al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_mor_int
+  is 'Monto de mora sobre interes al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_punitorio
+  is 'Monto de punitorio al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_impuesto
+  is 'Monto del impuesto al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_cargo
+  is 'Monto del cargo al renovar';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_deu_neto
+  is 'Monto de deuda neto';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.fec_proceso
+  is 'Fecha de proceso';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.nro_sol_nueva
+  is 'Número de Propuesta renovada.';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.cot_mon_fuerte
+  is 'Cotizacion de moneda fuerte';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.mto_tot_descuento
+  is 'Monto total de descuento';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.estado
+  is 'Estado: G/Generado, S/Solicitado';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CTA_PRE_HIPOTECAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+

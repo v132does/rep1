@@ -1,0 +1,64 @@
+create table IT.SB_ITEMS
+(
+  nom_archivo      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  cod_entidad      VARCHAR2(4) not null,
+  tip_entidad      VARCHAR2(2) not null,
+  cla_entidad      VARCHAR2(2) not null,
+  nro_reg_a        NUMBER(1) not null,
+  tot_reg_detalle  NUMBER(6) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ITEMS
+  is 'Resumen de Items.';
+comment on column IT.SB_ITEMS.nom_archivo
+  is 'Nombre del archivo.';
+comment on column IT.SB_ITEMS.fecha
+  is 'Fecha.';
+comment on column IT.SB_ITEMS.cod_entidad
+  is 'Codigo de entidad.';
+comment on column IT.SB_ITEMS.tip_entidad
+  is 'Tipo de entidad.';
+comment on column IT.SB_ITEMS.cla_entidad
+  is 'Clase de entidad.';
+comment on column IT.SB_ITEMS.nro_reg_a
+  is 'Nro. de registros.';
+comment on column IT.SB_ITEMS.tot_reg_detalle
+  is 'Total de registros.';
+comment on column IT.SB_ITEMS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_ITEMS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_ITEMS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_ITEMS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.SB_ITEMS
+  add constraint SITEM_PK primary key (FECHA, NOM_ARCHIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

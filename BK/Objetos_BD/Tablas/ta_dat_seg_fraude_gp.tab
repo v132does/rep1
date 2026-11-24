@@ -1,0 +1,44 @@
+create table IT.TA_DAT_SEG_FRAUDE_GP
+(
+  nro_tarjeta     VARCHAR2(25) not null,
+  nro_cuenta      VARCHAR2(15) not null,
+  nom_cliente     VARCHAR2(120) not null,
+  tip_documento   VARCHAR2(3) not null,
+  nro_documento   VARCHAR2(20) not null,
+  fec_vencimiento DATE not null,
+  fec_afectacion  DATE default TRUNC(SYSDATE) not null,
+  hor_afectacion  VARCHAR2(8) not null,
+  monto           NUMBER(18,2) default 0 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_DAT_SEG_FRAUDE_GP
+  is 'Registro de datos recibidos del reporte de Seguro Contra Fraude de Global Processing';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.nro_tarjeta
+  is 'Numero de Tarjeta del Cliente';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.nro_cuenta
+  is 'Numero de Cuenta del Cliente';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.nom_cliente
+  is 'Nombre del Cliente';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.tip_documento
+  is 'Tipo de Documento del Cliente';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.nro_documento
+  is 'Numero de Documento del Cliente';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.fec_vencimiento
+  is 'Fecha de Vencimiento del Seguro';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.fec_afectacion
+  is 'Fecha de Afectacion del Seguro';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.hor_afectacion
+  is 'Hora de Afectacion';
+comment on column IT.TA_DAT_SEG_FRAUDE_GP.monto
+  is 'Monto del Seguro';
+

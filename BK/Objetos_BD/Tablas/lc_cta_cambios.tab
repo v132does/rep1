@@ -1,0 +1,136 @@
+create table IT.LC_CTA_CAMBIOS
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  dig_verificador    NUMBER(1) default 0,
+  cod_oficina        NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  denominacion       VARCHAR2(65) not null,
+  fec_apertura       DATE not null,
+  che_viajeros       VARCHAR2(1) default 'N' not null,
+  fec_vencimiento    DATE,
+  estado             VARCHAR2(1) not null,
+  fec_cam_estado     DATE,
+  est_batch          VARCHAR2(1),
+  nro_linea          NUMBER(7),
+  mto_limite         NUMBER(18,2) default 0 not null,
+  mto_utilizado      NUMBER(18,2) default 0 not null,
+  mto_uti_batch      NUMBER(18,2) default 0,
+  fec_ult_movimiento DATE,
+  corresponsal       VARCHAR2(1) default 'N' not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  cod_bcp            NUMBER(3),
+  cod_causa          NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_CTA_CAMBIOS
+  is 'Contiene los datos de Cuentas y Limites de Clientes que operan en Cambios.';
+comment on column IT.LC_CTA_CAMBIOS.nro_cuenta
+  is 'Numero de cuenta de Cambios.';
+comment on column IT.LC_CTA_CAMBIOS.cod_modulo
+  is 'Codigo del Modulo de la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.cod_modalidad
+  is 'Codigo de modalidad de la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.dig_verificador
+  is 'Digito verificador de la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.cod_oficina
+  is 'Codigo de oficina de la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.cod_moneda
+  is 'Codigo de moneda de la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.denominacion
+  is 'Nombre de la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.fec_apertura
+  is 'Fecha de apertura de la cuenta de cambios.';
+comment on column IT.LC_CTA_CAMBIOS.che_viajeros
+  is 'Puede pagar cheques viajeros (S/N).';
+comment on column IT.LC_CTA_CAMBIOS.fec_vencimiento
+  is 'Fecha de vencimiento de la linea.';
+comment on column IT.LC_CTA_CAMBIOS.estado
+  is 'Estado de la cuenta on-line.';
+comment on column IT.LC_CTA_CAMBIOS.fec_cam_estado
+  is 'Fecha del ultimo cambio del estado.';
+comment on column IT.LC_CTA_CAMBIOS.est_batch
+  is 'Estado de la cuenta batch.';
+comment on column IT.LC_CTA_CAMBIOS.nro_linea
+  is 'Numero de Linea.';
+comment on column IT.LC_CTA_CAMBIOS.mto_limite
+  is 'Importe de  la linea de cambios.';
+comment on column IT.LC_CTA_CAMBIOS.mto_utilizado
+  is 'Importe utilizado de la linea on-line.';
+comment on column IT.LC_CTA_CAMBIOS.mto_uti_batch
+  is 'Importe utilizado de la linea batch.';
+comment on column IT.LC_CTA_CAMBIOS.fec_ult_movimiento
+  is 'Fecha del ultimo movimiento.';
+comment on column IT.LC_CTA_CAMBIOS.corresponsal
+  is 'Es un corresponsal (S/N).';
+comment on column IT.LC_CTA_CAMBIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_CTA_CAMBIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_CTA_CAMBIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CTA_CAMBIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CTA_CAMBIOS.cod_bcp
+  is 'Codigo de BCP asignada a la cuenta.';
+comment on column IT.LC_CTA_CAMBIOS.cod_causa
+  is 'Causa de bloqueo/cancelacion de la cuenta.';
+create index IT.IN_LCCAM_COD_CAUSA on IT.LC_CTA_CAMBIOS (COD_CAUSA, COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_CTA_CAMBIOS
+  add constraint PK_LC_CTA_CAMBIOS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_CTA_CAMBIOS
+  add constraint FK_LCCAM_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.LC_CTA_CAMBIOS
+  add constraint FK_LCCAM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_CTA_CAMBIOS
+  add constraint FK_LCCAM_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_CTA_CAMBIOS
+  add constraint FK_LCCAM_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.LC_CTA_CAMBIOS
+  add constraint AVCON_1122300451_CHE_V_000
+  check (CHE_VIAJEROS IN ('S', 'N'));
+alter table IT.LC_CTA_CAMBIOS
+  add constraint AVCON_1122300451_CORRE_000
+  check (CORRESPONSAL IN ('S', 'N'));
+

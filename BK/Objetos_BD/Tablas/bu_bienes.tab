@@ -1,0 +1,194 @@
+create table IT.BU_BIENES
+(
+  cod_bien          NUMBER(4) not null,
+  fecha             DATE not null,
+  forma             VARCHAR2(1) not null,
+  tipo              VARCHAR2(1) not null,
+  fec_tasacion      DATE not null,
+  val_tasacion      NUMBER not null,
+  val_contable      NUMBER,
+  cod_ente          NUMBER(5),
+  cod_persona       VARCHAR2(10) not null,
+  cod_oficina       NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  pri_precio        NUMBER,
+  seg_precio        NUMBER,
+  ter_precio        NUMBER,
+  cod_per_venta     VARCHAR2(10),
+  fec_venta         DATE,
+  reingreso         VARCHAR2(1),
+  mto_prevision     NUMBER(18,2),
+  fec_ult_prevision DATE,
+  estado            VARCHAR2(1),
+  fec_estado        DATE,
+  observacion       VARCHAR2(1000),
+  mto_efectivo      NUMBER,
+  mto_cheque        NUMBER,
+  mto_deb_cuenta    NUMBER,
+  nro_deb_cuenta    VARCHAR2(300),
+  mto_cta_contable  NUMBER,
+  nro_cta_contable  VARCHAR2(300),
+  mto_solicitud     NUMBER,
+  nro_solicitud     NUMBER(7),
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  detalle           VARCHAR2(1000),
+  cod_grupo         NUMBER(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BU_BIENES.cod_bien
+  is 'Codigo del Bien Adjudicado (autonumerico).';
+comment on column IT.BU_BIENES.fecha
+  is 'Fecha de Adjudicacion del Bien.';
+comment on column IT.BU_BIENES.forma
+  is 'Forma en que fue adjudicado el Bien a la Entidad. Dominio FOR_ADJUDICACION';
+comment on column IT.BU_BIENES.tipo
+  is 'Tipo de Bien. Dominio TIP_BIEN.';
+comment on column IT.BU_BIENES.fec_tasacion
+  is 'Fecha de la ultima tasacion del Bien.';
+comment on column IT.BU_BIENES.val_tasacion
+  is 'Valor de tasacion del Bien.';
+comment on column IT.BU_BIENES.val_contable
+  is 'Valor Contable.';
+comment on column IT.BU_BIENES.cod_ente
+  is 'Codigo de Ente.';
+comment on column IT.BU_BIENES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BU_BIENES.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.BU_BIENES.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.BU_BIENES.pri_precio
+  is 'Primer precio.';
+comment on column IT.BU_BIENES.seg_precio
+  is 'Segundo Precio.';
+comment on column IT.BU_BIENES.ter_precio
+  is 'Tercer Precio.';
+comment on column IT.BU_BIENES.cod_per_venta
+  is 'Persona a quien se le vendio el Bien.';
+comment on column IT.BU_BIENES.fec_venta
+  is 'Fecha de Venta del Inmueble.';
+comment on column IT.BU_BIENES.reingreso
+  is 'Reingreso.';
+comment on column IT.BU_BIENES.mto_prevision
+  is 'Monto de Prevision.';
+comment on column IT.BU_BIENES.fec_ult_prevision
+  is 'Fecha de la ultima vez que previsiono.';
+comment on column IT.BU_BIENES.estado
+  is 'Estado del Bien.';
+comment on column IT.BU_BIENES.fec_estado
+  is 'Fecha en que se modifico el estado.';
+comment on column IT.BU_BIENES.observacion
+  is 'Observacion.';
+comment on column IT.BU_BIENES.mto_efectivo
+  is 'Monto Efectivo de la venta.';
+comment on column IT.BU_BIENES.mto_cheque
+  is 'Monto en Cheque de la Venta.';
+comment on column IT.BU_BIENES.mto_deb_cuenta
+  is 'Monto de Debitio en Cuenta de la venta.';
+comment on column IT.BU_BIENES.nro_deb_cuenta
+  is 'Numero del Debito en Cuenta.';
+comment on column IT.BU_BIENES.mto_cta_contable
+  is 'Monto Cuenta Contable de la Venta.';
+comment on column IT.BU_BIENES.nro_cta_contable
+  is 'Numero de la Cuenta Contable.';
+comment on column IT.BU_BIENES.mto_solicitud
+  is 'Monto de la Solicitud de Prestamo.';
+comment on column IT.BU_BIENES.nro_solicitud
+  is 'Numero de la Solicitud.';
+comment on column IT.BU_BIENES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BU_BIENES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BU_BIENES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIENES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIENES.detalle
+  is 'Detalle de otro tipo de bien.';
+comment on column IT.BU_BIENES.cod_grupo
+  is 'Código de Grupo de Bienes.';
+create index IT.IN_UBIEN_COD_ENTE on IT.BU_BIENES (COD_ENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_UBIEN_COD_MONEDA on IT.BU_BIENES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_UBIEN_COD_OFICINA on IT.BU_BIENES (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_UBIEN_COD_PERSONA on IT.BU_BIENES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIENES
+  add constraint PK_BU_BIENES primary key (COD_GRUPO, COD_BIEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIENES
+  add constraint FK_BBGRU_COD_GRUPO foreign key (COD_GRUPO)
+  references IT.BU_BIE_GRUPOS (COD_GRUPO);
+alter table IT.BU_BIENES
+  add constraint FK_UBIEN_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.BU_BIENES
+  add constraint FK_UBIEN_COD_PER_VENTA foreign key (COD_PER_VENTA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

@@ -1,0 +1,69 @@
+create table IT.BW_NOT_SUSCRIPCIONES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_evento       NUMBER(4) not null,
+  horario          VARCHAR2(1),
+  mto_minimo       NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  activo           VARCHAR2(1) default 'S' not null,
+  frecuencia       VARCHAR2(1),
+  fec_ult_envio    DATE,
+  dato1            NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_SUSCRIPCIONES.cod_persona
+  is 'Codigo de la persona que se suscribio';
+comment on column IT.BW_NOT_SUSCRIPCIONES.nro_cuenta
+  is 'Numero de cuenta de la suscripcion';
+comment on column IT.BW_NOT_SUSCRIPCIONES.cod_evento
+  is 'Evento al cual se esta suscribiendo';
+comment on column IT.BW_NOT_SUSCRIPCIONES.horario
+  is 'El Horario de envio si el evento tiene. M,T,N (Manana, tarde, noche)';
+comment on column IT.BW_NOT_SUSCRIPCIONES.mto_minimo
+  is 'El monto minimo necesario para generar una notificacion';
+comment on column IT.BW_NOT_SUSCRIPCIONES.activo
+  is '(S|N) S indica que la suscripcion esta activa';
+comment on column IT.BW_NOT_SUSCRIPCIONES.frecuencia
+  is 'Indica la frecuencia deseada';
+comment on column IT.BW_NOT_SUSCRIPCIONES.fec_ult_envio
+  is 'Indica la fecha del ultimo envio de una notificacion en esta suscrpcion';
+comment on column IT.BW_NOT_SUSCRIPCIONES.dato1
+  is 'Dato adicional sobre el ultimo envio';
+alter table IT.BW_NOT_SUSCRIPCIONES
+  add constraint PK_NOT_SUSCRIPCIONES primary key (COD_PERSONA, NRO_CUENTA, COD_EVENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_SUSCRIPCIONES
+  add constraint FK_NOTS_COD_EVENTO foreign key (COD_EVENTO)
+  references IT.BW_NOT_EVENTOS (COD_EVENTO);
+alter table IT.BW_NOT_SUSCRIPCIONES
+  add constraint FK_NOTS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_NOT_SUSCRIPCIONES
+  add constraint FK_NOTS_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

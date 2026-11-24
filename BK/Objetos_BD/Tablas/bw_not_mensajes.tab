@@ -1,0 +1,149 @@
+create table IT.BW_NOT_MENSAJES
+(
+  cod_evento       NUMBER(4) not null,
+  cod_cli_destino  VARCHAR2(10),
+  mensaje          VARCHAR2(140) not null,
+  fec_envio        DATE,
+  seguro           VARCHAR2(1) default 'N',
+  cod_persona      VARCHAR2(10) not null,
+  cod_origen       VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  enviar           VARCHAR2(1),
+  fec_ult_error    DATE,
+  cod_ult_error    VARCHAR2(20),
+  cod_mensaje      NUMBER(18) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  fec_programado   DATE default sysdate,
+  fec_leido        DATE,
+  titulo           VARCHAR2(45),
+  nro_documento3   NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_MENSAJES.cod_evento
+  is 'El codigo del evento que esta siendo enviado';
+comment on column IT.BW_NOT_MENSAJES.cod_cli_destino
+  is 'El destino guardado del cliente a donde debera ser enviado el mensaje';
+comment on column IT.BW_NOT_MENSAJES.mensaje
+  is 'El texto del mensaje a notificar';
+comment on column IT.BW_NOT_MENSAJES.fec_envio
+  is 'Fecha de entrega el mensaje con retorno exitoso';
+comment on column IT.BW_NOT_MENSAJES.seguro
+  is 'S,N Si el valor es S, el mensaje luego de enviado debe ser hasheado';
+comment on column IT.BW_NOT_MENSAJES.cod_persona
+  is 'Persona a la cual sera enviado el mensaje';
+comment on column IT.BW_NOT_MENSAJES.cod_origen
+  is 'Descripcion del origen del mensaje';
+comment on column IT.BW_NOT_MENSAJES.usu_insercion
+  is 'Campo de Auditoria';
+comment on column IT.BW_NOT_MENSAJES.fec_insercion
+  is 'Campo de Auditoria';
+comment on column IT.BW_NOT_MENSAJES.usu_modificacion
+  is 'Campo de Auditoria';
+comment on column IT.BW_NOT_MENSAJES.fec_modificacion
+  is 'Campo de Auditoria';
+comment on column IT.BW_NOT_MENSAJES.enviar
+  is 'Indica si el mensaje se debe o no enviar';
+comment on column IT.BW_NOT_MENSAJES.fec_ult_error
+  is 'Fecha y hora del ultimo error envio';
+comment on column IT.BW_NOT_MENSAJES.cod_ult_error
+  is 'Codigo o descripcion del ultimo error';
+comment on column IT.BW_NOT_MENSAJES.cod_mensaje
+  is 'Identificador del Mensaje';
+comment on column IT.BW_NOT_MENSAJES.nro_cuenta
+  is 'Numero de cuenta del evento';
+comment on column IT.BW_NOT_MENSAJES.fec_programado
+  is 'Fecha en la que se desea enviar';
+comment on column IT.BW_NOT_MENSAJES.fec_leido
+  is 'Fecha en la que el mensaje se marco como leido';
+comment on column IT.BW_NOT_MENSAJES.titulo
+  is 'Titulo del mensaje.';
+comment on column IT.BW_NOT_MENSAJES.nro_documento3
+  is 'Numero de documento.';
+create index IT.IN_COD_CLI_DESTINO on IT.BW_NOT_MENSAJES (COD_PERSONA, COD_CLI_DESTINO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND123J on IT.BW_NOT_MENSAJES ('fec_envio', 'fec_insercion')
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND1234J on IT.BW_NOT_MENSAJES ('FEC_ENVIO', 'FEC_PROGRAMADO')
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.JJMAXSQL on IT.BW_NOT_MENSAJES (FEC_ENVIO, FEC_INSERCION)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.JJMAXSQL2 on IT.BW_NOT_MENSAJES (FEC_ENVIO, FEC_PROGRAMADO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_MENSAJES
+  add constraint PK_BW_NOT_MENSAJES primary key (COD_MENSAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

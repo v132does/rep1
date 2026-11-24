@@ -1,0 +1,73 @@
+create table IT.BW_SOL_CAN_PRODUCTOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  tip_producto     VARCHAR2(100) not null,
+  nro_producto     VARCHAR2(20) not null,
+  fec_solicitud    DATE not null,
+  mot_cancelacion  VARCHAR2(100),
+  comentarios      VARCHAR2(300),
+  tel_contacto     VARCHAR2(20),
+  mail_contacto    VARCHAR2(50),
+  enviado          VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cel_contacto     VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_SOL_CAN_PRODUCTOS
+  is 'Solicitud de cancelación de productos.';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.tip_producto
+  is 'Tipo de producto a cancelar';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.nro_producto
+  is 'Número identificador del producto a cancelar';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.fec_solicitud
+  is 'Fecha de ingreso de la solicitud';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.mot_cancelacion
+  is 'Motivo de la cancelación';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.comentarios
+  is 'Comentarios de la cancelación';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.tel_contacto
+  is 'Teléfono de contacto con el cliente';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.mail_contacto
+  is 'Dirección de email de contacto con el cliente';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.enviado
+  is 'Indica si el correo ya fue enviado al gestor';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_SOL_CAN_PRODUCTOS.cel_contacto
+  is 'Celular de contacto con el cliente.';
+alter table IT.BW_SOL_CAN_PRODUCTOS
+  add constraint PK_BW_SOL_CAN_PRODUCTOS primary key (COD_PERSONA, TIP_PRODUCTO, NRO_PRODUCTO, FEC_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

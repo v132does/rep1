@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_SOL_TMP
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 136415
+increment by 1
+nocache;
+

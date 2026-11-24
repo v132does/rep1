@@ -1,0 +1,155 @@
+create table IT.CB_LIB_COMPRAS_DET
+(
+  nro_factura       VARCHAR2(20) not null,
+  cod_persona       VARCHAR2(10) not null,
+  nro_timbrado      VARCHAR2(20) not null,
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  nro_secuencia     NUMBER(3) not null,
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  mto_operacion_me  NUMBER(18,2) default 0,
+  cotizacion        NUMBER(14,4),
+  cod_mon_operacion VARCHAR2(3),
+  impreso           VARCHAR2(1) default 'N',
+  fec_ini_timbrado  DATE,
+  fec_vig_timbrado  DATE,
+  nro_aut_timbrado  VARCHAR2(20),
+  cod_mod_padre     NUMBER(3),
+  cod_mad_padre     NUMBER(3),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  cod_tra_padre     NUMBER(4),
+  cod_transaccion   NUMBER(4),
+  nro_cuenta        VARCHAR2(15),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default sysdate,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default sysdate,
+  tip_comprobante   VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_LIB_COMPRAS_DET.nro_factura
+  is 'Numero de Factura.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_persona
+  is 'Codigo Persona del Cliente.';
+comment on column IT.CB_LIB_COMPRAS_DET.nro_timbrado
+  is 'Numero de Timbrado.';
+comment on column IT.CB_LIB_COMPRAS_DET.fecha
+  is 'Fecha de la Factura.';
+comment on column IT.CB_LIB_COMPRAS_DET.hora
+  is 'Hora del movimiento al generar la factura.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_usuario
+  is 'Codigo de Usuario del movimiento al generar la factura.';
+comment on column IT.CB_LIB_COMPRAS_DET.nro_secuencia
+  is 'Numero de Secuencia del movimiento al generar la factura.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_oficina
+  is 'Código de la oficina del cliente.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_moneda
+  is 'Código de la moneda de la operación.';
+comment on column IT.CB_LIB_COMPRAS_DET.mto_operacion_me
+  is 'Monto de la operación en moneda extranjera.';
+comment on column IT.CB_LIB_COMPRAS_DET.cotizacion
+  is 'Cotización de la Operación de de Compra de Divisas.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_mon_operacion
+  is 'Codigo de moneda de la operacion de cambio.';
+comment on column IT.CB_LIB_COMPRAS_DET.impreso
+  is 'Indica si ya fue impresa o no la factura.';
+comment on column IT.CB_LIB_COMPRAS_DET.fec_ini_timbrado
+  is 'Fecha de inicio de vigencia del timbrado.';
+comment on column IT.CB_LIB_COMPRAS_DET.fec_vig_timbrado
+  is 'Fecha de Validez del Timbrado.';
+comment on column IT.CB_LIB_COMPRAS_DET.nro_aut_timbrado
+  is 'Número de autorización del timbrado.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_mod_padre
+  is 'Codigo Modulo Padre.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_mad_padre
+  is 'Codigo Modalidad Padre.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_tra_padre
+  is 'Codigo de Transaccion Padre.';
+comment on column IT.CB_LIB_COMPRAS_DET.cod_transaccion
+  is 'Codigo de Transaccion.';
+comment on column IT.CB_LIB_COMPRAS_DET.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CB_LIB_COMPRAS_DET.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_LIB_COMPRAS_DET.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_LIB_COMPRAS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LIB_COMPRAS_DET.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+comment on column IT.CB_LIB_COMPRAS_DET.tip_comprobante
+  is 'Indica Tipo de Comprobante. F=Factura, N=Nota de credito';
+create index IT.IN_BLCDE_COD_TRA_PADRE on IT.CB_LIB_COMPRAS_DET (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BLCDE_COD_USUARIO on IT.CB_LIB_COMPRAS_DET (FECHA, HORA, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BLCDE_NRO_FACTURA on IT.CB_LIB_COMPRAS_DET (NRO_FACTURA, NRO_TIMBRADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_LIB_COMPRAS_DET
+  add constraint PK_CB_LIB_COMPRAS_DET primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA, NRO_FACTURA, NRO_TIMBRADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_LIB_COMPRAS_DET
+  add constraint FK_BLCDE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CB_LIB_COMPRAS_DET
+  add constraint FK_BLCDE_COD_OFI_ORIGEN foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

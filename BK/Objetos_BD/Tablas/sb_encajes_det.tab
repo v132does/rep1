@@ -1,0 +1,39 @@
+create table IT.SB_ENCAJES_DET
+(
+  fecha            DATE,
+  nro_cuenta       VARCHAR2(15),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  tipo             VARCHAR2(1),
+  sujeto_a         NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_SB_ENCA on IT.SB_ENCAJES_DET (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

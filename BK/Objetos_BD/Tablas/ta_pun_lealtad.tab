@@ -1,0 +1,97 @@
+create table IT.TA_PUN_LEALTAD
+(
+  fec_proceso   DATE not null,
+  nro_cuenta    NUMBER(11) not null,
+  tip_cuenta    VARCHAR2(1),
+  cod_entidad   NUMBER(3),
+  afinidad      NUMBER(6),
+  pun_generados NUMBER(15,2),
+  pun_canjeados NUMBER(15,2),
+  pun_vencidos  NUMBER(15,2),
+  pun_baja      NUMBER(15,2),
+  sal_puntos    NUMBER(15,2),
+  pro_lealtad   NUMBER(12),
+  nom_puntos    VARCHAR2(40),
+  tip_documento VARCHAR2(3),
+  nro_documento VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PUN_LEALTAD
+  is 'Archivo LOYALTY-POINTS-AAAAMMDD';
+comment on column IT.TA_PUN_LEALTAD.fec_proceso
+  is 'Fecha de Proceso';
+comment on column IT.TA_PUN_LEALTAD.nro_cuenta
+  is 'Id. Cuenta: Identificador de la cuenta en Bancard.';
+comment on column IT.TA_PUN_LEALTAD.tip_cuenta
+  is 'Tipo Cuenta. C - Tarjetas de Crédito, D - Tarjetas de Débito';
+comment on column IT.TA_PUN_LEALTAD.cod_entidad
+  is 'Cód. Entidad: Código de la Entidad.';
+comment on column IT.TA_PUN_LEALTAD.afinidad
+  is 'Id. Afinidad: Código de Afinidad.';
+comment on column IT.TA_PUN_LEALTAD.pun_generados
+  is 'Puntos Generados. Dato del Sistema Lealtad.';
+comment on column IT.TA_PUN_LEALTAD.pun_canjeados
+  is 'Puntos Canjeados. Dato del Sistema Lealtad.';
+comment on column IT.TA_PUN_LEALTAD.pun_vencidos
+  is 'Puntos Vencidos. Dato del Sistema Lealtad.';
+comment on column IT.TA_PUN_LEALTAD.pun_baja
+  is 'Puntos de Baja. Dato del Sistema Lealtad.';
+comment on column IT.TA_PUN_LEALTAD.sal_puntos
+  is 'Saldo de Puntos. Dato del Sistema Lealtad.';
+comment on column IT.TA_PUN_LEALTAD.pro_lealtad
+  is 'Id. programa lealtad. Dato del Sistema Lealtad.';
+comment on column IT.TA_PUN_LEALTAD.nom_puntos
+  is 'Nombre de Puntos.';
+comment on column IT.TA_PUN_LEALTAD.tip_documento
+  is 'Tipo Documento';
+comment on column IT.TA_PUN_LEALTAD.nro_documento
+  is 'Numero Documento';
+create index IT.IN_TPUNL_NRO_CUENTA on IT.TA_PUN_LEALTAD (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.TA_PUN_LEALTAD_INDEX1JJ1 on IT.TA_PUN_LEALTAD (FEC_PROCESO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_PUN_LEALTAD
+  add constraint PK_TA_PUN_LEALTAD primary key (FEC_PROCESO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

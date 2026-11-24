@@ -1,0 +1,269 @@
+create table IT.TA_CUENTAS_TMP
+(
+  nro_cuenta          NUMBER(11),
+  denominacion        VARCHAR2(42 CHAR),
+  cod_entidad         NUMBER(3),
+  cod_afinidad        NUMBER(6),
+  cod_marca           VARCHAR2(3),
+  cod_pro_marca       VARCHAR2(3),
+  tip_cuenta          VARCHAR2(1),
+  cod_persona         NUMBER(7),
+  cod_pais            NUMBER(3),
+  cod_departamento    NUMBER(3),
+  cod_ciudad          NUMBER(6),
+  telefono            VARCHAR2(15),
+  cod_oficina         NUMBER(4),
+  oficial             NUMBER(7),
+  tip_costo           VARCHAR2(1),
+  vip                 VARCHAR2(1),
+  franqueo            VARCHAR2(1),
+  ret_extracto        VARCHAR2(1),
+  tip_cierre          VARCHAR2(2),
+  sit_cuenta          VARCHAR2(1),
+  dia_mora            NUMBER(5),
+  fec_ult_vencimiento DATE,
+  fec_ult_cierre      DATE,
+  tip_documento       VARCHAR2(3),
+  nro_documento       VARCHAR2(16),
+  ruc                 VARCHAR2(11),
+  cob_costo           VARCHAR2(1),
+  mot_ret_extracto    NUMBER(3),
+  usu_insercion       VARCHAR2(10),
+  fec_ingreso         DATE,
+  usu_actualizacion   VARCHAR2(10),
+  fec_actualizacion   DATE,
+  ind_seg_vida        VARCHAR2(1),
+  calificacion_bcp    NUMBER(1) default 0,
+  reservado           NUMBER(10),
+  fec_sit_cuenta      DATE,
+  observacion         VARCHAR2(40 CHAR),
+  dir_correo          VARCHAR2(60),
+  mot_novedad         NUMBER(3),
+  mot_entidad         NUMBER(3),
+  emp_adherida        NUMBER(5),
+  cod_zona            VARCHAR2(10),
+  reserva             VARCHAR2(1),
+  celular             VARCHAR2(15),
+  dir_recibo          VARCHAR2(35 CHAR),
+  ciu_recibo          VARCHAR2(15 CHAR),
+  pri_dir_extracto    VARCHAR2(50 CHAR),
+  seg_dir_extracto    VARCHAR2(50 CHAR),
+  ter_dir_extracto    VARCHAR2(50 CHAR),
+  cod_per_entidad     VARCHAR2(15),
+  fec_ult_transaccion DATE,
+  fec_pri_compra      DATE,
+  fec_ult_pago        DATE,
+  fec_reservado1      DATE,
+  fec_reservado2      DATE,
+  cod_exc_cargo       VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CUENTAS_TMP
+  is 'Tabla de Cuentas Generales.';
+comment on column IT.TA_CUENTAS_TMP.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.TA_CUENTAS_TMP.denominacion
+  is 'Denominación.';
+comment on column IT.TA_CUENTAS_TMP.cod_entidad
+  is 'Código de Entidad.';
+comment on column IT.TA_CUENTAS_TMP.cod_afinidad
+  is 'Código de Afinidad.';
+comment on column IT.TA_CUENTAS_TMP.cod_marca
+  is 'Código de Marca.';
+comment on column IT.TA_CUENTAS_TMP.cod_pro_marca
+  is 'Código de Producto de Marca.';
+comment on column IT.TA_CUENTAS_TMP.tip_cuenta
+  is 'Tipo de Cuenta.';
+comment on column IT.TA_CUENTAS_TMP.cod_persona
+  is 'Código de Persona.';
+comment on column IT.TA_CUENTAS_TMP.cod_pais
+  is 'Código de Pais.';
+comment on column IT.TA_CUENTAS_TMP.cod_departamento
+  is 'Código de Departamento.';
+comment on column IT.TA_CUENTAS_TMP.cod_ciudad
+  is 'Código de Ciudad';
+comment on column IT.TA_CUENTAS_TMP.telefono
+  is 'Teléfono.';
+comment on column IT.TA_CUENTAS_TMP.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.TA_CUENTAS_TMP.oficial
+  is 'Oficial.';
+comment on column IT.TA_CUENTAS_TMP.tip_costo
+  is 'Tipo de Costo.';
+comment on column IT.TA_CUENTAS_TMP.vip
+  is 'VIP.';
+comment on column IT.TA_CUENTAS_TMP.franqueo
+  is 'Franqueo.';
+comment on column IT.TA_CUENTAS_TMP.ret_extracto
+  is 'Retención de Extracto.';
+comment on column IT.TA_CUENTAS_TMP.tip_cierre
+  is 'Tipo de Cierre.';
+comment on column IT.TA_CUENTAS_TMP.sit_cuenta
+  is 'Situación de Cuenta.';
+comment on column IT.TA_CUENTAS_TMP.dia_mora
+  is 'Días de Mora.';
+comment on column IT.TA_CUENTAS_TMP.fec_ult_vencimiento
+  is 'Fecha de último vencimiento.';
+comment on column IT.TA_CUENTAS_TMP.fec_ult_cierre
+  is 'Fecha de último cierre.';
+comment on column IT.TA_CUENTAS_TMP.tip_documento
+  is 'Tipo de Documento.';
+comment on column IT.TA_CUENTAS_TMP.nro_documento
+  is 'Número de Documento.';
+comment on column IT.TA_CUENTAS_TMP.ruc
+  is 'RUC.';
+comment on column IT.TA_CUENTAS_TMP.cob_costo
+  is 'Cobertura de Costo.';
+comment on column IT.TA_CUENTAS_TMP.mot_ret_extracto
+  is 'Motivo de Retención de Extracto.';
+comment on column IT.TA_CUENTAS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_CUENTAS_TMP.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.TA_CUENTAS_TMP.usu_actualizacion
+  is 'Usuario que realizó la última actualización del registro.';
+comment on column IT.TA_CUENTAS_TMP.fec_actualizacion
+  is 'Fecha en que se actualizó por última vez el registro.';
+comment on column IT.TA_CUENTAS_TMP.ind_seg_vida
+  is 'Seguro de Vida.';
+comment on column IT.TA_CUENTAS_TMP.calificacion_bcp
+  is 'Calificación BCP.';
+comment on column IT.TA_CUENTAS_TMP.reservado
+  is 'Reservado.';
+comment on column IT.TA_CUENTAS_TMP.fec_sit_cuenta
+  is 'Fecha de Situación de Cuenta.';
+comment on column IT.TA_CUENTAS_TMP.observacion
+  is 'Observación.';
+comment on column IT.TA_CUENTAS_TMP.dir_correo
+  is 'Dirección de Correo';
+comment on column IT.TA_CUENTAS_TMP.mot_novedad
+  is 'Motivo de la Novedad.';
+comment on column IT.TA_CUENTAS_TMP.mot_entidad
+  is 'Motivo de la Entidad.';
+comment on column IT.TA_CUENTAS_TMP.emp_adherida
+  is 'Empresa Adherida.';
+comment on column IT.TA_CUENTAS_TMP.cod_zona
+  is 'Código de Zona.';
+comment on column IT.TA_CUENTAS_TMP.reserva
+  is 'Reserva.';
+comment on column IT.TA_CUENTAS_TMP.celular
+  is 'Celular.';
+comment on column IT.TA_CUENTAS_TMP.dir_recibo
+  is 'Driección de Recibo.';
+comment on column IT.TA_CUENTAS_TMP.ciu_recibo
+  is 'Ciudad de Recibo';
+comment on column IT.TA_CUENTAS_TMP.pri_dir_extracto
+  is 'Primera Dirección del Extracto.';
+comment on column IT.TA_CUENTAS_TMP.seg_dir_extracto
+  is 'Segunda Dirección del Extracto.';
+comment on column IT.TA_CUENTAS_TMP.ter_dir_extracto
+  is 'tercera Dirección del Extracto.';
+comment on column IT.TA_CUENTAS_TMP.cod_per_entidad
+  is 'ódigo de Cliente Entidad.';
+comment on column IT.TA_CUENTAS_TMP.fec_ult_transaccion
+  is 'Fecha de Última Transacción.';
+comment on column IT.TA_CUENTAS_TMP.fec_pri_compra
+  is 'Fecha de Primera Compra.';
+comment on column IT.TA_CUENTAS_TMP.fec_ult_pago
+  is 'Fecha Último Pago.';
+comment on column IT.TA_CUENTAS_TMP.fec_reservado1
+  is 'Fecha: campo fecha reservado 1.';
+comment on column IT.TA_CUENTAS_TMP.fec_reservado2
+  is 'Fecha: campo fecha reservado 2.';
+comment on column IT.TA_CUENTAS_TMP.cod_exc_cargo
+  is 'Codigos de Excepciones de Cargos del Cierre.';
+create index IT.IN_TC_COD_ADIFINIDAD on IT.TA_CUENTAS_TMP (COD_AFINIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TC_COD_ENTIDAD on IT.TA_CUENTAS_TMP (COD_ENTIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TC_COD_PERSONA on IT.TA_CUENTAS_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TC_DENOMINACION on IT.TA_CUENTAS_TMP (DENOMINACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TC_NRO_CUENTA on IT.TA_CUENTAS_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TC_NRO_DOCUMENTO on IT.TA_CUENTAS_TMP (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TC_SIT_CUENTA on IT.TA_CUENTAS_TMP (SIT_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

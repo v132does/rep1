@@ -1,0 +1,43 @@
+create table IT.SB_CRC_OPERACIONES
+(
+  nom_referencia VARCHAR2(10) not null,
+  fec_periodo    DATE not null,
+  cod_entidad    NUMBER(4),
+  tot_registro   NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_OPERACIONES
+  is 'Datos de Cabecera del Archivo Operaciones CRC1.';
+comment on column IT.SB_CRC_OPERACIONES.nom_referencia
+  is 'Nombre de Referencia.';
+comment on column IT.SB_CRC_OPERACIONES.fec_periodo
+  is 'Periodo.';
+comment on column IT.SB_CRC_OPERACIONES.cod_entidad
+  is 'Código de Entidad.';
+comment on column IT.SB_CRC_OPERACIONES.tot_registro
+  is 'Total Registro.';
+alter table IT.SB_CRC_OPERACIONES
+  add constraint PK_SB_CRC_OPERACIONES primary key (NOM_REFERENCIA, FEC_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

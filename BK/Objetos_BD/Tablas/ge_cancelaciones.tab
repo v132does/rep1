@@ -1,0 +1,70 @@
+create table IT.GE_CANCELACIONES
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  fec_hora         DATE not null,
+  cod_causa        NUMBER(3) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  observacion      VARCHAR2(250),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CANCELACIONES
+  is 'Contiene datos de Cancelaciones de Cuentas.';
+comment on column IT.GE_CANCELACIONES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_CANCELACIONES.fec_hora
+  is 'Fecha y hora de Cancelacion.';
+comment on column IT.GE_CANCELACIONES.cod_causa
+  is 'Codigo de Causa de Cancelacion.';
+comment on column IT.GE_CANCELACIONES.cod_usuario
+  is 'Codigo de Usuario que realizo la cancelacion.';
+comment on column IT.GE_CANCELACIONES.observacion
+  is 'Observaciones de la cancelacion.';
+comment on column IT.GE_CANCELACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CANCELACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CANCELACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CANCELACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CANCELACIONES
+  add constraint PK_GE_CANCELACIONES primary key (NRO_CUENTA, FEC_HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CANCELACIONES
+  add constraint FK_GCANC_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_CANCELACIONES
+  add constraint FK_GCANC_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_CANCELACIONES
+  add constraint FK_GCANC_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_CANCELACIONES
+  add constraint AVCON_1080843414_COD_C_006
+  check (COD_CAUSA BETWEEN 1 AND 999);
+

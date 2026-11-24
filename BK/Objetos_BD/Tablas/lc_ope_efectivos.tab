@@ -1,0 +1,75 @@
+create table IT.LC_OPE_EFECTIVOS
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(15),
+  cod_persona      VARCHAR2(10),
+  monto            NUMBER(18,2) not null,
+  cotizacion       NUMBER(14,8),
+  concepto         VARCHAR2(100),
+  estado           VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_moneda       VARCHAR2(3),
+  cod_tip_ope_efe  NUMBER(2),
+  cod_ofi_origen   NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_OPE_EFECTIVOS
+  is 'Operaciones de Cambios en Efectivo.';
+comment on column IT.LC_OPE_EFECTIVOS.fecha
+  is 'Fecha.';
+comment on column IT.LC_OPE_EFECTIVOS.hora
+  is 'Hora.';
+comment on column IT.LC_OPE_EFECTIVOS.cod_usuario
+  is 'Código de Operador.';
+comment on column IT.LC_OPE_EFECTIVOS.cod_transaccion
+  is 'Código de Transacción.';
+comment on column IT.LC_OPE_EFECTIVOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.LC_OPE_EFECTIVOS.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.LC_OPE_EFECTIVOS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.LC_OPE_EFECTIVOS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.LC_OPE_EFECTIVOS.monto
+  is 'Monto en moneda fuerte de la operación.';
+comment on column IT.LC_OPE_EFECTIVOS.cotizacion
+  is 'Cotización.';
+comment on column IT.LC_OPE_EFECTIVOS.concepto
+  is 'Concepto del Movimiento.';
+comment on column IT.LC_OPE_EFECTIVOS.estado
+  is 'Estado de la Operación (N=Normal, R=Reversado).';
+comment on column IT.LC_OPE_EFECTIVOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.LC_OPE_EFECTIVOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.LC_OPE_EFECTIVOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.LC_OPE_EFECTIVOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.LC_OPE_EFECTIVOS.cod_moneda
+  is 'Código de moneda del movimiento';
+comment on column IT.LC_OPE_EFECTIVOS.cod_ofi_origen
+  is 'Codigo de oficina origen';
+alter table IT.LC_OPE_EFECTIVOS
+  add constraint FK_LOEFE foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

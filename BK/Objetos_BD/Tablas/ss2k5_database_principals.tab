@@ -1,0 +1,15 @@
+create global temporary table IT.SS2K5_DATABASE_PRINCIPALS
+(
+  db_id               NUMBER(10),
+  default_schema_name VARCHAR2(256),
+  type                CHAR(1) not null,
+  principal_id        NUMBER(10) not null,
+  owning_principal_id NUMBER(10),
+  name                VARCHAR2(256) not null,
+  sid                 RAW(85)
+)
+on commit preserve rows;
+create index IT.SS2K5_D_P_DB_ID on IT.SS2K5_DATABASE_PRINCIPALS (DB_ID);
+create index IT.SS2K5_D_P_DEFAULT_SCHEMA_NAME on IT.SS2K5_DATABASE_PRINCIPALS (DEFAULT_SCHEMA_NAME);
+create index IT.SS2K5_D_P_SID on IT.SS2K5_DATABASE_PRINCIPALS (SID);
+

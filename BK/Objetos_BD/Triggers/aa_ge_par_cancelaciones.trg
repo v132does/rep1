@@ -1,0 +1,36 @@
+CREATE OR REPLACE TRIGGER IT.AA_GE_PAR_CANCELACIONES
+  AFTER DELETE OR UPDATE
+     ON GE_PAR_CANCELACIONES
+    FOR EACH ROW
+DECLARE
+  /*
+  || Archivo creado por el Generador de Triggers de Auditoría
+  || (c) 2005 - IT Consultores
+  || Generado el 06/11/2013 a las 11:32:52 Hs.
+  */
+  r_gaudi GE_AUDITORIAS%ROWTYPE; -- Registro de la tabla GE_AUDITORIAS
+BEGIN
+  r_gaudi.tabla := 'GE_PAR_CANCELACIONES';
+  r_gaudi.clave := to_char( :old.cod_causa);
+  r_gaudi.fec_calendario := pae_cnf.fu_obt_fec_actual( pae_cnf.g_cod_modulo );
+  IF updating THEN
+    r_gaudi.tip_novedad := 'M';
+  ELSIF deleting THEN
+    r_gaudi.tip_novedad := 'E';
+  END IF;
+
+  -- Registrar Detalle
+  r_gaudi.detalle := pae_cnf.fu_reg_auditoria( r_gaudi.tip_novedad, 'NAT_SALDO', :old.nat_saldo, :new.nat_saldo );
+  r_gaudi.detalle := r_gaudi.detalle || pae_cnf.fu_reg_auditoria( r_gaudi.tip_novedad, 'COD_MODULO', :old.cod_modulo, :new.cod_modulo, 'N' );
+  r_gaudi.detalle := r_gaudi.detalle || pae_cnf.fu_reg_auditoria( r_gaudi.tip_novedad, 'TEX_TELEGRAMA', :old.tex_telegrama, :new.tex_telegrama );
+  r_gaudi.detalle := r_gaudi.detalle || pae_cnf.fu_reg_auditoria( r_gaudi.tip_novedad, 'ENV_MAIL', :old.env_mail, :new.env_mail );
+  r_gaudi.detalle := r_gaudi.detalle || pae_cnf.fu_reg_auditoria( r_gaudi.tip_novedad, 'ENV_OPE_VENCIDAS', :old.env_ope_vencidas, :new.env_ope_vencidas );
+
+  -- Insertar tabla de auditoria
+  prg_ins_ge_auditoria( r_gaudi );
+EXCEPTION
+  when others then
+    prg_ins_ge_auditoria( r_gaudi );
+END;
+/
+

@@ -1,0 +1,61 @@
+create table IT.GE_FIR_SOLICITUDES
+(
+  cod_documento    NUMBER(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  cod_firmante     VARCHAR2(10),
+  estado           VARCHAR2(2),
+  fec_firma        DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_FIR_SOLICITUDES
+  is 'Solicitudes Firmadas';
+comment on column IT.GE_FIR_SOLICITUDES.cod_documento
+  is 'Código de Documento.';
+comment on column IT.GE_FIR_SOLICITUDES.nro_secuencia
+  is 'Nro. de Secuencia.';
+comment on column IT.GE_FIR_SOLICITUDES.cod_firmante
+  is 'Código de Persona del Firmante.';
+comment on column IT.GE_FIR_SOLICITUDES.estado
+  is 'Estado de la Solicitud.';
+comment on column IT.GE_FIR_SOLICITUDES.fec_firma
+  is 'Fecha de Firma. Dominio EST_DOC_FIR_DIGITAL';
+comment on column IT.GE_FIR_SOLICITUDES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_FIR_SOLICITUDES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_FIR_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_FIR_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_FIR_SOLICITUDES
+  add constraint PK_GE_FIR_SOLICITUDES primary key (COD_DOCUMENTO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_FIR_SOLICITUDES
+  add constraint FK_GFSOL_COD_DOCUMENTO foreign key (COD_DOCUMENTO)
+  references IT.GE_FIR_DOCUMENTOS (COD_DOCUMENTO);
+

@@ -1,0 +1,116 @@
+-- Create table
+create table IT.TA_REF_MOVIMIENTOS_GP
+(
+  cod_referencia   VARCHAR2(5) not null,
+  descripcion      VARCHAR2(60) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  ref_archivo      VARCHAR2(30) not null,
+  cod_modulo2      NUMBER(3),
+  cod_modalidad2   NUMBER(3),
+  cod_transaccion2 NUMBER(4),
+  procesa          VARCHAR2(1),
+  cod_modulo3      NUMBER(3),
+  cod_modalidad3   NUMBER(3),
+  cod_transaccion3 NUMBER(4),
+  cod_modulo4      NUMBER(3),
+  cod_modalidad4   NUMBER(3),
+  cod_transaccion4 NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_referencia
+  is 'Código de Referencia del Movimiento recibido de la Procesadora.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.descripcion
+  is 'Descripción de la Referencia.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modulo
+  is 'Código de Modulo.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_transaccion
+  is 'Código de Transacción asociada.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.usu_insercion
+  is 'Usuario de Inserción del registro. ';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.fec_insercion
+  is 'Fecha de Inserción del registro. ';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.usu_modificacion
+  is 'Usuario de Modificación del registro.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.fec_modificacion
+  is 'Fecha de Modificación del registro.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.ref_archivo
+  is 'Referencia del Archivo de importación.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modulo2
+  is 'Código de Módulo 2 alternativo.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modalidad2
+  is 'Código de Modalidad 2 alternativa.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_transaccion2
+  is 'Código de Transacción 2 alternativo.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.procesa
+  is 'Indica si el Movimiento se procesa o no (S/N).';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modulo3
+  is 'Código de Módulo 3 alternativo.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modalidad3
+  is 'Código de Modalidad 3 alternativa.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_transaccion3
+  is 'Código de Transacción 3 alternativo.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modulo4
+  is 'Código de Módulo 4 alternativo.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_modalidad4
+  is 'Código de Modalidad 4 alternativa.';
+comment on column IT.TA_REF_MOVIMIENTOS_GP.cod_transaccion4
+  is 'Código de Transacción 4 alternativo.';
+-- Create/Recreate indexes 
+create index IT.IN_TRMOV_COD_MODALIDAD_GP on IT.TA_REF_MOVIMIENTOS_GP (COD_MODALIDAD, COD_MODULO, COD_MODALIDAD2, COD_MODULO2, COD_TRANSACCION2, COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TRMOV_COD_MODALIDAD3_GP on IT.TA_REF_MOVIMIENTOS_GP (COD_MODALIDAD3, COD_MODALIDAD4, COD_MODULO3, COD_MODULO4, COD_TRANSACCION3, COD_TRANSACCION4)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.TA_REF_MOVIMIENTOS_GP
+  add constraint PK_TA_REF_MOVIMIENTOS_GP primary key (COD_REFERENCIA, REF_ARCHIVO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

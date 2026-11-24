@@ -1,0 +1,34 @@
+create table IT.TMP_INV_CARG_DIFERIDOS
+(
+  fecha           DATE,
+  modulo          NUMBER(3),
+  modalidad       NUMBER(3),
+  oficina         NUMBER(3),
+  moneda          VARCHAR2(3),
+  tipo_saldo      VARCHAR2(1),
+  cod_rubro       VARCHAR2(15),
+  cod_rubro_deb   VARCHAR2(15),
+  cod_cargo       NUMBER(10),
+  fec_desde       DATE,
+  fec_hasta       DATE,
+  nro_factura     VARCHAR2(20),
+  descripcion     VARCHAR2(180),
+  monto           NUMBER(18,3),
+  saldo_contable  NUMBER(18,2),
+  devengado_total NUMBER(18,2),
+  dias_restantes  NUMBER(10),
+  fecha_devengado DATE,
+  monto_devengado NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

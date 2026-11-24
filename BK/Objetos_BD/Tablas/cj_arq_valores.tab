@@ -1,0 +1,118 @@
+create table IT.CJ_ARQ_VALORES
+(
+  nro_caja         NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  cod_tip_valor    NUMBER(3) not null,
+  cantidad         NUMBER(8),
+  monto            NUMBER(18,2),
+  nro_orden        NUMBER(3),
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_ARQ_VALORES
+  is 'Control de Valores de Arqueo.';
+comment on column IT.CJ_ARQ_VALORES.nro_caja
+  is 'Nro. de Caja.';
+comment on column IT.CJ_ARQ_VALORES.cod_moneda
+  is 'Moneda.';
+comment on column IT.CJ_ARQ_VALORES.fecha
+  is 'Fecha.';
+comment on column IT.CJ_ARQ_VALORES.cod_tip_valor
+  is 'Código de Valor.';
+comment on column IT.CJ_ARQ_VALORES.cantidad
+  is 'Cantidad.';
+comment on column IT.CJ_ARQ_VALORES.monto
+  is 'Monto.';
+comment on column IT.CJ_ARQ_VALORES.nro_orden
+  is 'Nro. de Orden.';
+comment on column IT.CJ_ARQ_VALORES.cod_usuario
+  is 'Código de Usuario Actual.';
+comment on column IT.CJ_ARQ_VALORES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CJ_ARQ_VALORES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CJ_ARQ_VALORES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CJ_ARQ_VALORES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_JAVAL_COD_MONEDA on IT.CJ_ARQ_VALORES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JAVAL_COD_TIP_VALOR on IT.CJ_ARQ_VALORES (COD_TIP_VALOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JAVAL_COD_USUARIO on IT.CJ_ARQ_VALORES (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_ARQ_VALORES
+  add constraint PK_CJ_ARQ_VALORES primary key (NRO_CAJA, COD_MONEDA, FECHA, COD_TIP_VALOR)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_ARQ_VALORES
+  add constraint FK_JARQV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CJ_ARQ_VALORES
+  add constraint FK_JARQV_COD_TIP_VALOR foreign key (COD_TIP_VALOR)
+  references IT.CJ_TIP_VALORES (COD_TIP_VALOR);
+alter table IT.CJ_ARQ_VALORES
+  add constraint FK_JARQV_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CJ_ARQ_VALORES
+  add constraint FK_JARQV_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.CJ_ARQ_VALORES
+  add constraint CK_JARQV_RANGO_CAJAS
+  check (NRO_CAJA BETWEEN 0 AND 999);
+

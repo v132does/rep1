@@ -1,0 +1,28 @@
+CREATE TABLE IT.GE_EXT_BLACKLIST (
+   COD_PERSONA  VARCHAR2(10 BYTE),
+   NOMBRE       VARCHAR2(100 BYTE),
+   MOTIVO       VARCHAR2(500 BYTE)
+)
+tablespace IT_DATA
+pctfree 10
+initrans 1
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+CREATE PUBLIC SYNONYM GE_EXT_BLACKLIST FOR IT.GE_EXT_BLACKLIST;
+
+COMMENT ON TABLE GE_EXT_BLACKLIST IS 'Tabla global temporal por sesión para generación de extractos';
+
+COMMENT ON COLUMN GE_EXT_BLACKLIST.COD_PERSONA IS 'Codigo de la Persona';
+
+COMMENT ON COLUMN GE_EXT_BLACKLIST.NOMBRE IS 'Nombre de la Persona';
+
+COMMENT ON COLUMN GE_EXT_BLACKLIST.MOTIVO IS 'Motivo de exclusión';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON GE_EXT_BLACKLIST TO IT_TEMPORAL;

@@ -1,0 +1,49 @@
+create table IT.PR_GARANTIAS_3108
+(
+  nro_garantia        NUMBER(7) not null,
+  cod_garantia        NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  valor               NUMBER(18,2) not null,
+  val_tasacion        NUMBER(18,2),
+  fec_ult_tasacion    DATE,
+  fec_inicio          DATE not null,
+  fec_vencimiento     DATE,
+  cod_ent_escribania  NUMBER(5),
+  cod_ent_seguro      NUMBER(5),
+  tipo                VARCHAR2(1),
+  estado              VARCHAR2(1),
+  cod_persona         VARCHAR2(10) not null,
+  observacion         VARCHAR2(1000),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  cod_mon_tasacion    VARCHAR2(3),
+  mto_aplicado        NUMBER(18,2),
+  est_tesoreria       VARCHAR2(1),
+  est_verificacion    VARCHAR2(1),
+  fec_ent_tesoreria   DATE,
+  fec_sal_tesoreria   DATE,
+  cod_usu_entregado   VARCHAR2(10),
+  cod_cau_salida      NUMBER(3),
+  mto_apl_valor       NUMBER(18,2),
+  ind_uti_tercero     VARCHAR2(1),
+  situacion           VARCHAR2(1),
+  cod_oficina         NUMBER(3),
+  nro_escritura       NUMBER(10),
+  fec_ult_utilizacion DATE,
+  observacion_his     VARCHAR2(4000),
+  nro_referencia      VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

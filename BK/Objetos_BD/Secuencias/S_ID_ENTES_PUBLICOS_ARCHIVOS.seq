@@ -1,0 +1,8 @@
+-- Crear secuencia para ID de archivos de Entes Publicos
+CREATE SEQUENCE IT.S_ID_ENTES_PUBLICOS_ARCHIVOS
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9999999999
+    NOCYCLE
+    CACHE 20;

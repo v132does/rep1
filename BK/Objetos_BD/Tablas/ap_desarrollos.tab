@@ -1,0 +1,154 @@
+create table IT.AP_DESARROLLOS
+(
+  cod_requerimiento   NUMBER(10) not null,
+  cod_desarrollo      NUMBER(10) not null,
+  cod_usu_responsable VARCHAR2(10) not null,
+  cod_programa        VARCHAR2(30) not null,
+  descripcion         VARCHAR2(1000) not null,
+  transferir          VARCHAR2(1) default 'N' not null,
+  ubi_ejecutable      VARCHAR2(60) not null,
+  ubi_fisica          VARCHAR2(60) not null,
+  fec_inicio          DATE,
+  fec_fin             DATE,
+  cod_usu_transfiere  VARCHAR2(10),
+  fec_transferido     DATE,
+  cod_usu_verifica    VARCHAR2(10),
+  fec_verificado      DATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  estado              VARCHAR2(2) default 'NI' not null,
+  nuevo               VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_DESARROLLOS
+  is 'Desarrollos de programas.';
+comment on column IT.AP_DESARROLLOS.cod_requerimiento
+  is 'Codigo del Requerimiento.';
+comment on column IT.AP_DESARROLLOS.cod_desarrollo
+  is 'Codigo del Desarrollo.';
+comment on column IT.AP_DESARROLLOS.cod_usu_responsable
+  is 'Responsable del desarrollo.';
+comment on column IT.AP_DESARROLLOS.cod_programa
+  is 'Codigo del Programa.';
+comment on column IT.AP_DESARROLLOS.descripcion
+  is 'Descripcion del Desarrollo.';
+comment on column IT.AP_DESARROLLOS.transferir
+  is 'Transferir (s/n).';
+comment on column IT.AP_DESARROLLOS.ubi_ejecutable
+  is 'Ubicacion del Ejecutable.';
+comment on column IT.AP_DESARROLLOS.ubi_fisica
+  is 'Ubicacion Fisica.';
+comment on column IT.AP_DESARROLLOS.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.AP_DESARROLLOS.fec_fin
+  is 'Fecha de Finalizacion.';
+comment on column IT.AP_DESARROLLOS.cod_usu_transfiere
+  is 'Codigo de usuario.';
+comment on column IT.AP_DESARROLLOS.fec_transferido
+  is 'Fecha de Transferencia.';
+comment on column IT.AP_DESARROLLOS.cod_usu_verifica
+  is 'Codigo de usuario.';
+comment on column IT.AP_DESARROLLOS.fec_verificado
+  is 'Fecha de Verificacion.';
+comment on column IT.AP_DESARROLLOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_DESARROLLOS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AP_DESARROLLOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_DESARROLLOS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.AP_DESARROLLOS.observacion
+  is 'Observacion.';
+comment on column IT.AP_DESARROLLOS.estado
+  is 'Estado del desarrollo.';
+comment on column IT.AP_DESARROLLOS.nuevo
+  is 'Es nuevo (s/N).';
+create index IT.IN_YDESA_COD_PROGRAMA on IT.AP_DESARROLLOS (COD_PROGRAMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YDESA_COD_USU_TRANSFIERE on IT.AP_DESARROLLOS (COD_USU_TRANSFIERE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YDESA_COD_USU_VERIFICADOR on IT.AP_DESARROLLOS (COD_USU_VERIFICA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_DESARROLLOS
+  add constraint PK_AP_DESARROLLOS primary key (COD_REQUERIMIENTO, COD_DESARROLLO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_DESARROLLOS
+  add constraint FK_YDESA_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.AP_DESARROLLOS
+  add constraint FK_YDESA_COD_REQUERIMIENTO foreign key (COD_REQUERIMIENTO)
+  references IT.AP_REQUERIMIENTOS (COD_REQUERIMIENTO);
+alter table IT.AP_DESARROLLOS
+  add constraint FK_YDESA_COD_USU_RESPONSABLE foreign key (COD_USU_RESPONSABLE)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_DESARROLLOS
+  add constraint FK_YDESA_COD_USU_TRANSFIERE foreign key (COD_USU_TRANSFIERE)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_DESARROLLOS
+  add constraint FK_YDESA_COD_USU_VERIFICA foreign key (COD_USU_VERIFICA)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_DESARROLLOS
+  add constraint AVCON_1081349332_COD_D_002
+  check (COD_DESARROLLO BETWEEN 1 AND 999999999);
+alter table IT.AP_DESARROLLOS
+  add constraint AVCON_1081349332_COD_R_003
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+alter table IT.AP_DESARROLLOS
+  add constraint AVCON_1081349332_TRANS_000
+  check (TRANSFERIR IN ('S', 'N'));
+

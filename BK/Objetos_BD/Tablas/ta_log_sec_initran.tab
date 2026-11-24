@@ -1,0 +1,74 @@
+create table IT.TA_LOG_SEC_INITRAN
+(
+  cod_transaccion   VARCHAR2(36) not null,
+  cod_initransac    VARCHAR2(36) not null,
+  cod_procesadora   VARCHAR2(36) not null,
+  cod_origen        VARCHAR2(100) not null,
+  nro_tar           VARCHAR2(25),
+  nro_cta           VARCHAR2(40),
+  fec_mes_venc      VARCHAR2(2),
+  fec_anho_venc     VARCHAR2(4),
+  tip_tar           VARCHAR2(10),
+  nom_tar_usu       VARCHAR2(100),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_alta          DATE,
+  fec_modificacion  DATE,
+  cod_autenticacion VARCHAR2(36) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LOG_SEC_INITRAN.cod_transaccion
+  is 'TransactionId';
+comment on column IT.TA_LOG_SEC_INITRAN.cod_initransac
+  is 'StepupRequestId';
+comment on column IT.TA_LOG_SEC_INITRAN.cod_procesadora
+  is 'ProcessorId';
+comment on column IT.TA_LOG_SEC_INITRAN.cod_origen
+  is 'SourceId';
+comment on column IT.TA_LOG_SEC_INITRAN.nro_tar
+  is 'CardNumber';
+comment on column IT.TA_LOG_SEC_INITRAN.nro_cta
+  is 'AccountNumber';
+comment on column IT.TA_LOG_SEC_INITRAN.fec_mes_venc
+  is 'CardExpiryMonth';
+comment on column IT.TA_LOG_SEC_INITRAN.fec_anho_venc
+  is 'CardExpiryYear';
+comment on column IT.TA_LOG_SEC_INITRAN.tip_tar
+  is 'CardType';
+comment on column IT.TA_LOG_SEC_INITRAN.nom_tar_usu
+  is 'CardHolderName';
+comment on column IT.TA_LOG_SEC_INITRAN.usu_insercion
+  is 'Usuario Creacion';
+comment on column IT.TA_LOG_SEC_INITRAN.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.TA_LOG_SEC_INITRAN.fec_alta
+  is 'Fecha Alta';
+comment on column IT.TA_LOG_SEC_INITRAN.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.TA_LOG_SEC_INITRAN.cod_autenticacion
+  is 'Codigo autogenerado - secuencia';
+alter table IT.TA_LOG_SEC_INITRAN
+  add constraint TA_LOG_SEC_INITRAN_PK primary key (COD_AUTENTICACION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

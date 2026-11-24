@@ -1,0 +1,30 @@
+create global temporary table IT.STAGE_SYB12_SYSCOLUMNS
+(
+  svrid_fk    NUMBER,
+  dbid_gen_fk NUMBER,
+  id_gen_fk   NUMBER,
+  colid_gen   NUMBER,
+  id          NUMBER,
+  db_number   NUMBER,
+  colid       NUMBER,
+  status      NUMBER,
+  db_type     NUMBER,
+  length      NUMBER,
+  offset      NUMBER,
+  usertype    NUMBER,
+  cdefault    NUMBER,
+  domain      NUMBER,
+  name        VARCHAR2(255),
+  printfmt    VARCHAR2(255),
+  prec        NUMBER,
+  scale       NUMBER,
+  remote_type NUMBER,
+  remote_name VARCHAR2(255),
+  xstatus     NUMBER,
+  xtype       NUMBER,
+  xdbid       NUMBER,
+  acessrule   NUMBER,
+  status2     NUMBER
+)
+on commit preserve rows;
+

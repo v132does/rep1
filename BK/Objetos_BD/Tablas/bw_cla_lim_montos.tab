@@ -1,0 +1,114 @@
+create table IT.BW_CLA_LIM_MONTOS
+(
+  cod_tip_mensaje         VARCHAR2(3) not null,
+  cod_tip_clave           VARCHAR2(1) not null,
+  tip_persona             VARCHAR2(1) not null,
+  cod_moneda              VARCHAR2(3) not null,
+  activo                  VARCHAR2(1) not null,
+  mto_minimo              NUMBER(18,2) not null,
+  mto_maximo              NUMBER(18,2) not null,
+  cod_persona             VARCHAR2(10),
+  nro_cuenta              VARCHAR2(15),
+  usu_insercion           VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_insercion           DATE default SYSDATE not null,
+  usu_modificacion        VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_modificacion        DATE default SYSDATE not null,
+  mto_max_personalizacion NUMBER(18,2),
+  cod_usu_autorizacion    VARCHAR2(10),
+  cod_usu_modificacion    VARCHAR2(10),
+  fec_usu_modificacion    DATE,
+  fec_usu_autorizacion    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CLA_LIM_MONTOS
+  is 'Almacena los límites de operaciones por Tipos de Claves. Se utiliza para determinar qué tipo de clave debe ser exigida al usuario. ';
+comment on column IT.BW_CLA_LIM_MONTOS.cod_tip_mensaje
+  is 'Código del tipo de mensajes en bw_tip_mensajes a ser utilizado.';
+comment on column IT.BW_CLA_LIM_MONTOS.cod_tip_clave
+  is 'Tipo de Clave: L: Libre; K:toKen; T:Transaccional.';
+comment on column IT.BW_CLA_LIM_MONTOS.tip_persona
+  is 'Tipo de Persona: F:Física; J:Jurídica.';
+comment on column IT.BW_CLA_LIM_MONTOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.BW_CLA_LIM_MONTOS.activo
+  is 'Indica si el límite está activo o no. A: Activo; I: Inactivo; P: Pendiente.';
+comment on column IT.BW_CLA_LIM_MONTOS.mto_minimo
+  is 'Monto desde el cual se aplica el límite.';
+comment on column IT.BW_CLA_LIM_MONTOS.mto_maximo
+  is 'Monto hasta el cual se aplica el límite.';
+comment on column IT.BW_CLA_LIM_MONTOS.cod_persona
+  is 'Si se define la persona el límite se aplica a todas las Cuentas de la Persona.';
+comment on column IT.BW_CLA_LIM_MONTOS.nro_cuenta
+  is 'Si se define la cuenta el límite se aplica a todas las Operaciones de la Cuenta.';
+comment on column IT.BW_CLA_LIM_MONTOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_CLA_LIM_MONTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_CLA_LIM_MONTOS.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.BW_CLA_LIM_MONTOS.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+comment on column IT.BW_CLA_LIM_MONTOS.mto_max_personalizacion
+  is 'Monto Máximo de Personalización.';
+comment on column IT.BW_CLA_LIM_MONTOS.cod_usu_autorizacion
+  is 'Código de Usuario que autorizó la configuración del límite de operación.';
+comment on column IT.BW_CLA_LIM_MONTOS.cod_usu_modificacion
+  is 'Código de Usuario que modifica todos los campos excepto el campo "ACTIVO".-  Si se modifica el campo "ACTIVO" no se registrará aquí';
+comment on column IT.BW_CLA_LIM_MONTOS.fec_usu_modificacion
+  is 'Fecha en que se modifica todos los campos excepto el campo "ACTIVO".-  Si se modifica el campo "ACTIVO" no se registrará aquí';
+comment on column IT.BW_CLA_LIM_MONTOS.fec_usu_autorizacion
+  is 'Fecha en que el usuario realiza la autorizacion, en conjunto con COD_USU_AUTORIZACION';
+-- Create/Recreate indexes 
+create index IT.IN_BCLMON_NRO_CUENTA on IT.BW_CLA_LIM_MONTOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BW_CLA_LIM_MONTOS
+  add constraint UK_BW_CLA_LIM_MONTOS unique (COD_TIP_MENSAJE, COD_TIP_CLAVE, TIP_PERSONA, COD_MONEDA, COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLA_LIM_MONTOS
+  add constraint FK_WCLMO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_CLA_LIM_MONTOS
+  add constraint FK_WCLMO_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+alter table IT.BW_CLA_LIM_MONTOS
+  add constraint FK_WCLMO_COD_USU_AUTORIZACION foreign key (COD_USU_AUTORIZACION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BW_CLA_LIM_MONTOS
+  add constraint FK_WCLMO_NRO_CUENTAS foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.BW_CLA_LIM_MONTOS
+  add constraint CK_EST_LIMITE
+  check (ACTIVO IN ('A','I','P'));
+

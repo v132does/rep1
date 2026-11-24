@@ -1,0 +1,61 @@
+create table IT.GE_CTA_DEB_RECAUDACIONES
+(
+  cod_ente         NUMBER(5) not null,
+  nro_cta_debito   VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  activo           VARCHAR2(1),
+  usu_insercion    VARCHAR2(15) default USER,
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(15) default USER,
+  fec_modificacion DATE default sysdate,
+  fec_inicio       DATE,
+  fec_fin          DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_DEB_RECAUDACIONES
+  is 'Tabla de Cuentas de Débitos para Recaudaciones.';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.nro_cta_debito
+  is 'Número de Cuenta Débito.';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.activo
+  is 'Activo o Inactivo.';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.usu_insercion
+  is 'Usuario de Inserción';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.fec_insercion
+  is 'Fecha de Inserción';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.usu_modificacion
+  is 'Usuario de Modificación';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.fec_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.fec_inicio
+  is 'Fecha de Inicio';
+comment on column IT.GE_CTA_DEB_RECAUDACIONES.fec_fin
+  is 'Fecha de Fin';
+alter table IT.GE_CTA_DEB_RECAUDACIONES
+  add constraint PK_GE_CTA_DEB_RECAUDACIONES primary key (COD_ENTE, NRO_CTA_DEBITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

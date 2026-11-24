@@ -1,0 +1,106 @@
+create table IT.GE_OPE_VIGENTES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_garantia     NUMBER(3),
+  mto_deuda        NUMBER(18,2) default 0,
+  tot_deu_capital  NUMBER(18,2) default 0,
+  tot_deu_interes  NUMBER(18,2) default 0,
+  int_mora         NUMBER(18,2) default 0,
+  dia_mora         NUMBER(5),
+  estado           VARCHAR2(1),
+  fec_ult_pago     DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_OPE_VIGENTES
+  is 'Operacion vigentes.';
+comment on column IT.GE_OPE_VIGENTES.cod_persona
+  is 'Persona.';
+comment on column IT.GE_OPE_VIGENTES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_OPE_VIGENTES.cod_modalidad
+  is 'codigo de la modalidad.';
+comment on column IT.GE_OPE_VIGENTES.cod_moneda
+  is 'codigo de la moneda.';
+comment on column IT.GE_OPE_VIGENTES.nro_cuenta
+  is 'Nro de cuenta.';
+comment on column IT.GE_OPE_VIGENTES.cod_garantia
+  is 'Codigo de garantia.';
+comment on column IT.GE_OPE_VIGENTES.mto_deuda
+  is 'Monto de la deuda.';
+comment on column IT.GE_OPE_VIGENTES.tot_deu_capital
+  is 'Total de la deuda capital.';
+comment on column IT.GE_OPE_VIGENTES.tot_deu_interes
+  is 'total de la deuda Interes.';
+comment on column IT.GE_OPE_VIGENTES.int_mora
+  is 'Interes por moda.';
+comment on column IT.GE_OPE_VIGENTES.dia_mora
+  is 'Dias de mora.';
+comment on column IT.GE_OPE_VIGENTES.estado
+  is 'Estado.';
+comment on column IT.GE_OPE_VIGENTES.fec_ult_pago
+  is 'fecha ultimo pago.';
+comment on column IT.GE_OPE_VIGENTES.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_OPE_VIGENTES.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.GE_OPE_VIGENTES.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.GE_OPE_VIGENTES.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.GE_OPE_VIGENTES
+  add constraint PK_GE_OPE_VIGENTES primary key (NRO_CUENTA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_OPE_VIGENTES
+  add constraint FK_POVIG_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+alter table IT.GE_OPE_VIGENTES
+  add constraint FK_POVIG_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_OPE_VIGENTES
+  add constraint FK_POVIG_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_OPE_VIGENTES
+  add constraint FK_POVIG_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_OPE_VIGENTES
+  add constraint FK_POVIG_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_OPE_VIGENTES
+  add constraint AVCON_1117039207_COD_G_000
+  check (COD_GARANTIA BETWEEN 0 AND 999);
+alter table IT.GE_OPE_VIGENTES
+  add constraint AVCON_1117039207_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_OPE_VIGENTES
+  add constraint AVCON_1117039207_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+

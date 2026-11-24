@@ -1,0 +1,61 @@
+create table IT.CR_CON_ING_EGR
+(
+  cod_concepto     NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  tipo             VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  obligatorio      VARCHAR2(1) default 'N',
+  nro_orden        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_CON_ING_EGR
+  is 'Conceptos de Ingresos y egresos.';
+comment on column IT.CR_CON_ING_EGR.cod_concepto
+  is 'Codigo de Concepto.';
+comment on column IT.CR_CON_ING_EGR.descripcion
+  is 'Descripcion.';
+comment on column IT.CR_CON_ING_EGR.tipo
+  is 'Indicador de si es Ingreso o Egreso (I/E).';
+comment on column IT.CR_CON_ING_EGR.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_CON_ING_EGR.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_CON_ING_EGR.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_CON_ING_EGR.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_CON_ING_EGR.obligatorio
+  is 'Indica si el Ingreso/Egreso es Obligatorio.';
+comment on column IT.CR_CON_ING_EGR.nro_orden
+  is 'Número de Orden de los Conceptos.';
+alter table IT.CR_CON_ING_EGR
+  add constraint PK_CR_CON_ING_EGR primary key (COD_CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CON_ING_EGR
+  add constraint AVCON_1085611893_COD_C_000
+  check (COD_CONCEPTO BETWEEN 0 AND 999);
+

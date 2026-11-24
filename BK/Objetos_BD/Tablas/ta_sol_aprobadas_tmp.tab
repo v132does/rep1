@@ -1,0 +1,132 @@
+create table IT.TA_SOL_APROBADAS_TMP
+(
+  nro_documento      VARCHAR2(20) not null,
+  cod_tip_documento  NUMBER(3) default 1 not null,
+  monto              NUMBER(18,2) default 0 not null,
+  cod_oficina        NUMBER(3) not null,
+  referencia         VARCHAR2(35),
+  cod_modalidad      NUMBER(3),
+  afinidad           VARCHAR2(10),
+  tip_envio          VARCHAR2(1) default 'D',
+  retener            VARCHAR2(1) default 'N',
+  nom_embozado       VARCHAR2(26),
+  adicionales        VARCHAR2(1) default 'N',
+  deb_automatico     VARCHAR2(1) default 'N',
+  nro_cta_debito     VARCHAR2(100),
+  fec_solicitud      DATE default SYSDATE,
+  fec_aprobacion     DATE default SYSDATE,
+  tip_cobro          VARCHAR2(1) default 'M',
+  pre_embozada       VARCHAR2(1) default 'N',
+  cod_tip_cierre     NUMBER(2) default 1,
+  tas_int_corriente  NUMBER(18,2) default 0,
+  tas_int_compra     NUMBER(18,2) default 0,
+  tas_int_mora       NUMBER(18,2) default 0,
+  por_pag_minimo     NUMBER(5,2) default 0,
+  mto_fij_pag_minimo NUMBER(18,2) default 0,
+  mto_min_pag_minimo NUMBER(18,2) default 0,
+  cod_persona        VARCHAR2(10),
+  sub_afinidad       VARCHAR2(3),
+  par_modalidad      VARCHAR2(1),
+  observacion        VARCHAR2(240),
+  nro_solicitud      NUMBER(15),
+  per_tasa           VARCHAR2(1),
+  val_minimo         VARCHAR2(10),
+  val_maximo         VARCHAR2(35),
+  det_error          VARCHAR2(4000),
+  cod_campana        NUMBER(3),
+  cod_canal          NUMBER(3),
+  cod_rub_economico  VARCHAR2(6),
+  nro_doc_titular    VARCHAR2(20),
+  tar_adicional      VARCHAR2(1) default 'N',
+  nro_orden          NUMBER(15) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_SOL_APROBADAS_TMP.nro_documento
+  is 'Nro. de Documento.';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_tip_documento
+  is 'Código del Tipo de Documento.';
+comment on column IT.TA_SOL_APROBADAS_TMP.monto
+  is 'Monto Aprobado.';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.TA_SOL_APROBADAS_TMP.referencia
+  is 'Referencia del Tipo de Envío.';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.TA_SOL_APROBADAS_TMP.afinidad
+  is 'Afinidad de la Tarjeta.';
+comment on column IT.TA_SOL_APROBADAS_TMP.tip_envio
+  is 'Tipo de Envío. (D=Dirección, R=Retener).';
+comment on column IT.TA_SOL_APROBADAS_TMP.retener
+  is 'Retener.';
+comment on column IT.TA_SOL_APROBADAS_TMP.nom_embozado
+  is 'Nombre del Embozado.';
+comment on column IT.TA_SOL_APROBADAS_TMP.adicionales
+  is 'Tarjetas Posee Adicionales.';
+comment on column IT.TA_SOL_APROBADAS_TMP.deb_automatico
+  is 'Indicador de Forma de Pago. (S=Débito Automático N= En Ventanilla)';
+comment on column IT.TA_SOL_APROBADAS_TMP.nro_cta_debito
+  is 'Nro. de la Cuenta de Débito. ';
+comment on column IT.TA_SOL_APROBADAS_TMP.fec_solicitud
+  is 'Fecha de la Solicitud.';
+comment on column IT.TA_SOL_APROBADAS_TMP.fec_aprobacion
+  is 'Fecha de Aprobación de la Solicitud.';
+comment on column IT.TA_SOL_APROBADAS_TMP.tip_cobro
+  is 'Tipo de Cobro. (M=Mínimo, T=Total)';
+comment on column IT.TA_SOL_APROBADAS_TMP.pre_embozada
+  is 'Indicador de Solicitud de Tarjeta Pre Embozada.';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_tip_cierre
+  is 'Código del Tipo de Cierre.';
+comment on column IT.TA_SOL_APROBADAS_TMP.tas_int_corriente
+  is 'Tasa de Interés Corriente.';
+comment on column IT.TA_SOL_APROBADAS_TMP.tas_int_compra
+  is 'Tasa de Interés por Compras.';
+comment on column IT.TA_SOL_APROBADAS_TMP.tas_int_mora
+  is 'Tasa de Interés Moratorio.';
+comment on column IT.TA_SOL_APROBADAS_TMP.por_pag_minimo
+  is 'Porcentaje de Pago Mínimo.';
+comment on column IT.TA_SOL_APROBADAS_TMP.mto_fij_pag_minimo
+  is 'Monto Fijo de Pago Mínimo.';
+comment on column IT.TA_SOL_APROBADAS_TMP.mto_min_pag_minimo
+  is 'Monto Mínimo de Pago Mínimo.';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.TA_SOL_APROBADAS_TMP.sub_afinidad
+  is 'Sub Afinidad.';
+comment on column IT.TA_SOL_APROBADAS_TMP.par_modalidad
+  is 'Indicador de Modalidad Exenta de Impuesto. ';
+comment on column IT.TA_SOL_APROBADAS_TMP.observacion
+  is 'Observación';
+comment on column IT.TA_SOL_APROBADAS_TMP.nro_solicitud
+  is 'Número de la Solicitud.';
+comment on column IT.TA_SOL_APROBADAS_TMP.per_tasa
+  is 'Tasa Personalizada.';
+comment on column IT.TA_SOL_APROBADAS_TMP.val_minimo
+  is 'Valor Mínimo del dominio AFINIDAD.';
+comment on column IT.TA_SOL_APROBADAS_TMP.val_maximo
+  is 'Valor Máximo del dominio AFINIDAD.';
+comment on column IT.TA_SOL_APROBADAS_TMP.det_error
+  is 'Detalles del Error.';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_campana
+  is 'Campaña para tarjetas pre-embozadas';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_canal
+  is 'Canal para tarjetas pre-embozadas';
+comment on column IT.TA_SOL_APROBADAS_TMP.cod_rub_economico
+  is 'Código de Rubro Económico.';
+comment on column IT.TA_SOL_APROBADAS_TMP.nro_doc_titular
+  is 'Nro. de Documento del Titular.';
+comment on column IT.TA_SOL_APROBADAS_TMP.tar_adicional
+  is 'Es una Tarjeta Adicional S/N.';
+comment on column IT.TA_SOL_APROBADAS_TMP.nro_orden
+  is 'Numero de Orden.';
+

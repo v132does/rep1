@@ -1,0 +1,37 @@
+create table IT.PR_GAR_ASOCIAR_TMP
+(
+  nro_cuenta   VARCHAR2(10) not null,
+  nro_garantia NUMBER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_ASOCIAR_TMP
+  add constraint PK_PR_GAR_ASOCIAR primary key (NRO_CUENTA, NRO_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_ASOCIAR_TMP
+  add constraint FK_PR_GAR_ASOCIAR_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.PR_CTA_PRESTAMOS (NRO_CUENTA);
+alter table IT.PR_GAR_ASOCIAR_TMP
+  add constraint FK_PR_GAR_ASOCIAR_NRO_GARANTIA foreign key (NRO_GARANTIA)
+  references IT.PR_GARANTIAS (NRO_GARANTIA);
+

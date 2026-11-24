@@ -1,0 +1,92 @@
+create table IT.GE_RET_VIR_CLIENTES
+(
+  cod_persona      VARCHAR2(10) not null,
+  fec_pago         DATE not null,
+  nro_factura      VARCHAR2(20) not null,
+  imp_factura      NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  cod_retencion    NUMBER(12),
+  mto_iva          NUMBER(18,2),
+  mto_retencion    NUMBER(18,2),
+  estado           VARCHAR2(1),
+  cotizacion       NUMBER(18,2),
+  mto_renta        NUMBER(18,2),
+  mto_ret_renta    NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  fec_cam_estado   DATE,
+  nro_timbrado     VARCHAR2(20) not null,
+  fec_vig_timbrado DATE,
+  nro_lote         NUMBER(10) not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE,
+  nro_ret_tesaka   NUMBER(12)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_RET_VIR_CLIENTES.cod_persona
+  is 'Código del Proveedor.';
+comment on column IT.GE_RET_VIR_CLIENTES.fec_pago
+  is 'Fecha del Pago.';
+comment on column IT.GE_RET_VIR_CLIENTES.nro_factura
+  is 'Numero de la Factura.';
+comment on column IT.GE_RET_VIR_CLIENTES.imp_factura
+  is 'Importe de la Factura.';
+comment on column IT.GE_RET_VIR_CLIENTES.cod_moneda
+  is 'Código de la moneda de la Factura.';
+comment on column IT.GE_RET_VIR_CLIENTES.cod_retencion
+  is 'Código de la Retención en ITGF.';
+comment on column IT.GE_RET_VIR_CLIENTES.mto_iva
+  is 'Monto del IVA';
+comment on column IT.GE_RET_VIR_CLIENTES.mto_retencion
+  is 'Monto de la retención.';
+comment on column IT.GE_RET_VIR_CLIENTES.estado
+  is 'Estado de la Retencion.';
+comment on column IT.GE_RET_VIR_CLIENTES.cotizacion
+  is 'Cotización de la moneda.';
+comment on column IT.GE_RET_VIR_CLIENTES.mto_renta
+  is 'Monto de la Renta.';
+comment on column IT.GE_RET_VIR_CLIENTES.mto_ret_renta
+  is 'Monto de la retención de la Renta.';
+comment on column IT.GE_RET_VIR_CLIENTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_RET_VIR_CLIENTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_RET_VIR_CLIENTES.fec_cam_estado
+  is 'Fecha de cambio de Estado de la Retención.';
+comment on column IT.GE_RET_VIR_CLIENTES.nro_timbrado
+  is 'Numero de Timbrado.';
+comment on column IT.GE_RET_VIR_CLIENTES.fec_vig_timbrado
+  is 'Fecha de validez del Timbrado.';
+comment on column IT.GE_RET_VIR_CLIENTES.nro_lote
+  is 'Numero  Lote de  Exportación. Formato RRMMDD+Nro.Secuencia.';
+comment on column IT.GE_RET_VIR_CLIENTES.usu_modificacion
+  is 'Usuario que realizó la modificación.';
+comment on column IT.GE_RET_VIR_CLIENTES.fec_modificacion
+  is 'Fecha de modificación.';
+comment on column IT.GE_RET_VIR_CLIENTES.nro_ret_tesaka
+  is 'Numero de la Retención en sistema Tesaka.';
+alter table IT.GE_RET_VIR_CLIENTES
+  add constraint PK_GE_RET_VIR_CLIENTES primary key (COD_PERSONA, NRO_FACTURA, NRO_LOTE, FEC_PAGO, NRO_TIMBRADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

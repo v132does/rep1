@@ -1,0 +1,44 @@
+create table IT.SMG_DAT_CLIENTES
+(
+  cod_cliente VARCHAR2(10) not null,
+  puntaje     NUMBER(5,2),
+  des_puntaje VARCHAR2(15),
+  riesgo      VARCHAR2(1),
+  raa         VARCHAR2(1),
+  pep         VARCHAR2(1),
+  diligencia  VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SMG_DAT_CLIENTES.riesgo
+  is 'Nivel de riesgo del cliente. A=Alto, B=Bajo, M=Medio.';
+comment on column IT.SMG_DAT_CLIENTES.raa
+  is 'Indica si el cliente tiene un riesgo automáticamente alto (RAA). S=SI, N=NO.';
+comment on column IT.SMG_DAT_CLIENTES.pep
+  is 'Indica si el cliente tiene un riesgo alto por ser PEP. S=SI, N=NO.';
+comment on column IT.SMG_DAT_CLIENTES.diligencia
+  is 'S=Simplificada, N=Normal, R=Reforzado, P=PEP, A=RAA.';
+alter table IT.SMG_DAT_CLIENTES
+  add constraint SMG_DAT_CLIENTES_PK primary key (COD_CLIENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

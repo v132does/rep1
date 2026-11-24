@@ -1,0 +1,73 @@
+create table IT.BA_MAN_DETALLES
+(
+  cod_manual       VARCHAR2(20) not null,
+  nro_orden        VARCHAR2(3) not null,
+  descripcion      VARCHAR2(200) not null,
+  detalle          VARCHAR2(1000),
+  responsable      VARCHAR2(200),
+  activo           VARCHAR2(1) default 'S' not null,
+  cod_programa     VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  resultado        VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_MAN_DETALLES
+  is 'Detalles de los manuales';
+comment on column IT.BA_MAN_DETALLES.cod_manual
+  is 'Codigo de manual. Estructura: AABBCCDDEE. ';
+comment on column IT.BA_MAN_DETALLES.nro_orden
+  is 'Nro. de orden en el manual.';
+comment on column IT.BA_MAN_DETALLES.descripcion
+  is 'Descripcion del Manual.';
+comment on column IT.BA_MAN_DETALLES.detalle
+  is 'Detalle del manual.';
+comment on column IT.BA_MAN_DETALLES.responsable
+  is 'Responsable de esta actividad.';
+comment on column IT.BA_MAN_DETALLES.activo
+  is 'Si esta activa o no la opcion.';
+comment on column IT.BA_MAN_DETALLES.cod_programa
+  is 'Programa asociado a la actividad.';
+comment on column IT.BA_MAN_DETALLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_MAN_DETALLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_MAN_DETALLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MAN_DETALLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MAN_DETALLES.resultado
+  is 'Resultados.';
+alter table IT.BA_MAN_DETALLES
+  add constraint PK_BA_MAN_DETALLES primary key (COD_MANUAL, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MAN_DETALLES
+  add constraint FK_BMDET_COD_MANUAL foreign key (COD_MANUAL)
+  references IT.BA_MANUALES (COD_MANUAL);
+alter table IT.BA_MAN_DETALLES
+  add constraint FK_BMDET_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+

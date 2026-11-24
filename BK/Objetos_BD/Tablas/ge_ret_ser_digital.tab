@@ -1,0 +1,89 @@
+create table IT.GE_RET_SER_DIGITAL
+(
+  nro_retencion    NUMBER(12) not null,
+  nro_operacion    NUMBER(15) not null,
+  cod_persona      VARCHAR2(10),
+  nro_cta_debito   VARCHAR2(15),
+  fec_pago         DATE,
+  nro_factura      VARCHAR2(20),
+  cod_moneda       VARCHAR2(3),
+  mto_operacion    NUMBER(18,2),
+  mto_ret_inr      NUMBER(18,2),
+  mto_equ_inr      NUMBER(18,2),
+  monto_iva        NUMBER(18,2),
+  monto_iva_equ    NUMBER(18,2),
+  monto_tot_debito NUMBER(18,2),
+  estado           VARCHAR2(1) default 'C',
+  cotizacion       NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  fec_cam_estado   DATE,
+  nro_timbrado     VARCHAR2(20),
+  fec_vig_timbrado DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_RET_SER_DIGITAL.nro_retencion
+  is 'Número de retención';
+comment on column IT.GE_RET_SER_DIGITAL.nro_operacion
+  is 'Número de operación';
+comment on column IT.GE_RET_SER_DIGITAL.cod_persona
+  is 'Código de persona';
+comment on column IT.GE_RET_SER_DIGITAL.nro_cta_debito
+  is 'Número de la cuenta débito';
+comment on column IT.GE_RET_SER_DIGITAL.fec_pago
+  is 'Fecha de pago';
+comment on column IT.GE_RET_SER_DIGITAL.nro_factura
+  is 'Número de factura';
+comment on column IT.GE_RET_SER_DIGITAL.cod_moneda
+  is 'Codigo de moneda de la operación';
+comment on column IT.GE_RET_SER_DIGITAL.mto_operacion
+  is 'Monto de la operación';
+comment on column IT.GE_RET_SER_DIGITAL.mto_ret_inr
+  is 'Monto de retención INR en moneda local';
+comment on column IT.GE_RET_SER_DIGITAL.mto_equ_inr
+  is 'Monto de retención INR en moneda extranjera';
+comment on column IT.GE_RET_SER_DIGITAL.monto_iva
+  is 'Monto IVA en moneda local';
+comment on column IT.GE_RET_SER_DIGITAL.monto_iva_equ
+  is 'Monto IVA en la moneda extranjera';
+comment on column IT.GE_RET_SER_DIGITAL.monto_tot_debito
+  is 'Monto total del débito Servicios Digitales';
+comment on column IT.GE_RET_SER_DIGITAL.estado
+  is 'Estado de la Retencion. C=Cargado, P=Pagado, A=Anulado';
+comment on column IT.GE_RET_SER_DIGITAL.cotizacion
+  is 'Cotización de la moneda extranjera';
+comment on column IT.GE_RET_SER_DIGITAL.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_RET_SER_DIGITAL.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_RET_SER_DIGITAL.fec_cam_estado
+  is 'Fecha de cambio de Estado de la Retención.';
+comment on column IT.GE_RET_SER_DIGITAL.nro_timbrado
+  is 'Número de Timbrado.';
+comment on column IT.GE_RET_SER_DIGITAL.fec_vig_timbrado
+  is 'Fecha de validez del Timbrado.';
+alter table IT.GE_RET_SER_DIGITAL
+  add constraint PK_GE_RET_SER_DIGITAL primary key (NRO_OPERACION, NRO_RETENCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

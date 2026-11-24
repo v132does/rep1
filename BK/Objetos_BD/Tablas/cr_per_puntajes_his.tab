@@ -1,0 +1,61 @@
+create table IT.CR_PER_PUNTAJES_HIS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_puntaje      NUMBER(3) not null,
+  puntaje          NUMBER(3),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  pro_riesgo       NUMBER(5,3),
+  rie_sugerido     NUMBER(2),
+  fecha            DATE not null
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_PUNTAJES_HIS
+  is 'Historico de Scoring por Persona.';
+comment on column IT.CR_PER_PUNTAJES_HIS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_PUNTAJES_HIS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PER_PUNTAJES_HIS.puntaje
+  is 'Puntaje.';
+comment on column IT.CR_PER_PUNTAJES_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_PUNTAJES_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_PUNTAJES_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PUNTAJES_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PUNTAJES_HIS.pro_riesgo
+  is 'Promedio de Riesgo.';
+comment on column IT.CR_PER_PUNTAJES_HIS.rie_sugerido
+  is 'Riesgo Sugerido.';
+comment on column IT.CR_PER_PUNTAJES_HIS.fecha
+  is 'Fecha en que se realizo el calculo.';
+alter table IT.CR_PER_PUNTAJES_HIS
+  add constraint PK_CR_PER_PUNTAJES_HIS primary key (COD_PERSONA, COD_PUNTAJE, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

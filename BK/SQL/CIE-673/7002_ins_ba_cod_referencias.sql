@@ -1,0 +1,6 @@
+﻿begin pre_ini_aplicacion;pae_cnf.g_cod_modulo := '1'; end;  
+/
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_CIERRE', 'Usuario Mov. Cierre 6', 'MOVCIERRE6', '6', 'MOVCIERRE', 'S');
+
+commit;

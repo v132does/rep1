@@ -1,0 +1,64 @@
+create table IT.BW_SOL_TRANSFERENCIAS_HIS
+(
+  cod_solicitud          VARCHAR2(50) not null,
+  nro_cta_credito        VARCHAR2(16) not null,
+  estado                 CHAR(1) not null,
+  cod_per_solicitante    VARCHAR2(10),
+  fec_vencimiento        DATE not null,
+  nro_cta_debito         VARCHAR2(16) not null,
+  monto                  NUMBER not null,
+  cod_moneda             VARCHAR2(3),
+  usu_insercion          VARCHAR2(10),
+  fec_insercion          DATE,
+  usu_modificacion       VARCHAR2(10),
+  fec_modificacion       DATE,
+  concepto               NVARCHAR2(50),
+  cod_persona_solicitada VARCHAR2(10),
+  cod_canal              VARCHAR2(3)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_SOL_TRANSFERENCIAS_HIS
+  is 'Solicitudes de transferencias mobile';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.cod_solicitud
+  is 'Numero de solicitud';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.nro_cta_credito
+  is 'Numero de cuenta del solicitante';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.estado
+  is 'P = Pendiente, A = Aprobado, R = Rechazado, N = Anulado';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.cod_per_solicitante
+  is 'Codigo de persona del solicitante';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.fec_vencimiento
+  is 'Fecha de vencimiento de solicitud';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.nro_cta_debito
+  is 'Numero de cuenta del solicitado';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.monto
+  is 'Monto unitario por destinatario';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.cod_moneda
+  is 'Codigo de moneda';
+comment on column IT.BW_SOL_TRANSFERENCIAS_HIS.concepto
+  is 'Razon de solicitud';
+alter table IT.BW_SOL_TRANSFERENCIAS_HIS
+  add constraint PK_BW_SOL_TRANSFERENCIAS_HIS primary key (COD_SOLICITUD, NRO_CTA_CREDITO, NRO_CTA_DEBITO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

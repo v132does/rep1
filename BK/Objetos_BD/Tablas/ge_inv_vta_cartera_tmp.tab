@@ -1,0 +1,23 @@
+create table IT.GE_INV_VTA_CARTERA_TMP
+(
+  fec_venta     DATE,
+  cod_modulo    NUMBER(3),
+  cod_modalidad NUMBER(3),
+  nom_cliente   VARCHAR2(120),
+  nro_cuenta    VARCHAR2(15),
+  ruc_comprador VARCHAR2(15),
+  cod_ente      NUMBER(5),
+  monto         NUMBER(16,3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

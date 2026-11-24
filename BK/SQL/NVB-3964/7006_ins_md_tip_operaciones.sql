@@ -1,0 +1,7 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+insert into it.md_tip_operaciones (COD_TIP_OPERACION, DESCRIPCION, TIP_OPERACION, COD_TIP_OPE_BCP, COD_MAD_PADRE, COD_MAD_OPERACION, COD_TRA_PADRE, COD_TRANSACCION, TIP_PERSONA, TIP_PRESTAMO, COD_MODULO, COD_OFICINA, ACTIVO, COD_RUB_ECONOMICO, COD_SEC_CONTABLE)
+values (23, 'REPO BURSATIL - RECIBIDO', 'R', 'A19', 135, 149, 101, 101, 'P', 'A', 10, 61, 'S', '659900', 'F');
+/
+commit;
+/

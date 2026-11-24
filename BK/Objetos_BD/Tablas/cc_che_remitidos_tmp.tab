@@ -1,0 +1,101 @@
+create table IT.CC_CHE_REMITIDOS_TMP
+(
+  cod_oficina      NUMBER(3),
+  nro_caja         NUMBER(3),
+  nro_lote         NUMBER(4),
+  tip_dato         NUMBER(3),
+  cod_banco        NUMBER(3),
+  nro_referencia   VARCHAR2(15),
+  nro_cuenta       NUMBER(20),
+  nro_boleta       VARCHAR2(15),
+  nro_cheque       NUMBER(15),
+  monto            NUMBER(18,2),
+  val_cheque       NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fecha            DATE,
+  nro_linea        NUMBER(6),
+  cod_ofi_origen   NUMBER(3),
+  fec_giro         DATE,
+  nro_lectora      NUMBER(5),
+  usu_captura      VARCHAR2(10),
+  cod_bandacm7     VARCHAR2(30),
+  retencion        VARCHAR2(2),
+  nro_registro     NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_REMITIDOS_TMP
+  is 'Archivo temporal de carga de cheques remitidos.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_lote
+  is 'Numero de Lote.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.tip_dato
+  is 'Tipo de Dato.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.cod_banco
+  is 'Codigo de Bando.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_referencia
+  is 'Numero de Referencia.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_boleta
+  is 'Numero de boleta.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.monto
+  is 'Monto Total.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.val_cheque
+  is 'Valor del Cheque.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.fecha
+  is 'Fecha.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_linea
+  is 'Nro. Linea.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.cod_ofi_origen
+  is 'Oficina Origen del Cheque';
+comment on column IT.CC_CHE_REMITIDOS_TMP.fec_giro
+  is 'Fecha de Giro.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_lectora
+  is 'Numero de Lectora(Panini).';
+comment on column IT.CC_CHE_REMITIDOS_TMP.usu_captura
+  is 'Usuario de Captura.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.cod_bandacm7
+  is 'BANDA CMC7.';
+comment on column IT.CC_CHE_REMITIDOS_TMP.retencion
+  is 'Retencion(00, 24, 48).';
+comment on column IT.CC_CHE_REMITIDOS_TMP.nro_registro
+  is 'Nro. Registro.';
+create index IT.IN_USER on IT.CC_CHE_REMITIDOS_TMP (USU_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

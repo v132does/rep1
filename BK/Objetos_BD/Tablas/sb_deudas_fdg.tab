@@ -1,0 +1,73 @@
+create table IT.SB_DEUDAS_FDG
+(
+  fecha               DATE not null,
+  nro_cuenta          VARCHAR2(20) not null,
+  can_titulares       NUMBER(2) not null,
+  cod_mon_bco_central VARCHAR2(4) not null,
+  capital_ext         NUMBER(17) not null,
+  int_devengado_ext   NUMBER(17) not null,
+  total_ext           NUMBER(17) not null,
+  capital             NUMBER(17) not null,
+  int_devengado       NUMBER(17) not null,
+  total               NUMBER(17) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_DEUDAS_FDG
+  is 'Son los datos por los saldos de las deudas  con la entidad de personas que posean depositos en la misma entidad financiera. Corresponde a las cuentas en las que a lo menos uno de los deudores tenga depositos. Se excluyen las deudas de las personas vinculadas a la entidad, o en las que a lo menos una de ellas sea vinculada.';
+comment on column IT.SB_DEUDAS_FDG.fecha
+  is 'Fecha de Proceso.';
+comment on column IT.SB_DEUDAS_FDG.nro_cuenta
+  is 'Codigo identificador de la deuda.';
+comment on column IT.SB_DEUDAS_FDG.can_titulares
+  is 'Numero de titulares de la deuda.';
+comment on column IT.SB_DEUDAS_FDG.cod_mon_bco_central
+  is 'Codigo de moneda del deposito, el mismo usado en CRC.';
+comment on column IT.SB_DEUDAS_FDG.capital_ext
+  is 'Capital de moneda extranjera arbitrado en US$.';
+comment on column IT.SB_DEUDAS_FDG.int_devengado_ext
+  is 'Suma del Interes devengado y en Suspenso en moneda extranjera arbitrado en US$.';
+comment on column IT.SB_DEUDAS_FDG.total_ext
+  is 'Suma de Capital-MonExtr e Interes-MonExtr.';
+comment on column IT.SB_DEUDAS_FDG.capital
+  is 'Capital de moneda nacional. Si hubiera Capital-MonExtr, en esta campo se convierte su equivalente a Guaranies.';
+comment on column IT.SB_DEUDAS_FDG.int_devengado
+  is 'Interes devengado de moneda nacional. Si hubiera Interes-MonExtr, en esta campo se convierte su equivalente a Guaranies.';
+comment on column IT.SB_DEUDAS_FDG.total
+  is 'Suma de Capital-MonNac e Interes-MonNac.';
+comment on column IT.SB_DEUDAS_FDG.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_DEUDAS_FDG.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_DEUDAS_FDG.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_DEUDAS_FDG.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.SB_DEUDAS_FDG
+  add constraint PK_SB_DEUDAS_FDG primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

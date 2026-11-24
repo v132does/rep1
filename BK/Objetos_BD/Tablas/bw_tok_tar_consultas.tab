@@ -1,0 +1,80 @@
+create table IT.BW_TOK_TAR_CONSULTAS
+(
+  cod_consulta     VARCHAR2(36) not null,
+  cod_con_recibida VARCHAR2(36) not null,
+  cod_proceso      VARCHAR2(50),
+  cod_baul         VARCHAR2(36),
+  cod_billetera    VARCHAR2(36),
+  cod_consultante  VARCHAR2(36),
+  cod_tokenizacion VARCHAR2(36),
+  cod_inf_usuario  VARCHAR2(36),
+  cod_comercio     VARCHAR2(36),
+  tipo             VARCHAR2(36),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_consulta
+  is 'Autogenerado - UID';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_con_recibida
+  is 'RequestId';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_proceso
+  is 'ProcessId';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_baul
+  is 'VaultId';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_billetera
+  is 'WalletId';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_consultante
+  is 'RequestorId';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_tokenizacion
+  is 'Referencia a TokenRefId y PanRefIUd';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_inf_usuario
+  is 'Código que identifica el token del usuario';
+comment on column IT.BW_TOK_TAR_CONSULTAS.cod_comercio
+  is 'Codigo que identifica al comercio';
+comment on column IT.BW_TOK_TAR_CONSULTAS.tipo
+  is 'Servicio API';
+comment on column IT.BW_TOK_TAR_CONSULTAS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_CONSULTAS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_CONSULTAS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_CONSULTAS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_CONSULTAS
+  add constraint PK_BW_TOK_TAR_CONSULTAS primary key (COD_CONSULTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_CONSULTAS
+  add constraint FK_BTTCONS_COD_INF_USUARIO foreign key (COD_INF_USUARIO)
+  references IT.BW_TOK_TAR_INF_USUARIOS (COD_INF_USUARIO);
+alter table IT.BW_TOK_TAR_CONSULTAS
+  add constraint FK_BTTCONSULTAS_COD_COMERCIO foreign key (COD_COMERCIO)
+  references IT.BW_TOK_TAR_COMERCIOS (COD_COMERCIO);
+alter table IT.BW_TOK_TAR_CONSULTAS
+  add constraint FK_BTTCONSULTAS_COD_TOKEN foreign key (COD_TOKENIZACION)
+  references IT.BW_TOK_TAR_TOKENIZACION (COD_TOKENIZACION);
+

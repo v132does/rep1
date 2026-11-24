@@ -1,0 +1,22 @@
+create table IT.GE_ENTES_EXI
+(
+  cod_ente      NUMBER(5) not null,
+  descripcion   VARCHAR2(60) not null,
+  cod_persona   VARCHAR2(10) not null,
+  tipo          VARCHAR2(2) not null,
+  comentario    VARCHAR2(4000),
+  cod_ent_bitti NUMBER(5) not null,
+  cod_per_bitti VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

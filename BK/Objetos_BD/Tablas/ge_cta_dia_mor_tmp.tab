@@ -1,0 +1,50 @@
+create table IT.GE_CTA_DIA_MOR_TMP
+(
+  nro_cuenta    VARCHAR2(15) not null,
+  ano           NUMBER(4) not null,
+  mes           NUMBER(2) not null,
+  cod_modulo    NUMBER(3),
+  cod_modalidad NUMBER(3),
+  cod_persona   VARCHAR2(10),
+  dia_mora      NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CTA_DIA_MOR_TMP.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.GE_CTA_DIA_MOR_TMP.ano
+  is 'Año.';
+comment on column IT.GE_CTA_DIA_MOR_TMP.mes
+  is 'Mes.';
+comment on column IT.GE_CTA_DIA_MOR_TMP.cod_modulo
+  is 'Cod. de Módulo.';
+comment on column IT.GE_CTA_DIA_MOR_TMP.cod_modalidad
+  is 'Cod. de Modalidad.';
+comment on column IT.GE_CTA_DIA_MOR_TMP.cod_persona
+  is 'Cod. Persona.';
+comment on column IT.GE_CTA_DIA_MOR_TMP.dia_mora
+  is 'Días Mora.';
+alter table IT.GE_CTA_DIA_MOR_TMP
+  add constraint PK_GE_CTA_DIA_MOR_TMP primary key (MES, ANO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

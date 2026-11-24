@@ -1,0 +1,219 @@
+create table IT.BW_MOVIMIENTOS
+(
+  nro_documento     NUMBER(15) not null,
+  cod_per_principal VARCHAR2(10) not null,
+  cod_per_ingreso   VARCHAR2(10) not null,
+  clave             VARCHAR2(40) not null,
+  fec_hora          DATE not null,
+  cod_tip_mensaje   VARCHAR2(3) not null,
+  nro_cuenta        VARCHAR2(15),
+  cod_moneda        VARCHAR2(3),
+  monto             NUMBER(18,2) default 0,
+  nro_cta_contra    VARCHAR2(15),
+  mto_contra        NUMBER(18,2),
+  cantidad          NUMBER(10),
+  etiqueta          VARCHAR2(50),
+  dato              VARCHAR2(50),
+  etiqueta2         VARCHAR2(50),
+  dato2             VARCHAR2(50),
+  nro_caja          NUMBER(3) not null,
+  dir_ip            VARCHAR2(20),
+  cod_respuesta     VARCHAR2(3),
+  observacion       VARCHAR2(1000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  parametros        VARCHAR2(1000),
+  etiqueta3         VARCHAR2(50),
+  dato3             VARCHAR2(50),
+  nro_telefono      VARCHAR2(20),
+  nro_doc_pendiente NUMBER(15),
+  nro_movimiento    NUMBER(15),
+  canal             VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_MOVIMIENTOS
+  is 'Movimientos de Homebanking y TAS.';
+comment on column IT.BW_MOVIMIENTOS.nro_documento
+  is 'Número del Documento u Operación.';
+comment on column IT.BW_MOVIMIENTOS.cod_per_principal
+  is 'Código de la Persona Principal de Cuenta.';
+comment on column IT.BW_MOVIMIENTOS.cod_per_ingreso
+  is 'Persona que ingresó la Operación.';
+comment on column IT.BW_MOVIMIENTOS.clave
+  is 'Clave de la persona que accedió.';
+comment on column IT.BW_MOVIMIENTOS.fec_hora
+  is 'Fecha y Hora de la Operación.';
+comment on column IT.BW_MOVIMIENTOS.cod_tip_mensaje
+  is 'Código del Tipo de Mensaje del Homebanking.';
+comment on column IT.BW_MOVIMIENTOS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.BW_MOVIMIENTOS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.BW_MOVIMIENTOS.monto
+  is 'Monto.';
+comment on column IT.BW_MOVIMIENTOS.nro_cta_contra
+  is 'Número de Cuenta de Contrapartida (para el caso de Transferencias).';
+comment on column IT.BW_MOVIMIENTOS.mto_contra
+  is 'Monto en la cuenta de contrapartida.';
+comment on column IT.BW_MOVIMIENTOS.cantidad
+  is 'Cantidad (si el movimiento involucra por ej. chequeras).';
+comment on column IT.BW_MOVIMIENTOS.etiqueta
+  is 'Etiqueta del Dato Adicional.';
+comment on column IT.BW_MOVIMIENTOS.dato
+  is 'Dato Adicional.';
+comment on column IT.BW_MOVIMIENTOS.etiqueta2
+  is 'Etiqueta 2 adicional.';
+comment on column IT.BW_MOVIMIENTOS.dato2
+  is 'Dato 2 adicional.';
+comment on column IT.BW_MOVIMIENTOS.nro_caja
+  is 'Número de Terminal desde la cual se accede.';
+comment on column IT.BW_MOVIMIENTOS.dir_ip
+  is 'Dirección IP desde la cual se accedió.';
+comment on column IT.BW_MOVIMIENTOS.cod_respuesta
+  is 'Respuesta.';
+comment on column IT.BW_MOVIMIENTOS.observacion
+  is 'Observación de la Operación.';
+comment on column IT.BW_MOVIMIENTOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_MOVIMIENTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_MOVIMIENTOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_MOVIMIENTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_MOVIMIENTOS.parametros
+  is 'Parametros';
+comment on column IT.BW_MOVIMIENTOS.etiqueta3
+  is 'Etiqueta 3 Dato Adicional.';
+comment on column IT.BW_MOVIMIENTOS.dato3
+  is 'Dato 3 Dato Adicional.';
+comment on column IT.BW_MOVIMIENTOS.nro_telefono
+  is 'Numero de Telefono.';
+comment on column IT.BW_MOVIMIENTOS.nro_doc_pendiente
+  is 'Número de documento de la tabla bw_mov_pendiente';
+comment on column IT.BW_MOVIMIENTOS.nro_movimiento
+  is 'Número autogenerado que se guarda en ge_movimientos, sirve para relacionar ambas tablas.';
+comment on column IT.BW_MOVIMIENTOS.canal
+  is 'Canal desde la cual se accede en la WEB';
+create index IT.IN_BMOVI_COD_TIP_MENSAJE on IT.BW_MOVIMIENTOS (COD_TIP_MENSAJE, COD_RESPUESTA, COD_PER_INGRESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMOVI_COD_MONEDA on IT.BW_MOVIMIENTOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMOVI_COD_PER_INGRESO on IT.BW_MOVIMIENTOS (COD_PER_INGRESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMOVI_COD_PER_PRINCIPAL on IT.BW_MOVIMIENTOS (COD_PER_PRINCIPAL, FEC_HORA, COD_TIP_MENSAJE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMOVI_COD_TIP_MENSAJE on IT.BW_MOVIMIENTOS (COD_TIP_MENSAJE, COD_RESPUESTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMOVI_DATO on IT.BW_MOVIMIENTOS (DATO, DATO3)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMOVI_FEC_INSERCION on IT.BW_MOVIMIENTOS (TRUNC(FEC_INSERCION))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_MOVIMIENTOS
+  add constraint PK_BW_MOVIMIENTOS primary key (NRO_DOCUMENTO, NRO_CAJA, FEC_HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_MOVIMIENTOS
+  add constraint FK_WMOVI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.BW_MOVIMIENTOS
+  add constraint FK_WMOVI_COD_PER_INGRESO foreign key (COD_PER_INGRESO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_MOVIMIENTOS
+  add constraint FK_WMOVI_COD_PER_PRINCIPAL foreign key (COD_PER_PRINCIPAL)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_MOVIMIENTOS
+  add constraint FK_WMOVI_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);

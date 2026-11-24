@@ -1,0 +1,140 @@
+create table IT.TA_TARJETAS_CRM
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  nro_tarjeta          VARCHAR2(25) not null,
+  cod_persona          VARCHAR2(10),
+  cod_estado           NUMBER(2),
+  fec_vencimiento      DATE,
+  cod_causa            NUMBER(3),
+  nom_embozar          VARCHAR2(26),
+  nom_enviar           VARCHAR2(26),
+  vigente              VARCHAR2(1),
+  fec_emision          DATE,
+  fec_solicitud        DATE,
+  tip_envio            VARCHAR2(1),
+  referencia           VARCHAR2(35),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     TIMESTAMP(6) default current_timestamp not null,
+  nro_planilla         NUMBER(8),
+  tip_planilla         NUMBER(2),
+  nro_pla_anterior     NUMBER(8),
+  fec_entrega          DATE,
+  fec_activacion       DATE,
+  observacion          VARCHAR2(200),
+  pre_embozada         VARCHAR2(1),
+  pla_ope_por_contado  NUMBER(18,2),
+  pla_ope_mto_contado  NUMBER(18,2),
+  pla_ope_mto_adelanto NUMBER(18,2),
+  pla_ope_por_adelanto NUMBER(18,2),
+  tip_accion           VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TARJETAS_CRM
+  is 'Es la tabla de relacion Cuenta-Tarjeta.';
+comment on column IT.TA_TARJETAS_CRM.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.TA_TARJETAS_CRM.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_TARJETAS_CRM.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.TA_TARJETAS_CRM.cod_estado
+  is 'Estado de la Tarjeta ( 6=activa ).';
+comment on column IT.TA_TARJETAS_CRM.fec_vencimiento
+  is 'Fecha de vencimiento de la Tarjeta.';
+comment on column IT.TA_TARJETAS_CRM.cod_causa
+  is 'Codigo de Motivo de Cancelacion.';
+comment on column IT.TA_TARJETAS_CRM.nom_embozar
+  is 'Nombre a Embozar.';
+comment on column IT.TA_TARJETAS_CRM.nom_enviar
+  is 'Nombre a enviar a la Administradora.';
+comment on column IT.TA_TARJETAS_CRM.vigente
+  is 'Indicador si esta vigente o no ( S=si, N=no ).';
+comment on column IT.TA_TARJETAS_CRM.fec_emision
+  is 'Fecha de Emision.';
+comment on column IT.TA_TARJETAS_CRM.fec_solicitud
+  is 'Fecha de Solicitud.';
+comment on column IT.TA_TARJETAS_CRM.tip_envio
+  is 'Tipo de Envio: D-Direccion, R-Retener en, K-Casilla de correo, C-Casillero.';
+comment on column IT.TA_TARJETAS_CRM.referencia
+  is 'En base al tipo de envio esta columna tendra la direccion o sucursal de retencion de los documentos.';
+comment on column IT.TA_TARJETAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_TARJETAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_TARJETAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TARJETAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TARJETAS_CRM.nro_planilla
+  is 'Nro.Planilla.';
+comment on column IT.TA_TARJETAS_CRM.tip_planilla
+  is 'Tipo Planilla.';
+comment on column IT.TA_TARJETAS_CRM.nro_pla_anterior
+  is 'Nro de planilla anterior.';
+comment on column IT.TA_TARJETAS_CRM.fec_entrega
+  is 'Fecha de entrega.';
+comment on column IT.TA_TARJETAS_CRM.fec_activacion
+  is 'Fecha de Activacion de la Tarjeta.';
+comment on column IT.TA_TARJETAS_CRM.observacion
+  is 'Observacion.';
+comment on column IT.TA_TARJETAS_CRM.pre_embozada
+  is 'Indicador de Pre Embozada.';
+comment on column IT.TA_TARJETAS_CRM.pla_ope_por_contado
+  is 'Plan Contado. Operador Porcentaje Contado';
+comment on column IT.TA_TARJETAS_CRM.pla_ope_mto_contado
+  is 'Plan Contado. Operador Monto Contado';
+comment on column IT.TA_TARJETAS_CRM.pla_ope_mto_adelanto
+  is 'Plan Adelanto. Operador Monto Adelanto';
+comment on column IT.TA_TARJETAS_CRM.pla_ope_por_adelanto
+  is 'Plan Adelanto. Operador Porcentaje Adelanto';
+comment on column IT.TA_TARJETAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.IN_CRM_COD_PERSONA on IT.TA_TARJETAS_CRM (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CRM_NRO_CUENTA on IT.TA_TARJETAS_CRM (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 448K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CRM_VIGENTE on IT.TA_TARJETAS_CRM (NRO_CUENTA, COD_PERSONA, VIGENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

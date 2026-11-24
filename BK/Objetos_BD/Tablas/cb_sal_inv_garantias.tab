@@ -1,0 +1,85 @@
+create table IT.CB_SAL_INV_GARANTIAS
+(
+  fecha            DATE not null,
+  cod_garantia     NUMBER(3) not null,
+  nro_garantia     NUMBER(7) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  tip_saldo        VARCHAR2(1) not null,
+  clasificacion    VARCHAR2(20),
+  mto_deuda        NUMBER(18,2),
+  mto_dis_garantia NUMBER(18,2),
+  cod_rubro        VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default SYSDATE,
+  cod_transaccion  NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INV_GARANTIAS
+  is 'Tabla que registra el inventario contable de garantías.';
+comment on column IT.CB_SAL_INV_GARANTIAS.fecha
+  is 'Fecha.';
+comment on column IT.CB_SAL_INV_GARANTIAS.cod_garantia
+  is 'Código de Garantía.';
+comment on column IT.CB_SAL_INV_GARANTIAS.nro_garantia
+  is 'Nro. de Garantía.';
+comment on column IT.CB_SAL_INV_GARANTIAS.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.CB_SAL_INV_GARANTIAS.tip_saldo
+  is 'Tipo de Saldo ( C - Capital, I - Interes).';
+comment on column IT.CB_SAL_INV_GARANTIAS.clasificacion
+  is 'Clasificación.';
+comment on column IT.CB_SAL_INV_GARANTIAS.mto_deuda
+  is 'Monto de Deuda.';
+comment on column IT.CB_SAL_INV_GARANTIAS.mto_dis_garantia
+  is 'Monto de Cobertura de la Garantía.';
+comment on column IT.CB_SAL_INV_GARANTIAS.cod_rubro
+  is 'Código del Rubro Contable.';
+comment on column IT.CB_SAL_INV_GARANTIAS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_SAL_INV_GARANTIAS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_SAL_INV_GARANTIAS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_SAL_INV_GARANTIAS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+comment on column IT.CB_SAL_INV_GARANTIAS.cod_transaccion
+  is 'Codigo de transaccion.';
+create index IT.IN_BINGAR_FECHA on IT.CB_SAL_INV_GARANTIAS (FECHA, NRO_CUENTA, TIP_SALDO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_INV_GARANTIAS
+  add constraint PK_CB_SAL_INV_GARANTIAS primary key (FECHA, COD_GARANTIA, NRO_GARANTIA, NRO_CUENTA, TIP_SALDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

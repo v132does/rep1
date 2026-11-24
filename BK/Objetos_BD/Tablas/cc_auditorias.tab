@@ -1,0 +1,56 @@
+create table IT.CC_AUDITORIAS
+(
+  tabla          VARCHAR2(40) not null,
+  clave          VARCHAR2(100) not null,
+  usuario        VARCHAR2(30) not null,
+  fec_sistema    DATE not null,
+  fec_calendario DATE not null,
+  tip_novedad    VARCHAR2(1) not null,
+  terminal       VARCHAR2(40),
+  detalle        VARCHAR2(2000) not null,
+  origen         VARCHAR2(40)
+)
+tablespace IT_AUD
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_AUDITORIAS
+  is 'Registro de Auditoria de Cuentas Corrientes.';
+comment on column IT.CC_AUDITORIAS.tabla
+  is 'Nombre de la tabla asociada.';
+comment on column IT.CC_AUDITORIAS.clave
+  is 'Clave primaria.';
+comment on column IT.CC_AUDITORIAS.usuario
+  is 'Usuario que realizo el cambio.';
+comment on column IT.CC_AUDITORIAS.fec_sistema
+  is 'Fecha del sistema.';
+comment on column IT.CC_AUDITORIAS.fec_calendario
+  is 'Fecha calendario del sistema.';
+comment on column IT.CC_AUDITORIAS.tip_novedad
+  is 'Tipo de novedad (modificacion /borrado).';
+comment on column IT.CC_AUDITORIAS.terminal
+  is 'Nombre de la terminal de donde se realizo el cambio.';
+comment on column IT.CC_AUDITORIAS.detalle
+  is 'Detalle de los cambios realizados.';
+comment on column IT.CC_AUDITORIAS.origen
+  is 'Programa origen de la operacion.';
+create index IT.IN_CAUDI_FEC_SISTEMA on IT.CC_AUDITORIAS (TABLA, CLAVE, USUARIO, FEC_SISTEMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

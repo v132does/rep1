@@ -1,0 +1,119 @@
+create table IT.PR_VALUACIONES_RES
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  fecha                DATE not null,
+  estado               VARCHAR2(1) not null,
+  tipo                 VARCHAR2(1) not null,
+  tip_interes          VARCHAR2(1) not null,
+  tip_renovacion       VARCHAR2(1),
+  tip_documento        VARCHAR2(1) not null,
+  sal_capital          NUMBER(18,2) not null,
+  sal_interes          NUMBER(18,2) not null,
+  sal_int_adelantado   NUMBER(18,2),
+  dev_no_cobrado       NUMBER(18,2) not null,
+  tot_gar_computables  NUMBER(18,2),
+  tot_prevision        NUMBER(18,2),
+  cat_automatica       NUMBER(3,2) not null,
+  cotizacion           NUMBER(14,8) not null,
+  tot_val_capital      NUMBER(18,2) not null,
+  tot_val_interes      NUMBER(18,2) not null,
+  tot_val_int_ade      NUMBER(18,2) not null,
+  tot_val_devengado    NUMBER(18,2) not null,
+  tot_val_garantia     NUMBER(18,2) not null,
+  tot_val_prevision    NUMBER(18,2) not null,
+  usu_insercion        VARCHAR2(10) not null,
+  fec_insercion        DATE not null,
+  usu_modificacion     VARCHAR2(10) not null,
+  fec_modificacion     DATE not null,
+  dev_suspenso         NUMBER(18,2),
+  tot_val_suspenso     NUMBER(18,2) not null,
+  cot_anterior         NUMBER(14,8),
+  val_int_devengar     NUMBER(18,2),
+  tot_val_int_devengar NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_VALUACIONES_RES
+  is 'Resumen de Valuaciones.';
+comment on column IT.PR_VALUACIONES_RES.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.PR_VALUACIONES_RES.fecha
+  is 'Fecha.';
+comment on column IT.PR_VALUACIONES_RES.estado
+  is 'Estado.';
+comment on column IT.PR_VALUACIONES_RES.tipo
+  is 'Tipo de Valuación.';
+comment on column IT.PR_VALUACIONES_RES.tip_interes
+  is 'Tipo de Interés.';
+comment on column IT.PR_VALUACIONES_RES.tip_renovacion
+  is 'Tipo de Renovación.';
+comment on column IT.PR_VALUACIONES_RES.tip_documento
+  is 'Tipo de Documento.';
+comment on column IT.PR_VALUACIONES_RES.sal_capital
+  is 'Saldo de Capital.';
+comment on column IT.PR_VALUACIONES_RES.sal_interes
+  is 'Saldo de Interés.';
+comment on column IT.PR_VALUACIONES_RES.sal_int_adelantado
+  is 'Saldo de Interés Adelantado o Documentado.';
+comment on column IT.PR_VALUACIONES_RES.dev_no_cobrado
+  is 'Devengado no Cobrado.';
+comment on column IT.PR_VALUACIONES_RES.tot_gar_computables
+  is 'Total de Garantías Computables.';
+comment on column IT.PR_VALUACIONES_RES.tot_prevision
+  is 'Total de Previsión.';
+comment on column IT.PR_VALUACIONES_RES.cat_automatica
+  is 'Categoría Automática.';
+comment on column IT.PR_VALUACIONES_RES.cotizacion
+  is 'Cotización Actual.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_capital
+  is 'Total Valuado por Capital.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_interes
+  is 'Total Valuado por Interés.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_int_ade
+  is 'Total Valuado por Interés Adelantado.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_devengado
+  is 'Total Valuado por Devengado.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_garantia
+  is 'Total Valuado por Garantía.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_prevision
+  is 'Total Valuado por Previsión.';
+comment on column IT.PR_VALUACIONES_RES.usu_insercion
+  is 'Usuario que realizó la Inserción del Registro.';
+comment on column IT.PR_VALUACIONES_RES.fec_insercion
+  is 'Fecha en que se Insertó el Registro.';
+comment on column IT.PR_VALUACIONES_RES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_VALUACIONES_RES.fec_modificacion
+  is 'Fecha en que se realizó la Última Modificación en el Registro.';
+comment on column IT.PR_VALUACIONES_RES.dev_suspenso
+  is 'Devengado en Suspenso.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_suspenso
+  is 'Total Valuado por Devengado en Suspenso.';
+comment on column IT.PR_VALUACIONES_RES.cot_anterior
+  is 'Cotización anterior aplicada.';
+comment on column IT.PR_VALUACIONES_RES.val_int_devengar
+  is 'Interés a Devengar.';
+comment on column IT.PR_VALUACIONES_RES.tot_val_int_devengar
+  is 'Total Valuado por Interés a Devengar.';
+create index IT.IN_PVRES_NRO_CUENTA on IT.PR_VALUACIONES_RES (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

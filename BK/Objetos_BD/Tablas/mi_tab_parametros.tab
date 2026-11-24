@@ -1,0 +1,21 @@
+create table IT.MI_TAB_PARAMETROS
+(
+  tabla                VARCHAR2(30) not null,
+  cantidad             NUMBER,
+  fec_ult_modificacion DATE,
+  actualizado          VARCHAR2(1),
+  cod_modulo           NUMBER(4),
+  cla_where            VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

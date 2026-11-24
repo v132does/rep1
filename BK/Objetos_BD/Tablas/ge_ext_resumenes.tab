@@ -1,0 +1,98 @@
+create table IT.GE_EXT_RESUMENES
+(
+  nro_cuenta       VARCHAR2(20),
+  cod_persona      VARCHAR2(10),
+  fec_extracto     DATE,
+  tipo             VARCHAR2(1),
+  mto_capital      NUMBER(18,2) default 0,
+  mto_interes      NUMBER(18,2) default 0,
+  fec_vencimiento  DATE,
+  cod_extracto     NUMBER(5),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fre_extracto     VARCHAR2(1),
+  fec_inicio       DATE,
+  beneficiario     VARCHAR2(200),
+  sal_disponible   NUMBER(18,2) default 0,
+  cod_moneda       VARCHAR2(3),
+  cod_modalidad    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_RESUMENES
+  is 'Tabla que contiene el resumen por tipo de cuenta (tarjeta - prestamo - cda - pf) (Extracto a Requerimiento) ** Mantener datos del mes en curso **';
+comment on column IT.GE_EXT_RESUMENES.nro_cuenta
+  is 'Numero de Cuenta de la Operacion.';
+comment on column IT.GE_EXT_RESUMENES.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.GE_EXT_RESUMENES.fec_extracto
+  is 'Fecha de Extracto.';
+comment on column IT.GE_EXT_RESUMENES.tipo
+  is 'Tipo de Resumen.';
+comment on column IT.GE_EXT_RESUMENES.mto_capital
+  is 'Monto de Capital.';
+comment on column IT.GE_EXT_RESUMENES.mto_interes
+  is 'Monto de Interes.';
+comment on column IT.GE_EXT_RESUMENES.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_EXT_RESUMENES.cod_extracto
+  is 'Codigo de Extracto.';
+comment on column IT.GE_EXT_RESUMENES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EXT_RESUMENES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EXT_RESUMENES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_RESUMENES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_RESUMENES.fre_extracto
+  is 'Frecuencia de Extracto (D, S, M).';
+comment on column IT.GE_EXT_RESUMENES.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.GE_EXT_RESUMENES.beneficiario
+  is 'Beneficiario.';
+comment on column IT.GE_EXT_RESUMENES.sal_disponible
+  is 'Saldo Disponible.';
+comment on column IT.GE_EXT_RESUMENES.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_EXT_RESUMENES.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+create index IT.IN_GERES_COD_PERSONA on IT.GE_EXT_RESUMENES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GERES_NRO_CUENTA on IT.GE_EXT_RESUMENES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EXT_RESUMENES
+  add constraint FK_GERES_NRO_CUENTA foreign key (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA)
+  references IT.GE_EXT_CLI_CUENTAS (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA);
+

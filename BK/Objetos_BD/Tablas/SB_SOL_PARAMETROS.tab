@@ -1,0 +1,32 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_PARAMETROS
+-- Descripción: Parámetros de configuración para archivos Excel
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_PARAMETROS (
+    NOMBRE                VARCHAR2(100),
+    VALOR                 VARCHAR2(4000),
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.SB_SOL_PARAMETROS IS 'Parametros de configuracion del proceso de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_PARAMETROS.NOMBRE IS 'Nombre del parametro de configuracion';
+COMMENT ON COLUMN IT.SB_SOL_PARAMETROS.VALOR IS 'Valor del parametro';
+COMMENT ON COLUMN IT.SB_SOL_PARAMETROS.fecha_creacion IS 'Fecha de creacion del parametro';
+COMMENT ON COLUMN IT.SB_SOL_PARAMETROS.fecha_actualizacion IS 'Fecha de ultima actualizacion del parametro';
+

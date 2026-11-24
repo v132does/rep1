@@ -1,0 +1,53 @@
+create table IT.BW_ARC_SEMESTRAL
+(
+  cod_persona      VARCHAR2(30) not null,
+  periodo          VARCHAR2(30),
+  nom_archivo      VARCHAR2(100),
+  titulo           VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_ARC_SEMESTRAL
+  is 'tabla para archivos adjuntos semestrales ';
+comment on column IT.BW_ARC_SEMESTRAL.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.BW_ARC_SEMESTRAL.periodo
+  is 'Periodo';
+comment on column IT.BW_ARC_SEMESTRAL.nom_archivo
+  is 'Nombre de archivo';
+comment on column IT.BW_ARC_SEMESTRAL.titulo
+  is 'Titulo';
+comment on column IT.BW_ARC_SEMESTRAL.usu_insercion
+  is 'Usuario Insercion';
+comment on column IT.BW_ARC_SEMESTRAL.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.BW_ARC_SEMESTRAL.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_ARC_SEMESTRAL.fec_modificacion
+  is 'Fecha Modificacion';
+create index IT.IN_COD_PER_BW_ARC_SEMESTRAL on IT.BW_ARC_SEMESTRAL (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

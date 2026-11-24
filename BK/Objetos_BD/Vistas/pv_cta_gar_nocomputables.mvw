@@ -1,0 +1,38 @@
+﻿CREATE MATERIALIZED VIEW IT.PV_CTA_GAR_NOCOMPUTABLES
+REFRESH FORCE ON DEMAND
+AS
+SELECT 'PR' AS tipo, b.cod_modulo, a.ROWID AS row_id, a.nro_cuenta, a.nro_garantia, a.cod_garantia
+  FROM pr_cta_garantias a, pr_cta_prestamos b, pr_gar_tipos c
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.mto_aplicado = 0
+   AND a.cod_garantia = c.cod_garantia
+   AND c.computable = 'N'
+UNION ALL
+SELECT  'CC' AS tipo, b.cod_modulo, a.ROWID AS row_id, a.nro_cuenta, a.nro_garantia, a.cod_garantia
+  FROM cc_cta_garantias a, cc_cta_corrientes b, pr_gar_tipos c
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.mto_aplicado = 0
+   AND a.cod_garantia = c.cod_garantia
+   AND c.computable = 'N'
+UNION ALL
+SELECT 'TA' AS tipo, b.cod_modulo, a.ROWID AS row_id, a.nro_cuenta, a.nro_garantia, a.cod_garantia
+  FROM ta_cta_garantias a, ta_cta_tarjetas b, pr_gar_tipos c
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.mto_aplicado = 0
+   AND a.cod_garantia = c.cod_garantia
+   AND c.computable = 'N'
+UNION ALL
+SELECT 'OV' AS tipo, b.cod_modulo, a.ROWID AS row_id, a.nro_cuenta, a.nro_garantia, a.cod_garantia
+  FROM ov_cta_garantias a, ov_cta_vencidas b, pr_gar_tipos c
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.mto_aplicado = 0
+   AND a.cod_garantia = c.cod_garantia
+   AND c.computable = 'N'
+UNION ALL
+SELECT 'CX' AS tipo, b.cod_modulo, a.ROWID AS row_id, a.nro_cuenta, a.nro_garantia, a.cod_garantia
+  FROM cx_cta_garantias a, cx_cta_importaciones b, pr_gar_tipos c
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.mto_aplicado = 0
+   AND a.cod_garantia = c.cod_garantia
+   AND c.computable = 'N';
+   CREATE INDEX IT.IN_PCGNC_NRO_CUENTA ON IT.PV_CTA_GAR_NOCOMPUTABLES (NRO_CUENTA);

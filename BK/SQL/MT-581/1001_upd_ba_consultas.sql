@@ -1,0 +1,56 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+update ba_consultas s
+   set s.det_sql = 'select a.id_dep_cheque,
+       a.nro_documento,
+       a.tip_documento,
+       a.nom_completo,
+       a.cod_lote,
+       a.nro_transaccion,
+       a.atm_id,
+       a.cod_cheque,
+       a.cod_banco,
+       a.cta_libradora,
+       a.nro_cheque,
+       a.cod_moneda,
+       a.cod_persona,
+       a.tip_transaccion,
+       a.nro_cuenta,
+       a.monto_cheque,
+       a.nro_solicitud,
+       a.estado,
+       a.fecha,
+       a.est_cheque,
+       trunc(a.fec_insercion) fec_ins,
+       a.usu_insercion,
+       trunc(a.fec_modificacion)fec_modificacion,
+       a.usu_modificacion
+  from (select a.id_dep_cheque,
+               a.nro_documento,
+               a.tip_documento,
+               a.nom_completo,
+               a.cod_lote,
+               a.nro_transaccion,
+               a.atm_id,
+               a.cod_cheque,
+               a.cod_banco,
+               a.cta_libradora,
+               a.nro_cheque,
+               a.cod_moneda,
+               a.cod_persona,
+               a.tip_transaccion,
+               a.nro_cuenta,
+               a.monto_cheque,
+               a.nro_solicitud,
+               a.estado,
+               trunc(a.fecha) fecha,
+               a.est_cheque,
+               trunc(a.fec_insercion) fec_insercion,
+               a.usu_insercion,
+               trunc(a.fec_modificacion) fec_modificacion,
+               a.usu_modificacion
+          from it.cj_dep_chq_atm_reg a) a
+ where '||chr(38)||'P_FILTROS'
+ where s.cod_consulta = 'CD_CHQ_TED';
+ 
+commit;

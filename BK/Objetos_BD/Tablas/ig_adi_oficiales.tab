@@ -1,0 +1,67 @@
+create table IT.IG_ADI_OFICIALES
+(
+  cod_periodo      NUMBER(3) not null,
+  cod_oficial      VARCHAR2(10) not null,
+  cod_adicional    NUMBER(3) not null,
+  monto            NUMBER(18,2) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fecha            DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_ADI_OFICIALES
+  is 'Montos Adicionales a Imputar o Gratificar por Oficial.';
+comment on column IT.IG_ADI_OFICIALES.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_ADI_OFICIALES.cod_oficial
+  is 'Codigo del usuario oficial.';
+comment on column IT.IG_ADI_OFICIALES.cod_adicional
+  is 'Codigo del adicional a imputar o gratificar.';
+comment on column IT.IG_ADI_OFICIALES.monto
+  is 'Monto del adicional.';
+comment on column IT.IG_ADI_OFICIALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_ADI_OFICIALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_ADI_OFICIALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_ADI_OFICIALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.IG_ADI_OFICIALES.fecha
+  is 'Fecha de imputacion del adicional.';
+alter table IT.IG_ADI_OFICIALES
+  add constraint PK_IG_ADI_OFICIALES primary key (COD_PERIODO, COD_OFICIAL, COD_ADICIONAL, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_ADI_OFICIALES
+  add constraint FK_AOFIC_COD_ADICIONAL foreign key (COD_ADICIONAL)
+  references IT.IG_TIP_ADICIONALES (COD_ADICIONAL);
+alter table IT.IG_ADI_OFICIALES
+  add constraint FK_AOFIC_COD_OFICIAL foreign key (COD_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.IG_ADI_OFICIALES
+  add constraint FK_AOFIC_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+

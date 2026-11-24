@@ -1,0 +1,76 @@
+create table IT.MD_INSTRUMENTOS_DET
+(
+  nro_cta_repo       VARCHAR2(15) not null,
+  nro_detalle        NUMBER(3) not null,
+  nro_documento      VARCHAR2(20),
+  cod_moneda         VARCHAR2(3),
+  fec_ini_documento  DATE,
+  fec_ven_documento  DATE,
+  mto_negociacion    NUMBER(18,2),
+  mto_recompra       NUMBER(18,2),
+  mto_interes        NUMBER(18,2),
+  val_tas_porcentaje NUMBER(12,6),
+  mto_titulo         NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_INSTRUMENTOS_DET
+  is 'Detalle de Documentos Recibidos como parte den un Repo Otorgado';
+comment on column IT.MD_INSTRUMENTOS_DET.nro_cta_repo
+  is 'Número de Cuenta Repo de la operación.';
+comment on column IT.MD_INSTRUMENTOS_DET.nro_detalle
+  is 'Número de registro que corresponde a la Cuenta Repo.';
+comment on column IT.MD_INSTRUMENTOS_DET.nro_documento
+  is 'Número del Documento.';
+comment on column IT.MD_INSTRUMENTOS_DET.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.MD_INSTRUMENTOS_DET.fec_ini_documento
+  is 'Fecha de Inicio del Documento.';
+comment on column IT.MD_INSTRUMENTOS_DET.fec_ven_documento
+  is 'Fecha de Vencimiento del Documento.';
+comment on column IT.MD_INSTRUMENTOS_DET.mto_negociacion
+  is 'Monto del Instrumento que es Negociado en la Operacion.';
+comment on column IT.MD_INSTRUMENTOS_DET.mto_recompra
+  is 'Monto de Recompra del Instrumento en Garantia en la Operación de Repo Otorgado.';
+comment on column IT.MD_INSTRUMENTOS_DET.mto_interes
+  is 'Monto de Interes a ser abonado en la Recompra.';
+comment on column IT.MD_INSTRUMENTOS_DET.val_tas_porcentaje
+  is 'Tasa de porcentaje Haircut.';
+comment on column IT.MD_INSTRUMENTOS_DET.mto_titulo
+  is 'Monto nominal de los titulos.';
+comment on column IT.MD_INSTRUMENTOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.MD_INSTRUMENTOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.MD_INSTRUMENTOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.MD_INSTRUMENTOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.MD_INSTRUMENTOS_DET
+  add constraint PK_INSTRUMENTOS_DET primary key (NRO_CTA_REPO, NRO_DETALLE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

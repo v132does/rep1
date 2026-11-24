@@ -1,0 +1,6 @@
+BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:=1; END;
+/
+insert into ge_par_DINAMICOS (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('GEN_EDAD_MIN_INF', '20', null, null, null, null, 'IT', to_date('18-03-2024 16:21:13', 'dd-mm-yyyy hh24:mi:ss'), 'IT', to_date('18-03-2024 16:21:13', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+commit;

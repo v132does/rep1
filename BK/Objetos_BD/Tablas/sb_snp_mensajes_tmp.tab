@@ -1,0 +1,41 @@
+create global temporary table IT.SB_SNP_MENSAJES_TMP
+(
+  cod_mensaje    VARCHAR2(35),
+  orden          NUMBER,
+  campo          VARCHAR2(3),
+  valor          VARCHAR2(4000),
+  descripcion    VARCHAR2(200),
+  ind_requerido  VARCHAR2(1),
+  err_formato    VARCHAR2(1000),
+  nro_linea      NUMBER,
+  nro_detalle    NUMBER,
+  err_validacion VARCHAR2(1000),
+  det_sql        VARCHAR2(4000)
+)
+on commit preserve rows;
+comment on table IT.SB_SNP_MENSAJES_TMP
+  is 'Tabla temporal de tratamiento del mensaje con la lógica de negocios.';
+comment on column IT.SB_SNP_MENSAJES_TMP.cod_mensaje
+  is 'Código de Mensaje.';
+comment on column IT.SB_SNP_MENSAJES_TMP.orden
+  is 'Orden de los datos del MT a procesar.';
+comment on column IT.SB_SNP_MENSAJES_TMP.campo
+  is 'Indentificador del Campo (tag) del MT.';
+comment on column IT.SB_SNP_MENSAJES_TMP.valor
+  is 'Valor desparseado con formato validado.';
+comment on column IT.SB_SNP_MENSAJES_TMP.descripcion
+  is 'Descripción del Campo.';
+comment on column IT.SB_SNP_MENSAJES_TMP.ind_requerido
+  is 'Indicador de si es obligatorio o no (S/N).';
+comment on column IT.SB_SNP_MENSAJES_TMP.err_formato
+  is 'Errores de Validación de Formato del Campo.';
+comment on column IT.SB_SNP_MENSAJES_TMP.nro_linea
+  is 'Nro. de Linea correspondiente al Campo (Tag).';
+comment on column IT.SB_SNP_MENSAJES_TMP.nro_detalle
+  is 'Indicador de detalle, si el campo se repite varias veces (batch). Ej. (0 = no es detalle, > 0 corresponde al nro. de detalle).';
+comment on column IT.SB_SNP_MENSAJES_TMP.err_validacion
+  is 'Errores de validación de Datos en ITGF.';
+comment on column IT.SB_SNP_MENSAJES_TMP.det_sql
+  is 'Script para Validación de Datos.';
+create index IT.IN_SNMEN on IT.SB_SNP_MENSAJES_TMP (COD_MENSAJE, CAMPO);
+

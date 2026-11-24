@@ -1,0 +1,43 @@
+-- =====================================================================
+-- TABLA: IT.TMP_COD_RUBRO_FILTRO
+-- Descripción: Tabla de rubros para filtrado en el proceso
+-- =====================================================================
+
+CREATE TABLE IT.TMP_COD_RUBRO_FILTRO (
+    COD_RUBRO             VARCHAR2(20)        NOT NULL,
+    DESCRIPCION           VARCHAR2(200)       NOT NULL,
+    ACTIVO                VARCHAR2(1)         DEFAULT 'S' NOT NULL,
+    SECCION               VARCHAR2(60)        NOT NULL,
+    ORDEN                 NUMBER              NOT NULL,
+    USU_CREACION          VARCHAR2(30)        DEFAULT USER NOT NULL,
+    FEC_CREACION          DATE                DEFAULT SYSDATE NOT NULL,
+    USU_MODIFICACION      VARCHAR2(30)        DEFAULT USER NOT NULL,
+    FEC_MODIFICACION      DATE                DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT PK_TMP_COD_RUBRO_FILTRO PRIMARY KEY (COD_RUBRO),
+    CONSTRAINT CK_TMP_COD_RUBRO_FILTRO_ACTIVO CHECK (ACTIVO IN ('S', 'N'))
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.TMP_COD_RUBRO_FILTRO IS 'Tabla temporal de rubros para filtrado en el proceso de solvencia';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.COD_RUBRO IS 'Codigo del rubro contable (clave primaria)';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.DESCRIPCION IS 'Descripcion del rubro';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.ACTIVO IS 'Indica si el rubro esta activo: S=Si, N=No';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.SECCION IS 'Seccion a la que pertenece el rubro';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.ORDEN IS 'Orden de presentacion en el informe';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.USU_CREACION IS 'Usuario que creo el registro';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.FEC_CREACION IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.USU_MODIFICACION IS 'Usuario que realizo la ultima modificacion';
+COMMENT ON COLUMN IT.TMP_COD_RUBRO_FILTRO.FEC_MODIFICACION IS 'Fecha de la ultima modificacion del registro';

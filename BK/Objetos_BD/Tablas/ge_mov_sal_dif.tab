@@ -1,0 +1,84 @@
+create table IT.GE_MOV_SAL_DIF (
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  nro_secuencia       NUMBER(3) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_transaccion     NUMBER(4,0),
+  cod_modulo          NUMBER(3,0),
+  cod_modalidad       NUMBER(3,0),
+  monto               NUMBER(18,2) default 0,
+  estado              VARCHAR2(1),
+  conciliado          VARCHAR2(1) DEFAULT 'N',
+  usu_insercion       VARCHAR2(10) DEFAULT SUBSTR(USER,1,10) NOT NULL,
+  fec_insercion       DATE DEFAULT SYSDATE,
+  usu_modificacion    VARCHAR2(10) DEFAULT SUBSTR(USER,1,10) NOT NULL,
+  fec_modificacion    DATE DEFAULT SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_SAL_DIF
+  add constraint PK_GE_MOV_SAL_DIF primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_SAL_DIF
+  is 'Contiene los movimientos con actualizacion de saldo diferido para conciliacion posterior.';
+comment on column IT.GE_MOV_SAL_DIF.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_MOV_SAL_DIF.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_SAL_DIF.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_MOV_SAL_DIF.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_MOV_SAL_DIF.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_MOV_SAL_DIF.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_MOV_SAL_DIF.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MOV_SAL_DIF.monto
+  is 'Importe de la transaccion.';
+comment on column IT.GE_MOV_SAL_DIF.estado
+  is 'Estado del movimiento.';
+comment on column IT.GE_MOV_SAL_DIF.conciliado
+  is 'Indica si el monto de este movimiento fue conciliado. (N: no, P: en proceso, S: si)';
+comment on column IT.GE_MOV_SAL_DIF.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MOV_SAL_DIF.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MOV_SAL_DIF.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_SAL_DIF.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_NRO_CUENTA_FEC_INS on IT.GE_MOV_SAL_DIF (NRO_CUENTA, CONCILIADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

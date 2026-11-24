@@ -1,0 +1,92 @@
+create materialized view IT.VM_CTA_COBRANZAS
+refresh force on demand
+as
+select a.nro_cuenta NRO_OPERACION,
+       a.COD_MONEDA,
+       a.COD_MODALIDAD,
+       case
+         when e.tipo = 'F' then
+          trim(pf.pri_nombre) || ' ' || trim(pf.seg_nombre)
+         else
+          trim(E.NOM_COMPLETO)
+       end as NOM_CLIENTE,
+       trim(pf.pri_apellido) || ' ' || trim(pf.seg_apellido) as APE_CLIENTE,
+       e.TIPO,
+       trim(replace(e.nro_documento, chr(10), '')) NRO_DOC_CLIENTE,
+       e.cod_tip_documento COD_TIPO_DOC_CLIENTE,
+       pf.cod_sexo SEXO,
+       c.cli_confidencial,
+       c.cli_especial,
+       nvl(fug_es_empleado(pf.cod_persona),'N') es_funcionario,
+       nvl(to_char(pf.fec_nacimiento,'DD/MM/YYYY'), to_char(pj.fec_apertura,'DD/MM/YYYY')) fec_nacimiento,
+       decode(b.relacion, 'Y', 'C', b.relacion) RELACION,
+       vin.NOM_CONYUGE,
+       vin.APE_CONYUGE,
+       vin.nro_documento NRO_DOC_CONYUGE,
+       vin.cod_tip_documento COD_TIP_DOC_CONYUGE,
+       vin.cod_sexo SEXO_CONYUGE,
+       a.en_juicio JUDICIALIZADO,
+       to_char(a.fec_juicio, 'DD/MM/YYYY') FEC_JUICIO,
+       a.cod_ent_juicio,
+       ' ' INFORMCONF,
+       ' '  FEC_INFORMCONF,
+       ' '  INHIBIDO,
+       ' '  FEC_INHIBICION,
+       to_char(a.fec_inicio, 'DD/MM/YYYY') FEC_INICIO,
+       NVL(a.mto_capital, 0) MTO_CAPITAL,
+       NVL(a.sal_capital, 0) SAL_CAPITAL,
+       NVL(a.sal_interes, 0) SAL_INTERES,
+       NVL(a.sal_int_adelantado, 0) SAL_INT_ADELANTADO,
+       NVL(a.monto, 0) MONTO,
+       NVL(a.dev_acumulado, 0) DEV_ACUMULADO,
+       NVL(a.dev_no_cobrado, 0) DEV_NO_COBRADO,
+       NVL(a.dev_suspenso, 0) DEV_SUSPENSO,
+       to_char(a.fec_ult_devengado, 'DD/MM/YYYY') fec_ult_devengado,
+       a.tipo TIP_PRESTAMO,
+       a.tip_interes TIP_INTERES,
+       NVL(a.val_tasa, 0) VAL_TASA,
+       a.estado,
+       e.cod_rub_primario,
+       e.cod_rub_secundario,
+       e.cod_rub_terciario,
+       a.cod_rub_economico,
+       a.cod_sec_credito,
+       a.fec_inicio fec_ini,
+       c.cod_oficina cod_ofi_cliente,
+       a.cod_oficina cod_ofi_operacion,
+       fug_obt_paradicional(a.nro_cuenta,'PRE_COD_ENT_COM_CARTERA')  ent_com_cartera,
+       c.cod_seg_cliente,
+       a.tip_renovacion,
+       to_char(a.fec_insercion, 'DD/MM/YYYY') fec_insercion,
+       to_char(a.fec_modificacion, 'DD/MM/YYYY') fec_modificacion,
+       a.descripcion,
+       c.cod_usu_oficial,
+       a.fec_cancelacion,
+       a.cod_campana
+  from pr_cta_prestamos a,
+       PR_SOLICITUDES aa,
+       ge_cta_clientes b,
+       ge_clientes c,
+       GE_MODALIDADES D,
+       ba_personas e,
+       ba_cod_referencias r,
+       ge_bancas ba,
+       ge_est_cuentas w,
+       ba_per_fisicas pf,
+       ba_per_juridicas pj,
+       IT.VW_PER_VINCULADAS vin
+ where a.COD_MODALIDAD = D.COD_MODALIDAD
+   and a.nro_cuenta = b.nro_cuenta
+   and b.cod_persona = c.cod_persona
+   and b.cod_persona = vin.cod_persona(+)
+   AND a.NRO_SOLICITUD = aa.NRO_SOLICITUD(+)
+   and c.cod_persona = e.cod_persona
+   and r.dominio(+) = 'TIP_DESTINO'
+   and a.tip_destino = r.val_minimo(+)
+   and a.cod_banca = ba.cod_banca(+)
+   and a.est_batch = w.estado
+   and a.cod_modalidad = w.cod_modalidad
+   and a.cod_modulo = w.cod_modulo
+   and e.cod_persona = b.cod_persona
+   and e.cod_persona = pf.cod_persona(+)
+   and e.cod_persona = pj.cod_persona(+);

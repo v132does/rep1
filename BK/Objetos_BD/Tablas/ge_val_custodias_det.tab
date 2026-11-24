@@ -1,0 +1,77 @@
+create table IT.GE_VAL_CUSTODIAS_DET
+(
+  cod_val_custodia NUMBER(15) not null,
+  nro_secuencia    NUMBER(7) not null,
+  nro_serie        VARCHAR2(20) not null,
+  ini_nro_valor    VARCHAR2(10) not null,
+  fin_nro_valor    VARCHAR2(10) not null,
+  cantidad         NUMBER(7) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  en_custodia      VARCHAR2(1),
+  fec_retiro       DATE,
+  observacion      VARCHAR2(4000),
+  cod_banco        NUMBER(3),
+  por_val_acciones NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_VAL_CUSTODIAS_DET.cod_val_custodia
+  is 'Código del Valor en Custodia. Secuencia S_COD_VAL_CUSTODIA';
+comment on column IT.GE_VAL_CUSTODIAS_DET.nro_secuencia
+  is 'Numero Secuencial. Secuencia S_NRO_SEQ_CUSTODIA';
+comment on column IT.GE_VAL_CUSTODIAS_DET.nro_serie
+  is 'Número de Serie del Documento.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.ini_nro_valor
+  is 'Número Inicial de la Serie.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.fin_nro_valor
+  is 'Número Final de la Serie.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.cantidad
+  is 'Cantidad de Valores Custodiados.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.en_custodia
+  is 'Indica si el documento se encuentra en custodia o fue retirado temporalmente.';
+comment on column IT.GE_VAL_CUSTODIAS_DET.fec_retiro
+  is 'Fecha en que se retiro de custodia el documento. NO significa que se da de baja';
+comment on column IT.GE_VAL_CUSTODIAS_DET.observacion
+  is 'Comentarios respecto al documento en cuestión';
+comment on column IT.GE_VAL_CUSTODIAS_DET.cod_banco
+  is 'Entidad donde el documento se encuentra custodiado';
+comment on column IT.GE_VAL_CUSTODIAS_DET.por_val_acciones
+  is 'Indica el porcentaje del totales de las acciones que posee la persona.';
+alter table IT.GE_VAL_CUSTODIAS_DET
+  add constraint PK_GE_VAL_CUSTODIAS_DET primary key (COD_VAL_CUSTODIA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_VAL_CUSTODIAS_DET
+  add constraint FK_GVCDE_COD_VAL_CUSTODIA foreign key (COD_VAL_CUSTODIA)
+  references IT.GE_VAL_CUSTODIAS (COD_VAL_CUSTODIA);
+

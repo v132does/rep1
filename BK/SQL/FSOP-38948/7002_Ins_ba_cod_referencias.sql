@@ -1,0 +1,7 @@
+BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO := 1; END; 
+/
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_BEN_INTERNA', 'Usuario BENEFITS', 'BENEFITS', 'BENEFI_', null, 'S');
+
+commit;

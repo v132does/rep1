@@ -1,0 +1,53 @@
+create table IT.BW_CANJES_DET
+(
+  nro_tarjeta      VARCHAR2(25) not null,
+  puntos           NUMBER not null,
+  nro_canje        NUMBER(12) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_sub_canje    NUMBER(12),
+  estado           VARCHAR2(1) default 'C' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CANJES_DET
+  is 'Detalle de canje de puntos';
+comment on column IT.BW_CANJES_DET.nro_tarjeta
+  is 'Número de tarjeta usada en el canje de puntos.';
+comment on column IT.BW_CANJES_DET.puntos
+  is 'Puntos debitados.';
+comment on column IT.BW_CANJES_DET.nro_canje
+  is 'Número identificador del canje asociado.';
+comment on column IT.BW_CANJES_DET.nro_sub_canje
+  is 'Identificador unico del canje en lealtad';
+comment on column IT.BW_CANJES_DET.estado
+  is 'Estados posibles de los canjes, C confirmado, E con errores, R reversado';
+alter table IT.BW_CANJES_DET
+  add constraint PK_BW_CANJES_DET primary key (NRO_TARJETA, NRO_CANJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CANJES_DET
+  add constraint FK_BW_CANJES_NRO_CANJE foreign key (NRO_CANJE)
+  references IT.BW_CANJES (NRO_CANJE);
+

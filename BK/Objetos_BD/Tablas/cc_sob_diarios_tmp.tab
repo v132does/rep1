@@ -1,0 +1,75 @@
+create table IT.CC_SOB_DIARIOS_TMP
+(
+  cod_persona      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  fec_movimiento   DATE,
+  fec_valor        DATE,
+  hora             VARCHAR2(8),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_tra_padre    NUMBER(4),
+  cod_moneda       VARCHAR2(3),
+  sal_anterior     NUMBER,
+  mto_debito       NUMBER(18,2),
+  mto_credito      NUMBER(18,2),
+  sal_posterior    NUMBER,
+  sal_ini_mes      NUMBER(18,2),
+  sal_fin_mes      NUMBER(18,2),
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CC_SOB_DIARIOS_TMP.cod_persona
+  is 'Código de la persona';
+comment on column IT.CC_SOB_DIARIOS_TMP.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.CC_SOB_DIARIOS_TMP.fec_movimiento
+  is 'Fecha del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.fec_valor
+  is 'Fecha valor del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.hora
+  is 'Hora del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.cod_modulo
+  is 'Módulo del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.cod_modalidad
+  is 'Modalidad del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.cod_tra_padre
+  is 'Transacción padre del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.cod_moneda
+  is 'Moneda de la Cuenta';
+comment on column IT.CC_SOB_DIARIOS_TMP.sal_anterior
+  is 'Saldo de la cuenta anterior antes del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.mto_debito
+  is 'Monto Débito del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.mto_credito
+  is 'Monto Crédito del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.sal_posterior
+  is 'Saldo de la cuenta posterior al movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.sal_ini_mes
+  is 'Saldo Inicial del mes de la cuenta';
+comment on column IT.CC_SOB_DIARIOS_TMP.sal_fin_mes
+  is 'Saldo Final del mes de la cuenta';
+comment on column IT.CC_SOB_DIARIOS_TMP.cod_ofi_origen
+  is 'Oficina en donde se origino el movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.usu_insercion
+  is 'Usuario de Inserción del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.fec_insercion
+  is 'Fecha de Inserción del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.usu_modificacion
+  is 'Usuario de Modificación del movimiento';
+comment on column IT.CC_SOB_DIARIOS_TMP.fec_modificacion
+  is 'Fecha de Modificación del movimiento';
+

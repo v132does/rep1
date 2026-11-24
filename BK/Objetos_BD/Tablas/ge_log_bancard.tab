@@ -1,0 +1,75 @@
+create table IT.GE_LOG_BANCARD
+(
+  nro_operacion NUMBER(15) not null,
+  cod_usuario   VARCHAR2(10) not null,
+  fecha         DATE not null,
+  hora          VARCHAR2(10) not null,
+  tip_operacion NUMBER(3),
+  nro_tarjeta   VARCHAR2(25),
+  cod_respuesta VARCHAR2(10),
+  det_respuesta VARCHAR2(4000),
+  cod_error     VARCHAR2(4),
+  msj_error     VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_BANCARD
+  is 'Contiene los datos enviados y respuestas del WS- BANCARD';
+comment on column IT.GE_LOG_BANCARD.nro_operacion
+  is 'Nro unico de secuencia';
+comment on column IT.GE_LOG_BANCARD.cod_usuario
+  is 'Usuario que realizo el pedido';
+comment on column IT.GE_LOG_BANCARD.fecha
+  is 'Fecha del pedido';
+comment on column IT.GE_LOG_BANCARD.hora
+  is 'Hora del pedido';
+comment on column IT.GE_LOG_BANCARD.tip_operacion
+  is 'Tipo de Operacion (1-sp_olp_informes_especiales)';
+comment on column IT.GE_LOG_BANCARD.nro_tarjeta
+  is 'Nro de Tarjeta consultada.';
+comment on column IT.GE_LOG_BANCARD.cod_respuesta
+  is 'Codigo de respuesta recibido ';
+comment on column IT.GE_LOG_BANCARD.det_respuesta
+  is 'Detalle del mensaje recibido';
+comment on column IT.GE_LOG_BANCARD.cod_error
+  is 'Código de error de la consulta. Si es 00(cero) nu hubo errores';
+comment on column IT.GE_LOG_BANCARD.msj_error
+  is 'Mensaje de error de la consulta. Si es nulo no hubo errores.';
+alter table IT.GE_LOG_BANCARD
+  add constraint PK_GE_LOG_BANCARD primary key (NRO_OPERACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_LOG_BANCARD
+  add constraint IN_GLINF_NRO_TARJETA unique (NRO_TARJETA, TIP_OPERACION, FECHA, HORA, COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

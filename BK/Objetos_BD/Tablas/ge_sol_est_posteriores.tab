@@ -1,0 +1,94 @@
+create table IT.GE_SOL_EST_POSTERIORES
+(
+  cod_tip_canal    NUMBER(3),
+  cod_canal        NUMBER(3),
+  cod_campana      NUMBER(3),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_est_actual   VARCHAR2(3) not null,
+  cod_estado       VARCHAR2(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_EST_POSTERIORES
+  is 'Estado posterior parametrizado...';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_tip_canal
+  is 'Tipo de canal.';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_est_actual
+  is 'Estado Actual - De que estado debe pasar.';
+comment on column IT.GE_SOL_EST_POSTERIORES.cod_estado
+  is 'Codigo de Estado Posterior - A que estado debe pasar.';
+comment on column IT.GE_SOL_EST_POSTERIORES.usu_insercion
+  is 'usuario de insercion.';
+comment on column IT.GE_SOL_EST_POSTERIORES.fec_insercion
+  is 'fecha de insercion.';
+comment on column IT.GE_SOL_EST_POSTERIORES.usu_modificacion
+  is 'usuario de modificacion.';
+comment on column IT.GE_SOL_EST_POSTERIORES.fec_modificacion
+  is 'fecha de modificacion.';
+create index IT.IN_BBVA_GE_SOL_EST_POS on IT.GE_SOL_EST_POSTERIORES (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint UK_GE_SOL_EST_POSTERIORES unique (COD_TIP_CANAL, COD_CANAL, COD_CAMPANA, COD_MODULO, COD_MODALIDAD, COD_EST_ACTUAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint FK_GSEPO_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint FK_GSEPO_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint FK_GSEPO_COD_EST_ACTUAL foreign key (COD_EST_ACTUAL)
+  references IT.GE_SOL_ESTADOS (COD_ESTADO);
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint FK_GSEPO_COD_ESTADO foreign key (COD_ESTADO)
+  references IT.GE_SOL_ESTADOS (COD_ESTADO);
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint FK_GSEPO_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SOL_EST_POSTERIORES
+  add constraint FK_GSEPO_COD_TIP_CANAL foreign key (COD_TIP_CANAL)
+  references IT.GE_TIP_CANALES (COD_TIP_CANAL);
+

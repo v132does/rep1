@@ -1,0 +1,67 @@
+create table IT.GE_PAQUETES
+(
+  cod_paquete        NUMBER(3) not null,
+  descripcion        VARCHAR2(35) not null,
+  cod_moneda         VARCHAR2(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  tip_persona        VARCHAR2(1) not null,
+  cod_seg_preferente NUMBER(3),
+  estado             VARCHAR2(1) default 'A' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAQUETES
+  is 'Definición de Paquetes.';
+comment on column IT.GE_PAQUETES.cod_paquete
+  is 'Código del Paquete.';
+comment on column IT.GE_PAQUETES.descripcion
+  is 'Descripción.';
+comment on column IT.GE_PAQUETES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_PAQUETES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PAQUETES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PAQUETES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PAQUETES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_PAQUETES.tip_persona
+  is 'Tipo de Personas a la que está orientado el paquete (F=Física, J=Jurídica, A=Ambos)';
+comment on column IT.GE_PAQUETES.cod_seg_preferente
+  is 'Segmento Preferente Asociado al Paquete.';
+comment on column IT.GE_PAQUETES.estado
+  is 'Estado del paquete (A=Activo, I=Inactivo).';
+alter table IT.GE_PAQUETES
+  add constraint PK_GE_PAQUETES primary key (COD_PAQUETE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAQUETES
+  add constraint FK_GPAQU_COD_SEG_PREFERENTE foreign key (COD_SEG_PREFERENTE)
+  references IT.GE_SEG_PREFERENTES (COD_SEG_PREFERENTE);
+alter table IT.GE_PAQUETES
+  add constraint CK_EST_PAQ_ACTIVO
+  check (estado IN('A', 'I'));
+

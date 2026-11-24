@@ -1,0 +1,80 @@
+create table IT.GE_POS_CLIENTES_DET
+(
+  fecha                  DATE,
+  cod_reporte            VARCHAR2(10),
+  cod_usu_oficial        VARCHAR2(10),
+  nom_oficial            VARCHAR2(70),
+  cod_persona            VARCHAR2(10),
+  nom_completo           VARCHAR2(120),
+  nro_cuenta             VARCHAR2(15),
+  cod_moneda             VARCHAR2(3),
+  can_dias               NUMBER(10),
+  can_dias_sobregiro     NUMBER(10),
+  mto_lin_permanente     NUMBER,
+  fec_vto_lin_permanente DATE,
+  mto_lin_temporal       NUMBER,
+  fec_vto_lin_temporal   DATE,
+  saldo                  NUMBER,
+  telefono               VARCHAR2(70),
+  tipo                   VARCHAR2(70),
+  fec_vencimiento        DATE,
+  estado                 VARCHAR2(40),
+  cuota                  VARCHAR2(10),
+  fec_ven_cuota          DATE,
+  dia_mora               NUMBER(10),
+  sal_cap_cuota          NUMBER,
+  sal_cap_operacion      NUMBER,
+  sal_mon_local          NUMBER,
+  descripcion            VARCHAR2(120),
+  tip_valor              VARCHAR2(1),
+  fec_vigencia           DATE,
+  val_tasa               NUMBER(20,4),
+  val_extension          VARCHAR2(10),
+  fec_ren_tas_orig       DATE,
+  tas_actual             VARCHAR2(10),
+  sal_int_vencido        NUMBER,
+  capital                NUMBER,
+  lin_credito            NUMBER,
+  des_tra_padre          VARCHAR2(70),
+  des_transaccion        VARCHAR2(70),
+  nro_documento          NUMBER(15),
+  monto                  NUMBER,
+  cod_oficina            NUMBER(3),
+  des_modalidad          VARCHAR2(100),
+  nro_garantia           NUMBER(7),
+  valor                  NUMBER,
+  mto_aplicado           NUMBER,
+  nro_linea              NUMBER(7),
+  fec_otorgamiento       DATE,
+  niv_aprobacion         VARCHAR2(20),
+  fec_nacimiento         DATE,
+  cod_modalidad          NUMBER(3),
+  cod_tra_padre          NUMBER(4),
+  cod_transaccion        NUMBER(4),
+  nro_lin_sob_temporal   NUMBER(7),
+  nro_lin_sob_permanente NUMBER(7)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GE_POS_CLI_FECHA on IT.GE_POS_CLIENTES_DET (FECHA, COD_USU_OFICIAL, COD_REPORTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

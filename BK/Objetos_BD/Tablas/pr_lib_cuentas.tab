@@ -1,0 +1,82 @@
+create table IT.PR_LIB_CUENTAS
+(
+  cod_banco        NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(20) not null,
+  denominacion     VARCHAR2(120),
+  cod_moneda       VARCHAR2(3),
+  tip_chequera     VARCHAR2(1),
+  sal_promedio     NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  fec_ingreso      DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LIB_CUENTAS
+  is 'Cuentas de Libradores.';
+comment on column IT.PR_LIB_CUENTAS.cod_banco
+  is 'Código de Banco.';
+comment on column IT.PR_LIB_CUENTAS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.PR_LIB_CUENTAS.denominacion
+  is 'Denominación de la Cuenta.';
+comment on column IT.PR_LIB_CUENTAS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.PR_LIB_CUENTAS.tip_chequera
+  is 'Tipo de Chequera.';
+comment on column IT.PR_LIB_CUENTAS.sal_promedio
+  is 'Saldo Promedio de la Cuenta.';
+comment on column IT.PR_LIB_CUENTAS.usu_insercion
+  is 'Usuario que realizó la inserción del Registro.';
+comment on column IT.PR_LIB_CUENTAS.fec_insercion
+  is 'Fecha en que se insertó el Registro.';
+comment on column IT.PR_LIB_CUENTAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el Registro.';
+comment on column IT.PR_LIB_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el Registro.';
+comment on column IT.PR_LIB_CUENTAS.fec_ingreso
+  is 'Fecha de Ingreso de la cuenta.';
+create index IT.IN_PLCUE_COD_MONEDA on IT.PR_LIB_CUENTAS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LIB_CUENTAS
+  add constraint PK_PR_LIB_CUENTAS primary key (COD_BANCO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LIB_CUENTAS
+  add constraint FK_PLCUE_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.PR_LIB_CUENTAS
+  add constraint FK_PLCUE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

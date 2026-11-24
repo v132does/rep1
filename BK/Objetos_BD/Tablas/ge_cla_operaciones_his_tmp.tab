@@ -1,0 +1,121 @@
+create global temporary table IT.GE_CLA_OPERACIONES_HIS_TMP
+(
+  fecha                 DATE not null,
+  cod_persona           VARCHAR2(10) not null,
+  nro_cuenta            VARCHAR2(15) not null,
+  cod_modulo            NUMBER(3) null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_estado            VARCHAR2(1) null,
+  tot_deu_real          NUMBER(18,2) default 0,
+  tot_deu_contingente   NUMBER(18,2) default 0,
+  dev_no_cobrado        NUMBER(18,2) default 0,
+  cat_automatica        NUMBER(3,2),
+  dia_atraso            NUMBER(5) null,
+  cod_moneda            VARCHAR2(3) null,
+  tot_gar_computables   NUMBER(18,2) default 0,
+  cod_oficina           NUMBER(3),
+  tipo                  VARCHAR2(1) null,
+  tot_prevision         NUMBER(18,2) default 0,
+  mto_original          NUMBER(18,2) default 0,
+  tip_destino           NUMBER(2),
+  cod_sec_credito       NUMBER(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) null,
+  fec_insercion         DATE default SYSDATE null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) null,
+  fec_modificacion      DATE default SYSDATE null,
+  cat_renovaciones      NUMBER(3,2),
+  cat_ren_anterior      NUMBER(3,2),
+  lib_prevision         VARCHAR2(1),
+  tot_pri_prevision     NUMBER(18,2),
+  cod_rub_economico     VARCHAR2(6),
+  tot_cap_pri_prevision NUMBER(18,2) default 0,
+  tot_cap_seg_prevision NUMBER(18,2) default 0,
+  tot_int_pri_prevision NUMBER(18,2) default 0,
+  tot_int_seg_prevision NUMBER(18,2) default 0,
+  mto_pre_total         NUMBER(18,2),
+  cat_pre_diferida      NUMBER(3,2),
+  cat_prevision         NUMBER(3,2),
+  tot_seg_prevision     NUMBER(18,2),
+  tot_gar_aplicada      NUMBER(18,2),
+  tot_rie_no_cubierto   NUMBER(18,2)
+)
+on commit delete rows;
+CREATE INDEX IT.IN_CLA_OPERACIONES_HIS_TMP ON IT.GE_CLA_OPERACIONES_HIS_TMP (COD_PERSONA ASC, CAT_AUTOMATICA ASC) 
+NOPARALLEL;
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.fecha
+  is 'Fecha de la categorizacion.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_persona
+  is 'Codigo del cliente.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_modulo
+  is 'Tipo de producto.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_modalidad
+  is 'Sub tipo de Producto.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_estado
+  is 'Estado de la cuenta.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_deu_real
+  is 'Total de la deuda real.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_deu_contingente
+  is 'Total de la deuda contingente.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.dev_no_cobrado
+  is 'Devengado no cobrado.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cat_automatica
+  is 'Categoria automatica del Sistema.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.dia_atraso
+  is 'dias de atraso.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_moneda
+  is 'moneda de la cuenta.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_gar_computables
+  is 'Monto total de la garantias computables.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_oficina
+  is 'Codigo de la sucursal.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tipo
+  is 'Tipo A-nuevo, B-Renovado, C-Refinanciado, D-Restructurado.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_prevision
+  is 'Monto total de la Prevision.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.mto_original
+  is 'Monto original de la operacion.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tip_destino
+  is 'Destino del Credito (1=Grandes Deudores-2=Peque?os Deudores-3=Vivienda-4=Consumo-5=Microcreditos.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_sec_credito
+  is 'Codigo de Sector de Credito.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cat_renovaciones
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cat_ren_anterior
+  is 'Categoria de Renovacion anterior, si es que mejora por pago.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.lib_prevision
+  is 'Indica si va a liberar o no la prevision (S/N).';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_pri_prevision
+  is 'Monto calculado para la primera prevision.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cod_rub_economico
+  is 'Codigo de Rubro Economico.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_cap_pri_prevision
+  is 'Primera Prevision del Saldo Capital de la Operacion.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_cap_seg_prevision
+  is 'Segunda Prevision del Saldo Capital de la Operacion.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_int_pri_prevision
+  is 'Primera Prevision de Interes de la Operacion.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_int_seg_prevision
+  is 'Segunda Prevision de Interes de la Operacion.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.mto_pre_total
+  is 'Monto prevision total.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cat_pre_diferida
+  is 'Categoria de la prevision diferida para operaciones de medida excepcional.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.cat_prevision
+  is 'Categoria prevision.';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_seg_prevision
+  is 'Total Segunda Prevision';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_gar_aplicada
+  is 'Total Garantia Aplicada';
+comment on column IT.GE_CLA_OPERACIONES_HIS_TMP.tot_rie_no_cubierto
+  is 'Total Riesgo no Cubierto';
+

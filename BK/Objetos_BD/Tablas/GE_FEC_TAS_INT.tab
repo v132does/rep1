@@ -1,0 +1,34 @@
+-- Creacion de la tabla
+CREATE TABLE IT.GE_FEC_TAS_INT (
+    FECHA_EJECUCION DATE          NOT NULL, -- Fecha de ejecucion de la generacion
+    MES             VARCHAR2(10)  NOT NULL, -- Mes de la semana.
+    CODIGO_SEMANA   VARCHAR2(8)   NOT NULL, -- Codigo de semana o periodo, e.g. '202528'
+    NRO_SEMANA      NUMBER(2)     NOT NULL, -- Numero ordinal de la semana (dentro del mes o año)
+    ULTIMA_SEMANA   VARCHAR2(1),            -- Indicador 'S' o 'N' para ultima semana del mes
+    FEC_DESDE       DATE          NOT NULL, -- Fecha de inicio del periodo
+    FEC_HASTA       DATE          NOT NULL, -- Fecha de fin del periodo
+    ID_EJECUCION    NUMBER        DEFAULT NULL,
+    COMENTARIO      VARCHAR2(1000)          -- Observaciones funcionales u operativas
+) TABLESPACE IT_DATA;
+
+-- Comentarios por campo
+COMMENT ON TABLE IT.GE_FEC_TAS_INT IS 'Registro historico de presentaciones del informe de tasas de interes (semanal y mensual)';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.MES IS 'Mes de la semana.';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.FECHA_EJECUCION IS 'Fecha en que se ejecuto la presentacion de tasas';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.CODIGO_SEMANA IS 'Codigo identificador del periodo (semana o mes), en formato YYYYWW o YYYYMM';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.NRO_SEMANA IS 'Numero de semana dentro del año o mes';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.ULTIMA_SEMANA IS 'Indicador si es la ultima semana del mes (S/N)';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.FEC_DESDE IS 'Fecha de inicio del periodo de tasas';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.FEC_HASTA IS 'Fecha de fin del periodo de tasas';
+COMMENT ON COLUMN IT.GE_FEC_TAS_INT.COMENTARIO IS 'Observaciones, notas o detalles complementarios del periodo';
+
+-- indices sugeridos
+CREATE UNIQUE INDEX IDX_GE_FEC_TAS_CODIGO ON IT.GE_FEC_TAS_INT (CODIGO_SEMANA)
+TABLESPACE IT_IND;
+CREATE INDEX IDX_GE_FEC_TAS_FECHA ON IT.GE_FEC_TAS_INT (FECHA_EJECUCION)
+TABLESPACE IT_IND;
+
+-- Sinonimo y permisos
+CREATE PUBLIC SYNONYM GE_FEC_TAS_INT FOR IT.GE_FEC_TAS_INT;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.GE_FEC_TAS_INT TO IT_TEMPORAL;

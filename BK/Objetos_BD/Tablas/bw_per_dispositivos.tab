@@ -1,0 +1,83 @@
+create table IT.BW_PER_DISPOSITIVOS
+(
+  cod_persona           VARCHAR2(20) not null,
+  cod_per_vinculada     VARCHAR2(20),
+  cod_dispositivo       VARCHAR2(40) not null,
+  fec_ult_acceso        DATE default SYSDATE not null,
+  can_accesos           NUMBER default 1 not null,
+  cod_relacion          VARCHAR2(80) not null,
+  es_confiable          VARCHAR2(1) default 'S' not null,
+  cod_fac_identificador VARCHAR2(6) default '0' not null,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  observacion           VARCHAR2(3000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_PER_DISPOSITIVOS.cod_persona
+  is 'Codigo de la persona';
+comment on column IT.BW_PER_DISPOSITIVOS.cod_per_vinculada
+  is 'Codigo empresa si corresponde';
+comment on column IT.BW_PER_DISPOSITIVOS.cod_dispositivo
+  is 'Dispositivo asociado';
+comment on column IT.BW_PER_DISPOSITIVOS.fec_ult_acceso
+  is 'Ultima fecha de acceso';
+comment on column IT.BW_PER_DISPOSITIVOS.can_accesos
+  is 'Cantidad de accesos en este dispositivo';
+comment on column IT.BW_PER_DISPOSITIVOS.cod_relacion
+  is 'Primary key';
+comment on column IT.BW_PER_DISPOSITIVOS.es_confiable
+  is 'Indica si el dispositivo es confiable para el cliente';
+comment on column IT.BW_PER_DISPOSITIVOS.cod_fac_identificador
+  is 'Identificador facil para el cliente';
+comment on column IT.BW_PER_DISPOSITIVOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BW_PER_DISPOSITIVOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_PER_DISPOSITIVOS.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.BW_PER_DISPOSITIVOS.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+comment on column IT.BW_PER_DISPOSITIVOS.observacion
+  is 'Observacion';
+create index IT.IDX_BW_PER_DISP_GH on IT.BW_PER_DISPOSITIVOS (COD_DISPOSITIVO, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_PER_DISPOSITIVOS
+  add constraint BW_PER_DISPOSITIVO_PK primary key (COD_RELACION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_PER_DISPOSITIVOS
+  add constraint BW_PER_DISPOSITIVO_FK foreign key (COD_DISPOSITIVO)
+  references IT.BW_DISPOSITIVOS (ID_DISPOSITIVO);
+

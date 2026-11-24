@@ -1,0 +1,134 @@
+create table IT.TA_MOV_DIARIOS_TMP_RO
+(
+  tip_generacion      VARCHAR2(1),
+  tip_movimiento      VARCHAR2(1),
+  nro_movimiento      VARCHAR2(17),
+  cod_tip_cargo       VARCHAR2(5),
+  cod_gru_tip_cargo   VARCHAR2(5),
+  cod_entidad         VARCHAR2(5),
+  cod_marca           VARCHAR2(3),
+  cod_pro_marca       VARCHAR2(3),
+  afinidad            VARCHAR2(10),
+  nro_cuenta          VARCHAR2(15),
+  nro_tarjeta         VARCHAR2(16),
+  cod_oficina         NUMBER(10),
+  fec_proceso         DATE,
+  fec_valor           DATE,
+  descripcion         VARCHAR2(40),
+  mto_operacion       NUMBER(18,2),
+  mto_comision        NUMBER(18,2),
+  mto_interes         NUMBER(18,2),
+  tip_iva             VARCHAR2(1),
+  cod_tip_impuesto    NUMBER(3),
+  mto_impuesto        NUMBER(18,2),
+  cod_plan            VARCHAR2(2),
+  can_cuotas          NUMBER(2),
+  est_cuota           VARCHAR2(1),
+  nro_cuota           NUMBER(2),
+  tip_saldo           NUMBER(3),
+  cod_tip_movimiento  VARCHAR2(1),
+  cod_ent_cobrador    VARCHAR2(5),
+  cod_ofi_ente        NUMBER(3),
+  for_pago            VARCHAR2(1),
+  cod_ori_pago        VARCHAR2(1),
+  dia_mor_ant_pago    NUMBER(5),
+  mto_mor_ant_pago    NUMBER(18,2),
+  cod_pro_usuario     NUMBER(6),
+  cod_pro_cupon       NUMBER(6),
+  cod_pro_pla_cuota   NUMBER(6),
+  cod_ori_transaccion VARCHAR2(1),
+  tip_cupon           NUMBER(15),
+  usu_movimiento      VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_DIARIOS_TMP_RO
+  is 'Tabla Temporal de Movimientoes Diarios.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.tip_generacion
+  is 'Tipo de Generación (D=Diario, C=Cierre). ';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.tip_movimiento
+  is 'Tipo de Movimiento Diario ( M= Movimientos Esp. y Pagos, T= Transacciones, Compras y Adelantos, C= Afectaci�n, Reverso y Forzado de Cuotas).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.nro_movimiento
+  is 'Identificador de Movimiento.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_tip_cargo
+  is 'Tipo Cargo(1= Costo Emisión, 2= Costo Renovación, etc. (Ver definición Tabla de Valores de Tipo Cargo) ).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_gru_tip_cargo
+  is 'Agrupador Tipo  Cargo(1= Costo según Parámetros Afinidad, 2= Débito Privado, etc. Ver definición Tabla de Valores Agrupador Tipo Cargo).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_entidad
+  is 'Código de Entidad.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_marca
+  is 'Identificación de Modalidad/Marca de la Tarjeta.(Ej. BAN).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_pro_marca
+  is 'Producto Marca(Ej.CHK ).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.afinidad
+  is 'Afinidad.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.nro_cuenta
+  is 'Cuenta.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.nro_tarjeta
+  is 'Número Tarjeta.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_oficina
+  is 'Oficina  Entidad Cuenta.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.fec_proceso
+  is 'Fecha de Proceso  del Movimiento.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.fec_valor
+  is 'Fecha Valor Movimiento.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.descripcion
+  is 'Desc. Movimiento Usuario.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.mto_operacion
+  is 'Importe Liquidación Usuario.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.mto_comision
+  is 'Importe Comisión Entidad.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.mto_interes
+  is 'Importe Interés.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.tip_iva
+  is 'Forma Cálculo Iva.(Ej.?=No aplica, I= IVA Incluido, C= Calcula IVA). ';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_tip_impuesto
+  is 'Código Impuesto Movimiento Usuario.(Ej. 1= IVA, 2=Renta, 3= Ret. IVA, 4= IVA Interes).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.mto_impuesto
+  is 'Importe Impuesto.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_plan
+  is 'Código Plan.(Ej,00= Compra Normal Contado, 01= Plan 1, etc. Ver Tabla de Valores Cod. Plan).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.can_cuotas
+  is 'Cantidad Cuotas.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.est_cuota
+  is 'Estado Cuota ( P= Pendiente,A = Activo, C= Cancelado,F= Forzado,R= Reversado).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.nro_cuota
+  is 'Nro. Cuota.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.tip_saldo
+  is 'Tipo Saldo.(Ej. 1= A facturar, 2=Facturado no Vencido,3= Financiado, 4= En cuotas, 5= Interés, 6= Inter�s a Facturar, 10= Pago Mínimo).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_tip_movimiento
+  is 'Tipificación Movimiento.(Ej. N= Normal, 1= Capital, 2= Cargo, 3= Inter�s, 4=Impuesto, 5= Pagos).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_ent_cobrador
+  is 'Cod. Entidad  Cobrador del Pago.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_ofi_ente
+  is 'Cod. Oficina  Entidad del Pago.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.for_pago
+  is 'Forma Ingreso del  Movimiento.(Ej. D=Digitado, T= Transmisi�n, S= Sistema, I= Infonet, O= Otros Pagos).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_ori_pago
+  is 'Origen del Pago.(Ej. C= Comercio, A= ATM, E= Entidad, B= Bancard, etc.).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.dia_mor_ant_pago
+  is 'Días de Mora antes  de afectar  pago.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.mto_mor_ant_pago
+  is 'Monto de Mora  antes de afectar pago.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_pro_usuario
+  is 'Id. Promoción Movimiento Usuario.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_pro_cupon
+  is 'Id. Promoción Cupón.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_pro_pla_cuota
+  is 'Id. Promoción Plan en Cuota.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.cod_ori_transaccion
+  is 'Origen Transacción.(Ej. P= Captura, Q= D�bito Autom�tico, A= Cupones Digitados, F= Incoming, E= Especiales).';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.tip_cupon
+  is 'Cup�n Origen.';
+comment on column IT.TA_MOV_DIARIOS_TMP_RO.usu_movimiento
+  is 'Usuario de registro.';
+

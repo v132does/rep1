@@ -1,0 +1,22 @@
+create table IT.LOGON_TRIGGER_TAB_0721
+(
+  username   VARCHAR2(30),
+  userhost   VARCHAR2(128),
+  ip_address VARCHAR2(128),
+  module_    VARCHAR2(128),
+  timestamp  DATE,
+  os_user    VARCHAR2(128),
+  acceso     VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

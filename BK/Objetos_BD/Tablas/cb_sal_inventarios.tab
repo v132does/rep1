@@ -1,0 +1,121 @@
+create table IT.CB_SAL_INVENTARIOS
+(
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_oficina      NUMBER(3),
+  cod_sec_contable VARCHAR2(1),
+  cod_tip_deudor   NUMBER(2),
+  residente        VARCHAR2(1),
+  cod_moneda       VARCHAR2(3),
+  situacion        VARCHAR2(1),
+  tip_saldo        VARCHAR2(1),
+  cod_plazo        VARCHAR2(1),
+  tip_operacion    VARCHAR2(1),
+  tip_interes      VARCHAR2(1),
+  cod_rubro        VARCHAR2(15),
+  sal_total        NUMBER(22,2),
+  nro_referencia   NUMBER(10) not null,
+  tip_renovacion   VARCHAR2(1),
+  cat_automatica   VARCHAR2(1),
+  cod_sit_contable VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INVENTARIOS
+  is 'Saldos contables de inventarios fisicos.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_sec_contable
+  is 'Sector contable.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_tip_deudor
+  is 'Tipo de deudor.';
+comment on column IT.CB_SAL_INVENTARIOS.residente
+  is 'Residente (s/n).';
+comment on column IT.CB_SAL_INVENTARIOS.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.CB_SAL_INVENTARIOS.situacion
+  is 'Situacion contable.';
+comment on column IT.CB_SAL_INVENTARIOS.tip_saldo
+  is 'Tipo de saldo.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_plazo
+  is 'Codigo del plazo contable.';
+comment on column IT.CB_SAL_INVENTARIOS.tip_operacion
+  is 'Tipo de operacion (prestamos).';
+comment on column IT.CB_SAL_INVENTARIOS.tip_interes
+  is 'Tipo de interes(prestamos).';
+comment on column IT.CB_SAL_INVENTARIOS.cod_rubro
+  is 'Rubro contable.';
+comment on column IT.CB_SAL_INVENTARIOS.sal_total
+  is 'Saldo segun el inventario fisico.';
+comment on column IT.CB_SAL_INVENTARIOS.nro_referencia
+  is 'Nro de secuencia interno para el registro.';
+comment on column IT.CB_SAL_INVENTARIOS.tip_renovacion
+  is 'Tipo de renovacion.';
+comment on column IT.CB_SAL_INVENTARIOS.cat_automatica
+  is 'Categoria del cliente.';
+comment on column IT.CB_SAL_INVENTARIOS.cod_sit_contable
+  is 'Situacion contable';
+create index IT.IN_CB_SAL_INVENTARIOS on IT.CB_SAL_INVENTARIOS (COD_MODULO, COD_MODALIDAD, COD_PLAZO, TIP_SALDO, COD_OFICINA, COD_MONEDA, COD_TIP_DEUDOR, SITUACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CB_SAL_INVENTARIOS_2 on IT.CB_SAL_INVENTARIOS (COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 5M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CB_SAL_INVENTARIOS_3 on IT.CB_SAL_INVENTARIOS (COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_INVENTARIOS
+  add constraint PK_CB_SAL_INVENTARIOS primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

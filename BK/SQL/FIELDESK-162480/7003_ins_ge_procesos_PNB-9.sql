@@ -1,0 +1,6 @@
+Begin PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO := 1; End; 
+/
+insert into ge_procesos (COD_PROCESO, DESCRIPCION, NRO_ORDEN, OBLIGATORIO, TIPO, HOR_INICIO, HOR_FIN, COD_USUARIO, ERROR, PERMISO, UBI_DESTINO)
+values (912, 'INF DE CALCULO DE RATIO DE LIQUIDEZ', 1, 'N', 'T', null, null, null, null, null, null);
+
+commit;

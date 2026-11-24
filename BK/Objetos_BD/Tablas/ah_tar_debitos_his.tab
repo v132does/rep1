@@ -1,0 +1,56 @@
+create table IT.AH_TAR_DEBITOS_HIS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  tar_activa          VARCHAR2(1),
+  fec_ingreso         DATE,
+  cod_persona         VARCHAR2(10) not null,
+  embozado            VARCHAR2(26),
+  cod_usuario         VARCHAR2(10) not null,
+  fec_grabacion       DATE,
+  adherente           VARCHAR2(2) not null,
+  nro_emision         VARCHAR2(2) not null,
+  cod_causa           NUMBER(3),
+  cod_ofi_origen      NUMBER(3) not null,
+  fec_recepcion       DATE,
+  fec_entrega         DATE,
+  fec_ult_impresion   DATE,
+  fec_vencimiento     DATE,
+  fec_cancelacion     DATE,
+  nro_planilla        NUMBER(8),
+  tip_planilla        NUMBER(2),
+  nro_pla_anterior    NUMBER(8),
+  tip_envio           VARCHAR2(1),
+  referencia          VARCHAR2(35) not null,
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  cod_est_solicitud   NUMBER(3),
+  fec_envio           DATE,
+  motivo              VARCHAR2(40),
+  fec_activacion      DATE,
+  cod_ent_procesadora NUMBER(5) not null,
+  tip_tar_debito      VARCHAR2(2),
+  nro_tarjeta         VARCHAR2(19),
+  cod_est_pin         VARCHAR2(1),
+  nro_bin             VARCHAR2(6),
+  renovacion          VARCHAR2(1),
+  fec_ult_mov_pos     DATE,
+  fec_ult_mov_atm     DATE,
+  obs_tip_tdd         VARCHAR2(2000),
+  nro_lote            NUMBER(6),
+  ide_reg_lote        VARCHAR2(20),
+  row_id              ROWID
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

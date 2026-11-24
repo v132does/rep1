@@ -1,0 +1,67 @@
+create table IT.CV_SECTORES
+(
+  cod_sector       NUMBER(5) not null,
+  descripcion      VARCHAR2(50) not null,
+  cod_oficina      NUMBER(3),
+  cod_area         NUMBER(3) not null,
+  estado           VARCHAR2(1) not null,
+  abreviatura      VARCHAR2(10),
+  val_incluidos    VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CV_SECTORES
+  is 'Sectores(años) de Muebles dentro del Área de Archivo Físico.';
+comment on column IT.CV_SECTORES.cod_sector
+  is 'Sector de la Custodia(secuencial).';
+comment on column IT.CV_SECTORES.descripcion
+  is 'Descripción del Sector.';
+comment on column IT.CV_SECTORES.cod_oficina
+  is 'Código de Oficina de la Custodia.';
+comment on column IT.CV_SECTORES.cod_area
+  is 'Área de la Custodia.';
+comment on column IT.CV_SECTORES.estado
+  is 'Estado del Sector(A=Activo/I=Inactivo).';
+comment on column IT.CV_SECTORES.abreviatura
+  is 'Abreviatura para Código de Barras.';
+comment on column IT.CV_SECTORES.val_incluidos
+  is 'Lista de valores que corresponden al Sector (años).';
+comment on column IT.CV_SECTORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CV_SECTORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CV_SECTORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CV_SECTORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CV_SECTORES
+  add constraint PK_CV_SECTORES primary key (COD_SECTOR)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CV_SECTORES
+  add constraint FK_CSECT_COD_OFICINA foreign key (COD_AREA, COD_OFICINA)
+  references IT.BA_AREAS (COD_AREA, COD_OFICINA);
+

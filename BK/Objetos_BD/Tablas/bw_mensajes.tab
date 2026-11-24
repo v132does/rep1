@@ -1,0 +1,53 @@
+create table IT.BW_MENSAJES
+(
+  fec_desde        DATE not null,
+  fec_hasta        DATE not null,
+  mensaje          VARCHAR2(1000) not null,
+  cod_persona      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_MENSAJES
+  is 'Mensajes para Banca Electronica  ( Autoservicios, Banca Telefonica y Banca Web)';
+comment on column IT.BW_MENSAJES.fec_desde
+  is 'Fecha desde la cual entra en vigencia';
+comment on column IT.BW_MENSAJES.fec_hasta
+  is 'Fecha hasta la cual entra en vigencia';
+comment on column IT.BW_MENSAJES.mensaje
+  is 'Mensaje a ser impreso en los informes.';
+comment on column IT.BW_MENSAJES.cod_persona
+  is 'Cliente (Si no esta nulo esta personalizado para el cliente)';
+comment on column IT.BW_MENSAJES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_MENSAJES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_MENSAJES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_MENSAJES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_WMENS_COD_PERSONA on IT.BW_MENSAJES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

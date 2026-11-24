@@ -1,0 +1,194 @@
+create table IT.BW_PAG_SERVICIOS
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  cod_servicio       NUMBER(5) not null,
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  nro_transaccion    VARCHAR2(250) not null,
+  nro_lote           VARCHAR2(250) not null,
+  ip_usuario         VARCHAR2(20),
+  terminal           VARCHAR2(25),
+  cod_moneda         VARCHAR2(3),
+  mto_transaccion    NUMBER(18,2),
+  mto_comision       NUMBER(18,2),
+  mto_mora           NUMBER(18,2),
+  mto_interes        NUMBER(18,2),
+  reversado          VARCHAR2(1) default 'N',
+  mto_debito         NUMBER(18,2),
+  cod_mon_servicio   NUMBER(2),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  tip_pago           VARCHAR2(2),
+  cod_banco          VARCHAR2(10),
+  nro_cheque         VARCHAR2(10),
+  red_pago           VARCHAR2(1),
+  pto_cobranza       NUMBER(3),
+  nro_recibo         NUMBER(15),
+  mto_capital        NUMBER(18,2),
+  mto_impuesto       NUMBER(18,2),
+  mto_punitorio      NUMBER(18,2),
+  mto_int_adelantado NUMBER(18,2),
+  mto_iva_devuelto   NUMBER(18,2),
+  cod_rubro          VARCHAR2(15),
+  des_servicio       VARCHAR2(250),
+  par_enviados       VARCHAR2(2000),
+  ser_concepto       VARCHAR2(100),
+  ref_pago           VARCHAR2(200),
+  cod_ws_servicios   VARCHAR2(300),
+  nro_sesion         VARCHAR2(32),
+  cod_proveedor      NUMBER(2) default 0,
+  cotizacion         NUMBER(14,8),
+  cod_mon_debito     VARCHAR2(3),
+  nro_documento      NUMBER(15),
+  mto_equ_local      NUMBER(18,2),
+  cod_empresa        VARCHAR2(10),
+  cod_persona        VARCHAR2(10),
+  ticket             CLOB,
+  nro_caja           NUMBER(3),
+  canal              VARCHAR2(20),
+  cod_pag_servicio   VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_PAG_SERVICIOS.nro_cuenta
+  is 'Nro de Cuenta de la cual se debita para el pago de Servicios.';
+comment on column IT.BW_PAG_SERVICIOS.cod_servicio
+  is 'Codigo de Servicio de Pronet del cual se realiza el Pago.';
+comment on column IT.BW_PAG_SERVICIOS.fecha
+  is 'Fecha en la cual se realiza la Transaccion de Pago.';
+comment on column IT.BW_PAG_SERVICIOS.hora
+  is 'Hora en la cual se realiza la Transaccion de Pago.';
+comment on column IT.BW_PAG_SERVICIOS.nro_transaccion
+  is 'Identificador del Pago de Servicios realizado.';
+comment on column IT.BW_PAG_SERVICIOS.nro_lote
+  is 'Nro de Lote asignado por Pronet/Identificador Seguridad Pago Servicio Bancard';
+comment on column IT.BW_PAG_SERVICIOS.ip_usuario
+  is 'Nro de IP de la terminar desde la cual ingreso a la web.';
+comment on column IT.BW_PAG_SERVICIOS.terminal
+  is 'Nombre del equipo.';
+comment on column IT.BW_PAG_SERVICIOS.cod_moneda
+  is 'Codigo de Moneda en la cual se realizo el Pago.';
+comment on column IT.BW_PAG_SERVICIOS.mto_transaccion
+  is 'Monto Total del Pago de Servicio realizado.';
+comment on column IT.BW_PAG_SERVICIOS.mto_comision
+  is 'Monto de la Comision del negocio, si aplica.';
+comment on column IT.BW_PAG_SERVICIOS.mto_mora
+  is 'Monto en Mora, si aplica (depende de la procesadora del servicio).';
+comment on column IT.BW_PAG_SERVICIOS.mto_interes
+  is 'Monto de Interes, si aplica (depende de la procesadora del servicio).';
+comment on column IT.BW_PAG_SERVICIOS.reversado
+  is 'Indica si el Pago fue reversado ''S'' o ''N''.';
+comment on column IT.BW_PAG_SERVICIOS.mto_debito
+  is 'Monto a ser debitado de la Cuenta.';
+comment on column IT.BW_PAG_SERVICIOS.cod_mon_servicio
+  is 'Codigo de la Moneda del Servicio.';
+comment on column IT.BW_PAG_SERVICIOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_PAG_SERVICIOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_PAG_SERVICIOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_PAG_SERVICIOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_PAG_SERVICIOS.tip_pago
+  is 'Tipo de Pago. 1= Efectivo, 2 = Cheques.';
+comment on column IT.BW_PAG_SERVICIOS.cod_banco
+  is 'Código de banco que proviene del webservice.';
+comment on column IT.BW_PAG_SERVICIOS.nro_cheque
+  is 'Número de cheque que proviene del webservice.';
+comment on column IT.BW_PAG_SERVICIOS.red_pago
+  is 'Red de Pago: 1-Pronet, 2-Practipago, 3-Infonet, 4-Inverfin.';
+comment on column IT.BW_PAG_SERVICIOS.pto_cobranza
+  is 'Código de Punto de Cobranza';
+comment on column IT.BW_PAG_SERVICIOS.nro_recibo
+  is 'Nro de recibo';
+comment on column IT.BW_PAG_SERVICIOS.mto_capital
+  is 'Monto Capital Cobrado';
+comment on column IT.BW_PAG_SERVICIOS.mto_impuesto
+  is 'Monto Impuesto Cobrado';
+comment on column IT.BW_PAG_SERVICIOS.mto_punitorio
+  is 'Monto Punitorio';
+comment on column IT.BW_PAG_SERVICIOS.mto_int_adelantado
+  is 'Monto Interés Adelantado Cobrado';
+comment on column IT.BW_PAG_SERVICIOS.mto_iva_devuelto
+  is 'Monto Iva Devuelto';
+comment on column IT.BW_PAG_SERVICIOS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.BW_PAG_SERVICIOS.des_servicio
+  is 'Descripción del servicio';
+comment on column IT.BW_PAG_SERVICIOS.par_enviados
+  is 'Parámetros recibidos del servicio';
+comment on column IT.BW_PAG_SERVICIOS.ser_concepto
+  is 'CONCEPTO POR PAGO DE SERVICIO';
+comment on column IT.BW_PAG_SERVICIOS.ref_pago
+  is 'Referencia del Pago. Para el caso de Zimple es nro. de teléfono';
+comment on column IT.BW_PAG_SERVICIOS.nro_sesion
+  is 'Nro de Session que realizo el pago';
+comment on column IT.BW_PAG_SERVICIOS.cod_proveedor
+  is '0 Pronet 1 Netel';
+comment on column IT.BW_PAG_SERVICIOS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.BW_PAG_SERVICIOS.cod_mon_debito
+  is 'Codigo de moneda debito.';
+comment on column IT.BW_PAG_SERVICIOS.nro_documento
+  is 'Nro de documento que se guarda en el movimiento';
+comment on column IT.BW_PAG_SERVICIOS.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.BW_PAG_SERVICIOS.cod_empresa
+  is 'Código persona jurídica';
+comment on column IT.BW_PAG_SERVICIOS.nro_caja
+  is 'Número de Terminal desde la cual se accede.';
+comment on column IT.BW_PAG_SERVICIOS.canal
+  is 'Canal desde la cual se accede en la WEB';
+comment on column IT.BW_PAG_SERVICIOS.cod_pag_servicio
+  is 'Código de Pago Servicio Generado en Base Intermedia';
+create index IT.BW_PAG_SER_INXGNB on IT.BW_PAG_SERVICIOS (COD_WS_SERVICIOS, REVERSADO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WPAGS_COD_PAG_SERVICIO on IT.BW_PAG_SERVICIOS (COD_PAG_SERVICIO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_PAG_SERVICIOS
+  add constraint PK_BW_PAG_SERVICIOS primary key (NRO_TRANSACCION, NRO_LOTE, NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

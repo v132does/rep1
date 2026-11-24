@@ -1,0 +1,45 @@
+create table IT.MI_SB_CRC_GARANTIAS_DET_TMP
+(
+  fecha                    DATE not null,
+  nom_referencia           VARCHAR2(10) not null,
+  nro_formulario           VARCHAR2(3),
+  cod_oficina              NUMBER(3),
+  cod_mon_iso_garantia     VARCHAR2(3),
+  nro_garantia             VARCHAR2(20),
+  cod_ref_bco_central      NUMBER(3),
+  nro_inscripcion          VARCHAR2(10),
+  rango                    NUMBER(2),
+  fec_valor                DATE,
+  fec_vencimiento          DATE,
+  mto_garantia             NUMBER(18,2),
+  fec_ini_tasacion         DATE,
+  fec_vto_tasacion         DATE,
+  mto_tas_asegurable       NUMBER(18,2),
+  mto_tas_no_asegurable    NUMBER(18,2),
+  fec_ini_seguro           DATE,
+  fec_vto_seguro           DATE,
+  cod_mon_iso_seguro       VARCHAR2(3),
+  mto_asegurado            NUMBER(18,2),
+  tip_gar_especifica       VARCHAR2(1),
+  perfeccionada            VARCHAR2(1),
+  nro_registro             NUMBER(9) not null,
+  cod_persona              VARCHAR2(10),
+  est_garantia             VARCHAR2(1),
+  fec_confirmacion         DATE,
+  mto_seg_equ_local        NUMBER(18,2),
+  mto_gar_equ_local        NUMBER(18,2),
+  mto_tas_ase_equ_local    NUMBER(18,2),
+  mto_tas_no_ase_equ_local NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

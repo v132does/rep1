@@ -1,0 +1,83 @@
+create table IT.CP_CHE_REDESCUENTOS
+(
+  nro_cheque       NUMBER(15) not null,
+  cod_banco        NUMBER(3) not null,
+  cta_libradora    VARCHAR2(20) not null,
+  cod_entidad      NUMBER(3) not null,
+  tip_entidad      VARCHAR2(1),
+  nro_proforma     VARCHAR2(20),
+  nro_cuota        NUMBER(7),
+  fec_envio        DATE,
+  estado           VARCHAR2(1),
+  fec_vencimiento  DATE,
+  mto_interes      NUMBER(18,2) default 0,
+  mto_capital      NUMBER(18,2) default 0,
+  sal_capital      NUMBER(18,2) default 0,
+  sal_interes      NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CP_CHE_REDESCUENTOS.nro_cheque
+  is 'Número de Cheque enviado a Re-descuento.';
+comment on column IT.CP_CHE_REDESCUENTOS.cod_banco
+  is 'Código de Banco';
+comment on column IT.CP_CHE_REDESCUENTOS.cta_libradora
+  is 'Cuenta Libradora.';
+comment on column IT.CP_CHE_REDESCUENTOS.cod_entidad
+  is 'Código de Ente al cual se envía a Re-descuento.';
+comment on column IT.CP_CHE_REDESCUENTOS.tip_entidad
+  is 'Tipo de Entidad(B-Banco/F-Financiera).';
+comment on column IT.CP_CHE_REDESCUENTOS.nro_proforma
+  is 'Número de Proforma de Re-descuento.';
+comment on column IT.CP_CHE_REDESCUENTOS.nro_cuota
+  is 'Número de Cuota.';
+comment on column IT.CP_CHE_REDESCUENTOS.fec_envio
+  is 'Fecha de envío a Re-descuento.';
+comment on column IT.CP_CHE_REDESCUENTOS.estado
+  is 'Estado del Re-descuento (E=Enviado, R=Redescontado, C=Confirmado, T=Retenido, X=Cancelado).';
+comment on column IT.CP_CHE_REDESCUENTOS.fec_vencimiento
+  is 'Fecha de vencimiento de la cuota.';
+comment on column IT.CP_CHE_REDESCUENTOS.mto_interes
+  is 'Monto del Interés.';
+comment on column IT.CP_CHE_REDESCUENTOS.mto_capital
+  is 'Monto del Capital.';
+comment on column IT.CP_CHE_REDESCUENTOS.sal_capital
+  is 'Saldo de Capital.';
+comment on column IT.CP_CHE_REDESCUENTOS.sal_interes
+  is 'Saldo de Interés.';
+comment on column IT.CP_CHE_REDESCUENTOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CP_CHE_REDESCUENTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CP_CHE_REDESCUENTOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CP_CHE_REDESCUENTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CP_CHE_REDESCUENTOS
+  add constraint PK_CP_CHE_REDESCUENTOS primary key (NRO_CHEQUE, COD_BANCO, CTA_LIBRADORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

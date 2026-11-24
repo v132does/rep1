@@ -1,0 +1,77 @@
+create table IT.GE_SEP_EXTRACCIONES
+(
+  nro_orden            NUMBER(18),
+  cod_oficina          VARCHAR2(3),
+  fec_operacion        DATE,
+  nro_comprobante      VARCHAR2(15),
+  nom_completo         VARCHAR2(120),
+  nro_documento        VARCHAR2(15),
+  cod_moneda           VARCHAR2(3),
+  monto                NUMBER(18,2),
+  nro_cuenta           VARCHAR2(15),
+  nro_doc_beneficiario VARCHAR2(15),
+  nom_beneficiario     VARCHAR2(120),
+  tip_documento        VARCHAR2(3),
+  tip_doc_beneficiario VARCHAR2(3),
+  cod_instrumento      VARCHAR2(30),
+  cotizacion           NUMBER(14,8),
+  sal_cuenta           NUMBER(18,2),
+  tip_persona          VARCHAR2(1),
+  cod_tra_padre        NUMBER(4),
+  cod_mod_padre        NUMBER(3),
+  cod_mad_padre        NUMBER(3),
+  cod_transaccion      NUMBER(4),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  observacion          VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SEP_EXTRACCIONES.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_SEP_EXTRACCIONES.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_SEP_EXTRACCIONES.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_SEP_EXTRACCIONES.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_SEP_EXTRACCIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_SEP_EXTRACCIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_SEP_EXTRACCIONES.observacion
+  is 'Observación';
+create index IT.IN_GSEXT_FEC_OPERACION on IT.GE_SEP_EXTRACCIONES (FEC_OPERACION)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSEXT_NRO_COMPROBANTE on IT.GE_SEP_EXTRACCIONES (NRO_COMPROBANTE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

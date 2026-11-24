@@ -1,0 +1,104 @@
+create table IT.BW_SOF_SERIALES
+(
+  id                     NUMBER not null,
+  nro_serial             VARCHAR2(20) not null,
+  dominio                VARCHAR2(10) not null,
+  cod_persona            VARCHAR2(15) not null,
+  cod_dispositivo        VARCHAR2(100),
+  cla_encriptacion       VARCHAR2(24),
+  vec_inicializacion     VARCHAR2(24),
+  estado                 VARCHAR2(1),
+  fec_insercion          DATE default SYSDATE not null,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_ult_solicitud      DATE default SYSDATE not null,
+  nro_tel_enrolado       VARCHAR2(20),
+  tip_can_sol_activacion VARCHAR2(2) default 'ND',
+  sts_status             NUMBER,
+  migrado                NUMBER default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_SOF_SERIALES.id
+  is 'identificador del registro';
+comment on column IT.BW_SOF_SERIALES.nro_serial
+  is 'numero de serial de softoken';
+comment on column IT.BW_SOF_SERIALES.dominio
+  is 'dominio del token. Valores posibles: CASHPY, RETAILPY';
+comment on column IT.BW_SOF_SERIALES.cod_persona
+  is 'codigo de persona';
+comment on column IT.BW_SOF_SERIALES.cod_dispositivo
+  is 'identificador del dispositivo del cliente';
+comment on column IT.BW_SOF_SERIALES.cla_encriptacion
+  is 'clave AES para encriptado/desencriptado de codigo QR de transaccion';
+comment on column IT.BW_SOF_SERIALES.vec_inicializacion
+  is 'vector de inicializacion de clave AES para encriptado/desencriptado';
+comment on column IT.BW_SOF_SERIALES.estado
+  is 'estado de la clave: P:pendiente, A:activo, E:expirado, I:inactivo';
+comment on column IT.BW_SOF_SERIALES.fec_insercion
+  is 'fecha de insersion del serial softoken';
+comment on column IT.BW_SOF_SERIALES.usu_insercion
+  is 'usuario de insersion del serial softoken';
+comment on column IT.BW_SOF_SERIALES.fec_modificacion
+  is 'fecha de modificacion del serial softoken';
+comment on column IT.BW_SOF_SERIALES.usu_modificacion
+  is 'usuario de modificacion del serial softoken';
+comment on column IT.BW_SOF_SERIALES.fec_ult_solicitud
+  is 'ultima fecha de solicitud de activacion del token';
+comment on column IT.BW_SOF_SERIALES.nro_tel_enrolado
+  is 'Nro de telefono utilizado para el enroll';
+comment on column IT.BW_SOF_SERIALES.tip_can_sol_activacion
+  is 'canal solictud de activacion ND: No Definido, SL: Solicitud Llamada, RL, Realizar Llamada, IS: Ir a Sucursal';
+comment on column IT.BW_SOF_SERIALES.migrado
+  is '0 para no migrado, 2 para migracion exitosa';
+create index IT.ID_BW_SOF_SERIALES_PER on IT.BW_SOF_SERIALES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_SOF_SERIALES
+  add constraint PK_BW_SOF_SERIALES primary key (NRO_SERIAL, DOMINIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_SOF_SERIALES
+  add constraint UNIQUE_CONSTRAINT_ID unique (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

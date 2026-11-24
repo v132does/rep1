@@ -1,0 +1,64 @@
+create table IT.BA_MENUS
+(
+  cod_menu         VARCHAR2(20) not null,
+  descripcion      VARCHAR2(200) not null,
+  cod_men_padre    VARCHAR2(20),
+  activo           VARCHAR2(1) default 'S' not null,
+  detalle          VARCHAR2(1000),
+  cod_programa     VARCHAR2(50),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_MENUS
+  is 'Menu del Sistema en estructura de Arbol';
+comment on column IT.BA_MENUS.cod_menu
+  is 'Codigo de Menu. Estructura: 99.99.99.99.99. ';
+comment on column IT.BA_MENUS.descripcion
+  is 'Descripcion del Menu.';
+comment on column IT.BA_MENUS.cod_men_padre
+  is 'Codigo Padre de este Menu.';
+comment on column IT.BA_MENUS.activo
+  is 'Si esta activa o no la opcion.';
+comment on column IT.BA_MENUS.detalle
+  is 'Detalle de la opcion.';
+comment on column IT.BA_MENUS.cod_programa
+  is 'Nombre del programa, si el hijo.';
+comment on column IT.BA_MENUS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_MENUS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_MENUS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MENUS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_MENUS
+  add constraint PK_BA_MENUS primary key (COD_MENU)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MENUS
+  add constraint FK_BMENU_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+

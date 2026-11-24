@@ -1,0 +1,106 @@
+-- Create table
+create table IT.GE_CTA_IPS_EMP_TMP
+(
+  cod_persona      VARCHAR2(10),
+  nro_cta_ahorro   VARCHAR2(15),
+  tip_documento    VARCHAR2(3) default 'CI' not null,
+  nro_cedula       VARCHAR2(20) not null,
+  cod_empresa      NUMBER(5),
+  pri_nombre       VARCHAR2(30),
+  seg_nombre       VARCHAR2(30),
+  pri_apellido     VARCHAR2(30),
+  seg_apellido     VARCHAR2(30),
+  sexo             VARCHAR2(3) default 'MAS',
+  fec_nacimiento   DATE,
+  ape_casado       VARCHAR2(30),
+  sucursal         VARCHAR2(200),
+  tipo             VARCHAR2(10),
+  cta_madre        VARCHAR2(10),
+  est_civil        VARCHAR2(20),
+  direccion        VARCHAR2(100),
+  ciudad           VARCHAR2(100),
+  telefono         VARCHAR2(60),
+  error            VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nom_completo     VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.GE_CTA_IPS_EMP_TMP.cod_persona
+  is 'Códligo de Cliente.';
+comment on column IT.GE_CTA_IPS_EMP_TMP.nro_cta_ahorro
+  is 'Nro de cuenta de ahorro para combinar con la nueva cuenta';
+comment on column IT.GE_CTA_IPS_EMP_TMP.tip_documento
+  is 'Tipo de Documento';
+comment on column IT.GE_CTA_IPS_EMP_TMP.nro_cedula
+  is 'Numero de Cedula';
+comment on column IT.GE_CTA_IPS_EMP_TMP.cod_empresa
+  is 'Codigo de la Empresa';
+comment on column IT.GE_CTA_IPS_EMP_TMP.pri_nombre
+  is 'Primer Nombre';
+comment on column IT.GE_CTA_IPS_EMP_TMP.seg_nombre
+  is 'Segundo Nombre';
+comment on column IT.GE_CTA_IPS_EMP_TMP.pri_apellido
+  is 'Primer Apellido';
+comment on column IT.GE_CTA_IPS_EMP_TMP.seg_apellido
+  is 'Segundo Apellido';
+comment on column IT.GE_CTA_IPS_EMP_TMP.sexo
+  is 'Sexo';
+comment on column IT.GE_CTA_IPS_EMP_TMP.fec_nacimiento
+  is 'Fecha de Nacimiento';
+comment on column IT.GE_CTA_IPS_EMP_TMP.ape_casado
+  is 'Apellido de casado';
+comment on column IT.GE_CTA_IPS_EMP_TMP.sucursal
+  is 'Descripción de la sucursal';
+comment on column IT.GE_CTA_IPS_EMP_TMP.tipo
+  is 'Código de la sucursal';
+comment on column IT.GE_CTA_IPS_EMP_TMP.cta_madre
+  is 'Descripción de la cuenta madre';
+comment on column IT.GE_CTA_IPS_EMP_TMP.est_civil
+  is 'Estado Civil';
+comment on column IT.GE_CTA_IPS_EMP_TMP.direccion
+  is 'Direccion';
+comment on column IT.GE_CTA_IPS_EMP_TMP.ciudad
+  is 'Ciudad';
+comment on column IT.GE_CTA_IPS_EMP_TMP.telefono
+  is 'Telefono';
+comment on column IT.GE_CTA_IPS_EMP_TMP.error
+  is 'Registro de Error.';
+comment on column IT.GE_CTA_IPS_EMP_TMP.usu_insercion
+  is 'Usuario que realizo la insercion';
+comment on column IT.GE_CTA_IPS_EMP_TMP.fec_insercion
+  is 'Fecha de la insercion';
+comment on column IT.GE_CTA_IPS_EMP_TMP.usu_modificacion
+  is 'Usuario que realizo la modificacion';
+comment on column IT.GE_CTA_IPS_EMP_TMP.fec_modificacion
+  is 'Fecha de la modificacion';
+comment on column IT.GE_CTA_IPS_EMP_TMP.nom_completo
+  is 'Nombre Completo';
+-- Create/Recreate indexes 
+create index IT.IN_GCIET_COD_EMPRESA on IT.GE_CTA_IPS_EMP_TMP (COD_EMPRESA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select on IT.GE_CTA_IPS_EMP_TMP to GLOPEZ;

@@ -1,0 +1,38 @@
+create table IT.CO_PAGOS_TMP
+(
+  nro_cuenta  VARCHAR2(20),
+  fec_valor   DATE,
+  fec_entrada DATE,
+  nro_cuota   NUMBER(6),
+  fec_sistema DATE,
+  mto_pagado  NUMBER(12,2),
+  cod_usuario VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_PAGOS_TMP
+  is 'Registros de Pagos del día proveniente del Recovery Strategy.';
+comment on column IT.CO_PAGOS_TMP.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CO_PAGOS_TMP.fec_valor
+  is 'Fecha Valor del Pago.';
+comment on column IT.CO_PAGOS_TMP.fec_entrada
+  is 'Fecha de Entrada del Pago.';
+comment on column IT.CO_PAGOS_TMP.nro_cuota
+  is 'Número de cuota pagada.';
+comment on column IT.CO_PAGOS_TMP.fec_sistema
+  is 'Fecha de Entrada al RS.';
+comment on column IT.CO_PAGOS_TMP.mto_pagado
+  is 'Monto Pagado.';
+comment on column IT.CO_PAGOS_TMP.cod_usuario
+  is 'Usuario que recibió el mérito por el pago.';
+

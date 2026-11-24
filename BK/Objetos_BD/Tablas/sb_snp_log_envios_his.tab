@@ -1,0 +1,55 @@
+create table IT.SB_SNP_LOG_ENVIOS_HIS
+(
+  nro_referencia   NUMBER(15) not null,
+  situacion        VARCHAR2(1) not null,
+  secuencia        NUMBER not null,
+  error            VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SNP_LOG_ENVIOS_HIS
+  is 'Tabla de LOG de Estados, Situaciones y Errores de Transferencias SNP.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.nro_referencia
+  is 'Número de Referencia de la Transferencia.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.situacion
+  is 'Situación del Mensaje. C-Cancelado, D-En Demora, E-Error, L-Operación Liquidada, O-Pre-Proceso OK, P-Pendiente de Envío al BCP, R-Recibido, S-Pre-Proceso Pendiente, T-Reversion Automatica, V-Enviado al BCP.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.secuencia
+  is 'Número de Secuencia.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.error
+  is 'Descripción del Error generado al procesar el Mensaje.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_LOG_ENVIOS_HIS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.SB_SNP_LOG_ENVIOS_HIS
+  add constraint PK_SB_SNP_LOG_ENVIOS_HIS primary key (NRO_REFERENCIA, SITUACION, SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,30 @@
+create table IT.SIMGIA_PREVICAR_BKP
+(
+  id        NUMBER,
+  linea     VARCHAR2(42),
+  fecha_his DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_PREVICAR_ID on IT.SIMGIA_PREVICAR_BKP (ID)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

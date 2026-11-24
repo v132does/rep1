@@ -1,0 +1,70 @@
+create table IT.CX_FIA_COMISIONES
+(
+  cod_fianza       NUMBER(7) not null,
+  nro_cuota        NUMBER(3) not null,
+  importe          NUMBER(18,2),
+  saldo            NUMBER(18,2),
+  estado           VARCHAR2(1),
+  fec_vencimiento  DATE,
+  fec_ult_pago     DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CX_FIA_COMISIONES
+  is 'Contiene el Plan de Pago de Comisiones por Fianzas Otorgadas.';
+comment on column IT.CX_FIA_COMISIONES.cod_fianza
+  is 'Numero de fianza.';
+comment on column IT.CX_FIA_COMISIONES.nro_cuota
+  is 'Numero de cuota de la comision.';
+comment on column IT.CX_FIA_COMISIONES.importe
+  is 'Importe de la comision.';
+comment on column IT.CX_FIA_COMISIONES.saldo
+  is 'Saldo de la comision.';
+comment on column IT.CX_FIA_COMISIONES.estado
+  is 'Estado de la comision S-solicitado A-Aprobado, P-pagado V-vencido.';
+comment on column IT.CX_FIA_COMISIONES.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.CX_FIA_COMISIONES.fec_ult_pago
+  is 'Fecha del ultimo pago.';
+comment on column IT.CX_FIA_COMISIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CX_FIA_COMISIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CX_FIA_COMISIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CX_FIA_COMISIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CX_FIA_COMISIONES
+  add constraint PK_CX_FIA_COMISIONES primary key (COD_FIANZA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_FIA_COMISIONES
+  add constraint CK_XFCOM_IMPORTE
+  check (NVL(IMPORTE,0) > 0);
+alter table IT.CX_FIA_COMISIONES
+  add constraint CK_XFCOM_SALDO
+  check (NVL(SALDO,0) >= 0);
+

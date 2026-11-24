@@ -1,0 +1,85 @@
+create table IT.GE_AST_PAISES
+(
+  cod_ast_pais        VARCHAR2(5) not null,
+  descripcion         VARCHAR2(60),
+  cod_pais            NUMBER(3),
+  risk_level_iso      VARCHAR2(3),
+  risk_level_assigned VARCHAR2(3),
+  cod_rie_pais        NUMBER(8),
+  cod_rie_int_pais    NUMBER(8),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default SYSDATE,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion    DATE default SYSDATE,
+  fec_envio           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AST_PAISES
+  is 'Tabla de Países de ASSIST.';
+comment on column IT.GE_AST_PAISES.cod_ast_pais
+  is 'Codigo de País ISO';
+comment on column IT.GE_AST_PAISES.descripcion
+  is 'Descripción del País';
+comment on column IT.GE_AST_PAISES.cod_pais
+  is 'Código de País ITGF';
+comment on column IT.GE_AST_PAISES.risk_level_iso
+  is 'Nivel de Riesto País Internacional';
+comment on column IT.GE_AST_PAISES.risk_level_assigned
+  is 'Nivel de Riesgo asignado por decisión Interna del Holding';
+comment on column IT.GE_AST_PAISES.cod_rie_pais
+  is 'Código de Riesgo País.';
+comment on column IT.GE_AST_PAISES.cod_rie_int_pais
+  is 'Código Interno de Riesgo País.';
+comment on column IT.GE_AST_PAISES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_AST_PAISES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_AST_PAISES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AST_PAISES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AST_PAISES.fec_envio
+  is 'Fecha de envio a ASSIST';
+create index IT.IN_GEAP_PAI_AST on IT.GE_AST_PAISES (COD_PAIS, COD_AST_PAIS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AST_PAISES
+  add constraint PK_GE_AST_PAISES primary key (COD_AST_PAIS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AST_PAISES
+  add constraint FK_EPAI_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.GE_AST_PAISES
+  add constraint FK_ERIE_COD_RIE_PAIS foreign key (COD_RIE_PAIS)
+  references IT.GE_AST_RIE_PAISES (COD_RIE_PAIS);
+

@@ -1,0 +1,52 @@
+create table IT.PSA001
+(
+  psa001ci VARCHAR2(20) not null,
+  psa001co NUMBER(9) not null,
+  psa001d1 VARCHAR2(100) not null,
+  psa001d2 VARCHAR2(30),
+  psa001in NUMBER(3) not null,
+  psa001n1 NUMBER(18),
+  psa001br CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA001
+  is 'Catálogo TABLA INTERMEDIA: PSA001 - CATALOGO BT + PSAML';
+comment on column IT.PSA001.psa001ci
+  is 'Codigo Interno';
+comment on column IT.PSA001.psa001co
+  is 'Codigo';
+comment on column IT.PSA001.psa001d1
+  is 'Descripcion';
+comment on column IT.PSA001.psa001d2
+  is 'Descripcion Adicional';
+comment on column IT.PSA001.psa001in
+  is 'Interfaz';
+comment on column IT.PSA001.psa001n1
+  is 'Valor';
+comment on column IT.PSA001.psa001br
+  is 'Banco Remitente';
+alter table IT.PSA001
+  add constraint PK_PSA001 primary key (PSA001CI, PSA001CO, PSA001IN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

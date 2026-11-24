@@ -1,0 +1,218 @@
+create table IT.RH_LIQ_SUELDOS
+(
+  cod_persona       VARCHAR2(10) not null,
+  nro_sobre         NUMBER(7) not null,
+  cod_transaccion   NUMBER(4) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_cen_costo     NUMBER(3) not null,
+  monto             NUMBER(14,2) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cotizacion        NUMBER(10,4),
+  computable        NUMBER(5),
+  vac_fec_desde     DATE,
+  ing_numero        NUMBER,
+  hex_fec_hor_extra DATE,
+  des_numero        NUMBER(5),
+  cod_tip_ingreso   NUMBER(3),
+  hor_computable    NUMBER(8,2),
+  cod_tip_descuento NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_LIQ_SUELDOS
+  is 'Liquidaciones de Sueldos de Empleados.';
+comment on column IT.RH_LIQ_SUELDOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_LIQ_SUELDOS.nro_sobre
+  is 'Numero de Sobre.';
+comment on column IT.RH_LIQ_SUELDOS.cod_transaccion
+  is 'Codigo de la Transaccion.';
+comment on column IT.RH_LIQ_SUELDOS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.RH_LIQ_SUELDOS.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.RH_LIQ_SUELDOS.cod_cen_costo
+  is 'Codigo del Centro de Costo.';
+comment on column IT.RH_LIQ_SUELDOS.monto
+  is 'Monto de la Liquidacion.';
+comment on column IT.RH_LIQ_SUELDOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_LIQ_SUELDOS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.RH_LIQ_SUELDOS.computable
+  is 'Indica el tiempo en dias u horas laboradas de trabajo.';
+comment on column IT.RH_LIQ_SUELDOS.vac_fec_desde
+  is 'Fecha de inicio de Vacaciones.';
+comment on column IT.RH_LIQ_SUELDOS.ing_numero
+  is 'Numero secuencial de Ingreso por Empleado.';
+comment on column IT.RH_LIQ_SUELDOS.hex_fec_hor_extra
+  is 'Fecha de Hora Extra.';
+comment on column IT.RH_LIQ_SUELDOS.des_numero
+  is 'Numero secuencial de Descuento por Empleado.';
+comment on column IT.RH_LIQ_SUELDOS.cod_tip_ingreso
+  is 'Codigo del Tipo de Ingreso.';
+comment on column IT.RH_LIQ_SUELDOS.hor_computable
+  is 'Cantidad de horas computables.';
+comment on column IT.RH_LIQ_SUELDOS.cod_tip_descuento
+  is 'Codigo del Tipo Descuento.';
+comment on column IT.RH_LIQ_SUELDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_LIQ_SUELDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_LIQ_SUELDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_LIQ_SUELDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HLSUE_COD_CEN_COSTO on IT.RH_LIQ_SUELDOS (COD_CEN_COSTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_COD_PERSONA on IT.RH_LIQ_SUELDOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_COD_TIP_DESCUENTO on IT.RH_LIQ_SUELDOS (COD_TIP_DESCUENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_COD_TIP_INGRESO on IT.RH_LIQ_SUELDOS (COD_TIP_INGRESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_DES_NUMERO on IT.RH_LIQ_SUELDOS (DES_NUMERO, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_HEX_FEC_HOR_EXTRA on IT.RH_LIQ_SUELDOS (HEX_FEC_HOR_EXTRA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_ING_NUMERO on IT.RH_LIQ_SUELDOS (ING_NUMERO, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_NRO_SOBRE on IT.RH_LIQ_SUELDOS (NRO_SOBRE, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HLSUE_VAC_FEC_DESDE on IT.RH_LIQ_SUELDOS (VAC_FEC_DESDE, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_COD_CEN_COSTO foreign key (COD_CEN_COSTO)
+  references IT.CB_CEN_COSTOS (COD_CEN_COSTO);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_COD_TIP_DESCUENTO foreign key (COD_TIP_DESCUENTO)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_COD_TIP_INGRESO foreign key (COD_TIP_INGRESO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_DES_NUMERO foreign key (DES_NUMERO, COD_PERSONA)
+  references IT.RH_DESCUENTOS (NUMERO, COD_PERSONA);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_ING_NUMERO foreign key (COD_PERSONA, ING_NUMERO)
+  references IT.RH_INGRESOS (COD_PERSONA, NUMERO);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_NRO_SOBRE foreign key (NRO_SOBRE, COD_PERSONA)
+  references IT.RH_SOBRES (NRO_SOBRE, COD_PERSONA);
+alter table IT.RH_LIQ_SUELDOS
+  add constraint FK_HLSUE_VAC_FEC_DESDE foreign key (COD_PERSONA, VAC_FEC_DESDE)
+  references IT.RH_VACACIONES (COD_PERSONA, FEC_DESDE);
+

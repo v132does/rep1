@@ -1,0 +1,126 @@
+-- Create table
+create table IT.GE_PAG_SUE_IPS
+(
+  nro_lote             NUMBER(10) not null,
+  cod_ente             NUMBER(5) not null,
+  nom_archivo          VARCHAR2(60) not null,
+  chk_sum_archivo      VARCHAR2(64) not null,
+  nro_cta_pag_salario  VARCHAR2(15) not null,
+  nro_cta_operativa    VARCHAR2(15) not null,
+  fec_acreditacion     DATE not null,
+  fec_vencimiento      DATE not null,
+  mto_debito           NUMBER(18,2) not null,
+  tipo                 VARCHAR2(1) default 'J' not null,
+  estado               VARCHAR2(1) default 'I' not null,
+  tip_proceso          VARCHAR2(1) default 'V' not null,
+  comentarios          VARCHAR2(1000),
+  can_int_acreditacion NUMBER(2) default 0 not null,
+  can_int_conciliacion NUMBER(2) default 0 not null,
+  mto_acreditado       NUMBER(18,2) default 0 not null,
+  fec_concilacion      DATE,
+  fec_acr_efectiva     DATE,
+  fec_insercion        DATE default sysdate not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR (USER,1,10) not null,
+  fec_modificacion     DATE default sysdate not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR (USER,1,10) not null,
+  nro_lot_referencia   NUMBER(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.GE_PAG_SUE_IPS.nro_lote
+  is 'PK Nro. de lote de pagos a acreditar.';
+comment on column IT.GE_PAG_SUE_IPS.cod_ente
+  is 'Cod. de Ente de Pago de Salarios.';
+comment on column IT.GE_PAG_SUE_IPS.nom_archivo
+  is 'Nombre del archivo de pagos remitido por IPS';
+comment on column IT.GE_PAG_SUE_IPS.chk_sum_archivo
+  is 'Cod. hash del archivo';
+comment on column IT.GE_PAG_SUE_IPS.nro_cta_pag_salario
+  is 'Nro. de cuenta de donde se deben realizar las acreditaciones.';
+comment on column IT.GE_PAG_SUE_IPS.nro_cta_operativa
+  is 'Nro. de cuenta operativa de IPS.';
+comment on column IT.GE_PAG_SUE_IPS.fec_acreditacion
+  is 'Fecha en la que se deben realizar las acreditaciones.';
+comment on column IT.GE_PAG_SUE_IPS.fec_vencimiento
+  is 'Fecha tope en la que se pueden realizar las acreditaciones.';
+comment on column IT.GE_PAG_SUE_IPS.mto_debito
+  is 'Importe total del lote de pagos a acreditar.';
+comment on column IT.GE_PAG_SUE_IPS.tipo
+  is 'J=Jubilados, S=Salarios, C=Caja Prestamo';
+comment on column IT.GE_PAG_SUE_IPS.estado
+  is 'I=Insertado, V=verificado, P=Procesado, C=Conciliado, E=Con error';
+comment on column IT.GE_PAG_SUE_IPS.tip_proceso
+  is 'V=Para validacion, P=Para procesamiento';
+comment on column IT.GE_PAG_SUE_IPS.comentarios
+  is 'Comentarios sobre el lote de pagos.';
+comment on column IT.GE_PAG_SUE_IPS.can_int_acreditacion
+  is 'Cantidad de reintentos de pago del lote.';
+comment on column IT.GE_PAG_SUE_IPS.can_int_conciliacion
+  is 'Cantidad de reintentos de conciliacion del lote.';
+comment on column IT.GE_PAG_SUE_IPS.mto_acreditado
+  is 'Monto total de lo acreditado del lote';
+comment on column IT.GE_PAG_SUE_IPS.fec_concilacion
+  is 'Fecha de cierre y concilacion del lote de pagos.';
+comment on column IT.GE_PAG_SUE_IPS.fec_acr_efectiva
+  is 'Fecha de acreditacion efectiva del lote de pagos.';
+comment on column IT.GE_PAG_SUE_IPS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAG_SUE_IPS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PAG_SUE_IPS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAG_SUE_IPS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAG_SUE_IPS.nro_lot_referencia
+  is 'Nro de lote de referencia del ente';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_PAG_SUE_IPS
+  add constraint PK_GE_PAG_SUE_IPS primary key (NRO_LOTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_SUE_IPS
+  add constraint UK_NROLOT_REFERENCIA unique (NRO_LOT_REFERENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate check constraints 
+alter table IT.GE_PAG_SUE_IPS
+  add constraint CK_ESTADO_PAGO_IPS
+  check (ESTADO IN ('I', 'V', 'P','E', 'C'));
+alter table IT.GE_PAG_SUE_IPS
+  add constraint CK_TIPO_PAGO
+  check (TIPO IN ('J', 'S', 'C'));
+alter table IT.GE_PAG_SUE_IPS
+  add constraint CK_TIPO_PROCESO_PAG_IPS
+  check (TIP_PROCESO IN ('V', 'P'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_PAG_SUE_IPS to IT_TEMPORAL;

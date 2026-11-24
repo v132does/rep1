@@ -1,0 +1,4 @@
+CREATE OR REPLACE TYPE IT."TYP_LISTACHEQUESDEVUELTOS"
+  is table of typ_chequeDevuelto
+/
+

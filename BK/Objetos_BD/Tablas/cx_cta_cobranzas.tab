@@ -1,0 +1,384 @@
+-- Create table
+create table IT.CX_CTA_COBRANZAS
+(
+  nro_cuenta               VARCHAR2(15) not null,
+  cod_modulo               NUMBER(3) not null,
+  cod_modalidad            NUMBER(3) not null,
+  cod_oficina              NUMBER(3) not null,
+  denominacion             VARCHAR2(60) not null,
+  cod_moneda               VARCHAR2(3) not null,
+  monto                    NUMBER(18,2) default 0 not null,
+  mto_comision             NUMBER(18,2) default 0,
+  mto_total                NUMBER(18,2) default 0 not null,
+  saldo                    NUMBER(18,2) default 0 not null,
+  sal_batch                NUMBER(18,2) default 0 not null,
+  fec_inicio               DATE not null,
+  fec_aprobacion           DATE,
+  fec_notificacion         DATE,
+  fec_vencimiento          DATE not null,
+  fec_cancelacion          DATE,
+  cod_cau_cancelacion      NUMBER(3),
+  estado                   VARCHAR2(1) not null,
+  est_batch                VARCHAR2(1),
+  fec_cam_estado           DATE,
+  mercaderia               VARCHAR2(250),
+  cod_banco                NUMBER(3),
+  nom_banco                VARCHAR2(100),
+  cod_bco_corresponsal     NUMBER(3),
+  cod_per_pagador          VARCHAR2(10),
+  nro_doc_pagador          VARCHAR2(20),
+  nom_pagador              VARCHAR2(120),
+  cod_pai_pagador          NUMBER(3),
+  cod_ciu_pagador          NUMBER(3),
+  nom_ciu_pagador          VARCHAR2(100),
+  dir_pagador              VARCHAR2(100),
+  tel_pagador              VARCHAR2(20),
+  cod_per_beneficiario     VARCHAR2(10),
+  nro_doc_beneficiario     VARCHAR2(20),
+  nom_beneficiario         VARCHAR2(120),
+  cod_pai_beneficiario     NUMBER(3),
+  cod_ciu_beneficiario     NUMBER(3),
+  nom_ciu_beneficiario     VARCHAR2(100),
+  dir_beneficiario         VARCHAR2(100),
+  tel_beneficiario         VARCHAR2(20),
+  nro_ref_externa          VARCHAR2(20),
+  avalada                  VARCHAR2(1) default 'N' not null,
+  girada                   VARCHAR2(1) default 'N' not null,
+  con_protesto             VARCHAR2(1) default 'N' not null,
+  nro_factura              VARCHAR2(20),
+  nro_sol_prestamo         NUMBER(7),
+  observacion              VARCHAR2(1000),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  tip_cobro                VARCHAR2(1),
+  let_aceptada             VARCHAR2(1) default 'N',
+  cod_sit_contable         NUMBER(20),
+  avalada_ant              VARCHAR2(1),
+  cod_bco_corresponsal_ant NUMBER(3),
+  ubi_banco_ant            VARCHAR2(1),
+  nro_cta_debcre           VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CX_CTA_COBRANZAS
+  is 'Contiene los datos de las cobranzas locales y extranjeras.';
+-- Add comments to the columns 
+comment on column IT.CX_CTA_COBRANZAS.nro_cuenta
+  is 'Nro. de Cuenta de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.cod_modulo
+  is 'Codigo del modulo de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.cod_modalidad
+  is 'Codigo de la modalidad de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.cod_oficina
+  is 'Codigo de la oficina de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.denominacion
+  is 'Denominacion de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CX_CTA_COBRANZAS.monto
+  is 'Monto de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.mto_comision
+  is 'Monto de la comision externa de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.mto_total
+  is 'Monto Total de la Cobranza (+ comision).';
+comment on column IT.CX_CTA_COBRANZAS.saldo
+  is 'Saldo actual de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.sal_batch
+  is 'Saldo batch de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.fec_inicio
+  is 'Fecha de inicio o carga de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.fec_aprobacion
+  is 'Fecha de aprobacion.';
+comment on column IT.CX_CTA_COBRANZAS.fec_notificacion
+  is 'Fecha de la notificacion.';
+comment on column IT.CX_CTA_COBRANZAS.fec_vencimiento
+  is 'Fecha de vencimiento de la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.fec_cancelacion
+  is 'Fecha de cancelacion.';
+comment on column IT.CX_CTA_COBRANZAS.cod_cau_cancelacion
+  is 'Causa de cancelacion.';
+comment on column IT.CX_CTA_COBRANZAS.estado
+  is 'Estado de la cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.est_batch
+  is 'Estado batch.';
+comment on column IT.CX_CTA_COBRANZAS.fec_cam_estado
+  is 'Fecha del ultimo cambio de estado.';
+comment on column IT.CX_CTA_COBRANZAS.mercaderia
+  is 'Mercaderia involucrada en la cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.cod_banco
+  is 'Codigo del Banco emisor / pagador.';
+comment on column IT.CX_CTA_COBRANZAS.nom_banco
+  is 'Nombre del Banco emisor / pagador.';
+comment on column IT.CX_CTA_COBRANZAS.cod_bco_corresponsal
+  is 'Codigo del Banco corresponsal, puede ser el propio banco.';
+comment on column IT.CX_CTA_COBRANZAS.cod_per_pagador
+  is 'Codigo del cliente pagador.';
+comment on column IT.CX_CTA_COBRANZAS.nro_doc_pagador
+  is 'Nro. de documento del pagador';
+comment on column IT.CX_CTA_COBRANZAS.nom_pagador
+  is 'Nombre y apellido del pagador.';
+comment on column IT.CX_CTA_COBRANZAS.cod_pai_pagador
+  is 'Codigo de pais del pagador.';
+comment on column IT.CX_CTA_COBRANZAS.cod_ciu_pagador
+  is 'Codigo de ciudad del pagador.';
+comment on column IT.CX_CTA_COBRANZAS.nom_ciu_pagador
+  is 'Nombre de la ciudad del pagador.';
+comment on column IT.CX_CTA_COBRANZAS.dir_pagador
+  is 'Direccion del pagador.';
+comment on column IT.CX_CTA_COBRANZAS.tel_pagador
+  is 'Nro. de Telefono del pagador.';
+comment on column IT.CX_CTA_COBRANZAS.cod_per_beneficiario
+  is 'Codigo del cliente beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.nro_doc_beneficiario
+  is 'Numero de documento de identidad del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.nom_beneficiario
+  is 'Nombre y apellido del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.cod_pai_beneficiario
+  is 'Codigo de pais del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.cod_ciu_beneficiario
+  is 'Codigo de ciudad del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.nom_ciu_beneficiario
+  is 'Nombre de la ciudad del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.dir_beneficiario
+  is 'Direccion del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.tel_beneficiario
+  is 'Nro.de telefono del beneficiario.';
+comment on column IT.CX_CTA_COBRANZAS.nro_ref_externa
+  is 'Numero de referencia externa que identifica a la transferencia en el swift.';
+comment on column IT.CX_CTA_COBRANZAS.avalada
+  is 'Indica si la cobranza esta avalada por el banco.';
+comment on column IT.CX_CTA_COBRANZAS.girada
+  is 'Indica si la cobranza ya fue girada o transferida. (S/N)';
+comment on column IT.CX_CTA_COBRANZAS.con_protesto
+  is 'Indica si la cobranza se realizo incluyendo la condicion de protesto. (S/N)';
+comment on column IT.CX_CTA_COBRANZAS.nro_factura
+  is 'Nro. de la factura.';
+comment on column IT.CX_CTA_COBRANZAS.nro_sol_prestamo
+  is 'Nro. de la solicitud de prestamo asociada.';
+comment on column IT.CX_CTA_COBRANZAS.observacion
+  is 'Observacion sobre la Cobranza.';
+comment on column IT.CX_CTA_COBRANZAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CX_CTA_COBRANZAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CX_CTA_COBRANZAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CX_CTA_COBRANZAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CX_CTA_COBRANZAS.tip_cobro
+  is 'Tipo de cobro: V-Vista o P-Plazo.';
+comment on column IT.CX_CTA_COBRANZAS.let_aceptada
+  is 'Indica si se entregan los documentos contra aceptacion de letras, sino es contra pago. (S/N)';
+comment on column IT.CX_CTA_COBRANZAS.cod_sit_contable
+  is 'Indica la Situacion Contable actual de la Operacion. ';
+comment on column IT.CX_CTA_COBRANZAS.avalada_ant
+  is 'Indica si la cobranza esta avalada por el banco. Valor Anterior.';
+comment on column IT.CX_CTA_COBRANZAS.cod_bco_corresponsal_ant
+  is 'Codigo del corresponsal. Valor anterior.';
+comment on column IT.CX_CTA_COBRANZAS.ubi_banco_ant
+  is 'Ubicacion del banco negociador. Valor anterior.';
+comment on column IT.CX_CTA_COBRANZAS.nro_cta_debcre
+  is 'Numero de Cuenta Debito o Credito.';
+-- Create/Recreate indexes 
+create index IT.IN_BBVA_COD_PER_PAGADOR on IT.CX_CTA_COBRANZAS (COD_PER_PAGADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_NRO_SOL_PRESTAMO on IT.CX_CTA_COBRANZAS (NRO_SOL_PRESTAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_BCO_CORRESP on IT.CX_CTA_COBRANZAS (COD_BCO_CORRESPONSAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_CAU_CANCELA on IT.CX_CTA_COBRANZAS (COD_CAU_CANCELACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_CIU_BENEFICIARIO on IT.CX_CTA_COBRANZAS (COD_CIU_BENEFICIARIO, COD_PAI_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_CIU_PAGADOR on IT.CX_CTA_COBRANZAS (COD_CIU_PAGADOR, COD_PAI_PAGADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_MODULO on IT.CX_CTA_COBRANZAS (COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_OFICINA on IT.CX_CTA_COBRANZAS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_PAI_BENEFICIARIO on IT.CX_CTA_COBRANZAS (COD_PAI_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_PAI_PAGADOR on IT.CX_CTA_COBRANZAS (COD_PAI_PAGADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CXCOB_COD_PER_BENEFICIARIO on IT.CX_CTA_COBRANZAS (COD_PER_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CX_CTA_COBRANZAS
+  add constraint PK_CX_COBRANZAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_BCO_CORRESP foreign key (COD_BCO_CORRESPONSAL)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_CAU_CANCELA foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_CIU_BENEFICIARIO foreign key (COD_CIU_BENEFICIARIO, COD_PAI_BENEFICIARIO)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_CIU_PAGADOR foreign key (COD_CIU_PAGADOR, COD_PAI_PAGADOR)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_PAI_BENEFICIARIO foreign key (COD_PAI_BENEFICIARIO)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_PAI_PAGADOR foreign key (COD_PAI_PAGADOR)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_PER_BENEFICIARIO foreign key (COD_PER_BENEFICIARIO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_COD_PER_PAGADOR foreign key (COD_PER_PAGADOR)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CX_CTA_COBRANZAS
+  add constraint FK_XCCOB_NRO_SOLICITUD foreign key (NRO_SOL_PRESTAMO)
+  references IT.PR_SOLICITUDES (NRO_SOLICITUD);
+-- Create/Recreate check constraints 
+alter table IT.CX_CTA_COBRANZAS
+  add constraint CK_XCCOB_PERSONA
+  check ((COD_MODALIDAD = 83 AND COD_PER_PAGADOR IS NOT NULL) OR (COD_MODALIDAD = 84 AND COD_PER_BENEFICIARIO IS NOT NULL));

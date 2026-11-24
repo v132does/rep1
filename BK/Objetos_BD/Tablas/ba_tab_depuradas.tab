@@ -1,0 +1,126 @@
+﻿-- Create table 
+create table IT.BA_TAB_DEPURADAS
+(
+  nom_tabla        VARCHAR2(30) not null,
+  nom_tab_destino  VARCHAR2(30),
+  frecuencia       VARCHAR2(1) default 'D' not null,
+  condicion        VARCHAR2(3000) not null,
+  nro_orden        NUMBER(7),
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  error            VARCHAR2(3000),
+  cod_usuario      VARCHAR2(10),
+  obligatorio      VARCHAR2(1) default 'S' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  can_registros    NUMBER(18),
+  tip_fecha        VARCHAR2(1) default 'N',
+  borrar           VARCHAR2(1) default 'S',
+  reemplazar       VARCHAR2(1) default 'N',
+  limite           NUMBER(7),
+  niv_paralell     NUMBER(8),
+  nro_grupo        NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BA_TAB_DEPURADAS
+  is 'Contiene las Tablas y Condiciones de Depuracion de las Tablas.';
+-- Add comments to the columns 
+comment on column IT.BA_TAB_DEPURADAS.nom_tabla
+  is 'Nombre de la tabla a ser depurada.';
+comment on column IT.BA_TAB_DEPURADAS.nom_tab_destino
+  is 'Nombre de la tabla destino(si es nulo es el mismo nombre de la tabla el sufijo _HIS).';
+comment on column IT.BA_TAB_DEPURADAS.frecuencia
+  is 'Frecuencia de depuracion (D-Diaria  M-Mensual).';
+comment on column IT.BA_TAB_DEPURADAS.condicion
+  is 'Condicion (where) de depuracion.';
+comment on column IT.BA_TAB_DEPURADAS.nro_orden
+  is 'Orden de ejecucion de depuracion.';
+comment on column IT.BA_TAB_DEPURADAS.hor_inicio
+  is 'Inicio de la ultima depuracion.';
+comment on column IT.BA_TAB_DEPURADAS.hor_fin
+  is 'Fin de la ultima depuracion.';
+comment on column IT.BA_TAB_DEPURADAS.error
+  is 'Ultimo error generado durante la depuracion de esta tabla.';
+comment on column IT.BA_TAB_DEPURADAS.cod_usuario
+  is 'Usuario que ejecuto la ultima depuracion de esta tabla.';
+comment on column IT.BA_TAB_DEPURADAS.obligatorio
+  is 'Indica si la depuracion es o no obligatoria para continuar S/N.';
+comment on column IT.BA_TAB_DEPURADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_TAB_DEPURADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_TAB_DEPURADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TAB_DEPURADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TAB_DEPURADAS.can_registros
+  is 'Cantidad de registros procesados.';
+comment on column IT.BA_TAB_DEPURADAS.tip_fecha
+  is 'Tipo de Fecha: N-No agregar fecha al historico, I-Agregar al inicio de la tabla, F-Agregar al final de la tabla';
+comment on column IT.BA_TAB_DEPURADAS.borrar
+  is 'Indica si luego de traslado borra o no el origen.';
+comment on column IT.BA_TAB_DEPURADAS.reemplazar
+  is 'Indica si el destino se borra(reemplaza) antes de la insercion';
+comment on column IT.BA_TAB_DEPURADAS.limite
+  is 'Nro de registros a procesar con el for_all en pre_eje_depuracion';
+comment on column IT.BA_TAB_DEPURADAS.niv_paralell
+  is 'Indica la cantidad de hilos de jobs para el dbms_parallel';
+comment on column IT.BA_TAB_DEPURADAS.nro_grupo
+  is 'Agrupa los registros a modo de depurarlos bajo un mismo número de grupo';
+-- Create/Recreate indexes 
+create index IT.IN_BTADE_FRECUENCIA on IT.BA_TAB_DEPURADAS (FRECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BA_TAB_DEPURADAS
+  add constraint PK_BA_TAB_DEPURADAS primary key (NOM_TABLA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_TAB_DEPURADAS
+  add constraint UK_ETDEP_NRO_ORDEN unique (NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BA_TAB_DEPURADAS to IT_TEMPORAL;

@@ -1,0 +1,92 @@
+create table IT.CB_GAS_DIFERIDOS
+(
+  cod_cargo        NUMBER(10) not null,
+  cod_rub_credito  VARCHAR2(15),
+  fec_desde        DATE,
+  fec_hasta        DATE,
+  monto            NUMBER(18,3),
+  estado           VARCHAR2(1),
+  descripcion      VARCHAR2(180),
+  cod_rub_debito   VARCHAR2(15),
+  periodicidad     VARCHAR2(1) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_tipo_cargo   NUMBER(2) not null,
+  nro_orden        NUMBER(10) not null,
+  nro_factura      VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fecha            DATE,
+  procesado        VARCHAR2(1),
+  nro_linea        NUMBER(3),
+  cod_transaccion  NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_GAS_DIFERIDOS.cod_cargo
+  is 'Código del Gasto Diferido.';
+comment on column IT.CB_GAS_DIFERIDOS.cod_rub_credito
+  is 'Código del Rubro Contable Crédito.';
+comment on column IT.CB_GAS_DIFERIDOS.fec_desde
+  is 'Fecha de Inicio de las Cuotas.';
+comment on column IT.CB_GAS_DIFERIDOS.fec_hasta
+  is 'Fecha de Fin de las Cuotas.';
+comment on column IT.CB_GAS_DIFERIDOS.monto
+  is 'Monto Total a ser Diferido.';
+comment on column IT.CB_GAS_DIFERIDOS.estado
+  is 'Estado del Cargo.';
+comment on column IT.CB_GAS_DIFERIDOS.descripcion
+  is 'Descripción del Cargo.';
+comment on column IT.CB_GAS_DIFERIDOS.cod_rub_debito
+  is 'Codigo del Rubro Contable Débito.';
+comment on column IT.CB_GAS_DIFERIDOS.periodicidad
+  is 'Periodicidad de las Cuotas D/Dias, M/Meses.';
+comment on column IT.CB_GAS_DIFERIDOS.cod_oficina
+  is 'Oficina afectada por el Gasto Diferido.';
+comment on column IT.CB_GAS_DIFERIDOS.cod_tipo_cargo
+  is 'Tipo de Cargo (Gasto o Cargo)';
+comment on column IT.CB_GAS_DIFERIDOS.nro_orden
+  is 'Nro. de Orden que referencia al Pago a Proveedores realizado para el Cargo Diferido.';
+comment on column IT.CB_GAS_DIFERIDOS.nro_factura
+  is 'Nro. de Factura que referencia a la Orden de Pago a Proveedores realizado.';
+comment on column IT.CB_GAS_DIFERIDOS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_GAS_DIFERIDOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_GAS_DIFERIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificación en el registro.';
+comment on column IT.CB_GAS_DIFERIDOS.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.CB_GAS_DIFERIDOS.fecha
+  is 'Fecha del Comprobante.';
+comment on column IT.CB_GAS_DIFERIDOS.procesado
+  is 'Indica si el registro ya fue procesado en Compras.';
+comment on column IT.CB_GAS_DIFERIDOS.nro_linea
+  is 'Número de línea del Detalle de la Compra.';
+comment on column IT.CB_GAS_DIFERIDOS.cod_transaccion
+  is 'Código de Transacción asociado al Cargo Diferido.';
+alter table IT.CB_GAS_DIFERIDOS
+  add constraint PK_CB_GAS_DIFERIDOS primary key (COD_CARGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

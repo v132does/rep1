@@ -1,0 +1,87 @@
+create table IT.BW_LOT_TRANSFERENCIAS_HIS
+(
+  nro_lote                 NUMBER(10) not null,
+  cod_persona              VARCHAR2(10) not null,
+  nro_cuenta               VARCHAR2(15) not null,
+  monto                    NUMBER(18,2),
+  fec_pago                 DATE default trunc(sysdate),
+  nro_cta_credito          VARCHAR2(15) not null,
+  cod_banco                VARCHAR2(20) not null,
+  nro_doc_beneficiario     VARCHAR2(20),
+  nom_beneficiario         VARCHAR2(120),
+  cod_mon_credito          VARCHAR2(3) default 'GS',
+  concepto                 VARCHAR2(100),
+  cod_estado               VARCHAR2(1),
+  nro_referencia           NUMBER(15),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  tipo                     VARCHAR2(1),
+  cod_tip_doc_beneficiario NUMBER(3),
+  error                    VARCHAR2(1),
+  cod_respuesta            VARCHAR2(20),
+  cod_per_solicitante      VARCHAR2(10),
+  nro_cta_solicitante      VARCHAR2(16),
+  cod_canal                VARCHAR2(3)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.nro_lote
+  is 'Identificador del lote';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.cod_persona
+  is 'Codigo de la persona que instruyo la transferencia';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.nro_cuenta
+  is 'Numero de cuenta debito';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.monto
+  is 'Monto de la transferencia';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.fec_pago
+  is 'Fecha del Pago';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.nro_cta_credito
+  is 'Numero de la cuenta de Pago';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.cod_banco
+  is 'Codigo Swift del banco destino. ';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.nro_doc_beneficiario
+  is 'Número de Documento de Identidad del Beneficiario.';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.nom_beneficiario
+  is 'Nombre del Beneficiario';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.cod_mon_credito
+  is 'Siempre Guaranies';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.concepto
+  is 'Concepto';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.cod_estado
+  is 'Verificar, Confirmado, Enviado, Rechazado, erroR';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.nro_referencia
+  is 'Referencia en SNP';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.tipo
+  is 'Pedido, Transferencia';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.cod_tip_doc_beneficiario
+  is 'Tipo de documento del beneficiario';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.error
+  is '''N''';
+comment on column IT.BW_LOT_TRANSFERENCIAS_HIS.cod_per_solicitante
+  is 'Codigo de persona solicitante';
+alter table IT.BW_LOT_TRANSFERENCIAS_HIS
+  add constraint PK_BW_LOT_TRANSFERENCIAS_HIS primary key (NRO_LOTE, COD_PERSONA, NRO_CUENTA, NRO_CTA_CREDITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

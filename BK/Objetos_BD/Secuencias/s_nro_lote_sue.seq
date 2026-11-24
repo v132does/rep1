@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_LOTE_SUE
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 3527
+increment by 1
+nocache;
+

@@ -1,0 +1,139 @@
+create table IT.BA_PER_VALIDACIONES
+(
+  cod_persona              VARCHAR2(10) not null,
+  cod_usu_ver_persona      VARCHAR2(10),
+  fec_ver_persona          DATE,
+  est_dat_persona          VARCHAR2(1),
+  cod_usu_ver_laboral      VARCHAR2(10),
+  fec_ver_laboral          DATE,
+  est_dat_laboral          VARCHAR2(1),
+  cod_usu_ver_ingreso      VARCHAR2(10),
+  fec_ver_ingreso          DATE,
+  est_dat_ingreso          VARCHAR2(1),
+  cod_usu_ver_egreso       VARCHAR2(10),
+  fec_ver_egreso           DATE,
+  est_dat_egreso           VARCHAR2(1),
+  cod_usu_ver_propiedad    VARCHAR2(10),
+  fec_ver_propiedad        DATE,
+  est_dat_propiedad        VARCHAR2(1),
+  cod_usu_ver_garantia     VARCHAR2(10),
+  fec_ver_garantia         DATE,
+  est_dat_garantia         VARCHAR2(1),
+  cod_usu_ver_global       VARCHAR2(10),
+  fec_ver_global           DATE,
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion            DATE default SYSDATE,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion         DATE default SYSDATE,
+  cod_usu_ver_segmentacion VARCHAR2(10),
+  fec_ver_segmentacion     DATE,
+  est_dat_segmentacion     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_VALIDACIONES
+  is 'Validaciones de datos de la Persona';
+comment on column IT.BA_PER_VALIDACIONES.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_persona
+  is 'Usuario Verificador de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_persona
+  is 'Fecha y Hora de la Verificación de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_persona
+  is 'Estado de Verificación de los Datos Personales (V/Verificado, M/Modificado).';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_laboral
+  is 'Usuario Verificador de la Información Laboral.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_laboral
+  is 'Fecha y Hora de la Verificación de la Información Laboral.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_laboral
+  is 'Estado de Verificación de los Datos Laborales (V/Verificado, M/Modificado).';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_ingreso
+  is 'Usuario Verificador de los Ingresos de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_ingreso
+  is 'Fecha y Hora de la Verificación de los Ingresos de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_ingreso
+  is 'Estado de Verificación de los Datos de Ingresos (V/Verificado, M/Modificado).';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_egreso
+  is 'Usuario Verificador de los Egresos de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_egreso
+  is 'Fecha y Hora de la Verificación de los Egresos de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_egreso
+  is 'Estado de Verificación de los Datos de Egresos (V/Verificado, M/Modificado).';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_propiedad
+  is 'Usuario Verificador de la Propiedad de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_propiedad
+  is 'Fecha y Hora de la Verificación de la Propiedad de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_propiedad
+  is 'Estado de Verificación de los Datos de Propiedades (V/Verificado, M/Modificado).';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_garantia
+  is 'Usuario Verificador de la Garantía de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_garantia
+  is 'Fecha y Hora de la Verificación de la Garantía de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_garantia
+  is 'Estado de Verificación de los Datos de Garantías (V/Verificado, M/Modificado).';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_global
+  is 'Usuario Verificador Global de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_global
+  is 'Fecha y Hora de la Verificación Global de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_PER_VALIDACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_PER_VALIDACIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_PER_VALIDACIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BA_PER_VALIDACIONES.cod_usu_ver_segmentacion
+  is 'Usuario Verificador de los Datos necesarios para la segmentación de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.fec_ver_segmentacion
+  is 'Fecha y Hora de la Verificación de los Datos necesarios para la segmentación de la Persona.';
+comment on column IT.BA_PER_VALIDACIONES.est_dat_segmentacion
+  is 'Estado de Verificación de los Datos necesarios para la segmentación de la Persona (V/Verificado, M/Modificado).';
+alter table IT.BA_PER_VALIDACIONES
+  add constraint PK_BA_PER_VALIDACIONES primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_EGRESO foreign key (COD_USU_VER_EGRESO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_GARANTIA foreign key (COD_USU_VER_GARANTIA)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_GLOBAL foreign key (COD_USU_VER_GLOBAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_INGRESO foreign key (COD_USU_VER_INGRESO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_LABORAL foreign key (COD_USU_VER_LABORAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_PERSONA foreign key (COD_USU_VER_PERSONA)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PER_VALIDACIONES
+  add constraint FK_BPVAL_COD_USU_PROPIEDAD foreign key (COD_USU_VER_PROPIEDAD)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

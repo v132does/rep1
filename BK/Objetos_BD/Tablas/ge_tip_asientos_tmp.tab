@@ -1,0 +1,34 @@
+create table IT.GE_TIP_ASIENTOS_TMP
+(
+  cod_tra_padre    NUMBER(4),
+  cod_tra_hijo     NUMBER(4),
+  interoficina     VARCHAR2(2),
+  cod_modalidad    NUMBER(4),
+  cod_tip_asiento  NUMBER(5),
+  cod_tip_asiento2 NUMBER(5),
+  cod_moneda       VARCHAR2(20),
+  cod_rubro        VARCHAR2(20),
+  tip_movimiento   VARCHAR2(1),
+  residente        VARCHAR2(20),
+  plazo            VARCHAR2(20),
+  tip_deudor       VARCHAR2(20),
+  est_cuenta       VARCHAR2(20),
+  tip_cuenta       VARCHAR2(20),
+  tip_prestamo     VARCHAR2(20),
+  categoria        NUMBER(3),
+  cod_sec_credito  VARCHAR2(30),
+  error            VARCHAR2(1000),
+  observacion      VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

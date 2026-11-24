@@ -1,0 +1,1 @@
+GRANT ALL ON ta_tar_garantizadas TO IT_TEMPORAL;

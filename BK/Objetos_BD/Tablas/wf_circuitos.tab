@@ -1,0 +1,115 @@
+create table IT.WF_CIRCUITOS
+(
+  cod_circuito       NUMBER(15) not null,
+  cod_tip_circuito   NUMBER(3) not null,
+  fec_inicio         DATE not null,
+  referencia         VARCHAR2(50),
+  cod_tar_actual     NUMBER(15) not null,
+  descripcion        VARCHAR2(100),
+  estado             VARCHAR2(1) default 'A' not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  documento          BLOB,
+  ind_anexo          VARCHAR2(1),
+  fec_fin            DATE,
+  cod_persona        VARCHAR2(10),
+  cod_gru_res_actual VARCHAR2(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 60
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_CIRCUITOS
+  is 'Circuito especifico de una operacion particular';
+comment on column IT.WF_CIRCUITOS.cod_circuito
+  is 'Nro. secuencial que identifica al circuito generado';
+comment on column IT.WF_CIRCUITOS.cod_tip_circuito
+  is 'Codigo del tipo de circuito al cual pertenece';
+comment on column IT.WF_CIRCUITOS.fec_inicio
+  is 'Fecha de Inicio del circuito';
+comment on column IT.WF_CIRCUITOS.referencia
+  is 'Referencia de la Operacion: Ej.Nro. de Solicitud de Prestamo, Nro. de Tarjeta, Nro. de cuenta, etc.';
+comment on column IT.WF_CIRCUITOS.cod_tar_actual
+  is 'Codigo de la tarea en la cual esta ubicado actualmente';
+comment on column IT.WF_CIRCUITOS.descripcion
+  is 'Detalle del circuito';
+comment on column IT.WF_CIRCUITOS.estado
+  is 'Estado del circuito: N-No iniciado, E-En ejecucion F-Finalizado, C-Cancelado';
+comment on column IT.WF_CIRCUITOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_CIRCUITOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_CIRCUITOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_CIRCUITOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.WF_CIRCUITOS.documento
+  is 'Documentos anexos';
+comment on column IT.WF_CIRCUITOS.ind_anexo
+  is 'Indica si la operacion tiene o no un anexo. Solo para acceso mas rapido';
+comment on column IT.WF_CIRCUITOS.fec_fin
+  is 'Fecha de finalizacion ';
+comment on column IT.WF_CIRCUITOS.cod_persona
+  is 'Codigo de la persona asociada, si corresponde';
+comment on column IT.WF_CIRCUITOS.cod_gru_res_actual
+  is 'Grupo actual a cargo de quien esta la tarea';
+create index IT.IN_BBVA_COD_GRU_RES on IT.WF_CIRCUITOS (COD_GRU_RES_ACTUAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_WF_CIR on IT.WF_CIRCUITOS (COD_PERSONA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WTCIR_REFERENCIA on IT.WF_CIRCUITOS (COD_TIP_CIRCUITO, REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.WF_CIRCUITOS
+  add constraint PK_WF_CIRCUITOS primary key (COD_CIRCUITO, COD_TAR_ACTUAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

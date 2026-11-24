@@ -1,0 +1,142 @@
+create table IT.CB_ASI_FUTUROS
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_asi_real     NUMBER(6),
+  cod_usuario      VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  tot_control      NUMBER(18,2) default 0 not null,
+  actualizado      VARCHAR2(1) default 'N' not null,
+  reversado        VARCHAR2(1) default 'N' not null,
+  ofi_integrada    VARCHAR2(1) default 'N' not null,
+  confirmado       VARCHAR2(1) default 'N' not null,
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_cargo        NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_ASI_FUTUROS
+  is 'Contiene los datos correspondientes a la cabecera de los asientos contables.';
+comment on column IT.CB_ASI_FUTUROS.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.CB_ASI_FUTUROS.cod_oficina
+  is 'Codigo de oficina del asiento.';
+comment on column IT.CB_ASI_FUTUROS.nro_asiento
+  is 'Numero del asiento.';
+comment on column IT.CB_ASI_FUTUROS.nro_asi_real
+  is 'Nro de asiento real en el sistema contable.';
+comment on column IT.CB_ASI_FUTUROS.cod_usuario
+  is 'Codigo del usuario que genero el asiento.';
+comment on column IT.CB_ASI_FUTUROS.cod_modulo
+  is 'Codigo de modulo del asiento.';
+comment on column IT.CB_ASI_FUTUROS.cod_modalidad
+  is 'Codigo de modalidad del asiento.';
+comment on column IT.CB_ASI_FUTUROS.tot_control
+  is 'Suma de debitos mas creditos para control.';
+comment on column IT.CB_ASI_FUTUROS.actualizado
+  is 'Asiento actualizado ? ( S=El asiento ya actualizo el saldo de la cuenta, N=El asiento no actualizo el saldo de la cuenta ).';
+comment on column IT.CB_ASI_FUTUROS.reversado
+  is 'Es reversion de un asiento ? ( S=Es un asiento reversado, N=No es un asiento reversado ).';
+comment on column IT.CB_ASI_FUTUROS.ofi_integrada
+  is 'Oficina integrada ? ( S=Es un asiento cruzado entre oficinas, N=No es un asiento cruzado entre oficinas ).';
+comment on column IT.CB_ASI_FUTUROS.confirmado
+  is 'Asiento confirmado ? ( S=El asiento esta Ok - Actualizara saldos, N=El asiento no esta Ok - No actualizara saldos ).';
+comment on column IT.CB_ASI_FUTUROS.cod_ofi_origen
+  is 'Codigo de la oficina que origino el asiento.';
+comment on column IT.CB_ASI_FUTUROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASI_FUTUROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASI_FUTUROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_FUTUROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_FUTUROS.cod_cargo
+  is 'Cargo del Gasto Diferido.';
+create index IT.IN_BAFUT_COD_CARGO on IT.CB_ASI_FUTUROS (COD_CARGO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BAFUT_COD_OFI_ORIGEN on IT.CB_ASI_FUTUROS (COD_OFI_ORIGEN, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_ASI_FUTUROS
+  add constraint PK_CB_ASI_FUTUROS primary key (FECHA, COD_OFICINA, NRO_ASIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_ASI_FUTUROS
+  add constraint FK_BAFUT_COD_CARGO foreign key (COD_CARGO)
+  references IT.CB_GAS_DIFERIDOS (COD_CARGO);
+alter table IT.CB_ASI_FUTUROS
+  add constraint FK_BAFUT_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_ASI_FUTUROS
+  add constraint FK_BAFUT_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_ASI_FUTUROS
+  add constraint FK_BAFUT_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_ACTUA_000
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_CONFI_000
+  check (CONFIRMADO IN ('S', 'N'));
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_OFI_I_000
+  check (OFI_INTEGRADA IN ('S', 'N'));
+alter table IT.CB_ASI_FUTUROS
+  add constraint AVCON_1147960502_REVER_000
+  check (REVERSADO IN ('S', 'N'));
+

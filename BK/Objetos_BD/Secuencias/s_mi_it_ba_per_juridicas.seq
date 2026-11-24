@@ -1,0 +1,7 @@
+create sequence IT.S_MI_IT_BA_PER_JURIDICAS
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 12929
+increment by 1
+nocache;
+

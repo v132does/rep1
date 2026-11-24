@@ -1,0 +1,49 @@
+create table IT.CR_AGE_MOT_ACTIVIDADES
+(
+  cod_mot_actividad VARCHAR2(5) not null,
+  descripcion       VARCHAR2(80) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AGE_MOT_ACTIVIDADES
+  is 'Motivos de actividad en la agenda.';
+comment on column IT.CR_AGE_MOT_ACTIVIDADES.cod_mot_actividad
+  is 'Codigo de motivo de actividad.';
+comment on column IT.CR_AGE_MOT_ACTIVIDADES.descripcion
+  is 'Descripcion del motivo de actividad.';
+comment on column IT.CR_AGE_MOT_ACTIVIDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AGE_MOT_ACTIVIDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AGE_MOT_ACTIVIDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGE_MOT_ACTIVIDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_AGE_MOT_ACTIVIDADES
+  add constraint PK_CR_AGE_MOT_ACTIVIDADES primary key (COD_MOT_ACTIVIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

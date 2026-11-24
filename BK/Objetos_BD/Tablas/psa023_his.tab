@@ -1,0 +1,211 @@
+create table IT.PSA023_HIS
+(
+  psa023_hisid NUMBER(18),
+  psa023_hismu NUMBER(9) not null,
+  psa023_hista NUMBER(9) not null,
+  psa023_hisrl NUMBER(9) not null,
+  psa023_hisor NUMBER(3) not null,
+  psa023_hisos NUMBER(3) not null,
+  psa023_hispa NUMBER(9),
+  psa023_histd NUMBER(9),
+  psa023_hisdo VARCHAR2(25),
+  psa023_histp VARCHAR2(1),
+  psa023_hisnc NUMBER(9),
+  psa023_hisso NUMBER(5),
+  psa023_hisct NUMBER(9),
+  psa023_hisrf VARCHAR2(40),
+  psa023_hisdh NUMBER(1),
+  psa023_hisop NUMBER(9),
+  psa023_histt NUMBER(9),
+  psa023_hisau VARCHAR2(6),
+  psa023_hismd NUMBER(9),
+  psa023_hisdl NUMBER(18,2),
+  psa023_hisml NUMBER(18,2),
+  psa023_hismo NUMBER(18,2),
+  psa023_hiscd NUMBER(18,2),
+  psa023_hiscl NUMBER(18,2),
+  psa023_hiscr NUMBER(9),
+  psa023_hisrv VARCHAR2(4),
+  psa023_hisft VARCHAR2(8) not null,
+  psa023_hisht VARCHAR2(8),
+  psa023_hisfi TIMESTAMP(6),
+  psa023_hisca NUMBER(9),
+  psa023_hismp NUMBER(9),
+  psa023_hisci VARCHAR2(25),
+  psa023_hissu NUMBER(9) not null,
+  psa023_hispd NUMBER(9),
+  psa023_hisdt NUMBER(9),
+  psa023_hisdd VARCHAR2(25),
+  psa023_histr NUMBER(9),
+  psa023_hisco VARCHAR2(25),
+  psa023_hiscb VARCHAR2(25),
+  psa023_hisdr VARCHAR2(25),
+  psa023_hisdb VARCHAR2(25),
+  psa023_hiseo VARCHAR2(65),
+  psa023_hiseb VARCHAR2(65),
+  psa023_hisbi VARCHAR2(6),
+  psa023_hisaf VARCHAR2(15),
+  psa023_hisda VARCHAR2(40),
+  psa023_hismc VARCHAR2(50),
+  psa023_hisfu VARCHAR2(30),
+  psa023_hisfc VARCHAR2(30),
+  psa023_hispr NUMBER(18),
+  psa023_hisst NUMBER(18,2),
+  psa023_hisit VARCHAR2(30)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA023_HIS
+  is 'Tabla de transacciones de PIC';
+comment on column IT.PSA023_HIS.psa023_hisid
+  is 'Id. de la Transaccion.';
+comment on column IT.PSA023_HIS.psa023_hismu
+  is 'Modulo Contable.';
+comment on column IT.PSA023_HIS.psa023_hista
+  is 'Transaccion Contable.';
+comment on column IT.PSA023_HIS.psa023_hisrl
+  is 'Relacion Contable.';
+comment on column IT.PSA023_HIS.psa023_hisor
+  is 'Ordinal.';
+comment on column IT.PSA023_HIS.psa023_hisos
+  is 'Sub Ordinal.';
+comment on column IT.PSA023_HIS.psa023_hispa
+  is 'Pais.';
+comment on column IT.PSA023_HIS.psa023_histd
+  is 'Tipo de documento.';
+comment on column IT.PSA023_HIS.psa023_hisdo
+  is 'Numero de documento.';
+comment on column IT.PSA023_HIS.psa023_histp
+  is 'Tipo Cliente.';
+comment on column IT.PSA023_HIS.psa023_hisnc
+  is 'Numero de cuenta.';
+comment on column IT.PSA023_HIS.psa023_hisso
+  is 'Sub Operacion.';
+comment on column IT.PSA023_HIS.psa023_hisct
+  is 'Tipo de cuenta.';
+comment on column IT.PSA023_HIS.psa023_hisrf
+  is 'Nro documento.';
+comment on column IT.PSA023_HIS.psa023_hisdh
+  is 'Tipo de Documento.';
+comment on column IT.PSA023_HIS.psa023_hisop
+  is 'Operacion.';
+comment on column IT.PSA023_HIS.psa023_histt
+  is 'Tipo de transaccion.';
+comment on column IT.PSA023_HIS.psa023_hisau
+  is 'Autorizacion.';
+comment on column IT.PSA023_HIS.psa023_hismd
+  is 'Moneda.';
+comment on column IT.PSA023_HIS.psa023_hisdl
+  is 'Monto en Dolares.';
+comment on column IT.PSA023_HIS.psa023_hisml
+  is 'Monto Moneda Local.';
+comment on column IT.PSA023_HIS.psa023_hismo
+  is 'Monto Moneda Origen.';
+comment on column IT.PSA023_HIS.psa023_hiscd
+  is 'Tipo de Cambio Dolar.';
+comment on column IT.PSA023_HIS.psa023_hiscl
+  is 'Tipo de Cambio Local.';
+comment on column IT.PSA023_HIS.psa023_hiscr
+  is 'Codigo de Respuesta.';
+comment on column IT.PSA023_HIS.psa023_hisrv
+  is 'Reversada.';
+comment on column IT.PSA023_HIS.psa023_hisft
+  is 'Fecha Hora de la Transaccion.';
+comment on column IT.PSA023_HIS.psa023_hisht
+  is 'Hora de la transaccion.';
+comment on column IT.PSA023_HIS.psa023_hisfi
+  is 'Fecha Hora de ingreso.';
+comment on column IT.PSA023_HIS.psa023_hisca
+  is 'Canal.';
+comment on column IT.PSA023_HIS.psa023_hismp
+  is 'Medio de Pago.';
+comment on column IT.PSA023_HIS.psa023_hisci
+  is 'Codigo de Ciudad.';
+comment on column IT.PSA023_HIS.psa023_hissu
+  is 'Codigo de Sucursal.';
+comment on column IT.PSA023_HIS.psa023_hispd
+  is 'Pais Depositante.';
+comment on column IT.PSA023_HIS.psa023_hisdt
+  is 'Tipo de Documento Depositante.';
+comment on column IT.PSA023_HIS.psa023_hisdd
+  is 'Cedula Depositante.';
+comment on column IT.PSA023_HIS.psa023_histr
+  is 'Clase de transferencia entre cuentas.';
+comment on column IT.PSA023_HIS.psa023_hisco
+  is 'Cuenta Ordenante.';
+comment on column IT.PSA023_HIS.psa023_hiscb
+  is 'Cuenta Beneficiario.';
+comment on column IT.PSA023_HIS.psa023_hisdr
+  is 'Cedula Ordenante.';
+comment on column IT.PSA023_HIS.psa023_hisdb
+  is 'Cedula Beneficiario.';
+comment on column IT.PSA023_HIS.psa023_hiseo
+  is 'Entidad Ordenante.';
+comment on column IT.PSA023_HIS.psa023_hiseb
+  is 'Entidad Beneficiario.';
+comment on column IT.PSA023_HIS.psa023_hisbi
+  is 'BIN.';
+comment on column IT.PSA023_HIS.psa023_hisaf
+  is 'Codigo Afiliado.';
+comment on column IT.PSA023_HIS.psa023_hisda
+  is 'Descripcion Afiliado.';
+comment on column IT.PSA023_HIS.psa023_hismc
+  is 'Codigo MCC Tipo de comercio';
+comment on column IT.PSA023_HIS.psa023_hisfu
+  is 'Funcionario Ingreso.';
+comment on column IT.PSA023_HIS.psa023_hisfc
+  is 'Funcionario Confirma.';
+comment on column IT.PSA023_HIS.psa023_hispr
+  is 'Cod. Proceso.';
+comment on column IT.PSA023_HIS.psa023_hisst
+  is 'Saldo.';
+comment on column IT.PSA023_HIS.psa023_hisit
+  is 'ITGF S/N.';
+create index IT.IN_PSA023_HISFEC on IT.PSA023_HIS (PSA023_HISFT)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSA023_HISNC on IT.PSA023_HIS (PSA023_HISNC)
+  tablespace IT_HIS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PSA023_HIS
+  add constraint PK_PSA023_HIS primary key (PSA023_HISMU, PSA023_HISSU, PSA023_HISTA, PSA023_HISRL, PSA023_HISFT, PSA023_HISOR, PSA023_HISOS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

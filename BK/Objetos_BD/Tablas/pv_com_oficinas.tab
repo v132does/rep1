@@ -1,0 +1,70 @@
+create table IT.PV_COM_OFICINAS
+(
+  cod_compra       NUMBER(10) not null,
+  nro_linea        NUMBER(3) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_area         NUMBER(3) not null,
+  cantidad         NUMBER(10,2) not null,
+  val_unitario     NUMBER(18,2) default 0 not null,
+  val_total        NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PV_COM_OFICINAS
+  is 'Distribución por Oficina de Detalles de Compras a Proveedores.';
+comment on column IT.PV_COM_OFICINAS.cod_compra
+  is 'Código de la Compra.';
+comment on column IT.PV_COM_OFICINAS.nro_linea
+  is 'Número de Línea del Detalle.';
+comment on column IT.PV_COM_OFICINAS.cod_oficina
+  is 'Código de la Oficina.';
+comment on column IT.PV_COM_OFICINAS.cod_area
+  is 'Código del Area.';
+comment on column IT.PV_COM_OFICINAS.cantidad
+  is 'Cantidad de Artículos del Detalle la Compra para la Oficina.';
+comment on column IT.PV_COM_OFICINAS.val_unitario
+  is 'Valor Unitario del Artículo.';
+comment on column IT.PV_COM_OFICINAS.val_total
+  is 'Monto Total de la Línea para la Oficina.';
+comment on column IT.PV_COM_OFICINAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PV_COM_OFICINAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PV_COM_OFICINAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PV_COM_OFICINAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.PV_COM_OFICINAS
+  add constraint PK_PV_COM_OFICINAS primary key (COD_COMPRA, NRO_LINEA, COD_OFICINA, COD_AREA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PV_COM_OFICINAS
+  add constraint FK_KCOFI_COD_AREA foreign key (COD_AREA, COD_OFICINA)
+  references IT.BA_AREAS (COD_AREA, COD_OFICINA);
+alter table IT.PV_COM_OFICINAS
+  add constraint FK_KCOFI_COD_COMPRA foreign key (COD_COMPRA, NRO_LINEA)
+  references IT.PV_COMPRAS_DET (COD_COMPRA, NRO_LINEA);
+

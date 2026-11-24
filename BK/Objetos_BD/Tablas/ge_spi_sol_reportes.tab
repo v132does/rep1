@@ -1,0 +1,77 @@
+create table IT.GE_SPI_SOL_REPORTES
+(
+  nro_referencia      NUMBER(15),
+  tip_reporte         VARCHAR2(35),
+  formato             VARCHAR2(10),
+  nro_cta_solicitante VARCHAR2(35),
+  cod_swi_solicitante VARCHAR2(20),
+  est_pago            VARCHAR2(20),
+  fec_desde           DATE,
+  fec_hasta           DATE,
+  fec_valor           DATE,
+  id_disputa          VARCHAR2(100),
+  id_sesion           NUMBER,
+  nro_ref_externa     VARCHAR2(33),
+  tip_instrumento     VARCHAR2(20),
+  tip_participante    VARCHAR2(20),
+  tip_transaccion     VARCHAR2(20),
+  situacion           VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default sysdate not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_SOL_REPORTES
+  is 'Tabla para almacenar los datos de diferentes solicitudes enviadas desde la API de reportes';
+comment on column IT.GE_SPI_SOL_REPORTES.nro_referencia
+  is 'Numero de referencia única del registro.';
+comment on column IT.GE_SPI_SOL_REPORTES.tip_reporte
+  is 'Tipo de reporte solicitado.';
+comment on column IT.GE_SPI_SOL_REPORTES.formato
+  is 'Formato en el que se solicita el reporte';
+comment on column IT.GE_SPI_SOL_REPORTES.nro_cta_solicitante
+  is 'Código de cuenta del participante emisor.';
+comment on column IT.GE_SPI_SOL_REPORTES.cod_swi_solicitante
+  is 'Código swift de participante destinatario.';
+comment on column IT.GE_SPI_SOL_REPORTES.est_pago
+  is 'Estado de pago - valores: Rejected[R], Returned[T], Declined[D], Posted[P]).';
+comment on column IT.GE_SPI_SOL_REPORTES.fec_desde
+  is 'Fecha inicio de informe';
+comment on column IT.GE_SPI_SOL_REPORTES.fec_hasta
+  is 'Fecha fin de informe';
+comment on column IT.GE_SPI_SOL_REPORTES.fec_valor
+  is 'Fecha valor.';
+comment on column IT.GE_SPI_SOL_REPORTES.id_disputa
+  is 'Identificador de disputa.';
+comment on column IT.GE_SPI_SOL_REPORTES.id_sesion
+  is 'Identificador de la sesion de liquidacion.';
+comment on column IT.GE_SPI_SOL_REPORTES.nro_ref_externa
+  is 'Número de referencia Identificador del mensaje';
+comment on column IT.GE_SPI_SOL_REPORTES.tip_instrumento
+  is 'Tipo de instrumento.';
+comment on column IT.GE_SPI_SOL_REPORTES.tip_participante
+  is 'Tipo de Participante';
+comment on column IT.GE_SPI_SOL_REPORTES.tip_transaccion
+  is 'Tipo de transaccion.';
+comment on column IT.GE_SPI_SOL_REPORTES.situacion
+  is 'Situacion del registro Pendiente de Envío a BCP [P], Bloqueado [B], Enviado al BCP [V], Evitar reenvío SPI [N],Operacion Liquidada [L],Cancelado [C]';
+comment on column IT.GE_SPI_SOL_REPORTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_SOL_REPORTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SPI_SOL_REPORTES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_SOL_REPORTES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+

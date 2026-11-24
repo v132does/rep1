@@ -1,0 +1,7 @@
+create sequence IT.S_ID_LOG_MX_SPI
+minvalue 1
+maxvalue 999999999
+start with 2390821
+increment by 1
+cache 20;
+

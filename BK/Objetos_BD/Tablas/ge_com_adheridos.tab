@@ -1,0 +1,102 @@
+create table IT.GE_COM_ADHERIDOS
+(
+  cod_cli_comercio VARCHAR2(20) not null,
+  nom_comercio     VARCHAR2(100) not null,
+  cod_comercio     VARCHAR2(20) not null,
+  cod_suc_comercio NUMBER(10) not null,
+  por_reintegro    NUMBER(10,2),
+  mon_maximo       NUMBER(20,2),
+  fec_inicio       DATE,
+  fec_fin          DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_promocion    VARCHAR2(20),
+  cod_switch       VARCHAR2(20),
+  top_mes          VARCHAR2(1),
+  tipo             VARCHAR2(1),
+  mto_minimo       NUMBER(20,2),
+  mto_max_tc       NUMBER(20,2),
+  top_compra       NUMBER(20,2),
+  por_rei_tc       NUMBER(10,2),
+  top_com_tc       NUMBER(10,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_COM_ADHERIDOS.cod_cli_comercio
+  is 'Código de Cliente del comercio en la procesadora.';
+comment on column IT.GE_COM_ADHERIDOS.nom_comercio
+  is 'Nombre del Comercio.';
+comment on column IT.GE_COM_ADHERIDOS.cod_comercio
+  is 'Código del Comercio.';
+comment on column IT.GE_COM_ADHERIDOS.cod_suc_comercio
+  is 'Código sucursal del Comercio.';
+comment on column IT.GE_COM_ADHERIDOS.por_reintegro
+  is 'Porcentaje de Reintegro.';
+comment on column IT.GE_COM_ADHERIDOS.mon_maximo
+  is 'Monto máximo de Reintegro.';
+comment on column IT.GE_COM_ADHERIDOS.fec_inicio
+  is 'Fecha inicio de Reintegro.';
+comment on column IT.GE_COM_ADHERIDOS.fec_fin
+  is 'Fecha fin de Reintegro.';
+comment on column IT.GE_COM_ADHERIDOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.''';
+comment on column IT.GE_COM_ADHERIDOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_COM_ADHERIDOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_COM_ADHERIDOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_COM_ADHERIDOS.cod_promocion
+  is 'Código de Promoción.';
+comment on column IT.GE_COM_ADHERIDOS.cod_switch
+  is 'Código switch de la operación.';
+comment on column IT.GE_COM_ADHERIDOS.top_mes
+  is 'Indica si el tope de reintegro es por mes (S/N).';
+comment on column IT.GE_COM_ADHERIDOS.tipo
+  is 'Indica a que tipo de productos aplica el Reintegro, D=solo tarj. debitos y qr, T= solo TC, A= ambos.';
+comment on column IT.GE_COM_ADHERIDOS.mto_minimo
+  is 'Monto mínimo de compra para realizar el reintegro.';
+comment on column IT.GE_COM_ADHERIDOS.mto_max_tc
+  is 'Monto tope reintegros para tc.';
+comment on column IT.GE_COM_ADHERIDOS.top_compra
+  is 'Tope de compra para débitos por promoción.';
+comment on column IT.GE_COM_ADHERIDOS.por_rei_tc
+  is 'Porcentaje de Reintegro Tarjetas.';
+comment on column IT.GE_COM_ADHERIDOS.top_com_tc
+  is 'Tope de compra para créditos por promoción.';
+create index IT.IN_GCA_CLI_COMERCIO on IT.GE_COM_ADHERIDOS (COD_CLI_COMERCIO, COD_COMERCIO, COD_SUC_COMERCIO, COD_PROMOCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECOMADH_CODCLICOM on IT.GE_COM_ADHERIDOS (COD_CLI_COMERCIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

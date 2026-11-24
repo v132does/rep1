@@ -1,0 +1,112 @@
+create table IT.SB_ENC_CIRCULAR254_TMP
+(
+  fecha            DATE not null,
+  nro_registro     NUMBER(4) not null,
+  cod_moneda       NUMBER(4) not null,
+  cod_cuenta       NUMBER(3) not null,
+  cod_subcuenta    NUMBER(2) not null,
+  plazo            NUMBER(2) not null,
+  rango            NUMBER(2) not null,
+  can_cuenta       NUMBER(9) not null,
+  importe          NUMBER(15,2) not null,
+  cta_departamento NUMBER(2) not null,
+  enc_exonerado    NUMBER(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_ref_1        NUMBER(15),
+  nro_ref_360      NUMBER(15),
+  nro_ref_540      NUMBER(15),
+  nro_ref_1080     NUMBER(15),
+  nro_ref_3650     NUMBER(15),
+  estado           VARCHAR2(1),
+  usu_aprobacion   VARCHAR2(10),
+  fec_aprobacion   DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ENC_CIRCULAR254_TMP
+  is 'Planilla de Encaje Legal Diaria Temporal.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.fecha
+  is 'Fecha de generación de datos.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.nro_registro
+  is 'Indica el número de línea de cada registro.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.cod_moneda
+  is 'Código de la moneda empleada en CRC.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.cod_cuenta
+  is 'Indica los tres dígitos de las cuentas contables especificadas en la resolución 11.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.cod_subcuenta
+  is 'Indica los dos dígitos de las sub. cuentas contables especificadas en la resolución 11.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.plazo
+  is 'Plazo estipulado de las operaciones.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.rango
+  is 'Indica el rango de estratificación de depósitos al que corresponde los saldos sujetos al encaje.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.can_cuenta
+  is 'Cantidad de cuentas que cumplen con las mismas condiciones y que fueron incluidas para la sumatoria del campo monto.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.importe
+  is 'Sumatoria del saldo de las cuentas.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.cta_departamento
+  is 'Indica ubicación geográfica de las cuentas por departamento, con la misma condición empleada en CRC.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.enc_exonerado
+  is 'Indica exclusión del encaje legal (0 exonerado 1 no exonerado).';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.usu_insercion
+  is 'Usuario que realizo la inserción.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.usu_modificacion
+  is 'Usuario que realizo la modificación.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.fec_modificacion
+  is 'Fecha de modificación.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.nro_ref_1
+  is ' Número de referencia del mensaje correspondiente al Saldo Actual informado.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.nro_ref_360
+  is 'Número de referencia del mensaje correspondiente al Sujeto de 2 a 360 días informado.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.nro_ref_540
+  is 'Número de referencia del mensaje correspondiente al Sujeto de 361 a 540 días informado.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.nro_ref_1080
+  is 'Número de referencia del mensaje correspondiente al Sujeto de 541 a 1080 días informado.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.nro_ref_3650
+  is 'Número de referencia del mensaje correspondiente al Sujeto de 1080 a 3650 días informado.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.estado
+  is 'Estado de la modificación. P=Pendiente, A=Aprobado.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.usu_aprobacion
+  is 'Usuario que aprueba el ajuste.';
+comment on column IT.SB_ENC_CIRCULAR254_TMP.fec_aprobacion
+  is 'Fecha de la aprobación.';
+create index IT.IN_SEC254T_FECHA on IT.SB_ENC_CIRCULAR254_TMP (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_ENC_CIRCULAR254_TMP
+  add constraint PK_SB_ENC_CIRCULAR254_TMP primary key (FECHA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,56 @@
+CREATE TABLE IT.GE_EXT_INTERVALOS (
+   PRI_DIA_MES_HABIL  DATE              NOT NULL,
+   COD_COTA_INFERIOR  VARCHAR2(10 BYTE) NOT NULL,
+   COD_COTA_SUPERIOR  VARCHAR2(10 BYTE) NOT NULL,
+   PRIORIDAD          NUMBER(2),
+   ESTADO             VARCHAR2(1 BYTE)  DEFAULT 'I',
+   OBSERVACION        VARCHAR2(500 BYTE),
+   USU_INSERCION      VARCHAR2(10 BYTE) DEFAULT SUBSTR(USER,1,10),
+   FEC_INSERCION      DATE              DEFAULT SYSDATE,
+   USU_MODIFICACION   VARCHAR2(10 BYTE) DEFAULT SUBSTR(USER,1,10),
+   FEC_MODIFICACION   DATE              DEFAULT SYSDATE,
+   CONSTRAINT PK_GE_EXT_INTERVALOS PRIMARY KEY (
+      PRI_DIA_MES_HABIL,
+      COD_COTA_INFERIOR,
+      COD_COTA_SUPERIOR
+   ) ENABLE 
+)
+tablespace IT_DATA
+pctfree 10
+initrans 1
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+CREATE INDEX IN_GINTE_PRI_DIA_MES_HABIL ON IT.GE_EXT_INTERVALOS (PRI_DIA_MES_HABIL ASC, PRIORIDAD ASC, ESTADO ASC);
+
+CREATE PUBLIC SYNONYM GE_EXT_INTERVALOS FOR IT.GE_EXT_INTERVALOS;
+
+COMMENT ON TABLE GE_EXT_INTERVALOS IS 'Tabla de Intervalos Ponderados para la generacion de Extractos';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.PRI_DIA_MES_HABIL IS 'Primer dia habil del mes';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.COD_COTA_INFERIOR IS 'Valor limite inferior que define al intervalo';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.COD_COTA_SUPERIOR IS 'Valor limite superior que define al intervalo';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.PRIORIDAD IS 'Prioridad del intervalo (1:maxima, 99:minima)';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.ESTADO IS 'Estado del intervalo (I:insertado, B:bloqueado, D:desestimado, P:procesado con exito, L:Log para revision, E:error al procesar, Z:zombie)';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.OBSERVACION IS 'Observacion';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.USU_INSERCION IS 'Usuario que realizo la insercion del registro';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.FEC_INSERCION IS 'Fecha en que se inserto el registro';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.USU_MODIFICACION IS 'Usuario que realizo la ultima modificacion en el registro';
+
+COMMENT ON COLUMN GE_EXT_INTERVALOS.FEC_MODIFICACION IS 'Fecha en que se realizo la ultima modificacion en el registro';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON GE_EXT_INTERVALOS TO IT_TEMPORAL;

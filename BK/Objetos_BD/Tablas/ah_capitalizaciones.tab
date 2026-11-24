@@ -1,0 +1,136 @@
+create table IT.AH_CAPITALIZACIONES
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  fec_inicio         DATE not null,
+  fec_fin            DATE not null,
+  tip_capitalizacion NUMBER(2) not null,
+  cod_tasa           NUMBER(3) not null,
+  val_tasa           NUMBER(20,4) not null,
+  mto_interes        NUMBER(18,2) default 0 not null,
+  sal_promedio       NUMBER(18,2) default 0 not null,
+  sal_acumulado      NUMBER(18,2) default 0 not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CAPITALIZACIONES
+  is 'Contiene datos sobre la Capitalizacion realizada a las Cuentas de Ahorro ** Mantener 2 a?os completos **';
+comment on column IT.AH_CAPITALIZACIONES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_CAPITALIZACIONES.fecha
+  is 'Fecha de Capitalizacion.';
+comment on column IT.AH_CAPITALIZACIONES.cod_modulo
+  is 'Codigo de Modulo de la cuenta.';
+comment on column IT.AH_CAPITALIZACIONES.cod_modalidad
+  is 'Codigo de Modalidad de la cuenta.';
+comment on column IT.AH_CAPITALIZACIONES.cod_oficina
+  is 'Codigo de Oficina de la cuenta.';
+comment on column IT.AH_CAPITALIZACIONES.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.AH_CAPITALIZACIONES.fec_inicio
+  is 'Fecha Inicial de la Capitalizacion.';
+comment on column IT.AH_CAPITALIZACIONES.fec_fin
+  is 'Fecha Final de la Capitalizacion.';
+comment on column IT.AH_CAPITALIZACIONES.tip_capitalizacion
+  is 'Tipo de Capitalizacion. (1/2/3/99).';
+comment on column IT.AH_CAPITALIZACIONES.cod_tasa
+  is 'Codigo de Tasa Aplicado.';
+comment on column IT.AH_CAPITALIZACIONES.val_tasa
+  is 'Valor de la Tasa Aplicada.';
+comment on column IT.AH_CAPITALIZACIONES.mto_interes
+  is 'Interes Capitalizado calculado.';
+comment on column IT.AH_CAPITALIZACIONES.sal_promedio
+  is 'Saldo Promedio sobre el cual se calculo el interes.';
+comment on column IT.AH_CAPITALIZACIONES.sal_acumulado
+  is 'Saldo Acumulado de la cuenta.';
+comment on column IT.AH_CAPITALIZACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CAPITALIZACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CAPITALIZACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CAPITALIZACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_ACAPI_COD_MODALIDAD on IT.AH_CAPITALIZACIONES (COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_TASA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACAPI_FEC_INICIO on IT.AH_CAPITALIZACIONES (NRO_CUENTA, FECHA, FEC_INICIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CAPITALIZACIONES
+  add constraint PK_AH_CAPITALIZACIONES primary key (NRO_CUENTA, FEC_INICIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CAPITALIZACIONES
+  add constraint FK_ACAPI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint FK_ACAPI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint FK_ACAPI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint FK_ACAPI_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint AVCON_1084478304_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint AVCON_1084478304_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint AVCON_1084478304_COD_O_002
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint AVCON_1084478304_COD_T_001
+  check (COD_TASA BETWEEN 0 AND 999);
+alter table IT.AH_CAPITALIZACIONES
+  add constraint AVCON_1084478304_TIP_C_000
+  check (TIP_CAPITALIZACION IN (1, 2, 3, 4, 6, 12, 99));
+

@@ -1,0 +1,62 @@
+create table IT.PR_PARAMETROS
+(
+  por_riesgo_2            NUMBER(3) not null,
+  por_riesgo_3            NUMBER(3) not null,
+  por_riesgo_4            NUMBER(3) not null,
+  por_riesgo_5            NUMBER(3) not null,
+  por_riesgo_6            NUMBER(3) not null,
+  sal_min_vigente         NUMBER(18) not null,
+  cap_min_exigido         NUMBER(18) not null,
+  usu_insercion           VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion           DATE default SYSDATE not null,
+  usu_modificacion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion        DATE default SYSDATE not null,
+  por_cap_min_exigido     NUMBER(3) default 3 not null,
+  por_riesgo_1a           NUMBER(3,2),
+  por_riesgo_1b           NUMBER(3,2),
+  por_cap_min_exi_sistema NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_PARAMETROS
+  is 'Parametros de prestamos.';
+comment on column IT.PR_PARAMETROS.por_riesgo_2
+  is 'Porcentaje de Riesgo categoría 2.';
+comment on column IT.PR_PARAMETROS.por_riesgo_3
+  is 'Porcentaje de Riesgo categoría 3.';
+comment on column IT.PR_PARAMETROS.por_riesgo_4
+  is 'Porcentaje de Riesgo categoría 4.';
+comment on column IT.PR_PARAMETROS.por_riesgo_5
+  is 'Porcentaje de Riesgo categoría 5.';
+comment on column IT.PR_PARAMETROS.por_riesgo_6
+  is 'Porcentaje de Riesgo categoría 6.';
+comment on column IT.PR_PARAMETROS.sal_min_vigente
+  is 'Salario mínimo vigente establecido.';
+comment on column IT.PR_PARAMETROS.cap_min_exigido
+  is 'Capital mínimo exigido en el sistema financiero.';
+comment on column IT.PR_PARAMETROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_PARAMETROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_PARAMETROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_PARAMETROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_PARAMETROS.por_cap_min_exigido
+  is 'Porcentaje del Capital mínimo exigido en la entidad financiera.';
+comment on column IT.PR_PARAMETROS.por_riesgo_1a
+  is 'Porcentaje de Riesgo categoría 1a.';
+comment on column IT.PR_PARAMETROS.por_riesgo_1b
+  is 'Porcentaje de Riesgo categoría 1b.';
+comment on column IT.PR_PARAMETROS.por_cap_min_exi_sistema
+  is 'Porcentaje del Capital mínimo exigido en el sistema financiera.';
+

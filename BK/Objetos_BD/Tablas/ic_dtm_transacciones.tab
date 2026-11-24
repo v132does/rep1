@@ -1,0 +1,64 @@
+create table IT.IC_DTM_TRANSACCIONES
+(
+  cod_dtm_transaccion NUMBER(6) not null,
+  cod_transaccion     NUMBER(4),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  descripcion         VARCHAR2(60),
+  tipo                VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default SYSDATE,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion    DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IC_DTM_TRANSACCIONES
+  is 'Tabla de equivalencia de las trancciones para el DATAMART';
+comment on column IT.IC_DTM_TRANSACCIONES.cod_dtm_transaccion
+  is 'Codigo de la transaccion en el DATAMART';
+comment on column IT.IC_DTM_TRANSACCIONES.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.IC_DTM_TRANSACCIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.IC_DTM_TRANSACCIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.IC_DTM_TRANSACCIONES.descripcion
+  is 'Nombre de la transaccion.';
+comment on column IT.IC_DTM_TRANSACCIONES.tipo
+  is 'Tipo de transaccion. Define en que forma afecta en la operacion.';
+comment on column IT.IC_DTM_TRANSACCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IC_DTM_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IC_DTM_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IC_DTM_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IC_DTM_TRANSACCIONES
+  add constraint PK_IC_DTM_TRANSACCIONES primary key (COD_DTM_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IC_DTM_TRANSACCIONES
+  add constraint FK_CDTMT_COD_TRA_HIJO foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

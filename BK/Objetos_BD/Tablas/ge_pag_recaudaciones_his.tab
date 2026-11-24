@@ -1,0 +1,74 @@
+create table IT.GE_PAG_RECAUDACIONES_HIS
+(
+  cod_ente         NUMBER(5),
+  fec_operacion    DATE,
+  nro_archivo      NUMBER(10),
+  nro_cta_debito   VARCHAR2(15),
+  denominacion     VARCHAR2(120),
+  nro_cta_credito  VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  estado           VARCHAR2(1),
+  nro_factura      VARCHAR2(60),
+  tip_cobranza     VARCHAR2(3),
+  nro_documento    NUMBER(15),
+  fec_insercion    DATE default sysdate,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_cobro        DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_RECAUDACIONES_HIS
+  is 'Datos correspondiente a ordenes de Servicios.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.cod_ente
+  is 'Código del Ente.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.fec_operacion
+  is 'Fecha en que se debe realizar el cobro.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.nro_archivo
+  is 'Número del Archivo. Valor secuencial por ente y fecha.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.nro_cta_debito
+  is 'Número de Cuenta de Débito.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.denominacion
+  is 'Denominación de la Cuenta de Débito.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.nro_cta_credito
+  is 'Número de Cuenta de Crédito.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.monto
+  is 'Monto de la Transacción.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.estado
+  is 'Estado en el que se encuentra la orden.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.nro_factura
+  is 'Número de Referencia de Pago.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.tip_cobranza
+  is 'Codigo del Concepto del Tipo de Pago.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.nro_documento
+  is 'Número de comprobante generado en el pago.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.usu_insercion
+  is 'Usuario que inserta el registro.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.fec_modificacion
+  is 'Fecha de actualización del registro.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.usu_modificacion
+  is 'Usuario que actualiza el registro.';
+comment on column IT.GE_PAG_RECAUDACIONES_HIS.fec_cobro
+  is 'Fecha de Cobro';
+alter table IT.GE_PAG_RECAUDACIONES_HIS
+  add constraint FK_GPSER_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.GE_PAG_RECAUDACIONES_HIS
+  add constraint FK_GPSER_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

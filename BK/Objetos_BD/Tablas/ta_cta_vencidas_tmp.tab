@@ -1,0 +1,53 @@
+create table IT.TA_CTA_VENCIDAS_TMP
+(
+  nro_cuenta      VARCHAR2(15) not null,
+  nro_tarjeta     VARCHAR2(16),
+  dig_verificador NUMBER(1),
+  fec_movimiento  DATE,
+  desc_movimiento VARCHAR2(20),
+  mto_vencido     NUMBER(9),
+  tip_afectacion  NUMBER(1),
+  tip_movimiento  VARCHAR2(2),
+  financia        VARCHAR2(1),
+  fec_proceso     DATE,
+  cod_usuario     VARCHAR2(10),
+  cod_origen      NUMBER(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CTA_VENCIDAS_TMP
+  is 'Datos enviados por Bancard sobre las tarjetas de credito que deben pasar a ser una CUENTA VENCIDA.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.nro_cuenta
+  is 'Numero de la Cuenta de Tarjeta.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.nro_tarjeta
+  is 'Numero de tarjeta.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.dig_verificador
+  is 'Digito verificador de la tarjeta.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.fec_movimiento
+  is 'Fecha de Movimiento.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.desc_movimiento
+  is 'Descripcion del Movimiento.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.mto_vencido
+  is 'Importe del movimiento.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.tip_afectacion
+  is 'Tipo de Afectacion. 0=SFAC, 1=SIN, 2=SFNV, 3=Cre.Pago Min.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.tip_movimiento
+  is 'Tipo de Movimiento. CR = Credito, DB = Debito';
+comment on column IT.TA_CTA_VENCIDAS_TMP.financia
+  is 'Financia?. S= Si, N=No.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.cod_usuario
+  is 'Usuario.';
+comment on column IT.TA_CTA_VENCIDAS_TMP.cod_origen
+  is 'Codigo de Origen. 1= Digitado, 2=Transmision';
+

@@ -1,0 +1,79 @@
+create table IT.CR_SEGMENTOS
+(
+  cod_segmento     VARCHAR2(10) not null,
+  descripcion      VARCHAR2(100) not null,
+  tipo             VARCHAR2(1) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  roles            VARCHAR2(500),
+  observacion      VARCHAR2(300),
+  det_sql          LONG,
+  afe_agenda       VARCHAR2(1) default 'N',
+  afe_consulta     VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_SEGMENTOS
+  is 'Definicion de los grupos de segmentacion.';
+comment on column IT.CR_SEGMENTOS.cod_segmento
+  is 'Codigo de segmento.';
+comment on column IT.CR_SEGMENTOS.descripcion
+  is 'Descripcion del segmento.';
+comment on column IT.CR_SEGMENTOS.tipo
+  is 'Tipo de segmento G=General o P=Particular.';
+comment on column IT.CR_SEGMENTOS.cod_usuario
+  is 'Usuario dueño del segmento.';
+comment on column IT.CR_SEGMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_SEGMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_SEGMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_SEGMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_SEGMENTOS.roles
+  is 'Roles a quienes se da permiso.';
+comment on column IT.CR_SEGMENTOS.observacion
+  is 'Observaciones sobre este segmento.';
+comment on column IT.CR_SEGMENTOS.det_sql
+  is 'Sentencia Sql  complementario. Esto debe ser utilizado en los casos en los que no se tienen campos  a filtrar.';
+comment on column IT.CR_SEGMENTOS.afe_agenda
+  is 'Indica que el segmento afecta a la agenda.';
+comment on column IT.CR_SEGMENTOS.afe_consulta
+  is 'Indica si el segmento se puede utilizar en la consulta de personas iniciales.';
+alter table IT.CR_SEGMENTOS
+  add constraint PK_CR_SEGMENTOS primary key (COD_SEGMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_SEGMENTOS
+  add constraint FK_RSEGM_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_SEGMENTOS
+  add constraint AVCON_1080843837_TIPO_000
+  check (TIPO IN ('G', 'P'));
+alter table IT.CR_SEGMENTOS
+  add constraint AVCON_1121865047_AFE_A_000
+  check (AFE_AGENDA IN ('S', 'N'));
+

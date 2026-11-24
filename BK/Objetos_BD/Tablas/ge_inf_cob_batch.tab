@@ -1,0 +1,58 @@
+create table IT.GE_INF_COB_BATCH
+(
+  nro_proceso      NUMBER(20) not null,
+  fec_proceso      DATE,
+  fec_archivo      DATE,
+  nro_cuenta       VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_rub_contable VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_INF_COB_BATCH
+  is 'Acreditaciones en Batch de Infonet Cobranzas';
+comment on column IT.GE_INF_COB_BATCH.nro_proceso
+  is 'Nro. Proceso.';
+comment on column IT.GE_INF_COB_BATCH.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.GE_INF_COB_BATCH.fec_archivo
+  is 'Fecha de Archivo.';
+comment on column IT.GE_INF_COB_BATCH.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.GE_INF_COB_BATCH.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_INF_COB_BATCH.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_INF_COB_BATCH.usu_modificacion
+  is 'Usuario de Modificacion.';
+comment on column IT.GE_INF_COB_BATCH.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.GE_INF_COB_BATCH.cod_rub_contable
+  is 'Rubro Contable Transitorio.';
+alter table IT.GE_INF_COB_BATCH
+  add constraint PK_GE_INF_COB_BATCH primary key (NRO_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,101 @@
+--------------------------------------------------------------------------------
+-- Tabla: IT.GE_CRC_CTRL_RESULTADOS_CFG
+-- Descripción: Configuración de controles de generación de resultados para el
+--              extractor CRC. Define SQLs de control (COUNT(*)), mínimos
+--              esperados y criticidad por control.
+--------------------------------------------------------------------------------
+
+CREATE TABLE IT.GE_CRC_CTRL_RESULTADOS_CFG (
+    ID_CTRL          NUMBER(18)      NOT NULL,
+
+    COD_PROC         VARCHAR2(50)    NOT NULL,   -- referencia lógica: GE_CRC_PROCESOS_CFG.COD_PROC
+    DESCRIPCION      VARCHAR2(200)   NOT NULL,
+
+    SQL_CONTROL      CLOB            NOT NULL,
+
+    TABLA_DESTINO    VARCHAR2(128)   NOT NULL,   -- ej: 'PAS_CRI.CRC_TABLA_X'
+    MIN_REGISTROS    NUMBER(10)      DEFAULT 1 NOT NULL,
+
+    ACTIVO           CHAR(1)         DEFAULT 'S' NOT NULL,
+    CRITICO          CHAR(1)         DEFAULT 'S' NOT NULL,
+
+    USU_INSERCION    VARCHAR2(10)    NOT NULL,
+    FEC_INSERCION    DATE            NOT NULL,
+    USU_MODIFICACION VARCHAR2(10)    NOT NULL,
+    FEC_MODIFICACION DATE            NOT NULL,
+
+    CONSTRAINT PK_GE_CRC_CTRL_RES_CFG
+        PRIMARY KEY (ID_CTRL),
+
+    CONSTRAINT CK_CRC_CTRL_RES_CFG_ACT
+        CHECK (ACTIVO IN ('S', 'N')),
+
+    CONSTRAINT CK_CRC_CTRL_RES_CFG_CRI
+        CHECK (CRITICO IN ('S', 'N')),
+
+    CONSTRAINT CK_CRC_CTRL_RES_CFG_MIN
+        CHECK (MIN_REGISTROS >= 0)
+)
+TABLESPACE IT_DATA;
+
+--------------------------------------------------------------------------------
+-- Comentarios
+--------------------------------------------------------------------------------
+
+COMMENT ON TABLE IT.GE_CRC_CTRL_RESULTADOS_CFG IS
+'Configuración de controles de generación de resultados para el extractor CRC. Define el SQL de control (típicamente COUNT(*)), el mínimo esperado, y la criticidad.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.ID_CTRL IS
+'Identificador único del control configurado (PK).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.COD_PROC IS
+'Código del proceso/control relacionado (referencia lógica a GE_CRC_PROCESOS_CFG.COD_PROC).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.DESCRIPCION IS
+'Descripción funcional del control.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.SQL_CONTROL IS
+'SQL de control a ejecutar. Se espera que retorne un único valor (generalmente COUNT(*)) y reciba la fecha de proceso como bind (ej: :1).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.TABLA_DESTINO IS
+'Tabla destino o entidad principal verificada por el control (informativo).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.MIN_REGISTROS IS
+'Mínimo esperado de registros para considerar el control OK. Si es 0, se interpreta como control de discrepancias (se espera RESULTADO_CNT=0).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.ACTIVO IS
+'Indica si el control está habilitado para ejecución (S=Sí, N=No).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.CRITICO IS
+'Indica si el control es crítico (S=Sí, N=No). Si falla y es crítico, puede cortar la ejecución de controles.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.USU_INSERCION IS
+'Usuario que realizó la inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.FEC_INSERCION IS
+'Fecha de inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.USU_MODIFICACION IS
+'Usuario de última modificación del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_CFG.FEC_MODIFICACION IS
+'Fecha de última modificación del registro (auditoría).';
+
+--------------------------------------------------------------------------------
+-- Índices
+--------------------------------------------------------------------------------
+
+CREATE INDEX IT.IDX_CRC_CTRL_RES_CFG_PROC
+    ON IT.GE_CRC_CTRL_RESULTADOS_CFG (COD_PROC, ACTIVO)
+TABLESPACE IT_IND;
+
+--------------------------------------------------------------------------------
+-- Sinónimo y permisos
+--------------------------------------------------------------------------------
+
+CREATE PUBLIC SYNONYM GE_CRC_CTRL_RESULTADOS_CFG
+FOR IT.GE_CRC_CTRL_RESULTADOS_CFG;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+ON IT.GE_CRC_CTRL_RESULTADOS_CFG
+TO IT_TEMPORAL;

@@ -1,0 +1,134 @@
+create table IT.GE_SEG_FRAUDE
+(
+  ano              NUMBER(4) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  embozado         VARCHAR2(26) not null,
+  nro_tarjeta      VARCHAR2(19) not null,
+  fec_vencimiento  DATE not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_emision      VARCHAR2(2) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  fec_activacion   DATE not null,
+  mto_anual        NUMBER(18,2) not null,
+  mto_seguro       NUMBER(18,2) not null,
+  mto_ganancia     NUMBER(18,2) not null,
+  mto_acumulado    NUMBER(18,2) not null,
+  fec_alta         DATE not null,
+  cotizacion       NUMBER(16,4),
+  fec_baja         DATE,
+  estado           VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_oficina      NUMBER(3),
+  mto_impuesto     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SEG_FRAUDE.ano
+  is 'Año del Seguro.';
+comment on column IT.GE_SEG_FRAUDE.nro_cuenta
+  is 'Numero de Cuenta de la Tarjeta de Débito.';
+comment on column IT.GE_SEG_FRAUDE.embozado
+  is 'Embozado.';
+comment on column IT.GE_SEG_FRAUDE.nro_tarjeta
+  is 'Nro. de Tarjeta';
+comment on column IT.GE_SEG_FRAUDE.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_SEG_FRAUDE.cod_persona
+  is 'Cliente.';
+comment on column IT.GE_SEG_FRAUDE.nro_emision
+  is 'Nro. de Emision.';
+comment on column IT.GE_SEG_FRAUDE.cod_moneda
+  is 'Código de Moneda de la Tarjeta de Debito.';
+comment on column IT.GE_SEG_FRAUDE.fec_activacion
+  is 'Fecha de Activación de la Tarjeta de Debito.';
+comment on column IT.GE_SEG_FRAUDE.mto_anual
+  is 'Monto Anual del Seguro.';
+comment on column IT.GE_SEG_FRAUDE.mto_seguro
+  is 'Monto Neto del Seguro.';
+comment on column IT.GE_SEG_FRAUDE.mto_ganancia
+  is 'Monto de la Ganancia.';
+comment on column IT.GE_SEG_FRAUDE.mto_acumulado
+  is 'Monto Cobrado Acumulado de la Ganancia.';
+comment on column IT.GE_SEG_FRAUDE.fec_alta
+  is 'Fecha de Alta del Seguro.';
+comment on column IT.GE_SEG_FRAUDE.cotizacion
+  is 'Cotización del Cargo.';
+comment on column IT.GE_SEG_FRAUDE.fec_baja
+  is 'Fecha de Baja.';
+comment on column IT.GE_SEG_FRAUDE.estado
+  is 'Estado del Seguro: A/Activo, C/Cancelado, P/Totalmente Pagado.';
+comment on column IT.GE_SEG_FRAUDE.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SEG_FRAUDE.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SEG_FRAUDE.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_FRAUDE.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_FRAUDE.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_SEG_FRAUDE.mto_impuesto
+  is 'Monto del Impuesto.';
+create index IT.IN_GSFRA_EST_ANO on IT.GE_SEG_FRAUDE (ESTADO, ANO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSFRA_FEC_ALTA on IT.GE_SEG_FRAUDE (COD_PERSONA, FEC_ALTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSFRA_FEC_BAJA on IT.GE_SEG_FRAUDE (COD_PERSONA, FEC_BAJA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SEG_FRAUDE
+  add constraint PK_GE_SEG_FRAUDE primary key (ANO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

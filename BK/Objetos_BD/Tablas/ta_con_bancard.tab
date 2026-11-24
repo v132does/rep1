@@ -1,0 +1,72 @@
+create table IT.TA_CON_BANCARD
+(
+  fecha           DATE,
+  referencia      VARCHAR2(30),
+  nro_cuenta      VARCHAR2(15),
+  nro_tarjeta     VARCHAR2(25),
+  est_bancard     VARCHAR2(1),
+  est_itgf        VARCHAR2(2),
+  nro_doc_bancard VARCHAR2(16),
+  nro_doc_itgf    VARCHAR2(20),
+  reproceso       VARCHAR2(1) default 'N',
+  cod_error       VARCHAR2(240),
+  det_error       VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_CON_BANCARD.fecha
+  is 'Fecha del archivo a conciliar.';
+comment on column IT.TA_CON_BANCARD.referencia
+  is 'PBCUENTAS, PBTARJETAS.';
+comment on column IT.TA_CON_BANCARD.nro_cuenta
+  is 'Número de Cuenta de la Tarjeta.';
+comment on column IT.TA_CON_BANCARD.nro_tarjeta
+  is 'Número de Tarjeta.';
+comment on column IT.TA_CON_BANCARD.est_bancard
+  is 'A/Activo, I/Inactivo, B/Bloqueado.';
+comment on column IT.TA_CON_BANCARD.est_itgf
+  is 'Estado en ITGF.';
+comment on column IT.TA_CON_BANCARD.nro_doc_bancard
+  is 'Número de Documento en la base de datos de Bancard.';
+comment on column IT.TA_CON_BANCARD.nro_doc_itgf
+  is 'Número de Documento en la Base de Datos ITGF.';
+comment on column IT.TA_CON_BANCARD.reproceso
+  is 'Indica si la cuenta o tarjeta está pendiente de reproceso.';
+comment on column IT.TA_CON_BANCARD.cod_error
+  is 'Código del error en el Alta. Dominio TAR_CON_BANCARD.';
+comment on column IT.TA_CON_BANCARD.det_error
+  is 'Detalle del error para reproceso.';
+create unique index IT.IN_TCBAN_CTA_TARJETA on IT.TA_CON_BANCARD (FECHA, REFERENCIA, NRO_CUENTA, NRO_TARJETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TCBAN_FECHA on IT.TA_CON_BANCARD (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

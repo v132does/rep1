@@ -1,0 +1,228 @@
+create table IT.CR_CTA_TRAMOS
+(
+  fec_inicio             DATE,
+  cod_persona            VARCHAR2(10),
+  cod_tramo              NUMBER(3) not null,
+  nro_cuenta             VARCHAR2(15) not null,
+  fec_ini_tramo          DATE,
+  fec_fin_tramo          DATE,
+  dia_tramo              NUMBER(5),
+  est_tramo              VARCHAR2(1),
+  cod_agenda             NUMBER(10),
+  cod_modulo             NUMBER(3),
+  cod_modalidad          NUMBER(3),
+  cod_moneda             VARCHAR2(3),
+  mto_lim_prestable      NUMBER(18,2),
+  mto_lin_credito        NUMBER(18,2),
+  mto_lin_disponible     NUMBER(18,2),
+  mto_saldo              NUMBER(18,2),
+  nro_solicitud          NUMBER(7),
+  cod_usu_promotor       VARCHAR2(10),
+  nro_tarjeta            VARCHAR2(25),
+  ref_atraso             VARCHAR2(2),
+  ref_atr_cuenta         VARCHAR2(2),
+  ref_atr_historico      VARCHAR2(2),
+  mto_sal_lim_prestable  NUMBER(18,2),
+  mto_tot_ingresos       NUMBER(18,2),
+  mto_tot_egresos        NUMBER(18,2),
+  mto_max_end_cuota      NUMBER(18,2),
+  por_max_end_cuota      NUMBER(18,2),
+  mto_niv_end_cuota      NUMBER(18,2),
+  por_niv_end_cuota      NUMBER(18,2),
+  mto_sal_end_cuota      NUMBER(18,2),
+  mto_bas_cre_automatico NUMBER(18,2),
+  pue_cre_automatico     VARCHAR2(1),
+  mto_cre_automatico     NUMBER(18,2),
+  estado                 VARCHAR2(1),
+  fec_agenda             DATE,
+  nro_sol_cre_automatico NUMBER(7),
+  fec_act_tramo          DATE,
+  fec_emi_cer_trabajo    DATE,
+  mot_cancelacion        VARCHAR2(2000),
+  cod_ciudad             NUMBER(3),
+  cod_canal              NUMBER(3),
+  cod_tip_canal          NUMBER(3),
+  cod_oficina            NUMBER(3),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_CTA_TRAMOS
+  is 'Tramos de Gestión de Cobranzas.';
+comment on column IT.CR_CTA_TRAMOS.fec_inicio
+  is 'Fecha de Inicio de la Cuenta.';
+comment on column IT.CR_CTA_TRAMOS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.CR_CTA_TRAMOS.cod_tramo
+  is 'Código de Tramo.';
+comment on column IT.CR_CTA_TRAMOS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CR_CTA_TRAMOS.fec_ini_tramo
+  is 'Fecha de Inicio en el Tramo.';
+comment on column IT.CR_CTA_TRAMOS.fec_fin_tramo
+  is 'Fecha de Fin en el Tramo.';
+comment on column IT.CR_CTA_TRAMOS.dia_tramo
+  is 'Días actuales relacionados al Tramo.';
+comment on column IT.CR_CTA_TRAMOS.est_tramo
+  is 'Estado en el Tramo.';
+comment on column IT.CR_CTA_TRAMOS.cod_agenda
+  is 'Código de Actividad de la Agenda.';
+comment on column IT.CR_CTA_TRAMOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.CR_CTA_TRAMOS.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+comment on column IT.CR_CTA_TRAMOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CR_CTA_TRAMOS.mto_lim_prestable
+  is 'Límite Prestable del Cliente.';
+comment on column IT.CR_CTA_TRAMOS.mto_lin_credito
+  is 'Línea de Crédito/Capital.';
+comment on column IT.CR_CTA_TRAMOS.mto_lin_disponible
+  is 'Disponible de la Línea de Credito.';
+comment on column IT.CR_CTA_TRAMOS.mto_saldo
+  is 'Saldo de la Cuenta.';
+comment on column IT.CR_CTA_TRAMOS.nro_solicitud
+  is 'Número de Propuesta del Préstamo.';
+comment on column IT.CR_CTA_TRAMOS.cod_usu_promotor
+  is 'Código de Promotor.';
+comment on column IT.CR_CTA_TRAMOS.nro_tarjeta
+  is 'Número de Tarjeta.';
+comment on column IT.CR_CTA_TRAMOS.ref_atraso
+  is 'Referencia de Atraso del Cliente.';
+comment on column IT.CR_CTA_TRAMOS.ref_atr_cuenta
+  is 'Referencia de Atraso de la Cuenta.';
+comment on column IT.CR_CTA_TRAMOS.ref_atr_historico
+  is 'Referencia de Atraso Histórico del Cliente.';
+comment on column IT.CR_CTA_TRAMOS.mto_sal_lim_prestable
+  is 'Saldo de Límite Prestable del Cliente.';
+comment on column IT.CR_CTA_TRAMOS.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.CR_CTA_TRAMOS.fec_agenda
+  is 'Fecha de Agendamiento.';
+comment on column IT.CR_CTA_TRAMOS.nro_sol_cre_automatico
+  is 'Número de Solicitud de Crédito Automático.';
+comment on column IT.CR_CTA_TRAMOS.fec_act_tramo
+  is 'Fecha de Actualización de Días del Tramo.';
+comment on column IT.CR_CTA_TRAMOS.fec_emi_cer_trabajo
+  is 'Fecha de Emisión del Certificado de Empleo.';
+comment on column IT.CR_CTA_TRAMOS.mot_cancelacion
+  is 'Motivo de Cancelación del Tramo.';
+comment on column IT.CR_CTA_TRAMOS.cod_ciudad
+  is 'Ciudad de la dirección principal del Cliente.';
+comment on column IT.CR_CTA_TRAMOS.cod_canal
+  is 'Código del Canal de Origen.';
+comment on column IT.CR_CTA_TRAMOS.cod_tip_canal
+  is 'Código de Tipo de Canal, para distribuir los Clientes de com adh a los encargados de sucursal.';
+comment on column IT.CR_CTA_TRAMOS.cod_oficina
+  is 'Oficina del Cliente para asignar al encargado de las oficinas del interior.';
+comment on column IT.CR_CTA_TRAMOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CR_CTA_TRAMOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CR_CTA_TRAMOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CR_CTA_TRAMOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_RCTRA_COD_AGENDA on IT.CR_CTA_TRAMOS (COD_AGENDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RCTRA_COD_PERSONA on IT.CR_CTA_TRAMOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RCTRA_COD_TRAMO on IT.CR_CTA_TRAMOS (COD_TRAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RCTRA_EST_TRAMO on IT.CR_CTA_TRAMOS (EST_TRAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RCTRA_NRO_CUENTA on IT.CR_CTA_TRAMOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_AGENDA foreign key (COD_AGENDA)
+  references IT.CR_AGENDAS (COD_AGENDA);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_TIP_CANAL foreign key (COD_TIP_CANAL)
+  references IT.GE_TIP_CANALES (COD_TIP_CANAL);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_TRAMO foreign key (COD_TRAMO)
+  references IT.CO_TRM_ASIGNACIONES (COD_TRAMO);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_CTA_TRAMOS
+  add constraint FK_RCTRA_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

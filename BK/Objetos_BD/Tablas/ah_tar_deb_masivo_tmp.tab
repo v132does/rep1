@@ -1,0 +1,144 @@
+create table IT.AH_TAR_DEB_MASIVO_TMP
+(
+  nro_cuenta       VARCHAR2(15),
+  tip_tarjeta      VARCHAR2(6),
+  fec_vencimiento  DATE,
+  adherente        VARCHAR2(2),
+  cod_persona      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_lote         NUMBER(6),
+  est_lote         VARCHAR2(1),
+  fec_ven_carga    VARCHAR2(10),
+  msj_registro     VARCHAR2(4000),
+  est_registro     VARCHAR2(1),
+  fec_pro_lote     DATE,
+  hor_pro_lote     VARCHAR2(10),
+  nro_registro     NUMBER(6),
+  fec_gen_lote     DATE,
+  hor_gen_lote     VARCHAR2(10),
+  nro_emision      VARCHAR2(2),
+  nro_bin          VARCHAR2(6),
+  ide_reg_lote     VARCHAR2(20),
+  tip_tar_debito   VARCHAR2(1),
+  tip_proceso      VARCHAR2(1),
+  tip_tar_ant      VARCHAR2(6),
+  tip_tar_deb_ant  VARCHAR2(1),
+  nro_bin_ant      VARCHAR2(6),
+  nro_tarjeta      VARCHAR2(19),
+  nue_adherente    VARCHAR2(2),
+  nue_nro_emision  VARCHAR2(2),
+  fec_ven_ant      DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_cuenta
+  is 'Nro.  de Cuenta';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.tip_tarjeta
+  is 'Tipo de Tarjeta';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.adherente
+  is 'Adherente';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_lote
+  is 'Nro. de Lote';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.est_lote
+  is 'Estado del Lote';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_ven_carga
+  is 'Fecha de vencimiento cargada en formato char';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.msj_registro
+  is 'Mensaje de validacion del registro';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.est_registro
+  is 'Estado del registro';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_pro_lote
+  is 'Fecha de procesamiento del lote';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.hor_pro_lote
+  is 'Hora de procesamiento del lote';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_registro
+  is 'Numero de registro del archivo';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_gen_lote
+  is 'Fecha de generacion de datos del lote para renovacion en AH_TAR_DEBITOS';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.hor_gen_lote
+  is 'Fecha de generacion de datos del lote para renovacion en AH_TAR_DEBITOS';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_emision
+  is 'Nro. de Emision';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_bin
+  is 'Nro. de BIN';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.ide_reg_lote
+  is 'Identificador unico del registro del lote';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.tip_tar_debito
+  is 'Tipo de Tarjeta de Debito cargado';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.tip_proceso
+  is 'Tipo de Proceso Masivo';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.tip_tar_ant
+  is 'Tipo de Plastico anterior';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.tip_tar_deb_ant
+  is 'Tipo de Tarjeta de Debito anterior';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_bin_ant
+  is 'Nro. de BIN anterior';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nro_tarjeta
+  is 'Nro. de Tarjeta';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nue_adherente
+  is 'Nuevo Adherente de Alta o Renovacion';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.nue_nro_emision
+  is 'Nuevo Adherente de Alta o Renovacion';
+comment on column IT.AH_TAR_DEB_MASIVO_TMP.fec_ven_ant
+  is 'Fecha de Vencimiento TD anterior';
+create index IT.IN_TDMT_COD_PERSONA on IT.AH_TAR_DEB_MASIVO_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TDMT_FEC_PRO_LOTE on IT.AH_TAR_DEB_MASIVO_TMP (FEC_PRO_LOTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TDMT_NRO_LOTE on IT.AH_TAR_DEB_MASIVO_TMP (NRO_LOTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

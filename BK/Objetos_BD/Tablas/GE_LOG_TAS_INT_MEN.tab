@@ -1,0 +1,53 @@
+/* ==========================================================
+   Tabla: IT.GE_LOG_TAS_INT_MEN
+   Descripción: Registro de avance y auditoría del proceso 
+                IT.PRC_GEN_REP_TAS_INT_MEN.
+   ========================================================== */
+CREATE TABLE IT.GE_LOG_TAS_INT_MEN (
+    ID_LOG         NUMBER        NOT NULL, -- Identificador único del log
+    ID_EJECUCION   NUMBER        NOT NULL, -- ID de ejecución del proceso
+    FECHA_LOG      DATE          DEFAULT SYSDATE NOT NULL, -- Fecha/hora del registro
+    ETAPA          VARCHAR2(50)  NOT NULL, -- Nombre de la etapa (ej: CA-GS, CC-USD, TC)
+    MENSAJE        VARCHAR2(4000),         -- Mensaje informativo
+    TOTAL_INSERTS  NUMBER,                 -- Cantidad de registros insertados hasta el momento
+    TOTAL_ESPERADO NUMBER,                 -- Cantidad total esperada
+    PORCENTAJE     NUMBER(5,2)             -- Avance en %
+);
+
+-- Comentarios de columnas
+COMMENT ON TABLE IT.GE_LOG_TAS_INT_MEN IS
+'Tabla de logs de avance para el proceso IT.PRC_GEN_REP_TAS_INT_MEN';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.ID_LOG IS
+'Identificador único del registro de log (PK)';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.ID_EJECUCION IS
+'ID de ejecución general del proceso';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.FECHA_LOG IS
+'Fecha y hora en que se registra el avance';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.ETAPA IS
+'Etapa o rama del proceso (CA-GS, CA-USD, CC-GS, CC-USD, TC)';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.MENSAJE IS
+'Mensaje descriptivo del estado o avance';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.TOTAL_INSERTS IS
+'Cantidad de registros insertados hasta el momento';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.TOTAL_ESPERADO IS
+'Cantidad total de registros esperados para la ejecución';
+
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_MEN.PORCENTAJE IS
+'Porcentaje de avance respecto del total esperado';
+
+
+-- Sinónimo público (como en tu ejemplo de GE_LOG_TAS_INT_SEM)
+CREATE OR REPLACE PUBLIC SYNONYM GE_LOG_TAS_INT_MEN FOR IT.GE_LOG_TAS_INT_MEN;
+
+-- Permisos para el esquema/rol que necesite consultar o mantener el log
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.GE_LOG_TAS_INT_MEN TO IT_TEMPORAL;
+
+
+

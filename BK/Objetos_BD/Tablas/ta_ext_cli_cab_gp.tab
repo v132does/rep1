@@ -1,0 +1,136 @@
+create table IT.TA_EXT_CLI_CAB_GP
+(
+  nro_cuenta           VARCHAR2(20),
+  fec_cierre           DATE,
+  nro_factura          VARCHAR2(45),
+  val_desde            DATE,
+  val_hasta            DATE,
+  nro_tarjeta          VARCHAR2(55),
+  fec_vencimiento      DATE,
+  fec_cie_sig          DATE,
+  fec_ven_sig          DATE,
+  fec_cie_ant          DATE,
+  fec_ven_ant          DATE,
+  deu_ant              NUMBER(35),
+  mto_pago             NUMBER(30),
+  sal_financiado       NUMBER(35),
+  mto_car_mes          NUMBER(35),
+  val_deu_tot_mes      NUMBER(35),
+  val_deu_cuo_facturar NUMBER(35),
+  int_car_dev_suspenso NUMBER(35),
+  val_deu_total        NUMBER(35),
+  lin_credito          NUMBER(35),
+  lin_disponible       NUMBER(35),
+  tas_anu_nominal      NUMBER(30,5),
+  tas_anu_efectiva     NUMBER(30,5),
+  obs_resumen          VARCHAR2(200),
+  con_movimiento       VARCHAR2(1),
+  cod_tip_producto     NUMBER(5),
+  procesado            VARCHAR2(1) default 'N',
+  fec_proceso          DATE default TRUNC(SYSDATE)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_EXT_CLI_CAB_GP
+  is 'Cabecera Extracto GP';
+comment on column IT.TA_EXT_CLI_CAB_GP.nro_cuenta
+  is 'Numero de Cuenta
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_cierre
+  is 'Fecha de cierre
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.nro_factura
+  is 'Numero de factura
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.val_desde
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.val_hasta
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.nro_tarjeta
+  is 'Numero de tarjeta
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_vencimiento
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_cie_sig
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_ven_sig
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_cie_ant
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_ven_ant
+  is 'ddmmaaaa
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.deu_ant
+  is 'Deuda anterior
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.mto_pago
+  is '(-) Pagos
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.sal_financiado
+  is '(=) Saldo Financiado
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.mto_car_mes
+  is '(+) Compras y Cargos del Mes
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.val_deu_tot_mes
+  is 'Valor de deuda total del mes
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.val_deu_cuo_facturar
+  is 'Valor de deuda en cuotas a facturar
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.int_car_dev_suspenso
+  is 'Interes de Cargos devengados en suspenso
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.val_deu_total
+  is 'Valor Deuda Total
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.lin_credito
+  is 'L nea de Credito
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.lin_disponible
+  is 'Disponible
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.tas_anu_nominal
+  is 'Tasa Anual Nominal
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.tas_anu_efectiva
+  is 'Tasa Anual Efectiva
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.obs_resumen
+  is 'Observaciones del resumen
+';
+comment on column IT.TA_EXT_CLI_CAB_GP.con_movimiento
+  is 'Indica si el extracto contaba o no con movimientos al cierre.S o N';
+comment on column IT.TA_EXT_CLI_CAB_GP.cod_tip_producto
+  is 'Codigo de Producto GP - id_producto';
+comment on column IT.TA_EXT_CLI_CAB_GP.procesado
+  is 'Marca de proceso del registro. Valores posibles S/N';
+comment on column IT.TA_EXT_CLI_CAB_GP.fec_proceso
+  is 'Fecha de proceso del registro.';
+create index IT.IN_TAEXC_NRO_CUENTA on IT.TA_EXT_CLI_CAB_GP (NRO_CUENTA, FEC_CIERRE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

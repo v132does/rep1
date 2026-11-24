@@ -1,0 +1,47 @@
+create table IT.CR_MSJ_RECIBIDOS
+(
+  cod_persona       VARCHAR2(10),
+  fecha             DATE not null,
+  mensaje           VARCHAR2(300) not null,
+  telefono          VARCHAR2(30) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  codigo            VARCHAR2(100),
+  fec_hor_recepcion VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_MSJ_RECIBIDOS
+  is 'Mensajes recibidos del celular';
+comment on column IT.CR_MSJ_RECIBIDOS.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.CR_MSJ_RECIBIDOS.fecha
+  is 'Fecha de la nota';
+comment on column IT.CR_MSJ_RECIBIDOS.mensaje
+  is 'Descripcion del mensaje';
+comment on column IT.CR_MSJ_RECIBIDOS.telefono
+  is 'Celular del cual se recibe';
+comment on column IT.CR_MSJ_RECIBIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_MSJ_RECIBIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_MSJ_RECIBIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_MSJ_RECIBIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_MSJ_RECIBIDOS.codigo
+  is 'codigo del  mensaje recibido';
+comment on column IT.CR_MSJ_RECIBIDOS.fec_hor_recepcion
+  is 'Fecha y hora registrado en el celular';
+

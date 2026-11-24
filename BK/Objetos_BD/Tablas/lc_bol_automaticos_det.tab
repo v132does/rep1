@@ -1,0 +1,44 @@
+create table IT.LC_BOL_AUTOMATICOS_DET
+(
+  fecha          DATE,
+  nro_documento  NUMBER(15),
+  monto          NUMBER(18,2),
+  nro_cuenta     VARCHAR2(15),
+  fec_movimiento DATE,
+  hora           VARCHAR2(8),
+  cod_usuario    VARCHAR2(10),
+  nro_secuencia  NUMBER(3),
+  referencia     VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_BOL_AUTOMATICOS_DET
+  is 'Movimientos generados para Posición de Cambios';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.fecha
+  is 'Fecha del Boleteo.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.nro_documento
+  is 'Número de Boleta.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.monto
+  is 'Importe de la transacción.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.fec_movimiento
+  is 'Fecha de la transaccion.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.hora
+  is 'Hora del movimiento.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.LC_BOL_AUTOMATICOS_DET.referencia
+  is 'Referencia. Proceso desde el cual se genera el movimiento.';
+

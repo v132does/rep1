@@ -1,0 +1,49 @@
+-- 1. DROP (con la nueva nomenclatura)
+
+							  
+--DROP TABLE IT.BA_LOG_OBJ_MODIFICADOS CASCADE CONSTRAINTS;
+
+
+-- 2. CREATE TABLE (con la nueva nomenclatura)
+CREATE TABLE IT.BA_LOG_OBJ_MODIFICADOS (
+    NRO_JIRA           VARCHAR2(30) NOT NULL,
+    NRO_ITEM           NUMBER(3)    NOT NULL,
+    NOM_OBJETO         VARCHAR2(100) NOT NULL,
+    USU_IMPLEMENTACION VARCHAR2(10) NOT NULL, 
+    
+    -- Campos separados de fecha y hora, según lo solicitado
+    FEC_IMPLEMENTACION DATE         NOT NULL,
+    HOR_IMPLEMENTACION VARCHAR2(8)  NOT NULL, 
+    
+    -- Columnas de Auditoría
+    USU_INSERCION      VARCHAR2(10) DEFAULT SUBSTR(USER,1,10) NOT NULL, 
+    FEC_INSERCION      DATE         DEFAULT SYSDATE NOT NULL, 
+    USU_MODIFICACION   VARCHAR2(10) DEFAULT SUBSTR(USER,1,10) NOT NULL, 
+    FEC_MODIFICACION   DATE         DEFAULT SYSDATE NOT NULL,
+
+
+    -- Restricción (Primary Key) definida "in-line" y con nueva nomenclatura
+    CONSTRAINT PK_BA_LOG_OBJ_MODIFICADOS PRIMARY KEY (NRO_JIRA, NRO_ITEM)
+    
+  
+    
+);
+
+--GRANTEO DEL OBJETO GUIADO POR VORREGO. 
+CREATE PUBLIC SYNONYM "BA_LOG_OBJ_MODIFICADOS" for IT.BA_LOG_OBJ_MODIFICADOS; 
+GRANT ALL ON "IT"."BA_LOG_OBJ_MODIFICADOS" TO "IT_TEMPORAL";
+
+-- 3. COMMENTS (con la nueva nomenclatura)
+COMMENT ON TABLE IT.BA_LOG_OBJ_MODIFICADOS IS 'Bitácora que registra los objetos de base de datos implementados y su ticket de JIRA asociado.';
+
+
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.NRO_JIRA IS 'Número del ticket de JIRA que ampara la implementación del objeto.';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.NRO_ITEM IS 'Número de ítem o secuencia';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.NOM_OBJETO IS 'Nombre del objeto de base de datos implementado';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.USU_IMPLEMENTACION IS 'Usuario que ejecutó el script de implementación en la base de datos.';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.FEC_IMPLEMENTACION IS 'Fecha en que se realizó la implementación del objeto.';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.HOR_IMPLEMENTACION IS 'Hora en que se realizó la implementación (Formato HH24:MI:SS).';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.USU_INSERCION IS 'Usuario de base de datos que insertó este registro en la bitácora (auditoría).';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.FEC_INSERCION IS 'Fecha en que se insertó este registro en la bitácora (auditoría).';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.USU_MODIFICACION IS 'Último usuario que modificó este registro (auditoría).';
+COMMENT ON COLUMN IT.BA_LOG_OBJ_MODIFICADOS.FEC_MODIFICACION IS 'Última fecha de modificación de este registro (auditoría).';

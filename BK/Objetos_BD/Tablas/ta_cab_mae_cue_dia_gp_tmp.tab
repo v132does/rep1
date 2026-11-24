@@ -1,0 +1,41 @@
+create table IT.TA_CAB_MAE_CUE_DIA_GP_TMP
+(
+  tip_registro  NUMBER(1),
+  marca         NUMBER(5),
+  entidad       NUMBER(5),
+  fec_proceso   VARCHAR2(8),
+  hor_proceso   VARCHAR2(8),
+  archivo       VARCHAR2(50),
+  filler        VARCHAR2(263),
+  can_registros NUMBER(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CAB_MAE_CUE_DIA_GP_TMP
+  is 'Cabecera para maestro de archivo T1016D';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.tip_registro
+  is 'Tipo de registro. 1: Header.';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.marca
+  is 'Código asignado a la Marca.';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.entidad
+  is 'Código asignado a la Entidad Otorgante.';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.fec_proceso
+  is 'Fecha de generación del archivo formato YYYYMMDD';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.hor_proceso
+  is 'Hora de generación del archivo formato formato HH:MM:SS';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.archivo
+  is 'ARCHIVO MAESTRO DIARIO';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.filler
+  is 'Se informan espacios en blanco.';
+comment on column IT.TA_CAB_MAE_CUE_DIA_GP_TMP.can_registros
+  is 'Cantidad de registros de Detalle';
+

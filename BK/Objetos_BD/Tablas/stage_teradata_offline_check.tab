@@ -1,0 +1,10 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_CHECK
+(
+  index            NUMBER,
+  dbname           VARCHAR2(256),
+  tabname          VARCHAR2(256),
+  constraint_name  VARCHAR2(256),
+  search_condition VARCHAR2(4000)
+)
+on commit preserve rows;
+

@@ -1,0 +1,17 @@
+create table IT.BCO_RUC
+(
+  rucg_iden VARCHAR2(15),
+  rucg_sig  VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+

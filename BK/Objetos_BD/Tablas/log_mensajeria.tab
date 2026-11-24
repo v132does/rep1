@@ -1,0 +1,33 @@
+create table IT.LOG_MENSAJERIA
+(
+  mensaje       VARCHAR2(4000),
+  respuesta     LONG,
+  usu_insercion VARCHAR2(10) default user,
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LOG_MENSAJERIA
+  is 'Log de Envios y Respuestas de Mensajería.';
+create index IT.IN_BBVA_FEC on IT.LOG_MENSAJERIA (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

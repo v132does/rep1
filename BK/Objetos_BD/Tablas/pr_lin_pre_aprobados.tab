@@ -1,0 +1,91 @@
+create table IT.PR_LIN_PRE_APROBADOS
+(
+  nro_lin_pre_aprobado NUMBER(7) not null,
+  cod_persona          VARCHAR2(10) not null,
+  cod_moneda           VARCHAR2(3),
+  mto_limite           NUMBER(18,2),
+  fec_vencimiento      DATE,
+  fec_otorgamiento     DATE,
+  descripcion          VARCHAR2(240),
+  tip_garantia         VARCHAR2(3),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  mto_lim_modalidad    NUMBER(18,2),
+  cod_campana          NUMBER(3),
+  fec_fin_campana      DATE,
+  estado               VARCHAR2(1) default 'V',
+  cod_causa            NUMBER(3),
+  cod_usu_cancelacion  VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LIN_PRE_APROBADOS
+  is 'Datos de Líneas de Pre-Aprobados.';
+comment on column IT.PR_LIN_PRE_APROBADOS.nro_lin_pre_aprobado
+  is 'Número de Línea de Pre-Aprobado.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.PR_LIN_PRE_APROBADOS.mto_limite
+  is 'Monto Límite.';
+comment on column IT.PR_LIN_PRE_APROBADOS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.PR_LIN_PRE_APROBADOS.fec_otorgamiento
+  is 'Fecha de Otorgamiento.';
+comment on column IT.PR_LIN_PRE_APROBADOS.descripcion
+  is 'Descripción.';
+comment on column IT.PR_LIN_PRE_APROBADOS.tip_garantia
+  is 'Tipo de Garantía.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.PR_LIN_PRE_APROBADOS.mto_lim_modalidad
+  is 'Monto límite por Modalidad.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.PR_LIN_PRE_APROBADOS.fec_fin_campana
+  is 'Fecha de Fin de Campaña.';
+comment on column IT.PR_LIN_PRE_APROBADOS.estado
+  is 'Estado de Línea Pre-Aprobado.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_causa
+  is 'Código de Causa.';
+comment on column IT.PR_LIN_PRE_APROBADOS.cod_usu_cancelacion
+  is 'Código de usuario de cancelación.';
+comment on column IT.PR_LIN_PRE_APROBADOS.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.PR_LIN_PRE_APROBADOS.fec_insercion
+  is 'fecha de inserción.';
+comment on column IT.PR_LIN_PRE_APROBADOS.usu_modificacion
+  is 'Usuario de modificación.';
+comment on column IT.PR_LIN_PRE_APROBADOS.fec_modificacion
+  is 'Fecha de modificación.';
+alter table IT.PR_LIN_PRE_APROBADOS
+  add constraint UK_PR_LIN_PRE_APROBADOS unique (NRO_LIN_PRE_APROBADO, COD_PERSONA, COD_MONEDA, COD_CAMPANA, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,106 @@
+create table IT.CC_SOL_CHEQUERAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_tip_chequera VARCHAR2(1) not null,
+  cantidad         NUMBER(5) not null,
+  can_hojas        NUMBER(5) not null,
+  estado           VARCHAR2(1) default 'S' not null,
+  cod_ofi_retiro   NUMBER(3),
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tip_solicitud    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_SOL_CHEQUERAS
+  is 'Solicitudes de chequeras.';
+comment on column IT.CC_SOL_CHEQUERAS.nro_cuenta
+  is 'Nro.Cuenta.';
+comment on column IT.CC_SOL_CHEQUERAS.fecha
+  is 'Fecha.';
+comment on column IT.CC_SOL_CHEQUERAS.hora
+  is 'Hora.';
+comment on column IT.CC_SOL_CHEQUERAS.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.CC_SOL_CHEQUERAS.cod_tip_chequera
+  is 'Tipo de chequera.';
+comment on column IT.CC_SOL_CHEQUERAS.cantidad
+  is 'Cantidad de talonarios.';
+comment on column IT.CC_SOL_CHEQUERAS.can_hojas
+  is 'Cantidad de hojas por talonario.';
+comment on column IT.CC_SOL_CHEQUERAS.estado
+  is 'Estado.';
+comment on column IT.CC_SOL_CHEQUERAS.cod_ofi_retiro
+  is 'Codigo de la oficina.';
+comment on column IT.CC_SOL_CHEQUERAS.observacion
+  is 'Observacion.';
+comment on column IT.CC_SOL_CHEQUERAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_SOL_CHEQUERAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_SOL_CHEQUERAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SOL_CHEQUERAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SOL_CHEQUERAS.tip_solicitud
+  is 'M (Mostrador), C (Chequera en Casa), N (Nóminas).';
+create index IT.IND_CSOLC_ESTADO on IT.CC_SOL_CHEQUERAS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint PK_CC_SOL_CHEQUERAS primary key (NRO_CUENTA, FECHA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint FK_CSCHE_COD_OFI_RETIRO foreign key (COD_OFI_RETIRO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint FK_CSCHE_COD_TIP_CHEQUERA foreign key (COD_TIP_CHEQUERA)
+  references IT.CC_TIP_CHEQUERAS (COD_TIP_CHEQUERA);
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint FK_CSCHE_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint FK_CSCHE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint AVCON_1099606023_COD_O_000
+  check (COD_OFI_RETIRO BETWEEN 0 AND 999);
+alter table IT.CC_SOL_CHEQUERAS
+  add constraint AVCON_1099606023_ESTAD_000
+  check (ESTADO IN ('S', 'V', 'R', 'P'));
+

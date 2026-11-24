@@ -1,0 +1,28 @@
+create table IT.SIMGIA_DEBCREIT_BKP
+(
+  itsuc       NUMBER(2),
+  itcta       NUMBER(6),
+  itsub       NUMBER(6),
+  itriesgo    NUMBER(6),
+  itmonto     NUMBER(13,2),
+  ittipo      CHAR(1),
+  itref       VARCHAR2(100),
+  fec_proceso DATE,
+  cod_persona VARCHAR2(10),
+  nro_cuenta  VARCHAR2(15),
+  fecha_his   DATE default sysdate,
+  respuesta   VARCHAR2(2000),
+  estado      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

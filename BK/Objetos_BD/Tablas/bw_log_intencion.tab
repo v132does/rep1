@@ -1,0 +1,97 @@
+-- Create table
+create table IT.BW_LOG_INTENCION
+(
+  id_log           NUMBER default IT.S_BW_LOG_INTENCION.NEXTVAL not null,
+  cod_intencion    NUMBER,
+  tipo_log         VARCHAR2(10) not null,
+  mensaje          VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BW_LOG_INTENCION
+  is 'Log de eventos del sistema.';
+-- Add comments to the columns 
+comment on column IT.BW_LOG_INTENCION.id_log
+  is 'Identificador único autogenerado del registro de log.';
+comment on column IT.BW_LOG_INTENCION.cod_intencion
+  is 'Código de intención.';
+comment on column IT.BW_LOG_INTENCION.tipo_log
+  is 'Tipo de log: INFO, WARN, ERROR.';
+comment on column IT.BW_LOG_INTENCION.mensaje
+  is 'Mensaje descriptivo del evento.';
+comment on column IT.BW_LOG_INTENCION.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_LOG_INTENCION.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_LOG_INTENCION.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_LOG_INTENCION.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_BWLOGINTENCION_COD_INT on IT.BW_LOG_INTENCION (COD_INTENCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWLOGINTENCION_FEC_INS on IT.BW_LOG_INTENCION (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWLOGINTENCION_TIPO_LOG on IT.BW_LOG_INTENCION (TIPO_LOG)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BW_LOG_INTENCION
+  add constraint PK_BW_LOG_INTENCION primary key (ID_LOG)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BW_LOG_INTENCION to IT_TEMPORAL;

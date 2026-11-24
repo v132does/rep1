@@ -1,0 +1,86 @@
+create table IT.SB_CLA_OPERACIONES_HIS
+(
+  fecha               DATE not null,
+  cod_persona         VARCHAR2(10) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_estado          VARCHAR2(1) not null,
+  tot_deu_real        NUMBER(18,2),
+  tot_deu_contingente NUMBER(18,2),
+  dev_no_cobrado      NUMBER(18,2),
+  cat_automatica      NUMBER(3,2),
+  dia_atraso          NUMBER(5) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  tot_gar_computables NUMBER(18,2),
+  cod_oficina         NUMBER(3),
+  tipo                VARCHAR2(1) not null,
+  tot_prevision       NUMBER(18,2),
+  mto_original        NUMBER(18,2),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  tip_destino         NUMBER(2),
+  cod_sec_credito     NUMBER(3)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CLA_OPERACIONES_HIS
+  is 'Historico de Operaciones clasificadas.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.fecha
+  is 'Fecha.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_persona
+  is 'Cliente.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.nro_cuenta
+  is 'Nro de cuenta.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_modulo
+  is 'Modulo.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_estado
+  is 'Estado.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.tot_deu_real
+  is 'Total de deuda real.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.tot_deu_contingente
+  is 'Total de deuda contingente.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.dev_no_cobrado
+  is 'Devengado no cobrado.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cat_automatica
+  is 'Categoria automatica.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.dia_atraso
+  is 'Dias de atraso.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.tot_gar_computables
+  is 'Total de garantias computables.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_oficina
+  is 'oficina.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.tipo
+  is 'Tipo.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.tot_prevision
+  is 'total de prevision.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.mto_original
+  is 'Monto original de la operacion.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.tip_destino
+  is 'Tipo de destino.';
+comment on column IT.SB_CLA_OPERACIONES_HIS.cod_sec_credito
+  is 'Sector de credito.';
+

@@ -1,0 +1,136 @@
+create table IT.GE_CTA_ELIMINADAS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  dig_verificador     NUMBER(1) default 0 not null,
+  denominacion        VARCHAR2(100) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_oficina         NUMBER(3) not null,
+  estado              VARCHAR2(1) not null,
+  fec_cam_estado      DATE,
+  sal_contable        NUMBER(18,2) default 0 not null,
+  cod_moneda          VARCHAR2(3) not null,
+  fec_apertura        DATE,
+  fec_vencimiento     DATE,
+  cod_cau_cancelacion NUMBER(3),
+  cod_tasa            NUMBER(3),
+  fre_extracto        VARCHAR2(1) default 'M' not null,
+  tas_personalizada   VARCHAR2(1) default 'N' not null,
+  tra_prohibida       VARCHAR2(1) default 'N' not null,
+  ret_personalizada   VARCHAR2(1) default 'N' not null,
+  dia_atraso          NUMBER(5),
+  max_atraso          NUMBER(5),
+  pro_atraso          NUMBER(5),
+  sal_promedio        NUMBER(18,2) default 0,
+  mto_mora            NUMBER(18,2) default 0,
+  val_tasa            NUMBER(20,4),
+  est_verificacion    VARCHAR2(1) default 'N',
+  cod_usu_verificador VARCHAR2(10),
+  fec_verificacion    DATE,
+  obs_verificacion    VARCHAR2(1000),
+  en_juicio           VARCHAR2(1) default 'N',
+  obs_eliminacion     VARCHAR2(1000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_sit_contable    NUMBER(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_ELIMINADAS
+  is 'Datos Generales de las Cuentas Eliminadas (replica de GE_CUENTAS).';
+comment on column IT.GE_CTA_ELIMINADAS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_CTA_ELIMINADAS.dig_verificador
+  is 'Digito verificador.';
+comment on column IT.GE_CTA_ELIMINADAS.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.GE_CTA_ELIMINADAS.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.GE_CTA_ELIMINADAS.fec_cam_estado
+  is 'Fecha de Cambio de estado.';
+comment on column IT.GE_CTA_ELIMINADAS.sal_contable
+  is 'Saldo Contable.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_CTA_ELIMINADAS.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.GE_CTA_ELIMINADAS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_cau_cancelacion
+  is 'Motivo de Cancelacion.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_tasa
+  is 'Codigo de Tasa de Interes.';
+comment on column IT.GE_CTA_ELIMINADAS.fre_extracto
+  is 'Frecuencia de Extracto (D, S, M).';
+comment on column IT.GE_CTA_ELIMINADAS.tas_personalizada
+  is 'Indica si tiene tasa personalizada (S/N).';
+comment on column IT.GE_CTA_ELIMINADAS.tra_prohibida
+  is 'Indica si tiene transaccion prohibida (S/N).';
+comment on column IT.GE_CTA_ELIMINADAS.ret_personalizada
+  is 'Retencion personalizada (S/N).';
+comment on column IT.GE_CTA_ELIMINADAS.dia_atraso
+  is 'Dias de Atraso.';
+comment on column IT.GE_CTA_ELIMINADAS.max_atraso
+  is 'Maximo dias de Atraso.';
+comment on column IT.GE_CTA_ELIMINADAS.pro_atraso
+  is 'Promedio de dias de Atraso.';
+comment on column IT.GE_CTA_ELIMINADAS.sal_promedio
+  is 'Saldo Promedio Actual.';
+comment on column IT.GE_CTA_ELIMINADAS.mto_mora
+  is 'Monto de mora.';
+comment on column IT.GE_CTA_ELIMINADAS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.GE_CTA_ELIMINADAS.est_verificacion
+  is 'Estado de la Verificacion.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_usu_verificador
+  is 'Usuario que realizo la verificacion.';
+comment on column IT.GE_CTA_ELIMINADAS.fec_verificacion
+  is 'Fecha de la Verificacion.';
+comment on column IT.GE_CTA_ELIMINADAS.obs_verificacion
+  is 'Observacion de la verificacion.';
+comment on column IT.GE_CTA_ELIMINADAS.en_juicio
+  is 'Indica si la cuenta se encuentra en estado judicial.';
+comment on column IT.GE_CTA_ELIMINADAS.obs_eliminacion
+  is 'Observacion o motivo de la eliminacion de la cuenta.';
+comment on column IT.GE_CTA_ELIMINADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CTA_ELIMINADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CTA_ELIMINADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_ELIMINADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_ELIMINADAS.cod_sit_contable
+  is 'Indica la situacion contable actual de la operacion. ';
+alter table IT.GE_CTA_ELIMINADAS
+  add constraint PK_GE_CTA_ELIMINADAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

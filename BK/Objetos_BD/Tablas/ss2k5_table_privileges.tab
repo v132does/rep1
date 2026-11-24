@@ -1,0 +1,15 @@
+create global temporary table IT.SS2K5_TABLE_PRIVILEGES
+(
+  db_id          NUMBER(10),
+  grantor        VARCHAR2(256),
+  table_schema   VARCHAR2(256),
+  table_name     VARCHAR2(256) not null,
+  privilege_type VARCHAR2(256),
+  is_grantable   VARCHAR2(256),
+  grantee        VARCHAR2(256)
+)
+on commit preserve rows;
+create index IT.SS2K5_TABLE_PRIVILEGES_DB_ID on IT.SS2K5_TABLE_PRIVILEGES (DB_ID);
+create index IT.SS2K5_T_P_TABLE_NAME on IT.SS2K5_TABLE_PRIVILEGES (TABLE_NAME);
+create index IT.SS2K5_T_P_TABLE_SCHEMA on IT.SS2K5_TABLE_PRIVILEGES (TABLE_SCHEMA);
+

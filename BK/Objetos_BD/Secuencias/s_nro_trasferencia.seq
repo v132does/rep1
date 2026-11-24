@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_TRASFERENCIA
+minvalue 0
+maxvalue 99999999
+start with 617
+increment by 1
+cache 20;
+

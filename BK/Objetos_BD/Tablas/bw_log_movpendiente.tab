@@ -1,0 +1,103 @@
+-- Create table
+create table IT.BW_LOG_MOVPENDIENTES
+(
+  id_log           NUMBER default IT.S_BW_LOG_MOVPENDIENTES.NEXTVAL not null,
+  nro_documento    NUMBER(15) not null,
+  det_error        VARCHAR2(2000),
+  cod_persona      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BW_LOG_MOVPENDIENTES
+  is 'Log de errores y seguimiento para movimientos pendientes de Homebanking.';
+-- Add comments to the columns 
+comment on column IT.BW_LOG_MOVPENDIENTES.id_log
+  is 'Identificador único autogenerado del registro de log.';
+comment on column IT.BW_LOG_MOVPENDIENTES.nro_documento
+  is 'Número del Documento u Operación relacionada.';
+comment on column IT.BW_LOG_MOVPENDIENTES.det_error
+  is 'Detalle del error o mensaje de seguimiento.';
+comment on column IT.BW_LOG_MOVPENDIENTES.cod_persona
+  is 'Código de la persona que realiza la autorización.';
+comment on column IT.BW_LOG_MOVPENDIENTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_LOG_MOVPENDIENTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_LOG_MOVPENDIENTES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_LOG_MOVPENDIENTES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_BWLOG_COD_PERSONA on IT.BW_LOG_MOVPENDIENTES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWLOG_FEC_INSERCION on IT.BW_LOG_MOVPENDIENTES (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWLOG_NRO_DOCUMENTO on IT.BW_LOG_MOVPENDIENTES (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BW_LOG_MOVPENDIENTES
+  add constraint PK_BW_LOG_MOVPENDIENTE primary key (ID_LOG)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_LOG_MOVPENDIENTES
+  add constraint FK_BWLOG_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_LOG_MOVPENDIENTES
+  add constraint FK_BWLOG_NRO_DOCUMENTO foreign key (NRO_DOCUMENTO)
+  references IT.BW_MOV_PENDIENTES (NRO_DOCUMENTO);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BW_LOG_MOVPENDIENTES to IT_TEMPORAL;

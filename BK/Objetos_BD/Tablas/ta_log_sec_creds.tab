@@ -1,0 +1,56 @@
+create table IT.TA_LOG_SEC_CREDS
+(
+  cod_credencial   VARCHAR2(36) not null,
+  tip_credencial   VARCHAR2(10),
+  des_credencial   VARCHAR2(250),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_alta         DATE,
+  fec_modificacion DATE,
+  cod_respuesta    NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LOG_SEC_CREDS.cod_credencial
+  is 'ID';
+comment on column IT.TA_LOG_SEC_CREDS.tip_credencial
+  is 'Type';
+comment on column IT.TA_LOG_SEC_CREDS.des_credencial
+  is 'Message';
+comment on column IT.TA_LOG_SEC_CREDS.usu_insercion
+  is 'Usuario Creacion';
+comment on column IT.TA_LOG_SEC_CREDS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.TA_LOG_SEC_CREDS.fec_alta
+  is 'Fecha Alta';
+comment on column IT.TA_LOG_SEC_CREDS.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.TA_LOG_SEC_CREDS.cod_respuesta
+  is 'Autogenerado - UID';
+alter table IT.TA_LOG_SEC_CREDS
+  add constraint PK_TA_LOG_SEC_CREDS primary key (COD_CREDENCIAL)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_LOG_SEC_CREDS
+  add constraint FK_TLSECINIRES_COD_RESPUESTA foreign key (COD_RESPUESTA)
+  references IT.TA_LOG_SEC_INITRARES (COD_RESPUESTA);
+

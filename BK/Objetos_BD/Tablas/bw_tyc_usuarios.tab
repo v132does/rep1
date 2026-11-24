@@ -1,0 +1,39 @@
+create table IT.BW_TYC_USUARIOS
+(
+  cod_persona      VARCHAR2(15) not null,
+  cod_empresa      VARCHAR2(15),
+  cod_version      NUMBER not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TYC_USUARIOS.cod_persona
+  is 'codigo de persona del usuario que acepto los terminos y condiciones';
+comment on column IT.BW_TYC_USUARIOS.cod_empresa
+  is 'codigo de empresa del usuario que acepto los terminos y condiciones';
+comment on column IT.BW_TYC_USUARIOS.cod_version
+  is 'referencia a la version de terminos y condiciones aceptada por el usuario';
+comment on column IT.BW_TYC_USUARIOS.fec_insercion
+  is 'fecha de insersion de la aceptacion de terminos y condiciones';
+comment on column IT.BW_TYC_USUARIOS.usu_insercion
+  is 'usuario de insersion de la aceptacion de terminos y condiciones';
+comment on column IT.BW_TYC_USUARIOS.fec_modificacion
+  is 'fecha de modificacion de la aceptacion de terminos y condiciones';
+comment on column IT.BW_TYC_USUARIOS.usu_modificacion
+  is 'usuario de modificacion de la aceptacion de terminos y condiciones';
+alter table IT.BW_TYC_USUARIOS
+  add constraint FK_COD_VERSION foreign key (COD_VERSION)
+  references IT.BW_TYC_VERSIONES (COD_VERSION);
+

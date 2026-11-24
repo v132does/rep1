@@ -1,0 +1,8 @@
+-- Create sequence 
+create sequence IT.S_HOR_MOV_TRANINT_21
+minvalue 1
+maxvalue 99999999999999999999999
+start with 1
+increment by 1
+nocache
+cycle;

@@ -1,0 +1,8 @@
+create global temporary table IT.TABLE_TMP
+(
+  msj_number NUMBER,
+  column_val CLOB,
+  row_num    NUMBER
+)
+on commit preserve rows;
+

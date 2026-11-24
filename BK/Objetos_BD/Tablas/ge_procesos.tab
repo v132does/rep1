@@ -1,0 +1,91 @@
+create table IT.GE_PROCESOS
+(
+  cod_proceso      NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  nro_orden        NUMBER(3) not null,
+  obligatorio      VARCHAR2(1) default 'N' not null,
+  tipo             VARCHAR2(1) default 'I' not null,
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  error            VARCHAR2(1000),
+  permiso          VARCHAR2(2000),
+  ubi_destino      VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PROCESOS
+  is 'Control de Ejecucion de Procesos a Ejecutar.';
+comment on column IT.GE_PROCESOS.cod_proceso
+  is 'Codigo de Proceso.';
+comment on column IT.GE_PROCESOS.descripcion
+  is 'Nombre del proceso.';
+comment on column IT.GE_PROCESOS.nro_orden
+  is 'Numero de Orden.';
+comment on column IT.GE_PROCESOS.obligatorio
+  is 'obligatorio ? (N=NO / S=SI).';
+comment on column IT.GE_PROCESOS.tipo
+  is 'Tipo de proceso.';
+comment on column IT.GE_PROCESOS.hor_inicio
+  is 'Hora de inicio de ejecucion.';
+comment on column IT.GE_PROCESOS.hor_fin
+  is 'Hora de fin de ejecucion.';
+comment on column IT.GE_PROCESOS.cod_usuario
+  is 'Codigo  de usuario que ejecuto el proceso.';
+comment on column IT.GE_PROCESOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PROCESOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PROCESOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PROCESOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PROCESOS.error
+  is 'Descripcion del error que genero el proceso.';
+comment on column IT.GE_PROCESOS.permiso
+  is 'Roles a quienes se da permiso.';
+comment on column IT.GE_PROCESOS.ubi_destino
+  is 'Ubicación de destino por defecto de los archivos generados.';
+alter table IT.GE_PROCESOS
+  add constraint PK_GE_PROCESOS primary key (COD_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PROCESOS
+  add constraint FK_GPROC_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_PROCESOS
+  add constraint AVCON_1080843414_OBLIG_001
+  check (OBLIGATORIO IN ('S', 'N'));
+alter table IT.GE_PROCESOS
+  add constraint AVCON_1083360724_COD_P_001
+  check (COD_PROCESO BETWEEN 0 AND 999);
+alter table IT.GE_PROCESOS
+  add constraint AVCON_1083360724_NRO_O_001
+  check (NRO_ORDEN BETWEEN 0 AND 999);
+alter table IT.GE_PROCESOS
+  add constraint AVCON_1107889832_TIPO_000
+  check (TIPO IN ('I', 'F', 'N', 'P','R','A','T','M'));
+

@@ -1,0 +1,118 @@
+create table IT.PR_CHQ_CUSTODIA
+(
+  cod_banco        NUMBER(3) not null,
+  nro_cheque       VARCHAR2(10) not null,
+  cta_libradora    VARCHAR2(20) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  fec_emision      DATE not null,
+  fec_vencimiento  DATE not null,
+  nro_cuenta       VARCHAR2(15),
+  nro_cuota        NUMBER(3),
+  estado           VARCHAR2(1) default 'I' not null,
+  fec_proceso      DATE not null,
+  tip_servicio     VARCHAR2(1) not null,
+  nro_boleta       NUMBER(7),
+  cod_ofi_camara   NUMBER(3) not null,
+  fec_deposito     DATE,
+  tip_cau_entrega  VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CHQ_CUSTODIA
+  is 'Cheques en Custodia.';
+comment on column IT.PR_CHQ_CUSTODIA.cod_banco
+  is 'Código de banco.';
+comment on column IT.PR_CHQ_CUSTODIA.nro_cheque
+  is 'Número del cheque.';
+comment on column IT.PR_CHQ_CUSTODIA.cta_libradora
+  is 'Cuenta libradora.';
+comment on column IT.PR_CHQ_CUSTODIA.cod_moneda
+  is 'Moneda del importe.';
+comment on column IT.PR_CHQ_CUSTODIA.monto
+  is 'Importe del cheque.';
+comment on column IT.PR_CHQ_CUSTODIA.fec_emision
+  is 'Fecha de emisión.';
+comment on column IT.PR_CHQ_CUSTODIA.fec_vencimiento
+  is 'Fecha de vencimiento del cheque.';
+comment on column IT.PR_CHQ_CUSTODIA.nro_cuenta
+  is 'Número de cuenta o propuesta relacionada.';
+comment on column IT.PR_CHQ_CUSTODIA.nro_cuota
+  is 'Número de cuota si es préstamos.';
+comment on column IT.PR_CHQ_CUSTODIA.estado
+  is 'Estado del cheque (c=custodia,e=entregado,d=descontado, i=ingresado).';
+comment on column IT.PR_CHQ_CUSTODIA.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.PR_CHQ_CUSTODIA.tip_servicio
+  is 'Tipo de servicio (d= descuento de cheques, c=custodia de cheques).';
+comment on column IT.PR_CHQ_CUSTODIA.nro_boleta
+  is 'Número de boleta de déposito.';
+comment on column IT.PR_CHQ_CUSTODIA.cod_ofi_camara
+  is 'Código de oficina de camara donde se realizs el déposito.';
+comment on column IT.PR_CHQ_CUSTODIA.fec_deposito
+  is 'Fecha en la cual se debe depositar el cheque.';
+comment on column IT.PR_CHQ_CUSTODIA.tip_cau_entrega
+  is 'Motivo de entrega del cheque (c = pedido del cliente o i = instrucción comercial).';
+comment on column IT.PR_CHQ_CUSTODIA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CHQ_CUSTODIA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_CHQ_CUSTODIA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_CHQ_CUSTODIA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint PK_PR_CHQ_CUSTODIA primary key (NRO_CHEQUE, CTA_LIBRADORA, COD_BANCO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint FK_PCCUS_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint FK_PCCUS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint FK_PCCUS_COD_OFI_CAMARA foreign key (COD_OFI_CAMARA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint FK_PCCUS_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint AVCON_1085092804_COD_B_001
+  check (COD_BANCO BETWEEN 0 AND 999);
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint AVCON_1085092804_COD_O_000
+  check (COD_OFI_CAMARA BETWEEN 0 AND 999);
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint AVCON_1085092804_ESTAD_000
+  check (ESTADO IN ('C', 'E', 'D', 'I'));
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint AVCON_1085092804_TIP_C_000
+  check (TIP_CAU_ENTREGA IN ('C', 'I'));
+alter table IT.PR_CHQ_CUSTODIA
+  add constraint AVCON_1085092804_TIP_S_000
+  check (TIP_SERVICIO IN ('D', 'C'));
+

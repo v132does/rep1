@@ -1,0 +1,94 @@
+create table IT.GE_PER_INHIBIDAS_CRM
+(
+  cod_persona        VARCHAR2(10) not null,
+  nro_orden          NUMBER(6),
+  cod_causa          VARCHAR2(100),
+  fec_inicio         DATE,
+  fec_vencimiento    DATE,
+  origen             VARCHAR2(60),
+  cod_banco          NUMBER(3),
+  nro_cta_inhibida   VARCHAR2(15),
+  mto_multa          NUMBER(18,2),
+  referencia         VARCHAR2(20),
+  detalle            VARCHAR2(2000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   TIMESTAMP(6) default current_timestamp not null,
+  estado             VARCHAR2(1),
+  cod_campana        NUMBER(10),
+  situacion          VARCHAR2(1),
+  fec_rehabilitacion DATE,
+  cod_rehabilitacion VARCHAR2(3),
+  tip_accion         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PER_INHIBIDAS_CRM
+  is 'Personas Inhibidas.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.nro_orden
+  is 'Orden de inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.cod_causa
+  is 'Codigo de inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.fec_inicio
+  is 'Fecha de la inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.fec_vencimiento
+  is 'Fecha de Vencimiento de la inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.origen
+  is 'Origen de inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.nro_cta_inhibida
+  is 'Cuenta inhibida.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.mto_multa
+  is 'Importe de la Multa por Inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.referencia
+  is 'Referencia de la inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.detalle
+  is 'Detalle de Inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.estado
+  is 'Estado (I=Inhibido, D=Desinhibido).';
+comment on column IT.GE_PER_INHIBIDAS_CRM.cod_campana
+  is 'Código de la campaña.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.situacion
+  is 'Situación (P=Pendiente de envío a BCP; E=Enviado a BCP; R=Rehabilitación de Inhibición).';
+comment on column IT.GE_PER_INHIBIDAS_CRM.fec_rehabilitacion
+  is 'Fecha de Rehabilitación.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.cod_rehabilitacion
+  is 'Código de Rehabilitación según BCP.';
+comment on column IT.GE_PER_INHIBIDAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+alter table IT.GE_PER_INHIBIDAS_CRM
+  add constraint PK_GE_PER_INHIBIDAS_CRM primary key (FEC_MODIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,52 @@
+create table IT.SB_FDG_DEU_PERSONAS
+(
+  fecha            DATE not null,
+  cod_persona      VARCHAR2(20) not null,
+  nro_cuenta       VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_FDG_DEU_PERSONAS
+  is 'Datos de las relación de pertenencia entre cada deuda con su titular o titulares si tuviese mas de una persona.  Los campos "Persona" y "Deuda" hacen referencia a los archivos Persona y Deudas, respectivamente.';
+comment on column IT.SB_FDG_DEU_PERSONAS.fecha
+  is 'Fecha de Proceso.';
+comment on column IT.SB_FDG_DEU_PERSONAS.cod_persona
+  is 'Código interno de cliente, asignado por la misma entidad financiera. Si originalmente fuera numérico se considerara como caracteres alfanuméricos ajustados a la izquierda.';
+comment on column IT.SB_FDG_DEU_PERSONAS.nro_cuenta
+  is 'Código identificador de la deuda.';
+comment on column IT.SB_FDG_DEU_PERSONAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_FDG_DEU_PERSONAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_FDG_DEU_PERSONAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_FDG_DEU_PERSONAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.SB_FDG_DEU_PERSONAS
+  add constraint PK_SB_FDG_DEU_PERSONAS primary key (FECHA, COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

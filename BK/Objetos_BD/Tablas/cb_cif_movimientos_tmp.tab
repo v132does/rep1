@@ -1,0 +1,84 @@
+create table IT.CB_CIF_MOVIMIENTOS_TMP
+(
+  fecha              DATE,
+  hora               VARCHAR2(8),
+  cod_usuario        VARCHAR2(10),
+  nro_secuencia      NUMBER(3),
+  fec_valor          DATE,
+  monto              NUMBER(18,2),
+  mto_equ_local      NUMBER(18,2),
+  cotizacion         NUMBER,
+  nro_cuenta         VARCHAR2(15),
+  cod_persona        VARCHAR2(10),
+  cod_moneda         VARCHAR2(3),
+  estado             VARCHAR2(1),
+  concepto           VARCHAR2(100),
+  reversado          VARCHAR2(1),
+  cod_usu_reversion  VARCHAR2(10),
+  hor_reversion      VARCHAR2(8),
+  cod_tra_padre      NUMBER(4),
+  cod_transaccion    NUMBER(4),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  nro_documento      NUMBER(15),
+  nro_documento4     NUMBER(15),
+  referencia         VARCHAR2(20),
+  cod_per_referencia VARCHAR2(10),
+  tip_movimiento     VARCHAR2(13),
+  cod_rubro          VARCHAR2(15) not null,
+  tip_mov_asiento    VARCHAR2(1) not null,
+  mto_mon_rubro      NUMBER(18,2),
+  mto_mon_local      NUMBER(18,2),
+  val_cotizacion     NUMBER(14,8),
+  descripcion        VARCHAR2(100),
+  tip_reversion      VARCHAR2(1),
+  tie_factura        CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_MOV_NRODOC4 on IT.CB_CIF_MOVIMIENTOS_TMP (NRO_DOCUMENTO4)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_MOV_PK on IT.CB_CIF_MOVIMIENTOS_TMP (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_MOV_RUBRO on IT.CB_CIF_MOVIMIENTOS_TMP (COD_RUBRO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

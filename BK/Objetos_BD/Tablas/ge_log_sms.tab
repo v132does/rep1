@@ -1,0 +1,47 @@
+create table IT.GE_LOG_SMS
+(
+  cod_persona      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  telefono         VARCHAR2(20) not null,
+  tipo             VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mensaje          VARCHAR2(1000) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_SMS
+  is 'Log de Mensajes de Texto enviados.';
+comment on column IT.GE_LOG_SMS.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.GE_LOG_SMS.fecha
+  is 'Fecha en que se envio el mensaje.';
+comment on column IT.GE_LOG_SMS.telefono
+  is 'Telefono al que se envio el mensaje.';
+comment on column IT.GE_LOG_SMS.tipo
+  is 'Indica si el mensaje es de tipo Envio o Recepcion.';
+comment on column IT.GE_LOG_SMS.usu_insercion
+  is 'Usuario que realizo la insercion del registro. ';
+comment on column IT.GE_LOG_SMS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_LOG_SMS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_LOG_SMS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_LOG_SMS.mensaje
+  is 'Mensaje enviado.';
+alter table IT.GE_LOG_SMS
+  add constraint FK_GLSMS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

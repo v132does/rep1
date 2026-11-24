@@ -1,0 +1,69 @@
+create table IT.BW_DAT_SIMULACIONES
+(
+  cod_simulacion    NUMBER(4) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_sub_modalidad NUMBER(3) not null,
+  fec_plazo         NUMBER(3) not null,
+  mto_prestamo      NUMBER(18,2) not null,
+  agente            VARCHAR2(150) not null,
+  id_app_simulacion VARCHAR2(70) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_DAT_SIMULACIONES.cod_modulo
+  is 'Codigo de modulo';
+comment on column IT.BW_DAT_SIMULACIONES.cod_modalidad
+  is 'Codigo de modalidad';
+comment on column IT.BW_DAT_SIMULACIONES.cod_sub_modalidad
+  is 'Codigo de sub modalidad';
+comment on column IT.BW_DAT_SIMULACIONES.fec_plazo
+  is 'Cantidad de meses a solicitar';
+comment on column IT.BW_DAT_SIMULACIONES.mto_prestamo
+  is 'Monto de prestamo a solicitar';
+comment on column IT.BW_DAT_SIMULACIONES.agente
+  is 'Informacion del canal donde se guardan los datos';
+comment on column IT.BW_DAT_SIMULACIONES.id_app_simulacion
+  is 'JSession id del cliente solicitante';
+alter table IT.BW_DAT_SIMULACIONES
+  add constraint PK_BW_DAT_SIMULACIONES primary key (COD_SIMULACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_DAT_SIMULACIONES
+  add constraint UK_BDAT_SIMULACION unique (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD, MTO_PRESTAMO, ID_APP_SIMULACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

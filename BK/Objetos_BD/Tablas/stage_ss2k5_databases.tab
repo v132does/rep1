@@ -1,0 +1,11 @@
+create global temporary table IT.STAGE_SS2K5_DATABASES
+(
+  svrid_fk    NUMBER(38),
+  dbid_gen    NUMBER(38),
+  name        VARCHAR2(256 CHAR) not null,
+  database_id NUMBER(38)
+)
+on commit preserve rows;
+create index IT.S_SS2K5_DATABASES_DATABASE_ID on IT.STAGE_SS2K5_DATABASES (DATABASE_ID);
+create index IT.S_SS2K5_DATABASES_NAME on IT.STAGE_SS2K5_DATABASES (NAME);
+

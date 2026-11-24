@@ -1,0 +1,61 @@
+create table IT.CJ_LIMITES
+(
+  cod_usuario       VARCHAR2(10) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  mto_max_permitido NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_tra_padre     NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_LIMITES
+  is 'Limites de Pago.';
+comment on column IT.CJ_LIMITES.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.CJ_LIMITES.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CJ_LIMITES.mto_max_permitido
+  is 'Monto Maximo Permitido.';
+comment on column IT.CJ_LIMITES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_LIMITES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_LIMITES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_LIMITES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_LIMITES.cod_tra_padre
+  is 'Transaccion Padre de Caja, si es que existe.';
+alter table IT.CJ_LIMITES
+  add constraint UK_CJ_LIMITES unique (COD_USUARIO, COD_MONEDA, COD_TRA_PADRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_LIMITES
+  add constraint FK_JLIMI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CJ_LIMITES
+  add constraint FK_JLIMI_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

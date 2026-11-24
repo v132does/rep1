@@ -1,0 +1,24 @@
+CREATE OR REPLACE FUNCTION IT.F_OBT_SAL_ANTERIOR
+ (P_NRO_CUENTA IN VARCHAR2, P_FECHA IN DATE
+ )
+ RETURN NUMBER
+ IS
+
+V_RESULTADO NUMBER:=0;
+BEGIN
+   Begin
+      select A.SAL_ACTUAL
+      into v_RESULTADO
+      from GE_EXT_CLI_CUENTAS A
+      where A.NRO_CUENTA = P_NRO_CUENTA
+      AND A.FEC_EXTRACTO = P_FECHA;
+  exception
+    when no_data_found then
+       RETURN(0);
+    WHEN OTHERS THEN
+       RETURN(0);
+    END;
+    RETURN(V_RESULTADO);
+End;
+/
+

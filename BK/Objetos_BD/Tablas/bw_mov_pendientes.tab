@@ -1,0 +1,249 @@
+-- Create table
+create table IT.BW_MOV_PENDIENTES
+(
+  nro_documento       NUMBER(15) not null,
+  cod_per_principal   VARCHAR2(10) not null,
+  fec_hora            DATE not null,
+  cod_tip_mensaje     VARCHAR2(3) not null,
+  nro_cuenta          VARCHAR2(15),
+  cod_moneda          VARCHAR2(3),
+  descripcion         VARCHAR2(100),
+  monto               NUMBER(18,2) default 0 not null,
+  mto_cargo           NUMBER(18,2),
+  mto_iva             NUMBER(18,2),
+  cotizacion          NUMBER(14,8),
+  mto_equ_local       NUMBER(18,2),
+  cantidad            NUMBER(10),
+  nro_cta_contra      VARCHAR2(50),
+  estado              VARCHAR2(1) default 'P' not null,
+  can_aut_requeridas  NUMBER(3) default 0 not null,
+  can_aut_faltantes   NUMBER(3) default 0 not null,
+  etiqueta            VARCHAR2(50),
+  dato                VARCHAR2(50),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_per_ingreso     VARCHAR2(10),
+  mto_contra          NUMBER(18,2),
+  cot_contra          NUMBER(14,8),
+  etiqueta2           VARCHAR2(50),
+  dato2               VARCHAR2(50),
+  referencia          NUMBER(15),
+  tip_pago            VARCHAR2(1),
+  can_insercion       VARCHAR2(20),
+  can_modificacion    VARCHAR2(20),
+  dato6               VARCHAR2(50),
+  etiqueta6           VARCHAR2(50),
+  dato5               VARCHAR2(50),
+  etiqueta5           VARCHAR2(50),
+  dato4               VARCHAR2(50),
+  etiqueta4           VARCHAR2(50),
+  dato3               VARCHAR2(50),
+  etiqueta3           VARCHAR2(50),
+  nro_ope_relacionada NUMBER(15),
+  dato7               VARCHAR2(50),
+  etiqueta7           VARCHAR2(50),
+  canal               VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BW_MOV_PENDIENTES
+  is 'Movimientos Pendientes de Homebanking.';
+-- Add comments to the columns 
+comment on column IT.BW_MOV_PENDIENTES.nro_documento
+  is 'Número del Documento u Operación.';
+comment on column IT.BW_MOV_PENDIENTES.cod_per_principal
+  is 'Código de la Persona Principal de Cuenta.';
+comment on column IT.BW_MOV_PENDIENTES.fec_hora
+  is 'Fecha y Hora de la Operación.';
+comment on column IT.BW_MOV_PENDIENTES.cod_tip_mensaje
+  is 'Código del Tipo de Mensaje del Homebanking.';
+comment on column IT.BW_MOV_PENDIENTES.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.BW_MOV_PENDIENTES.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.BW_MOV_PENDIENTES.descripcion
+  is 'Descripción de la Operación.';
+comment on column IT.BW_MOV_PENDIENTES.monto
+  is 'Monto.';
+comment on column IT.BW_MOV_PENDIENTES.mto_cargo
+  is 'Monto del Cargo.';
+comment on column IT.BW_MOV_PENDIENTES.mto_iva
+  is 'Monto del IVA.';
+comment on column IT.BW_MOV_PENDIENTES.cotizacion
+  is 'Cotización.';
+comment on column IT.BW_MOV_PENDIENTES.mto_equ_local
+  is 'Monto Equivalente en Moneda Local.';
+comment on column IT.BW_MOV_PENDIENTES.cantidad
+  is 'Cantidad (si el movimiento involucra por ej. chequeras).';
+comment on column IT.BW_MOV_PENDIENTES.nro_cta_contra
+  is 'Número de Cuenta de Contrapartida (para el caso de Transferencias).';
+comment on column IT.BW_MOV_PENDIENTES.estado
+  is 'Estado de la Operacion. A-ANULADA, C-CONFIRMADA, P-PENDIENTE, E-ENCOLADO, B-Eliminado por el registrador';
+comment on column IT.BW_MOV_PENDIENTES.can_aut_requeridas
+  is 'Cantidad Total de Autorizaciones Requeridas para Confirmar la Operación.';
+comment on column IT.BW_MOV_PENDIENTES.can_aut_faltantes
+  is 'Cantidad de Autorizaciones Faltantes para Confirmar la Operación.';
+comment on column IT.BW_MOV_PENDIENTES.etiqueta
+  is 'Etiqueta del Dato Adicional.';
+comment on column IT.BW_MOV_PENDIENTES.dato
+  is 'Dato Adicional.';
+comment on column IT.BW_MOV_PENDIENTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_MOV_PENDIENTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_MOV_PENDIENTES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_MOV_PENDIENTES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_MOV_PENDIENTES.cod_per_ingreso
+  is 'Persona que ingresó la Operación.';
+comment on column IT.BW_MOV_PENDIENTES.mto_contra
+  is 'Monto en la cuenta de contrapartida.';
+comment on column IT.BW_MOV_PENDIENTES.cot_contra
+  is 'Cotización del monto contrapartida.';
+comment on column IT.BW_MOV_PENDIENTES.etiqueta2
+  is 'Etiqueta 2 adicional';
+comment on column IT.BW_MOV_PENDIENTES.dato2
+  is 'Dato 2 adicional';
+comment on column IT.BW_MOV_PENDIENTES.referencia
+  is 'Nro. de referencia del movimiento original';
+comment on column IT.BW_MOV_PENDIENTES.can_insercion
+  is 'Canal de Inserción';
+comment on column IT.BW_MOV_PENDIENTES.can_modificacion
+  is 'Codigo de Modificación';
+comment on column IT.BW_MOV_PENDIENTES.dato7
+  is 'Dato adicional.';
+comment on column IT.BW_MOV_PENDIENTES.etiqueta7
+  is 'Etiqueta del dato adicional.';
+comment on column IT.BW_MOV_PENDIENTES.canal
+  is 'Canal digital desde donde se genero el movimiento';
+-- Create/Recreate indexes 
+create index IT.IN_BWPEN_COD_MONEDA on IT.BW_MOV_PENDIENTES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWPEN_COD_PER_PRINCIPAL on IT.BW_MOV_PENDIENTES (COD_PER_PRINCIPAL, COD_TIP_MENSAJE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWPEN_NRO_CUENTA on IT.BW_MOV_PENDIENTES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_PER_INGRESO on IT.BW_MOV_PENDIENTES (COD_PER_INGRESO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_PER_PRINCIPAL on IT.BW_MOV_PENDIENTES (COD_PER_PRINCIPAL)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_TIP_MENSAJE on IT.BW_MOV_PENDIENTES (COD_TIP_MENSAJE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WMPEN_COD_MONEDA on IT.BW_MOV_PENDIENTES (COD_MONEDA, COD_PER_INGRESO, COD_PER_PRINCIPAL, NRO_CTA_CONTRA, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BW_MOV_PENDIENTES
+  add constraint PK_BW_MOV_PENDIENTES primary key (NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_MOV_PENDIENTES
+  add constraint FK_WMPEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.BW_MOV_PENDIENTES
+  add constraint FK_WMPEN_COD_PER_INGRESO foreign key (COD_PER_INGRESO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_MOV_PENDIENTES
+  add constraint FK_WMPEN_COD_PER_PRINCIPAL foreign key (COD_PER_PRINCIPAL)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_MOV_PENDIENTES
+  add constraint FK_WMPEN_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+-- Create/Recreate check constraints 
+alter table IT.BW_MOV_PENDIENTES
+  add constraint CK_CAN_AUTORIZACIONES
+  check (CAN_AUT_FALTANTES <= CAN_AUT_REQUERIDAS);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BW_MOV_PENDIENTES to IT_TEMPORAL;

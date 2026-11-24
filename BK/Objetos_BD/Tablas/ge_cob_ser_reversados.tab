@@ -1,0 +1,52 @@
+create table IT.GE_COB_SER_REVERSADOS
+(
+  nro_lote         VARCHAR2(250) not null,
+  nro_transaccion  VARCHAR2(250) not null,
+  procesado        VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SER_REVERSADOS
+  is 'Reversión de cobros de servicios durante el cierre.';
+comment on column IT.GE_COB_SER_REVERSADOS.nro_lote
+  is 'Nro de Lote asignado por Pronet.';
+comment on column IT.GE_COB_SER_REVERSADOS.nro_transaccion
+  is 'Identificador del Pago de Servicio realizado.';
+comment on column IT.GE_COB_SER_REVERSADOS.procesado
+  is 'Indicada si el registro ya se proceso. S=Sí/N=No.';
+comment on column IT.GE_COB_SER_REVERSADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_COB_SER_REVERSADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_COB_SER_REVERSADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_COB_SER_REVERSADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_COB_SER_REVERSADOS
+  add constraint PK_GE_COB_SER_REVERSADOS primary key (NRO_LOTE, NRO_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

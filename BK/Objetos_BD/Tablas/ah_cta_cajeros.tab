@@ -1,0 +1,97 @@
+create table IT.AH_CTA_CAJEROS
+(
+  cod_oficina      NUMBER(3) not null,
+  nro_caja         NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cta_cheque   VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CTA_CAJEROS
+  is 'Cuentas de Cajeros Automaticos ( ATMs ).';
+comment on column IT.AH_CTA_CAJEROS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.AH_CTA_CAJEROS.nro_caja
+  is 'Numero de caja.';
+comment on column IT.AH_CTA_CAJEROS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.AH_CTA_CAJEROS.nro_cta_cheque
+  is 'Cuenta para Deposito de Cheque c/o.';
+comment on column IT.AH_CTA_CAJEROS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.AH_CTA_CAJEROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CTA_CAJEROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CTA_CAJEROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_CAJEROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_ACCAJ_NRO_CTA_CHEQUE on IT.AH_CTA_CAJEROS (NRO_CTA_CHEQUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACCAJ_NRO_CUENTA on IT.AH_CTA_CAJEROS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_CAJEROS
+  add constraint PK_AH_CTA_CAJEROS primary key (COD_OFICINA, NRO_CAJA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_CAJEROS
+  add constraint FK_ACCAJ_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.AH_CTA_CAJEROS
+  add constraint FK_ACCAJ_NRO_CTA_CHEQUE foreign key (NRO_CTA_CHEQUE)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CTA_CAJEROS
+  add constraint FK_ACCAJ_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CTA_CAJEROS
+  add constraint AVCON_1080844426_COD_O_009
+  check (COD_OFICINA BETWEEN 1 AND 999);
+alter table IT.AH_CTA_CAJEROS
+  add constraint AVCON_1080844426_NRO_C_000
+  check (NRO_CAJA BETWEEN 1 AND 999);
+

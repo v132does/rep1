@@ -1,0 +1,80 @@
+create table IT.BA_OFICINAS_CRM
+(
+  cod_oficina       NUMBER(3) not null,
+  descripcion       VARCHAR2(35),
+  cod_ciudad        NUMBER(3),
+  cod_pais          NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  TIMESTAMP(6) default current_timestamp not null,
+  cod_ofi_cambio    NUMBER(3),
+  direccion         VARCHAR2(60),
+  telefono          VARCHAR2(60),
+  sigla             VARCHAR2(4),
+  cod_usu_encargado VARCHAR2(10),
+  cod_gru_oficina   NUMBER(3),
+  cod_ofi_camara    NUMBER(3),
+  estado            VARCHAR2(1),
+  tip_accion        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_OFICINAS_CRM
+  is 'Oficinas.';
+comment on column IT.BA_OFICINAS_CRM.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.BA_OFICINAS_CRM.descripcion
+  is 'Nombre de la oficina.';
+comment on column IT.BA_OFICINAS_CRM.cod_ciudad
+  is 'Codigo de Ciudad.';
+comment on column IT.BA_OFICINAS_CRM.cod_pais
+  is 'Codigo del pais.';
+comment on column IT.BA_OFICINAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_OFICINAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_OFICINAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_OFICINAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_OFICINAS_CRM.cod_ofi_cambio
+  is 'Codigo de oficina de cambio.';
+comment on column IT.BA_OFICINAS_CRM.direccion
+  is 'Direccion principal.';
+comment on column IT.BA_OFICINAS_CRM.telefono
+  is 'Numero de telefono principal.';
+comment on column IT.BA_OFICINAS_CRM.sigla
+  is 'Sigla de la Oficina.';
+comment on column IT.BA_OFICINAS_CRM.cod_usu_encargado
+  is 'Usuario encargado de la oficina.';
+comment on column IT.BA_OFICINAS_CRM.cod_gru_oficina
+  is 'Grupo al que pertenece la oficina.';
+comment on column IT.BA_OFICINAS_CRM.cod_ofi_camara
+  is 'Codigo de oficina de camara.';
+comment on column IT.BA_OFICINAS_CRM.estado
+  is 'Estado de la Oficina (Activo/Inactivo).';
+comment on column IT.BA_OFICINAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.IN_CRM_COD_CIUDAD on IT.BA_OFICINAS_CRM (COD_CIUDAD, COD_PAIS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

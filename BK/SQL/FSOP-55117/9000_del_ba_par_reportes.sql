@@ -1,0 +1,8 @@
+-- Se eliminan los parámetros anteriores del reporte GLSALCLI
+
+BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:=1; END;
+/
+
+DELETE BA_PAR_REPORTES WHERE COD_PROGRAMA = 'GLSALCLI';
+
+COMMIT;

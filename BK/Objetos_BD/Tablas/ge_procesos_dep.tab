@@ -1,0 +1,70 @@
+CREATE TABLE it.GE_PROCESOS_DEP (
+   COD_PROCESO       NUMBER(3,0),
+   COD_PROGRAMA      VARCHAR2(30 BYTE),
+   COD_PROCESO_PRE   NUMBER(3,0),
+   COD_PROGRAMA_PRE  VARCHAR2(30 BYTE),
+   TIPO              VARCHAR2(1),
+   OBSERVACION       VARCHAR2(500),
+   USU_INSERCION     VARCHAR2(10) default SUBSTR(USER,1,10),
+   FEC_INSERCION     DATE default SYSDATE,
+   USU_MODIFICACION  VARCHAR2(10) default SUBSTR(USER,1,10),
+   FEC_MODIFICACION  DATE default SYSDATE
+)
+tablespace IT_DATA
+pctfree 10
+initrans 1
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+COMMENT ON TABLE it.GE_PROCESOS_DEP IS 'Control de Ejecución de Dependencias.';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.COD_PROCESO IS 'Codigo de Proceso dependiente.';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.COD_PROGRAMA IS 'Nombre del Programa dependiente.';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.COD_PROCESO_PRE IS 'Codigo de Proceso Predecesor del cual depende.';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.COD_PROGRAMA_PRE IS 'Nombre del Programa Predecesor del cual depende.';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.TIPO IS 'Tipo de Dependencia (F:fin de programa previo de cadena, P:paralelismo según programa predecesor de cadena, C:control, D:debug, NULL:desestimar/omitir)';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.OBSERVACION IS 'Observacion';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.USU_INSERCION IS 'Usuario que realizo la insercion del registro';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.FEC_INSERCION IS 'Fecha en que se inserto el registro';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.USU_MODIFICACION IS 'Usuario que realizo la ultima modificacion en el registro';
+
+COMMENT ON COLUMN it.GE_PROCESOS_DEP.FEC_MODIFICACION IS 'Fecha en que se realizo la ultima modificacion en el registro';
+
+ALTER TABLE it.GE_PROCESOS_DEP
+add constraint PK_GE_PROCESOS_DEP primary key (COD_PROCESO, COD_PROGRAMA, COD_PROCESO_PRE, COD_PROGRAMA_PRE)
+using index 
+tablespace IT_IND
+pctfree 10
+initrans 2
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+CREATE INDEX it.IN_GPDEP_TIPO ON it.GE_PROCESOS_DEP (TIPO)
+TABLESPACE IT_IND
+pctfree 10
+initrans 2
+maxtrans 255;
+
+CREATE PUBLIC SYNONYM GE_PROCESOS_DEP FOR it.GE_PROCESOS_DEP;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT on it.GE_PROCESOS_DEP to IT_TEMPORAL;

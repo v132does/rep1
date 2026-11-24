@@ -1,0 +1,13 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_INDEXES
+(
+  index      NUMBER,
+  id         VARCHAR2(16),
+  dbname     VARCHAR2(256),
+  tabname    VARCHAR2(256),
+  indname    VARCHAR2(256),
+  indextype  CHAR(1),
+  uniquerule CHAR(1),
+  createuser VARCHAR2(256)
+)
+on commit preserve rows;
+

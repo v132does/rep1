@@ -1,0 +1,51 @@
+create table IT.GE_PRO_AUT_LOGS
+(
+  cod_proceso      NUMBER(4),
+  nom_proceso      VARCHAR2(50),
+  fec_hor_ini      DATE,
+  fec_hor_fin      DATE,
+  nro_reg          NUMBER(10),
+  nro_error        NUMBER(5),
+  men_error        VARCHAR2(500),
+  comentario       VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PRO_AUT_LOGS
+  is 'log de control de envio.';
+comment on column IT.GE_PRO_AUT_LOGS.nom_proceso
+  is 'Nombre del proceso que provoco el suceso.';
+comment on column IT.GE_PRO_AUT_LOGS.fec_hor_ini
+  is 'Fecha/Hora de inicio del proceso.';
+comment on column IT.GE_PRO_AUT_LOGS.fec_hor_fin
+  is 'Fecha/Hora de finalizacion del proceso.';
+comment on column IT.GE_PRO_AUT_LOGS.nro_reg
+  is 'Numero de registro dentro del proceso.';
+comment on column IT.GE_PRO_AUT_LOGS.nro_error
+  is 'Codigo del error Oracle.';
+comment on column IT.GE_PRO_AUT_LOGS.men_error
+  is 'Mensaje de Error Oracle.';
+comment on column IT.GE_PRO_AUT_LOGS.comentario
+  is 'Comentarios del proceso acerca del suceso.';
+comment on column IT.GE_PRO_AUT_LOGS.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_PRO_AUT_LOGS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.GE_PRO_AUT_LOGS.usu_modificacion
+  is 'Usuario de  modificacion.';
+comment on column IT.GE_PRO_AUT_LOGS.fec_modificacion
+  is 'Fecha de modificacion.';
+

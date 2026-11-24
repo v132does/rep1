@@ -1,0 +1,182 @@
+create table IT.GE_SPI_SOLICITUDES
+(
+  cod_sol_spi              NUMBER(20) default it.s_cod_sol_spi.nextval not null,
+  nro_referencia           NUMBER(33),
+  cod_msj_swift            VARCHAR2(8) not null,
+  est_notificacion         VARCHAR2(1) default 'X' not null,
+  est_solicitud            VARCHAR2(1) default 'P' not null,
+  respuesta                VARCHAR2(2000),
+  nro_ref_externa          VARCHAR2(33),
+  fec_recepcion            DATE,
+  cod_moneda               VARCHAR2(3),
+  monto                    NUMBER(18,2) default 0 not null,
+  msj_mx                   VARCHAR2(4000),
+  nom_solicitante          VARCHAR2(120),
+  doc_solicitante          VARCHAR2(20),
+  tip_doc_solicitante      NUMBER(3),
+  cta_solicitante          VARCHAR2(35),
+  nom_beneficiario         VARCHAR2(120),
+  doc_beneficiario         VARCHAR2(20),
+  tip_doc_beneficiario     NUMBER(3),
+  cta_beneficiario         VARCHAR2(35),
+  nro_ref_solicitud        VARCHAR2(33),
+  uetr                     VARCHAR2(50),
+  cod_mot_solicitud        VARCHAR2(10),
+  nro_ref_msj_original     VARCHAR2(35),
+  cod_swi_solicitante      VARCHAR2(20),
+  cod_swi_suc_solicitante  VARCHAR2(20),
+  cod_swi_beneficiario     VARCHAR2(20),
+  cod_swi_suc_beneficiario VARCHAR2(20),
+  sit_solicitud            VARCHAR2(1) default 'P',
+  identificacion           VARCHAR2(140),
+  info_remesa              VARCHAR2(1000),
+  info_envio               VARCHAR2(1000),
+  tip_rechazo              VARCHAR2(10),
+  cod_tip_operacion        VARCHAR2(3),
+  cta_ben_recibido         VARCHAR2(35),
+  fec_insercion            DATE default sysdate not null,
+  usu_insercion            VARCHAR2(128) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default sysdate not null,
+  usu_modificacion         VARCHAR2(128) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_SOLICITUDES
+  is 'Se registran solicitudes SPI como: devoluciones y pagos.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_sol_spi
+  is 'Codigo asignado a la solicitud. PK.';
+comment on column IT.GE_SPI_SOLICITUDES.nro_referencia
+  is 'Nro. de referencia interna generada.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_msj_swift
+  is 'Tipo de mensaje swift.';
+comment on column IT.GE_SPI_SOLICITUDES.est_notificacion
+  is 'Estado de la notificacion para solicitudes recibidas: X  - No requiere notificacion, N - Notificar , R - Notificacion realizada';
+comment on column IT.GE_SPI_SOLICITUDES.est_solicitud
+  is 'Estado de la solicitud:P - Pendiente ,A - Aprobada ,R - Rechazada , C - Cancelada';
+comment on column IT.GE_SPI_SOLICITUDES.respuesta
+  is 'Respuesta a la solicitud.';
+comment on column IT.GE_SPI_SOLICITUDES.nro_ref_externa
+  is 'Referencia de la solicitud a enviar.';
+comment on column IT.GE_SPI_SOLICITUDES.fec_recepcion
+  is 'Fecha de recepci n del mensaje.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_moneda
+  is 'C digo de la moneda';
+comment on column IT.GE_SPI_SOLICITUDES.monto
+  is 'Monto de la solicitud.';
+comment on column IT.GE_SPI_SOLICITUDES.msj_mx
+  is 'Mensaje original enviado.';
+comment on column IT.GE_SPI_SOLICITUDES.nom_solicitante
+  is 'Nombre y Apellido del Solicitante.';
+comment on column IT.GE_SPI_SOLICITUDES.doc_solicitante
+  is 'N mero de Documento de Identidad del Solicitante.';
+comment on column IT.GE_SPI_SOLICITUDES.tip_doc_solicitante
+  is 'Tipo de Documento del Solicitante.';
+comment on column IT.GE_SPI_SOLICITUDES.cta_solicitante
+  is 'Cuenta del Solicitante';
+comment on column IT.GE_SPI_SOLICITUDES.nom_beneficiario
+  is 'Nombre y Apellido del Beneficiario.';
+comment on column IT.GE_SPI_SOLICITUDES.doc_beneficiario
+  is 'N mero de Documento de Identidad del Beneficiario.';
+comment on column IT.GE_SPI_SOLICITUDES.tip_doc_beneficiario
+  is 'Tipo de Documento del Beneficiario.';
+comment on column IT.GE_SPI_SOLICITUDES.cta_beneficiario
+  is 'Cuenta del Beneficiario.';
+comment on column IT.GE_SPI_SOLICITUDES.nro_ref_solicitud
+  is 'Referencia de la solicitud.';
+comment on column IT.GE_SPI_SOLICITUDES.uetr
+  is 'Referencia de la solicitud. Identificaci n de pago para pacs.008 .';
+comment on column IT.GE_SPI_SOLICITUDES.cod_mot_solicitud
+  is 'C digo del motivo de la solicitud.';
+comment on column IT.GE_SPI_SOLICITUDES.nro_ref_msj_original
+  is 'Referencia de la solicitud original.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_swi_solicitante
+  is 'C digo SWIFT (BIC) del Participante Solicitante.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_swi_suc_solicitante
+  is 'C digo SWIFT (BIC) de la Sucursal del Participante Solicitante - SubParticipante.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_swi_beneficiario
+  is 'C digo SWIFT (BIC) del Participante Beneficiario.';
+comment on column IT.GE_SPI_SOLICITUDES.cod_swi_suc_beneficiario
+  is 'C digo SWIFT (BIC) de la Sucursal del Participante Beneficiario -  SubParticipante.';
+comment on column IT.GE_SPI_SOLICITUDES.sit_solicitud
+  is 'Situaci n del Mensaje. C- Cancelado, D-En Demora,E-Error,L-Operaci n Liquidada,O-Pre-Proceso OK,P-Pendiente de Env o al BCP,R-Recibido,S-Pre-Proceso Pendiente,T-Reversion Automatica,V-Enviado al BCP.';
+comment on column IT.GE_SPI_SOLICITUDES.identificacion
+  is 'Identificaci n del pago';
+comment on column IT.GE_SPI_SOLICITUDES.info_remesa
+  is 'Informaci n sobre informes reglamentarios';
+comment on column IT.GE_SPI_SOLICITUDES.info_envio
+  is 'Informaci n del envio';
+comment on column IT.GE_SPI_SOLICITUDES.tip_rechazo
+  is 'C digo de motivo de rechazo de solicitud';
+comment on column IT.GE_SPI_SOLICITUDES.cod_tip_operacion
+  is 'Tipo de Operaci n de Solicitudes';
+comment on column IT.GE_SPI_SOLICITUDES.cta_ben_recibido
+  is 'Nro. de cuenta del beneficiario en el formato enviado por la entidad solicitante';
+comment on column IT.GE_SPI_SOLICITUDES.fec_insercion
+  is 'Fecha/Hora de insercion del registro';
+comment on column IT.GE_SPI_SOLICITUDES.usu_insercion
+  is 'Usuario de insercion del registro';
+comment on column IT.GE_SPI_SOLICITUDES.fec_modificacion
+  is 'Fecha/Hora de la ultima modificacion del registro';
+comment on column IT.GE_SPI_SOLICITUDES.usu_modificacion
+  is 'Usuario de modificacion del registro';
+create index IT.IN_GSPI_NRO_REFERENCIA on IT.GE_SPI_SOLICITUDES (NRO_REFERENCIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSPI_NRO_REF_EXTERNA on IT.GE_SPI_SOLICITUDES (NRO_REF_EXTERNA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SPI_SOLICITUDES
+  add constraint PK_COD_SOL_SPI primary key (COD_SOL_SPI)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSPI_FEC_INSERCION on IT.GE_SPI_SOLICITUDES("FEC_INSERCION") ONLINE
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

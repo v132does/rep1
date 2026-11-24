@@ -1,0 +1,57 @@
+create table IT.GE_CON_CRE_OPE_SET_TMP
+(
+  fec_archivo           DATE,
+  fecha                 DATE,
+  hora                  VARCHAR2(8),
+  nro_ord_transferencia NUMBER(15),
+  nro_cta_clearing      VARCHAR2(15),
+  nro_cta_destino       VARCHAR2(15),
+  monto                 NUMBER(18,2),
+  cod_moneda            VARCHAR2(3),
+  cod_ban_clearing      VARCHAR2(3),
+  cod_ban_destino       VARCHAR2(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion         DATE default SYSDATE,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion      DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.fec_archivo
+  is 'Fecha Archivo';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.fecha
+  is 'Fecha';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.hora
+  is 'Hora';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.nro_ord_transferencia
+  is 'Nro. de Orden de Transferencia.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.nro_cta_clearing
+  is 'Nro. Cuenta Clearing.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.nro_cta_destino
+  is 'Nro. Cuenta Destino.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.monto
+  is 'Monto.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.cod_moneda
+  is 'Cód. de Moneda.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.cod_ban_clearing
+  is 'Cód. Banco Clearing';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.cod_ban_destino
+  is 'Cód. Banco Destino';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.usu_insercion
+  is 'Usuario Inserción.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.fec_insercion
+  is 'Fecha Inserción.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.usu_modificacion
+  is 'Usuario Modificación.';
+comment on column IT.GE_CON_CRE_OPE_SET_TMP.fec_modificacion
+  is 'Fecha Modificación.';
+

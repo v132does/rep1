@@ -1,0 +1,61 @@
+create table IT.MIGR_DATATYPE_TRANSFORM_RULE
+(
+  id                    NUMBER not null,
+  map_id_fk             NUMBER not null,
+  source_data_type_name VARCHAR2(4000) not null,
+  source_precision      NUMBER,
+  source_scale          NUMBER,
+  target_data_type_name VARCHAR2(4000) not null,
+  target_precision      NUMBER,
+  target_scale          NUMBER,
+  security_group_id     NUMBER default 0 not null,
+  created_on            DATE default sysdate not null,
+  created_by            VARCHAR2(255),
+  last_updated_on       DATE,
+  last_updated_by       VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.id
+  is 'Primary Key';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.map_id_fk
+  is 'The map to which this rule belongs //PARENTFIELD';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.source_data_type_name
+  is 'Source data type';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.source_precision
+  is 'Precison to match';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.source_scale
+  is 'scale to match';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.target_data_type_name
+  is 'data type name to transform to';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.target_precision
+  is 'precision to map to ';
+comment on column IT.MIGR_DATATYPE_TRANSFORM_RULE.target_scale
+  is 'scale to map to';
+alter table IT.MIGR_DATATYPE_TRANSFORM_RULE
+  add constraint MIGR_DATATYPE_TRANSFORM_R_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MIGR_DATATYPE_TRANSFORM_RULE
+  add constraint MIGR_DATATYPE_TRANSFORM_R_FK1 foreign key (MAP_ID_FK)
+  references IT.MIGR_DATATYPE_TRANSFORM_MAP (ID) on delete cascade;
+

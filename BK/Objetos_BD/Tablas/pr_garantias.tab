@@ -1,0 +1,267 @@
+-- Create table
+create table IT.PR_GARANTIAS
+(
+  nro_garantia         NUMBER(7) not null,
+  cod_garantia         NUMBER(3) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  valor                NUMBER(18,2) default 0 not null,
+  val_tasacion         NUMBER(18,2) default 0,
+  fec_ult_tasacion     DATE,
+  fec_inicio           DATE not null,
+  fec_vencimiento      DATE,
+  cod_ent_escribania   NUMBER(5),
+  cod_ent_seguro       NUMBER(5),
+  tipo                 VARCHAR2(1) default 'A',
+  estado               VARCHAR2(1),
+  cod_persona          VARCHAR2(10) not null,
+  observacion          VARCHAR2(1000),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_mon_tasacion     VARCHAR2(3),
+  mto_aplicado         NUMBER(18,2),
+  est_tesoreria        VARCHAR2(1) default 'F',
+  est_verificacion     VARCHAR2(1) default 'N',
+  fec_ent_tesoreria    DATE,
+  fec_sal_tesoreria    DATE,
+  cod_usu_entregado    VARCHAR2(10),
+  cod_cau_salida       NUMBER(3),
+  mto_apl_valor        NUMBER(18,2) default 0,
+  ind_uti_tercero      VARCHAR2(1) default 'N',
+  situacion            VARCHAR2(1),
+  cod_oficina          NUMBER(3),
+  nro_escritura        NUMBER(10),
+  fec_ult_utilizacion  DATE,
+  observacion_his      VARCHAR2(4000),
+  nro_referencia       VARCHAR2(20),
+  cod_per_beneficiario VARCHAR2(10),
+  perfeccionada        VARCHAR2(1) default 'N' not null,
+  rango                VARCHAR2(1) default '1' not null,
+  fec_confirmacion     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.PR_GARANTIAS
+  is 'Garantías.';
+-- Add comments to the columns 
+comment on column IT.PR_GARANTIAS.nro_garantia
+  is 'Número identificador de la garantía.';
+comment on column IT.PR_GARANTIAS.cod_garantia
+  is 'Tipo de garantía.';
+comment on column IT.PR_GARANTIAS.cod_moneda
+  is 'Código de la moneda de la garantía.';
+comment on column IT.PR_GARANTIAS.valor
+  is 'Valor de la garantía.';
+comment on column IT.PR_GARANTIAS.val_tasacion
+  is 'Valor de tasación.';
+comment on column IT.PR_GARANTIAS.fec_ult_tasacion
+  is 'Fecha última tasación.';
+comment on column IT.PR_GARANTIAS.fec_inicio
+  is 'Fecha inicial de la garantía.';
+comment on column IT.PR_GARANTIAS.fec_vencimiento
+  is 'Fecha de vencimiento de la garantía.';
+comment on column IT.PR_GARANTIAS.cod_ent_escribania
+  is 'Código de la escribania.';
+comment on column IT.PR_GARANTIAS.cod_ent_seguro
+  is 'Código de la aseguradora.';
+comment on column IT.PR_GARANTIAS.tipo
+  is 'Tipo de garantía (abierta o cerrada).';
+comment on column IT.PR_GARANTIAS.estado
+  is 'Estado de la garantía.';
+comment on column IT.PR_GARANTIAS.cod_persona
+  is 'Código de cliente.';
+comment on column IT.PR_GARANTIAS.observacion
+  is 'Descripción u Observacion sobre la garantía.';
+comment on column IT.PR_GARANTIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GARANTIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GARANTIAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GARANTIAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GARANTIAS.cod_mon_tasacion
+  is 'Moneda de la tasación.';
+comment on column IT.PR_GARANTIAS.mto_aplicado
+  is 'Monto total aplicado del valor computable de la garantía (tasación, valor escritura o valor venta rápida).';
+comment on column IT.PR_GARANTIAS.est_tesoreria
+  is 'Estado de Tesorería (E=En Tesorería, F=Fuera de Tesorería).';
+comment on column IT.PR_GARANTIAS.est_verificacion
+  is 'Estado de Verificación (N=No verificado, V=Verificado).';
+comment on column IT.PR_GARANTIAS.fec_ent_tesoreria
+  is 'Fecha de Entrada en tesorería.';
+comment on column IT.PR_GARANTIAS.fec_sal_tesoreria
+  is 'Fecha de Salida de tesorería.';
+comment on column IT.PR_GARANTIAS.cod_usu_entregado
+  is 'Código de Usuario al que se le entrega.';
+comment on column IT.PR_GARANTIAS.cod_cau_salida
+  is 'Código de Causa de Salida.';
+comment on column IT.PR_GARANTIAS.mto_apl_valor
+  is 'Monto aplicado del valor total de la garantía en cuentas de préstamos. (Asentado).';
+comment on column IT.PR_GARANTIAS.ind_uti_tercero
+  is 'Indica si puede utilizar un tercero.';
+comment on column IT.PR_GARANTIAS.situacion
+  is 'Situación en la que se encuentra la garantía.';
+comment on column IT.PR_GARANTIAS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.PR_GARANTIAS.nro_escritura
+  is 'Número de Escritura.';
+comment on column IT.PR_GARANTIAS.fec_ult_utilizacion
+  is 'Fecha de última utilización para inactivar.';
+comment on column IT.PR_GARANTIAS.nro_referencia
+  is 'Número de referencia de la garantía, corresponde a Cuentas, Nro. de Documento, etc.';
+comment on column IT.PR_GARANTIAS.cod_per_beneficiario
+  is 'Código de la Persona Beneficiaria de la Garantía.';
+comment on column IT.PR_GARANTIAS.perfeccionada
+  is 'Indica la perfección de la Garantía (inscripto en el Registro Público): valores posibles S/N.';
+comment on column IT.PR_GARANTIAS.rango
+  is 'Indica el Rango de la Garantía: Primer Rango (1) - Segundo Rango (2).';
+comment on column IT.PR_GARANTIAS.fec_confirmacion
+  is 'Fecha en la que se realiza la Confirmación de la Garantía.';
+-- Create/Recreate indexes 
+create index IT.IN_BBVA_PR_GARANTIAS on IT.PR_GARANTIAS (COD_PERSONA, COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGARA_COD_CAU_SALIDA on IT.PR_GARANTIAS (COD_CAU_SALIDA, COD_ENT_ESCRIBANIA, COD_ENT_SEGURO, COD_GARANTIA, COD_MONEDA, COD_MON_TASACION, COD_OFICINA, COD_USU_ENTREGADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGARA_COD_MONEDA on IT.PR_GARANTIAS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGARA_COD_MON_TAS on IT.PR_GARANTIAS (COD_MON_TASACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGARA_COD_PERSONA on IT.PR_GARANTIAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGARA_ESTADO on IT.PR_GARANTIAS (ESTADO, FEC_CONFIRMACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGARA_TIPO on IT.PR_GARANTIAS (TIPO, IND_UTI_TERCERO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.PR_GARANTIAS
+  add constraint PK_PR_GARANTIAS primary key (NRO_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_CAU_SALIDA foreign key (COD_CAU_SALIDA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_ENT_ESCRIBANIA foreign key (COD_ENT_ESCRIBANIA)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_MON_TASACION foreign key (COD_MON_TASACION)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.PR_GARANTIAS
+  add constraint FK_PGARA_COD_USU_ENTREGADO foreign key (COD_USU_ENTREGADO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+-- Create/Recreate check constraints 
+alter table IT.PR_GARANTIAS
+  add constraint AVCON_1080845005_ESTAD_002
+  check (ESTADO IN ('A','C', 'I', 'N', 'T', 'V','R'));
+alter table IT.PR_GARANTIAS
+  add constraint AVCON_1080845005_TIPO_003
+  check (TIPO IN ('A', 'C'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.PR_GARANTIAS to IT_TEMPORAL;

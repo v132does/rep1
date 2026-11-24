@@ -1,0 +1,58 @@
+create table IT.GE_LIS_ERROR
+(
+  cod_error        NUMBER not null,
+  desc_in          VARCHAR2(200),
+  desc_es          VARCHAR2(200),
+  estado           VARCHAR2(1),
+  comentario       VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LIS_ERROR
+  is 'Tabla para manejar los códigos de errores y las descripciones( en inglés y español )respectivas de la lista de WU';
+comment on column IT.GE_LIS_ERROR.cod_error
+  is 'Código de error de la lista';
+comment on column IT.GE_LIS_ERROR.desc_in
+  is 'Descripción del error en ingles';
+comment on column IT.GE_LIS_ERROR.desc_es
+  is 'Descripción del error en español';
+comment on column IT.GE_LIS_ERROR.estado
+  is 'Estado del registro , A = Activo, I= Inactivo';
+comment on column IT.GE_LIS_ERROR.comentario
+  is 'Comentario adicional sobre el registro';
+comment on column IT.GE_LIS_ERROR.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_LIS_ERROR.fec_insercion
+  is 'Fecha que se inserto el registro';
+comment on column IT.GE_LIS_ERROR.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_LIS_ERROR.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+alter table IT.GE_LIS_ERROR
+  add constraint PK_GE_LIS_ERROR primary key (COD_ERROR)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

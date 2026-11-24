@@ -1,0 +1,52 @@
+create table IT.SB_FDG_DATOS
+(
+  fecha            DATE not null,
+  ref_archivo      VARCHAR2(2) not null,
+  can_registros    NUMBER(6) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_FDG_DATOS
+  is 'Indica los registros enviados en cada archivo.';
+comment on column IT.SB_FDG_DATOS.fecha
+  is 'Fecha de Proceso.';
+comment on column IT.SB_FDG_DATOS.ref_archivo
+  is 'Archivo: Referencia a un archivo, va el nombre referencia del mismo.';
+comment on column IT.SB_FDG_DATOS.can_registros
+  is 'Referencia a un archivo, valor será cantidad de registros.';
+comment on column IT.SB_FDG_DATOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_FDG_DATOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_FDG_DATOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_FDG_DATOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.SB_FDG_DATOS
+  add constraint PK_SB_FDG_DATOS primary key (FECHA, REF_ARCHIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

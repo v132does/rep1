@@ -1,0 +1,72 @@
+create table IT.RH_SAL_MINIMOS
+(
+  cod_sal_minimo   NUMBER(3) not null,
+  descripcion      VARCHAR2(40) not null,
+  monto            NUMBER(14,2) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_SAL_MINIMOS
+  is 'Salarios Minimos del modulo de RRHH.';
+comment on column IT.RH_SAL_MINIMOS.cod_sal_minimo
+  is 'Codigo de Tipo de Salario Minimo.';
+comment on column IT.RH_SAL_MINIMOS.descripcion
+  is 'Descripcion del tipo de salario Minimo.';
+comment on column IT.RH_SAL_MINIMOS.monto
+  is 'Monto del Salario Minimo.';
+comment on column IT.RH_SAL_MINIMOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_SAL_MINIMOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_SAL_MINIMOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_SAL_MINIMOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_SAL_MINIMOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_SAL_MINIMOS
+  add constraint PK_RH_SAL_MINIMOS primary key (COD_SAL_MINIMO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_SAL_MINIMOS
+  add constraint UK_HSMIN_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_SAL_MINIMOS
+  add constraint FK_HSMIN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

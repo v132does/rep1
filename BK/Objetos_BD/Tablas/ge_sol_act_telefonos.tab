@@ -1,0 +1,112 @@
+create table IT.GE_SOL_ACT_TELEFONOS
+(
+  nro_solicitud    NUMBER(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_telefono     NUMBER(3) not null,
+  tipo             VARCHAR2(1) not null,
+  tip_linea        VARCHAR2(1) default 'B' not null,
+  telefono         VARCHAR2(10) not null,
+  principal        VARCHAR2(1) default 'N' not null,
+  area             VARCHAR2(10),
+  interno          VARCHAR2(5),
+  observacion      VARCHAR2(1000),
+  tip_modificacion VARCHAR2(1) default 'N' not null,
+  det_modificacion CLOB,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_ACT_TELEFONOS
+  is 'Solicitud de actualización de datos de Teléfonos.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.nro_solicitud
+  is 'Número de Solicitud';
+comment on column IT.GE_SOL_ACT_TELEFONOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.cod_telefono
+  is 'Codigo de telefono.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.tipo
+  is 'Tipo de telefono (L=Laboral / P= Particular).';
+comment on column IT.GE_SOL_ACT_TELEFONOS.tip_linea
+  is 'Tipo de Linea telefonica (B=Baja, C=Celular).';
+comment on column IT.GE_SOL_ACT_TELEFONOS.telefono
+  is 'Numero de Telefono.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.principal
+  is 'Indica si el telefono es default (S=SI / N=NO).';
+comment on column IT.GE_SOL_ACT_TELEFONOS.area
+  is 'Codigo de Area del Numero de Telefono.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.interno
+  is 'Numero de Interno.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.observacion
+  is 'Observacion.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.tip_modificacion
+  is 'I=Insercion; M=Modificacion; E; Eliminacion; N=iNsercion iNicial';
+comment on column IT.GE_SOL_ACT_TELEFONOS.det_modificacion
+  is 'Detalle del cambio realizado';
+comment on column IT.GE_SOL_ACT_TELEFONOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ACT_TELEFONOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_BBVA_GE_SOL_ACT_TELEFONOS on IT.GE_SOL_ACT_TELEFONOS (TO_NUMBER(COD_PERSONA))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_SAT_BA_PERSONA on IT.GE_SOL_ACT_TELEFONOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ACT_TELEFONOS
+  add constraint PK_GE_SOL_ACT_TELEFONOS primary key (NRO_SOLICITUD, COD_PERSONA, COD_TELEFONO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 5M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ACT_TELEFONOS
+  add constraint FK_GSAT_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOL_ACT_DATOS (NRO_SOLICITUD);
+alter table IT.GE_SOL_ACT_TELEFONOS
+  add constraint AVCON_GSAT_COD_TELEF
+  check (COD_TELEFONO BETWEEN 0 AND 999);
+alter table IT.GE_SOL_ACT_TELEFONOS
+  add constraint AVCON_GSAT_PRINCIPAL
+  check (PRINCIPAL IN ('S', 'N'));
+

@@ -1,0 +1,78 @@
+create table IT.SIMGIA_CRCP
+(
+  fecha              DATE,
+  cod_oficina_origen NUMBER(3),
+  cod_persona        VARCHAR2(50),
+  nom_persona        VARCHAR2(100),
+  nom_gestor         VARCHAR2(100),
+  monto_gs           NUMBER(18,2),
+  monto_usd          NUMBER(18,2),
+  tip_operacion      VARCHAR2(2),
+  mto_objetivo       NUMBER(18,2),
+  subregion          NUMBER(3),
+  cod_usu_oficial    VARCHAR2(50),
+  ranking_actual     NUMBER(18,2),
+  ranking_anterior   NUMBER(18,2),
+  grupo_oficina      VARCHAR2(100),
+  competencia        VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_CRCP on IT.SIMGIA_CRCP (COD_OFICINA_ORIGEN, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_CRCP_ on IT.SIMGIA_CRCP (COD_USU_OFICIAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_CRCP_PERSONA on IT.SIMGIA_CRCP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_CRCP_TIPO on IT.SIMGIA_CRCP (TIP_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,118 @@
+create table IT.CC_SAL_MENSUALES
+(
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_oficina           NUMBER(3) not null,
+  nro_cuenta            VARCHAR2(15) not null,
+  ano                   NUMBER(4) not null,
+  mes                   NUMBER(2) not null,
+  can_debitos           NUMBER(8),
+  can_creditos          NUMBER(8),
+  tot_debitos           NUMBER(18,2) default 0,
+  tot_creditos          NUMBER(18,2) default 0,
+  can_che_devueltos     NUMBER(4),
+  sal_acu_diario        NUMBER(18,2) default 0,
+  can_dia_acumulado     NUMBER(4),
+  sal_acu_deudor        NUMBER(18,2) default 0,
+  can_dia_deudor        NUMBER(4),
+  sal_acu_acreedor      NUMBER(18,2) default 0,
+  can_dia_acreedor      NUMBER(4),
+  can_che_gir_excedidos NUMBER(5),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  sal_ini_mes           NUMBER(18,2) default 0,
+  sal_fin_mes           NUMBER(18,2) default 0,
+  sal_ult_extracto      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_SAL_MENSUALES
+  is 'Saldos Mensuales de Cuentas Corrientes ** Mantener un año completo **';
+comment on column IT.CC_SAL_MENSUALES.cod_modulo
+  is 'Codigo del modulo de la cuenta.';
+comment on column IT.CC_SAL_MENSUALES.cod_modalidad
+  is 'Codigo de la modalidad de la cuenta.';
+comment on column IT.CC_SAL_MENSUALES.cod_oficina
+  is 'Codigo de la oficina de la cuenta.';
+comment on column IT.CC_SAL_MENSUALES.nro_cuenta
+  is 'Numero de la cuenta del cliente.';
+comment on column IT.CC_SAL_MENSUALES.ano
+  is 'A?o del mes a que corresponde este registro.';
+comment on column IT.CC_SAL_MENSUALES.mes
+  is 'Mes a que corresponde este registro.';
+comment on column IT.CC_SAL_MENSUALES.can_debitos
+  is 'Cantidad de retiros de este mes.';
+comment on column IT.CC_SAL_MENSUALES.can_creditos
+  is 'Cantidad de depositos del mes.';
+comment on column IT.CC_SAL_MENSUALES.tot_debitos
+  is 'Total de debitos del mes.';
+comment on column IT.CC_SAL_MENSUALES.tot_creditos
+  is 'Total de creditos del mes.';
+comment on column IT.CC_SAL_MENSUALES.can_che_devueltos
+  is 'Cantidad de cheques devueltos del mes.';
+comment on column IT.CC_SAL_MENSUALES.sal_acu_diario
+  is 'Acumulado de saldo diario del mes (total - retenido).';
+comment on column IT.CC_SAL_MENSUALES.can_dia_acumulado
+  is 'Cantidad de dias del mes.';
+comment on column IT.CC_SAL_MENSUALES.sal_acu_deudor
+  is 'Acumulado de saldo.';
+comment on column IT.CC_SAL_MENSUALES.can_dia_deudor
+  is 'Cantidad de dias.';
+comment on column IT.CC_SAL_MENSUALES.sal_acu_acreedor
+  is 'Acumulado de saldo.';
+comment on column IT.CC_SAL_MENSUALES.can_dia_acreedor
+  is 'Cantidad de dias de que?.';
+comment on column IT.CC_SAL_MENSUALES.can_che_gir_excedidos
+  is 'Cantidad de Excesos de giro de cheques.';
+comment on column IT.CC_SAL_MENSUALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_SAL_MENSUALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_SAL_MENSUALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SAL_MENSUALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SAL_MENSUALES.sal_ini_mes
+  is 'Saldo inicial del mes.';
+comment on column IT.CC_SAL_MENSUALES.sal_fin_mes
+  is 'Saldo Final del mes.';
+comment on column IT.CC_SAL_MENSUALES.sal_ult_extracto
+  is 'Saldo de Último Extracto.';
+create index IT.IN_CSMEN_NRO_CUENTA on IT.CC_SAL_MENSUALES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SAL_MENSUALES
+  add constraint PK_CC_SAL_MENSUALES primary key (NRO_CUENTA, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 768K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

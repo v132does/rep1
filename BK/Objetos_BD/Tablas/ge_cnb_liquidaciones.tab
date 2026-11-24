@@ -1,0 +1,74 @@
+create table IT.GE_CNB_LIQUIDACIONES
+(
+  cod_ente         NUMBER not null,
+  nro_operacion    NUMBER not null,
+  nro_transaccion  NUMBER not null,
+  fecha            DATE,
+  cod_moneda       VARCHAR2(3),
+  mto_liquidar     NUMBER(18,2),
+  mto_total        NUMBER(18,2),
+  estado           VARCHAR2(1),
+  mot_error        VARCHAR2(250),
+  tip_ope          VARCHAR2(1),
+  fec_proceso      DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CNB_LIQUIDACIONES.cod_ente
+  is 'Código del Ente.';
+comment on column IT.GE_CNB_LIQUIDACIONES.nro_operacion
+  is 'Codigo de transacción que corresponde al movimiento de Wepa.';
+comment on column IT.GE_CNB_LIQUIDACIONES.nro_transaccion
+  is 'Nro de operación enviado por bancard.';
+comment on column IT.GE_CNB_LIQUIDACIONES.fecha
+  is 'Fecha del sistema.';
+comment on column IT.GE_CNB_LIQUIDACIONES.cod_moneda
+  is 'Código de la moneda.';
+comment on column IT.GE_CNB_LIQUIDACIONES.mto_liquidar
+  is 'Monto a Liquidar.';
+comment on column IT.GE_CNB_LIQUIDACIONES.mto_total
+  is 'Monto total de la operación.';
+comment on column IT.GE_CNB_LIQUIDACIONES.estado
+  is 'Estado , L= Liquidado / P= Pendiente.';
+comment on column IT.GE_CNB_LIQUIDACIONES.mot_error
+  is 'Motivo de error de no liquidar.';
+comment on column IT.GE_CNB_LIQUIDACIONES.tip_ope
+  is 'Tipo de Operación. D= Debito, C= Credito.';
+comment on column IT.GE_CNB_LIQUIDACIONES.fec_proceso
+  is 'Fecha de proceso: actualiza proceso de liquidación una vez procesado.';
+comment on column IT.GE_CNB_LIQUIDACIONES.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_CNB_LIQUIDACIONES.fec_insercion
+  is 'Fecha que se inserto el registro';
+comment on column IT.GE_CNB_LIQUIDACIONES.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_CNB_LIQUIDACIONES.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+alter table IT.GE_CNB_LIQUIDACIONES
+  add constraint PK_GE_CNB_LIQUIDACIONES primary key (NRO_OPERACION, NRO_TRANSACCION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

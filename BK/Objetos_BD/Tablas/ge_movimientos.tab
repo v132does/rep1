@@ -1,0 +1,490 @@
+create table IT.GE_MOVIMIENTOS
+(
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  nro_secuencia       NUMBER(3) not null,
+  fec_valor           DATE,
+  monto               NUMBER(18,2) default 0,
+  nro_cuenta          VARCHAR2(15),
+  cod_moneda          VARCHAR2(3) not null,
+  cod_oficina         NUMBER(3),
+  cod_error           VARCHAR2(10),
+  cod_retencion       NUMBER(3),
+  fec_fin_retencion   DATE,
+  est_cuenta          VARCHAR2(1),
+  estado              VARCHAR2(1) default 'N' not null,
+  cod_causa           NUMBER(3),
+  cod_banco           NUMBER(3),
+  cod_ofi_origen      NUMBER(3) not null,
+  concepto            VARCHAR2(100),
+  cod_tasa            NUMBER(3),
+  val_tasa            NUMBER(20,4) default 0,
+  cod_rubro           VARCHAR2(15),
+  cod_ref_cambio      VARCHAR2(3),
+  reversado           VARCHAR2(1) default 'N' not null,
+  cod_usu_reversion   VARCHAR2(10),
+  hor_reversion       VARCHAR2(8),
+  emi_aviso           VARCHAR2(1) default 'N',
+  cod_tra_padre       NUMBER(4) not null,
+  cod_mod_padre       NUMBER(3) not null,
+  cod_mad_padre       NUMBER(3) not null,
+  cod_transaccion     NUMBER(4),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  mto_equ_local       NUMBER(18,2),
+  nro_caja            NUMBER(3),
+  cotizacion          NUMBER(14,8),
+  cod_bco_central     VARCHAR2(6),
+  nro_documento       NUMBER(15),
+  nro_documento2      NUMBER(15),
+  nro_documento3      NUMBER(15),
+  nro_documento4      NUMBER(15),
+  protegido           VARCHAR2(1) default 'N',
+  cod_autorizacion    NUMBER(10),
+  cod_usu_autorizador VARCHAR2(10),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tip_mov_rubro       VARCHAR2(1),
+  cod_tip_ope_cambio  VARCHAR2(3),
+  referencia          VARCHAR2(20),
+  cod_persona         VARCHAR2(10),
+  cod_sit_contable    NUMBER(20),
+  nro_conciliacion    NUMBER(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOVIMIENTOS
+  is 'Movimientos Diarios. Contiene todos los movimientos generados en el dia de Hoy, en todo el Sistema.';
+comment on column IT.GE_MOVIMIENTOS.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_MOVIMIENTOS.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOVIMIENTOS.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_MOVIMIENTOS.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_MOVIMIENTOS.fec_valor
+  is 'Fecha valor de la transaccion.';
+comment on column IT.GE_MOVIMIENTOS.monto
+  is 'Importe de la transaccion.';
+comment on column IT.GE_MOVIMIENTOS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_MOVIMIENTOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_MOVIMIENTOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_MOVIMIENTOS.cod_error
+  is 'Codigo de error.';
+comment on column IT.GE_MOVIMIENTOS.cod_retencion
+  is 'Codigo de retencion.';
+comment on column IT.GE_MOVIMIENTOS.fec_fin_retencion
+  is 'Fecha fin de la retencion.';
+comment on column IT.GE_MOVIMIENTOS.est_cuenta
+  is 'Estado de la cuenta. (En caso de que se haga cambio de estado).';
+comment on column IT.GE_MOVIMIENTOS.estado
+  is 'Estado del movimiento. ( ).';
+comment on column IT.GE_MOVIMIENTOS.cod_causa
+  is 'Codigo de causa de bloqueo.';
+comment on column IT.GE_MOVIMIENTOS.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.GE_MOVIMIENTOS.cod_ofi_origen
+  is 'Codigo de oficina origen.';
+comment on column IT.GE_MOVIMIENTOS.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.GE_MOVIMIENTOS.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.GE_MOVIMIENTOS.val_tasa
+  is 'Importe de la tasa.';
+comment on column IT.GE_MOVIMIENTOS.cod_rubro
+  is 'Codigo de cuenta contable.';
+comment on column IT.GE_MOVIMIENTOS.cod_ref_cambio
+  is 'Codigo de referencia.';
+comment on column IT.GE_MOVIMIENTOS.reversado
+  is 'Reversado. (N=NO / S=SI).';
+comment on column IT.GE_MOVIMIENTOS.cod_usu_reversion
+  is 'Operador de reversion.';
+comment on column IT.GE_MOVIMIENTOS.hor_reversion
+  is 'Hora de reversion.';
+comment on column IT.GE_MOVIMIENTOS.emi_aviso
+  is 'Emitir aviso. (N=NO / S=SI).';
+comment on column IT.GE_MOVIMIENTOS.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_MOVIMIENTOS.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_MOVIMIENTOS.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_MOVIMIENTOS.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_MOVIMIENTOS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_MOVIMIENTOS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MOVIMIENTOS.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.GE_MOVIMIENTOS.nro_caja
+  is 'Numero de caja.';
+comment on column IT.GE_MOVIMIENTOS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.GE_MOVIMIENTOS.cod_bco_central
+  is 'Codigo en el BCP.';
+comment on column IT.GE_MOVIMIENTOS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.GE_MOVIMIENTOS.nro_documento2
+  is 'Numero de documento.';
+comment on column IT.GE_MOVIMIENTOS.nro_documento3
+  is 'Numero de documento.';
+comment on column IT.GE_MOVIMIENTOS.nro_documento4
+  is 'Numero de documento.';
+comment on column IT.GE_MOVIMIENTOS.protegido
+  is 'Protegido. (N=NO / S=SI).';
+comment on column IT.GE_MOVIMIENTOS.cod_autorizacion
+  is 'Numero de autorizacion.';
+comment on column IT.GE_MOVIMIENTOS.cod_usu_autorizador
+  is 'Codigo de autorizacion.';
+comment on column IT.GE_MOVIMIENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MOVIMIENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MOVIMIENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOVIMIENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOVIMIENTOS.tip_mov_rubro
+  is 'Tipo de movimiento.';
+comment on column IT.GE_MOVIMIENTOS.cod_tip_ope_cambio
+  is 'Codigo de tipo de operacion de cambio.';
+comment on column IT.GE_MOVIMIENTOS.referencia
+  is 'Referencia general.';
+comment on column IT.GE_MOVIMIENTOS.cod_persona
+  is 'Persona asociada al movimiento.';
+comment on column IT.GE_MOVIMIENTOS.cod_sit_contable
+  is 'Indica la Situacion Contable actual de la Operacion. ';
+comment on column IT.GE_MOVIMIENTOS.nro_conciliacion
+  is 'N�mero Secuencia Extracto Swift.';
+create index IT.IN_BBVA_EST_REV_HOR on IT.GE_MOVIMIENTOS (ESTADO, REVERSADO, HORA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_BANCO on IT.GE_MOVIMIENTOS (COD_BANCO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_CAUSA on IT.GE_MOVIMIENTOS (COD_CAUSA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_MONEDA on IT.GE_MOVIMIENTOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_OFICINA on IT.GE_MOVIMIENTOS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_OFI_ORIGEN on IT.GE_MOVIMIENTOS (COD_OFI_ORIGEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_PERSONA on IT.GE_MOVIMIENTOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_RETENCION on IT.GE_MOVIMIENTOS (COD_RETENCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_RUBRO on IT.GE_MOVIMIENTOS (COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_TASA on IT.GE_MOVIMIENTOS (COD_TASA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_TRANSACCIONES on IT.GE_MOVIMIENTOS (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_USUARIO_MOV on IT.GE_MOVIMIENTOS (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_USU_AUTORIZADOR on IT.GE_MOVIMIENTOS (COD_USU_AUTORIZADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_USU_REVERSION on IT.GE_MOVIMIENTOS (COD_USU_REVERSION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMOVI_NRO_CUENTA on IT.GE_MOVIMIENTOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMOVI_NRO_DOCUMENTO on IT.GE_MOVIMIENTOS (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMOVI_NRO_DOCUMENTO3 on IT.GE_MOVIMIENTOS (TRIM(TO_CHAR(NRO_DOCUMENTO3)))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMOVI_NRO_DOCUMENTO4 on IT.GE_MOVIMIENTOS (NRO_DOCUMENTO4)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_NRO_CAJA_MOV on IT.GE_MOVIMIENTOS (NRO_CAJA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TRANSACCIONES on IT.GE_MOVIMIENTOS (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+CREATE INDEX IT.IN_FEC_INS_NRO_CUENTA ON IT.GE_MOVIMIENTOS (FEC_INSERCION,NRO_CUENTA) online
+  tablespace IT_IND
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+   initial 64K
+   next 1M
+   minextents 1
+   maxextents unlimited
+  );
+alter table IT.GE_MOVIMIENTOS
+  add constraint PK_GE_MOVIMIENTOS primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_TRA_HIJO foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_COD_USU_REVERSION foreign key (COD_USU_REVERSION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.GE_MOVIMIENTOS
+  add constraint FK_GMOVI_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

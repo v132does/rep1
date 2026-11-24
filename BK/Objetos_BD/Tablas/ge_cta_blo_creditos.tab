@@ -1,0 +1,73 @@
+-- Create table
+create table IT.GE_CTA_BLO_CREDITOS
+(
+  cod_blo_credito     NUMBER(5) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  estado              VARCHAR2(1) not null,
+  observacion         VARCHAR2(1000),
+  cod_gru_transaccion NUMBER(5) not null,
+  cod_usu_bloqueo     VARCHAR2(10) not null,
+  fec_bloqueo         DATE not null,
+  cod_usu_desbloqueo  VARCHAR2(10),
+  fec_desbloqueo      DATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_area            NUMBER(5) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.GE_CTA_BLO_CREDITOS.cod_blo_credito
+  is 'Código del bloqueo.';
+comment on column IT.GE_CTA_BLO_CREDITOS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_CTA_BLO_CREDITOS.estado
+  is 'Estado: (B)loqueado - (D)esbloqueado';
+comment on column IT.GE_CTA_BLO_CREDITOS.observacion
+  is 'Observación.';
+comment on column IT.GE_CTA_BLO_CREDITOS.cod_gru_transaccion
+  is 'Grupo de transacciones a bloquear.';
+comment on column IT.GE_CTA_BLO_CREDITOS.cod_usu_bloqueo
+  is 'Usuario que realizó el bloqueo de crédito de la cuenta';
+comment on column IT.GE_CTA_BLO_CREDITOS.fec_bloqueo
+  is 'Fecha en que se realizó el bloqueo de crédito a la cuenta';
+comment on column IT.GE_CTA_BLO_CREDITOS.cod_usu_desbloqueo
+  is 'Usuario que realizó el desbloqueo de crédito a la cuenta';
+comment on column IT.GE_CTA_BLO_CREDITOS.fec_desbloqueo
+  is 'Fecha en que se realizó el desbloqueo de crédito a la cuenta';
+comment on column IT.GE_CTA_BLO_CREDITOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_CTA_BLO_CREDITOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_CTA_BLO_CREDITOS.usu_modificacion
+  is 'Usuario que realizó la última modificación del registro.';
+comment on column IT.GE_CTA_BLO_CREDITOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación d el registro.';
+comment on column IT.GE_CTA_BLO_CREDITOS.cod_area
+  is 'Código de Área que solicita el bloqueo -  Verificar Referencias con dominio BLO_CRE_AREAS';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_CTA_BLO_CREDITOS
+  add constraint PK_GE_CTA_BLO_CREDITOS primary key (COD_BLO_CREDITO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

@@ -1,0 +1,40 @@
+create table IT.GE_MOV_CLI_DECLARACIONES
+(
+  cod_persona        VARCHAR2(10) not null,
+  mto_mon_fuerte     NUMBER(18,2) default 0,
+  mto_mon_fuerte_ant NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_CLI_DECLARACIONES
+  is 'Movimientos Diarios de operaciones hasta un mto estipulado';
+comment on column IT.GE_MOV_CLI_DECLARACIONES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.GE_MOV_CLI_DECLARACIONES.mto_mon_fuerte
+  is 'Monto de la operacion.';
+comment on column IT.GE_MOV_CLI_DECLARACIONES.mto_mon_fuerte_ant
+  is 'Monto de la operacion anterior.';
+alter table IT.GE_MOV_CLI_DECLARACIONES
+  add constraint PK_GE_MOV_CLI_DECLARACIONES primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

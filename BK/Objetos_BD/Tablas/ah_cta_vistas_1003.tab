@@ -1,0 +1,67 @@
+create table IT.AH_CTA_VISTAS_1003
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1),
+  cod_modulo             NUMBER(3) not null,
+  cod_modalidad          NUMBER(3) not null,
+  cod_oficina            NUMBER(3) not null,
+  cod_moneda             VARCHAR2(3) not null,
+  denominacion           VARCHAR2(65) not null,
+  fre_extracto           VARCHAR2(1) not null,
+  can_fir_requeridas     NUMBER(2),
+  can_fir_registradas    NUMBER(2),
+  fec_apertura           DATE not null,
+  tip_capitalizacion     NUMBER(2) not null,
+  tas_personalizada      VARCHAR2(1) not null,
+  cod_tasa               NUMBER(3) not null,
+  ret_personalizada      VARCHAR2(1) not null,
+  sal_minimo             NUMBER(18,2),
+  cod_usu_promotor       VARCHAR2(10),
+  est_batch              VARCHAR2(1) not null,
+  estado                 VARCHAR2(1) not null,
+  nro_folio              NUMBER(7),
+  fec_ult_extracto       DATE,
+  sal_ult_extracto       NUMBER(18,2),
+  fec_cam_estado         DATE,
+  fec_ult_movimiento     DATE,
+  hor_ult_movimiento     VARCHAR2(8),
+  fec_ult_capitalizacion DATE,
+  sal_ult_capitalizacion NUMBER(18,2),
+  sal_ret_batch          NUMBER(18,2),
+  sal_retenido           NUMBER(18,2),
+  sal_blo_batch          NUMBER(18,2),
+  sal_bloqueado          NUMBER(18,2),
+  sal_tot_batch          NUMBER(18,2),
+  sal_total              NUMBER(18,2),
+  tra_prohibida          VARCHAR2(1) not null,
+  cta_combinada          VARCHAR2(1) not null,
+  aut_pendiente          VARCHAR2(1) not null,
+  mto_deb_pendientes     NUMBER(18,2),
+  mto_cre_pendientes     NUMBER(18,2),
+  mto_cre_a_confirmar    NUMBER(18,2),
+  cod_ente               NUMBER(5),
+  mto_apertura           NUMBER(18,2),
+  cod_canal              NUMBER(3),
+  cod_campana            NUMBER(3),
+  reg_firma              VARCHAR2(600),
+  usu_insercion          VARCHAR2(10) not null,
+  fec_insercion          DATE not null,
+  usu_modificacion       VARCHAR2(10) not null,
+  fec_modificacion       DATE not null,
+  cod_cau_cancelacion    NUMBER(3),
+  nro_ref_externo        VARCHAR2(20),
+  cod_banco              NUMBER(3),
+  cod_sub_modalidad      NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,106 @@
+create table IT.LC_CON_BOL_OPE_DNA
+(
+  cod_ord_ope      VARCHAR2(16) not null,
+  fecha_env        DATE not null,
+  hora_env         VARCHAR2(8) not null,
+  tip_documento    VARCHAR2(3),
+  nro_documento    VARCHAR2(16),
+  cod_moneda       VARCHAR2(10),
+  fec_creacion     DATE,
+  fec_vencimiento  DATE,
+  tot_pago         NUMBER(18,2),
+  cotizacion       NUMBER(18,2),
+  fecha_res        DATE,
+  hora_res         VARCHAR2(8),
+  estado           VARCHAR2(50),
+  mensaje          VARCHAR2(4000),
+  respuesta        LONG,
+  observacion      VARCHAR2(4000),
+  mon_origen       VARCHAR2(100),
+  mto_origen       NUMBER(18,4),
+  sal_origen       NUMBER(18,4),
+  raz_social       VARCHAR2(100),
+  tip_consulta     VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_CON_BOL_OPE_DNA
+  is 'Consulta de Boleta de Pago DNA';
+comment on column IT.LC_CON_BOL_OPE_DNA.cod_ord_ope
+  is 'Codigo de Orden u Operacion de DNA';
+comment on column IT.LC_CON_BOL_OPE_DNA.fecha_env
+  is 'Fecha de envio de mensaje';
+comment on column IT.LC_CON_BOL_OPE_DNA.hora_env
+  is 'Hora de envio de mensaje';
+comment on column IT.LC_CON_BOL_OPE_DNA.tip_documento
+  is 'Tipo de Documento(CI/RUC/CRC/CRP)';
+comment on column IT.LC_CON_BOL_OPE_DNA.nro_documento
+  is 'Numero de documento';
+comment on column IT.LC_CON_BOL_OPE_DNA.cod_moneda
+  is 'Codigo de moneda';
+comment on column IT.LC_CON_BOL_OPE_DNA.fec_creacion
+  is 'Fecha de creación de Orden de Pago';
+comment on column IT.LC_CON_BOL_OPE_DNA.fec_vencimiento
+  is 'Fecha de vencimiento de Orden de Pago';
+comment on column IT.LC_CON_BOL_OPE_DNA.tot_pago
+  is 'Total a Pagar';
+comment on column IT.LC_CON_BOL_OPE_DNA.cotizacion
+  is 'Cotizacion en aduana';
+comment on column IT.LC_CON_BOL_OPE_DNA.fecha_res
+  is 'Fecha de Respuesta';
+comment on column IT.LC_CON_BOL_OPE_DNA.hora_res
+  is 'Hora de Respuesra';
+comment on column IT.LC_CON_BOL_OPE_DNA.estado
+  is 'Estado';
+comment on column IT.LC_CON_BOL_OPE_DNA.mensaje
+  is 'Mensaje enviado';
+comment on column IT.LC_CON_BOL_OPE_DNA.respuesta
+  is 'Respuesta recibida';
+comment on column IT.LC_CON_BOL_OPE_DNA.observacion
+  is 'Observacion';
+comment on column IT.LC_CON_BOL_OPE_DNA.mon_origen
+  is 'Moneda Origen DNA';
+comment on column IT.LC_CON_BOL_OPE_DNA.mto_origen
+  is 'Monto Origen DNA';
+comment on column IT.LC_CON_BOL_OPE_DNA.sal_origen
+  is 'Saldo origen Dna';
+comment on column IT.LC_CON_BOL_OPE_DNA.raz_social
+  is 'Razon Social';
+comment on column IT.LC_CON_BOL_OPE_DNA.tip_consulta
+  is 'Tipo de Consulta (OPE/BOL)';
+comment on column IT.LC_CON_BOL_OPE_DNA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_CON_BOL_OPE_DNA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_CON_BOL_OPE_DNA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CON_BOL_OPE_DNA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_CON_BOL_OPE_DNA
+  add constraint PK_LC_CON_BOL_OPE_DNA primary key (COD_ORD_OPE, FECHA_ENV, HORA_ENV)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

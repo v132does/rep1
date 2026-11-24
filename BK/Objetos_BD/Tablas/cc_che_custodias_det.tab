@@ -1,0 +1,106 @@
+create table IT.CC_CHE_CUSTODIAS_DET
+(
+  cod_che_custodia NUMBER(10) not null,
+  nro_secuencia    NUMBER(5) not null,
+  tip_valor        VARCHAR2(5),
+  nro_documento    VARCHAR2(16) not null,
+  nro_cupon        NUMBER(3),
+  cod_emisor       NUMBER(3) not null,
+  librador         VARCHAR2(50),
+  val_nominal      NUMBER(18,2),
+  fec_vencimiento  DATE,
+  plz_dias         NUMBER(4) not null,
+  cancelado        VARCHAR2(1),
+  usu_cancelacion  VARCHAR2(10),
+  fec_cancelacion  DATE,
+  car_atraso       NUMBER(12,2),
+  for_pago         VARCHAR2(1),
+  nro_cta_debito   VARCHAR2(15) not null,
+  car_cobrado      NUMBER(12,2),
+  estado           VARCHAR2(1),
+  nro_boleta       NUMBER(15),
+  nro_cta_credito  VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_moneda       VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_CUSTODIAS_DET
+  is 'Se registraran los detalles de cada cheques ingresado para Custodia de Cheques.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.cod_che_custodia
+  is 'Código del Cheque en Custodia.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.tip_valor
+  is 'Tipo de Valores Custodiados. Se obtinene del dominio = ''TIP_DOC_CUSTODIA''.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.nro_documento
+  is 'Número del Documento.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.nro_cupon
+  is 'Número del Cupón.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.cod_emisor
+  is 'Código del Banco Emisor.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.librador
+  is 'Librador del Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.val_nominal
+  is 'Valor Nominal del Documento.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.fec_vencimiento
+  is 'Fecha de Vencimiento del Documento.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.plz_dias
+  is 'Plazo en Días.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.cancelado
+  is 'Indica si el documento ya fue Cancelado.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.usu_cancelacion
+  is 'Usuario que Canceló el Documento.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.fec_cancelacion
+  is 'Fecha de Cancelación del Documento.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.car_atraso
+  is 'Cargo por Atraso.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.for_pago
+  is 'Forma de Pago.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.nro_cta_debito
+  is 'Número de Cuenta de Débito.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.car_cobrado
+  is 'Monto cobrado si se tuvieron cargos.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.estado
+  is '(C=Custodia. A=Compensacion. E=Entregado. B=Devuelto. D=Confirmado)';
+comment on column IT.CC_CHE_CUSTODIAS_DET.nro_boleta
+  is 'Número de Boleta de Depósito.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.nro_cta_credito
+  is 'Número de Cuenta para cobro de Cargos.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.fec_modificacion
+  is 'Fecha en que se modificó en el registro.';
+comment on column IT.CC_CHE_CUSTODIAS_DET.cod_moneda
+  is 'Código de Moneda de cada cheque';
+alter table IT.CC_CHE_CUSTODIAS_DET
+  add constraint PK_CC_CHE_CUSTODIAS_DET primary key (NRO_DOCUMENTO, COD_EMISOR, NRO_CTA_DEBITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,95 @@
+create table IT.GE_INF_COB_BATCH_TMP
+(
+  nom_archivo       VARCHAR2(50),
+  fecha             DATE,
+  tip_registro      VARCHAR2(1),
+  cod_emision       VARCHAR2(3),
+  cod_sucursal      VARCHAR2(3),
+  cod_caja          VARCHAR2(2),
+  dig_ver_cod_barra VARCHAR2(1),
+  monto             NUMBER(18,2),
+  mto_facturador    NUMBER(18,2),
+  fec_cobro         VARCHAR2(8),
+  nro_documento     NUMBER(6),
+  cod_cargo         NUMBER(1),
+  nro_factura       VARCHAR2(10),
+  cod_entidad       VARCHAR2(3),
+  tot_archivo       NUMBER(25,2),
+  can_registros     NUMBER(5),
+  nro_transaccion   NUMBER(15),
+  cod_tra_padre     NUMBER(4),
+  hor_referencia    VARCHAR2(8),
+  dat_adicional     VARCHAR2(35),
+  nro_cta_deb_batch VARCHAR2(20),
+  incluir           VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_INF_COB_BATCH_TMP
+  is 'Credito de Ope. Infonet Cobranzas en Batch';
+comment on column IT.GE_INF_COB_BATCH_TMP.nom_archivo
+  is 'Nombre del Archivo.';
+comment on column IT.GE_INF_COB_BATCH_TMP.fecha
+  is 'Fecha.';
+comment on column IT.GE_INF_COB_BATCH_TMP.tip_registro
+  is 'Tipo de Registro';
+comment on column IT.GE_INF_COB_BATCH_TMP.cod_emision
+  is 'Codigo Emisión.';
+comment on column IT.GE_INF_COB_BATCH_TMP.cod_sucursal
+  is 'Código de Sucursal.';
+comment on column IT.GE_INF_COB_BATCH_TMP.cod_caja
+  is 'Código de Caja.';
+comment on column IT.GE_INF_COB_BATCH_TMP.dig_ver_cod_barra
+  is 'Dígito verificador de Código de Barra.';
+comment on column IT.GE_INF_COB_BATCH_TMP.monto
+  is 'Monto Factura.';
+comment on column IT.GE_INF_COB_BATCH_TMP.mto_facturador
+  is 'Monto Facturador.';
+comment on column IT.GE_INF_COB_BATCH_TMP.fec_cobro
+  is 'Fecha de Cobro.';
+comment on column IT.GE_INF_COB_BATCH_TMP.nro_documento
+  is 'Número de Documento.';
+comment on column IT.GE_INF_COB_BATCH_TMP.cod_cargo
+  is 'Código de Cargo.';
+comment on column IT.GE_INF_COB_BATCH_TMP.nro_factura
+  is 'Nro Factura.';
+comment on column IT.GE_INF_COB_BATCH_TMP.cod_entidad
+  is 'Cod. de Entidad.';
+comment on column IT.GE_INF_COB_BATCH_TMP.tot_archivo
+  is 'Total del Archivo.';
+comment on column IT.GE_INF_COB_BATCH_TMP.can_registros
+  is 'Cantidad de Registros.';
+comment on column IT.GE_INF_COB_BATCH_TMP.nro_transaccion
+  is 'Nro Transaccion.';
+comment on column IT.GE_INF_COB_BATCH_TMP.cod_tra_padre
+  is 'Código de Transacción Padre.';
+comment on column IT.GE_INF_COB_BATCH_TMP.hor_referencia
+  is 'Hora Referencia.';
+comment on column IT.GE_INF_COB_BATCH_TMP.dat_adicional
+  is 'Dato Adicional.';
+comment on column IT.GE_INF_COB_BATCH_TMP.nro_cta_deb_batch
+  is 'Nro. Cuenta Debito en Batch';
+comment on column IT.GE_INF_COB_BATCH_TMP.incluir
+  is 'Incluir S/N.';
+comment on column IT.GE_INF_COB_BATCH_TMP.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_INF_COB_BATCH_TMP.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_INF_COB_BATCH_TMP.usu_modificacion
+  is 'Usuario de Modificacion.';
+comment on column IT.GE_INF_COB_BATCH_TMP.fec_modificacion
+  is 'Fecha de Modificacion.';
+

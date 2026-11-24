@@ -1,0 +1,79 @@
+create table IT.GE_COB_SER_CUOTAS
+(
+  cod_servicio     NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cuota        NUMBER(3) not null,
+  fec_vencimiento  DATE not null,
+  monto            NUMBER(18,2) default 0,
+  estado           VARCHAR2(1),
+  fec_cobro        DATE,
+  comentario       VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default substr( user, 1, 10 ) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr( user, 1, 10 ) not null,
+  fec_modificacion DATE default sysdate not null,
+  referencia       VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SER_CUOTAS
+  is 'Cuotas de Cuentas por Cobros de Servicios.';
+comment on column IT.GE_COB_SER_CUOTAS.cod_servicio
+  is 'Codigo de servicio.';
+comment on column IT.GE_COB_SER_CUOTAS.nro_cuenta
+  is 'Numero de cuenta del cliente.';
+comment on column IT.GE_COB_SER_CUOTAS.nro_cuota
+  is 'Numero de cuota a cobrar.';
+comment on column IT.GE_COB_SER_CUOTAS.fec_vencimiento
+  is 'Fecha de vencimiento de la cuota.';
+comment on column IT.GE_COB_SER_CUOTAS.monto
+  is 'Monto a cobrar de la cuota.';
+comment on column IT.GE_COB_SER_CUOTAS.estado
+  is 'Estado de cobro de la cuota.';
+comment on column IT.GE_COB_SER_CUOTAS.fec_cobro
+  is 'Fecha de cobro de la cuota.';
+comment on column IT.GE_COB_SER_CUOTAS.comentario
+  is 'Comentarios sobre la cuota y/o resultado del proceso de cobro.';
+comment on column IT.GE_COB_SER_CUOTAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_COB_SER_CUOTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_COB_SER_CUOTAS.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.GE_COB_SER_CUOTAS.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+comment on column IT.GE_COB_SER_CUOTAS.referencia
+  is 'Referencia del documento en la proveedora del servicio.';
+alter table IT.GE_COB_SER_CUOTAS
+  add constraint UK_GE_COB_SER_CUOTAS unique (COD_SERVICIO, NRO_CUENTA, REFERENCIA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_CUOTAS
+  add constraint FK_GCSCT_COD_SERVICIO foreign key (COD_SERVICIO)
+  references IT.GE_COB_SER_PARAMETROS (COD_SERVICIO);
+alter table IT.GE_COB_SER_CUOTAS
+  add constraint FK_GCSCT_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_COB_SER_CUOTAS
+  add constraint AVCON_1122561851_COD_S_000
+  check (COD_SERVICIO BETWEEN 0 AND 999);
+

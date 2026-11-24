@@ -1,0 +1,82 @@
+create table IT.CS_CON_PERSONAS
+(
+  nro_contrato        VARCHAR2(10) not null,
+  cod_persona         VARCHAR2(10) not null,
+  tip_relacion        VARCHAR2(1),
+  lla_entregadas      NUMBER(2),
+  lla_devueltas       NUMBER(2),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tip_fir_autorizados VARCHAR2(1),
+  tip_fir_clientes    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_CON_PERSONAS
+  is 'Personas relacionadas o autorizadas por contrato.';
+comment on column IT.CS_CON_PERSONAS.nro_contrato
+  is 'Codigo del Contrato.';
+comment on column IT.CS_CON_PERSONAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.CS_CON_PERSONAS.tip_relacion
+  is 'Relacion en el Contrato: (T)itular, (A)utorizado.';
+comment on column IT.CS_CON_PERSONAS.lla_entregadas
+  is 'Cantidad de llaves entregadas por contrato.';
+comment on column IT.CS_CON_PERSONAS.lla_devueltas
+  is 'Cantidad de llaves devueltas por contrato.';
+comment on column IT.CS_CON_PERSONAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CS_CON_PERSONAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CS_CON_PERSONAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_PERSONAS.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_PERSONAS.tip_fir_autorizados
+  is 'Tipo de Firma que se ejercera entre los Autorizados.';
+comment on column IT.CS_CON_PERSONAS.tip_fir_clientes
+  is 'Tipo de Firma que se ejercera entre clientes.';
+create index IT.IN_BBVA_CS_CON_PERSONAS on IT.CS_CON_PERSONAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CS_CON_PERSONAS
+  add constraint PK_CS_CON_PERSONAS primary key (NRO_CONTRATO, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CS_CON_PERSONAS
+  add constraint FK_CCPER_NRO_CONTRATO foreign key (NRO_CONTRATO)
+  references IT.CS_CONTRATOS (NRO_CONTRATO);
+alter table IT.CS_CON_PERSONAS
+  add constraint FK_CPER_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

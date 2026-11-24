@@ -1,0 +1,7 @@
+create sequence IT.S_COD_OPE_FUTNONSTOP
+minvalue 0
+maxvalue 999999999
+start with 121
+increment by 1
+cache 20;
+

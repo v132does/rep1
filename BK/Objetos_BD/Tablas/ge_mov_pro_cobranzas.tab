@@ -1,0 +1,110 @@
+create table IT.GE_MOV_PRO_COBRANZAS
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  nro_boleta       NUMBER(6) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0,
+  nro_cta_debito   VARCHAR2(15),
+  nro_cta_credito  VARCHAR2(15),
+  reversado        VARCHAR2(1) default 'N' not null,
+  liberado         VARCHAR2(1) default 'N',
+  observacion      VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_tarjeta      VARCHAR2(25),
+  fec_pro_extorno  DATE,
+  nro_lote         NUMBER(6) not null,
+  fecha_pago       DATE not null,
+  cant_registros   NUMBER(8) not null,
+  tot_importe      NUMBER(14,2),
+  estado           VARCHAR2(1) default 'N' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_PRO_COBRANZAS
+  is 'Movimientos generados por Pronet Cobranzas';
+comment on column IT.GE_MOV_PRO_COBRANZAS.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.nro_boleta
+  is 'Numero de boleta.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.monto
+  is 'Importe de la transaccion.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.nro_cta_debito
+  is 'Numero de cuenta de debito';
+comment on column IT.GE_MOV_PRO_COBRANZAS.nro_cta_credito
+  is 'Numero de cuenta de credito';
+comment on column IT.GE_MOV_PRO_COBRANZAS.reversado
+  is 'Reversado. (N=NO / S=SI).';
+comment on column IT.GE_MOV_PRO_COBRANZAS.liberado
+  is 'Si el movimiento fue o no liberado. (N=NO / S=SI).';
+comment on column IT.GE_MOV_PRO_COBRANZAS.observacion
+  is 'Mensaje de error si existe';
+comment on column IT.GE_MOV_PRO_COBRANZAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.nro_tarjeta
+  is 'Nro de tarjeta pagada';
+comment on column IT.GE_MOV_PRO_COBRANZAS.fec_pro_extorno
+  is 'Fecha de proceso de Extorno';
+comment on column IT.GE_MOV_PRO_COBRANZAS.nro_lote
+  is 'Numero de lote.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.fecha_pago
+  is 'Fecha de pago de la transaccion.';
+comment on column IT.GE_MOV_PRO_COBRANZAS.cant_registros
+  is 'Cantidad total de registros por fecha';
+comment on column IT.GE_MOV_PRO_COBRANZAS.tot_importe
+  is 'Total de importe de cobros a la fecha';
+comment on column IT.GE_MOV_PRO_COBRANZAS.estado
+  is 'N= No Procesado, S= Procesado, P= Pagado';
+create index IT.IN_GMICO_NRO_CTA on IT.GE_MOV_PRO_COBRANZAS (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMICO_NRO_DOCUMEN on IT.GE_MOV_PRO_COBRANZAS (NRO_BOLETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_PRO_COBRANZAS
+  add constraint FK_GMICO_COD_MONE foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_MOV_PRO_COBRANZAS
+  add constraint FK_GMICO_NRO_CTA foreign key (NRO_CTA_DEBITO)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

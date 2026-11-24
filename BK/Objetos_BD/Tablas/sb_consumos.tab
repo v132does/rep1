@@ -1,0 +1,64 @@
+create table IT.SB_CONSUMOS
+(
+  nom_archivo      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  cod_entidad      NUMBER(4) not null,
+  tip_entidad      NUMBER(2) not null,
+  cla_entidad      NUMBER(2) not null,
+  nro_reg_a        NUMBER(1) not null,
+  tot_reg_detalle  NUMBER(6) not null,
+  usu_insercion    VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CONSUMOS
+  is 'Resumen de Consumo.';
+comment on column IT.SB_CONSUMOS.nom_archivo
+  is 'Nombre del archivo.';
+comment on column IT.SB_CONSUMOS.fecha
+  is 'Fecha.';
+comment on column IT.SB_CONSUMOS.cod_entidad
+  is 'Codigo de la entidad.';
+comment on column IT.SB_CONSUMOS.tip_entidad
+  is 'Tipo de entidad.';
+comment on column IT.SB_CONSUMOS.cla_entidad
+  is 'Clase de la entidad.';
+comment on column IT.SB_CONSUMOS.nro_reg_a
+  is 'nro de registros.';
+comment on column IT.SB_CONSUMOS.tot_reg_detalle
+  is 'Total de registros.';
+comment on column IT.SB_CONSUMOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_CONSUMOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_CONSUMOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CONSUMOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.SB_CONSUMOS
+  add constraint SCONS_PK primary key (FECHA, NOM_ARCHIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

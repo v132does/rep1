@@ -1,0 +1,67 @@
+create table IT.CB_RUB_CEN_COSTOS
+(
+  cod_rubro        VARCHAR2(15) not null,
+  cod_oficina      NUMBER(3),
+  cod_cen_costo    NUMBER(3) not null,
+  porcentaje       NUMBER(7,4) not null,
+  observacion      VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_CEN_COSTOS
+  is 'Rubros por Centro de Costo.';
+comment on column IT.CB_RUB_CEN_COSTOS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_RUB_CEN_COSTOS.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.CB_RUB_CEN_COSTOS.cod_cen_costo
+  is 'Codigo del centro de costo.';
+comment on column IT.CB_RUB_CEN_COSTOS.porcentaje
+  is 'Porcentaje.';
+comment on column IT.CB_RUB_CEN_COSTOS.observacion
+  is 'Observacion.';
+comment on column IT.CB_RUB_CEN_COSTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_RUB_CEN_COSTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_RUB_CEN_COSTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_CEN_COSTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_RUB_CEN_COSTOS
+  add constraint UK_CB_RUB_CEN_COSTOS unique (COD_RUBRO, COD_OFICINA, COD_CEN_COSTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_CEN_COSTOS
+  add constraint FK_BRCCO_COD_CEN_COSTO foreign key (COD_CEN_COSTO)
+  references IT.CB_CEN_COSTOS (COD_CEN_COSTO);
+alter table IT.CB_RUB_CEN_COSTOS
+  add constraint FK_BRCCO_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_RUB_CEN_COSTOS
+  add constraint FK_BRCCO_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

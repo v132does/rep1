@@ -1,0 +1,43 @@
+create table IT.GE_COM_PROMOCIONES
+(
+  cod_ent_comercio VARCHAR2(20) not null,
+  cod_promo        VARCHAR2(20) not null,
+  des_promocion    VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default sysdate,
+  cod_cli_comercio VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_COM_PROMOCIONES.cod_ent_comercio
+  is 'Código de comercio Unificador';
+comment on column IT.GE_COM_PROMOCIONES.cod_promo
+  is 'Código de la promoción';
+comment on column IT.GE_COM_PROMOCIONES.des_promocion
+  is 'Descripcion de la promocion';
+comment on column IT.GE_COM_PROMOCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_COM_PROMOCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_COM_PROMOCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_COM_PROMOCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_COM_PROMOCIONES.cod_cli_comercio
+  is 'Codigo de Comercio relacionado a ge_com_adheridos.';
+alter table IT.GE_COM_PROMOCIONES
+  add constraint PK_GE_COM_PROMOCIONES primary key (COD_ENT_COMERCIO, COD_PROMO)
+  disable
+  novalidate;
+

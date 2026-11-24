@@ -1,0 +1,30 @@
+create table IT.OS_REPORTES
+(
+  cod_ente         NUMBER,
+  nro_reporte      NUMBER,
+  secuencia        NUMBER,
+  des_breve        VARCHAR2(100),
+  tip_reporte      VARCHAR2(100),
+  tip_actividad    VARCHAR2(100),
+  fec_ingreso      DATE,
+  est_reporte      VARCHAR2(100),
+  fec_envio        DATE,
+  des_detallada    VARCHAR2(1000),
+  tipologia        VARCHAR2(100),
+  usu_insercion    VARCHAR2(100),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(100),
+  fec_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

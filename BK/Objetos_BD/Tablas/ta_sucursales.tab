@@ -1,0 +1,78 @@
+create table IT.TA_SUCURSALES
+(
+  cod_ent_procesadora NUMBER(5) not null,
+  cod_sucursal        NUMBER(4) not null,
+  descripcion         VARCHAR2(60),
+  abreviatura         VARCHAR2(10),
+  cod_oficina         NUMBER(4) not null,
+  activo              VARCHAR2(1) default 'N' not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_campana         NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SUCURSALES
+  is 'Sucursales por afinidad.';
+comment on column IT.TA_SUCURSALES.cod_ent_procesadora
+  is 'Codigo de la Procesadora de la Tarjeta.';
+comment on column IT.TA_SUCURSALES.cod_sucursal
+  is 'Codigo de Sucursal de la entidad en la Procesadora.';
+comment on column IT.TA_SUCURSALES.descripcion
+  is 'Descripcion de la Sucursal.';
+comment on column IT.TA_SUCURSALES.abreviatura
+  is 'Abreviatura.';
+comment on column IT.TA_SUCURSALES.cod_oficina
+  is 'Codigo de Oficina relacionada con la Sucursal.';
+comment on column IT.TA_SUCURSALES.activo
+  is 'Indicado de Activo (S/N).';
+comment on column IT.TA_SUCURSALES.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.TA_SUCURSALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_SUCURSALES.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.TA_SUCURSALES.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+comment on column IT.TA_SUCURSALES.cod_campana
+  is 'Código de Campaña relacionado.';
+alter table IT.TA_SUCURSALES
+  add constraint PK_TASUC_COD_ENT_PROCESADORA primary key (COD_ENT_PROCESADORA, COD_OFICINA, ACTIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SUCURSALES
+  add constraint UK_TASUC_COD_ENT_PROCESADORA unique (COD_ENT_PROCESADORA, COD_SUCURSAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,84 @@
+create table IT.MD_ADDITIONAL_PROPERTIES
+(
+  id                NUMBER not null,
+  connection_id_fk  NUMBER not null,
+  ref_id_fk         NUMBER not null,
+  ref_type          VARCHAR2(4000) not null,
+  property_order    NUMBER,
+  prop_key          VARCHAR2(4000) not null,
+  value             VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_ADDITIONAL_PROPERTIES
+  is 'This table is used to store additional properties in key-value pairs.  It is designed to store "other information" that is not supported in the main database object table.';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.id
+  is 'Primary Key';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.connection_id_fk
+  is 'Connection to which this belongs //PARENTFIELD';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.ref_id_fk
+  is 'The object to which this property blongs';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.ref_type
+  is 'Type of object that this property belongs to';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.property_order
+  is 'This is to handle a situation where multiple properties have a relevant order, or multiple properties have multiple values';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.prop_key
+  is 'The keyname for this property';
+comment on column IT.MD_ADDITIONAL_PROPERTIES.value
+  is 'The value for this property';
+create index IT.MD_ADDITIONAL_PROPERTIES_IDX on IT.MD_ADDITIONAL_PROPERTIES (PROP_KEY)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MD_ADDITIONAL_PROPERTIES_IDX2 on IT.MD_ADDITIONAL_PROPERTIES (REF_ID_FK)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_ADDITIONAL_PROPERTIES
+  add constraint MD_ADDITIONAL_PROPERTIES_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_ADDITIONAL_PROPERTIES
+  add constraint MD_ADDITIONAL_PROPERTIES__FK1 foreign key (CONNECTION_ID_FK)
+  references IT.MD_CONNECTIONS (ID) on delete cascade;
+

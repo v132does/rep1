@@ -1,0 +1,14 @@
+﻿CREATE GLOBAL TEMPORARY TABLE IT.cb_sal_movimientos (
+    cod_modulo        NUMBER(3),
+    cod_modalidad     NUMBER(3),
+    cod_oficina       NUMBER(3),
+    cod_sec_contable  VARCHAR(1),
+    cod_tip_deudor    NUMBER(3),
+    residente         VARCHAR2(1),
+    cod_moneda        VARCHAR2(3),
+    situacion         VARCHAR2(10),
+    cod_plazo         VARCHAR2(10),
+    cod_rubro         VARCHAR2(20),
+    sal_total         NUMBER(18,2),
+    nro_cuenta        VARCHAR2(15)
+) ON COMMIT PRESERVE ROWS;

@@ -1,0 +1,58 @@
+create table IT.CC_CHE_DEV_TOTALES
+(
+  cod_persona            VARCHAR2(10) not null,
+  tipo                   VARCHAR2(1) not null,
+  cantidad               NUMBER(5) default 0 not null,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  fec_ult_regularizacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_DEV_TOTALES
+  is 'Total de cheques devueltos por Persona y Tipo.';
+comment on column IT.CC_CHE_DEV_TOTALES.cod_persona
+  is 'Codigo del cliente.';
+comment on column IT.CC_CHE_DEV_TOTALES.tipo
+  is 'Tipo de devolucion (I-Insuf./C-Cta.Can/F-Falla Formal/O-Otras fallas.';
+comment on column IT.CC_CHE_DEV_TOTALES.cantidad
+  is 'Cantidad de devoluciones contadas de acuerdo al esquema.';
+comment on column IT.CC_CHE_DEV_TOTALES.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.CC_CHE_DEV_TOTALES.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.CC_CHE_DEV_TOTALES.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.CC_CHE_DEV_TOTALES.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.CC_CHE_DEV_TOTALES.fec_ult_regularizacion
+  is 'Fecha y hora de la ultima regularizacion.';
+alter table IT.CC_CHE_DEV_TOTALES
+  add constraint PK_CC_CHE_DEV_TOTALES primary key (COD_PERSONA, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_DEV_TOTALES
+  add constraint FK_C_DEV_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

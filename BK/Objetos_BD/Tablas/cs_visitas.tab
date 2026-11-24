@@ -1,0 +1,67 @@
+create table IT.CS_VISITAS
+(
+  nro_visita        NUMBER not null,
+  nro_contrato      VARCHAR2(10) not null,
+  cod_caj_seguridad VARCHAR2(5),
+  cod_oficina       NUMBER(3),
+  cod_persona       VARCHAR2(10) not null,
+  fec_visita        DATE,
+  hor_visita        VARCHAR2(8),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_VISITAS
+  is 'En esta tabla se registrará las visitas de los clientes a la caja de seguridad.';
+comment on column IT.CS_VISITAS.nro_visita
+  is 'Número de orden de la visita registrada.';
+comment on column IT.CS_VISITAS.nro_contrato
+  is 'Código del Contrato.';
+comment on column IT.CS_VISITAS.cod_caj_seguridad
+  is 'Código de la Caja de Seguridad.';
+comment on column IT.CS_VISITAS.cod_oficina
+  is 'Código de la Oficina.';
+comment on column IT.CS_VISITAS.cod_persona
+  is 'Código de la Persona Visitante.';
+comment on column IT.CS_VISITAS.fec_visita
+  is 'Fecha de la visita a la Caja de Seguridad.';
+comment on column IT.CS_VISITAS.hor_visita
+  is 'Hora de la visita a la Caja de Seguridad.';
+comment on column IT.CS_VISITAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CS_VISITAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CS_VISITAS.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.CS_VISITAS.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+alter table IT.CS_VISITAS
+  add constraint PK_CS_VISITAS primary key (NRO_VISITA, NRO_CONTRATO, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CS_VISITAS
+  add constraint FK_CS_CONTRATOS foreign key (NRO_CONTRATO)
+  references IT.CS_CONTRATOS (NRO_CONTRATO) on delete cascade;
+

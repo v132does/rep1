@@ -1,0 +1,25 @@
+create table IT.CR_PIZ_MONTOS_UENODESF
+(
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  mto_desde         NUMBER(18,2) default 0 not null,
+  mto_hasta         NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_sub_modalidad NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

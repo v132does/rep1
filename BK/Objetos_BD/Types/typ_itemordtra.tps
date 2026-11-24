@@ -1,0 +1,8 @@
+CREATE OR REPLACE TYPE IT."TYP_ITEMORDTRA"                                          IS OBJECT
+( NRO_ITEM  number(18) ,
+  COD_RETORNO number(5),
+  DES_RETORNO varchar2(1000),
+  CONSTRUCTOR FUNCTION TYP_ITEMORDTRA RETURN SELF AS result
+)
+/
+

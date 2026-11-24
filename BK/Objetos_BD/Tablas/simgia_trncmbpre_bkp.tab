@@ -1,0 +1,40 @@
+create table IT.SIMGIA_TRNCMBPRE_BKP
+(
+  num       NUMBER,
+  fuente    CHAR(6),
+  rfecha    VARCHAR2(6),
+  rhora     VARCHAR2(4),
+  roperac   VARCHAR2(1),
+  rtipo     VARCHAR2(1),
+  rdivisa   NUMBER,
+  rmontod   NUMBER,
+  rcambio   NUMBER,
+  rmontog   NUMBER,
+  rcuenta   CHAR(12),
+  rnrochq   VARCHAR2(40),
+  restado   VARCHAR2(2),
+  rboleta   NUMBER,
+  rsucurs   NUMBER,
+  rservic   VARCHAR2(40),
+  rnombre   VARCHAR2(4000),
+  rnucli    VARCHAR2(10),
+  rtermin   CHAR(2),
+  roperad   VARCHAR2(10),
+  rcomision NUMBER,
+  rconcep   NUMBER,
+  rcliente  NUMBER,
+  rgrucli   NUMBER,
+  fecha_his DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

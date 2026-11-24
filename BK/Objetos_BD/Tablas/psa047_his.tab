@@ -1,0 +1,115 @@
+create table IT.PSA047_HIS
+(
+  psa047_hispai NUMBER(3) not null,
+  psa047_histdo NUMBER(4) not null,
+  psa047_hisndo VARCHAR2(25) not null,
+  psa047_hisfec VARCHAR2(8),
+  psa047_hisnom VARCHAR2(70),
+  psa047_histpn VARCHAR2(1),
+  psa047_hisbca NUMBER(5),
+  psa047_hisprs NUMBER(3),
+  psa047_hisvac NUMBER(18,2),
+  psa047_hisvin NUMBER(18,2),
+  psa047_hiscop NUMBER(5),
+  psa047_hiscae NUMBER(7),
+  psa047_hiscpe VARCHAR2(1),
+  psa047_hisoce VARCHAR2(1),
+  psa047_hissuc NUMBER(5),
+  psa047_hiscof NUMBER(5),
+  psa047_hisrec NUMBER(5),
+  psa047_hisori VARCHAR2(1),
+  psa047_hisest VARCHAR2(1),
+  psa047_hisdt1 VARCHAR2(8),
+  psa047_hisdt2 VARCHAR2(8),
+  psa047_hisdt3 VARCHAR2(8),
+  psa047_hisno1 NUMBER(18,2),
+  psa047_hisno2 NUMBER(18,2),
+  psa047_hisno3 NUMBER(18,2),
+  psa047_hisch1 VARCHAR2(100),
+  psa047_hisch2 VARCHAR2(100),
+  psa047_hisch3 VARCHAR2(100)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA047_HIS
+  is 'Tabla Clientes Scoring masivo';
+comment on column IT.PSA047_HIS.psa047_hispai
+  is 'CODIGO PAIS DEL DOCUMENTO';
+comment on column IT.PSA047_HIS.psa047_histdo
+  is 'CODIGO TIPO DE DOCUMENTO';
+comment on column IT.PSA047_HIS.psa047_hisndo
+  is 'NUMERO DE DOCUMENTO';
+comment on column IT.PSA047_HIS.psa047_hisfec
+  is 'FECHA DE ALTA';
+comment on column IT.PSA047_HIS.psa047_hisnom
+  is 'NOMBRE PERSONA';
+comment on column IT.PSA047_HIS.psa047_histpn
+  is 'TIPO DE PERSONA';
+comment on column IT.PSA047_HIS.psa047_hisbca
+  is 'BANCA A LA QUE PERTENECE EL CLIENTE';
+comment on column IT.PSA047_HIS.psa047_hisprs
+  is 'CODIGO PAIS DE RESIDENCIA';
+comment on column IT.PSA047_HIS.psa047_hisvac
+  is 'VALOR ACTIVO';
+comment on column IT.PSA047_HIS.psa047_hisvin
+  is 'VALOR INGRESO';
+comment on column IT.PSA047_HIS.psa047_hiscop
+  is 'CODIGO DE OCUPACION';
+comment on column IT.PSA047_HIS.psa047_hiscae
+  is 'CODIGO DE ACTIVIDAD ECONOMICA';
+comment on column IT.PSA047_HIS.psa047_hiscpe
+  is 'CLIENTE PEP O ES NO RESIDENTE';
+comment on column IT.PSA047_HIS.psa047_hisoce
+  is 'EL CLIENTE REALIZA OPERACIONES DEL COMERCIO EXTERIOR';
+comment on column IT.PSA047_HIS.psa047_hissuc
+  is 'CIUDAD-JURISDICCION-SUCURSAL';
+comment on column IT.PSA047_HIS.psa047_hiscof
+  is 'ORIGEN DE FONDOS';
+comment on column IT.PSA047_HIS.psa047_hisrec
+  is 'RECURSOS PARA CONSTITUCION DEL PRODUCTO';
+comment on column IT.PSA047_HIS.psa047_hisori
+  is 'ORIGEN DE DATOS';
+comment on column IT.PSA047_HIS.psa047_hisest
+  is 'ESTADO';
+comment on column IT.PSA047_HIS.psa047_hisdt1
+  is 'FECHA AUXILIAR 1';
+comment on column IT.PSA047_HIS.psa047_hisdt2
+  is 'FECHA AUXILIAR 2';
+comment on column IT.PSA047_HIS.psa047_hisdt3
+  is 'FECHA AUXILIAR 3';
+comment on column IT.PSA047_HIS.psa047_hisno1
+  is 'NUMERICO AUXILIAR 1';
+comment on column IT.PSA047_HIS.psa047_hisno2
+  is 'NUMERICO AUXILIAR 2';
+comment on column IT.PSA047_HIS.psa047_hisno3
+  is 'NUMERICO AUXILIAR 3';
+comment on column IT.PSA047_HIS.psa047_hisch1
+  is 'CARÁCTER AUXILIAR 1';
+comment on column IT.PSA047_HIS.psa047_hisch2
+  is 'CARÁCTER AUXILIAR 2';
+comment on column IT.PSA047_HIS.psa047_hisch3
+  is 'CARÁCTER AUXILIAR 3';
+alter table IT.PSA047_HIS
+  add constraint PK_PSA047_HIS primary key (PSA047_HISPAI, PSA047_HISTDO, PSA047_HISNDO)
+  using index 
+  tablespace IT_HIS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

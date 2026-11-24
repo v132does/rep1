@@ -1,0 +1,76 @@
+create table IT.OV_CTA_GASTOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2),
+  fec_ingreso      DATE not null,
+  fec_vencimiento  DATE,
+  fec_ult_pago     DATE,
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  cod_modalidad    NUMBER(3),
+  hor_ult_pago     VARCHAR2(8),
+  saldo            NUMBER(18,2),
+  referencia       VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.OV_CTA_GASTOS
+  is 'Se cargan todos los gastos o cargos adicionales para cobrar las OPERACIONES VENCIDAS.';
+comment on column IT.OV_CTA_GASTOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.OV_CTA_GASTOS.cod_transaccion
+  is 'Codigo de la transaccion.';
+comment on column IT.OV_CTA_GASTOS.cod_moneda
+  is 'Moneda.';
+comment on column IT.OV_CTA_GASTOS.monto
+  is 'Monto del Gasto.';
+comment on column IT.OV_CTA_GASTOS.fec_ingreso
+  is 'Fecha de Ingreso (del sistema).';
+comment on column IT.OV_CTA_GASTOS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.OV_CTA_GASTOS.fec_ult_pago
+  is 'Fecha de Ultimo pago.';
+comment on column IT.OV_CTA_GASTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.OV_CTA_GASTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.OV_CTA_GASTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.OV_CTA_GASTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.OV_CTA_GASTOS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.OV_CTA_GASTOS.hor_ult_pago
+  is 'Hora de Ultimo pago.';
+comment on column IT.OV_CTA_GASTOS.saldo
+  is 'Saldo del Gasto';
+comment on column IT.OV_CTA_GASTOS.referencia
+  is 'Referencia.';
+alter table IT.OV_CTA_GASTOS
+  add constraint PK_OV_CTA_GASTOS primary key (NRO_CUENTA, COD_TRANSACCION, FEC_INGRESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

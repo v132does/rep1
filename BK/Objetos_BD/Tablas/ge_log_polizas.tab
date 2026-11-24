@@ -1,0 +1,21 @@
+create table IT.GE_LOG_POLIZAS
+(
+  nro_documento    VARCHAR2(20),
+  observacion      VARCHAR2(200),
+  fec_insercion    DATE default trunc(sysdate),
+  usu_insercion    VARCHAR2(10) default user,
+  fec_modificacion DATE default trunc(sysdate),
+  usu_modificacion VARCHAR2(10) default user
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

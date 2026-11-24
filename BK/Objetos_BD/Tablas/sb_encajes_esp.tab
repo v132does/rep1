@@ -1,0 +1,104 @@
+create table IT.SB_ENCAJES_ESP
+(
+  nro_cuenta            VARCHAR2(15) not null,
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_moneda            VARCHAR2(3) not null,
+  beneficiario          VARCHAR2(200),
+  importe               NUMBER(18,2) not null,
+  fec_emision           DATE not null,
+  fec_rescate           DATE not null,
+  dia_transcurrido      NUMBER(5) not null,
+  por_encaje            NUMBER(21,5) not null,
+  bcp_depositado        NUMBER(18,2) not null,
+  fec_constitucion      DATE,
+  fec_vencimiento       DATE not null,
+  usu_insercion         VARCHAR2(10) not null,
+  fec_insercion         DATE not null,
+  usu_modificacion      VARCHAR2(10) not null,
+  fec_modificacion      DATE not null,
+  nro_ref_constitucion  VARCHAR2(20),
+  nro_ref_desafectacion VARCHAR2(20),
+  fec_desafectacion     DATE,
+  ind_excluir           VARCHAR2(1) default 'N',
+  estado                VARCHAR2(1),
+  usu_aprobacion        VARCHAR2(10),
+  fec_aprobacion        DATE,
+  observacion           VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ENCAJES_ESP
+  is 'Encajes especiales.';
+comment on column IT.SB_ENCAJES_ESP.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.SB_ENCAJES_ESP.cod_modulo
+  is 'Modulo.';
+comment on column IT.SB_ENCAJES_ESP.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.SB_ENCAJES_ESP.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_ENCAJES_ESP.beneficiario
+  is 'Beneficiario.';
+comment on column IT.SB_ENCAJES_ESP.importe
+  is 'Importe.';
+comment on column IT.SB_ENCAJES_ESP.fec_emision
+  is 'Fecha de Emision.';
+comment on column IT.SB_ENCAJES_ESP.fec_rescate
+  is 'Fecha de Rescate.';
+comment on column IT.SB_ENCAJES_ESP.dia_transcurrido
+  is 'Dias Transcurridos.';
+comment on column IT.SB_ENCAJES_ESP.por_encaje
+  is 'Porcentaje del Encaje.';
+comment on column IT.SB_ENCAJES_ESP.bcp_depositado
+  is 'Depositado en BCP.';
+comment on column IT.SB_ENCAJES_ESP.fec_constitucion
+  is 'Fecha de Constitucion.';
+comment on column IT.SB_ENCAJES_ESP.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.SB_ENCAJES_ESP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_ENCAJES_ESP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_ENCAJES_ESP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_ENCAJES_ESP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.SB_ENCAJES_ESP.nro_ref_constitucion
+  is 'Nro. de Referencia del MT correspondiente a la Constitución del Encaje.';
+comment on column IT.SB_ENCAJES_ESP.nro_ref_desafectacion
+  is 'Nro. de Referencia del MT correspondiente a la Desafectación del Encaje.';
+comment on column IT.SB_ENCAJES_ESP.fec_desafectacion
+  is 'Fecha de la Desafectación (Vencimiento de la Constitución).';
+comment on column IT.SB_ENCAJES_ESP.estado
+  is 'Estado de Workflow.';
+comment on column IT.SB_ENCAJES_ESP.usu_aprobacion
+  is 'Usuario que aprobo la exclusion de la operacion.';
+comment on column IT.SB_ENCAJES_ESP.fec_aprobacion
+  is 'Fecha de aprobacion de la exclusion de la operacion';
+comment on column IT.SB_ENCAJES_ESP.observacion
+  is 'Campo de observación';
+alter table IT.SB_ENCAJES_ESP
+  add constraint PK_SB_ENCAJES_ESP primary key (FEC_RESCATE, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

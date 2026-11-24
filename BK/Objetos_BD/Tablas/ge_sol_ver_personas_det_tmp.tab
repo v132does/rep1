@@ -1,0 +1,61 @@
+create table IT.GE_SOL_VER_PERSONAS_DET_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  tabla            VARCHAR2(30) not null,
+  campo            VARCHAR2(30) not null,
+  error            VARCHAR2(4000) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_VER_PERSONAS_DET_TMP
+  is 'Tabla temporal de detalle de verificaciones, donde se insertarán los resultados de la verificación de datos obligatorios que faltan ingresar para una persona física.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.tabla
+  is 'Nombre de Tabla de ITGF.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.campo
+  is 'Nombre de Campo de la Tabla de ITGF.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.error
+  is 'Mensaje de error que indica el inconveniente con la Tabla y Campo de ITGF.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_SOL_VER_PERSONAS_DET_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_SOL_VER_PERSONAS_DET_TMP
+  add constraint PK_GE_SOL_VER_PERSONAS_DET_TMP primary key (COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_VER_PERSONAS_DET_TMP
+  add constraint FK_GSVPD_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.GE_SOL_VER_PERSONAS_TMP (COD_PERSONA);
+

@@ -1,0 +1,82 @@
+create table IT.GE_RET_VIR_PROVEEDORES_TMP
+(
+  tipo              VARCHAR2(100) not null,
+  estado            VARCHAR2(100),
+  nro_retencion     VARCHAR2(100) not null,
+  ruc_informante    VARCHAR2(100),
+  informante        VARCHAR2(300),
+  tip_doc_informado VARCHAR2(100),
+  nro_doc_informado VARCHAR2(100),
+  identificacion    VARCHAR2(100),
+  nombre            VARCHAR2(300),
+  nro_control       VARCHAR2(100),
+  fec_retencion     DATE,
+  nro_factura       VARCHAR2(100),
+  timbrado          VARCHAR2(100),
+  tot_retencion     VARCHAR2(100),
+  tot_iva           VARCHAR2(100),
+  tot_cabezas       VARCHAR2(100),
+  tot_toneladas     VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RET_VIR_PROVEEDORES_TMP
+  is 'Tabla temporal para la importación de retenciones virtuales del sistema TESAKA.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.tipo
+  is 'Tipo Comprobante.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.estado
+  is 'Estado de la retención.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.nro_retencion
+  is 'Número de la retención generado por TESAKA.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.ruc_informante
+  is 'Nro. de RUC del banco.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.informante
+  is 'Nombre del banco.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.tip_doc_informado
+  is 'Tipo documento del proveedor.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.nro_doc_informado
+  is 'Número de identificación del contribuyente.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.identificacion
+  is 'Número de identificación proveedores del exterior.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.nombre
+  is 'Nombre del contribuyente.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.nro_control
+  is 'Nro. de control.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.fec_retencion
+  is 'Fecha de la emisión del comprobante de retención.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.nro_factura
+  is 'Número de la factura al que se le aplico la retención.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.timbrado
+  is 'Nro. timbrado de la factura';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.tot_retencion
+  is 'Monto de la retención';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.tot_iva
+  is 'Monto del IVA.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.tot_cabezas
+  is 'Monto de cabezas.';
+comment on column IT.GE_RET_VIR_PROVEEDORES_TMP.tot_toneladas
+  is 'Monto de toneladas.';
+alter table IT.GE_RET_VIR_PROVEEDORES_TMP
+  add constraint PK_GEN_RET_VIR_PROV_TMP primary key (TIPO, NRO_RETENCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

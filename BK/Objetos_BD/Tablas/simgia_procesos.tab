@@ -1,0 +1,35 @@
+create table IT.SIMGIA_PROCESOS
+(
+  nom_proceso VARCHAR2(50) not null,
+  fec_proceso DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SIMGIA_PROCESOS.nom_proceso
+  is 'nombre del proceso';
+comment on column IT.SIMGIA_PROCESOS.fec_proceso
+  is 'fecha de última ejecucion';
+alter table IT.SIMGIA_PROCESOS
+  add constraint PK_SIMGIA_PROCESOS primary key (NOM_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

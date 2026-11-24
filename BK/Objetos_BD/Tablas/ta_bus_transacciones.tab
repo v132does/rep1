@@ -1,0 +1,120 @@
+create table IT.TA_BUS_TRANSACCIONES
+(
+  identificador                 NUMBER(15) not null,
+  insert_datetime               DATE not null,
+  ticket_number                 NUMBER(18),
+  transaccion                   VARCHAR2(1),
+  informed_transaction_origin   VARCHAR2(1),
+  transaction_date              DATE,
+  commerce_code                 VARCHAR2(8),
+  commerce_name                 VARCHAR2(50),
+  branch_code                   NUMBER(10),
+  branch_description            VARCHAR2(50),
+  authorization_number          VARCHAR2(20),
+  entity_code                   NUMBER(10),
+  card_number                   VARCHAR2(25),
+  masked_card                   VARCHAR2(25),
+  card_type                     VARCHAR2(1),
+  payment_plan                  VARCHAR2(2),
+  quota_plan_description        VARCHAR2(50),
+  instalments                   NUMBER(10),
+  currency_code                 NUMBER(10),
+  currency_short_name           VARCHAR2(20),
+  transaction_amount            NUMBER(15,2),
+  local_international_brand     VARCHAR2(1),
+  customer_account_number       NUMBER(20),
+  device_type                   VARCHAR2(5),
+  device_description            VARCHAR2(50),
+  country_code                  NUMBER(10),
+  country_description           VARCHAR2(17),
+  expiration_date               VARCHAR2(4),
+  service_code                  VARCHAR2(5),
+  service_description           VARCHAR2(42),
+  provide_service_code          VARCHAR2(5),
+  provide_service_description   VARCHAR2(42),
+  brand_code                    VARCHAR2(5),
+  brand_description             VARCHAR2(50),
+  product_brand                 VARCHAR2(5),
+  product_brand_description     VARCHAR2(42),
+  affinity_code                 NUMBER(20),
+  affinity_description          VARCHAR2(42),
+  authorization_id              NUMBER(17),
+  response_code                 VARCHAR2(2),
+  response_description          VARCHAR2(42),
+  origin_code                   VARCHAR2(5),
+  origin_description            VARCHAR2(42),
+  mcc_code                      NUMBER(10),
+  mcc_description               VARCHAR2(42),
+  transaction_code              NUMBER(10),
+  transaction_code_description  VARCHAR2(42),
+  extended_response             VARCHAR2(5),
+  extended_response_description VARCHAR2(110),
+  authorization_date            DATE,
+  payment_method                VARCHAR2(5),
+  payment_method_description    VARCHAR2(42),
+  rollback_id                   NUMBER(18),
+  payment_source                VARCHAR2(5),
+  payment_source_description    VARCHAR2(42),
+  authorization_mode_code       VARCHAR2(1),
+  pem_prefix_code               VARCHAR2(5),
+  pem_prefix_description        VARCHAR2(42),
+  pem_suffix_code               VARCHAR2(5),
+  pem_suffix_description        VARCHAR2(42),
+  net_code                      NUMBER(10),
+  net_description               VARCHAR2(52),
+  available_nomal_purchase      NUMBER(15,2),
+  available_quota_purchase      NUMBER(15,2),
+  available_cash_advance        NUMBER(15,2),
+  initial_status_code           VARCHAR2(1),
+  card_bin                      VARCHAR2(11),
+  issuer_module_country_bin     VARCHAR2(5),
+  user_currency_code            NUMBER(10),
+  user_currency_description     VARCHAR2(20),
+  amount_user_currency          NUMBER(15,2),
+  atm_number                    NUMBER(12),
+  atm_owner_entity              NUMBER(10),
+  transaction_type              VARCHAR2(33),
+  enviado                       VARCHAR2(1),
+  usu_insercion                 VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion                 DATE default SYSDATE,
+  usu_modificacion              VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion              DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TABUS_TICKET on IT.TA_BUS_TRANSACCIONES (TICKET_NUMBER)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_BUS_TRANSACCIONES
+  add primary key (IDENTIFICADOR)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

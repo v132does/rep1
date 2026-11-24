@@ -1,0 +1,64 @@
+create table IT.MD_SYNONYMS
+(
+  id                 NUMBER not null,
+  schema_id_fk       NUMBER not null,
+  name               VARCHAR2(4000) not null,
+  synonym_for_id     NUMBER not null,
+  for_object_type    VARCHAR2(4000) not null,
+  private_visibility CHAR(1),
+  native_sql         CLOB,
+  native_key         VARCHAR2(4000),
+  comments           VARCHAR2(4000),
+  security_group_id  NUMBER default 0 not null,
+  created_on         DATE default sysdate not null,
+  created_by         VARCHAR2(255),
+  last_updated_on    DATE,
+  last_updated_by    VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_SYNONYMS
+  is 'For storing synonym information.';
+comment on column IT.MD_SYNONYMS.id
+  is 'Primary Key';
+comment on column IT.MD_SYNONYMS.schema_id_fk
+  is 'The schema to which this object belongs //PARENTFIELD';
+comment on column IT.MD_SYNONYMS.name
+  is 'Synonym name //OBJECTNAME';
+comment on column IT.MD_SYNONYMS.synonym_for_id
+  is 'What object this is a synonym for';
+comment on column IT.MD_SYNONYMS.for_object_type
+  is 'The type this is a synonym for (e.g. INDEX)';
+comment on column IT.MD_SYNONYMS.private_visibility
+  is 'Visibility - Private or Public.  If Private_visibility = ''Y'' means this is a private synonym.  Anything else means it is a public synonym';
+comment on column IT.MD_SYNONYMS.native_sql
+  is 'The SQL used to create this object at source';
+comment on column IT.MD_SYNONYMS.native_key
+  is 'An identifier for this object at source.';
+alter table IT.MD_SYNONYMS
+  add constraint MD_SYNONYMS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_SYNONYMS
+  add constraint MD_SYNONYMS_MD_SCHEMAS_FK1 foreign key (SCHEMA_ID_FK)
+  references IT.MD_SCHEMAS (ID) on delete cascade;
+

@@ -1,0 +1,67 @@
+-- Create table
+create table IT.TM_PER_VINCULOS
+(
+  tip_doc_persona   VARCHAR2(35),
+  nro_doc_persona   VARCHAR2(20),
+  tipo_documento    VARCHAR2(35),
+  nro_documento     VARCHAR2(20),
+  primer_nombre     VARCHAR2(120),
+  segundo_nombre    VARCHAR2(120),
+  primer_apellido   VARCHAR2(120),
+  segundo_apellido  VARCHAR2(120),
+  tipo_vinculo      VARCHAR2(35),
+  acc_portador      VARCHAR2(2),
+  can_acciones      VARCHAR2(20),
+  valor             VARCHAR2(20),
+  total             VARCHAR2(20),
+  por_participacion VARCHAR2(20),
+  procesado         VARCHAR2(1) default 'N',
+  fecha             DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TM_PER_VINCULOS
+  is 'Tabla auxiliar para almacenar registros de importación de datos Vinculo Personas.';
+-- Add comments to the columns 
+comment on column IT.TM_PER_VINCULOS.tip_doc_persona
+  is 'Tipo Documento Persona.';
+comment on column IT.TM_PER_VINCULOS.nro_doc_persona
+  is 'Nro. Documento Persona.';
+comment on column IT.TM_PER_VINCULOS.tipo_documento
+  is 'Tipo Documento persona vinculada.';
+comment on column IT.TM_PER_VINCULOS.nro_documento
+  is 'Número Documento persona vinculada.';
+comment on column IT.TM_PER_VINCULOS.primer_nombre
+  is 'Primer nombre';
+comment on column IT.TM_PER_VINCULOS.segundo_nombre
+  is 'Segundo nombre';
+comment on column IT.TM_PER_VINCULOS.primer_apellido
+  is 'Primer apellido';
+comment on column IT.TM_PER_VINCULOS.segundo_apellido
+  is 'Segundo apellido';
+comment on column IT.TM_PER_VINCULOS.tipo_vinculo
+  is 'Tipo de vinculo';
+comment on column IT.TM_PER_VINCULOS.acc_portador
+  is 'Accion al Portador (S/N)';
+comment on column IT.TM_PER_VINCULOS.can_acciones
+  is 'Cantidad acciones';
+comment on column IT.TM_PER_VINCULOS.valor
+  is 'Valor acciones';
+comment on column IT.TM_PER_VINCULOS.total
+  is 'Total acciones';
+comment on column IT.TM_PER_VINCULOS.por_participacion
+  is 'Porcentaje participación';
+comment on column IT.TM_PER_VINCULOS.procesado
+  is 'Para verificar si esta procesado S y no procesado N';
+comment on column IT.TM_PER_VINCULOS.fecha
+  is 'Fecha de procesamiento';

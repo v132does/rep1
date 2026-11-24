@@ -1,0 +1,64 @@
+create table IT.SB_BCP_ACCIONES
+(
+  fecha              DATE not null,
+  nro_formulario     VARCHAR2(3),
+  tip_documento      VARCHAR2(3) not null,
+  nro_documento      VARCHAR2(30) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  cap_suscrito       NUMBER(18,2),
+  cap_integrado      NUMBER(18,2),
+  can_acc_portador   NUMBER(18),
+  can_acc_nominativa NUMBER(18),
+  estado             VARCHAR2(1),
+  cod_persona        VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_BCP_ACCIONES
+  is 'Datos de Detalle del Archivo Sociedades.';
+comment on column IT.SB_BCP_ACCIONES.fecha
+  is 'Fecha.';
+comment on column IT.SB_BCP_ACCIONES.nro_formulario
+  is 'Nro de formulario.';
+comment on column IT.SB_BCP_ACCIONES.tip_documento
+  is 'Tipo de documento.';
+comment on column IT.SB_BCP_ACCIONES.nro_documento
+  is 'Número de documento.';
+comment on column IT.SB_BCP_ACCIONES.cod_moneda
+  is 'Código de la moneda.';
+comment on column IT.SB_BCP_ACCIONES.cap_suscrito
+  is 'Monto del capital suscrito.';
+comment on column IT.SB_BCP_ACCIONES.cap_integrado
+  is 'Monto del capital integrado';
+comment on column IT.SB_BCP_ACCIONES.can_acc_portador
+  is 'Cantidad de Acciones al Portador.';
+comment on column IT.SB_BCP_ACCIONES.can_acc_nominativa
+  is 'Cantidad de Acciones Nominativas.';
+comment on column IT.SB_BCP_ACCIONES.estado
+  is 'Estado Alta/Baja/Modificación.';
+comment on column IT.SB_BCP_ACCIONES.cod_persona
+  is 'Código de la persona';
+alter table IT.SB_BCP_ACCIONES
+  add constraint PK_SB_BCP_ACCIONES primary key (FECHA, COD_MONEDA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,106 @@
+create table IT.CB_SIM_DEV_AHORROS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fecha             DATE not null,
+  cod_moneda        VARCHAR2(3) not null,
+  val_tasa          NUMBER(20,4) not null,
+  fec_tasa          DATE not null,
+  can_dia_interes   NUMBER(6) not null,
+  sal_acumulado     NUMBER(18,2) default 0 not null,
+  mto_interes       NUMBER(18,2) default 0 not null,
+  dia_dev_anterior  NUMBER(6),
+  mto_dev_anterior  NUMBER(18,2),
+  fec_inicio        DATE not null,
+  mto_dev_acumulado NUMBER(18,2) not null,
+  mto_ajuste        NUMBER(18,2),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SIM_DEV_AHORROS
+  is 'Contiene los datos Correspondientes al Devengado del Modulo de Ahorros ** Mantener un a?o completo **';
+comment on column IT.CB_SIM_DEV_AHORROS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CB_SIM_DEV_AHORROS.fecha
+  is 'Fecha de Devengamiento.';
+comment on column IT.CB_SIM_DEV_AHORROS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CB_SIM_DEV_AHORROS.val_tasa
+  is 'Valor de la Tasa Aplicado.';
+comment on column IT.CB_SIM_DEV_AHORROS.fec_tasa
+  is 'Fecha de la Tasa Aplicada.';
+comment on column IT.CB_SIM_DEV_AHORROS.can_dia_interes
+  is 'Cantidad de Dias del Interes.';
+comment on column IT.CB_SIM_DEV_AHORROS.sal_acumulado
+  is 'Acumulado del Saldo.';
+comment on column IT.CB_SIM_DEV_AHORROS.mto_interes
+  is 'Interes Devengado Calculado.';
+comment on column IT.CB_SIM_DEV_AHORROS.dia_dev_anterior
+  is 'Días de Interes Devengado Anterior.';
+comment on column IT.CB_SIM_DEV_AHORROS.mto_dev_anterior
+  is 'Interes Devengado Anterior.';
+comment on column IT.CB_SIM_DEV_AHORROS.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.CB_SIM_DEV_AHORROS.mto_dev_acumulado
+  is 'Devengamiento Acumulado.';
+comment on column IT.CB_SIM_DEV_AHORROS.mto_ajuste
+  is 'Ajuste realizado en el Vencimiento del Cupon si es necesario.';
+comment on column IT.CB_SIM_DEV_AHORROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SIM_DEV_AHORROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SIM_DEV_AHORROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SIM_DEV_AHORROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_ASDEV_FECHA on IT.CB_SIM_DEV_AHORROS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ASDEV_NRO_CUENTA on IT.CB_SIM_DEV_AHORROS (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SIM_DEV_AHORROS
+  add constraint PK_CB_SIM_DEV_AHORROS primary key (NRO_CUENTA, FEC_INICIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

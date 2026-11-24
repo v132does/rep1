@@ -1,0 +1,76 @@
+create table IT.BA_PAR_CONSULTAS
+(
+  cod_consulta     VARCHAR2(10) not null,
+  cod_campo        VARCHAR2(10) not null,
+  alias            VARCHAR2(30),
+  val_defecto      VARCHAR2(300),
+  tipo             VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_orden        NUMBER(3),
+  tip_val_defecto  VARCHAR2(1) default 'V',
+  modificable      VARCHAR2(1) default 'S',
+  obligatorio      VARCHAR2(1) default 'N',
+  per_fil_rango    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PAR_CONSULTAS
+  is 'Detalle de filtros asociados al Consulta.';
+comment on column IT.BA_PAR_CONSULTAS.cod_consulta
+  is 'Codigo de la Consulta.';
+comment on column IT.BA_PAR_CONSULTAS.cod_campo
+  is 'Codigo del campo.';
+comment on column IT.BA_PAR_CONSULTAS.alias
+  is 'Alias de la tabla.';
+comment on column IT.BA_PAR_CONSULTAS.val_defecto
+  is 'Valor por defecto.';
+comment on column IT.BA_PAR_CONSULTAS.tipo
+  is 'Tipo de parametro: F=Filtro, P=parametro, A=ambos.';
+comment on column IT.BA_PAR_CONSULTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PAR_CONSULTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PAR_CONSULTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PAR_CONSULTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PAR_CONSULTAS.nro_orden
+  is 'Nro de orden para despliegue en la pantalla.';
+comment on column IT.BA_PAR_CONSULTAS.tip_val_defecto
+  is 'Tipo de Valor por Defecto: V-Valore directo o S-Sql.';
+comment on column IT.BA_PAR_CONSULTAS.modificable
+  is 'Si el valor del parametro es o no modificable.';
+comment on column IT.BA_PAR_CONSULTAS.obligatorio
+  is 'Si el parametro debe ser ingresado si o no.';
+comment on column IT.BA_PAR_CONSULTAS.per_fil_rango
+  is 'Indica si el parámetro permitirá valores por rango. N-o permite filtrar por Rango, S-i permite filtrar por rango.';
+alter table IT.BA_PAR_CONSULTAS
+  add constraint PK_BA_PAR_CONSULTAS primary key (COD_CONSULTA, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PAR_CONSULTAS
+  add constraint AVCON_1085585653_TIPO_000
+  check (TIPO IN ('F', 'P', 'A'));
+

@@ -1,0 +1,430 @@
+create table IT.PR_SOLICITUDES
+(
+  nro_solicitud         NUMBER(7) not null,
+  descripcion           VARCHAR2(240) not null,
+  monto                 NUMBER(18,2) default 0 not null,
+  tip_interes           VARCHAR2(1) default 'V' not null,
+  tip_amortizacion      VARCHAR2(1) not null,
+  dia_plazo             NUMBER(5) not null,
+  fec_vencimiento       DATE not null,
+  aju_ult_cuota         VARCHAR2(1) default 'N' not null,
+  mto_interes           NUMBER(18,2) default 0 not null,
+  tip_aju_fecha         VARCHAR2(1) default 'E' not null,
+  per_vto_capital       NUMBER(4) not null,
+  per_gracia            NUMBER(4) not null,
+  cod_persona           VARCHAR2(10) not null,
+  fec_inicio            DATE not null,
+  tip_monto             VARCHAR2(1) not null,
+  aju_gracia            VARCHAR2(1) default 'N' not null,
+  tot_prestamo          NUMBER(18,2) default 0,
+  estado                VARCHAR2(1) default 'S',
+  cod_ori_fondo         NUMBER(3),
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_moneda            VARCHAR2(3) not null,
+  mto_cargo             NUMBER(18,2) default 0,
+  cod_oficina           NUMBER(3) not null,
+  fec_pri_vencimiento   DATE,
+  cod_ent_seguro        NUMBER(5),
+  cod_sec_credito       NUMBER(3) not null,
+  cod_departamento      NUMBER(3) not null,
+  nro_sol_renovada      NUMBER(7),
+  tip_documento         VARCHAR2(1),
+  tipo                  VARCHAR2(1) default 'A',
+  exo_impuesto          VARCHAR2(1) default 'N',
+  tot_desembolsar       NUMBER(18,2) default 0,
+  can_desembolsos       NUMBER(3),
+  nro_sol_original      NUMBER(7),
+  sal_prestamo          NUMBER(18,2) default 0,
+  can_des_faltantes     NUMBER(3),
+  cod_ent_concesionaria NUMBER(5),
+  nro_cta_debito        VARCHAR2(15),
+  deb_automatico        VARCHAR2(1) default 'N',
+  fec_aprobacion        DATE,
+  cod_usu_aprobacion    VARCHAR2(10),
+  cod_usu_promotor      VARCHAR2(10),
+  nro_linea             NUMBER(7),
+  observaciones         VARCHAR2(4000),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  cod_canal             NUMBER(3),
+  cod_campana           NUMBER(3),
+  mto_lin_aplicado      NUMBER(18,2) default 0,
+  tip_renovacion        VARCHAR2(1),
+  tip_destino           VARCHAR2(1),
+  est_verificacion      VARCHAR2(1),
+  aut_pendiente         VARCHAR2(1),
+  niv_aprobacion        VARCHAR2(3),
+  nro_acta              NUMBER(10),
+  cod_banca             NUMBER(5),
+  cod_autorizacion      NUMBER(10),
+  por_ori_fondo         NUMBER(7,4),
+  tot_desembolso        NUMBER(18,2),
+  fec_ren_tasa          DATE,
+  cod_destino           VARCHAR2(3),
+  val_presupuesto       NUMBER(18,2),
+  cod_causa             NUMBER(3),
+  obs_reconsideracion   VARCHAR2(1000),
+  referencia            VARCHAR2(10),
+  ind_evaluacion        VARCHAR2(1) default 'S',
+  cod_sub_modalidad     NUMBER(3) default 1,
+  tas_referencia        VARCHAR2(3),
+  spread                NUMBER(20,4),
+  tip_cal_renovacion    VARCHAR2(1),
+  cod_rub_economico     VARCHAR2(6),
+  iva_desglose          VARCHAR2(1),
+  en_etapas             VARCHAR2(1),
+  tas_piso              NUMBER(20,4) default 0,
+  fec_ini_rrr           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SOLICITUDES
+  is 'Contiene los datos de las Propuestas de los Prestamos.';
+comment on column IT.PR_SOLICITUDES.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_SOLICITUDES.descripcion
+  is 'Descripción de la propuesta.';
+comment on column IT.PR_SOLICITUDES.monto
+  is 'Valor del monto del prestamo.';
+comment on column IT.PR_SOLICITUDES.tip_interes
+  is 'Tipo de interes (A=Adelantado / V=Vencido).';
+comment on column IT.PR_SOLICITUDES.tip_amortizacion
+  is 'Tipo de sistema de amortización.';
+comment on column IT.PR_SOLICITUDES.dia_plazo
+  is 'Plazo en días.';
+comment on column IT.PR_SOLICITUDES.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.PR_SOLICITUDES.aju_ult_cuota
+  is 'Se ajusta última Cuota S/N.';
+comment on column IT.PR_SOLICITUDES.mto_interes
+  is 'Valor total del interés.';
+comment on column IT.PR_SOLICITUDES.tip_aju_fecha
+  is 'Tipo de ajuste de fecha.';
+comment on column IT.PR_SOLICITUDES.per_vto_capital
+  is 'Periodo de vencimiento del capital.';
+comment on column IT.PR_SOLICITUDES.per_gracia
+  is 'Periodo de gracia.';
+comment on column IT.PR_SOLICITUDES.cod_persona
+  is 'Código de cliente.';
+comment on column IT.PR_SOLICITUDES.fec_inicio
+  is 'Fecha de inicio del prestamo / solicitud.';
+comment on column IT.PR_SOLICITUDES.tip_monto
+  is 'Tipo de monto.';
+comment on column IT.PR_SOLICITUDES.aju_gracia
+  is 'Se ajusta el periodo de gracia S/N.';
+comment on column IT.PR_SOLICITUDES.tot_prestamo
+  is 'Valor total  del prestamo.';
+comment on column IT.PR_SOLICITUDES.estado
+  is 'Estado de la Solicitud. (S = Solicitada / L = Pendiente de Liquidación / A = Desembolsada / N = Cancelada / R = Rechazada).';
+comment on column IT.PR_SOLICITUDES.cod_ori_fondo
+  is 'Código de origen de fondos.';
+comment on column IT.PR_SOLICITUDES.cod_modulo
+  is 'Código del módulo.';
+comment on column IT.PR_SOLICITUDES.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.PR_SOLICITUDES.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.PR_SOLICITUDES.mto_cargo
+  is 'Valor del cargo.';
+comment on column IT.PR_SOLICITUDES.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.PR_SOLICITUDES.fec_pri_vencimiento
+  is 'Fecha final del periodo de gracia.';
+comment on column IT.PR_SOLICITUDES.cod_ent_seguro
+  is 'Código de seguro.';
+comment on column IT.PR_SOLICITUDES.cod_sec_credito
+  is 'Código de sector.';
+comment on column IT.PR_SOLICITUDES.cod_departamento
+  is 'Código de departamento.';
+comment on column IT.PR_SOLICITUDES.nro_sol_renovada
+  is 'Número de propuesta renovada.';
+comment on column IT.PR_SOLICITUDES.tip_documento
+  is 'Tipo de documento. (1=Vista / 2=Vencimiento).';
+comment on column IT.PR_SOLICITUDES.tipo
+  is 'Tipo de préstamo.';
+comment on column IT.PR_SOLICITUDES.exo_impuesto
+  is 'Tiene Exoneracion Ley 125 ( S=SI, N=NO ).';
+comment on column IT.PR_SOLICITUDES.tot_desembolsar
+  is 'Total Neto a Desembolsar.';
+comment on column IT.PR_SOLICITUDES.can_desembolsos
+  is 'Cantidad de Desembolsos del Prestamo.';
+comment on column IT.PR_SOLICITUDES.nro_sol_original
+  is 'Número de Propuesta Original.';
+comment on column IT.PR_SOLICITUDES.sal_prestamo
+  is 'Saldo del Prestamo a Desembolsar.';
+comment on column IT.PR_SOLICITUDES.can_des_faltantes
+  is 'Cantidad de Desembolsos que faltan realizar.';
+comment on column IT.PR_SOLICITUDES.cod_ent_concesionaria
+  is 'Código de la concesionaria o inmobiliaria.';
+comment on column IT.PR_SOLICITUDES.nro_cta_debito
+  is 'Cuenta en donde se deposita el prestamo y contra la cual se realiza el debito automatico por las cuotas del préstamo.';
+comment on column IT.PR_SOLICITUDES.deb_automatico
+  is 'Indica si el cliente realiza el pago del prestamo por debito automatico (S=SI / N= NO).';
+comment on column IT.PR_SOLICITUDES.fec_aprobacion
+  is 'Fecha Aprobado / Rechazado.';
+comment on column IT.PR_SOLICITUDES.cod_usu_aprobacion
+  is 'Usuario que Aprobo / Rechazo un prestamo.';
+comment on column IT.PR_SOLICITUDES.cod_usu_promotor
+  is 'Código del promotor.';
+comment on column IT.PR_SOLICITUDES.nro_linea
+  is 'Número de Línea.';
+comment on column IT.PR_SOLICITUDES.observaciones
+  is 'Observaciones.';
+comment on column IT.PR_SOLICITUDES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SOLICITUDES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_SOLICITUDES.cod_canal
+  is 'Canal.';
+comment on column IT.PR_SOLICITUDES.cod_campana
+  is 'Campaña.';
+comment on column IT.PR_SOLICITUDES.mto_lin_aplicado
+  is 'Monto de la línea aplicado en moneda de la línea.';
+comment on column IT.PR_SOLICITUDES.tip_renovacion
+  is 'Tipo de renovación: Refinanciado, rEstructurado, reNovado.';
+comment on column IT.PR_SOLICITUDES.tip_destino
+  is 'Tipo de Destino.';
+comment on column IT.PR_SOLICITUDES.est_verificacion
+  is 'Estado de Verificacion.';
+comment on column IT.PR_SOLICITUDES.aut_pendiente
+  is 'Autorización Pendiente.';
+comment on column IT.PR_SOLICITUDES.niv_aprobacion
+  is 'Nivel de Aprobación.';
+comment on column IT.PR_SOLICITUDES.nro_acta
+  is 'Nro de Acta.';
+comment on column IT.PR_SOLICITUDES.cod_banca
+  is 'Código de Banca.';
+comment on column IT.PR_SOLICITUDES.cod_autorizacion
+  is 'Código de Autorización de Tasa.';
+comment on column IT.PR_SOLICITUDES.por_ori_fondo
+  is 'Porcentaje correspondiente al Origen de Fondos.';
+comment on column IT.PR_SOLICITUDES.tot_desembolso
+  is 'Valor Total del Prestamo a Desembolsar (varios desembolsos).';
+comment on column IT.PR_SOLICITUDES.fec_ren_tasa
+  is 'Fecha de Renegociación de Tasa.';
+comment on column IT.PR_SOLICITUDES.cod_destino
+  is 'Código del Destino del Préstamo.';
+comment on column IT.PR_SOLICITUDES.val_presupuesto
+  is 'Valor del Presupuesto.';
+comment on column IT.PR_SOLICITUDES.cod_causa
+  is 'Motivo de rechazo de la propuesta.';
+comment on column IT.PR_SOLICITUDES.obs_reconsideracion
+  is 'Observación de la Reconsideración.';
+comment on column IT.PR_SOLICITUDES.referencia
+  is 'Referencia Externa.';
+comment on column IT.PR_SOLICITUDES.ind_evaluacion
+  is 'Indica si una solicitud debe pasar por el Motor de Evaluación de Riesgos.';
+comment on column IT.PR_SOLICITUDES.cod_sub_modalidad
+  is 'Código de Sub-Modalidad.';
+comment on column IT.PR_SOLICITUDES.tas_referencia
+  is 'Tasa de Referencia.';
+comment on column IT.PR_SOLICITUDES.spread
+  is 'Margen que existe entre los tipos de interés activos y pasivos.';
+comment on column IT.PR_SOLICITUDES.tip_cal_renovacion
+  is 'Tipo de calendarización ingresado por el usuario en la pantalla de Mantenimiento de Refinanciación, Reestructuración y Renovación.';
+comment on column IT.PR_SOLICITUDES.cod_rub_economico
+  is 'Código de Rubro Económico.';
+comment on column IT.PR_SOLICITUDES.iva_desglose
+  is 'Valor que permite cuotizar el monto del IVA';
+comment on column IT.PR_SOLICITUDES.en_etapas
+  is 'Idenfica si la Solicitud es en Etapas. S/N';
+comment on column IT.PR_SOLICITUDES.tas_piso
+  is 'Tasa Piso Definida.';
+comment on column IT.PR_SOLICITUDES.fec_ini_rrr
+  is 'Fecha de Inicio del Préstamo para Operaciones RRR por Cuotas';
+create index IT.IN_PSOLI_COD_MODALIDAD on IT.PR_SOLICITUDES (COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSOLI_COD_MODULO on IT.PR_SOLICITUDES (COD_MODULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSOLI_COD_MONEDA on IT.PR_SOLICITUDES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSOLI_COD_PERSONA on IT.PR_SOLICITUDES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSOLI_ESTADO on IT.PR_SOLICITUDES (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSOLI_NRO_CTA_DEBITO on IT.PR_SOLICITUDES (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOLICITUDES
+  add constraint PK_PR_SOLICITUDES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_BANCA foreign key (COD_BANCA)
+  references IT.GE_BANCAS (COD_BANCA);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_DEPARTAMENTO foreign key (COD_DEPARTAMENTO)
+  references IT.BA_DEPARTAMENTOS (COD_DEPARTAMENTO);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_ENT_CONSECIONARIA foreign key (COD_ENT_CONCESIONARIA)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_ORI_FONDO foreign key (COD_ORI_FONDO)
+  references IT.PR_FONDOS (COD_ORI_FONDO);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_RUB_ECO_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECO_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_RUB_ECONOMICO);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_USU_APROBACION foreign key (COD_USU_APROBACION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.PR_SOLICITUDES
+  add constraint FK_PSOLI_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_AJU_G_000
+  check (AJU_GRACIA IN ('S', 'N'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_AJU_U_000
+  check (AJU_ULT_CUOTA IN ('S', 'N'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_DEB_A_000
+  check (DEB_AUTOMATICO IN ('S', 'N'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_EXO_I_000
+  check (EXO_IMPUESTO IN ('S', 'N'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_TIP_D_000
+  check (TIP_DOCUMENTO IN ('1', '2'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_TIP_M_000
+  check (TIP_MONTO IN ('B', 'N'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1080845005_TIPO_000
+  check (TIPO IN ('A', 'P', 'D'));
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1085007172_COD_D_000
+  check (COD_DEPARTAMENTO BETWEEN 0 AND 999);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1085007172_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1085007172_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1085007172_COD_O_000
+  check (COD_ORI_FONDO BETWEEN 0 AND 999);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1085007172_COD_O_001
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1085007172_COD_S_000
+  check (COD_SEC_CREDITO BETWEEN 0 AND 999);
+alter table IT.PR_SOLICITUDES
+  add constraint AVCON_1100130481_EST_000
+  check (ESTADO IN ('S','A','R', 'P', 'N','L', 'C', 'E', 'D', 'Z'));
+alter table IT.PR_SOLICITUDES
+  add constraint CK_POR_ORI_FONDO1
+  check (por_ori_fondo between 0 and 100);
+

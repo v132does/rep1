@@ -1,0 +1,11 @@
+create global temporary table IT.SS2K5_CHECK_CONSTRAINTS
+(
+  db_id            NUMBER(10),
+  object_id        NUMBER(10) not null,
+  parent_column_id NUMBER(10) not null,
+  definition       CLOB
+)
+on commit preserve rows;
+create index IT.SS2K5_C_C_OBJECT_ID on IT.SS2K5_CHECK_CONSTRAINTS (OBJECT_ID);
+create index IT.SS2K5_CHECK_CONSTRAINTS_DB_ID on IT.SS2K5_CHECK_CONSTRAINTS (DB_ID);
+

@@ -1,0 +1,209 @@
+-- Create table
+create table IT.TA_NOT_MOV_PUSH
+(
+  id_novedad          VARCHAR2(50) not null,
+  tip_accion          VARCHAR2(1),
+  id_transaccion      VARCHAR2(15) not null,
+  fec_hor_transaccion DATE,
+  reason              VARCHAR2(15),
+  marca               VARCHAR2(1),
+  entidad             VARCHAR2(3),
+  nro_cuenta          VARCHAR2(15),
+  cod_producto        VARCHAR2(2),
+  afinidad            VARCHAR2(1),
+  adicional           VARCHAR2(1),
+  nro_tarjeta         VARCHAR2(4),
+  provincia           VARCHAR2(30),
+  cod_provincia       VARCHAR2(3),
+  via_origen          VARCHAR2(1),
+  red_origen          VARCHAR2(3),
+  pos_origen          VARCHAR2(30),
+  ing_origen          VARCHAR2(30),
+  deb_automatico      VARCHAR2(1),
+  ori_internacional   VARCHAR2(1),
+  cod_concepto        VARCHAR2(5),
+  plan                VARCHAR2(3),
+  nro_cuotas          NUMBER(3),
+  tas_interes         NUMBER(18,3),
+  cod_diferimiento    VARCHAR2(3),
+  fec_diferimiento    DATE,
+  id_int_comercio     VARCHAR2(6),
+  est_int_comercio    VARCHAR2(6),
+  cod_iso             VARCHAR2(20),
+  des_iso             VARCHAR2(50),
+  ica                 VARCHAR2(20),
+  mcc                 VARCHAR2(20),
+  tcc                 VARCHAR2(20),
+  tip_estado          VARCHAR2(1),
+  cod_estado          VARCHAR2(1),
+  fec_estado          DATE,
+  es_forzada          VARCHAR2(1),
+  moneda              VARCHAR2(1),
+  imp_autorizacion    NUMBER(20,4),
+  imp_tot_transaccion NUMBER(20,4),
+  imp_convertido      NUMBER(20,4),
+  imp_interes         NUMBER(20,4),
+  imp_int_iva         NUMBER(20,4),
+  imp_cargos          NUMBER(20,4),
+  imp_car_iva         NUMBER(20,4),
+  imp_car_rg4240      NUMBER(20,4),
+  cod_mon_ori_iso     VARCHAR2(3),
+  imp_tot_ori_iso     NUMBER(20,4),
+  cod_autorizacion    VARCHAR2(61),
+  cup_autorizacion    VARCHAR2(20),
+  lot_autorizacion    VARCHAR2(5),
+  nro_autorizacion    VARCHAR2(30),
+  mot_rechazo         VARCHAR2(5),
+  des_rechazo         VARCHAR2(50),
+  nor_fra_rechazo     VARCHAR2(10),
+  reg_fra_rechazo     VARCHAR2(10),
+  fec_insercion       DATE default SYSDATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion    DATE default SYSDATE,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  cod_billetera       NUMBER,
+  etiquetas           VARCHAR2(300)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.TA_NOT_MOV_PUSH.id_novedad
+  is 'Id de la novedad informada.';
+comment on column IT.TA_NOT_MOV_PUSH.tip_accion
+  is 'Tipo de acción.';
+comment on column IT.TA_NOT_MOV_PUSH.id_transaccion
+  is 'Identificador unívoco de la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.fec_hor_transaccion
+  is 'Fecha y hora de la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.reason
+  is 'Codigo generado por la terminal';
+comment on column IT.TA_NOT_MOV_PUSH.marca
+  is 'Proveedor de la Tarjeta de Crédito utilizada en la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.entidad
+  is 'Código de la Entidad Prestadora.';
+comment on column IT.TA_NOT_MOV_PUSH.nro_cuenta
+  is 'Numero de la cuenta involucrada.';
+comment on column IT.TA_NOT_MOV_PUSH.cod_producto
+  is 'Tipo de producto al que corresponde la cuenta.';
+comment on column IT.TA_NOT_MOV_PUSH.afinidad
+  is 'Tipo de comercio donde se realiza la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.adicional
+  is 'Indentificador de tittularidad.';
+comment on column IT.TA_NOT_MOV_PUSH.nro_tarjeta
+  is 'últimos 4 dígitos de la tarjeta utilizada en la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.provincia
+  is 'Provincia';
+comment on column IT.TA_NOT_MOV_PUSH.cod_provincia
+  is 'Cod de provincia';
+comment on column IT.TA_NOT_MOV_PUSH.via_origen
+  is 'Via de origen de la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.red_origen
+  is 'Red de origen';
+comment on column IT.TA_NOT_MOV_PUSH.pos_origen
+  is 'Terminal Posnet donde se realizo la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.ing_origen
+  is 'Ingreso';
+comment on column IT.TA_NOT_MOV_PUSH.deb_automatico
+  is 'Identifica si la transacción por débito automático. Valores posibles (S/N).';
+comment on column IT.TA_NOT_MOV_PUSH.ori_internacional
+  is 'Identifica si la transacción es internacional o local. Valores posibles (S/N).';
+comment on column IT.TA_NOT_MOV_PUSH.cod_concepto
+  is 'Código del tipo de movimiento realizado.';
+comment on column IT.TA_NOT_MOV_PUSH.plan
+  is 'Tipo de plan asociado al movimiento.';
+comment on column IT.TA_NOT_MOV_PUSH.nro_cuotas
+  is 'Identificador de la cantidad de cuotas ( pagos mensuales ) correspondientes al movimiento.';
+comment on column IT.TA_NOT_MOV_PUSH.tas_interes
+  is 'Tasa de interés correspondiente a la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.cod_diferimiento
+  is 'Código de difrimiento asociados al movimiento.';
+comment on column IT.TA_NOT_MOV_PUSH.fec_diferimiento
+  is 'Fecha y hora de la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.id_int_comercio
+  is 'ID del comercio donde se realizó la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.est_int_comercio
+  is 'Código del Establecimiento al que pertenece el Comercio.';
+comment on column IT.TA_NOT_MOV_PUSH.cod_iso
+  is 'Consult comerce ISO ID.';
+comment on column IT.TA_NOT_MOV_PUSH.des_iso
+  is 'Descipcion ISO';
+comment on column IT.TA_NOT_MOV_PUSH.ica
+  is 'ID de registro de transacción GP.';
+comment on column IT.TA_NOT_MOV_PUSH.mcc
+  is 'Codigo categoria mercante para comercios minoristas';
+comment on column IT.TA_NOT_MOV_PUSH.tcc
+  is 'Codigo de agrupacion por tipo de rubro';
+comment on column IT.TA_NOT_MOV_PUSH.tip_estado
+  is 'Código del tipo de transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.cod_estado
+  is 'Código del estado de la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.fec_estado
+  is 'Fecha y hora de la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.es_forzada
+  is 'Identifica si la transacción fue forzada. Valores posibles (S/N).';
+comment on column IT.TA_NOT_MOV_PUSH.moneda
+  is 'Moneda de la transacción.';
+comment on column IT.TA_NOT_MOV_PUSH.imp_autorizacion
+  is 'Importe de autorizacion';
+comment on column IT.TA_NOT_MOV_PUSH.imp_tot_transaccion
+  is 'Importe total con la moneda que se genero en la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.imp_convertido
+  is 'Importe convertido en moneda local';
+comment on column IT.TA_NOT_MOV_PUSH.imp_interes
+  is 'importe total de interes';
+comment on column IT.TA_NOT_MOV_PUSH.imp_int_iva
+  is 'importe del iva cargado a la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.imp_cargos
+  is 'cargos aplicados a la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.imp_car_iva
+  is 'cargos iva a la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.cod_mon_ori_iso
+  is 'codigo de tipo de moneda utilizado';
+comment on column IT.TA_NOT_MOV_PUSH.imp_tot_ori_iso
+  is 'monto total de transaccion(en moneda de origen)';
+comment on column IT.TA_NOT_MOV_PUSH.cod_autorizacion
+  is 'cod numerico de identificacion de la autorizacion';
+comment on column IT.TA_NOT_MOV_PUSH.cup_autorizacion
+  is 'cod numerico de identificacion del cupon de la transaccion';
+comment on column IT.TA_NOT_MOV_PUSH.lot_autorizacion
+  is 'identificador del lote al que pertenece la autorizacion';
+comment on column IT.TA_NOT_MOV_PUSH.nro_autorizacion
+  is 'nro comprobante ed la autorizacion';
+comment on column IT.TA_NOT_MOV_PUSH.mot_rechazo
+  is 'motivo rechazo';
+comment on column IT.TA_NOT_MOV_PUSH.des_rechazo
+  is 'descripcion rechazo';
+comment on column IT.TA_NOT_MOV_PUSH.nor_fra_rechazo
+  is 'norma fraude rechazo';
+comment on column IT.TA_NOT_MOV_PUSH.reg_fra_rechazo
+  is 'descripcion de rechazo';
+comment on column IT.TA_NOT_MOV_PUSH.cod_billetera
+  is 'Identificación de la billetera - Wallet id';
+comment on column IT.TA_NOT_MOV_PUSH.etiquetas
+  is 'Lista de etiquetas - Tags';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.TA_NOT_MOV_PUSH
+  add constraint PK_TAMOVPUSH primary key (ID_TRANSACCION, ID_NOVEDAD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.TA_NOT_MOV_PUSH to IT_TEMPORAL;

@@ -1,0 +1,47 @@
+create table IT.CO_TELEFONOS_TMP
+(
+  cod_cliente  VARCHAR2(20),
+  tip_telefono VARCHAR2(6),
+  cod_telefono VARCHAR2(10),
+  origen       VARCHAR2(3),
+  cod_pais     VARCHAR2(3),
+  cod_area     VARCHAR2(5),
+  numero       VARCHAR2(40),
+  extension    VARCHAR2(6),
+  contacto     VARCHAR2(1),
+  valido       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_TELEFONOS_TMP
+  is 'Registros de Teléfonos del día proveniente del Recovery Strategy.';
+comment on column IT.CO_TELEFONOS_TMP.cod_cliente
+  is 'Código de Cliente.';
+comment on column IT.CO_TELEFONOS_TMP.tip_telefono
+  is 'Tipo de Teléfono.';
+comment on column IT.CO_TELEFONOS_TMP.cod_telefono
+  is 'Código de Teléfono.';
+comment on column IT.CO_TELEFONOS_TMP.origen
+  is 'Origen del Teléfono.';
+comment on column IT.CO_TELEFONOS_TMP.cod_pais
+  is 'Código de País correspondiente al número de Teléfono.';
+comment on column IT.CO_TELEFONOS_TMP.cod_area
+  is 'Código de Área correspondiente al número de teléfono.';
+comment on column IT.CO_TELEFONOS_TMP.numero
+  is 'Número de teléfono.';
+comment on column IT.CO_TELEFONOS_TMP.extension
+  is 'Extensión o Anexo.';
+comment on column IT.CO_TELEFONOS_TMP.contacto
+  is 'Marca de teléfono de contacto (1 contacto, 0 no contacto)';
+comment on column IT.CO_TELEFONOS_TMP.valido
+  is 'Marca de validez del teléfono (1 válido, 0 inválido).';
+

@@ -1,0 +1,11 @@
+create global temporary table IT.SS2K5_DATABASE_ROLE_MEMBERS
+(
+  db_id               NUMBER(10),
+  member_principal_id NUMBER(10) not null,
+  role_principal_id   NUMBER(10) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_D_R_M_DB_ID on IT.SS2K5_DATABASE_ROLE_MEMBERS (DB_ID);
+create index IT.SS2K5_D_R_M_MEMBER_P_ID on IT.SS2K5_DATABASE_ROLE_MEMBERS (MEMBER_PRINCIPAL_ID);
+create index IT.SS2K5_D_R_M_ROLE_PRINCIPAL_ID on IT.SS2K5_DATABASE_ROLE_MEMBERS (ROLE_PRINCIPAL_ID);
+

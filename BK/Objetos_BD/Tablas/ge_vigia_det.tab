@@ -1,0 +1,23 @@
+create table IT.GE_VIGIA_DET
+(
+  cod_vigia NUMBER(5) not null,
+  detalle   CLOB not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_VIGIA_DET
+  is 'tabla temporal donde se guardará los registros de la web services de vigía en caso de que el cliente cuente con coincidencias,';
+comment on column IT.GE_VIGIA_DET.cod_vigia
+  is 'Identificador del registro Vigia';
+comment on column IT.GE_VIGIA_DET.detalle
+  is 'Conjunto de resultado XML que resulta de la consulta de Vigia';
+

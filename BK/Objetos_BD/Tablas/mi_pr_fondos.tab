@@ -1,0 +1,62 @@
+create table IT.MI_PR_FONDOS
+(
+  cod_ori_fondo      NUMBER(3) not null,
+  descripcion        VARCHAR2(35) not null,
+  monto              NUMBER(18,2) default 0,
+  cod_moneda         VARCHAR2(3) not null,
+  fec_vencimiento    DATE,
+  val_tasa           NUMBER(20,4) default 0,
+  mto_utilizado      NUMBER(18,2) default 0,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  par_modalidad      VARCHAR2(2000),
+  cod_tra_desembolso NUMBER(4),
+  cod_tra_cobro      NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_PR_FONDOS
+  is 'Origen de Fondos.';
+comment on column IT.MI_PR_FONDOS.cod_ori_fondo
+  is 'Codigo de origen de fondo.';
+comment on column IT.MI_PR_FONDOS.descripcion
+  is 'Descripcion de origen de fondo.';
+comment on column IT.MI_PR_FONDOS.monto
+  is 'Valor del monto.';
+comment on column IT.MI_PR_FONDOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.MI_PR_FONDOS.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.MI_PR_FONDOS.val_tasa
+  is 'Valor de tasa.';
+comment on column IT.MI_PR_FONDOS.mto_utilizado
+  is 'Valor utilizado.';
+comment on column IT.MI_PR_FONDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.MI_PR_FONDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.MI_PR_FONDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.MI_PR_FONDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.MI_PR_FONDOS.par_modalidad
+  is 'Modalidades de Prestamos afectadas por el Origen de Fondos.';
+comment on column IT.MI_PR_FONDOS.cod_tra_desembolso
+  is 'Codigo de Transaccion de Desembolso.';
+comment on column IT.MI_PR_FONDOS.cod_tra_cobro
+  is 'Codigo de Transaccion de Cobro.';
+alter table IT.MI_PR_FONDOS
+  add constraint MI_AVCON_1080845005_COD_O_003
+  check (COD_ORI_FONDO BETWEEN 1 AND 999);
+

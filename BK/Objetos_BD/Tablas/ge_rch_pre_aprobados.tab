@@ -1,0 +1,82 @@
+create table IT.GE_RCH_PRE_APROBADOS
+(
+  codigo           NUMBER not null,
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(1) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  fecha            DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RCH_PRE_APROBADOS
+  is 'Productos Preaprobados Rechazados';
+comment on column IT.GE_RCH_PRE_APROBADOS.codigo
+  is 'Codigo ';
+comment on column IT.GE_RCH_PRE_APROBADOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.GE_RCH_PRE_APROBADOS.tipo
+  is 'T-Tarjetas/P-Prestamos';
+comment on column IT.GE_RCH_PRE_APROBADOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_RCH_PRE_APROBADOS.fecha
+  is 'Fecha Hora de Rechazo';
+comment on column IT.GE_RCH_PRE_APROBADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_RCH_PRE_APROBADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_RCH_PRE_APROBADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_RCH_PRE_APROBADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_GE_PER_TIP_CTA_FEC on IT.GE_RCH_PRE_APROBADOS (COD_PERSONA, TIPO, NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPPAR_COD_PERSONA on IT.GE_RCH_PRE_APROBADOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RCH_PRE_APROBADOS
+  add constraint PK_GE_RCH_PRE_APROBADOS primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

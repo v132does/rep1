@@ -1,0 +1,88 @@
+create table IT.PR_SIM_CARGOS
+(
+  nro_simulacion   NUMBER(7) not null,
+  cod_ent_seguro   NUMBER(5),
+  cod_transaccion  NUMBER(4) not null,
+  cod_tasa         NUMBER(3),
+  cod_moneda       VARCHAR2(3) not null,
+  val_tasa         NUMBER(20,4) default 0,
+  monto            NUMBER(18,2) default 0,
+  mto_equivalente  NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SIM_CARGOS
+  is 'Simulacion Cargos.';
+comment on column IT.PR_SIM_CARGOS.nro_simulacion
+  is 'Nro. de Simulación.';
+comment on column IT.PR_SIM_CARGOS.cod_ent_seguro
+  is 'Código de Ente.';
+comment on column IT.PR_SIM_CARGOS.cod_transaccion
+  is 'Código de Transacción.';
+comment on column IT.PR_SIM_CARGOS.cod_tasa
+  is 'Código de Tasa.';
+comment on column IT.PR_SIM_CARGOS.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.PR_SIM_CARGOS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.PR_SIM_CARGOS.monto
+  is 'Monto del Cargo en la moneda.';
+comment on column IT.PR_SIM_CARGOS.mto_equivalente
+  is 'Monto del Cargo en  la moneda de la simulacion.';
+comment on column IT.PR_SIM_CARGOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SIM_CARGOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SIM_CARGOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SIM_CARGOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_SIM_CARGOS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.PR_SIM_CARGOS.cod_modalidad
+  is 'Codigo de modalidad.';
+alter table IT.PR_SIM_CARGOS
+  add constraint PK_PR_SIM_CARGOS primary key (NRO_SIMULACION, COD_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SIM_CARGOS
+  add constraint FK_PSICA_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_SIM_CARGOS
+  add constraint FK_PSICA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_SIM_CARGOS
+  add constraint FK_PSICA_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.PR_SIM_CARGOS
+  add constraint FK_PSICA_NRO_SIMULACION foreign key (NRO_SIMULACION)
+  references IT.PR_SIMULACIONES (NRO_SIMULACION);
+alter table IT.PR_SIM_CARGOS
+  add constraint AVCON_1085012028_COD_T_000
+  check (COD_TASA BETWEEN 0 AND 999);
+

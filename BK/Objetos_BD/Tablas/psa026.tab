@@ -1,0 +1,169 @@
+create table IT.PSA026
+(
+  psa026fin VARCHAR2(8) not null,
+  psa026ffi VARCHAR2(8) not null,
+  psa026pai NUMBER(3) not null,
+  psa026tdo NUMBER(4) not null,
+  psa026ndo VARCHAR2(25) not null,
+  psa026cca VARCHAR2(25) not null,
+  psa026nca VARCHAR2(40),
+  psa026ent NUMBER(3),
+  psa026den VARCHAR2(40),
+  psa026vsl NUMBER(9),
+  psa026toc NUMBER(18,2),
+  psa026coc NUMBER(10),
+  psa026tod NUMBER(18,2),
+  psa026cod NUMBER(10),
+  psa026fei VARCHAR2(8),
+  psa026vfc NUMBER(9),
+  psa026n01 NUMBER(18,2),
+  psa026n02 NUMBER(18,2),
+  psa026n03 NUMBER(18,2),
+  psa026n04 NUMBER(18,2),
+  psa026n05 NUMBER(18,2),
+  psa026n06 NUMBER(18,2),
+  psa026n07 NUMBER(18,2),
+  psa026n08 NUMBER(18,2),
+  psa026n09 NUMBER(18,2),
+  psa026n10 NUMBER(18,2),
+  psa026c01 VARCHAR2(100),
+  psa026c02 VARCHAR2(100),
+  psa026c03 VARCHAR2(100),
+  psa026c04 VARCHAR2(100),
+  psa026c05 VARCHAR2(100),
+  psa026c06 VARCHAR2(100),
+  psa026c07 VARCHAR2(100),
+  psa026c08 VARCHAR2(100),
+  psa026c09 VARCHAR2(100),
+  psa026c10 VARCHAR2(100),
+  psa026f01 VARCHAR2(8),
+  psa026f02 VARCHAR2(8),
+  psa026f03 VARCHAR2(8),
+  psa026f04 VARCHAR2(8),
+  psa026f05 VARCHAR2(8),
+  psa026f06 VARCHAR2(8),
+  psa026f07 VARCHAR2(8),
+  psa026f08 VARCHAR2(8),
+  psa026f09 VARCHAR2(8),
+  psa026f10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA026
+  is 'TABLA Base de Canales de PIC';
+comment on column IT.PSA026.psa026fin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA026.psa026ffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA026.psa026pai
+  is 'Pais del documento.';
+comment on column IT.PSA026.psa026tdo
+  is 'Tipo de documento.';
+comment on column IT.PSA026.psa026ndo
+  is 'Numero de documento.';
+comment on column IT.PSA026.psa026cca
+  is 'Codigo de Canal.';
+comment on column IT.PSA026.psa026nca
+  is 'Nombre de Canal.';
+comment on column IT.PSA026.psa026ent
+  is 'Entidad.';
+comment on column IT.PSA026.psa026den
+  is 'Descripcion Entidad.';
+comment on column IT.PSA026.psa026vsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA026.psa026toc
+  is 'Volumen Total de las Operaciones Credito.';
+comment on column IT.PSA026.psa026coc
+  is 'Cantidad de Operaciones Credito.';
+comment on column IT.PSA026.psa026tod
+  is 'Volumen Total de las Operaciones Debito.';
+comment on column IT.PSA026.psa026cod
+  is 'Cantidad de Operaciones Debito.';
+comment on column IT.PSA026.psa026fei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA026.psa026vfc
+  is 'Vulnerabilidad del Factor Canal.';
+comment on column IT.PSA026.psa026n01
+  is 'Auxiliar Numerico 01.';
+comment on column IT.PSA026.psa026n02
+  is 'Auxiliar Numerico 02.';
+comment on column IT.PSA026.psa026n03
+  is 'Auxiliar Numerico 03.';
+comment on column IT.PSA026.psa026n04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA026.psa026n05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA026.psa026n06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA026.psa026n07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA026.psa026n08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA026.psa026n09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA026.psa026n10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA026.psa026c01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA026.psa026c02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA026.psa026c03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA026.psa026c04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA026.psa026c05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA026.psa026c06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA026.psa026c07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA026.psa026c08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA026.psa026c09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA026.psa026c10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA026.psa026f01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA026.psa026f02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA026.psa026f03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA026.psa026f04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA026.psa026f05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA026.psa026f06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA026.psa026f07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA026.psa026f08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA026.psa026f09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA026.psa026f10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA026
+  add constraint PK_PSA026 primary key (PSA026FIN, PSA026FFI, PSA026PAI, PSA026TDO, PSA026NDO, PSA026CCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

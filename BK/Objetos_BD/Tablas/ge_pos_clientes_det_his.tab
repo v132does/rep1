@@ -1,0 +1,168 @@
+create table IT.GE_POS_CLIENTES_DET_HIS
+(
+  fecha                  DATE,
+  cod_reporte            VARCHAR2(10),
+  cod_usu_oficial        VARCHAR2(10),
+  nom_oficial            VARCHAR2(70),
+  cod_persona            VARCHAR2(10),
+  nom_completo           VARCHAR2(120),
+  nro_cuenta             VARCHAR2(15),
+  cod_moneda             VARCHAR2(3),
+  can_dias               NUMBER(10),
+  can_dias_sobregiro     NUMBER(10),
+  mto_lin_permanente     NUMBER,
+  fec_vto_lin_permanente DATE,
+  mto_lin_temporal       NUMBER,
+  fec_vto_lin_temporal   DATE,
+  saldo                  NUMBER,
+  telefono               VARCHAR2(70),
+  tipo                   VARCHAR2(70),
+  fec_vencimiento        DATE,
+  estado                 VARCHAR2(40),
+  cuota                  VARCHAR2(10),
+  fec_ven_cuota          DATE,
+  dia_mora               NUMBER(10),
+  sal_cap_cuota          NUMBER,
+  sal_cap_operacion      NUMBER,
+  sal_mon_local          NUMBER,
+  descripcion            VARCHAR2(120),
+  tip_valor              VARCHAR2(1),
+  fec_vigencia           DATE,
+  val_tasa               NUMBER(20,4),
+  val_extension          VARCHAR2(10),
+  fec_ren_tas_orig       DATE,
+  tas_actual             VARCHAR2(10),
+  sal_int_vencido        NUMBER,
+  capital                NUMBER,
+  lin_credito            NUMBER,
+  des_tra_padre          VARCHAR2(70),
+  des_transaccion        VARCHAR2(70),
+  nro_documento          NUMBER(15),
+  monto                  NUMBER,
+  cod_oficina            NUMBER(3),
+  des_modalidad          VARCHAR2(100),
+  nro_garantia           NUMBER(7),
+  valor                  NUMBER,
+  mto_aplicado           NUMBER,
+  nro_linea              NUMBER(7),
+  fec_otorgamiento       DATE,
+  niv_aprobacion         VARCHAR2(20),
+  fec_nacimiento         DATE,
+  cod_modalidad          NUMBER(3),
+  cod_tra_padre          NUMBER(4),
+  cod_transaccion        NUMBER(4),
+  nro_lin_sob_temporal   NUMBER(7),
+  nro_lin_sob_permanente NUMBER(7)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fecha
+  is 'Fecha de generacion ';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_reporte
+  is 'Codigo de la consulta';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_usu_oficial
+  is 'Codigo del Oficial de cuentas';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nom_oficial
+  is 'Nombre del Oficial de cuentas';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_persona
+  is 'Codigo de Cliente';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nom_completo
+  is 'Nombre completo del cliente';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.can_dias
+  is 'Cantidad de dias de exceso hasta la fecha (sobregiros)';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.can_dias_sobregiro
+  is 'Cantidad total de dias de sobregiro';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.mto_lin_permanente
+  is 'Valor del acuerdo del sobregiro permanente';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fec_vto_lin_permanente
+  is 'Fecha de vencimiento del acuerdo de sobregiro permanente';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.mto_lin_temporal
+  is 'Valor del acuerdo del sobregiro temporal';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fec_vto_lin_temporal
+  is 'Fecha de vencimiento del acuerdo de sobregiro temporal';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.saldo
+  is 'Saldo';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.telefono
+  is 'Telefono del cliente';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.tipo
+  is 'Descripcion';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fec_vencimiento
+  is 'Fecha de Vencimiento';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.estado
+  is 'Estado';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cuota
+  is 'Nro de cuota (X/Y)';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fec_ven_cuota
+  is 'Fecha de vencimiento de Cuota';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.dia_mora
+  is 'Cantidad de dias de Mora';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.sal_cap_cuota
+  is 'Saldo Capital Cuota';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.sal_cap_operacion
+  is 'Saldo Capital Operacion';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.sal_mon_local
+  is 'Saldo en moneda Local';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.descripcion
+  is 'Descripcion';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fec_vigencia
+  is 'Fecha de vigencia';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.sal_int_vencido
+  is 'Saldo de Interes vencido';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.capital
+  is 'Capital';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.lin_credito
+  is 'Linea de Credito';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.des_tra_padre
+  is 'Descripcion de transaccion padre';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.des_transaccion
+  is 'Descripcion de transaccion';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nro_documento
+  is 'Numero de documento';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.monto
+  is 'Monto';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.des_modalidad
+  is 'Descripcion de Modalidad';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nro_garantia
+  is 'Numero de Garantia';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.niv_aprobacion
+  is 'Nivel de Aprobacion';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.fec_nacimiento
+  is 'Fecha de Nacimiento del cliente';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_tra_padre
+  is 'Codigo de transaccion padre';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.cod_transaccion
+  is 'Codigo de transaccion';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nro_lin_sob_temporal
+  is 'Nro. de Línea de Sobregiro Temporal.';
+comment on column IT.GE_POS_CLIENTES_DET_HIS.nro_lin_sob_permanente
+  is 'Nro. de Línea de Sobregiro Permanente.';
+create index IT.IN_GE_POS_CLI_FECHAHIS on IT.GE_POS_CLIENTES_DET_HIS (FECHA, COD_USU_OFICIAL, COD_REPORTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

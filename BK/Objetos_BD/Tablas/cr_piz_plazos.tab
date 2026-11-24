@@ -1,0 +1,106 @@
+create table IT.CR_PIZ_PLAZOS
+(
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  mto_desde          NUMBER(18,2) default 0 not null,
+  plz_desde          NUMBER(5) not null,
+  plz_hasta          NUMBER(5) not null,
+  tas_interes        NUMBER(20,4) not null,
+  tas_minima         NUMBER(20,4) not null,
+  tas_maxima         NUMBER(20,4) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  tip_capitalizacion NUMBER(2),
+  tas_efectiva       NUMBER(20,4),
+  cod_sub_modalidad  NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PIZ_PLAZOS
+  is 'Pizarra de Plazos.';
+comment on column IT.CR_PIZ_PLAZOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.CR_PIZ_PLAZOS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CR_PIZ_PLAZOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CR_PIZ_PLAZOS.mto_desde
+  is 'Monto desde.';
+comment on column IT.CR_PIZ_PLAZOS.plz_desde
+  is 'Plazo en dias desde.';
+comment on column IT.CR_PIZ_PLAZOS.plz_hasta
+  is 'Plazo en dias hasta.';
+comment on column IT.CR_PIZ_PLAZOS.tas_interes
+  is 'Tasa de interes.';
+comment on column IT.CR_PIZ_PLAZOS.tas_minima
+  is 'Tasa Minima de Interes.';
+comment on column IT.CR_PIZ_PLAZOS.tas_maxima
+  is 'Tasa Maxima de Interes.';
+comment on column IT.CR_PIZ_PLAZOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PIZ_PLAZOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PIZ_PLAZOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_PLAZOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_PLAZOS.tip_capitalizacion
+  is 'Tipo de Capitalizacion.';
+comment on column IT.CR_PIZ_PLAZOS.tas_efectiva
+  is 'Tasa Anual Efectiva.';
+comment on column IT.CR_PIZ_PLAZOS.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+alter table IT.CR_PIZ_PLAZOS
+  add constraint UK_CR_PIZ_PLAZOS unique (COD_MODULO, COD_MODALIDAD, COD_MONEDA, MTO_DESDE, PLZ_DESDE, TIP_CAPITALIZACION, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PIZ_PLAZOS
+  add constraint FK_RPIZP_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint FK_RPIZP_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint FK_RPIZP_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint AVCON_1085002325_COD_M_004
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint AVCON_1085002325_COD_M_005
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint AVCON_1094674987_TIP_C_000
+  check (TIP_CAPITALIZACION IN (1, 2, 3, 4, 6, 12, 99));
+alter table IT.CR_PIZ_PLAZOS
+  add constraint CK_PLAZO
+  check (plz_desde <= plz_hasta);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint CK_TAS_INTERES
+  check (tas_minima <= tas_interes and tas_interes <= tas_maxima);
+alter table IT.CR_PIZ_PLAZOS
+  add constraint CK_TAS_MIN_MAX
+  check (tas_minima <= tas_maxima);
+

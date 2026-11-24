@@ -1,0 +1,8 @@
+-- Create sequence 
+create sequence IT.S_NRO_SOL_PRESTAMOS
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1276521
+increment by 1
+cache 1000
+cycle;

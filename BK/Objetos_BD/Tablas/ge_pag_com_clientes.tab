@@ -1,0 +1,109 @@
+create table IT.GE_PAG_COM_CLIENTES
+(
+  fecha            DATE,
+  nro_ref_externa  VARCHAR2(15),
+  nro_cta_debito   VARCHAR2(15),
+  beneficiario     VARCHAR2(100),
+  tip_documento    VARCHAR2(3),
+  nro_documento    VARCHAR2(20),
+  nro_cta_credito  VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  cod_ent_externa  VARCHAR2(20),
+  monto            NUMBER(18,2),
+  nro_lote         NUMBER(12) not null,
+  nro_sec_lote     NUMBER(12) not null,
+  estado           VARCHAR2(1),
+  observacion      VARCHAR2(200),
+  for_pago         VARCHAR2(1),
+  fec_pago         DATE,
+  cod_ente         NUMBER(5) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_COM_CLIENTES
+  is 'Pago a Comercios.';
+comment on column IT.GE_PAG_COM_CLIENTES.fecha
+  is 'Fecha del Archivo.';
+comment on column IT.GE_PAG_COM_CLIENTES.nro_ref_externa
+  is 'Nro. de cuenta en Entidad externa (vía SIPAP).';
+comment on column IT.GE_PAG_COM_CLIENTES.nro_cta_debito
+  is 'Nro. de Cuenta de Débito.';
+comment on column IT.GE_PAG_COM_CLIENTES.beneficiario
+  is 'Nombre del Beneficiario.';
+comment on column IT.GE_PAG_COM_CLIENTES.tip_documento
+  is 'Tipo de Documento del Beneficiario. ';
+comment on column IT.GE_PAG_COM_CLIENTES.nro_documento
+  is 'Nro. de Documento del Beneficiario.';
+comment on column IT.GE_PAG_COM_CLIENTES.nro_cta_credito
+  is 'Nro. de Cuenta de Crédito.';
+comment on column IT.GE_PAG_COM_CLIENTES.cod_moneda
+  is 'Código de moneda de la operación.';
+comment on column IT.GE_PAG_COM_CLIENTES.cod_ent_externa
+  is 'Código de Entidad Externa (vía SIPAP).';
+comment on column IT.GE_PAG_COM_CLIENTES.monto
+  is 'Monto de la Operación. ';
+comment on column IT.GE_PAG_COM_CLIENTES.nro_lote
+  is 'Número de Lote. ';
+comment on column IT.GE_PAG_COM_CLIENTES.nro_sec_lote
+  is 'Número de Secuencia del lote. ';
+comment on column IT.GE_PAG_COM_CLIENTES.estado
+  is 'Estado de la Orden de Pago. C= Cargado, N= Pagado, A= Anulado, R= Reactivado,P= Pendiente de Pago.';
+comment on column IT.GE_PAG_COM_CLIENTES.observacion
+  is 'Observaciones.';
+comment on column IT.GE_PAG_COM_CLIENTES.for_pago
+  is 'Forma de Pago. C= Crédito en cuenta, T= transferencia';
+comment on column IT.GE_PAG_COM_CLIENTES.fec_pago
+  is 'Fecha de Pago.';
+comment on column IT.GE_PAG_COM_CLIENTES.cod_ente
+  is 'Código de Empresa que realiza el Pago a Proveedores de Clientes.';
+comment on column IT.GE_PAG_COM_CLIENTES.fec_insercion
+  is 'Fecha de inserción.';
+comment on column IT.GE_PAG_COM_CLIENTES.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.GE_PAG_COM_CLIENTES.fec_modificacion
+  is 'Fecha de modificación.';
+comment on column IT.GE_PAG_COM_CLIENTES.usu_modificacion
+  is 'Usuario de modificación.';
+create index IT.IN_GPCCL_BENEFICIARIO on IT.GE_PAG_COM_CLIENTES (BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_COM_CLIENTES
+  add constraint PK_GE_PAG_COM_CLIENTES primary key (NRO_LOTE, NRO_SEC_LOTE, COD_ENTE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_COM_CLIENTES
+  add constraint FK_GPCCL_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

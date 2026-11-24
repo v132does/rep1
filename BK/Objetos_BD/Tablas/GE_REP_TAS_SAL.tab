@@ -1,0 +1,28 @@
+-- =====================================================================================
+-- Tabla de reporte agrupado de Tasas Saldos Contables
+-- =====================================================================================
+CREATE TABLE IT.GE_REP_TAS_SAL (
+    ID_EJECUCION  NUMBER(18) NOT NULL,
+    CORCOD        NUMBER(6)  NOT NULL,
+    ENTCOD        NUMBER(4),
+    ACOD          NUMBER(4),
+    MONCOD        NUMBER(4),
+    SALDO         NUMBER(18,2),
+    CONSTRAINT PK_GE_REP_TAS_SAL
+        PRIMARY KEY (ID_EJECUCION, CORCOD, ENTCOD, ACOD, MONCOD)
+) TABLESPACE IT_DATA;
+
+-- Comentarios descriptivos
+COMMENT ON TABLE  IT.GE_REP_TAS_SAL              IS 'Reporte agrupado de Tasas Saldos Contables (saldos en miles de GS por CORCOD, ENTCOD, ACOD y MONCOD)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL.ID_EJECUCION IS 'ID de ejecución del proceso TSC';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL.CORCOD       IS 'Código de período de reporte (YYYYMM)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL.ENTCOD       IS 'Código de entidad BCP';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL.ACOD         IS 'Código de área (ACOD)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL.MONCOD       IS 'Código de moneda BCP';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL.SALDO        IS 'Saldo total en miles de GS (sumatoria de SAL_EN_GS/1000)';
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_REP_TAS_SAL FOR IT.GE_REP_TAS_SAL;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+  ON IT.GE_REP_TAS_SAL TO IT_TEMPORAL;

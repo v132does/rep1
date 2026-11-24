@@ -1,0 +1,25 @@
+create table IT.TM_LOG_NOMINAS
+(
+  nro_cuenta    VARCHAR2(15),
+  monto         NUMBER(18,2),
+  sal_total     NUMBER(18,2) not null,
+  sal_retenido  NUMBER(18,2),
+  sal_bloqueado NUMBER(18,2),
+  lugar         VARCHAR2(200),
+  observacion   VARCHAR2(300) not null,
+  fec_insercion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_LOG_NOMINAS
+  is 'Log para pago de Nominas.';
+

@@ -1,0 +1,179 @@
+create table IT.OV_CTA_VENCIDAS
+(
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_cta_origen     VARCHAR2(15) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  denominacion       VARCHAR2(65) not null,
+  fec_apertura       DATE not null,
+  estado             VARCHAR2(1) not null,
+  fec_cam_estado     DATE,
+  fec_ult_movimiento DATE,
+  hor_ult_movimiento VARCHAR2(8),
+  mto_origen         NUMBER(18,2) default 0 not null,
+  sal_tot_batch      NUMBER(18,2) default 0,
+  dia_atraso         NUMBER(5) default 0,
+  dia_atr_inicial    NUMBER(5) default 0,
+  dig_verificador    NUMBER(1) default 0,
+  fec_ini_mora       DATE not null,
+  val_tasa           NUMBER(20,4) default 0,
+  est_batch          VARCHAR2(1),
+  en_juicio          VARCHAR2(1) default 'N',
+  fec_juicio         DATE,
+  cod_ent_juicio     NUMBER(5),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  est_anterior       VARCHAR2(1),
+  sal_total          NUMBER(18,2) default 0,
+  sal_anterior       NUMBER(18,2),
+  nro_sol_renovada   NUMBER(7),
+  nro_cta_renovada   VARCHAR2(15),
+  cod_rub_economico  VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.OV_CTA_VENCIDAS
+  is 'Operaciones Vencidas.';
+comment on column IT.OV_CTA_VENCIDAS.cod_modulo
+  is 'Codigo de modulo de la Cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.cod_modalidad
+  is 'Codigo de modalidad de la Cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.cod_oficina
+  is 'Codigo de oficina de la Cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.nro_cta_origen
+  is 'Numero de cuenta Origen.';
+comment on column IT.OV_CTA_VENCIDAS.cod_moneda
+  is 'Codigo de la moneda con que opera la Cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.denominacion
+  is 'Rubro o Nombre de la cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.fec_apertura
+  is 'Fecha de apertura de la cuenta.';
+comment on column IT.OV_CTA_VENCIDAS.estado
+  is 'Estado de cuenta on line (V=Vencida, G=Gestion, M=Morosa, C=Cancelada, I=Incobrable).';
+comment on column IT.OV_CTA_VENCIDAS.fec_cam_estado
+  is 'Fecha de cambio de Estado.';
+comment on column IT.OV_CTA_VENCIDAS.fec_ult_movimiento
+  is 'Fecha de ultimo movimiento.';
+comment on column IT.OV_CTA_VENCIDAS.hor_ult_movimiento
+  is 'Hora del ultimo movimiento.';
+comment on column IT.OV_CTA_VENCIDAS.mto_origen
+  is 'Monto Origen.';
+comment on column IT.OV_CTA_VENCIDAS.sal_tot_batch
+  is 'Saldo total batch.';
+comment on column IT.OV_CTA_VENCIDAS.dia_atraso
+  is 'Dias de atraso actual (Este dato incluye los dias de atraso inicial)';
+comment on column IT.OV_CTA_VENCIDAS.dia_atr_inicial
+  is 'Dias de atraso inicial, por sobregiros.';
+comment on column IT.OV_CTA_VENCIDAS.dig_verificador
+  is 'Digito verificador.';
+comment on column IT.OV_CTA_VENCIDAS.fec_ini_mora
+  is 'Fecha de Incio de Mora.';
+comment on column IT.OV_CTA_VENCIDAS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.OV_CTA_VENCIDAS.est_batch
+  is 'Estado batch de la cuenta. (V=Vencida, G=Gestion, M=Morosa, C=Cancelada, I=Incobrable).';
+comment on column IT.OV_CTA_VENCIDAS.en_juicio
+  is 'Indica si la operacion se encuentra En Juicio. Valores Posibles: S/N.';
+comment on column IT.OV_CTA_VENCIDAS.fec_juicio
+  is 'Fecha en que la operacion entro a Juicio.';
+comment on column IT.OV_CTA_VENCIDAS.cod_ent_juicio
+  is 'Estudio Juridico que esta manejando el juicio.';
+comment on column IT.OV_CTA_VENCIDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.OV_CTA_VENCIDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.OV_CTA_VENCIDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.OV_CTA_VENCIDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.OV_CTA_VENCIDAS.est_anterior
+  is 'Estado anterior de la operacion.';
+comment on column IT.OV_CTA_VENCIDAS.sal_total
+  is 'Saldo total on line.';
+comment on column IT.OV_CTA_VENCIDAS.sal_anterior
+  is 'Saldo total anterior';
+comment on column IT.OV_CTA_VENCIDAS.nro_sol_renovada
+  is 'Número de Propuesta renovada.';
+comment on column IT.OV_CTA_VENCIDAS.nro_cta_renovada
+  is 'Número del nuevo préstamo al que fue renovado.';
+comment on column IT.OV_CTA_VENCIDAS.cod_rub_economico
+  is 'Código de Rubro Económico.';
+create index IT.IN_VCVE_ESTADO on IT.OV_CTA_VENCIDAS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.OV_CTA_VENCIDAS
+  add constraint PK_OV_CTA_VENCIDAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.OV_CTA_VENCIDAS
+  add constraint UK_VCVE_NRO_CTA_ORIGEN unique (NRO_CTA_ORIGEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.OV_CTA_VENCIDAS
+  add constraint FK_VCVEN_COD_ENT_JUICIO foreign key (COD_ENT_JUICIO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.OV_CTA_VENCIDAS
+  add constraint FK_VCVEN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.OV_CTA_VENCIDAS
+  add constraint FK_VCVEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.OV_CTA_VENCIDAS
+  add constraint FK_VCVEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.OV_CTA_VENCIDAS
+  add constraint FK_VCVEN_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.OV_CTA_VENCIDAS
+  add constraint FK_VCVEN_NRO_CTA_ORIGEN foreign key (NRO_CTA_ORIGEN)
+  references IT.GE_CUENTAS (NRO_CUENTA)
+  disable
+  novalidate;
+alter table IT.OV_CTA_VENCIDAS
+  add constraint AVCON_1190732674_EN_JU_000
+  check (EN_JUICIO IN ('S', 'N'));
+

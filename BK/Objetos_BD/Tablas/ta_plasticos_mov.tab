@@ -1,0 +1,61 @@
+create table IT.TA_PLASTICOS_MOV
+(
+  cod_usuario         VARCHAR2(10) not null,
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_ent_procesadora NUMBER(5),
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  tipo                NUMBER(2) not null,
+  cantidad            NUMBER(14) not null,
+  cod_tip_tarjeta     VARCHAR2(2) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PLASTICOS_MOV
+  is 'Movimientos de Plasticos.';
+comment on column IT.TA_PLASTICOS_MOV.cod_usuario
+  is 'Codigo de usuario que realizo el movimiento.';
+comment on column IT.TA_PLASTICOS_MOV.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.TA_PLASTICOS_MOV.hora
+  is 'Hora del movimiento.';
+comment on column IT.TA_PLASTICOS_MOV.cod_ent_procesadora
+  is 'Procesadora afectada por el movimiento.';
+comment on column IT.TA_PLASTICOS_MOV.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.TA_PLASTICOS_MOV.cod_modalidad
+  is 'Codigo de Modalidad de tarjeta.';
+comment on column IT.TA_PLASTICOS_MOV.tipo
+  is 'Tipo de movimiento.';
+comment on column IT.TA_PLASTICOS_MOV.cantidad
+  is 'Cantidad de plasticos afectados en el movimiento.';
+comment on column IT.TA_PLASTICOS_MOV.cod_tip_tarjeta
+  is 'Código del tipo de tarjeta.';
+alter table IT.TA_PLASTICOS_MOV
+  add constraint PK_PLAMOV primary key (COD_USUARIO, FECHA, HORA, COD_MODULO, COD_MODALIDAD, COD_TIP_TARJETA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_PLASTICOS_MOV
+  add constraint CK_TIPO_MOV
+  check ((tipo = 1 and cod_ent_procesadora is null) or (tipo <> 1 and cod_ent_procesadora is not null));
+

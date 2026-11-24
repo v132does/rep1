@@ -1,0 +1,98 @@
+create table IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI
+(
+  fec_cierre          DATE,
+  cod_entidad         NUMBER(3),
+  afinidad            NUMBER(6),
+  nro_cuenta          VARCHAR2(15) not null,
+  cta_bancaria        NUMBER(15),
+  marca               VARCHAR2(3),
+  pro_marca           VARCHAR2(3),
+  tip_cierre          VARCHAR2(2),
+  tip_inf_int_cuotas  VARCHAR2(1),
+  mto_int_corriente   NUMBER(18,2),
+  mto_int_compra      NUMBER(18,2),
+  mto_int_mora        NUMBER(18,2),
+  mto_int_punitorio   NUMBER(18,2),
+  mto_int_cuota       NUMBER(18,2),
+  mto_int_rev_cuotas  NUMBER(18,2),
+  mto_imp_int_cuota   NUMBER(18,2),
+  mto_tot_factura     NUMBER(18,2),
+  mto_imp_car_periodo NUMBER(18,2),
+  mto_imp_int_periodo NUMBER(18,2),
+  mto_imp_car_cierre  NUMBER(18,2),
+  mto_imp_int_cierre  NUMBER(18,2),
+  fec_ult_act         VARCHAR2(26),
+  ref_archivo         VARCHAR2(30) default 'TAR_INF_GAS_FINANCIEROS' not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI
+  is 'Datos enviados por Bancard sobre Informe de Gastos Financieros (PBGASFIN).';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.fec_cierre
+  is 'Fecha de Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.cod_entidad
+  is 'Cód. Entidad.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.afinidad
+  is 'Id. Afinidad.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.cta_bancaria
+  is 'Cuenta Bancaria.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.marca
+  is 'Cód. Marca.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.pro_marca
+  is 'Cód. Producto Marca.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.tip_cierre
+  is 'Id. Tipo Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.tip_inf_int_cuotas
+  is 'Tipo Informe Interés Cuotas';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_int_corriente
+  is 'Monto del Interés Corriente.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_int_compra
+  is 'Monto del Interés por Compra';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_int_mora
+  is 'Monto del Interés Moratorio.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_int_punitorio
+  is 'Monto del Interés Punitorio.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_int_cuota
+  is 'Monto Interés Cuota.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_int_rev_cuotas
+  is 'Monto Interés Reversa Cuotas';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_imp_int_cuota
+  is 'Monto del Iva 5% Cuotas.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_tot_factura
+  is 'Total Facturación';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_imp_car_periodo
+  is 'Monto del Iva 10% afectado en el Periodo.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_imp_int_periodo
+  is 'Monto del Iva 5% afectado en el Periodo.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_imp_car_cierre
+  is 'Monto del Iva 10% afecta en el Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.mto_imp_int_cierre
+  is 'Monto del Iva 5% afecta en el Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.fec_ult_act
+  is 'FH Ultima Actualización';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP_BANKITTI_ORI.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+

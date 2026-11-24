@@ -1,0 +1,44 @@
+create table IT.GE_CLI_APROBADOS_ATM
+(
+  nro_documento    VARCHAR2(20) not null,
+  cod_persona      VARCHAR2(10) not null,
+  lin_aprobada     NUMBER(18) not null,
+  cod_oficina      NUMBER(3),
+  clase            VARCHAR2(3),
+  afinidad         VARCHAR2(10),
+  tip_envio        VARCHAR2(1),
+  retener          VARCHAR2(1),
+  nom_embozar      VARCHAR2(26),
+  adicional        VARCHAR2(1),
+  deb_automatico   VARCHAR2(1),
+  nro_cta_debito   VARCHAR2(15),
+  mod_pago         VARCHAR2(1),
+  cod_tip_cierre   NUMBER(2),
+  acepta           VARCHAR2(1),
+  det_error        VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE,
+  nro_solicitud    NUMBER(10),
+  cod_canal        NUMBER(3),
+  cod_campana      NUMBER(3),
+  pun_scoring      NUMBER(17,9),
+  pro_mora         NUMBER(17,9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CLI_APROBADOS_ATM.pun_scoring
+  is 'Puntaje de Scoring del Interviniente proveniente de la herramienta externa.';
+comment on column IT.GE_CLI_APROBADOS_ATM.pro_mora
+  is 'Probabilidad de Mora. (PD)';
+

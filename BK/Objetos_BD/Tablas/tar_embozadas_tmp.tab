@@ -1,0 +1,47 @@
+create table IT.TAR_EMBOZADAS_TMP
+(
+  cod_ente         VARCHAR2(2),
+  cod_clase        VARCHAR2(2),
+  afinidad         VARCHAR2(2),
+  nro_tarjeta      VARCHAR2(25),
+  digito           VARCHAR2(1),
+  nom_usuario      VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default substr(user,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TAR_EMBOZADAS_TMP
+  is 'Contiene los Datos de las Tarjetas Embozadas Temporales';
+comment on column IT.TAR_EMBOZADAS_TMP.cod_ente
+  is 'Codigo de Ente.';
+comment on column IT.TAR_EMBOZADAS_TMP.cod_clase
+  is 'Codigo de Clase.';
+comment on column IT.TAR_EMBOZADAS_TMP.afinidad
+  is 'Afinidad Tarjeta.';
+comment on column IT.TAR_EMBOZADAS_TMP.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TAR_EMBOZADAS_TMP.digito
+  is 'Digito Tarjeta Embozado.';
+comment on column IT.TAR_EMBOZADAS_TMP.nom_usuario
+  is 'Nombre Usuario.';
+comment on column IT.TAR_EMBOZADAS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TAR_EMBOZADAS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TAR_EMBOZADAS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TAR_EMBOZADAS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

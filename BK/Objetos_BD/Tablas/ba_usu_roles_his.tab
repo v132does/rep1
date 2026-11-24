@@ -1,0 +1,52 @@
+create table IT.BA_USU_ROLES_HIS
+(
+  fecha            DATE default SYSDATE not null,
+  cod_rol          VARCHAR2(20) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_USU_ROLES_HIS
+  is 'Histórico de Usuarios por Roles.';
+comment on column IT.BA_USU_ROLES_HIS.fecha
+  is 'Fecha del registro';
+comment on column IT.BA_USU_ROLES_HIS.cod_rol
+  is 'Codigo del rol.';
+comment on column IT.BA_USU_ROLES_HIS.cod_usuario
+  is 'Codigo del usuario.';
+comment on column IT.BA_USU_ROLES_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_USU_ROLES_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_USU_ROLES_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_USU_ROLES_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_USU_ROLES_HIS
+  add constraint PK_BA_USU_ROLES_HIS primary key (COD_ROL, COD_USUARIO, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

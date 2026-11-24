@@ -1,0 +1,49 @@
+create table IT.GE_PRO_CUENTAS
+(
+  cod_proposito    NUMBER(8) not null,
+  descripcion      VARCHAR2(60),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PRO_CUENTAS
+  is 'Propósito de Cuentas.';
+comment on column IT.GE_PRO_CUENTAS.cod_proposito
+  is 'código de Propósito de Cuenta.';
+comment on column IT.GE_PRO_CUENTAS.descripcion
+  is 'Descripción de Propósito de Cuenta.';
+comment on column IT.GE_PRO_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PRO_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PRO_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PRO_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_PRO_CUENTAS
+  add constraint PK_GE_PRO_CUENTAS primary key (COD_PROPOSITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

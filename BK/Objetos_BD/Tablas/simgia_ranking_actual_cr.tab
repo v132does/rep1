@@ -1,0 +1,27 @@
+create table IT.SIMGIA_RANKING_ACTUAL_CR
+(
+  tipo                     CHAR(2),
+  nom_gestor               VARCHAR2(100),
+  fecha                    DATE,
+  grupo_oficina            VARCHAR2(100),
+  mto_objetivo             NUMBER(18,2),
+  total_mto_gs             NUMBER,
+  porc                     NUMBER,
+  ranking_actual           NUMBER,
+  ranking_anterior         NUMBER,
+  ranking_oficina          NUMBER,
+  ranking_oficina_anterior NUMBER,
+  sub_region_oficina       NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

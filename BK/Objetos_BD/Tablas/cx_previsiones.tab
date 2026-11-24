@@ -1,0 +1,82 @@
+create table IT.CX_PREVISIONES
+(
+  fecha              DATE not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  monto              NUMBER(18,2) default 0 not null,
+  saldo              NUMBER(18,2) default 0,
+  porcentaje         NUMBER(5,2) default 0,
+  tot_gar_computable NUMBER(18,2) default 0,
+  tot_pri_prevision  NUMBER(18,2) default 0,
+  tot_desafectacion  NUMBER(18,2) default 0,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  mto_pre_anterior   NUMBER(18,2),
+  por_pre_anterior   NUMBER(5,2),
+  por_calculado      NUMBER(5,2),
+  ind_pri_sem_cat6   VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CX_PREVISIONES
+  is 'Previsiones de Cuentas de Comercio Exterior.';
+comment on column IT.CX_PREVISIONES.fecha
+  is 'Fecha de Previsión.';
+comment on column IT.CX_PREVISIONES.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CX_PREVISIONES.monto
+  is 'Importe de la Previsión.';
+comment on column IT.CX_PREVISIONES.saldo
+  is 'Saldo adeudado en el momento del cálculo.';
+comment on column IT.CX_PREVISIONES.porcentaje
+  is 'Porcentaje de riesgo considerado para el cálculo.';
+comment on column IT.CX_PREVISIONES.tot_gar_computable
+  is 'Total computado de garantías para el cálculo.';
+comment on column IT.CX_PREVISIONES.tot_pri_prevision
+  is 'Importe de la primera Previsión.';
+comment on column IT.CX_PREVISIONES.tot_desafectacion
+  is 'Total última desafectación.';
+comment on column IT.CX_PREVISIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CX_PREVISIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CX_PREVISIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CX_PREVISIONES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.CX_PREVISIONES.mto_pre_anterior
+  is 'Monto Anterior Previsionado.';
+comment on column IT.CX_PREVISIONES.por_pre_anterior
+  is 'Porcentaje Previsionado Anteriormente.';
+comment on column IT.CX_PREVISIONES.por_calculado
+  is 'Porcentaje Calculado.';
+comment on column IT.CX_PREVISIONES.ind_pri_sem_cat6
+  is 'Indicador que se calculó la previsión por el primer semestre de la previsión.';
+alter table IT.CX_PREVISIONES
+  add constraint PK_CX_PREVISIONES primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_PREVISIONES
+  add constraint FK_XPREV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

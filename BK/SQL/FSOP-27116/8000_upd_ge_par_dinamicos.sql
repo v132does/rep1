@@ -1,0 +1,7 @@
+BEGIN pre_ini_aplicacion; pae_cnf.G_COD_MODULO := 1; END;
+/
+update GE_PAR_DINAMICOS G
+set G.VAL_PARAMETRO = ',INFONET,HBANKF,APICAJERO,HBANKJ,EINVOICE,'
+where G.PARAMETRO = 'USU_PRE_VER_SES';
+
+commit;

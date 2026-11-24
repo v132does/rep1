@@ -1,0 +1,121 @@
+create table IT.PR_GRU_LINEAS
+(
+  nro_linea           NUMBER(7) not null,
+  cod_gru_economico   NUMBER(5),
+  cod_moneda          VARCHAR2(3) not null,
+  monto               NUMBER(18,2) not null,
+  fec_vencimiento     DATE,
+  fec_otorgamiento    DATE not null,
+  mto_aplicado        NUMBER(18,2),
+  descripcion         VARCHAR2(60),
+  estado              VARCHAR2(1),
+  observacion         VARCHAR2(1000),
+  niv_aprobacion      VARCHAR2(3),
+  cotizacion          NUMBER(14,8),
+  fec_aprobacion      DATE,
+  nro_acta            NUMBER(10),
+  mto_ope_especificas NUMBER(18,2),
+  cod_campana         NUMBER(3) not null,
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_GRU_LINEAS.nro_linea
+  is 'Número de la Línea.';
+comment on column IT.PR_GRU_LINEAS.cod_gru_economico
+  is 'Grupo Económico.';
+comment on column IT.PR_GRU_LINEAS.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.PR_GRU_LINEAS.monto
+  is 'Monto de Límite Global.';
+comment on column IT.PR_GRU_LINEAS.fec_vencimiento
+  is 'Fecha de Validez desde.';
+comment on column IT.PR_GRU_LINEAS.fec_otorgamiento
+  is 'Fecha de Otorgamiento.';
+comment on column IT.PR_GRU_LINEAS.mto_aplicado
+  is 'Valor ya aplicado del límite global.';
+comment on column IT.PR_GRU_LINEAS.descripcion
+  is 'Descripción de Límite Global.';
+comment on column IT.PR_GRU_LINEAS.estado
+  is 'Estado del Límite Global (P=Pendiente, A=Aprobado, V=Vencido, B=Bloqueado, C=Cancelado).';
+comment on column IT.PR_GRU_LINEAS.observacion
+  is 'Observaciones.';
+comment on column IT.PR_GRU_LINEAS.niv_aprobacion
+  is 'Niveles de aprobación.';
+comment on column IT.PR_GRU_LINEAS.cotizacion
+  is 'Cotización.';
+comment on column IT.PR_GRU_LINEAS.fec_aprobacion
+  is 'Fecha de Aprobación.';
+comment on column IT.PR_GRU_LINEAS.nro_acta
+  is 'Número de Acta.';
+comment on column IT.PR_GRU_LINEAS.mto_ope_especificas
+  is 'Monto de Operaciones Especificas';
+comment on column IT.PR_GRU_LINEAS.cod_campana
+  is 'Código de campaña.';
+comment on column IT.PR_GRU_LINEAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GRU_LINEAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GRU_LINEAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GRU_LINEAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_PGRULIN_ESTADO on IT.PR_GRU_LINEAS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GRU_LINEAS
+  add constraint PK_PR_GRU_LINEAS primary key (NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GRU_LINEAS
+  add constraint FK_PGRLI_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.PR_GRU_LINEAS
+  add constraint FK_PGRLI_COD_GRU_ECONOMICO foreign key (COD_GRU_ECONOMICO)
+  references IT.GE_GRU_ECONOMICOS (COD_GRU_ECONOMICO)
+  disable
+  novalidate;
+alter table IT.PR_GRU_LINEAS
+  add constraint FK_PGRLI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_GRU_LINEAS
+  add constraint AVCON_1099424376_COD_G_002
+  check (COD_GRU_ECONOMICO BETWEEN 0 AND 99999);
+alter table IT.PR_GRU_LINEAS
+  add constraint AVCON_1121198217_ESTAD_001
+  check (ESTADO IN ('A', 'B', 'C', 'P', 'R', 'V'));
+alter table IT.PR_GRU_LINEAS
+  add constraint CK_PGRLI_MTO_APLICADO
+  check ((NVL(MONTO,0) - NVL(MTO_APLICADO,0) ) >= 0);
+

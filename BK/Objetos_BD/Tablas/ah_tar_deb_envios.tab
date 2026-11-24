@@ -1,0 +1,65 @@
+create table IT.AH_TAR_DEB_ENVIOS
+(
+  fec_proceso         DATE,
+  estado              VARCHAR2(1),
+  can_tar_nuevas      NUMBER(10),
+  can_tar_renovadas   NUMBER(10),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_ent_procesadora NUMBER(5) not null,
+  can_rel_cuentas     NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEB_ENVIOS
+  is 'Control de Envios a la Procesadora.';
+comment on column IT.AH_TAR_DEB_ENVIOS.fec_proceso
+  is 'Fecha Proceso.';
+comment on column IT.AH_TAR_DEB_ENVIOS.estado
+  is 'Estado :  G-Generado   T-Transferido.';
+comment on column IT.AH_TAR_DEB_ENVIOS.can_tar_nuevas
+  is 'Cantidad de Tarjetas Nuevas.';
+comment on column IT.AH_TAR_DEB_ENVIOS.can_tar_renovadas
+  is 'Cantidad de Tarjetas Renovadas.';
+comment on column IT.AH_TAR_DEB_ENVIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_TAR_DEB_ENVIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_TAR_DEB_ENVIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEB_ENVIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEB_ENVIOS.cod_ent_procesadora
+  is 'Entidad Procesadora de la Tarjeta.';
+comment on column IT.AH_TAR_DEB_ENVIOS.can_rel_cuentas
+  is 'Cantidad de Relacion de cuentas.';
+create unique index IT.PK_AH_TAR_DEB_ENVIOS on IT.AH_TAR_DEB_ENVIOS (FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_TAR_DEB_ENVIOS
+  add constraint FK_ATDEN_COD_ENT_PROCESADORA foreign key (COD_ENT_PROCESADORA)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.AH_TAR_DEB_ENVIOS
+  add constraint AVCON_1118359803_ESTAD_000
+  check (ESTADO IN ('G', 'T'));
+

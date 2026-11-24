@@ -1,0 +1,30 @@
+CREATE OR REPLACE FORCE VIEW IT.GV_DAT_EVA_OPERACIONES AS
+SELECT a.nro_intento,
+       a.cod_persona,
+       a.tip_rel_persona,
+       TRIM(substr(a.dat_entrada, 25, 10)) afinidad,
+       decode(to_number(TRIM(substr(a.dat_entrada, 35, 3))),0,null,to_number(TRIM(substr(a.dat_entrada, 35, 3)))) cod_canal,
+       decode(to_number(TRIM(substr(a.dat_entrada, 38, 3))),0,null,to_number(TRIM(substr(a.dat_entrada, 38, 3)))) cod_cam_preaprobados,
+       to_number(TRIM(substr(a.dat_entrada, 41, 3))) cod_destino,
+       TRIM(substr(a.dat_entrada, 44, 1)) deb_automatico,
+       to_date(TRIM(substr(a.dat_entrada, 45, 8)),'YYYYMMDD') fec_inicio,
+       to_number(TRIM(substr(a.dat_entrada, 53, 3))) cod_modalidad,
+       TRIM(substr(a.dat_entrada, 56, 3)) cod_moneda,
+       TRIM(substr(a.dat_entrada, 59, 10)) cod_mon_linea,
+       TRIM(substr(a.dat_entrada, 69, 3)) cod_mon_garantia,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 72, 20))) mto_aplicado,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 92, 20))) mto_linea,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 112, 20))) mto_solicitado,
+       to_number(TRIM(substr(a.dat_entrada, 132, 3))) can_cuota,
+       to_number(TRIM(substr(a.dat_entrada, 135, 7))) nro_solicitud,
+       to_number(TRIM(substr(a.dat_entrada, 142, 3))) cod_oficina,
+       to_number(TRIM(substr(a.dat_entrada, 145, 4))) dia_plazo,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 149, 20))) val_tasacion,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 169, 20))) val_tasa,
+       TRIM(substr(a.dat_entrada, 189, 3)) tip_vivienda,
+       decode(TRIM(substr(a.dat_entrada, 192, 3)),0,null,TRIM(substr(a.dat_entrada, 192, 3))) tip_garantia,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 195, 20))) valor,
+       fug_obt_val_numerico(TRIM(substr(a.dat_entrada, 215, 20))) val_presupuesto
+  FROM ge_dat_rie_evaluaciones_det a
+ WHERE tip_rel_persona = 'P';
+

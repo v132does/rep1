@@ -1,0 +1,38 @@
+create table IT.SIMGIA_ARBOSUBOR_BKP
+(
+  bsserie    VARCHAR2(5),
+  bsnumero   NUMBER(7),
+  bscupon    NUMBER,
+  bstitur    VARCHAR2(10),
+  bssuc      NUMBER(3),
+  bsnumclien VARCHAR2(10),
+  bsagente   CHAR(1),
+  bsmoneda   VARCHAR2(2),
+  bsmonto    NUMBER(18,2),
+  bsfemisi   VARCHAR2(8),
+  bsvencim   VARCHAR2(8),
+  bstipot    CHAR(1),
+  bstasa1    NUMBER,
+  bstasa2    NUMBER,
+  bstasa3    NUMBER,
+  bstasa4    NUMBER,
+  bslrm_lib  CHAR(4),
+  bsfeini    VARCHAR2(8),
+  bsdeveng   NUMBER,
+  bsusuario  VARCHAR2(10),
+  bsfereg    VARCHAR2(8),
+  bspigno    CHAR(1),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

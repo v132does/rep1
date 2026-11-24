@@ -1,0 +1,8 @@
+create sequence IT.S_SER_USER_WEPAPAGSER
+minvalue 1
+maxvalue 999999999
+start with 3857961
+increment by 1
+nocache
+cycle;
+

@@ -1,0 +1,76 @@
+create table IT.RH_REPOSOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_reposo       NUMBER(5) not null,
+  fec_proceso      DATE not null,
+  fec_inicio       DATE not null,
+  fec_final        DATE not null,
+  can_dias         NUMBER(3) not null,
+  cod_cau_reposo   NUMBER(3) not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_REPOSOS
+  is 'Reposos de Empleados.';
+comment on column IT.RH_REPOSOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_REPOSOS.nro_reposo
+  is 'Numero de Reposo.';
+comment on column IT.RH_REPOSOS.fec_proceso
+  is 'Fecha de proceso del Reposo.';
+comment on column IT.RH_REPOSOS.fec_inicio
+  is 'Fecha de Inicio de Reposo del Empleado.';
+comment on column IT.RH_REPOSOS.fec_final
+  is 'Fecha de Fin del Reposo del Empleado.';
+comment on column IT.RH_REPOSOS.can_dias
+  is 'Cantidad de dias del Reposo.';
+comment on column IT.RH_REPOSOS.cod_cau_reposo
+  is 'Causal del Reposo.';
+comment on column IT.RH_REPOSOS.observacion
+  is 'Observaciones.';
+comment on column IT.RH_REPOSOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_REPOSOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_REPOSOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_REPOSOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_REPOSOS
+  add constraint PK_RH_REPOSOS primary key (NRO_REPOSO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_REPOSOS
+  add constraint FK_HREPO_COD_CAU_REPOSO foreign key (COD_CAU_REPOSO)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.RH_REPOSOS
+  add constraint FK_HREPO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_REPOSOS
+  add constraint CK_FEC_INICIO_REPOSO
+  check (FEC_INICIO <= FEC_FINAL);
+

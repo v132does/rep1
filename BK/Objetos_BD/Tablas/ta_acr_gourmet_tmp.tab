@@ -1,0 +1,59 @@
+create table IT.TA_ACR_GOURMET_TMP
+(
+  cod_ente         NUMBER(5) not null,
+  nro_cta_debito   VARCHAR2(15) not null,
+  nro_tarjeta      VARCHAR2(25) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  nro_archivo      NUMBER(10),
+  estado           VARCHAR2(1),
+  msj_error        VARCHAR2(3000),
+  nro_documento    VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_recepcion    DATE,
+  fec_proceso      DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ACR_GOURMET_TMP
+  is 'Contiene los datos de las acreditaciones a tarjetas gourmets realizados a Bancard.';
+comment on column IT.TA_ACR_GOURMET_TMP.cod_ente
+  is 'Codigo del Ente.';
+comment on column IT.TA_ACR_GOURMET_TMP.nro_cta_debito
+  is 'Numero de Cuenta.';
+comment on column IT.TA_ACR_GOURMET_TMP.nro_tarjeta
+  is 'Numero de Tarjeta a acreditar.';
+comment on column IT.TA_ACR_GOURMET_TMP.monto
+  is 'Monto a acreditar.';
+comment on column IT.TA_ACR_GOURMET_TMP.nro_archivo
+  is 'Numero de lote HB';
+comment on column IT.TA_ACR_GOURMET_TMP.estado
+  is 'Estados (Pendiente, Autorizado, Procesado, Rechazado)';
+comment on column IT.TA_ACR_GOURMET_TMP.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.TA_ACR_GOURMET_TMP.nro_documento
+  is 'Numero de Documento del titular de la tarjeta.';
+comment on column IT.TA_ACR_GOURMET_TMP.usu_insercion
+  is 'Auditoria.';
+comment on column IT.TA_ACR_GOURMET_TMP.fec_insercion
+  is 'Auditoria.';
+comment on column IT.TA_ACR_GOURMET_TMP.usu_modificacion
+  is 'Auditoria.';
+comment on column IT.TA_ACR_GOURMET_TMP.fec_modificacion
+  is 'Auditoria.';
+comment on column IT.TA_ACR_GOURMET_TMP.fec_recepcion
+  is 'Fecha de recepcion de la acreditacion';
+comment on column IT.TA_ACR_GOURMET_TMP.fec_proceso
+  is 'Fecha de proceso';
+

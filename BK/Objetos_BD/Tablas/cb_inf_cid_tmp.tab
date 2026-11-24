@@ -1,0 +1,22 @@
+create table IT.CB_INF_CID_TMP
+(
+  cidesa          VARCHAR2(200) not null,
+  cod_bco_central VARCHAR2(4) not null,
+  cod_moneda      VARCHAR2(4),
+  cod_modalidad   NUMBER(3),
+  tipo            VARCHAR2(1),
+  frecuencia      VARCHAR2(1),
+  fecha           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

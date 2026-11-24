@@ -1,0 +1,58 @@
+create table IT.BW_TIP_MEN_PROHIBIDOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_tip_mensaje  VARCHAR2(3) not null,
+  observaciones    VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default USER not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default USER not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_TIP_MEN_PROHIBIDOS
+  is 'Tipos de mensajes prohibidos por persona';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.cod_tip_mensaje
+  is 'Codigo de Tipo de Mensaje.';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.observaciones
+  is 'Observaciones';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_TIP_MEN_PROHIBIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BW_TIP_MEN_PROHIBIDOS
+  add constraint PK_TIP_MEN_PROHIBIDAS primary key (COD_PERSONA, COD_TIP_MENSAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TIP_MEN_PROHIBIDOS
+  add constraint FK_WTMPR_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_TIP_MEN_PROHIBIDOS
+  add constraint FK_WTMPR_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+

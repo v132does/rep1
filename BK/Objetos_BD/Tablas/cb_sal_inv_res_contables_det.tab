@@ -1,0 +1,67 @@
+create table IT.CB_SAL_INV_RES_CONTABLES_DET
+(
+  fecha                      DATE not null,
+  cod_rubro                  VARCHAR2(15) not null,
+  nro_cuenta                 VARCHAR2(15) not null,
+  val_cotizacion             NUMBER(14,8),
+  sal_mon_extranjera         NUMBER(18,2),
+  sal_mon_local              NUMBER(18,4),
+  sal_acu_act_mon_extranjera NUMBER(18,2),
+  sal_acu_act_mon_local      NUMBER(18,4),
+  usu_insercion              VARCHAR2(10) default substr(user,1,10),
+  fec_insercion              DATE default sysdate,
+  usu_modificacion           VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion           DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INV_RES_CONTABLES_DET
+  is 'Detalle de saldos historicos para inventario de cuentas de resultado.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.fecha
+  is 'Fecha de monto inventariado';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.cod_rubro
+  is 'Rubro del inventario.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.nro_cuenta
+  is 'Nro. de cuenta.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.val_cotizacion
+  is 'Cotización del día.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.sal_mon_extranjera
+  is 'Saldo inventariado en moneda extranjera.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.sal_mon_local
+  is 'saldo inventariado en moneda local.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.sal_acu_act_mon_extranjera
+  is 'Saldo acumulado actual en moneda extranjera.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.sal_acu_act_mon_local
+  is 'Saldo acumulado actual en moneda local.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.fec_insercion
+  is 'Fecha de inserción.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.usu_modificacion
+  is 'Usuario que realizo la modificación.';
+comment on column IT.CB_SAL_INV_RES_CONTABLES_DET.fec_modificacion
+  is 'Fecha de modificación.';
+alter table IT.CB_SAL_INV_RES_CONTABLES_DET
+  add constraint PK_CB_SAL_INV_RES_CONT_DET primary key (FECHA, COD_RUBRO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

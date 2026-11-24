@@ -1,0 +1,48 @@
+create table IT.SB_SNP_CATASTROS_DET
+(
+  nro_orden        NUMBER(15) not null,
+  estado           VARCHAR2(1) not null,
+  fec_cobro        DATE,
+  monto            NUMBER(18,2) not null,
+  nro_referencia   VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_SNP_CATASTROS_DET.nro_orden
+  is 'Identificador del Catastro.';
+comment on column IT.SB_SNP_CATASTROS_DET.estado
+  is 'Estado del Catastro.P-Pendiente, L-Liquidado , C-Cancelado, O-Pre proceso OK	';
+comment on column IT.SB_SNP_CATASTROS_DET.fec_cobro
+  is 'Fecha de cobro';
+comment on column IT.SB_SNP_CATASTROS_DET.monto
+  is 'Monto debitado';
+comment on column IT.SB_SNP_CATASTROS_DET.nro_referencia
+  is 'Referencia de solicitud MT104';
+comment on column IT.SB_SNP_CATASTROS_DET.usu_insercion
+  is 'Usuario que inserta el registro.';
+comment on column IT.SB_SNP_CATASTROS_DET.fec_insercion
+  is 'Fecha en que se inserta el registro.';
+comment on column IT.SB_SNP_CATASTROS_DET.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.SB_SNP_CATASTROS_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.SB_SNP_CATASTROS_DET
+  add constraint FK_SSCDE_NRO_ORDEN foreign key (NRO_ORDEN)
+  references IT.SB_SNP_CATASTROS (NRO_ORDEN);
+alter table IT.SB_SNP_CATASTROS_DET
+  add constraint CK_SSCDE_ESTADO
+  check (ESTADO IN ('P', 'L', 'C','O'));
+

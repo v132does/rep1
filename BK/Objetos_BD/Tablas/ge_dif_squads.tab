@@ -1,0 +1,9 @@
+CREATE TABLE IT.GE_DIF_SQUADS (
+    ID NUMBER  PRIMARY KEY,
+    USUARIO VARCHAR2(50) UNIQUE NOT NULL,
+    SQUAD VARCHAR2(50)
+)TABLESPACE it_data;
+
+COMMENT ON COLUMN IT.GE_DIF_SQUADS.ID IS 'Identificador único para cada registro en la tabla.';
+COMMENT ON COLUMN IT.GE_DIF_SQUADS.USUARIO IS 'Usuario asociado al campo USU_INSERCION.';
+COMMENT ON COLUMN IT.GE_DIF_SQUADS.SQUAD IS 'Nombre del squad al que pertenece el usuario.';

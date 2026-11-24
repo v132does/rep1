@@ -1,0 +1,22 @@
+ CREATE TABLE it.ge_cta_dif_segmentadas (
+    nro_cuenta       	VARCHAR2(50),
+    fecha             	DATE,
+    fec_insercion       DATE,
+    usuario           	VARCHAR2(50),
+    monto             	NUMBER(18,2),
+    tipo_diferencia   	VARCHAR2(2000),
+    moneda              VARCHAR2(50),
+    squad               VARCHAR2(50),
+    sentido             CHAR (1)
+) TABLESPACE it_data; 
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.NRO_CUENTA IS 'Numero de cuenta.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.FECHA IS 'Fecha en que se registra la diferencia de saldo segmentada.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.FEC_INSERCION IS 'Fecha de insercion del registro en la tabla maestra';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.USUARIO IS 'Usuario que generó o procesó la diferencia de saldo segmentada.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.MONTO IS 'Monto de la diferencia de saldo segmentada.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.TIPO_DIFERENCIA IS 'Descripción del tipo de diferencia que se registra (DISPONIBLE, BLOQUEADO, RETENIDO).';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.MONEDA IS 'Tipo de moneda'; 
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.SQUAD IS 'Squad asociado con el usuario o el registro'; 
+COMMENT ON COLUMN IT.GE_CTA_DIF_SEGMENTADAS.SENTIDO IS 'Signo del monto manejado de forma Automatica o Manual';  
+

@@ -1,0 +1,58 @@
+create materialized view IT.GV_MOVIMIENTOS_CAN_AUD
+refresh force on demand
+as
+select PERSONA,NRO_PRESTAMO,FECHA,HORA,COD_USUARIO,NRO_SECUENCIA,FEC_VALOR,MONTO,NRO_CUENTA,COD_MONEDA,COD_OFICINA,COD_OFI_ORIGEN,CONCEPTO,COD_TRA_PADRE,COD_MOD_PADRE,COD_MAD_PADRE,COD_TRANSACCION,COD_MODULO,COD_MODALIDAD,MTO_EQU_LOCAL,NRO_CAJA,COTIZACION,USU_INSERCION,FEC_INSERCION,USU_MODIFICACION,FEC_MODIFICACION from (
+        select c.cod_persona persona,substr(g.concepto,instr(g.concepto,':')+1, (length(g.concepto))) nro_prestamo,p.estado est_prest, p.sal_capital,p.sal_interes,p.can_cuotas, g.*
+        from pr_movimientos_his g, pr_cta_prestamos p ,ge_cta_clientes c
+        where substr(g.concepto,instr(g.concepto,':')+1, (length(g.concepto)))=p.nro_cuenta
+        and c.nro_cuenta=p.nro_cuenta
+        and c.relacion='P'
+        and g.cod_oficina=14
+        and g.fecha between '01/01/2018' and '31/12/2018'
+
+        union all
+        select c.cod_persona persona,substr(g.concepto,instr(g.concepto,'o ')+2, (length(g.concepto))) nro_prestamo,p.estado est_prest, p.sal_capital,p.sal_interes,p.can_cuotas, g.*
+        from pr_movimientos_his g, pr_cta_prestamos p ,ge_cta_clientes c
+        where substr(g.concepto,instr(g.concepto,'o ')+2, (length(g.concepto)))=p.nro_cuenta
+        and c.nro_cuenta=p.nro_cuenta
+        and c.relacion='P'
+        and g.cod_oficina=14
+        and g.fecha between '01/01/2018' and '31/12/2018'
+        union all
+        select c.cod_persona persona,substr(g.concepto,instr(g.concepto,'a ')+2, (length(g.concepto))) nro_prestamo,p.estado est_prest, p.sal_capital,p.sal_interes,p.can_cuotas, g.*
+        from pr_movimientos_his g, pr_cta_prestamos p ,ge_cta_clientes c
+        where substr(g.concepto,instr(g.concepto,'a ')+2, (length(g.concepto)))=p.nro_cuenta
+        and c.nro_cuenta=p.nro_cuenta
+        and c.relacion='P'
+        and g.cod_oficina=14
+        and g.fecha between '01/01/2018' and '31/12/2018'
+
+        union all
+        select c.cod_persona persona,substr(g.concepto,instr(g.concepto,'MO')+3, (length(g.concepto))) nro_prestamo,p.estado est_prest, p.sal_capital,p.sal_interes,p.can_cuotas, G.*
+        from pr_movimientos_his g, pr_cta_prestamos p ,ge_cta_clientes c
+        where substr(g.concepto,instr(g.concepto,'MO')+3, (length(g.concepto)))=p.nro_cuenta
+        and c.nro_cuenta=p.nro_cuenta
+        and c.relacion='P'
+        AND G.COD_TRANSACCION<>806
+        and g.cod_oficina=14
+        and g.fecha between '01/01/2018' and '31/12/2018'
+        union all
+        select c.cod_persona persona,g.nro_cuenta,p.estado est_prest, p.sal_capital,p.sal_interes,p.can_cuotas, G.*
+        from pr_movimientos_his g, pr_cta_prestamos p ,ge_cta_clientes c
+        where g.nro_cuenta=p.nro_cuenta
+        and c.nro_cuenta=p.nro_cuenta
+        and c.relacion='P'
+        AND G.COD_TRANSACCION=801
+        and g.concepto='Pago de Cuota'
+        and g.cod_oficina=14
+        and g.fecha between '01/01/2018' and '31/12/2018'
+        union all
+        select c.cod_persona persona, substr(g.concepto,instr(g.concepto,'. ')+2, (length(g.concepto))) nro_prestamo,p.estado est_prest, p.sal_capital,p.sal_interes,p.can_cuotas, g.*
+        from pr_movimientos_his g, pr_cta_prestamos p ,ge_cta_clientes c
+        where substr(g.concepto,instr(g.concepto,'. ')+2, (length(g.concepto)))=p.nro_cuenta
+        and c.nro_cuenta=p.nro_cuenta
+        and c.relacion='P'
+        and g.cod_oficina=14
+        and g.fecha between '01/01/2018' and '31/12/2018'
+        ) j;
+

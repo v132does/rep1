@@ -1,0 +1,92 @@
+create table IT.TA_INF_GAS_FINANCIEROS_TMP
+(
+  ref_archivo        VARCHAR2(30) default 'TA_INF_GAS_FINANCIEROS_TMP' not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  mto_int_corriente  NUMBER(18,2),
+  mto_int_mora       NUMBER(18,2),
+  mto_int_punitorio  NUMBER(18,2),
+  mto_int_cuota      NUMBER(18,2),
+  mto_iva_afe_per_10 NUMBER(18,2),
+  mto_iva_afe_per_5  NUMBER(18,2),
+  mto_iva_afe_cie_10 NUMBER(18,2),
+  mto_iva_afe_cie_5  NUMBER(18,2),
+  mto_iva_cuo_5      NUMBER(18,2),
+  fec_cierre         DATE,
+  usu_control        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_control        DATE default SYSDATE not null,
+  mto_int_rev_cuota  NUMBER(18,2),
+  mto_int_compra     NUMBER(18,2),
+  tot_facturacion    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_INF_GAS_FINANCIEROS_TMP
+  is 'Datos enviados por Bancard sobre Informe de Gastos Financieros.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_int_corriente
+  is 'Monto del Interés Corriente.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_int_mora
+  is 'Monto del Interés Moratorio.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_int_punitorio
+  is 'Monto del Interés Punitorio.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_int_cuota
+  is 'Monto Interés Cuota.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_iva_afe_per_10
+  is 'Monto del Iva 10% afectado en el Periodo.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_iva_afe_per_5
+  is 'Monto del Iva 5% afectado en el Periodo.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_iva_afe_cie_10
+  is 'Monto del Iva 10% afecta en el Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_iva_afe_cie_5
+  is 'Monto del Iva 5% afecta en el Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_iva_cuo_5
+  is 'Monto del Iva 5% Cuotas.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.fec_cierre
+  is 'Fecha de Cierre.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.usu_control
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.fec_control
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_int_rev_cuota
+  is 'Monto de interés de reversión de cuota.';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.mto_int_compra
+  is 'Monto de Interés por compras en cuota. ';
+comment on column IT.TA_INF_GAS_FINANCIEROS_TMP.tot_facturacion
+  is 'Monto Total Facturado.';
+create index IT.IN_TIGFIN_NRO_CUENTA on IT.TA_INF_GAS_FINANCIEROS_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TIGFIN_REF_ARCHIVO on IT.TA_INF_GAS_FINANCIEROS_TMP (REF_ARCHIVO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

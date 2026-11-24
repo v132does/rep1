@@ -1,0 +1,106 @@
+create table IT.WF_TIP_CIR_TAREAS
+(
+  cod_tip_circuito      NUMBER(3) not null,
+  cod_tip_tarea         NUMBER(3) not null,
+  descripcion           VARCHAR2(100) not null,
+  detalle               VARCHAR2(300),
+  estado                VARCHAR2(1) default 'A' not null,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  cod_gru_responsable   VARCHAR2(5) not null,
+  cod_tip_tar_siguiente NUMBER(3),
+  cod_tip_tar_rechazo   NUMBER(3),
+  can_fir_requeridas    NUMBER(2),
+  aut_conjunta          VARCHAR2(1) default 'N',
+  tip_tiempo            VARCHAR2(1) default 'H',
+  tie_estimado          NUMBER(6),
+  tip_eti_siguiente     VARCHAR2(1) default 'A' not null,
+  tip_eti_rechazo       VARCHAR2(1) default 'R' not null,
+  tip_eti_cancelacion   VARCHAR2(1) default 'C' not null,
+  det_sql               VARCHAR2(4000),
+  act_automatica        VARCHAR2(1) default 'N',
+  asi_responsable       VARCHAR2(1),
+  env_mail              VARCHAR2(1) default 'N',
+  cod_tip_limite        NUMBER(3),
+  ve_usuario            VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_TIP_CIR_TAREAS
+  is 'Definición de las tareas o pasos a realizar por cada definicion de circuitos.';
+comment on column IT.WF_TIP_CIR_TAREAS.cod_tip_circuito
+  is 'Código del tipo de circuito.';
+comment on column IT.WF_TIP_CIR_TAREAS.cod_tip_tarea
+  is 'Código de la tarea definida.';
+comment on column IT.WF_TIP_CIR_TAREAS.descripcion
+  is 'Descripción del tipo de circuito.';
+comment on column IT.WF_TIP_CIR_TAREAS.detalle
+  is 'Detalle de la definición.';
+comment on column IT.WF_TIP_CIR_TAREAS.estado
+  is 'Estado del usuario en el Grupo de usuarios: A-Activo I-Inactivo.';
+comment on column IT.WF_TIP_CIR_TAREAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_TIP_CIR_TAREAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_TIP_CIR_TAREAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_TIP_CIR_TAREAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.WF_TIP_CIR_TAREAS.cod_gru_responsable
+  is 'Grupo responsable de realizar la tarea.';
+comment on column IT.WF_TIP_CIR_TAREAS.cod_tip_tar_siguiente
+  is 'Tarea siguiente a generar si la actual es aprobada.';
+comment on column IT.WF_TIP_CIR_TAREAS.cod_tip_tar_rechazo
+  is 'Tarea a la cual ira si hay un rechazo en la actual. Si este es nulo, va al anterior.';
+comment on column IT.WF_TIP_CIR_TAREAS.can_fir_requeridas
+  is 'Cantidad de firmas requeridas para la confirmacion de la tarea.';
+comment on column IT.WF_TIP_CIR_TAREAS.aut_conjunta
+  is 'Permite o no la autorizacion por sumatoria de montos de autorizadores en conjunto.';
+comment on column IT.WF_TIP_CIR_TAREAS.tip_tiempo
+  is 'Tipo de medida del tiempo estimado.';
+comment on column IT.WF_TIP_CIR_TAREAS.tie_estimado
+  is 'Tiempo estimado para la tarea.';
+comment on column IT.WF_TIP_CIR_TAREAS.tip_eti_siguiente
+  is 'Tipo de etiqueta para el boton del paso siguiente. Si es N, no aplica, es decir no aparece.';
+comment on column IT.WF_TIP_CIR_TAREAS.tip_eti_rechazo
+  is 'Tipo de etiqueta para el boton del paso rechazo. Si es N, no aplica, es decir no aparece.';
+comment on column IT.WF_TIP_CIR_TAREAS.tip_eti_cancelacion
+  is 'Tipo de etiqueta para el boton de cancelación. Si es N, no aplica, es decir no aparece.';
+comment on column IT.WF_TIP_CIR_TAREAS.det_sql
+  is 'Programa PL/SQL a ejecutar cuando se aprueba la tarea.';
+comment on column IT.WF_TIP_CIR_TAREAS.act_automatica
+  is 'Actualización Automática de la Tarea.';
+comment on column IT.WF_TIP_CIR_TAREAS.asi_responsable
+  is 'Indica si el tipo de tarea se asignará automaticamente a un responsable.';
+comment on column IT.WF_TIP_CIR_TAREAS.env_mail
+  is 'Envia mail a los miembros del grupo responsable.';
+comment on column IT.WF_TIP_CIR_TAREAS.cod_tip_limite
+  is 'Código del tipo de límite. Relacionado a WF_TIP_LIMITES.';
+comment on column IT.WF_TIP_CIR_TAREAS.ve_usuario
+  is 'Indica si la tarea va ser vista solo por el usuario que la inicio.';
+alter table IT.WF_TIP_CIR_TAREAS
+  add constraint PK_WF_TIP_CIR_TAREAS primary key (COD_TIP_CIRCUITO, COD_TIP_TAREA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

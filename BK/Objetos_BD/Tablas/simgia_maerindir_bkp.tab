@@ -1,0 +1,61 @@
+create table IT.SIMGIA_MAERINDIR_BKP
+(
+  riesgo    NUMBER(7),
+  file_     CHAR(1),
+  deudor    VARCHAR2(10) not null,
+  cuenta    VARCHAR2(20) not null,
+  vencim    VARCHAR2(8) not null,
+  docum     NUMBER not null,
+  monto     NUMBER,
+  sucursal  NUMBER(3),
+  propue    NUMBER,
+  fecha_his DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_RINDIR_ on IT.SIMGIA_MAERINDIR_BKP (DEUDOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_RINDIR_CUENTA on IT.SIMGIA_MAERINDIR_BKP (CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_RINDIR_RIESGO on IT.SIMGIA_MAERINDIR_BKP (RIESGO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

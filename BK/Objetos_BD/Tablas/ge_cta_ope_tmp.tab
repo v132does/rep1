@@ -1,0 +1,90 @@
+create table IT.GE_CTA_OPE_TMP
+(
+  cod_ente           NUMBER(5),
+  empresa            VARCHAR2(120),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  tipo_cta           VARCHAR2(10),
+  sub_mod            NUMBER(3),
+  sub_mod_cta        VARCHAR2(15),
+  nro_cuenta         VARCHAR2(15),
+  cod_moneda         VARCHAR2(3),
+  cod_persona        VARCHAR2(10),
+  cliente            VARCHAR2(120),
+  fec_apertura       DATE,
+  cheq_activas       NUMBER(10),
+  fec_ult_extraccion DATE,
+  fec_ult_deposito   DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_EMPR_PR on IT.GE_CTA_OPE_TMP (EMPRESA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_ENTE_PR on IT.GE_CTA_OPE_TMP (COD_ENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_MODALIDAD_PR on IT.GE_CTA_OPE_TMP (COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_MOD_PR on IT.GE_CTA_OPE_TMP (COD_MODULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_NRO_CTA_PR on IT.GE_CTA_OPE_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

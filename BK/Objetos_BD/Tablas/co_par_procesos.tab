@@ -1,0 +1,125 @@
+create table IT.CO_PAR_PROCESOS
+(
+  dia_atr_inicial          NUMBER(4),
+  dia_atr_final            NUMBER(4),
+  fec_ult_pro_informconf   DATE,
+  cod_afi_informconf       NUMBER(6),
+  mon_min_gs_informconf    NUMBER(18,2),
+  mon_min_us_informconf    NUMBER(18,2),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  dir_fichero              VARCHAR2(254),
+  ema_automatico           VARCHAR2(1) default 'N',
+  dir_correo               VARCHAR2(250),
+  cct_min_cuo_pendiente    NUMBER(4) default 0,
+  cct_min_saldo_gs         NUMBER(18,2) default 0,
+  cct_min_saldo_usd        NUMBER(18,2) default 0,
+  cct_dia_control          NUMBER(4) default 9999,
+  cct_usu_autorizado       VARCHAR2(45),
+  gci_cod_afiliado         NUMBER(6),
+  gci_cod_usu_gestor       VARCHAR2(10),
+  gci_dia_atr_ini_prestamo NUMBER(5),
+  gci_dia_atr_fin_prestamo NUMBER(5),
+  gci_dia_atr_ini_tarjeta  NUMBER(5),
+  gci_dia_atr_fin_tarjeta  NUMBER(5),
+  gce_cod_afiliado         NUMBER(6),
+  gce_cod_usu_gestor       VARCHAR2(10),
+  gce_dia_atr_ini_prestamo NUMBER(5),
+  gce_dia_atr_fin_prestamo NUMBER(5),
+  gce_dia_atr_ini_tarjeta  NUMBER(5),
+  gce_dia_atr_fin_tarjeta  NUMBER(5),
+  gcs_cod_afiliado         NUMBER(6),
+  gcs_cod_usu_gestor       VARCHAR2(10),
+  gcs_dia_atr_inicial      NUMBER(5),
+  gcs_dia_atr_final        NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_PAR_PROCESOS
+  is 'Contiene los Parametros para los Procesos.';
+comment on column IT.CO_PAR_PROCESOS.dia_atr_inicial
+  is 'Minimo de dias de Mora para inclusion de cuentas en Informconf.';
+comment on column IT.CO_PAR_PROCESOS.dia_atr_final
+  is 'Maximo de dias de Mora para inclusion de cuentas en Informconf.';
+comment on column IT.CO_PAR_PROCESOS.fec_ult_pro_informconf
+  is 'Fecha de ultima ejecucion del proceso de interface informconf.';
+comment on column IT.CO_PAR_PROCESOS.cod_afi_informconf
+  is 'Codigo de suscripcion de la entidad a Informconf.';
+comment on column IT.CO_PAR_PROCESOS.mon_min_gs_informconf
+  is 'Monto minimo en Guaranies que se tiene en cuenta al realizar el proceso de Informconf.';
+comment on column IT.CO_PAR_PROCESOS.mon_min_us_informconf
+  is 'Monto minimo en Dolares que se tiene en cuenta al realizar el proceso de Informconf.';
+comment on column IT.CO_PAR_PROCESOS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CO_PAR_PROCESOS.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.CO_PAR_PROCESOS.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.CO_PAR_PROCESOS.fec_modificacion
+  is 'Fecha de modificacion del registro.';
+comment on column IT.CO_PAR_PROCESOS.dir_fichero
+  is 'Directorio en el servidor para generar los ficheros.';
+comment on column IT.CO_PAR_PROCESOS.ema_automatico
+  is 'Email automatico.';
+comment on column IT.CO_PAR_PROCESOS.dir_correo
+  is 'Direccion de correo.';
+comment on column IT.CO_PAR_PROCESOS.cct_min_cuo_pendiente
+  is 'Control de Cartera; Minimo de cuotas pendientes en prestamos para su inclusion.';
+comment on column IT.CO_PAR_PROCESOS.cct_min_saldo_gs
+  is 'Control de Cartera; Saldo minimo en Guaranies para su inclusion.';
+comment on column IT.CO_PAR_PROCESOS.cct_min_saldo_usd
+  is 'Control de Cartera; Saldo minimo en Dolares para su inclusion.';
+comment on column IT.CO_PAR_PROCESOS.cct_dia_control
+  is 'Control de Cartera; Dias en durante los cuales Informconf debera controlar al cliente.';
+comment on column IT.CO_PAR_PROCESOS.cct_usu_autorizado
+  is 'Codigo de usuario con autorizacion para envio de datos a Informconf, otorgado por Informconf.';
+comment on column IT.CO_PAR_PROCESOS.gci_cod_afiliado
+  is 'Gestion de Cobranzas Informconf (normal): Codigo de afiliado de la entidad.';
+comment on column IT.CO_PAR_PROCESOS.gci_cod_usu_gestor
+  is 'Gestion de Cobranzas Informconf (normal): Codigo de usuario gestor.';
+comment on column IT.CO_PAR_PROCESOS.gci_dia_atr_ini_prestamo
+  is 'Gestion de Cobranzas Informconf (normal): Cantidad de dias de atraso iniciales para incluir la cuenta de prestamo.';
+comment on column IT.CO_PAR_PROCESOS.gci_dia_atr_fin_prestamo
+  is 'Gestion de Cobranzas Informconf (normal): Cantidad de dias de atraso maximo para incluir la cuenta de prestamo.';
+comment on column IT.CO_PAR_PROCESOS.gci_dia_atr_ini_tarjeta
+  is 'Gestion de Cobranzas Informconf (normal): Cantidad de dias de atraso inicial para incluir la cuenta de tarjeta.';
+comment on column IT.CO_PAR_PROCESOS.gci_dia_atr_fin_tarjeta
+  is 'Gestion de Cobranzas Informconf (normal): Cantidad de dias de atraso maxima para incluir la cuenta de tarjeta.';
+comment on column IT.CO_PAR_PROCESOS.gce_cod_afiliado
+  is 'Gestion de Cobranzas Informconf (especial): Codigo de afiliado de la entidad.';
+comment on column IT.CO_PAR_PROCESOS.gce_cod_usu_gestor
+  is 'Gestion de Cobranzas Informconf (especial): Codigo de usuario gestor.';
+comment on column IT.CO_PAR_PROCESOS.gce_dia_atr_ini_prestamo
+  is 'Gestion de Cobranzas Informconf (especial): Cantidad de dias de atraso iniciales para incluir la cuenta de prestamo.';
+comment on column IT.CO_PAR_PROCESOS.gce_dia_atr_fin_prestamo
+  is 'Gestion de Cobranzas Informconf (especial): Cantidad de dias de atraso maxima para incluir la cuenta de prestamo.';
+comment on column IT.CO_PAR_PROCESOS.gce_dia_atr_ini_tarjeta
+  is 'Gestion de Cobranzas Informconf (especial): Cantidad de dias de atraso iniciales para incluir la cuenta de tarjeta.';
+comment on column IT.CO_PAR_PROCESOS.gce_dia_atr_fin_tarjeta
+  is 'Gestion de Cobranzas Informconf (especial): Cantidad de dias de atraso maxima para incluir la cuenta de tarjeta.';
+comment on column IT.CO_PAR_PROCESOS.gcs_cod_afiliado
+  is 'Gestion de Cobranzas Solucorp: Codigo de afiliado de la entidad.';
+comment on column IT.CO_PAR_PROCESOS.gcs_cod_usu_gestor
+  is 'Gestion de Cobranzas Solucorp: Codigo de usuario gestor.';
+comment on column IT.CO_PAR_PROCESOS.gcs_dia_atr_inicial
+  is 'Gestion de Cobranzas Solucorp: Cantidad de dias de atraso iniciales para incluir las cuentas de prestamos/tarjetas.';
+comment on column IT.CO_PAR_PROCESOS.gcs_dia_atr_final
+  is 'Gestion de Cobranzas Solucorp: Cantidad de dias de atraso maximo para incluir las cuentas de prestamos/tarjetas.';
+alter table IT.CO_PAR_PROCESOS
+  add constraint AVCON_1128971646_EMA_A_000
+  check (EMA_AUTOMATICO IN ('S', 'N'));
+alter table IT.CO_PAR_PROCESOS
+  add constraint LT_PROC_INFORMCONF_INVALIDA239
+  check (NVL(to_char(FEC_ULT_PRO_INFORMCONF,'YYYY'),'1901') > '1900');
+

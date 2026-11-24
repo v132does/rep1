@@ -1,0 +1,30 @@
+create table IT.TMP_ATM_OTRA_RESP
+(
+  nro_transaccion_infonet NUMBER(15),
+  extornada               VARCHAR2(2),
+  resp_infonet            VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_TMP_ATM_OTRA_RESP on IT.TMP_ATM_OTRA_RESP (NRO_TRANSACCION_INFONET)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

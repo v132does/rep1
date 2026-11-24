@@ -1,0 +1,71 @@
+create table IT.SB_TAS_APE_SEMANALES
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_mon_original   VARCHAR2(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  fec_apertura       DATE not null,
+  mto_ape_original   NUMBER(18,2) default 0 not null,
+  monto              NUMBER(18,2) default 0 not null,
+  val_tas_nominal    NUMBER(20,4) default 0 not null,
+  val_tas_efectiva   NUMBER(20,4) default 0 not null,
+  cod_plazo          NUMBER(3) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  sal_pro_acu_origen NUMBER(18,2),
+  sal_pro_acumulado  NUMBER(18,2),
+  cod_are_bcp        NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_TAS_APE_SEMANALES
+  is 'Tasas semanales.';
+comment on column IT.SB_TAS_APE_SEMANALES.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.SB_TAS_APE_SEMANALES.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.SB_TAS_APE_SEMANALES.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.SB_TAS_APE_SEMANALES.cod_mon_original
+  is 'Codigo de la moneda original de la cuenta.';
+comment on column IT.SB_TAS_APE_SEMANALES.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.SB_TAS_APE_SEMANALES.fec_apertura
+  is 'Fecha de apertura.';
+comment on column IT.SB_TAS_APE_SEMANALES.mto_ape_original
+  is 'Monto original de apertura.';
+comment on column IT.SB_TAS_APE_SEMANALES.monto
+  is 'Monto de apertura a informar.';
+comment on column IT.SB_TAS_APE_SEMANALES.val_tas_nominal
+  is 'Valor de la tasa nominal.';
+comment on column IT.SB_TAS_APE_SEMANALES.val_tas_efectiva
+  is 'Valor de la tasa efectiva.';
+comment on column IT.SB_TAS_APE_SEMANALES.cod_plazo
+  is 'Recuperar plazo contable.';
+comment on column IT.SB_TAS_APE_SEMANALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_TAS_APE_SEMANALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_TAS_APE_SEMANALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_TAS_APE_SEMANALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.SB_TAS_APE_SEMANALES.sal_pro_acu_origen
+  is 'Saldo promedio acumulado en moneda original.';
+comment on column IT.SB_TAS_APE_SEMANALES.sal_pro_acumulado
+  is 'Saldo promedio acumulado mensual a informar (en moneda local).';
+comment on column IT.SB_TAS_APE_SEMANALES.cod_are_bcp
+  is 'Codigo de Area asignado por BCP.';
+

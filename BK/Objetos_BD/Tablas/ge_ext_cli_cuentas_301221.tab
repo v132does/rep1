@@ -1,0 +1,41 @@
+create table IT.GE_EXT_CLI_CUENTAS_301221
+(
+  cod_persona       VARCHAR2(10) not null,
+  fec_extracto      DATE not null,
+  cod_extracto      NUMBER(5) not null,
+  fre_extracto      VARCHAR2(1) not null,
+  nro_cuenta        VARCHAR2(20) not null,
+  tip_cuenta        VARCHAR2(1),
+  cod_modalidad     NUMBER(3),
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  sal_anterior      NUMBER(18,2),
+  sal_actual        NUMBER(18,2),
+  sal_a_confirmar   NUMBER(18,2),
+  nro_folio         NUMBER(7),
+  tas_retorno       NUMBER(20,4),
+  tas_nominal       NUMBER(20,4),
+  tas_efectiva      NUMBER(20,4),
+  usu_insercion     VARCHAR2(10),
+  fec_insercion     DATE,
+  usu_modificacion  VARCHAR2(10),
+  fec_modificacion  DATE,
+  sal_promedio      NUMBER(18,2),
+  nro_cta_combinada VARCHAR2(15),
+  concepto          VARCHAR2(100),
+  cod_per_empresa   VARCHAR2(10),
+  sal_bloqueado     NUMBER(18,2),
+  sal_blo_anterior  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,10 @@
+begin
+  DBMS_SESSION.SET_IDENTIFIER('SRER');
+  pre_ini_aplicacion;
+  pae_cnf.g_cod_modulo := 1;
+end;
+/
+UPDATE GE_PAR_DINAMICOS
+SET VAL_PARAMETRO = 'S'
+WHERE PARAMETRO = 'ACT_EXT_MAESTROS_FLAG';
+COMMIT;

@@ -1,0 +1,1 @@
+GRANT EXECUTE ON prs_snp_gen_mt999  TO IT_TEMPORAL;

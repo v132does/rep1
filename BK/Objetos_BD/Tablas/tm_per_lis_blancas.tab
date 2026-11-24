@@ -1,0 +1,83 @@
+create table IT.TM_PER_LIS_BLANCAS
+(
+  nro_llave     VARCHAR2(10) not null,
+  nro_documento VARCHAR2(20) not null,
+  nom_persona   VARCHAR2(120),
+  apodo         VARCHAR2(80),
+  nro_celular   VARCHAR2(20),
+  email         VARCHAR2(80),
+  color         VARCHAR2(20),
+  ind_fondeo    VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_PER_LIS_BLANCAS
+  is 'Tabla para registrar las personas que quedaran verificadas como white list para el alta de tarjetas';
+comment on column IT.TM_PER_LIS_BLANCAS.nro_llave
+  is 'Nro. llave generado para fondeo';
+comment on column IT.TM_PER_LIS_BLANCAS.nro_documento
+  is 'Nro. Documento de la persona';
+comment on column IT.TM_PER_LIS_BLANCAS.nom_persona
+  is 'Nombre Completo de la persona';
+comment on column IT.TM_PER_LIS_BLANCAS.apodo
+  is 'Apodo de la persona';
+comment on column IT.TM_PER_LIS_BLANCAS.nro_celular
+  is 'Nro de celular de la persona';
+comment on column IT.TM_PER_LIS_BLANCAS.email
+  is 'Correo Electronico de la Persona';
+comment on column IT.TM_PER_LIS_BLANCAS.color
+  is 'Color preferido de la Persona';
+comment on column IT.TM_PER_LIS_BLANCAS.ind_fondeo
+  is 'Indicativo que la cuenta fue o no fondeada "S" o "N"';
+alter table IT.TM_PER_LIS_BLANCAS
+  add constraint PK_TM_PER_LIS_BLANCA primary key (NRO_LLAVE, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TM_PER_LIS_BLANCAS
+  add constraint UK_NRO_DOCUMENTO unique (NRO_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TM_PER_LIS_BLANCAS
+  add constraint UK_NRO_LLAVE unique (NRO_LLAVE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

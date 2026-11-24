@@ -1,0 +1,64 @@
+create table IT.CB_MAY_UTILIDADES
+(
+  cod_oficina      NUMBER(3) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  fecha            DATE not null,
+  deb_mon_local    NUMBER(18,2) default 0,
+  cre_mon_local    NUMBER(18,2) default 0,
+  deb_mon_rubro    NUMBER(18,2) default 0,
+  cre_mon_rubro    NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_MAY_UTILIDADES
+  is 'Mayor de Movimientos de Utilidades. (Realizado por ICL para BBVA)';
+comment on column IT.CB_MAY_UTILIDADES.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.CB_MAY_UTILIDADES.cod_rubro
+  is 'Código de Rubro Contable.';
+comment on column IT.CB_MAY_UTILIDADES.fecha
+  is 'Fecha del Movimiento.';
+comment on column IT.CB_MAY_UTILIDADES.deb_mon_local
+  is 'Débito en moneda local.';
+comment on column IT.CB_MAY_UTILIDADES.cre_mon_local
+  is 'Crédito en moneda local.';
+comment on column IT.CB_MAY_UTILIDADES.deb_mon_rubro
+  is 'Débito en moneda del rubro cuando este es ME.';
+comment on column IT.CB_MAY_UTILIDADES.cre_mon_rubro
+  is 'Crédito en moneda del rubro cuando este es ME.';
+comment on column IT.CB_MAY_UTILIDADES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CB_MAY_UTILIDADES.fec_insercion
+  is 'Fecha en que se ingresó el registro.';
+comment on column IT.CB_MAY_UTILIDADES.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.CB_MAY_UTILIDADES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación del registro.';
+alter table IT.CB_MAY_UTILIDADES
+  add constraint PK_CB_MAY_UTILIDADES primary key (COD_OFICINA, COD_RUBRO, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

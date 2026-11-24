@@ -1,0 +1,69 @@
+create table IT.SIMGIA_PROPUEMAE_BKP
+(
+  propclien  VARCHAR2(10),
+  propsuc    NUMBER,
+  propnro    NUMBER,
+  propfecha  VARCHAR2(6),
+  propmonto  NUMBER,
+  propoperac NUMBER,
+  propvto    VARCHAR2(6),
+  propren    NUMBER,
+  propdivi   NUMBER,
+  propme     NUMBER,
+  proptpgar1 NUMBER,
+  propmtgar1 NUMBER,
+  proptpgar2 NUMBER,
+  propmtgar2 NUMBER,
+  proptpgar3 NUMBER,
+  propmtgar3 NUMBER,
+  proptpgar4 NUMBER,
+  propmtgar4 NUMBER,
+  proptpgar5 NUMBER,
+  propmtgar5 NUMBER,
+  proptpgar6 NUMBER,
+  propmtgar6 NUMBER,
+  propaval1  VARCHAR2(4000),
+  propaval2  VARCHAR2(4000),
+  propaval3  VARCHAR2(4000),
+  propaval4  VARCHAR2(4000),
+  propaval5  VARCHAR2(4000),
+  proplinea  NUMBER,
+  propobs1   CHAR(1),
+  propobs2   CHAR(1),
+  propobs3   CHAR(1),
+  propobs4   CHAR(1),
+  propreliq  NUMBER,
+  propsector NUMBER,
+  propdestin NUMBER,
+  propregion NUMBER,
+  propusocre NUMBER,
+  propcednt  NUMBER,
+  propnrofac NUMBER,
+  proptasamx NUMBER,
+  nro_cuenta VARCHAR2(15),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_SMG_PROPMAE_1 on IT.SIMGIA_PROPUEMAE_BKP (PROPCLIEN, PROPSUC, PROPNRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

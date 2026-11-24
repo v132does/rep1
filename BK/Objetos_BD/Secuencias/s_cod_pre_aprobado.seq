@@ -1,0 +1,7 @@
+create sequence IT.S_COD_PRE_APROBADO
+minvalue 0
+maxvalue 9999999999
+start with 1
+increment by 1
+nocache
+order;

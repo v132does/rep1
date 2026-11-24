@@ -1,0 +1,214 @@
+create table IT.CO_INF_COB_DIARIOS
+(
+  fec_envio             DATE not null,
+  cod_persona           VARCHAR2(10) not null,
+  nro_cuenta            VARCHAR2(16) not null,
+  nro_cuota             NUMBER(3) not null,
+  tip_envio             VARCHAR2(1) not null,
+  cod_usu_gestion       VARCHAR2(10),
+  cod_modulo            NUMBER(3),
+  cod_modalidad         NUMBER(3),
+  cod_moneda            VARCHAR2(3),
+  nro_documento         VARCHAR2(15),
+  dir_particular        VARCHAR2(65),
+  dir_laboral           VARCHAR2(65),
+  dir_lab_alternativo   VARCHAR2(65),
+  tel_particular        VARCHAR2(20),
+  tel_laboral           VARCHAR2(20),
+  tel_lab_alternativo   VARCHAR2(20),
+  can_cuotas            NUMBER(3),
+  tip_inf_operacion     VARCHAR2(1),
+  pri_cuo_atrasada      NUMBER(3),
+  can_cuo_atrasada      NUMBER(3),
+  mto_cuota             NUMBER(18,2) default 0,
+  fec_vencimiento       DATE,
+  fec_ult_pago          DATE,
+  tip_inf_garantia      VARCHAR2(3) default '1',
+  mto_deuda             NUMBER(18,2) default 0,
+  fec_final             DATE,
+  tip_inf_cobro         VARCHAR2(1),
+  mto_cobrado           NUMBER(18,2) default 0,
+  fec_cobro             DATE,
+  tip_inf_actualizacion VARCHAR2(1),
+  inf_periodicidad      VARCHAR2(1) default 'M',
+  nro_tarjeta           VARCHAR2(25),
+  dia_atraso            NUMBER,
+  observacion           VARCHAR2(100),
+  nro_cta_nueva         VARCHAR2(25),
+  cod_ori_modulo        NUMBER(3),
+  cod_ori_modalidad     NUMBER(3),
+  usu_insercion         VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_INF_COB_DIARIOS
+  is 'Histórico de Envíos Diarios a Gestión de Cobros.';
+comment on column IT.CO_INF_COB_DIARIOS.fec_envio
+  is 'Fecha de Envío a Informconf';
+comment on column IT.CO_INF_COB_DIARIOS.cod_persona
+  is 'Código de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.CO_INF_COB_DIARIOS.nro_cuota
+  is 'Número de Cuota';
+comment on column IT.CO_INF_COB_DIARIOS.tip_envio
+  is 'Tipo de Envío (I=Inclusión; M=Modificación; E=Exclusión)';
+comment on column IT.CO_INF_COB_DIARIOS.cod_usu_gestion
+  is 'Código de Usuario Gestor correspondiente a Informconf';
+comment on column IT.CO_INF_COB_DIARIOS.cod_modulo
+  is 'Código de Módulo de la Cuenta';
+comment on column IT.CO_INF_COB_DIARIOS.cod_modalidad
+  is 'Código de Modalidad de la Cuenta';
+comment on column IT.CO_INF_COB_DIARIOS.cod_moneda
+  is 'Código de Moneda de la Cuenta';
+comment on column IT.CO_INF_COB_DIARIOS.nro_documento
+  is 'Número de Documento de la Persona, con formato';
+comment on column IT.CO_INF_COB_DIARIOS.dir_particular
+  is 'Dirección Particular de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.dir_laboral
+  is 'Dirección Laboral de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.dir_lab_alternativo
+  is 'Dirección Laboral Alternativa de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.tel_particular
+  is 'Teléfono Particular de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.tel_laboral
+  is 'Teléfono Laboral de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.tel_lab_alternativo
+  is 'Teléfono Laboral Alternativo de la Persona';
+comment on column IT.CO_INF_COB_DIARIOS.can_cuotas
+  is 'Cantidad de Cuotas Vencidas';
+comment on column IT.CO_INF_COB_DIARIOS.tip_inf_operacion
+  is 'Tipo de Operación en Informconf. (1=Préstamo Personal; 2=Préstamo Corporativo; 3=Tarjeta de Crédito)';
+comment on column IT.CO_INF_COB_DIARIOS.pri_cuo_atrasada
+  is 'Número de Primera Cuota Atrasada';
+comment on column IT.CO_INF_COB_DIARIOS.can_cuo_atrasada
+  is 'Cantidad de Cuotas Atrasadas';
+comment on column IT.CO_INF_COB_DIARIOS.mto_cuota
+  is 'Monto de la Cuota actual';
+comment on column IT.CO_INF_COB_DIARIOS.fec_vencimiento
+  is 'Fecha de Vencimiento de la Cuota';
+comment on column IT.CO_INF_COB_DIARIOS.fec_ult_pago
+  is 'Fecha de Último Pago de la Cuota';
+comment on column IT.CO_INF_COB_DIARIOS.tip_inf_garantia
+  is 'Tipo de Garantía en Informconf. (1=Sola Firma; 2=Codeudor; 3=Hipotecaria; 4=Prendaria)';
+comment on column IT.CO_INF_COB_DIARIOS.mto_deuda
+  is 'Monto de la Deuda de la Cuota';
+comment on column IT.CO_INF_COB_DIARIOS.fec_final
+  is 'Fecha Final de Gestión de la Cuota. Nulo para que no caduque';
+comment on column IT.CO_INF_COB_DIARIOS.tip_inf_cobro
+  is 'Tipo de Cobro en Informconf, recibido por la Cuota. (P=Parcial; T=Total)';
+comment on column IT.CO_INF_COB_DIARIOS.mto_cobrado
+  is 'Monto del Cobro recibido por la Cuota';
+comment on column IT.CO_INF_COB_DIARIOS.fec_cobro
+  is 'Fecha de Último Cobro recibido por la Cuota';
+comment on column IT.CO_INF_COB_DIARIOS.tip_inf_actualizacion
+  is 'Tipo de Actualización en Informconf, de montos en mora. (A=Automático en Informconf; E=Entidad envía los datos; P=Pagos; D=Datos)';
+comment on column IT.CO_INF_COB_DIARIOS.inf_periodicidad
+  is 'Periodicidad en Informconf. (M=Mensual; T=Trimestral; S=Semestral; A=Anual)';
+comment on column IT.CO_INF_COB_DIARIOS.nro_tarjeta
+  is 'Número de Tarjeta';
+comment on column IT.CO_INF_COB_DIARIOS.dia_atraso
+  is 'Dias de Atraso de la Cuota ';
+comment on column IT.CO_INF_COB_DIARIOS.observacion
+  is 'Observaciones varias';
+comment on column IT.CO_INF_COB_DIARIOS.nro_cta_nueva
+  is 'Número de Cuenta Nueva';
+comment on column IT.CO_INF_COB_DIARIOS.cod_ori_modulo
+  is 'Módulo Origen';
+comment on column IT.CO_INF_COB_DIARIOS.cod_ori_modalidad
+  is 'Modalidad Origen';
+comment on column IT.CO_INF_COB_DIARIOS.usu_insercion
+  is 'Usuario que insertó el registro';
+comment on column IT.CO_INF_COB_DIARIOS.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.CO_INF_COB_DIARIOS.usu_modificacion
+  is 'Usuario que modificó el registro';
+comment on column IT.CO_INF_COB_DIARIOS.fec_modificacion
+  is 'Fecha en que se modificó el registro';
+create index IT.IN_OICDI_COD_PERSONA on IT.CO_INF_COB_DIARIOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_OICDI_NRO_CUENTA on IT.CO_INF_COB_DIARIOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint PK_CO_INF_COB_DIARIOS primary key (FEC_ENVIO, COD_PERSONA, NRO_CUENTA, NRO_CUOTA, TIP_ENVIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint FK_OICDI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint FK_OICDI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint FK_OICDI_COD_ORI_MODALIDAD foreign key (COD_ORI_MODULO, COD_ORI_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint FK_OICDI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint FK_OICDI_COD_USU_GESTION foreign key (COD_USU_GESTION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint FK_OICDI_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint AVCON_1135006719_CAN_C_000
+  check (CAN_CUOTAS BETWEEN 0 AND 999);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint AVCON_1135006719_CAN_C_001
+  check (CAN_CUO_ATRASADA BETWEEN 0 AND 999);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint AVCON_1135006719_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint AVCON_1135006719_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint AVCON_1135006719_NRO_C_000
+  check (NRO_CUOTA BETWEEN 0 AND 999);
+alter table IT.CO_INF_COB_DIARIOS
+  add constraint AVCON_1135006719_PRI_C_000
+  check (PRI_CUO_ATRASADA BETWEEN 0 AND 999);
+

@@ -1,0 +1,10 @@
+create global temporary table IT.SS2K5_SYSPROPERTIES
+(
+  db_id    NUMBER(5),
+  major_id NUMBER(5) not null,
+  minor_id NUMBER(5) not null,
+  name     VARCHAR2(500) not null,
+  value    VARCHAR2(1000) not null
+)
+on commit preserve rows;
+

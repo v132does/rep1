@@ -1,0 +1,67 @@
+create table IT.IG_TAS_ENCAJES
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  plz_desde        NUMBER(5) not null,
+  plz_hasta        NUMBER(5) not null,
+  tasa             NUMBER(7,4) not null,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_TAS_ENCAJES
+  is 'Tasas de Encaje.';
+comment on column IT.IG_TAS_ENCAJES.cod_modulo
+  is 'Modulo del sistema.';
+comment on column IT.IG_TAS_ENCAJES.cod_modalidad
+  is 'Modalidad del sistema.';
+comment on column IT.IG_TAS_ENCAJES.cod_moneda
+  is 'Moneda.';
+comment on column IT.IG_TAS_ENCAJES.plz_desde
+  is 'Plazo desde (dias).';
+comment on column IT.IG_TAS_ENCAJES.plz_hasta
+  is 'Plazo hasta (dias).';
+comment on column IT.IG_TAS_ENCAJES.tasa
+  is 'Tasa de encaje.';
+comment on column IT.IG_TAS_ENCAJES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_TAS_ENCAJES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_TAS_ENCAJES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_TAS_ENCAJES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_TAS_ENCAJES
+  add constraint PK_IG_TAS_ENCAJES primary key (COD_MODULO, COD_MODALIDAD, COD_MONEDA, PLZ_DESDE, PLZ_HASTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_TAS_ENCAJES
+  add constraint FK_ITENC_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.IG_TAS_ENCAJES
+  add constraint FK_ITENC_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

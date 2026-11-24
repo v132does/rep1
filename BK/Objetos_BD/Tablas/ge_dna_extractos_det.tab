@@ -1,0 +1,116 @@
+create table IT.GE_DNA_EXTRACTOS_DET
+(
+  cod_extracto     NUMBER(18) not null,
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  nro_secuencia    NUMBER(3),
+  fec_valor        DATE,
+  nro_documento    NUMBER(18),
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_tra_padre    NUMBER(4),
+  nro_cta_destino  VARCHAR2(20),
+  mto_credito      NUMBER(18,2),
+  mto_debito       NUMBER(18,2),
+  saldo            NUMBER(18,2),
+  nro_doc_aduana   VARCHAR2(19),
+  nro_liq_aduana   VARCHAR2(16),
+  concepto         VARCHAR2(4),
+  observacion      VARCHAR2(50),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DNA_EXTRACTOS_DET
+  is 'Detalle de Aduanas.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.cod_extracto
+  is 'Cod. Extracto.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.fecha
+  is 'Fecha.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.hora
+  is 'Hora del Movimiento.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.nro_secuencia
+  is 'Nro Secuencia del Movimiento.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.fec_valor
+  is 'Fecha Valor del Extracto.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.nro_documento
+  is 'Nro. de documento.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.cod_mod_padre
+  is 'Módulo Padre.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.cod_mad_padre
+  is 'Modalidad Padre.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.cod_tra_padre
+  is 'Transacción Padre.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.nro_cta_destino
+  is 'Numero Cuenta Destino.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.mto_credito
+  is 'Monto Crédito.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.mto_debito
+  is 'Monto Débito.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.saldo
+  is 'Saldo.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.nro_doc_aduana
+  is 'Nro. Documento Aduana.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.nro_liq_aduana
+  is 'Nro. Liquidación Aduana.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.concepto
+  is 'Concepto.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.observacion
+  is 'Observacion.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_DNA_EXTRACTOS_DET.fec_modificacion
+  is 'Fecha de Modificación.';
+create index IT.IN_GEXDND_FECHA on IT.GE_DNA_EXTRACTOS_DET (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEXDND_MOVIMIENTO on IT.GE_DNA_EXTRACTOS_DET (FECHA, HORA, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEXDND_NRO_DOCUMENTO on IT.GE_DNA_EXTRACTOS_DET (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

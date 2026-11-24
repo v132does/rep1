@@ -1,0 +1,22 @@
+create table IT.BW_NOT_SUS_MASIVAS_TMP
+(
+  cod_persona      VARCHAR2(30),
+  nro_cuenta       VARCHAR2(30),
+  nro_documento    VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

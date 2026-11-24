@@ -1,0 +1,47 @@
+create table IT.SB_CRC_GARANTIAS_NOV
+(
+  fecha         DATE not null,
+  hora          VARCHAR2(8) not null,
+  cod_usuario   VARCHAR2(10) not null,
+  nro_garantia  VARCHAR2(7) not null,
+  perfeccionada VARCHAR2(1),
+  cod_persona   VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_CRC_GARANTIAS_NOV.fecha
+  is 'Fecha de Novedad.';
+comment on column IT.SB_CRC_GARANTIAS_NOV.hora
+  is 'Hora de Novedad.';
+comment on column IT.SB_CRC_GARANTIAS_NOV.cod_usuario
+  is 'Usuario que inserta la Novedad.';
+comment on column IT.SB_CRC_GARANTIAS_NOV.nro_garantia
+  is 'Nro de Garantía.';
+comment on column IT.SB_CRC_GARANTIAS_NOV.perfeccionada
+  is 'Indicador de Perfeccionada: S/N';
+comment on column IT.SB_CRC_GARANTIAS_NOV.cod_persona
+  is 'Código de Persona.';
+alter table IT.SB_CRC_GARANTIAS_NOV
+  add constraint PK_SB_CRC_GARANTIAS_NOV primary key (NRO_GARANTIA, FECHA, HORA, COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

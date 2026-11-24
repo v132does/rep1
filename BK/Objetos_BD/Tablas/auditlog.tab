@@ -1,0 +1,21 @@
+create table IT.AUDITLOG
+(
+  modulo   VARCHAR2(3),
+  cdent    VARCHAR2(15),
+  anomes   VARCHAR2(30),
+  hora     VARCHAR2(30),
+  mensaje  VARCHAR2(50),
+  sec_proc VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,52 @@
+-- ============================================================
+-- Tabla unificada de reportes mensuales de tasas de interés
+-- ============================================================
+CREATE TABLE IT.GE_REP_TAS_INT_MEN (
+  REPORTE         VARCHAR2(2)   NOT NULL,      -- 'CA' | 'CC' | 'TC'
+  MONEDA          VARCHAR2(3),                  -- 'GS' | 'USD' (TC deduce por fila)
+  CORCOD          VARCHAR2(10),
+  CODCTA          VARCHAR2(10),
+  ENTCOD          VARCHAR2(10),
+  TASREG          VARCHAR2(1),
+  ACOD            VARCHAR2(10),
+  FECHA           DATE           NOT NULL,      -- Fecha de corte (último día de mes)
+  MONCOD          NUMBER,
+  TASCOD          VARCHAR2(50),                 -- Nro. cuenta
+  PERIODO         NUMBER,
+  TASNOM          NUMBER,
+  TASEFE          NUMBER,
+  TASMONT         NUMBER,
+  SALDO_CONTABLE  NUMBER,
+  FEC_INSERCION   DATE DEFAULT SYSDATE,
+  USU_INSERCION   VARCHAR2(30) DEFAULT USER
+) TABLESPACE IT_DATA;
+
+-- Comentarios
+COMMENT ON TABLE  IT.GE_REP_TAS_INT_MEN IS 'Reporte mensual unificado de tasas (CA/CC/TC) — FECHA = último día del mes';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.REPORTE        IS 'Tipo de reporte: CA = Caja de Ahorro, CC = Cuenta Corriente, TC = Tarjeta de Crédito';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.MONEDA         IS 'Moneda operativa: GS o USD (para TC se determina por fila)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.CORCOD         IS 'Semana (código) correspondiente a la FECHA';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.CODCTA         IS 'Código de cuenta contable del rubro (ej.: 205002 para TC)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.ENTCOD         IS 'Código de entidad (según PAG_GEN.FU_OBT_COD_ENTIDAD)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.TASREG         IS 'Indicador de tasa registrada';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.ACOD           IS 'Código de producto/actividad (CA: 2021, CC: 1080, TC: 1066)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.FECHA          IS 'Fecha de corte mensual (DATE)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.MONCOD         IS 'Código de moneda (GS→6900, USD→6200)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.TASCOD         IS 'Identificador de la cuenta (nro_cuenta)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.PERIODO        IS 'Período en días para TAE (30)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.TASNOM         IS 'Tasa nominal';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.TASEFE         IS 'Tasa efectiva (TAE)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.TASMONT        IS 'Monto promedio (miles)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.SALDO_CONTABLE IS 'Saldo contable a la fecha';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.FEC_INSERCION  IS 'Timestamp de inserción';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_MEN.USU_INSERCION  IS 'Usuario que insertó';
+
+-- Índices
+CREATE INDEX IT.IDX_REP_TAS_INT_MEN_1 ON IT.GE_REP_TAS_INT_MEN (FECHA)          TABLESPACE IT_IND;
+CREATE INDEX IT.IDX_REP_TAS_INT_MEN_2 ON IT.GE_REP_TAS_INT_MEN (REPORTE, MONEDA) TABLESPACE IT_IND;
+CREATE INDEX IT.IDX_REP_TAS_INT_MEN_3 ON IT.GE_REP_TAS_INT_MEN (TASCOD)          TABLESPACE IT_IND;
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_REP_TAS_INT_MEN FOR IT.GE_REP_TAS_INT_MEN;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.GE_REP_TAS_INT_MEN TO IT_TEMPORAL;

@@ -1,0 +1,122 @@
+create table IT.GE_APN_DATOS
+(
+  cod_mtcn             VARCHAR2(20) not null,
+  referencia           NUMBER(15),
+  fec_operacion        TIMESTAMP(6),
+  est_notificado       VARCHAR2(1),
+  fec_notificado       TIMESTAMP(6),
+  cod_err_not          VARCHAR2(5),
+  sub_cod_err_not      VARCHAR2(35),
+  desc_err_not         VARCHAR2(140),
+  est_transf           VARCHAR2(15),
+  cod_err_ope          NUMBER(4),
+  nom_solicitante      VARCHAR2(35),
+  ape_solicitante      VARCHAR2(35),
+  pri_nom_beneficiario VARCHAR2(35),
+  ape_beneficiario     VARCHAR2(35),
+  ciu_beneficiario     VARCHAR2(35),
+  est_beneficiario     VARCHAR2(12),
+  doc_beneficiario     VARCHAR2(35),
+  cta_beneficiario     VARCHAR2(35),
+  mto_transf           NUMBER(18,3),
+  cod_moneda           NVARCHAR2(35),
+  cod_mot_transf       VARCHAR2(35),
+  swf_bco_destino      VARCHAR2(50),
+  des_mot_tranf        VARCHAR2(38),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion     DATE default SYSDATE,
+  msgid                VARCHAR2(500),
+  cod_mot_rechazo      VARCHAR2(240),
+  mot_rechazo          VARCHAR2(240),
+  cod_pais_iso         VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_APN_DATOS
+  is 'Tabla de registros de datos que viene del APN';
+comment on column IT.GE_APN_DATOS.cod_mtcn
+  is 'Código MTCN : Identificador de la operación que envía WU';
+comment on column IT.GE_APN_DATOS.referencia
+  is 'Nro.Referencia de la operación';
+comment on column IT.GE_APN_DATOS.fec_operacion
+  is 'Fecha de la operación';
+comment on column IT.GE_APN_DATOS.est_notificado
+  is 'Valores N(Notificar)?cuando ocurre un cambio de estado. / C(Confirmado)cuando se notifica exitosamente a WU';
+comment on column IT.GE_APN_DATOS.fec_notificado
+  is 'Fecha que se le notifico a WU';
+comment on column IT.GE_APN_DATOS.cod_err_not
+  is 'Código de error de la notificación';
+comment on column IT.GE_APN_DATOS.sub_cod_err_not
+  is 'Sub Código de error notificación';
+comment on column IT.GE_APN_DATOS.desc_err_not
+  is 'Descripción error notificación';
+comment on column IT.GE_APN_DATOS.est_transf
+  is 'Estado de la transferencia';
+comment on column IT.GE_APN_DATOS.cod_err_ope
+  is 'Código de error de la operación';
+comment on column IT.GE_APN_DATOS.nom_solicitante
+  is 'Nombre del solicitante';
+comment on column IT.GE_APN_DATOS.ape_solicitante
+  is 'Apellido del solicitante';
+comment on column IT.GE_APN_DATOS.pri_nom_beneficiario
+  is 'Nombre del beneficiario';
+comment on column IT.GE_APN_DATOS.ape_beneficiario
+  is 'Apellido del beneficiario';
+comment on column IT.GE_APN_DATOS.ciu_beneficiario
+  is 'Ciudad del beneficiario';
+comment on column IT.GE_APN_DATOS.est_beneficiario
+  is 'Estado del beneficiario';
+comment on column IT.GE_APN_DATOS.doc_beneficiario
+  is 'Número de documento del beneficiario';
+comment on column IT.GE_APN_DATOS.cta_beneficiario
+  is 'Cuenta del beneficiario';
+comment on column IT.GE_APN_DATOS.mto_transf
+  is 'Monto de la transferencia';
+comment on column IT.GE_APN_DATOS.cod_moneda
+  is 'Moneda de la transferencia';
+comment on column IT.GE_APN_DATOS.cod_mot_transf
+  is 'Código Motivo de la transferencia';
+comment on column IT.GE_APN_DATOS.swf_bco_destino
+  is 'Swift del banco destino';
+comment on column IT.GE_APN_DATOS.des_mot_tranf
+  is 'Descripcion Motivo de la transferencia';
+comment on column IT.GE_APN_DATOS.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_APN_DATOS.fec_insercion
+  is 'Fecha que se inserto el registro';
+comment on column IT.GE_APN_DATOS.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_APN_DATOS.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+comment on column IT.GE_APN_DATOS.cod_mot_rechazo
+  is 'Código motivo de rechazo';
+comment on column IT.GE_APN_DATOS.mot_rechazo
+  is 'Motivo de rechazo';
+comment on column IT.GE_APN_DATOS.cod_pais_iso
+  is 'Codigo de Pais solicitante';
+alter table IT.GE_APN_DATOS
+  add constraint PK_APN_MTCN primary key (COD_MTCN)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

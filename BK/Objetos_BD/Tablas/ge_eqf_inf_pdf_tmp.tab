@@ -1,0 +1,46 @@
+create table IT.GE_EQF_INF_PDF_TMP
+(
+  nro_solicitud NUMBER not null,
+  cod_persona   VARCHAR2(10) not null,
+  pdf_temporal  BLOB
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_INF_PDF_TMP.pdf_temporal
+  is 'informe pdf temporal';
+create index IT.IN_INFPDF_TEMP on IT.GE_EQF_INF_PDF_TMP (COD_PERSONA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_INF_PDF_TMP
+  add constraint PK_GE_EQF_INF_PDF_TMP primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

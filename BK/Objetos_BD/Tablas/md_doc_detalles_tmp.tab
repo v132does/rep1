@@ -1,0 +1,43 @@
+-- Create table
+create table IT.MD_DOC_DETALLES_TMP
+(
+  nro_cuota        NUMBER(3) not null,
+  mto_capital      NUMBER(18,2),
+  fec_vencimiento  DATE,
+  usu_insercion    VARCHAR2(10) default USER,
+  usu_modificacion VARCHAR2(10) default USER,
+  fec_insercion    DATE default SYSDATE,
+  fec_modificacion DATE default SYSDATE,
+  mto_interes      NUMBER(18,2),
+  dev_acumulado    NUMBER(18,2),
+  val_cap_presente NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.MD_DOC_DETALLES_TMP
+  is 'Datos para levantar datos de la planilla excel';
+-- Add comments to the columns 
+comment on column IT.MD_DOC_DETALLES_TMP.nro_cuota
+  is 'Nro de cuota';
+comment on column IT.MD_DOC_DETALLES_TMP.mto_capital
+  is 'Mto del capital';
+comment on column IT.MD_DOC_DETALLES_TMP.fec_vencimiento
+  is 'Fecha de vencimiento';
+comment on column IT.MD_DOC_DETALLES_TMP.mto_interes
+  is 'Monto del Interes';
+comment on column IT.MD_DOC_DETALLES_TMP.dev_acumulado
+  is 'Devengado acumulado';
+comment on column IT.MD_DOC_DETALLES_TMP.val_cap_presente
+  is 'monto capital descontado';
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.MD_DOC_DETALLES_TMP to IT_TEMPORAL;

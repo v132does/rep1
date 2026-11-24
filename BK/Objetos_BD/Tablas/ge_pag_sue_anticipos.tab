@@ -1,0 +1,73 @@
+create table IT.GE_PAG_SUE_ANTICIPOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  tipo             VARCHAR2(1) default 'S' not null,
+  cod_ente         NUMBER(5) not null,
+  liquidado        VARCHAR2(1) default 'N',
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_SUE_ANTICIPOS
+  is 'Detalle de los anticipos realizados por fecha';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.nro_cuenta
+  is 'nro de cuenta';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.fecha
+  is 'Fecha del anticipo';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.cod_moneda
+  is 'cod moneda';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.monto
+  is 'monto del anticipo';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.tipo
+  is 'tipo: S- sueldo A- Aguinaldo, X-Fuera de linea';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.cod_ente
+  is 'codigo de ente';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.liquidado
+  is 'Liquidado: S/N';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.fec_insercion
+  is 'fecha de insercion';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.usu_insercion
+  is 'usuario de insercion';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.fec_modificacion
+  is 'fecha de modificacion';
+comment on column IT.GE_PAG_SUE_ANTICIPOS.usu_modificacion
+  is 'usuario de modificacion';
+alter table IT.GE_PAG_SUE_ANTICIPOS
+  add constraint PK_GE_PAG_SUE_ANTICIPOS primary key (NRO_CUENTA, FECHA, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_SUE_ANTICIPOS
+  add constraint FK_GPSAN_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.GE_PAG_SUE_ANTICIPOS
+  add constraint FK_GPSAN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_PAG_SUE_ANTICIPOS
+  add constraint FK_GPSAN_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

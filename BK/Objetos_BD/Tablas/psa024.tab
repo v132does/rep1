@@ -1,0 +1,193 @@
+create table IT.PSA024
+(
+  psa024fin VARCHAR2(8) not null,
+  psa024ffi VARCHAR2(8) not null,
+  psa024pai NUMBER(3) not null,
+  psa024tdo NUMBER(4) not null,
+  psa024ndo VARCHAR2(25) not null,
+  psa024ent NUMBER(3),
+  psa024den VARCHAR2(40),
+  psa024ncl VARCHAR2(70),
+  psa024tpe VARCHAR2(8),
+  psa024sba VARCHAR2(40),
+  psa024sla NUMBER(9),
+  psa024vsl NUMBER(9),
+  psa024fab VARCHAR2(8),
+  psa024cpn NUMBER(3),
+  psa024pnc VARCHAR2(30),
+  psa024ocu VARCHAR2(40),
+  psa024aec NUMBER(9),
+  psa024osl NUMBER(1),
+  psa024fid NUMBER(1),
+  psa024pep NUMBER(1),
+  psa024lre NUMBER(1),
+  psa024faf VARCHAR2(8),
+  psa024fei VARCHAR2(8),
+  psa024vju NUMBER(9),
+  psa024vpr NUMBER(9),
+  psa024vca NUMBER(9),
+  psa024n01 NUMBER(18,2),
+  psa024n02 NUMBER(18,2),
+  psa024n03 NUMBER(18,2),
+  psa024n04 NUMBER(18,2),
+  psa024n05 NUMBER(18,2),
+  psa024n06 NUMBER(18,2),
+  psa024n07 NUMBER(18,2),
+  psa024n08 NUMBER(18,2),
+  psa024n09 NUMBER(18,2),
+  psa024n10 NUMBER(18,2),
+  psa024c01 VARCHAR2(100),
+  psa024c02 VARCHAR2(100),
+  psa024c03 VARCHAR2(100),
+  psa024c04 VARCHAR2(100),
+  psa024c05 VARCHAR2(100),
+  psa024c06 VARCHAR2(100),
+  psa024c07 VARCHAR2(100),
+  psa024c08 VARCHAR2(100),
+  psa024c09 VARCHAR2(100),
+  psa024c10 VARCHAR2(100),
+  psa024f01 VARCHAR2(8),
+  psa024f02 VARCHAR2(8),
+  psa024f03 VARCHAR2(8),
+  psa024f04 VARCHAR2(8),
+  psa024f05 VARCHAR2(8),
+  psa024f06 VARCHAR2(8),
+  psa024f07 VARCHAR2(8),
+  psa024f08 VARCHAR2(8),
+  psa024f09 VARCHAR2(8),
+  psa024f10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA024
+  is 'TABLA Clientes de PIC';
+comment on column IT.PSA024.psa024fin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA024.psa024ffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA024.psa024pai
+  is 'Pais del documento.';
+comment on column IT.PSA024.psa024tdo
+  is 'Tipo de documento.';
+comment on column IT.PSA024.psa024ndo
+  is 'Numero de documento.';
+comment on column IT.PSA024.psa024ent
+  is 'Entidad.';
+comment on column IT.PSA024.psa024den
+  is 'Descripcion Entidad.';
+comment on column IT.PSA024.psa024ncl
+  is 'Nombre Cliente.';
+comment on column IT.PSA024.psa024tpe
+  is 'Tipo de Persona.';
+comment on column IT.PSA024.psa024sba
+  is 'Segmento de Banca.';
+comment on column IT.PSA024.psa024sla
+  is 'Segmento LAFT.';
+comment on column IT.PSA024.psa024vsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA024.psa024fab
+  is 'Fecha de Actualizacion Basica.';
+comment on column IT.PSA024.psa024cpn
+  is 'Codigo Pais de Nacimiento - Constitucion.';
+comment on column IT.PSA024.psa024pnc
+  is 'Ocupacion Persona Natural.';
+comment on column IT.PSA024.psa024aec
+  is 'Actividad Economica Cliente (CIIU).';
+comment on column IT.PSA024.psa024osl
+  is 'Cliente con Actividad de Organizaciones Sin Fines de Lucro.';
+comment on column IT.PSA024.psa024fid
+  is 'Clasificacion del Cliente como Fideicomiso.';
+comment on column IT.PSA024.psa024pep
+  is 'PEP.';
+comment on column IT.PSA024.psa024lre
+  is 'Cliente en Lista Restrictiva.';
+comment on column IT.PSA024.psa024faf
+  is 'Fecha Actualizacion Financiera.';
+comment on column IT.PSA024.psa024fei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA024.psa024vju
+  is 'Vulnerabilidad Jurisdicciones.';
+comment on column IT.PSA024.psa024vpr
+  is 'Vulnerabilidad Productos.';
+comment on column IT.PSA024.psa024vca
+  is 'Vulnerabilidad Canales.';
+comment on column IT.PSA024.psa024n03
+  is 'Auxiliar Numerico 03.';
+comment on column IT.PSA024.psa024n04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA024.psa024n05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA024.psa024n06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA024.psa024n07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA024.psa024n08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA024.psa024n09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA024.psa024n10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA024.psa024c01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA024.psa024c02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA024.psa024c03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA024.psa024c04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA024.psa024c05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA024.psa024c06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA024.psa024c07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA024.psa024c08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA024.psa024c09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA024.psa024c10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA024.psa024f01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA024.psa024f02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA024.psa024f03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA024.psa024f04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA024.psa024f05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA024.psa024f06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA024.psa024f07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA024.psa024f08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA024.psa024f09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA024.psa024f10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA024
+  add constraint PK_PSA024 primary key (PSA024FIN, PSA024FFI, PSA024PAI, PSA024NDO, PSA024TDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

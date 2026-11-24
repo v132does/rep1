@@ -1,0 +1,63 @@
+create table IT.GE_ARQ_EXTRACTOS
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  fec_ult_extracto DATE,
+  sal_ult_extracto NUMBER(18,2) default 0,
+  nro_folio        NUMBER(7),
+  nom_tabla        VARCHAR2(25) not null,
+  cod_persona      VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARQ_EXTRACTOS
+  is 'Temporal para generación de extractos.';
+comment on column IT.GE_ARQ_EXTRACTOS.cod_modulo
+  is 'Código de módulo de la Cuenta.';
+comment on column IT.GE_ARQ_EXTRACTOS.cod_modalidad
+  is 'Código de modalidad de la Cuenta.';
+comment on column IT.GE_ARQ_EXTRACTOS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_ARQ_EXTRACTOS.fec_ult_extracto
+  is 'Fecha de último extracto.';
+comment on column IT.GE_ARQ_EXTRACTOS.sal_ult_extracto
+  is 'Saldo del último extracto.';
+comment on column IT.GE_ARQ_EXTRACTOS.nro_folio
+  is 'Número de folio.';
+comment on column IT.GE_ARQ_EXTRACTOS.nom_tabla
+  is 'Nombre de tabla para actualizar.';
+create index IT.IN_GEARCU_COD_PERSONA on IT.GE_ARQ_EXTRACTOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEARCU_NRO_CUENTA on IT.GE_ARQ_EXTRACTOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

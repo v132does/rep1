@@ -1,0 +1,71 @@
+create table IT.GE_ALT_EMPLEADOS
+(
+  cod_ente         NUMBER(5) not null,
+  nro_documento    VARCHAR2(20) not null,
+  nro_lote         NUMBER(10) not null,
+  not_mail         VARCHAR2(100),
+  fec_recepcion    DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cantidad         NUMBER not null,
+  estado           VARCHAR2(3) not null,
+  fec_cierre       DATE,
+  usu_cierre       VARCHAR2(10),
+  fec_insercion    DATE not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  usu_modificacion VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_ALT_EMPLEADOS.cod_ente
+  is 'Código del ente.';
+comment on column IT.GE_ALT_EMPLEADOS.nro_documento
+  is 'Número del documento.';
+comment on column IT.GE_ALT_EMPLEADOS.nro_lote
+  is 'Número secuencia de la operación.';
+comment on column IT.GE_ALT_EMPLEADOS.not_mail
+  is 'Correo electrónico definido para la notificación.';
+comment on column IT.GE_ALT_EMPLEADOS.fec_recepcion
+  is 'Fecha recibo de la solicitud.';
+comment on column IT.GE_ALT_EMPLEADOS.cod_moneda
+  is 'Moneda de la operación.';
+comment on column IT.GE_ALT_EMPLEADOS.cantidad
+  is 'Cantidad de empleados.';
+comment on column IT.GE_ALT_EMPLEADOS.estado
+  is 'Estado de la solicitud. (P: Pendiente de Proceso por ITGF, N: Procesado por ITGF)';
+comment on column IT.GE_ALT_EMPLEADOS.fec_cierre
+  is 'Fecha de cierre del lote.';
+comment on column IT.GE_ALT_EMPLEADOS.usu_cierre
+  is 'Usuario que cerro el lote.';
+comment on column IT.GE_ALT_EMPLEADOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.GE_ALT_EMPLEADOS.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_ALT_EMPLEADOS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.GE_ALT_EMPLEADOS.usu_modificacion
+  is 'Usuario de modificacion.';
+alter table IT.GE_ALT_EMPLEADOS
+  add constraint PK_GE_ALT_EMPLEADOS primary key (COD_ENTE, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

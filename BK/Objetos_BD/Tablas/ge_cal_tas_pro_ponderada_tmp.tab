@@ -1,0 +1,59 @@
+create table IT.GE_CAL_TAS_PRO_PONDERADA_TMP
+(
+  nro_cuenta            VARCHAR2(15) not null,
+  nro_cuota             NUMBER(3) not null,
+  mto_capital           NUMBER(18,2) not null,
+  fec_vencimiento       DATE not null,
+  sal_capital           NUMBER(18,2) not null,
+  mto_cap_adelantado    NUMBER(18,2),
+  dia_transcurrido      NUMBER(6),
+  val_tas_interpolada   NUMBER(20,4),
+  val_tas_pro_ponderada NUMBER(20,4),
+  cod_tasa              NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CAL_TAS_PRO_PONDERADA_TMP
+  is 'Contiene los datos del Plan de Pagos de Prestamos.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.nro_cuenta
+  is 'Número de Operación.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.nro_cuota
+  is 'Número de Cuota de la Operación.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.mto_capital
+  is 'Monto de Capital a Amortizar.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento de la Cuota.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.sal_capital
+  is 'Saldo de Capital de la Cuota.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.mto_cap_adelantado
+  is 'Monto de capital adelantado por cancelacion anticipada.';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.dia_transcurrido
+  is 'Cantidad de Días transcurrido desde el desembolso';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.val_tas_interpolada
+  is 'Valor de la tasa interpolada considerando los dias transcurridos';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.val_tas_pro_ponderada
+  is 'Valor de la tasa promedio ponderada considerando los dias transcurridos y la tasa interpolada';
+comment on column IT.GE_CAL_TAS_PRO_PONDERADA_TMP.cod_tasa
+  is 'Codigo de tasa.';
+create index IT.BBVAIND_GH1 on IT.GE_CAL_TAS_PRO_PONDERADA_TMP (NRO_CUENTA, NRO_CUOTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

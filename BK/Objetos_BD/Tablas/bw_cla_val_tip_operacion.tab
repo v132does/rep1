@@ -1,0 +1,71 @@
+create table IT.BW_CLA_VAL_TIP_OPERACION
+(
+  cod_tip_mensaje      VARCHAR2(3) not null,
+  cod_tip_clave        VARCHAR2(2) not null,
+  cod_tip_cla_sec      VARCHAR2(2) not null,
+  tip_persona          VARCHAR2(1),
+  cod_persona          VARCHAR2(10),
+  estado               VARCHAR2(1) not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_usu_autorizacion VARCHAR2(10),
+  fec_usu_autorizacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.cod_tip_mensaje
+  is 'Código mensaje de la operación.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.cod_tip_clave
+  is 'Clave principal a solicitar para la operación. L: Libre; K:toKen; T:Transaccional; N:No Aplica.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.cod_tip_cla_sec
+  is 'Clave secundaria a solicitar para la operación. L: Libre; K:toKen; T:Transaccional; S:SoftToken N:No Aplica.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.tip_persona
+  is 'Personalizacion: NULL para ambas, F: Fisicas, J:Juridicas';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.cod_persona
+  is 'Personalizacion: si esta presente se aplica a la persona indicada';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.estado
+  is 'Activo "A" Inactivo "I"  Pendiente "P"';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.cod_usu_autorizacion
+  is 'Código de Usuario que autorizó la configuración del límite de operación.';
+comment on column IT.BW_CLA_VAL_TIP_OPERACION.fec_usu_autorizacion
+  is 'Fecha en que el usuario realiza la autorizacion, en conjunto con COD_USU_AUTORIZACION';
+alter table IT.BW_CLA_VAL_TIP_OPERACION
+  add constraint UK_BW_CLA_VAL_TIP_OPERACION unique (COD_TIP_MENSAJE, COD_TIP_CLAVE, COD_TIP_CLA_SEC, TIP_PERSONA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLA_VAL_TIP_OPERACION
+  add constraint FK_WCVTO_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+alter table IT.BW_CLA_VAL_TIP_OPERACION
+  add constraint CK_EST_CLA_VAL_TIP_OPERACION
+  check (ESTADO IN ('A','I','P'));
+

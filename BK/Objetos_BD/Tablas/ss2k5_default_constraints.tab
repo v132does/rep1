@@ -1,0 +1,10 @@
+create global temporary table IT.SS2K5_DEFAULT_CONSTRAINTS
+(
+  db_id      NUMBER(10),
+  definition CLOB,
+  object_id  NUMBER(10) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_DEFAULT_DB_ID on IT.SS2K5_DEFAULT_CONSTRAINTS (DB_ID);
+create index IT.SS2K5_DEFAULT_OBJECT_ID on IT.SS2K5_DEFAULT_CONSTRAINTS (OBJECT_ID);
+

@@ -1,0 +1,43 @@
+create table IT.BW_NOT_BLACKLIST
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_tip_evento   VARCHAR2(10),
+  tip_bloqueo      NUMBER(1) not null,
+  activo           VARCHAR2(1) default 'S' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_BLACKLIST.cod_persona
+  is 'Codigo de la persona suscripta a notificaciones';
+comment on column IT.BW_NOT_BLACKLIST.cod_tip_evento
+  is 'Codigo del tipo de evento a bloquear';
+comment on column IT.BW_NOT_BLACKLIST.tip_bloqueo
+  is '1: Evento, 2:Total';
+comment on column IT.BW_NOT_BLACKLIST.activo
+  is 'S: Indica que esta activo.';
+create index IT.IN_BBLA_COD_PER on IT.BW_NOT_BLACKLIST (COD_PERSONA, COD_TIP_EVENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

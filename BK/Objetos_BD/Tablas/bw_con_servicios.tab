@@ -1,0 +1,76 @@
+create table IT.BW_CON_SERVICIOS
+(
+  nro_ref_externo VARCHAR2(20) not null,
+  tip_movimiento  VARCHAR2(1) not null,
+  monto           NUMBER(18,2),
+  tip_concepto    VARCHAR2(1) not null,
+  nro_operacion   NUMBER(20) not null,
+  tip_transaccion VARCHAR2(3),
+  fec_proceso     DATE,
+  usu_proceso     VARCHAR2(10),
+  cod_error       VARCHAR2(3),
+  msj_error       VARCHAR2(1000),
+  conciliado      VARCHAR2(1) default 'N',
+  nro_ope_grupo   NUMBER(20) not null,
+  nro_movil       VARCHAR2(50),
+  fec_transaccion VARCHAR2(20) not null,
+  nro_movimiento  VARCHAR2(20) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CON_SERVICIOS
+  is 'Conciliacion de Servicios';
+comment on column IT.BW_CON_SERVICIOS.nro_ref_externo
+  is 'Numero Unico de Referencia Externo';
+comment on column IT.BW_CON_SERVICIOS.tip_movimiento
+  is 'Tipo de Movimiento. D-debito o C-credito';
+comment on column IT.BW_CON_SERVICIOS.monto
+  is 'Monto de la Operacion';
+comment on column IT.BW_CON_SERVICIOS.tip_concepto
+  is 'Tipo de Concepto. 1-Cred.Comision, 2-Deb.Cargo, 3-Debito, 4-Credito';
+comment on column IT.BW_CON_SERVICIOS.nro_operacion
+  is 'Numero de operacion';
+comment on column IT.BW_CON_SERVICIOS.tip_transaccion
+  is 'Tipo de Transaccion 1-Extraccion, 2-Deposito, 3-Compra 4-Transferencia';
+comment on column IT.BW_CON_SERVICIOS.fec_proceso
+  is 'Fecha del Proceso';
+comment on column IT.BW_CON_SERVICIOS.usu_proceso
+  is 'Usuario del Proceso';
+comment on column IT.BW_CON_SERVICIOS.cod_error
+  is 'Codigo del Error';
+comment on column IT.BW_CON_SERVICIOS.msj_error
+  is 'Mensaje de Error';
+comment on column IT.BW_CON_SERVICIOS.conciliado
+  is 'El registro fue conciliado (S/N)';
+comment on column IT.BW_CON_SERVICIOS.nro_ope_grupo
+  is 'Numero de Operacion del Grupo';
+comment on column IT.BW_CON_SERVICIOS.nro_movil
+  is 'Numero de Celular';
+comment on column IT.BW_CON_SERVICIOS.fec_transaccion
+  is 'Fecha y hora de la transaccion';
+comment on column IT.BW_CON_SERVICIOS.nro_movimiento
+  is 'Nro del movimiento';
+alter table IT.BW_CON_SERVICIOS
+  add constraint PK_BW_CON_SERVICIOS primary key (NRO_OPE_GRUPO, NRO_REF_EXTERNO, FEC_TRANSACCION, TIP_MOVIMIENTO, TIP_CONCEPTO, NRO_OPERACION, NRO_MOVIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

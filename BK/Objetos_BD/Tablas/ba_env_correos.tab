@@ -1,0 +1,92 @@
+-- Create table
+create table IT.BA_ENV_CORREOS
+(
+  nro_correo       NUMBER not null,
+  cod_persona      VARCHAR2(10) not null,
+  tip_producto     NUMBER not null,
+  estado           VARCHAR2(1) default 'P' not null,
+  fec_registro     DATE default sysdate not null,
+  fec_envio        DATE,
+  msj_error        VARCHAR2(4000),
+  parametros       LONG,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  mai_destinatario VARCHAR2(80) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BA_ENV_CORREOS
+  is 'Registro de mails a enviar a los clientes';
+-- Add comments to the columns 
+comment on column IT.BA_ENV_CORREOS.nro_correo
+  is 'contador de correos por persona';
+comment on column IT.BA_ENV_CORREOS.cod_persona
+  is 'codigo de persona ITGF';
+comment on column IT.BA_ENV_CORREOS.tip_producto
+  is 'tipo de producto';
+comment on column IT.BA_ENV_CORREOS.estado
+  is 'estados (P)pendiente (S)enviado (E)error';
+comment on column IT.BA_ENV_CORREOS.fec_registro
+  is 'fecha de registro';
+comment on column IT.BA_ENV_CORREOS.fec_envio
+  is 'fecha de envio del mensaje';
+comment on column IT.BA_ENV_CORREOS.msj_error
+  is 'mensaje de error';
+comment on column IT.BA_ENV_CORREOS.parametros
+  is 'json con los datos para armar el mensaje';
+comment on column IT.BA_ENV_CORREOS.mai_destinatario
+  is 'Correo del destinatario';
+-- Create/Recreate indexes 
+create index IT.IN_BECOR_ESTADO on IT.BA_ENV_CORREOS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IN_BECOR_FEC_INSERCION on IT.BA_ENV_CORREOS (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BA_ENV_CORREOS
+  add constraint PK_BA_ENV_CORREOS primary key (NRO_CORREO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BA_ENV_CORREOS to IT_TEMPORAL;

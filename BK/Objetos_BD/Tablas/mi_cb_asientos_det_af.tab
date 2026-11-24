@@ -1,0 +1,35 @@
+create table IT.MI_CB_ASIENTOS_DET_AF
+(
+  fecha            DATE,
+  cod_oficina      NUMBER,
+  nro_asiento      NUMBER,
+  nrolinea         NUMBER,
+  cod_rubro        VARCHAR2(50),
+  tip_movimiento   VARCHAR2(5),
+  mto_mon_rubro    NUMBER(38,15),
+  mto_mon_local    NUMBER(38,15),
+  referencia       VARCHAR2(60),
+  cadena           VARCHAR2(11),
+  protegido        VARCHAR2(1),
+  actualizado      VARCHAR2(1),
+  val_cotizacion   NUMBER,
+  distribuido      VARCHAR2(1),
+  ref_movimiento   NUMBER,
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  fec_valor        DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

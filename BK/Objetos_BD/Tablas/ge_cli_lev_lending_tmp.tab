@@ -1,0 +1,61 @@
+create table IT.GE_CLI_LEV_LENDING_TMP
+(
+  cod_persona      VARCHAR2(20) not null,
+  tipo             VARCHAR2(10),
+  descripcion      VARCHAR2(100) not null,
+  anho             NUMBER(4),
+  mes              NUMBER(2),
+  ratio            VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLI_LEV_LENDING_TMP
+  is 'Clientes Leveraged Lending Temporal';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.tipo
+  is 'Tipo de Leveraged';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.descripcion
+  is 'Descripcion de Leveraged';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.anho
+  is 'Año';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.mes
+  is 'Mes';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.ratio
+  is 'Ratio';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CLI_LEV_LENDING_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CLI_LEV_LENDING_TMP
+  add constraint UK_GE_CLI_LEV_LENDING_TMP unique (COD_PERSONA, ANHO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

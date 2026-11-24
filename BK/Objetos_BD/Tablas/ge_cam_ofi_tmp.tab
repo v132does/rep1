@@ -1,0 +1,21 @@
+create table IT.GE_CAM_OFI_TMP
+(
+  cod_persona     VARCHAR2(10) not null,
+  cod_usu_ofi_ori VARCHAR2(10) not null,
+  cod_usu_ofi_des VARCHAR2(10) not null,
+  cod_ofi_origen  NUMBER(3) not null,
+  cod_ofi_destino NUMBER(3) not null,
+  procesado       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

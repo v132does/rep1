@@ -1,0 +1,91 @@
+create table IT.CB_SAL_PROMEDIOS_TMP
+(
+  cod_oficina           NUMBER(3) not null,
+  cod_rubro             VARCHAR2(15) not null,
+  ano                   NUMBER(4) not null,
+  mes                   NUMBER(2) not null,
+  cod_moneda            VARCHAR2(3) not null,
+  tot_acumulado         NUMBER(18,2) default 0,
+  tot_acu_mon_local     NUMBER(18,2) default 0,
+  tot_acu_mon_fuerte    NUMBER(18,2) default 0,
+  tot_acu_debitos       NUMBER(18,2) default 0,
+  tot_acu_creditos      NUMBER(18,2) default 0,
+  tot_acu_deb_mon_local NUMBER(18,2) default 0,
+  tot_acu_cre_mon_local NUMBER(18,2) default 0,
+  tot_acu_equ_local     NUMBER(18,2) default 0,
+  tot_acu_deb_equ_local NUMBER(18,2) default 0,
+  tot_acu_cre_equ_local NUMBER(18,2) default 0,
+  can_dia_acumulado     NUMBER(6),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_PROMEDIOS_TMP
+  is 'Contiene los datos de saldos promedios de cuentas contables.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.ano
+  is 'Codigo de año del saldo.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.mes
+  is 'Codigo de mes del saldo.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acumulado
+  is 'Acumulado del saldo en moneda extranjera.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_mon_local
+  is 'Acumulado del saldo en moneda local.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_mon_fuerte
+  is 'Acumulado en dolares.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_debitos
+  is 'Importe acumulado de debitos en moneda extranjera.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_creditos
+  is 'Importe acumulado de creditos en moneda extranjera.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_deb_mon_local
+  is 'Importe acumulado de debitos.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_cre_mon_local
+  is 'Importe acumulado de creditos.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_equ_local
+  is 'Total  acumulado del equivalente en moneda local del acumulado en m/e.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_deb_equ_local
+  is 'Total acumulado de debitos equivalente en moneda local del acumulado en m/e.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.tot_acu_cre_equ_local
+  is 'Total acumulado de creditos equivalente en moneda local del acumulado en m/e.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.can_dia_acumulado
+  is 'Cantidad de dias.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_PROMEDIOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_SAL_PROMEDIOS_TMP
+  add constraint PK_CB_SAL_PROMEDIOS_TMP primary key (COD_OFICINA, COD_RUBRO, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

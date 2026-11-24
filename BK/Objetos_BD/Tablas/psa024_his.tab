@@ -1,0 +1,193 @@
+create table IT.PSA024_HIS
+(
+  psa024_hisfin VARCHAR2(8) not null,
+  psa024_hisffi VARCHAR2(8) not null,
+  psa024_hispai NUMBER(3) not null,
+  psa024_histdo NUMBER(4) not null,
+  psa024_hisndo VARCHAR2(25) not null,
+  psa024_hisent NUMBER(3),
+  psa024_hisden VARCHAR2(40),
+  psa024_hisncl VARCHAR2(70),
+  psa024_histpe VARCHAR2(8),
+  psa024_hissba VARCHAR2(40),
+  psa024_hissla NUMBER(9),
+  psa024_hisvsl NUMBER(9),
+  psa024_hisfab VARCHAR2(8),
+  psa024_hiscpn NUMBER(3),
+  psa024_hispnc VARCHAR2(30),
+  psa024_hisocu VARCHAR2(40),
+  psa024_hisaec NUMBER(9),
+  psa024_hisosl NUMBER(1),
+  psa024_hisfid NUMBER(1),
+  psa024_hispep NUMBER(1),
+  psa024_hislre NUMBER(1),
+  psa024_hisfaf VARCHAR2(8),
+  psa024_hisfei VARCHAR2(8),
+  psa024_hisvju NUMBER(9),
+  psa024_hisvpr NUMBER(9),
+  psa024_hisvca NUMBER(9),
+  psa024_hisn01 NUMBER(18,2),
+  psa024_hisn02 NUMBER(18,2),
+  psa024_hisn03 NUMBER(18,2),
+  psa024_hisn04 NUMBER(18,2),
+  psa024_hisn05 NUMBER(18,2),
+  psa024_hisn06 NUMBER(18,2),
+  psa024_hisn07 NUMBER(18,2),
+  psa024_hisn08 NUMBER(18,2),
+  psa024_hisn09 NUMBER(18,2),
+  psa024_hisn10 NUMBER(18,2),
+  psa024_hisc01 VARCHAR2(100),
+  psa024_hisc02 VARCHAR2(100),
+  psa024_hisc03 VARCHAR2(100),
+  psa024_hisc04 VARCHAR2(100),
+  psa024_hisc05 VARCHAR2(100),
+  psa024_hisc06 VARCHAR2(100),
+  psa024_hisc07 VARCHAR2(100),
+  psa024_hisc08 VARCHAR2(100),
+  psa024_hisc09 VARCHAR2(100),
+  psa024_hisc10 VARCHAR2(100),
+  psa024_hisf01 VARCHAR2(8),
+  psa024_hisf02 VARCHAR2(8),
+  psa024_hisf03 VARCHAR2(8),
+  psa024_hisf04 VARCHAR2(8),
+  psa024_hisf05 VARCHAR2(8),
+  psa024_hisf06 VARCHAR2(8),
+  psa024_hisf07 VARCHAR2(8),
+  psa024_hisf08 VARCHAR2(8),
+  psa024_hisf09 VARCHAR2(8),
+  psa024_hisf10 VARCHAR2(8)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA024_HIS
+  is 'TABLA Clientes de PIC';
+comment on column IT.PSA024_HIS.psa024_hisfin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA024_HIS.psa024_hisffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA024_HIS.psa024_hispai
+  is 'Pais del documento.';
+comment on column IT.PSA024_HIS.psa024_histdo
+  is 'Tipo de documento.';
+comment on column IT.PSA024_HIS.psa024_hisndo
+  is 'Numero de documento.';
+comment on column IT.PSA024_HIS.psa024_hisent
+  is 'Entidad.';
+comment on column IT.PSA024_HIS.psa024_hisden
+  is 'Descripcion Entidad.';
+comment on column IT.PSA024_HIS.psa024_hisncl
+  is 'Nombre Cliente.';
+comment on column IT.PSA024_HIS.psa024_histpe
+  is 'Tipo de Persona.';
+comment on column IT.PSA024_HIS.psa024_hissba
+  is 'Segmento de Banca.';
+comment on column IT.PSA024_HIS.psa024_hissla
+  is 'Segmento LAFT.';
+comment on column IT.PSA024_HIS.psa024_hisvsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA024_HIS.psa024_hisfab
+  is 'Fecha de Actualizacion Basica.';
+comment on column IT.PSA024_HIS.psa024_hiscpn
+  is 'Codigo Pais de Nacimiento - Constitucion.';
+comment on column IT.PSA024_HIS.psa024_hispnc
+  is 'Ocupacion Persona Natural.';
+comment on column IT.PSA024_HIS.psa024_hisaec
+  is 'Actividad Economica Cliente (CIIU).';
+comment on column IT.PSA024_HIS.psa024_hisosl
+  is 'Cliente con Actividad de Organizaciones Sin Fines de Lucro.';
+comment on column IT.PSA024_HIS.psa024_hisfid
+  is 'Clasificacion del Cliente como Fideicomiso.';
+comment on column IT.PSA024_HIS.psa024_hispep
+  is 'PEP.';
+comment on column IT.PSA024_HIS.psa024_hislre
+  is 'Cliente en Lista Restrictiva.';
+comment on column IT.PSA024_HIS.psa024_hisfaf
+  is 'Fecha Actualizacion Financiera.';
+comment on column IT.PSA024_HIS.psa024_hisfei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA024_HIS.psa024_hisvju
+  is 'Vulnerabilidad Jurisdicciones.';
+comment on column IT.PSA024_HIS.psa024_hisvpr
+  is 'Vulnerabilidad Productos.';
+comment on column IT.PSA024_HIS.psa024_hisvca
+  is 'Vulnerabilidad Canales.';
+comment on column IT.PSA024_HIS.psa024_hisn03
+  is 'Auxiliar Numerico 03.';
+comment on column IT.PSA024_HIS.psa024_hisn04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA024_HIS.psa024_hisn05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA024_HIS.psa024_hisn06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA024_HIS.psa024_hisn07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA024_HIS.psa024_hisn08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA024_HIS.psa024_hisn09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA024_HIS.psa024_hisn10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA024_HIS.psa024_hisc01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA024_HIS.psa024_hisc02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA024_HIS.psa024_hisc03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA024_HIS.psa024_hisc04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA024_HIS.psa024_hisc05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA024_HIS.psa024_hisc06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA024_HIS.psa024_hisc07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA024_HIS.psa024_hisc08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA024_HIS.psa024_hisc09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA024_HIS.psa024_hisc10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA024_HIS.psa024_hisf01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA024_HIS.psa024_hisf02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA024_HIS.psa024_hisf03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA024_HIS.psa024_hisf04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA024_HIS.psa024_hisf05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA024_HIS.psa024_hisf06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA024_HIS.psa024_hisf07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA024_HIS.psa024_hisf08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA024_HIS.psa024_hisf09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA024_HIS.psa024_hisf10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA024_HIS
+  add constraint PK_PSA024_HIS primary key (PSA024_HISFIN, PSA024_HISFFI, PSA024_HISPAI, PSA024_HISNDO, PSA024_HISTDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

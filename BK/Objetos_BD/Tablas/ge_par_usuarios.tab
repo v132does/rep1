@@ -1,0 +1,70 @@
+create table IT.GE_PAR_USUARIOS
+(
+  cod_usuario      VARCHAR2(10) not null,
+  parametro        VARCHAR2(30) not null,
+  val_parametro    VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAR_USUARIOS
+  is 'Parametros dinamicos por usuario';
+comment on column IT.GE_PAR_USUARIOS.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.GE_PAR_USUARIOS.parametro
+  is 'Campo del Parametro.';
+comment on column IT.GE_PAR_USUARIOS.val_parametro
+  is 'Valor del Parametro.';
+comment on column IT.GE_PAR_USUARIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PAR_USUARIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAR_USUARIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAR_USUARIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GPAUS_PARAMETRO on IT.GE_PAR_USUARIOS (PARAMETRO, VAL_PARAMETRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAR_USUARIOS
+  add constraint PK_GE_PAR_USUARIOS primary key (COD_USUARIO, PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAR_USUARIOS
+  add constraint FK_GPAUS_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_PAR_USUARIOS
+  add constraint FK_GPAUS_PARAMETRO foreign key (PARAMETRO)
+  references IT.GE_PARAMETROS (PARAMETRO);
+

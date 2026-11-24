@@ -1,0 +1,68 @@
+create table IT.TA_TARJETAS_NOV
+(
+  fecha                DATE not null,
+  nro_cuenta           VARCHAR2(15) not null,
+  nro_tarjeta          VARCHAR2(25) not null,
+  aprobado             VARCHAR2(1) default 'N',
+  niv_aprobacion       VARCHAR2(3),
+  nro_acta             NUMBER(10),
+  fec_aprobacion       DATE,
+  enviado              VARCHAR2(1) default 'N',
+  observacion          VARCHAR2(4000),
+  pla_ope_por_contado  NUMBER(18,2),
+  pla_ope_mto_contado  NUMBER(18,2),
+  pla_ope_mto_adelanto NUMBER(18,2),
+  pla_ope_por_adelanto NUMBER(18,2),
+  usu_insercion        VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TARJETAS_NOV
+  is 'Novedades de Tarjetas. Aqui se guardan las variaciones que tuvieron las cuentas para luego informar a la procesadora.';
+comment on column IT.TA_TARJETAS_NOV.fecha
+  is 'Fecha en que se produjo la novedad.';
+comment on column IT.TA_TARJETAS_NOV.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.TA_TARJETAS_NOV.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_TARJETAS_NOV.aprobado
+  is 'Aprobado para enviar a la Procesadora (S/N).';
+comment on column IT.TA_TARJETAS_NOV.niv_aprobacion
+  is 'Niveles de aprobacion.';
+comment on column IT.TA_TARJETAS_NOV.nro_acta
+  is 'Nro. de Acta.';
+comment on column IT.TA_TARJETAS_NOV.fec_aprobacion
+  is 'Fecha de Aprobacion.';
+comment on column IT.TA_TARJETAS_NOV.enviado
+  is 'Enviado a la Procesadora (S/N).';
+comment on column IT.TA_TARJETAS_NOV.observacion
+  is 'Observaciones.';
+comment on column IT.TA_TARJETAS_NOV.pla_ope_por_contado
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_TARJETAS_NOV.pla_ope_mto_contado
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_TARJETAS_NOV.pla_ope_mto_adelanto
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TARJETAS_NOV.pla_ope_por_adelanto
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TARJETAS_NOV.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_TARJETAS_NOV.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_TARJETAS_NOV.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TARJETAS_NOV.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+

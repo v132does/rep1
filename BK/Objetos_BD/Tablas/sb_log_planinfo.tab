@@ -1,0 +1,35 @@
+create table IT.SB_LOG_PLANINFO
+(
+  tipo             VARCHAR2(5) not null,
+  mensaje          VARCHAR2(1000) not null,
+  usu_insercion    VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_LOG_PLANINFO
+  is 'Log de validaciones de Planinfo';
+comment on column IT.SB_LOG_PLANINFO.tipo
+  is 'Tipo de Operacion';
+comment on column IT.SB_LOG_PLANINFO.mensaje
+  is 'Descripcion del Mensaje correspondiente a diferencias detectadas ';
+comment on column IT.SB_LOG_PLANINFO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_LOG_PLANINFO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_LOG_PLANINFO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_LOG_PLANINFO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

@@ -1,0 +1,53 @@
+create table IT.GE_PER_FATCA_TMP
+(
+  cod_persona       VARCHAR2(10) not null,
+  sal_agregado      NUMBER(18,2),
+  fec_sal_agregado  DATE,
+  sal_agr_julio     NUMBER(18,2),
+  tip_ind_actual    VARCHAR2(1),
+  det_ind_actual    VARCHAR2(500),
+  sal_agr_tarjeta   NUMBER(18,2),
+  sal_agr_tar_julio NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PER_FATCA_TMP.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_PER_FATCA_TMP.sal_agregado
+  is 'Saldo agregado a la fecha de proceso (exluído saldo de tarjetas).';
+comment on column IT.GE_PER_FATCA_TMP.fec_sal_agregado
+  is 'Fecha de saldo Agregado.';
+comment on column IT.GE_PER_FATCA_TMP.sal_agr_julio
+  is 'Saldo agregado al 1 de Julio de 2014  (exluído saldo de tarjetas).';
+comment on column IT.GE_PER_FATCA_TMP.tip_ind_actual
+  is 'Tipo de Indicio Actual';
+comment on column IT.GE_PER_FATCA_TMP.det_ind_actual
+  is 'Detalle de Inicio Actual';
+comment on column IT.GE_PER_FATCA_TMP.sal_agr_tarjeta
+  is 'Saldo agregado de tarjetas a la fecha de proceso';
+comment on column IT.GE_PER_FATCA_TMP.sal_agr_tar_julio
+  is 'Saldo agregado de tarjetas al 1 de Julio de 2014';
+alter table IT.GE_PER_FATCA_TMP
+  add constraint PK_GE_PER_FATCA_TMP primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

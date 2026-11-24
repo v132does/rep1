@@ -1,0 +1,44 @@
+create table IT.CC_SOBREGIROS_TMP
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  fecha               DATE not null,
+  saldo               NUMBER(18,2) default 0 not null,
+  liquidado           VARCHAR2(1) default 'N' not null,
+  usu_insercion       VARCHAR2(15) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(15) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  sal_total           NUMBER(18,2) default 0 not null,
+  sal_retenido        NUMBER(18,2) default 0 not null,
+  mto_linea           NUMBER(18,2) default 0 not null,
+  can_dias            NUMBER(6),
+  mto_lin_transitoria NUMBER(18,2),
+  can_dia_sobregiro   NUMBER(6),
+  generado            VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOBREGIROS_TMP
+  add constraint PK_CC_SOBREGIROS_TMP primary key (NRO_CUENTA, FECHA, LIQUIDADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

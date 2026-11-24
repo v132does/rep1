@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_DEBITO
+minvalue 0
+maxvalue 999999999
+start with 3021
+increment by 1
+nocache;
+

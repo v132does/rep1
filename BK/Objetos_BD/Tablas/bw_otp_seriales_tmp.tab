@@ -1,0 +1,26 @@
+create table IT.BW_OTP_SERIALES_TMP
+(
+  tipo       VARCHAR2(1) not null,
+  nro_serial VARCHAR2(20) not null,
+  nro_lote   VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OTP_SERIALES_TMP
+  is 'Temporal de Seriales OTP.';
+comment on column IT.BW_OTP_SERIALES_TMP.tipo
+  is 'Tipo de Clave dispositivo OTP (F/FISICA, V/VIRTUAL).';
+comment on column IT.BW_OTP_SERIALES_TMP.nro_serial
+  is 'Serie que identifica al OTP.';
+comment on column IT.BW_OTP_SERIALES_TMP.nro_lote
+  is 'Lote correspondiente al Número de Serial.';
+

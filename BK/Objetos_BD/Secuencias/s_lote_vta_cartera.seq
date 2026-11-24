@@ -1,0 +1,7 @@
+create sequence IT.S_LOTE_VTA_CARTERA
+minvalue 1
+maxvalue 999999999
+start with 2305
+increment by 1
+cache 20;
+

@@ -1,0 +1,44 @@
+-- =====================================================================
+-- TABLA: IT.CB_MTO_CONTINGENCIA
+-- Descripción: Montos de contingencia calculados
+-- =====================================================================
+
+CREATE TABLE IT.CB_MTO_CONTINGENCIA (
+    ID                    NUMBER,
+    FECHA                 DATE,
+    COD_RUBRO             VARCHAR2(100),
+    DESCRIPCION           VARCHAR2(4000),
+    MONTO                 NUMBER,
+    PONDERACION           NUMBER,
+    FUENTE_DE_DATOS       VARCHAR2(100),
+    ORDEN                 NUMBER,
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.CB_MTO_CONTINGENCIA IS 'Montos de contingencia calculados por rubro para el informe de solvencia';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.ID IS 'Identificador unico del registro';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.FECHA IS 'Fecha de corte del calculo';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.COD_RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.DESCRIPCION IS 'Descripcion del rubro';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.MONTO IS 'Monto calculado para el rubro';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.PONDERACION IS 'Ponderacion aplicada al calculo';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.FUENTE_DE_DATOS IS 'Fuente de datos utilizada';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.ORDEN IS 'Orden de presentacion en el informe';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.CB_MTO_CONTINGENCIA.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';
+

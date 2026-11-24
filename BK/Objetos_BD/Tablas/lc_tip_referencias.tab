@@ -1,0 +1,52 @@
+create table IT.LC_TIP_REFERENCIAS
+(
+  cod_tip_referencia VARCHAR2(3) not null,
+  descripcion        VARCHAR2(100) not null,
+  sig_numero         NUMBER(10) default 1 not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TIP_REFERENCIAS
+  is 'Contiene los Tipos de Referencias y los Sgtes. Numeros Correspondientes.';
+comment on column IT.LC_TIP_REFERENCIAS.cod_tip_referencia
+  is 'Codigo del tipo de referencia.';
+comment on column IT.LC_TIP_REFERENCIAS.descripcion
+  is 'Descripcion del tipo de referencia.';
+comment on column IT.LC_TIP_REFERENCIAS.sig_numero
+  is 'Siguiente numero del tipo de referencia a asignar.';
+comment on column IT.LC_TIP_REFERENCIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_TIP_REFERENCIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_TIP_REFERENCIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_TIP_REFERENCIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_TIP_REFERENCIAS
+  add constraint PK_LC_TIP_REFERENCIAS primary key (COD_TIP_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

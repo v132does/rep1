@@ -1,0 +1,39 @@
+create table IT.SIMGIA_MAECARTERA_BKP
+(
+  fecha      VARCHAR2(6),
+  sucursal   NUMBER(3),
+  riesgo     VARCHAR2(10),
+  succuenta  NUMBER,
+  propue     NUMBER,
+  codigo     VARCHAR2(20),
+  numdoc     CHAR(1),
+  importe    NUMBER,
+  intereses  NUMBER,
+  montodivis NUMBER,
+  codivisa   NUMBER,
+  venci      VARCHAR2(6),
+  estado     NUMBER,
+  indparaest NUMBER,
+  banren     NUMBER,
+  doccodtasa NUMBER,
+  docnrolibr NUMBER,
+  origensucu NUMBER,
+  origenserv NUMBER,
+  doclinea   NUMBER,
+  ctaintact  NUMBER,
+  ctaintpas  NUMBER,
+  filler     VARCHAR2(16),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

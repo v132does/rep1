@@ -1,0 +1,66 @@
+create table IT.TA_PUNTOS_DIA
+(
+  clase            NUMBER(2) not null,
+  afinidad         VARCHAR2(2) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  fec_movimiento   DATE not null,
+  tip_movimiento   VARCHAR2(1) not null,
+  puntos           NUMBER(9) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PUNTOS_DIA
+  is 'Archivo CBR48PF';
+comment on column IT.TA_PUNTOS_DIA.clase
+  is 'Clase de Tarjeta.';
+comment on column IT.TA_PUNTOS_DIA.afinidad
+  is 'Afinidad.';
+comment on column IT.TA_PUNTOS_DIA.nro_cuenta
+  is 'Cuenta.';
+comment on column IT.TA_PUNTOS_DIA.fec_movimiento
+  is 'Fecha de Movimiento.';
+comment on column IT.TA_PUNTOS_DIA.tip_movimiento
+  is 'Tipo de Moviento. S= Generado por sistema,
+M= Manual,
+E= Especial,
+B= Baja,
+C= Canje,
+V= Vencido.';
+comment on column IT.TA_PUNTOS_DIA.puntos
+  is 'Puntos.';
+comment on column IT.TA_PUNTOS_DIA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_PUNTOS_DIA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_PUNTOS_DIA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_PUNTOS_DIA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.TA_PUNTOS_DIA
+  add constraint PK_TA_PUNTOS_DIA primary key (NRO_CUENTA, FEC_MOVIMIENTO, TIP_MOVIMIENTO, PUNTOS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

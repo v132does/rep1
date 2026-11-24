@@ -1,0 +1,35 @@
+create table IT.CO_INF_PROCESOS
+(
+  nom_proceso VARCHAR2(50),
+  fec_ini     DATE,
+  fec_fin     DATE,
+  error       NUMBER(7),
+  mensaje     VARCHAR2(300),
+  comentario  VARCHAR2(1500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_INF_PROCESOS
+  is 'Registro de sucesos de los procesos del modulo.';
+comment on column IT.CO_INF_PROCESOS.nom_proceso
+  is 'Nombre del proceso que genero el suceso.';
+comment on column IT.CO_INF_PROCESOS.fec_ini
+  is 'Fecha de inicio del procedimiento.';
+comment on column IT.CO_INF_PROCESOS.fec_fin
+  is 'Fecha de finalizacion del procedimiento.';
+comment on column IT.CO_INF_PROCESOS.error
+  is 'Numero de error que se genero.';
+comment on column IT.CO_INF_PROCESOS.mensaje
+  is 'Texto del error.';
+comment on column IT.CO_INF_PROCESOS.comentario
+  is 'Comantarios del procedimiento.';
+

@@ -1,0 +1,55 @@
+create table IT.IG_CONCEPTOS
+(
+  cod_concepto     NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tipo             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_CONCEPTOS
+  is 'Conceptos del Sistema de Gratificacion.';
+comment on column IT.IG_CONCEPTOS.cod_concepto
+  is 'Codigo de concepto para el Sistema de Gratificacion.';
+comment on column IT.IG_CONCEPTOS.descripcion
+  is 'Descripcion del concepto.';
+comment on column IT.IG_CONCEPTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_CONCEPTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_CONCEPTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_CONCEPTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.IG_CONCEPTOS.tipo
+  is 'Tipo de operacion. Activo, Pasivo, Contingencia.';
+alter table IT.IG_CONCEPTOS
+  add constraint PK_IG_CONCEPTOS primary key (COD_CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_CONCEPTOS
+  add constraint AVCON_1180382030_COD_C_008
+  check (COD_CONCEPTO BETWEEN 0 AND 999);
+

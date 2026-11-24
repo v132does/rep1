@@ -1,0 +1,151 @@
+create table IT.GE_CTA_IMP_PSAML
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  fec_proceso      DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fec_env_perfil   DATE,
+  exi_enbantotal   VARCHAR2(2),
+  nro_cta_bantotal NUMBER(9),
+  seg_cliente      VARCHAR2(100),
+  cod_ofi_bantotal NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_IMP_PSAML
+  is 'Tabla de Cuentas a Importar en PSAML.';
+comment on column IT.GE_CTA_IMP_PSAML.nro_cuenta
+  is 'Nro de Cuenta.';
+comment on column IT.GE_CTA_IMP_PSAML.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_CTA_IMP_PSAML.fec_proceso
+  is 'Fecha calendario de proceso.';
+comment on column IT.GE_CTA_IMP_PSAML.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CTA_IMP_PSAML.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CTA_IMP_PSAML.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_IMP_PSAML.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_IMP_PSAML.fec_env_perfil
+  is 'Fecha de Envio del perfil a PSAML';
+comment on column IT.GE_CTA_IMP_PSAML.exi_enbantotal
+  is 'S/N (S= Cliente existente en Bantotal, N= Cliente no existente en bantotal)';
+comment on column IT.GE_CTA_IMP_PSAML.nro_cta_bantotal
+  is 'Nro de cta en bantotal';
+comment on column IT.GE_CTA_IMP_PSAML.seg_cliente
+  is 'SEGMENTO CLIENTE ITGF';
+comment on column IT.GE_CTA_IMP_PSAML.cod_ofi_bantotal
+  is 'COD OFICIAL BANTOTAL';
+create index IT.IN_GCPSAM_CLISEGM on IT.GE_CTA_IMP_PSAML (COD_PERSONA, SEG_CLIENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCPSAM_COD_PERSONA on IT.GE_CTA_IMP_PSAML (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCPSAM_EXI_BANTOTAL on IT.GE_CTA_IMP_PSAML (EXI_ENBANTOTAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCPSAM_FEC_INSERCION on IT.GE_CTA_IMP_PSAML (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCPSAM_FEC_PROCESO on IT.GE_CTA_IMP_PSAML (FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCPSAM_NRO_CUENTA on IT.GE_CTA_IMP_PSAML (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCPSAM_SEGMENTO on IT.GE_CTA_IMP_PSAML (SEG_CLIENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CTA_IMP_PSAML
+  add constraint PK_GE_CTA_IMP_PSAML primary key (NRO_CUENTA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

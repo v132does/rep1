@@ -1,0 +1,175 @@
+create table IT.PSA027_HIS
+(
+  psa027_hisfin VARCHAR2(8) not null,
+  psa027_hisffi VARCHAR2(8) not null,
+  psa027_hispai NUMBER(3) not null,
+  psa027_histdo NUMBER(4) not null,
+  psa027_hisndo VARCHAR2(25) not null,
+  psa027_hiscju VARCHAR2(25) not null,
+  psa027_hisnju VARCHAR2(40),
+  psa027_hisent NUMBER(3),
+  psa027_hisden VARCHAR2(40),
+  psa027_hisvsl NUMBER(9),
+  psa027_histoc NUMBER(18,2),
+  psa027_hiscoc NUMBER(10),
+  psa027_histod NUMBER(18,2),
+  psa027_hiscod NUMBER(10),
+  psa027_histts NUMBER(18,2),
+  psa027_hiscts NUMBER(10),
+  psa027_hisfei VARCHAR2(8),
+  psa027_hisvfj NUMBER(9),
+  psa027_hisn01 NUMBER(18,2),
+  psa027_hisn02 NUMBER(18,2),
+  psa027_hisn03 NUMBER(18,2),
+  psa027_hisn04 NUMBER(18,2),
+  psa027_hisn05 NUMBER(18,2),
+  psa027_hisn06 NUMBER(18,2),
+  psa027_hisn07 NUMBER(18,2),
+  psa027_hisn08 NUMBER(18,2),
+  psa027_hisn09 NUMBER(18,2),
+  psa027_hisn10 NUMBER(18,2),
+  psa027_hisc01 VARCHAR2(100),
+  psa027_hisc02 VARCHAR2(100),
+  psa027_hisc03 VARCHAR2(100),
+  psa027_hisc04 VARCHAR2(100),
+  psa027_hisc05 VARCHAR2(100),
+  psa027_hisc06 VARCHAR2(100),
+  psa027_hisc07 VARCHAR2(100),
+  psa027_hisc08 VARCHAR2(100),
+  psa027_hisc09 VARCHAR2(100),
+  psa027_hisc10 VARCHAR2(100),
+  psa027_hisf01 VARCHAR2(8),
+  psa027_hisf02 VARCHAR2(8),
+  psa027_hisf03 VARCHAR2(8),
+  psa027_hisf04 VARCHAR2(8),
+  psa027_hisf05 VARCHAR2(8),
+  psa027_hisf06 VARCHAR2(8),
+  psa027_hisf07 VARCHAR2(8),
+  psa027_hisf08 VARCHAR2(8),
+  psa027_hisf09 VARCHAR2(8),
+  psa027_hisf10 VARCHAR2(8)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA027_HIS
+  is 'TABLA Base de Jurisdicciones (Sucursales) de PIC';
+comment on column IT.PSA027_HIS.psa027_hisfin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA027_HIS.psa027_hisffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA027_HIS.psa027_hispai
+  is 'Pais del documento.';
+comment on column IT.PSA027_HIS.psa027_histdo
+  is 'Tipo de documento.';
+comment on column IT.PSA027_HIS.psa027_hisndo
+  is 'Numero de documento.';
+comment on column IT.PSA027_HIS.psa027_hiscju
+  is 'Codigo de Jurisdiccion.';
+comment on column IT.PSA027_HIS.psa027_hisnju
+  is 'Nombre de Jurisdiccion.';
+comment on column IT.PSA027_HIS.psa027_hisent
+  is 'Entidad.';
+comment on column IT.PSA027_HIS.psa027_hisden
+  is 'Descripcion Entidad.';
+comment on column IT.PSA027_HIS.psa027_hisvsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA027_HIS.psa027_histoc
+  is 'Volumen Total de las Operaciones Credito.';
+comment on column IT.PSA027_HIS.psa027_hiscoc
+  is 'Cantidad de Operaciones Credito.';
+comment on column IT.PSA027_HIS.psa027_histod
+  is 'Volumen Total de las Operaciones Debito.';
+comment on column IT.PSA027_HIS.psa027_hiscod
+  is 'Cantidad de Operaciones Debito.';
+comment on column IT.PSA027_HIS.psa027_histts
+  is 'Monto Total de Transacciones Superiores a 10 Millones.';
+comment on column IT.PSA027_HIS.psa027_hiscts
+  is 'Cantidad Total de Transacciones Superiores a 10 Millones.';
+comment on column IT.PSA027_HIS.psa027_hisfei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA027_HIS.psa027_hisvfj
+  is 'Vulnerabilidad del Factor Jurisdicciones.';
+comment on column IT.PSA027_HIS.psa027_hisn01
+  is 'Auxiliar Numerico 01.';
+comment on column IT.PSA027_HIS.psa027_hisn02
+  is 'Auxiliar Numerico 02.';
+comment on column IT.PSA027_HIS.psa027_hisn03
+  is 'Auxiliar Numerico 03.';
+comment on column IT.PSA027_HIS.psa027_hisn04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA027_HIS.psa027_hisn05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA027_HIS.psa027_hisn06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA027_HIS.psa027_hisn07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA027_HIS.psa027_hisn08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA027_HIS.psa027_hisn09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA027_HIS.psa027_hisn10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA027_HIS.psa027_hisc01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA027_HIS.psa027_hisc02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA027_HIS.psa027_hisc03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA027_HIS.psa027_hisc04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA027_HIS.psa027_hisc05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA027_HIS.psa027_hisc06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA027_HIS.psa027_hisc07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA027_HIS.psa027_hisc08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA027_HIS.psa027_hisc09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA027_HIS.psa027_hisc10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA027_HIS.psa027_hisf01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA027_HIS.psa027_hisf02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA027_HIS.psa027_hisf03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA027_HIS.psa027_hisf04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA027_HIS.psa027_hisf05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA027_HIS.psa027_hisf06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA027_HIS.psa027_hisf07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA027_HIS.psa027_hisf08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA027_HIS.psa027_hisf09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA027_HIS.psa027_hisf10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA027_HIS
+  add constraint PK_PSA027_HIS primary key (PSA027_HISFIN, PSA027_HISFFI, PSA027_HISPAI, PSA027_HISTDO, PSA027_HISNDO, PSA027_HISCJU)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

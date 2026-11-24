@@ -1,0 +1,7 @@
+create sequence IT.S_FAD_NRO_SOL
+minvalue 1
+maxvalue 999999999999
+start with 9102
+increment by 1
+nocache;
+

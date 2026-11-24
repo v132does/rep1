@@ -1,0 +1,47 @@
+create table IT.GE_SOL_OPE_SIN_TAR
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_tel_nuevo    VARCHAR2(16) not null,
+  nro_tel_ant      VARCHAR2(16) not null,
+  estado           VARCHAR2(1) default 'P' not null,
+  accion           VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_OPE_SIN_TAR
+  is 'Solicitud de Operaciones para cambios sin tarjeta';
+comment on column IT.GE_SOL_OPE_SIN_TAR.nro_cuenta
+  is 'Nro. de cuenta.';
+comment on column IT.GE_SOL_OPE_SIN_TAR.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.GE_SOL_OPE_SIN_TAR.nro_tel_nuevo
+  is 'Nro. de telefono celular nuevo.';
+comment on column IT.GE_SOL_OPE_SIN_TAR.nro_tel_ant
+  is 'Nro. de telefono que tenia antes del cambio';
+comment on column IT.GE_SOL_OPE_SIN_TAR.estado
+  is 'P (pendiente) A (aprobado) R (rechazado).';
+comment on column IT.GE_SOL_OPE_SIN_TAR.accion
+  is 'Accion a realizar';
+comment on column IT.GE_SOL_OPE_SIN_TAR.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_OPE_SIN_TAR.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_OPE_SIN_TAR.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_OPE_SIN_TAR.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

@@ -1,0 +1,18 @@
+create table IT.GE_RESTITUCION_TMP
+(
+  nro_cuenta VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_RESTITUCION_TMP.nro_cuenta
+  is 'Nro. Cuenta a ser restituida';
+

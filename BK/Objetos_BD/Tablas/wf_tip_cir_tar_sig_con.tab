@@ -1,0 +1,61 @@
+create table IT.WF_TIP_CIR_TAR_SIG_CON
+(
+  cod_tip_circuito      NUMBER(3) not null,
+  cod_tip_tarea         NUMBER(3) not null,
+  cod_tip_tar_siguiente NUMBER(3) not null,
+  cod_campo             VARCHAR2(10) not null,
+  negado                VARCHAR2(1) default 'N' not null,
+  val_defecto           VARCHAR2(300),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_TIP_CIR_TAR_SIG_CON
+  is 'Definicion de las condiciones que deben darse para ir a la tarea x';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.cod_tip_circuito
+  is 'Codigo del tipo de circuito';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.cod_tip_tarea
+  is 'Codigo de la tarea definida';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.cod_tip_tar_siguiente
+  is 'Tarea siguiente a generar si la actual es aprobada';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.cod_campo
+  is 'codigo del filtro a utilizar para esta tarea';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.negado
+  is 'Si la condicion es o no negacion (NOT)';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.val_defecto
+  is 'Valor para la condicion ';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_TIP_CIR_TAR_SIG_CON.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.WF_TIP_CIR_TAR_SIG_CON
+  add constraint PK_WF_TIP_CIR_TAR_SIG_CON primary key (COD_TIP_CIRCUITO, COD_TIP_TAREA, COD_TIP_TAR_SIGUIENTE, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

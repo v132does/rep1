@@ -1,0 +1,112 @@
+create table IT.PR_TAS_VARIABLES_DET
+(
+  nro_solicitud       NUMBER(7) not null,
+  cod_periodo         VARCHAR2(10),
+  nro_cuota           NUMBER(4) not null,
+  mto_capital         NUMBER(18,4) default 0,
+  fec_vencimiento     DATE,
+  mto_interes         NUMBER(20,4) default 0,
+  sal_capital         NUMBER(20,4) default 0,
+  sal_interes         NUMBER(20,4) default 0,
+  val_recargo         NUMBER(20,4) default 0,
+  mto_int_documentado NUMBER(20,4) default 0,
+  valor_cuota         NUMBER(20,4) default 0,
+  renegociacion       VARCHAR2(1),
+  dia                 VARCHAR2(30),
+  val_int_adelantado  NUMBER(20,4),
+  val_interes         NUMBER(20,4),
+  val_int_original    NUMBER(20,4),
+  mto_cargo           NUMBER(20,4),
+  tot_cuota           NUMBER(20,4),
+  fec_renegociacion   DATE,
+  tas_referencia      NUMBER(20,4),
+  tas_utilizada       NUMBER(20,4),
+  spread              NUMBER(20,4),
+  observacion         VARCHAR2(3000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_TAS_VARIABLES_DET
+  is 'Contiene los datos de Detalle de Tipos de Operaciones de Tasa Variable';
+comment on column IT.PR_TAS_VARIABLES_DET.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_TAS_VARIABLES_DET.cod_periodo
+  is 'Codigo de Periodo';
+comment on column IT.PR_TAS_VARIABLES_DET.nro_cuota
+  is 'Número de Cuota del Préstamo.';
+comment on column IT.PR_TAS_VARIABLES_DET.mto_capital
+  is 'Monto de Capital a Amortizar.';
+comment on column IT.PR_TAS_VARIABLES_DET.fec_vencimiento
+  is 'Fecha de Vencimiento de la Cuota.';
+comment on column IT.PR_TAS_VARIABLES_DET.mto_interes
+  is 'Monto del Interés no Documentado de la Cuota.';
+comment on column IT.PR_TAS_VARIABLES_DET.sal_capital
+  is 'Saldo de Capital de la Cuota.';
+comment on column IT.PR_TAS_VARIABLES_DET.sal_interes
+  is 'Saldo de Interés no Documentado de la Cuota.';
+comment on column IT.PR_TAS_VARIABLES_DET.val_recargo
+  is 'Valor de Recargo.';
+comment on column IT.PR_TAS_VARIABLES_DET.mto_int_documentado
+  is 'Valor del Interés Documentado de la Cuota.';
+comment on column IT.PR_TAS_VARIABLES_DET.valor_cuota
+  is 'Valor de la cuota';
+comment on column IT.PR_TAS_VARIABLES_DET.renegociacion
+  is 'Renegociacion S/N';
+comment on column IT.PR_TAS_VARIABLES_DET.dia
+  is 'Dia';
+comment on column IT.PR_TAS_VARIABLES_DET.val_int_adelantado
+  is 'Val.Int.Adelantado';
+comment on column IT.PR_TAS_VARIABLES_DET.val_interes
+  is 'Val.Interes';
+comment on column IT.PR_TAS_VARIABLES_DET.val_int_original
+  is 'Val.Int.Original';
+comment on column IT.PR_TAS_VARIABLES_DET.mto_cargo
+  is 'Monto de Cargo';
+comment on column IT.PR_TAS_VARIABLES_DET.tot_cuota
+  is 'Total Cuota';
+comment on column IT.PR_TAS_VARIABLES_DET.fec_renegociacion
+  is 'Fecha de Renegociacion';
+comment on column IT.PR_TAS_VARIABLES_DET.tas_referencia
+  is 'Tasa de Referencia';
+comment on column IT.PR_TAS_VARIABLES_DET.tas_utilizada
+  is 'Tasa Utilizada';
+comment on column IT.PR_TAS_VARIABLES_DET.spread
+  is 'Spread';
+comment on column IT.PR_TAS_VARIABLES_DET.observacion
+  is 'observacion';
+comment on column IT.PR_TAS_VARIABLES_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_TAS_VARIABLES_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_TAS_VARIABLES_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_TAS_VARIABLES_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.PR_TAS_VARIABLES_DET
+  add constraint PK_PR_TAS_VARIABLES_DET primary key (NRO_SOLICITUD, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

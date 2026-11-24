@@ -1,0 +1,63 @@
+-- Create table
+create table IT.TM_DEV_CAR_TARJETAS
+(
+  nro_cuenta      VARCHAR2(15),
+  tipo_movimiento VARCHAR2(20),
+  desc_movimiento VARCHAR2(100),
+  monto           NUMBER(18,2),
+  cod_tra_padre   NUMBER(4),
+  cod_transaccion NUMBER(4),
+  cod_ofi_origen  NUMBER(3),
+  fecha           DATE default SYSDATE,
+  cod_usuario     VARCHAR2(10) default USER,
+  procesado       VARCHAR2(1) default 'N',
+  id              NUMBER generated always as identity (cache 200 order),
+  error           VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TM_DEV_CAR_TARJETAS
+  is 'Tabla auxiliar para almacenar registros de importación de datos Devolución de Cargos Tarjetas.';
+-- Add comments to the columns 
+comment on column IT.TM_DEV_CAR_TARJETAS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.TM_DEV_CAR_TARJETAS.tipo_movimiento
+  is 'Tipo de Movimiento.';
+comment on column IT.TM_DEV_CAR_TARJETAS.desc_movimiento
+  is 'Descripcion movimiento (concepto).';
+comment on column IT.TM_DEV_CAR_TARJETAS.monto
+  is 'Monto devolucion.';
+comment on column IT.TM_DEV_CAR_TARJETAS.cod_tra_padre
+  is 'Transaccion Padre.';
+comment on column IT.TM_DEV_CAR_TARJETAS.cod_transaccion
+  is 'Transaccion hija.';
+comment on column IT.TM_DEV_CAR_TARJETAS.cod_ofi_origen
+  is 'Codigo Oficina origen.';
+comment on column IT.TM_DEV_CAR_TARJETAS.fecha
+  is 'Fecha de procesamiento.';
+comment on column IT.TM_DEV_CAR_TARJETAS.cod_usuario
+  is 'Codigo Usuario que ejecuta el proceso.';
+comment on column IT.TM_DEV_CAR_TARJETAS.procesado
+  is 'Para verificar si esta procesado S o no procesado N.';
+comment on column IT.TM_DEV_CAR_TARJETAS.id
+  is 'Identificador del registro';
+comment on column IT.TM_DEV_CAR_TARJETAS.error
+  is 'Mensaje de error al procesar';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.TM_DEV_CAR_TARJETAS
+  add constraint PK_TM_DEV_TAR primary key (ID)
+  using index
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255;

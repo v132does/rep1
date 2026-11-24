@@ -1,0 +1,55 @@
+create table IT.GE_SNP_PATROCINADOR_CAB
+(
+  cod_banco        NUMBER(3) not null,
+  cod_swift        VARCHAR2(20) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  nro_cta_bancaria VARCHAR2(34) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_PATROCINADOR_CAB
+  is 'Tabla Cabecera de Subparticipantes - SIPAP';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.cod_banco
+  is 'Código del Banco Patrocinador.';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.cod_swift
+  is 'Código Swift del patrocinador.';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.cod_moneda
+  is 'Código de la Moneda de la cuenta';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.nro_cta_bancaria
+  is 'Cuenta bancaria patrocinadora de la entidad s/moneda.';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.fec_insercion
+  is 'Fecha que se inserto el registro';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_SNP_PATROCINADOR_CAB.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+alter table IT.GE_SNP_PATROCINADOR_CAB
+  add constraint PK_GE_SNP_PATROCINADOR_CAB primary key (COD_BANCO, COD_SWIFT, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

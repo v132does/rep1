@@ -1,0 +1,88 @@
+create table IT.GE_CORREOS
+(
+  cod_usu_envio    VARCHAR2(10) not null,
+  fec_envio        DATE not null,
+  hor_envio        VARCHAR2(8) not null,
+  cod_usu_destino  VARCHAR2(10) not null,
+  mensaje          VARCHAR2(200) not null,
+  est_mensaje      VARCHAR2(1) default 'P' not null,
+  est_respuesta    VARCHAR2(1) default 'P' not null,
+  mto_operacion    NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_recepcion    DATE,
+  hor_recepcion    VARCHAR2(8),
+  respuesta        VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CORREOS
+  is 'Correo Interno.';
+comment on column IT.GE_CORREOS.cod_usu_envio
+  is 'Codigo de usuario que envio.';
+comment on column IT.GE_CORREOS.fec_envio
+  is 'Fecha de envio.';
+comment on column IT.GE_CORREOS.hor_envio
+  is 'Hora de envio.';
+comment on column IT.GE_CORREOS.cod_usu_destino
+  is 'Codigo de usuario destino.';
+comment on column IT.GE_CORREOS.mensaje
+  is 'Mensaje 1.';
+comment on column IT.GE_CORREOS.est_mensaje
+  is 'Estado del mensaje. (P=Pendiente / C=Confirmado ).';
+comment on column IT.GE_CORREOS.est_respuesta
+  is 'Estado de la respuesta. (P=Pendiente / C=Confirmado ).';
+comment on column IT.GE_CORREOS.mto_operacion
+  is 'Importe a autorizar.';
+comment on column IT.GE_CORREOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CORREOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CORREOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CORREOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CORREOS.fec_recepcion
+  is 'Fecha de recepcion.';
+comment on column IT.GE_CORREOS.hor_recepcion
+  is 'Hora de recepcion.';
+comment on column IT.GE_CORREOS.respuesta
+  is 'Respuesta.';
+alter table IT.GE_CORREOS
+  add constraint PK_GE_CORREOS primary key (COD_USU_ENVIO, FEC_ENVIO, HOR_ENVIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CORREOS
+  add constraint FK_GCORR_COD_USU_DESTINO foreign key (COD_USU_DESTINO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_CORREOS
+  add constraint FK_GCORR_COD_USU_ENVIO foreign key (COD_USU_ENVIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_CORREOS
+  add constraint AVCON_1080843414_EST_M_000
+  check (EST_MENSAJE IN ('P', 'C'));
+alter table IT.GE_CORREOS
+  add constraint AVCON_1080843414_EST_R_000
+  check (EST_RESPUESTA IN ('P', 'C'));
+

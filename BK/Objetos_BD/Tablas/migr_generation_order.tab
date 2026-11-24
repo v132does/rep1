@@ -1,0 +1,53 @@
+create table IT.MIGR_GENERATION_ORDER
+(
+  id               NUMBER not null,
+  connection_id_fk NUMBER not null,
+  object_id        NUMBER not null,
+  object_type      VARCHAR2(4000) not null,
+  generation_order NUMBER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MIGR_GENERATION_ORDER.connection_id_fk
+  is '//PARENTFIELD';
+alter table IT.MIGR_GENERATION_ORDER
+  add constraint MIGR_GENERATION_ORDER_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MIGR_GENERATION_ORDER
+  add constraint MIGR_GENERATION_ORDER_UK unique (OBJECT_ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MIGR_GENERATION_ORDER
+  add constraint MIGR_GENERATION_ORDER_MD__FK1 foreign key (CONNECTION_ID_FK)
+  references IT.MD_CONNECTIONS (ID) on delete cascade;
+

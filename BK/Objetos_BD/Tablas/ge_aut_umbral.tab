@@ -1,0 +1,86 @@
+create table IT.GE_AUT_UMBRAL
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  cod_persona          VARCHAR2(15) not null,
+  fecha                DATE not null,
+  hora                 VARCHAR2(8) not null,
+  cod_usuario          VARCHAR2(10) not null,
+  monto_loa            NUMBER(18,2),   
+  monto_acumulado      NUMBER(18,2), 
+  monto_total          NUMBER(18,2), 
+  cod_usu_autorizador  VARCHAR2(10),
+  fec_hor_autorizacion DATE,
+  estado               VARCHAR2(1),
+  observacion          VARCHAR2(1000),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_AUT_UMBRAL
+  is 'Autorizaciones de pedidos de depositos del Sistema que superan el Umbral. Contiene todas las autorizaciones de pedidos ON-LINE o previas realizadas en el Sistema. Todos los montos están en USD.';
+-- Add comments to the columns 
+comment on column IT.GE_AUT_UMBRAL.nro_cuenta
+  is 'Numero de la Cuenta de la operacion.';
+comment on column IT.GE_AUT_UMBRAL.cod_persona
+  is 'Codigo Persona de la operacion.';   
+comment on column IT.GE_AUT_UMBRAL.fecha
+  is 'Fecha.';
+comment on column IT.GE_AUT_UMBRAL.hora
+  is 'Hora.';
+comment on column IT.GE_AUT_UMBRAL.cod_usuario
+  is 'Codigo de operador.';  
+comment on column IT.GE_AUT_UMBRAL.monto_loa
+  is 'Monto limite del LOA de la cuenta.'; 
+comment on column IT.GE_AUT_UMBRAL.monto_acumulado
+  is 'Total de creditos en la cuenta.'; 
+comment on column IT.GE_AUT_UMBRAL.monto_total
+  is 'Total creditos + monto operacion.';      
+comment on column IT.GE_AUT_UMBRAL.cod_usu_autorizador
+  is 'Codigo de autorizador.';
+comment on column IT.GE_AUT_UMBRAL.estado
+  is 'Estado del pedido (S=Solicitado, C=Confirmado, A=Anulado).';
+comment on column IT.GE_AUT_UMBRAL.observacion
+  is 'Observacion.';
+comment on column IT.GE_AUT_UMBRAL.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_AUT_UMBRAL.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_AUT_UMBRAL.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AUT_UMBRAL.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_AUT_UMBRAL
+  add constraint PK_GE_AUT_UMBRAL primary key (NRO_CUENTA, COD_PERSONA, FECHA, HORA, COD_USUARIO)
+  using index
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AUT_UMBRAL
+  add constraint FK_GAPEDUM_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_AUT_UMBRAL
+  add constraint FK_FK_GAPEDUM_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);

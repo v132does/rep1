@@ -1,0 +1,110 @@
+create table IT.TA_COBROS_TMP
+(
+  nro_cuenta          VARCHAR2(15),
+  nro_tarjeta         VARCHAR2(25) not null,
+  nro_cta_debito      VARCHAR2(15),
+  fec_proceso         DATE not null,
+  monto               NUMBER(18,2) default 0 not null,
+  estado              VARCHAR2(1) not null,
+  fec_valor           DATE not null,
+  observacion         VARCHAR2(50),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  est_envio           VARCHAR2(1) default 'P',
+  hora                VARCHAR2(8),
+  cod_usuario         VARCHAR2(10),
+  dia_mora            NUMBER(5),
+  cod_modalidad       NUMBER(3),
+  nro_reg             NUMBER(10),
+  cod_ent_procesadora NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_COBROS_TMP
+  is 'Contiene los datos de los cobros realizados por la red INFONET.';
+comment on column IT.TA_COBROS_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.TA_COBROS_TMP.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_COBROS_TMP.nro_cta_debito
+  is 'Numero de Cuenta.';
+comment on column IT.TA_COBROS_TMP.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.TA_COBROS_TMP.monto
+  is 'Importe de debito.';
+comment on column IT.TA_COBROS_TMP.estado
+  is 'Estado del Registro.';
+comment on column IT.TA_COBROS_TMP.fec_valor
+  is 'Fecha Valor del Pago.';
+comment on column IT.TA_COBROS_TMP.observacion
+  is 'Observaciones, en caso de que hubo error descripcion del Error...';
+comment on column IT.TA_COBROS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_COBROS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_COBROS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_COBROS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_COBROS_TMP.est_envio
+  is 'Estado de Envio a la Procesadora P=Pendiente, E=Enviado.';
+comment on column IT.TA_COBROS_TMP.hora
+  is 'Hora.';
+comment on column IT.TA_COBROS_TMP.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.TA_COBROS_TMP.dia_mora
+  is 'Dias de Mora en el momento del cobro.';
+comment on column IT.TA_COBROS_TMP.cod_modalidad
+  is 'Codigo de modalidad de la cuenta.';
+comment on column IT.TA_COBROS_TMP.nro_reg
+  is 'Numero de registro en el archivo.';
+comment on column IT.TA_COBROS_TMP.cod_ent_procesadora
+  is 'Codigo de Ente de la Procesadora.';
+create index IT.IN_TCOBT_FEC_PROCESO on IT.TA_COBROS_TMP (FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TCOBT_NRO_CTA_DEBITO on IT.TA_COBROS_TMP (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TCOBT_NRO_CUENTA on IT.TA_COBROS_TMP (NRO_CUENTA, NRO_TARJETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

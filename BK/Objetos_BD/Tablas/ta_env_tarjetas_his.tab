@@ -1,0 +1,266 @@
+create table IT.TA_ENV_TARJETAS_HIS
+(
+  cod_procesadora          VARCHAR2(10),
+  nro_tarjeta              VARCHAR2(19),
+  nro_cuenta               VARCHAR2(15),
+  nom_usuario              VARCHAR2(26),
+  cod_persona              VARCHAR2(10),
+  nro_documento            VARCHAR2(20),
+  nro_doc_procesadora      VARCHAR2(20),
+  dur_tarjeta              NUMBER(2),
+  tip_tarjeta              VARCHAR2(1),
+  ven_tarjeta              VARCHAR2(4),
+  cod_encargado            VARCHAR2(2),
+  cla_tarjeta              VARCHAR2(2),
+  cod_banco                NUMBER(3),
+  cod_sucursal             NUMBER(4),
+  cod_afinidad             VARCHAR2(10),
+  fec_movimiento           DATE,
+  sec_alta                 NUMBER(4),
+  cod_movimiento           VARCHAR2(1),
+  nom_embozado             VARCHAR2(26),
+  fec_envio                DATE,
+  hor_envio                VARCHAR2(8),
+  estado                   VARCHAR2(1),
+  nro_solicitud            NUMBER(7),
+  cod_modalidad            NUMBER(3),
+  sec_env_datos            NUMBER(12),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  tip_per_titular          VARCHAR2(1),
+  cod_tip_doc_titular      VARCHAR2(3),
+  pri_nom_titular          VARCHAR2(20),
+  seg_nom_titular          VARCHAR2(20),
+  pri_ape_titular          VARCHAR2(20),
+  seg_ape_titular          VARCHAR2(20),
+  cod_pai_titular          NUMBER(3),
+  cod_sex_titular          VARCHAR2(1),
+  fec_nac_titular          DATE,
+  lug_nac_titular          VARCHAR2(15),
+  est_civ_titular          VARCHAR2(1),
+  act_titular              VARCHAR2(4),
+  dir_cor_titular          VARCHAR2(60),
+  tip_doc_nvo_titular      VARCHAR2(3),
+  nro_doc_nvo_titular      VARCHAR2(16),
+  tip_plastico             VARCHAR2(1),
+  nom_plastico             VARCHAR2(26),
+  adi_personalizado        VARCHAR2(1),
+  nro_doc_promotor         VARCHAR2(16),
+  cod_tip_doc_promotor     VARCHAR2(3),
+  situacion                VARCHAR2(1),
+  ren_automatica           VARCHAR2(1),
+  orden_1                  NUMBER(4),
+  orden_2                  NUMBER(6),
+  tip_per_promotor         VARCHAR2(1),
+  pri_nom_promotor         VARCHAR2(20),
+  seg_nom_promotor         VARCHAR2(20),
+  pri_ape_promotor         VARCHAR2(20),
+  seg_ape_promotor         VARCHAR2(20),
+  cod_sex_promotor         VARCHAR2(1),
+  fec_nac_promotor         DATE,
+  lug_nac_promotor         VARCHAR2(15),
+  est_civ_promotor         VARCHAR2(1),
+  act_promotor             VARCHAR2(4),
+  dir_cor_promotor         VARCHAR2(60),
+  pla_contado              VARCHAR2(2),
+  ope_pla_contado          VARCHAR2(1),
+  imp_per_pla_contado      NUMBER(16),
+  por_per_pla_contado      NUMBER(6),
+  pla_ade_efectivo         VARCHAR2(2),
+  ope_pla_ade_efectivo     VARCHAR2(1),
+  imp_per_pla_ade_efectivo NUMBER(16),
+  por_per_ade_efectivo     NUMBER(6),
+  pue_financiar            VARCHAR2(1),
+  usu_actualizacion        VARCHAR2(10),
+  emboza                   VARCHAR2(1),
+  nro_socio                VARCHAR2(15),
+  mot_novedad              NUMBER(3),
+  est_procesadora          VARCHAR2(1),
+  txt_rechazo              VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ENV_TARJETAS_HIS
+  is 'Envio de alta de tarjetas';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_procesadora
+  is 'Código de la Procesadora.';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_tarjeta
+  is 'Nro. de tarjeta. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_cuenta
+  is 'Nro. de cuenta. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.nom_usuario
+  is 'Nombre usuario. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_documento
+  is 'Nro. de Documento. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_doc_procesadora
+  is 'Nro. Documento de la Procesadora. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.dur_tarjeta
+  is 'Duración de la Tarjeta. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.tip_tarjeta
+  is 'Tipo de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.ven_tarjeta
+  is 'Vencimiento de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_encargado
+  is 'Código del encargado. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.cla_tarjeta
+  is 'Clase de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_banco
+  is 'Código del Banco.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_sucursal
+  is 'Código de la Sucursal. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_afinidad
+  is 'Código de Afinidad de la Procesadora. (Ref. Externa TA_TIPOS) ';
+comment on column IT.TA_ENV_TARJETAS_HIS.fec_movimiento
+  is 'Fecha del Movimiento. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.sec_alta
+  is 'Secuencia del Alta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_movimiento
+  is 'Código del Movimiento (A=Activa, C=Inactiva, M=Modificacion, Null=No Renovacion) ';
+comment on column IT.TA_ENV_TARJETAS_HIS.nom_embozado
+  is 'Nombre Embozado.';
+comment on column IT.TA_ENV_TARJETAS_HIS.fec_envio
+  is 'Fecha de Envío.';
+comment on column IT.TA_ENV_TARJETAS_HIS.hor_envio
+  is 'Hora de Envío.';
+comment on column IT.TA_ENV_TARJETAS_HIS.estado
+  is 'Estado.';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_solicitud
+  is 'Nro. de Solicitud.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_modalidad
+  is 'Código de Modalidad. ';
+comment on column IT.TA_ENV_TARJETAS_HIS.sec_env_datos
+  is 'Secuencia de Envío de Datos.';
+comment on column IT.TA_ENV_TARJETAS_HIS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.TA_ENV_TARJETAS_HIS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.TA_ENV_TARJETAS_HIS.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.TA_ENV_TARJETAS_HIS.fec_modificacion
+  is 'Fecha de Modificación.';
+comment on column IT.TA_ENV_TARJETAS_HIS.tip_per_titular
+  is 'Tipo de Persona (''F'' o ''J'') -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_tip_doc_titular
+  is 'Tipo de Documento(''CAD'',''CIP'',''PAS'',''CIE'',''RUC'')-Requerido si Tipo Persona=''F'' -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pri_nom_titular
+  is 'Primer Nombre -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.seg_nom_titular
+  is 'Segundo Nombre -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pri_ape_titular
+  is 'Primer Apellido -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.seg_ape_titular
+  is 'Segundo Apellido -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_pai_titular
+  is 'Código del País de Nacimiento  -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_sex_titular
+  is 'Sexo(''M'',''F'') -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.fec_nac_titular
+  is 'Fecha de Nacimiento -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.lug_nac_titular
+  is 'Lugar de Nacimiento -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.est_civ_titular
+  is 'Estado Civil -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.act_titular
+  is 'Ocupación -Titular de la Tarjeta. (Ref. Externa BA_PROFESIONES)';
+comment on column IT.TA_ENV_TARJETAS_HIS.dir_cor_titular
+  is 'Dirección Electrónica -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.tip_doc_nvo_titular
+  is 'Tipo de Documento Nuevo -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_doc_nvo_titular
+  is 'Número de Documento Nuevo -Titular de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.tip_plastico
+  is 'Tipo de Plástico.';
+comment on column IT.TA_ENV_TARJETAS_HIS.nom_plastico
+  is 'Nombre del Plástico.';
+comment on column IT.TA_ENV_TARJETAS_HIS.adi_personalizado
+  is 'Adicional Personalizada (''S'',''N'').';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_doc_promotor
+  is 'Nro. de Docuemento Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_tip_doc_promotor
+  is 'Tipo de Documento Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.situacion
+  is 'Situación (A/I/B).';
+comment on column IT.TA_ENV_TARJETAS_HIS.ren_automatica
+  is 'Renovación Automática (''S'',''N'').';
+comment on column IT.TA_ENV_TARJETAS_HIS.orden_1
+  is 'Ordenamiento 1.';
+comment on column IT.TA_ENV_TARJETAS_HIS.orden_2
+  is 'Ordenamiento 2.';
+comment on column IT.TA_ENV_TARJETAS_HIS.tip_per_promotor
+  is 'Tipo de Persona Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pri_nom_promotor
+  is 'Primer Nombre -Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.seg_nom_promotor
+  is 'Segundo Nombre -Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pri_ape_promotor
+  is 'Primer Apellido -Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.seg_ape_promotor
+  is 'Segundo Apellido -Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.cod_sex_promotor
+  is 'Sexo(''M'',''F'') -Promotor de la Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.fec_nac_promotor
+  is 'Fecha de Nacimiento -Promotor de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.lug_nac_promotor
+  is 'Lugar de Nacimiento -Promotor de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.est_civ_promotor
+  is 'Estado Civil -Promotor de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.act_promotor
+  is 'Código de Ocupación -Promotor de Tarjeta. (Ref. Externa BA_PROFESIONES).';
+comment on column IT.TA_ENV_TARJETAS_HIS.dir_cor_promotor
+  is 'Dirección Electrónica -Promotor de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pla_contado
+  is 'Plan Contado.';
+comment on column IT.TA_ENV_TARJETAS_HIS.ope_pla_contado
+  is 'Operador de Plan Contado.';
+comment on column IT.TA_ENV_TARJETAS_HIS.imp_per_pla_contado
+  is 'Importe Personalizado de Plan Contado.';
+comment on column IT.TA_ENV_TARJETAS_HIS.por_per_pla_contado
+  is 'Porcentaje Personalizado de Plan Contado.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pla_ade_efectivo
+  is 'Plan Adelanto de Efectivo.';
+comment on column IT.TA_ENV_TARJETAS_HIS.ope_pla_ade_efectivo
+  is 'Operador de Plan Adelantado de Efectivo.';
+comment on column IT.TA_ENV_TARJETAS_HIS.imp_per_pla_ade_efectivo
+  is 'Importe Personalizado de Plan Adelanto de Efectivo.';
+comment on column IT.TA_ENV_TARJETAS_HIS.por_per_ade_efectivo
+  is 'Porcentaje Personalizado de Adelanto de Efectivo.';
+comment on column IT.TA_ENV_TARJETAS_HIS.pue_financiar
+  is 'Permitir Financiar.';
+comment on column IT.TA_ENV_TARJETAS_HIS.usu_actualizacion
+  is 'Usuario de Actualización.';
+comment on column IT.TA_ENV_TARJETAS_HIS.emboza
+  is 'Emboza (''S'',''N'').';
+comment on column IT.TA_ENV_TARJETAS_HIS.nro_socio
+  is 'Nro. de Socio.';
+comment on column IT.TA_ENV_TARJETAS_HIS.mot_novedad
+  is 'Motivo de Novedad de Tarjeta.';
+comment on column IT.TA_ENV_TARJETAS_HIS.est_procesadora
+  is 'Estado Procesadora. ''A''/Aprobado, ''R''/Rechazado';
+comment on column IT.TA_ENV_TARJETAS_HIS.txt_rechazo
+  is 'Texto del Rechazo.';
+create index IT.IN_TENTH_FEC_ENVIO on IT.TA_ENV_TARJETAS_HIS (FEC_ENVIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

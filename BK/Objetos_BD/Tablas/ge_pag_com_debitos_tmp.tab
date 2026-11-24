@@ -1,0 +1,35 @@
+create table IT.GE_PAG_COM_DEBITOS_TMP
+(
+  nro_cta_debito VARCHAR2(15),
+  cod_moneda     VARCHAR2(3),
+  nro_lote       NUMBER(3),
+  cantidad       NUMBER(4),
+  mto_total      NUMBER(18,2),
+  hora           VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_COM_DEBITOS_TMP
+  is 'Temporal para pago a comercios de clientes.';
+comment on column IT.GE_PAG_COM_DEBITOS_TMP.nro_cta_debito
+  is 'Nro. de Cuenta de Débito.';
+comment on column IT.GE_PAG_COM_DEBITOS_TMP.cod_moneda
+  is 'Código de moneda de la operación.';
+comment on column IT.GE_PAG_COM_DEBITOS_TMP.nro_lote
+  is 'Número de Lote. ';
+comment on column IT.GE_PAG_COM_DEBITOS_TMP.cantidad
+  is 'Cantidad de débitos. ';
+comment on column IT.GE_PAG_COM_DEBITOS_TMP.mto_total
+  is 'Monto de la Operación. ';
+comment on column IT.GE_PAG_COM_DEBITOS_TMP.hora
+  is 'Hora del movimiento.';
+

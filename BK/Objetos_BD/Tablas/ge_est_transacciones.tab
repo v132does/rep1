@@ -1,0 +1,76 @@
+create table IT.GE_EST_TRANSACCIONES
+(
+  ano              NUMBER(4) not null,
+  mes              NUMBER(2) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cantidad         NUMBER(10) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_banca        NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EST_TRANSACCIONES
+  is 'Estadistica de Transacciones.';
+comment on column IT.GE_EST_TRANSACCIONES.ano
+  is 'Año.';
+comment on column IT.GE_EST_TRANSACCIONES.mes
+  is 'Mes.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_oficina
+  is 'Oficina de la Cuenta.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_tra_padre
+  is 'Codigo de Transaccion Padre.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_moneda
+  is 'Moneda.';
+comment on column IT.GE_EST_TRANSACCIONES.cantidad
+  is 'Cantidad.';
+comment on column IT.GE_EST_TRANSACCIONES.monto
+  is 'Monto.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_mod_padre
+  is 'Modulo Padre.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_mad_padre
+  is 'Modalidad Padre.';
+comment on column IT.GE_EST_TRANSACCIONES.cod_banca
+  is 'Codigo de Banca.';
+comment on column IT.GE_EST_TRANSACCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EST_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EST_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EST_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_EST_TRANSACCIONES
+  add constraint UK_GE_EST_TRANSACCIONES unique (ANO, MES, COD_USUARIO, COD_OFICINA, COD_TRA_PADRE, COD_MONEDA, COD_MOD_PADRE, COD_MAD_PADRE, COD_BANCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

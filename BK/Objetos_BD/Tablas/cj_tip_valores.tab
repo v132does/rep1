@@ -1,0 +1,86 @@
+-- Create table
+create table IT.CJ_TIP_VALORES
+(
+  cod_tip_valor    NUMBER(3) not null,
+  descripcion      VARCHAR2(35),
+  cod_moneda       VARCHAR2(3) not null,
+  valor            NUMBER(18,2),
+  nro_orden        NUMBER(3),
+  tipo             VARCHAR2(1),
+  for_total        VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  estado           VARCHAR2(1) default 'S'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CJ_TIP_VALORES
+  is 'Tipos de Valores.';
+-- Add comments to the columns 
+comment on column IT.CJ_TIP_VALORES.cod_tip_valor
+  is 'Código de Valor.';
+comment on column IT.CJ_TIP_VALORES.descripcion
+  is 'Descripción.';
+comment on column IT.CJ_TIP_VALORES.cod_moneda
+  is 'Moneda.';
+comment on column IT.CJ_TIP_VALORES.valor
+  is 'Valor en la moneda.';
+comment on column IT.CJ_TIP_VALORES.nro_orden
+  is 'Nro. de Orden de aparición.';
+comment on column IT.CJ_TIP_VALORES.tipo
+  is 'Tipo (B-Billete, M-Moneda, O-Otros).';
+comment on column IT.CJ_TIP_VALORES.for_total
+  is 'Forma de Total (C-Cantidad, M-Monto).';
+comment on column IT.CJ_TIP_VALORES.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.CJ_TIP_VALORES.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.CJ_TIP_VALORES.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.CJ_TIP_VALORES.fec_modificacion
+  is 'Fecha de Modificación.';
+comment on column IT.CJ_TIP_VALORES.estado
+  is 'Indica Estado de Valor (S-Activo, N-Inactivo.)';
+-- Create/Recreate indexes 
+create index IT.IN_JTVAL_COD_MONEDA on IT.CJ_TIP_VALORES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CJ_TIP_VALORES
+  add constraint PK_CJ_TIP_VALORES primary key (COD_TIP_VALOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_TIP_VALORES
+  add constraint FK_JTIPV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);

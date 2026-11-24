@@ -1,0 +1,82 @@
+create table IT.CR_PER_DAT_SEGMENTACION
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_rub_primario VARCHAR2(6) not null,
+  ano_facturacion  VARCHAR2(4) not null,
+  mes_facturacion  VARCHAR2(2) not null,
+  estado           VARCHAR2(1),
+  mto_facturacion  NUMBER(18,2),
+  mes_rating       VARCHAR2(2),
+  ano_rating       VARCHAR2(4),
+  rating           VARCHAR2(10),
+  mes_hatos        VARCHAR2(2),
+  ano_hatos        VARCHAR2(4),
+  can_hatos        NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_DAT_SEGMENTACION
+  is 'Tabla que registra los datos adicionales para la segmentación del cliente.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.cod_persona
+  is 'Código de Persona.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.cod_rub_primario
+  is 'Código de Rubro Primario (ge_rub_economicos).';
+comment on column IT.CR_PER_DAT_SEGMENTACION.ano_facturacion
+  is 'Año del Informe de la Facturación.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.mes_facturacion
+  is 'Mes del Informe de la Facturación.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.estado
+  is 'Estado (M=Modificado, V=Verificado).';
+comment on column IT.CR_PER_DAT_SEGMENTACION.mto_facturacion
+  is 'Monto Facturación.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.mes_rating
+  is 'Mes del Informe del Rating.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.ano_rating
+  is 'Año del Informe del Rating.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.rating
+  is 'Rating.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.mes_hatos
+  is 'Mes del Informe de Cantidad de Hatos.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.ano_hatos
+  is 'Año del Informe de Cantidad de Hatos.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.can_hatos
+  is 'Cantidad de Hatos.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CR_PER_DAT_SEGMENTACION.fec_modificacion
+  is 'Fecha de modificación del registro.';
+alter table IT.CR_PER_DAT_SEGMENTACION
+  add constraint PK_CR_PER_DAT_SEGMENTACION primary key (COD_PERSONA, COD_RUB_PRIMARIO, ANO_FACTURACION, MES_FACTURACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_DAT_SEGMENTACION
+  add constraint FK_CPDSEG_COD_RUB_ECONOMICO foreign key (COD_RUB_PRIMARIO)
+  references IT.GE_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+

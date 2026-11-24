@@ -1,0 +1,48 @@
+create table IT.TA_CAR_DIA_ING_CAB_TMP
+(
+  tip_registro    NUMBER(1),
+  cod_ent_emisora VARCHAR2(5),
+  cod_marca       VARCHAR2(3),
+  cod_ide_archivo VARCHAR2(8),
+  des_archivo     VARCHAR2(30),
+  fec_proceso     VARCHAR2(8),
+  hor_proceso     VARCHAR2(8),
+  filler          VARCHAR2(237)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CAR_DIA_ING_CAB_TMP
+  is 'Cabecera importacion archivo T3052 GP';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.tip_registro
+  is '1 - Header
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.cod_ent_emisora
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.cod_marca
+  is 'Codigo de Marca
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.cod_ide_archivo
+  is 'T3052D
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.des_archivo
+  is 'Cargos ingresados
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.fec_proceso
+  is 'Fecha de generación del archivo
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.hor_proceso
+  is 'Hora de generación del archivo, formato HH:MM:SS
+';
+comment on column IT.TA_CAR_DIA_ING_CAB_TMP.filler
+  is 'Espacios';
+

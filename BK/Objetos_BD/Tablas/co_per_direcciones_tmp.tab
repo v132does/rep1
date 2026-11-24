@@ -1,0 +1,89 @@
+create table IT.CO_PER_DIRECCIONES_TMP
+(
+  cod_per_direccion NUMBER(10) not null,
+  tip_operacion     VARCHAR2(1),
+  cod_persona       VARCHAR2(10),
+  tip_domicilio     VARCHAR2(6),
+  cod_domicilio     VARCHAR2(10),
+  origen            VARCHAR2(3),
+  calle             VARCHAR2(80),
+  numero            NUMBER(8),
+  piso              VARCHAR2(6),
+  departamento      VARCHAR2(6),
+  localidad         VARCHAR2(6),
+  partido           VARCHAR2(6),
+  provincia         VARCHAR2(6),
+  cod_postal        VARCHAR2(8),
+  valido            VARCHAR2(1),
+  estado            VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_PER_DIRECCIONES_TMP
+  is 'Temporal de Direcciones modificados en el Recovery Strategy.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.cod_per_direccion
+  is 'Código de Dirección de la Persona.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.tip_operacion
+  is 'Tipo de Operación.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.cod_persona
+  is 'Código de Cliente.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.tip_domicilio
+  is 'Tipo de Domicilio.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.cod_domicilio
+  is 'Código de Domicilio.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.origen
+  is 'Origen.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.calle
+  is 'Calle.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.numero
+  is 'Número.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.piso
+  is 'Piso.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.departamento
+  is 'Departamento.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.localidad
+  is 'Código de Barrio.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.partido
+  is 'Código de Ciudad.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.provincia
+  is 'Código de Departamento.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.cod_postal
+  is 'Código Postal.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.valido
+  is 'Válido.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.estado
+  is 'Estado.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CO_PER_DIRECCIONES_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_OPDTM_COD_PERSONA on IT.CO_PER_DIRECCIONES_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

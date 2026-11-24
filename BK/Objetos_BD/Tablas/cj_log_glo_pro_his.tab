@@ -1,0 +1,185 @@
+create table IT.CJ_LOG_GLO_PRO_HIS
+(
+  fec_sistema       DATE,
+  pedido            VARCHAR2(4000),
+  respuesta         VARCHAR2(4000),
+  msj_error         VARCHAR2(4000),
+  fecha             DATE,
+  hora              VARCHAR2(8),
+  nro_transaccion   VARCHAR2(4000),
+  nro_cta_debito    VARCHAR2(100),
+  cod_bco_debito    NUMBER(3),
+  nro_cta_credito   VARCHAR2(15),
+  cod_bco_credito   NUMBER(3),
+  cod_operacion     VARCHAR2(200),
+  mto_total         NUMBER(18,2),
+  cod_moneda        VARCHAR2(3),
+  nro_atm           VARCHAR2(20),
+  cod_bco_atm       NUMBER(3),
+  nro_pos           NUMBER(2),
+  tra_pos           NUMBER(4),
+  tip_hora          VARCHAR2(3),
+  nom_comercio      VARCHAR2(48),
+  nro_documento     VARCHAR2(15),
+  cod_estado        VARCHAR2(6),
+  fec_insercion     DATE,
+  nro_tra_cancelado VARCHAR2(4000),
+  mot_cancelacion   VARCHAR2(4000),
+  cod_comercio      VARCHAR2(20),
+  mcc               VARCHAR2(20),
+  cod_postal        VARCHAR2(255),
+  nro_tarjeta       VARCHAR2(20),
+  cod_mon_iso       VARCHAR2(3),
+  cod_mon_iso_tra   VARCHAR2(3),
+  fec_proceso       VARCHAR2(30),
+  hor_proceso       VARCHAR2(8),
+  cod_usuario       VARCHAR2(10),
+  tag_internacional VARCHAR2(100),
+  men_json          VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_LOG_GLO_PRO_HIS
+  is 'Historico de Log de Autorizaciones de Global.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.fec_sistema
+  is 'Fec. Sistema.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.pedido
+  is 'Pedido.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.respuesta
+  is 'Respuesta.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.fecha
+  is 'Fecha.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.hora
+  is 'Hora.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_transaccion
+  is 'Nro. Transaccion.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_cta_debito
+  is 'Nro. Cuenta Debito.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_bco_debito
+  is 'Cod. Banco Debito.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_cta_credito
+  is 'Nro. Cuenta Credito.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_bco_credito
+  is 'Cod. Banco Credito.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_operacion
+  is 'Cod. Operacion.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.mto_total
+  is 'Monto Total.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_moneda
+  is 'Cod. Moneda.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_atm
+  is 'Nro ATM (Terminal).';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_bco_atm
+  is 'Cod. Banco ATM.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_pos
+  is 'Nro. Pos.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.tra_pos
+  is 'Tra. Pos.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.tip_hora
+  is 'Tipo de Hora.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nom_comercio
+  is 'Nombre Comercio.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_documento
+  is 'Nro. Documento.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_estado
+  is 'Estado.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.fec_insercion
+  is 'Fecha Insercion.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_tra_cancelado
+  is 'Nro. Transaccion Cencelado.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.mot_cancelacion
+  is 'Motivo Cancelacion.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_comercio
+  is 'Cod. Comercio.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.mcc
+  is 'MCC.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_postal
+  is 'Cod. Postal.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.nro_tarjeta
+  is 'Nro Tarjeta.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_mon_iso
+  is 'Cod. Moneda ISO.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_mon_iso_tra
+  is 'Cod. Moneda Iso Transaccion.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.fec_proceso
+  is 'Fecha Proceso.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.hor_proceso
+  is 'Hora Proceso.';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.cod_usuario
+  is 'Cod. Usuario';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.tag_internacional
+  is 'Marca de transaccion internacional';
+comment on column IT.CJ_LOG_GLO_PRO_HIS.men_json
+  is 'Mensaje recibido-Traza';
+create index IT.IN_JLOGH_CANCEL on IT.CJ_LOG_GLO_PRO_HIS (NRO_TRA_CANCELADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JLOGH_FEC_INSERCION on IT.CJ_LOG_GLO_PRO_HIS (TRUNC(FEC_INSERCION), NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JLOGH_FEC_SISTEMA on IT.CJ_LOG_GLO_PRO_HIS (FEC_SISTEMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JLOGH_NRO_CUENTA on IT.CJ_LOG_GLO_PRO_HIS (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JLOGH_NRO_TRANSACCION on IT.CJ_LOG_GLO_PRO_HIS (NRO_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

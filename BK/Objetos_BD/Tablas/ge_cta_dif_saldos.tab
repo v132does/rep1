@@ -1,0 +1,44 @@
+CREATE TABLE it.ge_cta_dif_saldos (
+    fecha             DATE            NOT NULL,
+    nro_cuenta        VARCHAR2(50)    NOT NULL,
+    cod_modalidad     NUMBER          NOT NULL,
+    modalidad         VARCHAR2(50)    NOT NULL,
+    cod_moneda        VARCHAR2(5)     NOT NULL,
+    denominacion      VARCHAR2(100)   NOT NULL,
+    tip_saldo         VARCHAR2(50),
+    sal_online        NUMBER,
+    sal_batch         NUMBER,
+    dif_saldo         NUMBER,
+    var_dif_saldo     NUMBER,
+    sentido           CHAR(1),     
+    nueva             CHAR(1),
+    estado            VARCHAR2(50)    NOT NULL,
+    fec_estado        DATE,
+    usu_insercion     VARCHAR2(50)    NOT NULL,
+    fec_insercion     DATE            NOT NULL,
+    usu_modificacion  VARCHAR2(50),
+    fec_modificacion  DATE
+) TABLESPACE it_data;
+
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.FECHA IS 'Fecha asociada al registro del saldo diferido.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.NRO_CUENTA IS 'Número de cuenta';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.COD_MODALIDAD IS 'Código de modalidad ';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.MODALIDAD IS 'Modalidad';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.COD_MONEDA IS 'Código de moneda';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.DENOMINACION IS 'Denominación';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.TIP_SALDO IS 'Tipo de saldo (DISPONIBLE,BLOQUEADO,RETENIDO).';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.SAL_ONLINE IS 'Monto del saldo en línea';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.SAL_BATCH IS 'Monto del saldo en batch';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.DIF_SALDO IS 'Diferencia entre el saldo en línea y el saldo en batch.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.VAR_DIF_SALDO IS 'Variación de la diferencia de saldo respecto a registros anteriores.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.NUEVA IS 'Cuenta nueva o antigua';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.ESTADO IS 'Estado del registro';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.FEC_ESTADO IS 'Fecha en que se actualizó el estado del registro.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.USU_INSERCION IS 'Usuario que insertó el registro en la tabla.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.FEC_INSERCION IS 'Fecha en que se insertó el registro en la tabla.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.USU_MODIFICACION IS 'Usuario que realizó la última modificación del registro.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_SALDOS.FEC_MODIFICACION IS 'Fecha en que se realizó la última modificación del registro.'; 
+
+CREATE INDEX IT.IDX_GE_CTA_DIF_SALDOS_FECHA_CUENTA
+ON it.ge_cta_dif_saldos (fecha, nro_cuenta)TABLESPACE IT_IND;

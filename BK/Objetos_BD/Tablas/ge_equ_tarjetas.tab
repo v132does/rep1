@@ -1,0 +1,132 @@
+create table IT.GE_EQU_TARJETAS
+(
+  fecha            DATE not null,
+  nro_secuencia    NUMBER not null,
+  cod_modulo       VARCHAR2(3),
+  cod_modalidad    VARCHAR2(3),
+  nro_cuenta       VARCHAR2(15) not null,
+  tip_tarjeta      VARCHAR2(2),
+  cod_moneda       VARCHAR2(3),
+  lim_cre_cabecera VARCHAR2(16),
+  lim_financiacion VARCHAR2(16),
+  lim_ret_efectivo VARCHAR2(16),
+  fec_emision      VARCHAR2(8),
+  ind_tarjeta      VARCHAR2(20),
+  mto_pag_minimo   VARCHAR2(16),
+  lim_cre_detalle  VARCHAR2(16),
+  tot_com_mes      VARCHAR2(16),
+  sal_total        VARCHAR2(16),
+  sal_cuotas       VARCHAR2(16),
+  sal_vencido      VARCHAR2(16),
+  imp_cuo_mes_1    VARCHAR2(16),
+  imp_cuo_mes_2    VARCHAR2(16),
+  imp_cuo_mes_3    VARCHAR2(16),
+  imp_cuo_mes_4    VARCHAR2(16),
+  imp_cuo_mes_5    VARCHAR2(16),
+  imp_cuo_mes_6    VARCHAR2(16),
+  imp_cuo_mes_7    VARCHAR2(16),
+  imp_cuo_mes_8    VARCHAR2(16),
+  imp_cuo_mes_9    VARCHAR2(16),
+  imp_cuo_mes_10   VARCHAR2(16),
+  imp_cuo_mes_11   VARCHAR2(16),
+  imp_cuo_mes_12   VARCHAR2(16),
+  fec_cancelacion  DATE,
+  fec_inicio       DATE,
+  tip_proceso      VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EQU_TARJETAS
+  is 'Es la tabla donde se generan los datos de los productos de las Altas de Personas Físicas a enviar a Equifax Mensualmente.';
+comment on column IT.GE_EQU_TARJETAS.fecha
+  is 'Fecha en que es ejecutado el proceso.';
+comment on column IT.GE_EQU_TARJETAS.nro_secuencia
+  is 'Identificador único de cada registro generado';
+comment on column IT.GE_EQU_TARJETAS.cod_modulo
+  is 'Módulo del Producto';
+comment on column IT.GE_EQU_TARJETAS.cod_modalidad
+  is 'Modalidad del Producto';
+comment on column IT.GE_EQU_TARJETAS.nro_cuenta
+  is 'Número de Cuenta del Producto';
+comment on column IT.GE_EQU_TARJETAS.tip_tarjeta
+  is 'Indica la marca de la tarjeta; Mastercard, Visa, Etc.';
+comment on column IT.GE_EQU_TARJETAS.cod_moneda
+  is 'Moneda del Producto';
+comment on column IT.GE_EQU_TARJETAS.lim_cre_cabecera
+  is 'Monto máximo que se puede cargar a la tarjeta.';
+comment on column IT.GE_EQU_TARJETAS.lim_financiacion
+  is 'Monto máximo que se puede financiar';
+comment on column IT.GE_EQU_TARJETAS.lim_ret_efectivo
+  is 'Es el límite de dinero que se puede retirar en efectivo (en la moneda reportada)';
+comment on column IT.GE_EQU_TARJETAS.fec_emision
+  is 'Fecha en que se emitió la tarjeta (por primera vez, no las renovaciones)';
+comment on column IT.GE_EQU_TARJETAS.ind_tarjeta
+  is 'Identificador de la tarjeta (el objetivo principal es unificar las potenciales 2 operaciones reportadas separadas, por ser en diferente moneda)';
+comment on column IT.GE_EQU_TARJETAS.mto_pag_minimo
+  is 'Es el pago que el tarjeta-habiente tiene que cancelar indefectiblemente para que su cuenta no entre en mora.';
+comment on column IT.GE_EQU_TARJETAS.lim_cre_detalle
+  is 'Es lo que se tiene permitido gastar (lo disponible menos lo que ya se gastó)';
+comment on column IT.GE_EQU_TARJETAS.tot_com_mes
+  is 'Es la porción de las compras realizadas ese mes que es exigible ese mes.';
+comment on column IT.GE_EQU_TARJETAS.sal_total
+  is 'Todo lo que le debo a la tarjeta. Se compone de atrasado (saldo vencido) + al día + futuro (saldo cuotas)';
+comment on column IT.GE_EQU_TARJETAS.sal_cuotas
+  is 'Saldo que aún no ha venido en ningún estado de cuenta (del mes siguiente al actual en adelante)';
+comment on column IT.GE_EQU_TARJETAS.sal_vencido
+  is 'Monto que se encuentra vencido e impago (incluido dentro del saldo total).';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_1
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_2
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_3
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_4
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_5
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_6
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_7
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_8
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_9
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_10
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_11
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.imp_cuo_mes_12
+  is 'Importe de cuotas a vencer en cada uno de los 12 meses siguientes al reportado.';
+comment on column IT.GE_EQU_TARJETAS.fec_cancelacion
+  is 'Fecha de Cancelación de la Cuenta';
+comment on column IT.GE_EQU_TARJETAS.tip_proceso
+  is 'Tipo de Proceso (M-Manual / A-Automático)';
+alter table IT.GE_EQU_TARJETAS
+  add constraint PK_GE_EQU_TARJETAS primary key (FECHA, NRO_SECUENCIA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

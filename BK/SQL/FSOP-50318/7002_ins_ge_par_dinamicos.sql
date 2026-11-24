@@ -1,0 +1,171 @@
+begin pre_ini_aplicacion; pae_cnf.G_COD_MODULO:=1; end; 
+/
+
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 4, 41, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 51, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 52, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 53, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 54, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 505, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 506, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 507, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 61, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 62, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 68, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 602, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 604, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 608, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 609, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 611, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 619, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 622, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 624, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 628, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 634, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 645, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 648, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 649, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 650, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 651, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 652, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 653, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 655, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 657, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 661, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 662, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 663, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 668, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 670, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 673, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 690, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 691, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 693, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 694, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 695, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 696, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 705, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 965, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 975, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 976, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 978, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 15, 151, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 15, 152, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 15, 153, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 5, 55, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 992, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+
+insert into ge_par_dinamicos (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('PRO_ENV_EQUIFAX', 'S', 6, 994, null, null, 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('12-05-2025 07:20:45', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+insert into GE_PAR_DINAMICOS (PARAMETRO, VAL_PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, COD_SUB_MODALIDAD)
+values ('DIR_AUT_BANCARD', 'FONDOS', null, null, null, null, 'LMENDOZA', to_date('25-04-2025 13:43:09', 'dd-mm-yyyy hh24:mi:ss'), 'LMENDOZA', to_date('25-04-2025 13:43:09', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+
+commit;

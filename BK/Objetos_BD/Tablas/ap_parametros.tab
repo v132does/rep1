@@ -1,0 +1,55 @@
+create table IT.AP_PARAMETROS
+(
+  cod_parametro    VARCHAR2(10) not null,
+  val_numerico     NUMBER(18,2) default 0,
+  val_char         VARCHAR2(240),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_PARAMETROS
+  is 'Parametros de Adm. de Proyectos.';
+comment on column IT.AP_PARAMETROS.cod_parametro
+  is 'Codigo de Parametro.';
+comment on column IT.AP_PARAMETROS.val_numerico
+  is 'Valor Numerico.';
+comment on column IT.AP_PARAMETROS.val_char
+  is 'Valor Char.';
+comment on column IT.AP_PARAMETROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AP_PARAMETROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AP_PARAMETROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AP_PARAMETROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AP_PARAMETROS
+  add constraint PK_AP_PARAMETROS primary key (COD_PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_PARAMETROS
+  add constraint AVCON_1081349332_COD_P_010
+  check (COD_PARAMETRO IN ('COTDOLAR', 'MONDOLAR', 'MONBASE'));
+

@@ -1,0 +1,86 @@
+create table IT.TA_MOV_ESPECIALES_TMP
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_tarjeta      VARCHAR2(16),
+  dig_verificador  NUMBER(1),
+  fec_movimiento   DATE,
+  des_movimiento   VARCHAR2(20),
+  mto_operacion    NUMBER(9),
+  tip_afectacion   NUMBER(1),
+  tip_movimiento   VARCHAR2(2),
+  financia         VARCHAR2(1),
+  fec_proceso      DATE,
+  cod_usuario      VARCHAR2(10),
+  cod_origen       NUMBER(1),
+  ref_proceso      VARCHAR2(50),
+  ref_archivo      VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mto_impuesto     NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_ESPECIALES_TMP
+  is 'Datos enviados por Bancard sobre Movimientos Especiales de las tarjetas de crédito. Pase a Vencido, Debitos/Creditos por motivos Varios';
+comment on column IT.TA_MOV_ESPECIALES_TMP.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.nro_tarjeta
+  is 'Número de tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.dig_verificador
+  is 'Dígito verificador de la tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.fec_movimiento
+  is 'Fecha de Movimiento.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.des_movimiento
+  is 'Descripción del Movimiento.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.mto_operacion
+  is 'Importe del movimiento.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.tip_afectacion
+  is 'Tipo de Afectación. 0=SFAC, 1=SIN, 2=SFNV, 3=Cré.Pago Min.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.tip_movimiento
+  is 'Tipo de Movimiento. CR = Crédito, DB = Débito';
+comment on column IT.TA_MOV_ESPECIALES_TMP.financia
+  is 'Financia?. S= Si, N=No.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.cod_usuario
+  is 'Usuario.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.cod_origen
+  is 'Código de Origen. 1= Digitado, 2=Transmisión';
+comment on column IT.TA_MOV_ESPECIALES_TMP.ref_proceso
+  is 'Observaciones de procesos realizados';
+comment on column IT.TA_MOV_ESPECIALES_TMP.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+comment on column IT.TA_MOV_ESPECIALES_TMP.mto_impuesto
+  is 'Monto del Impuesto.';
+create index IT.IN_BBVA_FEC_INS on IT.TA_MOV_ESPECIALES_TMP (TRUNC(FEC_INSERCION))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

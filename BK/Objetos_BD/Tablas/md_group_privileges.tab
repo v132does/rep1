@@ -1,0 +1,45 @@
+create table IT.MD_GROUP_PRIVILEGES
+(
+  id                NUMBER not null,
+  group_id_fk       NUMBER not null,
+  privilege_id_fk   NUMBER not null,
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_GROUP_PRIVILEGES
+  is 'This table stores the privileges granted to a group (or role)';
+alter table IT.MD_GROUP_PRIVILEGES
+  add constraint MD_GROUP_PRIVILEGES_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_GROUP_PRIVILEGES
+  add constraint MD_GROUP_PRIVILEGES_MD_GR_FK1 foreign key (GROUP_ID_FK)
+  references IT.MD_GROUPS (ID) on delete cascade;
+alter table IT.MD_GROUP_PRIVILEGES
+  add constraint MD_GROUP_PRIVILEGES_MD_PR_FK1 foreign key (PRIVILEGE_ID_FK)
+  references IT.MD_PRIVILEGES (ID) on delete cascade;
+

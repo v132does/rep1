@@ -1,0 +1,7 @@
+create sequence IT.S_BW_NOT_MENSAJES
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 40819
+increment by 1
+nocache;
+

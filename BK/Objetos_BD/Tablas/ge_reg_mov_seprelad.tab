@@ -1,0 +1,112 @@
+create table IT.GE_REG_MOV_SEPRELAD
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  secuencia        NUMBER(3) not null,
+  monto            NUMBER(18,2) default 0,
+  cod_moneda       VARCHAR2(3),
+  cod_oficina      NUMBER(3),
+  cod_tra_padre    NUMBER(4),
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_transaccion  NUMBER(4),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  mto_equ_local    NUMBER(18,2),
+  nro_caja         NUMBER(3),
+  cotizacion       NUMBER(14,8),
+  nro_documento    NUMBER(15),
+  nro_ope_caja     NUMBER(15),
+  cod_persona      NUMBER(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REG_MOV_SEPRELAD
+  is 'Tabla donde se registran las operaciones de No Clientes para informe a SEPRELAD';
+comment on column IT.GE_REG_MOV_SEPRELAD.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_REG_MOV_SEPRELAD.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_REG_MOV_SEPRELAD.secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_REG_MOV_SEPRELAD.monto
+  is 'Importe de la transaccion.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_REG_MOV_SEPRELAD.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.GE_REG_MOV_SEPRELAD.nro_caja
+  is 'Numero de caja.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cotizacion
+  is 'Cotizacion.';
+comment on column IT.GE_REG_MOV_SEPRELAD.nro_documento
+  is 'Nro. documento. - NRO_DOCUMENTO de la tabla ge_movimientos.';
+comment on column IT.GE_REG_MOV_SEPRELAD.nro_ope_caja
+  is 'Nro. de la transaccion de Caja. -  NRO_DOCUMENTO4 de la tabla ge_movimientos.';
+comment on column IT.GE_REG_MOV_SEPRELAD.cod_persona
+  is 'Código de la persona. - COD_PERSONA de la tabla ge_movimientos.';
+comment on column IT.GE_REG_MOV_SEPRELAD.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_REG_MOV_SEPRELAD.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_REG_MOV_SEPRELAD.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_REG_MOV_SEPRELAD.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GE_REG_MOV_SEPRELAD on IT.GE_REG_MOV_SEPRELAD (COD_PERSONA, FECHA, HORA, COD_USUARIO, SECUENCIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_REG_MOV_SEPRELAD
+  add constraint PK_GE_REG_MOV_SEPRELAD primary key (FECHA, HORA, COD_USUARIO, SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

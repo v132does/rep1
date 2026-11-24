@@ -1,0 +1,103 @@
+create table IT.GE_CTA_DIA_MOR_IMPAGOS_HIS
+(
+  fecha             DATE not null,
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  nro_cuenta        VARCHAR2(15) not null,
+  cod_persona       VARCHAR2(10),
+  nro_lin_sobregiro NUMBER(7) not null,
+  fec_inicio        DATE,
+  fec_vencimiento   DATE,
+  dia_mor_mes1      NUMBER(5),
+  dia_mor_mes2      NUMBER(5),
+  dia_mor_mes3      NUMBER(5),
+  dia_mor_mes4      NUMBER(5),
+  dia_mor_mes5      NUMBER(5),
+  dia_mor_mes6      NUMBER(5),
+  dia_mor_mes7      NUMBER(5),
+  dia_mor_mes8      NUMBER(5),
+  dia_mor_mes9      NUMBER(5),
+  dia_mor_mes10     NUMBER(5),
+  dia_mor_mes11     NUMBER(5),
+  dia_mor_mes12     NUMBER(5),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_DIA_MOR_IMPAGOS_HIS
+  is 'Tabla Histórica de Impagos.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.fecha
+  is 'Fecha.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.cod_modulo
+  is 'Cod. de Modulo.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.cod_modalidad
+  is 'Nro. de Modalidad.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.cod_persona
+  is 'Cod. de Persona.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.nro_lin_sobregiro
+  is 'Nro. de Linea de Sobregiro.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.fec_inicio
+  is 'Fecha de Inicio Lin. Sobregiro.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.fec_vencimiento
+  is 'Fecha de Vencimiento Lin. Sobregiro.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes1
+  is 'Días de Moras del mes 1.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes2
+  is 'Días de Moras del mes 2.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes3
+  is 'Días de Moras del mes 3.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes4
+  is 'Días de Moras del mes 4.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes5
+  is 'Días de Moras del mes 5.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes6
+  is 'Días de Moras del mes 6.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes7
+  is 'Días de Moras del mes 7.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes8
+  is 'Días de Moras del mes 8.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes9
+  is 'Días de Moras del mes 9.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes10
+  is 'Días de Moras del mes 10.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes11
+  is 'Días de Moras del mes 11.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.dia_mor_mes12
+  is 'Días de Moras del mes 12.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_CTA_DIA_MOR_IMPAGOS_HIS.fec_modificacion
+  is 'Fecha de Modificación.';
+alter table IT.GE_CTA_DIA_MOR_IMPAGOS_HIS
+  add constraint PK_GE_CTA_DIA_MOR_IMPAGOS_HIS primary key (FECHA, NRO_CUENTA, NRO_LIN_SOBREGIRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

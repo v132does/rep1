@@ -1,0 +1,130 @@
+create table IT.GE_TIP_ASIENTOS
+(
+  cod_tip_asiento  NUMBER(4) not null,
+  cod_oficina      NUMBER(3),
+  nro_linea        NUMBER(4) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  descripcion      VARCHAR2(100),
+  tip_movimiento   VARCHAR2(1) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cod_sec_contable VARCHAR2(1),
+  ind_residente    VARCHAR2(1) default 'X' not null,
+  ind_deudor       VARCHAR2(1) default 'N' not null,
+  ind_plazo        VARCHAR2(1) default 'N' not null,
+  ind_producto     VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tip_renovacion   VARCHAR2(1),
+  est_cuenta       VARCHAR2(1),
+  tip_cuenta       VARCHAR2(1),
+  tip_interes      VARCHAR2(1),
+  cat_automatica   NUMBER(3,2),
+  cod_sit_contable NUMBER(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TIP_ASIENTOS
+  is 'Tipos de Asientos.';
+comment on column IT.GE_TIP_ASIENTOS.cod_tip_asiento
+  is 'Tipo de asiento.';
+comment on column IT.GE_TIP_ASIENTOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_TIP_ASIENTOS.nro_linea
+  is 'Numero de linea.';
+comment on column IT.GE_TIP_ASIENTOS.cod_rubro
+  is 'Numero de cuenta.';
+comment on column IT.GE_TIP_ASIENTOS.descripcion
+  is 'Nombre del asiento.';
+comment on column IT.GE_TIP_ASIENTOS.tip_movimiento
+  is 'Tipo de movimiento. (Debito / Credito).';
+comment on column IT.GE_TIP_ASIENTOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_TIP_ASIENTOS.cod_sec_contable
+  is 'Codigo de sector.';
+comment on column IT.GE_TIP_ASIENTOS.ind_residente
+  is 'Es Residente? (N=NO / S=SI / X= No Tiene en Cuenta).';
+comment on column IT.GE_TIP_ASIENTOS.ind_deudor
+  is 'Tiene en cuenta el tipo de deudor.';
+comment on column IT.GE_TIP_ASIENTOS.ind_plazo
+  is 'Tiene en Cuenta el Plazo.';
+comment on column IT.GE_TIP_ASIENTOS.ind_producto
+  is 'Tiene en cuenta el Producto para la generacion contable.';
+comment on column IT.GE_TIP_ASIENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TIP_ASIENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TIP_ASIENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TIP_ASIENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TIP_ASIENTOS.tip_renovacion
+  is 'Tipo de renovacion: Refinanciado, rEstructurado, reNovado (Solo para asientos del modulo de prestamos).';
+comment on column IT.GE_TIP_ASIENTOS.est_cuenta
+  is 'Considerar el estado de la cuenta.';
+comment on column IT.GE_TIP_ASIENTOS.tip_cuenta
+  is 'Considerar el tipo de cuenta para prestamos.';
+comment on column IT.GE_TIP_ASIENTOS.tip_interes
+  is 'Considerar el tipo de interes, para cuentas de prestamos.';
+comment on column IT.GE_TIP_ASIENTOS.cat_automatica
+  is 'Categoria de riesgo de la cuenta.';
+comment on column IT.GE_TIP_ASIENTOS.cod_sit_contable
+  is 'Indica la situacion contable actual de la operacion. ';
+create index IT.IN_GTASI_COD_OFICINA on IT.GE_TIP_ASIENTOS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TIP_ASIENTOS
+  add constraint UK_GE_TIP_ASIENTOS unique (COD_TIP_ASIENTO, COD_MONEDA, COD_SEC_CONTABLE, NRO_LINEA, TIP_MOVIMIENTO, IND_RESIDENTE, IND_DEUDOR, IND_PLAZO, IND_PRODUCTO, TIP_RENOVACION, EST_CUENTA, TIP_CUENTA, TIP_INTERES, CAT_AUTOMATICA, COD_RUBRO, COD_SIT_CONTABLE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TIP_ASIENTOS
+  add constraint FK_GTASI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_TIP_ASIENTOS
+  add constraint FK_GTASI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_TIP_ASIENTOS
+  add constraint FK_GTASI_COD_SEC_CONTABLE foreign key (COD_SEC_CONTABLE)
+  references IT.GE_SEC_CONTABLES (COD_SEC_CONTABLE);
+alter table IT.GE_TIP_ASIENTOS
+  add constraint AVCON_1080843414_IND_D_000
+  check (IND_DEUDOR IN ('S', 'N'));
+alter table IT.GE_TIP_ASIENTOS
+  add constraint AVCON_1080843414_IND_P_000
+  check (IND_PLAZO IN ('S', 'N'));
+alter table IT.GE_TIP_ASIENTOS
+  add constraint AVCON_1080843414_IND_P_001
+  check (IND_PRODUCTO IN ('S', 'N'));
+alter table IT.GE_TIP_ASIENTOS
+  add constraint AVCON_1089062741_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

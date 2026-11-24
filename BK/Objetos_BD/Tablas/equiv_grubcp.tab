@@ -1,0 +1,32 @@
+create table IT.EQUIV_GRUBCP
+(
+  cod_tip_deudor   NUMBER(2),
+  cod_sec_contable VARCHAR2(1),
+  grubcp           NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.EQUIV_GRUBCP
+  is 'Tabla de equivalencias para MAEPERM_BCDT001.GRUBCP';
+create index IT.IDX_EQUIV_GRUBCP on IT.EQUIV_GRUBCP (GRUBCP)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

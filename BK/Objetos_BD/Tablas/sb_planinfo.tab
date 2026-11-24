@@ -1,0 +1,64 @@
+create table IT.SB_PLANINFO
+(
+  nom_archivo      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  cod_entidad      VARCHAR2(4) not null,
+  tip_entidad      VARCHAR2(2) not null,
+  cla_entidad      VARCHAR2(2) not null,
+  nro_reg_a        NUMBER(1) not null,
+  tot_reg_detalle  NUMBER(6) not null,
+  usu_insercion    VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_PLANINFO
+  is 'Cabeceras de los archivos de Planinfo.';
+comment on column IT.SB_PLANINFO.nom_archivo
+  is 'Identificador de archivo.';
+comment on column IT.SB_PLANINFO.fecha
+  is 'Fecha de Periodo informado.';
+comment on column IT.SB_PLANINFO.cod_entidad
+  is 'Codigo de Entidad.';
+comment on column IT.SB_PLANINFO.tip_entidad
+  is 'Tipo de Entidad.';
+comment on column IT.SB_PLANINFO.cla_entidad
+  is 'Clase de Entidad.';
+comment on column IT.SB_PLANINFO.nro_reg_a
+  is 'Nro de Registro, siempre se informa CERO.';
+comment on column IT.SB_PLANINFO.tot_reg_detalle
+  is 'Total de Registro.';
+comment on column IT.SB_PLANINFO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_PLANINFO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_PLANINFO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_PLANINFO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.SB_PLANINFO
+  add constraint SPLAN_PK primary key (FECHA, NOM_ARCHIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

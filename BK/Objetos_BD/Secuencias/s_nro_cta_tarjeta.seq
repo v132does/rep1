@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_CTA_TARJETA
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 124816
+increment by 1
+nocache;
+

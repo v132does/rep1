@@ -1,0 +1,120 @@
+create table IT.BW_OPE_CLAVES
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_per_vinculada VARCHAR2(10),
+  cla_verificador   NUMBER(7) not null,
+  clave             VARCHAR2(300) not null,
+  cla_impresa       VARCHAR2(40),
+  can_acceso        NUMBER(3),
+  est_clave         VARCHAR2(1) default 'N' not null,
+  fec_est_clave     DATE,
+  can_intentos      NUMBER(4),
+  fec_ult_error     DATE,
+  fec_ult_acceso    DATE,
+  usu_impresion     VARCHAR2(10),
+  fec_impresion     DATE,
+  cod_ofi_impresion NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  fec_cam_clave     DATE,
+  tip_clave         VARCHAR2(1) default 'T' not null,
+  nro_lote          NUMBER,
+  can_impresion     NUMBER,
+  cod_canal         VARCHAR2(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OPE_CLAVES
+  is 'Datos de la Clave Transaccional del Cliente.';
+comment on column IT.BW_OPE_CLAVES.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.BW_OPE_CLAVES.cod_per_vinculada
+  is 'Código de la Persona a la que está vinculada el Cliente.';
+comment on column IT.BW_OPE_CLAVES.cla_verificador
+  is 'Número aleatorio.';
+comment on column IT.BW_OPE_CLAVES.clave
+  is 'Clave para operaciones. CLAVE = CLA_VERIFICADOR +"|"+md5(CLAVE).';
+comment on column IT.BW_OPE_CLAVES.cla_impresa
+  is 'Clave encriptada para la impresión.';
+comment on column IT.BW_OPE_CLAVES.can_acceso
+  is 'Cantidad de accesos.';
+comment on column IT.BW_OPE_CLAVES.est_clave
+  is 'Estado de la clave (N/Nuevo, B/Bloqueado, A/Activo, I/Impreso, X/Anulado).';
+comment on column IT.BW_OPE_CLAVES.fec_est_clave
+  is 'Fecha de Estado.';
+comment on column IT.BW_OPE_CLAVES.can_intentos
+  is 'Cantidad de Intentos de Accesos.';
+comment on column IT.BW_OPE_CLAVES.fec_ult_error
+  is 'Fecha del Último Error ingresando la Contraseña.';
+comment on column IT.BW_OPE_CLAVES.fec_ult_acceso
+  is 'Fecha del último acceso.';
+comment on column IT.BW_OPE_CLAVES.usu_impresion
+  is 'Usuario que realizó la Impresión de la Clave.';
+comment on column IT.BW_OPE_CLAVES.fec_impresion
+  is 'Fecha de la Impresión de la Clave.';
+comment on column IT.BW_OPE_CLAVES.cod_ofi_impresion
+  is 'Código de Oficina donde se realizó la Impresión.';
+comment on column IT.BW_OPE_CLAVES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_OPE_CLAVES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_OPE_CLAVES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_OPE_CLAVES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_OPE_CLAVES.fec_cam_clave
+  is 'Fecha del ultimo cambio de clave';
+comment on column IT.BW_OPE_CLAVES.tip_clave
+  is 'Tipo de clave (T/Transaccional, A/Acceso).';
+comment on column IT.BW_OPE_CLAVES.nro_lote
+  is 'Número de Lote (identificación para visualizar la generación masiva de claves).';
+comment on column IT.BW_OPE_CLAVES.can_impresion
+  is 'Cantidad de envio a impresora para tener registro de los intentos de impresión.';
+create index IT.IN_WOCLA_COD_OFI_IMPRESION on IT.BW_OPE_CLAVES (COD_OFI_IMPRESION, USU_IMPRESION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.UK_BW_OPE_CLAVES on IT.BW_OPE_CLAVES (COD_PERSONA, COD_PER_VINCULADA, TIP_CLAVE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_CLAVES
+  add constraint FK_WOCLA_COD_OFI_IMPRESION foreign key (COD_OFI_IMPRESION)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.BW_OPE_CLAVES
+  add constraint FK_WOCLA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_OPE_CLAVES
+  add constraint FK_WOCLA_COD_PER_VINCULADA foreign key (COD_PER_VINCULADA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_OPE_CLAVES
+  add constraint FK_WOCLA_USU_IMPRESION foreign key (USU_IMPRESION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

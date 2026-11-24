@@ -1,0 +1,102 @@
+create table IT.GE_DAT_RIE_EVALUACIONES_DET
+(
+  nro_solicitud    NUMBER(7) not null,
+  nro_intento      NUMBER(3) not null,
+  nro_secuencia    NUMBER(5) not null,
+  tip_rel_persona  VARCHAR2(1),
+  cod_persona      VARCHAR2(10),
+  pun_scoring      NUMBER(17,9),
+  pro_mora         NUMBER(5,2),
+  dic_perfil       VARCHAR2(1),
+  bal_caja         NUMBER(18,2),
+  dic_bal_caja     VARCHAR2(1),
+  lim_max_persona  NUMBER(18,2),
+  dic_buro         VARCHAR2(1),
+  dat_entrada      VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  val_alertas      VARCHAR2(200),
+  montos           VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.nro_solicitud
+  is 'Número de la Propuesta.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.nro_intento
+  is 'Número de Intento de Evaluación.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.nro_secuencia
+  is 'Número Secuencial del detalle que corresponde a los Intervinientes. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.tip_rel_persona
+  is 'Tipo de persona(P- Principal/Y- Cónyuge/C- Codeudor).';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.cod_persona
+  is 'Código de la Persona Interviniente.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.pun_scoring
+  is 'Puntaje de Scoring del Interviniente proveniente de la herramienta externa.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.pro_mora
+  is 'Probabilidad de Mora. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.dic_perfil
+  is 'Dictamen de Perfil. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.bal_caja
+  is 'Balance de Caja. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.dic_bal_caja
+  is 'Dictamen de Balance de Caja.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.lim_max_persona
+  is 'Limite Máximo del Interviniente.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.dic_buro
+  is 'Dictamen de Buró. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.dat_entrada
+  is 'Datos de entrada enviados a la Herramienta.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.usu_insercion
+  is 'Usuario que realizó la Inserción del Registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.fec_insercion
+  is 'Fecha de Inserción del Registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.usu_modificacion
+  is 'Usuario que realizó la Modificación del Registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.fec_modificacion
+  is 'Fecha de Modificación del Registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.val_alertas
+  is 'Valores de Alertas proveniente de herramienta externa.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES_DET.montos
+  is 'Montos que devuelve el GMR para Informe de Crédito.';
+alter table IT.GE_DAT_RIE_EVALUACIONES_DET
+  add constraint PK_GE_DAT_RIE_EVALUACIONES_DET primary key (NRO_SOLICITUD, NRO_INTENTO, NRO_SECUENCIA, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.PK_GE_DAT_RIE_EVALUACIONES_DET nologging;
+alter table IT.GE_DAT_RIE_EVALUACIONES_DET
+  add constraint FK_GDRED_COD_MODULO foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_DAT_RIE_EVALUACIONES_DET
+  add constraint FK_GDRED_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_DAT_RIE_EVALUACIONES_DET
+  add constraint FK_GDRED_NRO_SOLICITUD foreign key (NRO_SOLICITUD, NRO_INTENTO, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_DAT_RIE_EVALUACIONES (NRO_SOLICITUD, NRO_INTENTO, COD_MODULO, COD_MODALIDAD);
+

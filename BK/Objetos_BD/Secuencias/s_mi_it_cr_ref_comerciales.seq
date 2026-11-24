@@ -1,0 +1,7 @@
+create sequence IT.S_MI_IT_CR_REF_COMERCIALES
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 14
+increment by 1
+nocache;
+

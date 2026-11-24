@@ -1,0 +1,37 @@
+create table IT.SIMGIA_ARCOLPLFM_BKP
+(
+  rmcuenta         VARCHAR2(4000),
+  rb_1             VARCHAR2(4000),
+  rmrefer          NUMBER,
+  rmonto           NUMBER,
+  rmfchcon         VARCHAR2(6),
+  rmfchvto         VARCHAR2(6),
+  rmplazo          NUMBER,
+  rmtasa           NUMBER,
+  rminteres        NUMBER,
+  rmcintdev        VARCHAR2(4000),
+  rb_2             VARCHAR2(4000),
+  rmintdev         NUMBER,
+  rmcalta          NUMBER,
+  rmcbaja          NUMBER,
+  rmfuldev         VARCHAR2(6),
+  rmfchreg         VARCHAR2(6),
+  rmcodbco         NUMBER,
+  rmoper           VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  cod_modalidad    NUMBER(3),
+  cod_sit_contable VARCHAR2(20),
+  fecha_his        DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

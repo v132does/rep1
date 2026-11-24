@@ -1,0 +1,142 @@
+create table IT.LC_POSICIONES
+(
+  cod_moneda          VARCHAR2(3) not null,
+  cod_tip_ope_bcp     VARCHAR2(6) not null,
+  cod_ofi_cambio      NUMBER(3) not null,
+  mto_com_efe_ant     NUMBER(18,2) default 0 not null,
+  mto_com_nef_ant     NUMBER(18,2) default 0 not null,
+  mto_com_efe_act     NUMBER(18,2) default 0 not null,
+  mto_com_nef_act     NUMBER(18,2) default 0 not null,
+  mto_vta_efe_ant     NUMBER(18,2) default 0 not null,
+  mto_vta_nef_ant     NUMBER(18,2) default 0 not null,
+  mto_vta_efe_act     NUMBER(18,2) default 0 not null,
+  mto_vta_nef_act     NUMBER(18,2) default 0 not null,
+  mto_arb_com_efe_ant NUMBER(18,2) default 0 not null,
+  mto_arb_com_nef_ant NUMBER(18,2) default 0 not null,
+  mto_arb_com_efe_act NUMBER(18,2) default 0 not null,
+  mto_arb_com_nef_act NUMBER(18,2) default 0 not null,
+  mto_arb_vta_efe_ant NUMBER(18,2) default 0 not null,
+  mto_arb_vta_nef_ant NUMBER(18,2) default 0 not null,
+  mto_arb_vta_efe_act NUMBER(18,2) default 0 not null,
+  mto_arb_vta_nef_act NUMBER(18,2) default 0 not null,
+  mto_cje_com_efe_ant NUMBER(18,2) default 0 not null,
+  mto_cje_com_nef_ant NUMBER(18,2) default 0 not null,
+  mto_cje_com_efe_act NUMBER(18,2) default 0 not null,
+  mto_cje_com_nef_act NUMBER(18,2) default 0 not null,
+  mto_cje_vta_efe_ant NUMBER(18,2) default 0 not null,
+  mto_cje_vta_nef_ant NUMBER(18,2) default 0 not null,
+  mto_cje_vta_efe_act NUMBER(18,2) default 0 not null,
+  mto_cje_vta_nef_act NUMBER(18,2) default 0 not null,
+  mto_com_efe_loc     NUMBER(18,2) default 0 not null,
+  mto_com_nef_loc     NUMBER(18,2) default 0 not null,
+  mto_vta_efe_loc     NUMBER(18,2) default 0 not null,
+  mto_vta_nef_loc     NUMBER(18,2) default 0 not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_POSICIONES
+  is 'Contiene los Datos de la Posicion Diaria de Cambios.';
+comment on column IT.LC_POSICIONES.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_POSICIONES.cod_tip_ope_bcp
+  is 'Codigo de BCP imputado.';
+comment on column IT.LC_POSICIONES.cod_ofi_cambio
+  is 'Codigo de oficina.';
+comment on column IT.LC_POSICIONES.mto_com_efe_ant
+  is 'Monto de compra-efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_com_nef_ant
+  is 'Monto de compra-no efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_com_efe_act
+  is 'Monto de compra-efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_com_nef_act
+  is 'Monto de compra-no efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_vta_efe_ant
+  is 'Monto de venta-efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_vta_nef_ant
+  is 'Monto de venta-no efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_vta_efe_act
+  is 'Monto de venta-efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_vta_nef_act
+  is 'Monto de venta-no efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_arb_com_efe_ant
+  is 'Monto de Arbitraje-compra-efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_arb_com_nef_ant
+  is 'Monto de Arbitraje-compra-no efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_arb_com_efe_act
+  is 'Monto de Arbitraje-compra-efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_arb_com_nef_act
+  is 'Monto de Arbitraje-compra-no efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_arb_vta_efe_ant
+  is 'Monto de Arbitraje-venta-efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_arb_vta_nef_ant
+  is 'Monto de Arbitraje-venta-no efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_arb_vta_efe_act
+  is 'Monto de Arbitraje-venta-efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_arb_vta_nef_act
+  is 'Monto de Arbitraje-venta-no efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_cje_com_efe_ant
+  is 'Monto de Canje-compra-efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_cje_com_nef_ant
+  is 'Monto de Canje-compra-no efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_cje_com_efe_act
+  is 'Monto de Canje-compra-efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_cje_com_nef_act
+  is 'Monto de Canje-compra-no efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_cje_vta_efe_ant
+  is 'Monto de Canje-venta-efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_cje_vta_nef_ant
+  is 'Monto de Canje-venta-no efectivo dia anterior.';
+comment on column IT.LC_POSICIONES.mto_cje_vta_efe_act
+  is 'Monto de Canje-venta-efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_cje_vta_nef_act
+  is 'Monto de Canje-venta-no efectivo actual.';
+comment on column IT.LC_POSICIONES.mto_com_efe_loc
+  is 'Monto de la compra efectivo en moneda local.';
+comment on column IT.LC_POSICIONES.mto_com_nef_loc
+  is 'Monto de la compra no efectivo en moneda local.';
+comment on column IT.LC_POSICIONES.mto_vta_efe_loc
+  is 'Monto de la venta efectivo en moneda local.';
+comment on column IT.LC_POSICIONES.mto_vta_nef_loc
+  is 'Monto de la venta no efectivo en moneda local.';
+comment on column IT.LC_POSICIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_POSICIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_POSICIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_POSICIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_POSICIONES
+  add constraint PK_LC_POSICIONES primary key (COD_OFI_CAMBIO, COD_MONEDA, COD_TIP_OPE_BCP)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_POSICIONES
+  add constraint FK_LPOSI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_POSICIONES
+  add constraint FK_LPOSI_COD_TIP_OPE_BCP foreign key (COD_TIP_OPE_BCP)
+  references IT.LC_TIP_OPE_BCP (COD_TIP_OPE_BCP);
+

@@ -1,0 +1,76 @@
+create table IT.CR_PUN_LIN_SUGERIDAS
+(
+  cod_puntaje      NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  por_puntaje      NUMBER(8,2),
+  pun_desde        NUMBER(5),
+  pun_hasta        NUMBER(5),
+  lin_sugerida     NUMBER(18,2) not null,
+  apr_automatica   VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  est_sugerido     VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUN_LIN_SUGERIDAS
+  is 'Lineas Sugeridas por Tipo de Scoring.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.por_puntaje
+  is 'Porcentaje de Scoring.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.pun_desde
+  is 'Puntaje Desde.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.pun_hasta
+  is 'Puntaje Hasta.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.lin_sugerida
+  is 'Linea Sugerida.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.apr_automatica
+  is 'Indicador de Aprobacion Automatica.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_LIN_SUGERIDAS.est_sugerido
+  is 'Estado Sugerido.';
+alter table IT.CR_PUN_LIN_SUGERIDAS
+  add constraint UK_CR_PUN_LIN_SUGERIDAS unique (COD_PUNTAJE, COD_MONEDA, POR_PUNTAJE, PUN_DESDE, PUN_HASTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PUN_LIN_SUGERIDAS
+  add constraint FK_RLINS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PUN_LIN_SUGERIDAS
+  add constraint FK_RLINS_EST_SUGERIDO foreign key (EST_SUGERIDO)
+  references IT.GE_SOL_ESTADOS (COD_ESTADO);
+alter table IT.CR_PUN_LIN_SUGERIDAS
+  add constraint AVCON_1080843837_APR_A_000
+  check (APR_AUTOMATICA IN ('S', 'N'));
+

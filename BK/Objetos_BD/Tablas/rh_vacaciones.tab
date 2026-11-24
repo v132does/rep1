@@ -1,0 +1,85 @@
+create table IT.RH_VACACIONES
+(
+  cod_persona         VARCHAR2(10) not null,
+  fec_desde           DATE not null,
+  fec_hasta           DATE not null,
+  can_dias            NUMBER(5) not null,
+  monto               NUMBER(14,2) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  ind_procesado       VARCHAR2(1) default 'N' not null,
+  cod_per_autorizador VARCHAR2(10),
+  per_desde           NUMBER(4) not null,
+  per_hasta           NUMBER(4) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_VACACIONES
+  is 'Vacaciones de los Empleados.';
+comment on column IT.RH_VACACIONES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_VACACIONES.fec_desde
+  is 'Fecha de Inicio de las Vacaciones.';
+comment on column IT.RH_VACACIONES.fec_hasta
+  is 'Fecha de Fin de las Vacaciones.';
+comment on column IT.RH_VACACIONES.can_dias
+  is 'Cantidad de Dias Habiles de las Vacaciones.';
+comment on column IT.RH_VACACIONES.monto
+  is 'Monto de las Vacaciones.';
+comment on column IT.RH_VACACIONES.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_VACACIONES.ind_procesado
+  is 'Indica si la Vacacion ya fue procesada o no.';
+comment on column IT.RH_VACACIONES.cod_per_autorizador
+  is 'Persona que autoriza las Vacaciones.';
+comment on column IT.RH_VACACIONES.per_desde
+  is 'Periodo de Inicio al que corresponde la Vacacion.';
+comment on column IT.RH_VACACIONES.per_hasta
+  is 'Periodo de Finalizacion al que corresponde la Vacacion.';
+comment on column IT.RH_VACACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_VACACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_VACACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_VACACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_VACACIONES
+  add constraint PK_RH_VACACIONES primary key (COD_PERSONA, FEC_DESDE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_VACACIONES
+  add constraint FK_HVACA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_VACACIONES
+  add constraint FK_HVACA_COD_PER_AUTORIZADOR foreign key (COD_PER_AUTORIZADOR)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_VACACIONES
+  add constraint FK_HVACA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_VACACIONES
+  add constraint AVCON_1191539879_IND_P_000
+  check (IND_PROCESADO IN ('S', 'N'));
+

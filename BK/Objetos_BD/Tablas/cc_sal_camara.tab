@@ -1,0 +1,115 @@
+create table IT.CC_SAL_CAMARA
+(
+  cod_ofi_camara       NUMBER(3) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  fecha                DATE default TRUNC(SYSDATE) not null,
+  bcp_che_enviados     NUMBER(18,2) default 0 not null,
+  bcp_che_recibidos    NUMBER(18,2) default 0 not null,
+  bcp_che_dev_camara   NUMBER(18,2) default 0 not null,
+  bcp_che_dev_a_camara NUMBER(18,2) default 0 not null,
+  bcp_che_suc_enviados NUMBER(18,2) default 0 not null,
+  sis_che_enviados     NUMBER(18,2) default 0 not null,
+  sis_che_recibidos    NUMBER(18,2) default 0 not null,
+  sis_che_dev_camara   NUMBER(18,2) default 0 not null,
+  sis_che_dev_a_camara NUMBER(18,2) default 0 not null,
+  sis_che_suc_enviados NUMBER(18,2) default 0 not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  tip_importe          NUMBER(1) default 0 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_SAL_CAMARA
+  is 'Saldos de Camara.';
+comment on column IT.CC_SAL_CAMARA.cod_ofi_camara
+  is 'Oficina de Camara.';
+comment on column IT.CC_SAL_CAMARA.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CC_SAL_CAMARA.fecha
+  is 'Fecha de Saldo.';
+comment on column IT.CC_SAL_CAMARA.bcp_che_enviados
+  is 'Cheques a Compensar segun BCP.';
+comment on column IT.CC_SAL_CAMARA.bcp_che_recibidos
+  is 'Cheques Recibidos de Camara segun BCP.';
+comment on column IT.CC_SAL_CAMARA.bcp_che_dev_camara
+  is 'Cheques Rechazados por Camara segun BCP.';
+comment on column IT.CC_SAL_CAMARA.bcp_che_dev_a_camara
+  is 'Cheques Rechazados por nuestro Banco segun BCP.';
+comment on column IT.CC_SAL_CAMARA.bcp_che_suc_enviados
+  is 'Cheques del Interior a Compensar segun BCP.';
+comment on column IT.CC_SAL_CAMARA.sis_che_enviados
+  is 'Cheques a Compensar segun el Sistema.';
+comment on column IT.CC_SAL_CAMARA.sis_che_recibidos
+  is 'Cheques Recibidos de Camara segun Sistema.';
+comment on column IT.CC_SAL_CAMARA.sis_che_dev_camara
+  is 'Cheques Rechazados por Camara segun Sistema.';
+comment on column IT.CC_SAL_CAMARA.sis_che_dev_a_camara
+  is 'Cheques Rechazados por nuestro Banco segun Sistema.';
+comment on column IT.CC_SAL_CAMARA.sis_che_suc_enviados
+  is 'Cheques del Interior a Compensar segun Sistema.';
+comment on column IT.CC_SAL_CAMARA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_SAL_CAMARA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_SAL_CAMARA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SAL_CAMARA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SAL_CAMARA.tip_importe
+  is 'Tipo Importe(0=Bajo Valor,1=Alto Valor).';
+create index IT.IN_COD_MONEDA_CC on IT.CC_SAL_CAMARA (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_OFI_CAMARA on IT.CC_SAL_CAMARA (COD_OFI_CAMARA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SAL_CAMARA
+  add constraint PK_CC_SAL_CAMARA primary key (FECHA, COD_MONEDA, COD_OFI_CAMARA, TIP_IMPORTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SAL_CAMARA
+  add constraint FK_CSCAM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_SAL_CAMARA
+  add constraint FK_CSCAM_COD_OFI_CAMARA foreign key (COD_OFI_CAMARA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

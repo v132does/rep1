@@ -1,0 +1,50 @@
+create table IT.MD_DEP_MSJ_PEDIDOS
+(
+  fecha            DATE not null,
+  nro_ref_pedido   VARCHAR2(20) not null,
+  cod_msj_pedido   VARCHAR2(35),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_DEP_MSJ_PEDIDOS.fecha
+  is 'Fecha';
+comment on column IT.MD_DEP_MSJ_PEDIDOS.nro_ref_pedido
+  is 'Nro de Pedido';
+comment on column IT.MD_DEP_MSJ_PEDIDOS.cod_msj_pedido
+  is 'Codigo de Mensaje Switf del Pedido';
+comment on column IT.MD_DEP_MSJ_PEDIDOS.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.MD_DEP_MSJ_PEDIDOS.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.MD_DEP_MSJ_PEDIDOS.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.MD_DEP_MSJ_PEDIDOS.fec_modificacion
+  is 'Fecha de Modificacion';
+alter table IT.MD_DEP_MSJ_PEDIDOS
+  add constraint PK_MD_DEP_MSJ_PEDIDOS primary key (NRO_REF_PEDIDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,165 @@
+create table IT.CC_CHE_ENVIADOS
+(
+  cod_banco            NUMBER(3) not null,
+  nro_cheque           NUMBER(15),
+  cod_usuario          VARCHAR2(10) not null,
+  fecha                DATE not null,
+  hora                 VARCHAR2(8) not null,
+  cod_ofi_origen       NUMBER(3) not null,
+  nro_boleta           NUMBER(15) not null,
+  cod_retencion        NUMBER(3) not null,
+  fec_final            DATE not null,
+  monto                NUMBER(18,2) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  mto_equ_local        NUMBER(18,2) default 0 not null,
+  cod_referencia       VARCHAR2(3),
+  nro_referencia       NUMBER(18),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cta_libradora        VARCHAR2(20),
+  estado               VARCHAR2(1) not null,
+  nro_cuenta           VARCHAR2(15),
+  cod_cau_devolucion   NUMBER(3),
+  cod_ofi_compensacion NUMBER(3),
+  nro_caja             NUMBER(3),
+  com_directa          VARCHAR2(1) default 'N' not null,
+  manual               VARCHAR2(1) default 'N',
+  lib_posterior        VARCHAR2(1) default 'N' not null,
+  liberado             VARCHAR2(1) default 'N' not null,
+  fec_envio            DATE,
+  nro_bol_deposito     NUMBER(15),
+  nro_cta_deposito     NUMBER(15),
+  fec_vencimiento      DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_ENVIADOS
+  is 'Cheques Enviados.';
+comment on column IT.CC_CHE_ENVIADOS.cod_banco
+  is 'Codigo de Banco al que pertenece el Deposito.';
+comment on column IT.CC_CHE_ENVIADOS.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_ENVIADOS.cod_usuario
+  is 'Codigo de Operador que realizo la Grabacion del Registro.';
+comment on column IT.CC_CHE_ENVIADOS.fecha
+  is 'Fecha de la Grabacion del Registro .';
+comment on column IT.CC_CHE_ENVIADOS.hora
+  is 'Hora en que se Ingreso el Registro.';
+comment on column IT.CC_CHE_ENVIADOS.cod_ofi_origen
+  is 'Codigo de Oficina donde se Realizo el Deposito.';
+comment on column IT.CC_CHE_ENVIADOS.nro_boleta
+  is 'Numero de Boleta.';
+comment on column IT.CC_CHE_ENVIADOS.cod_retencion
+  is 'Codigo del Tipo de Retencion.';
+comment on column IT.CC_CHE_ENVIADOS.fec_final
+  is 'Fecha de Fin de la Retencion .';
+comment on column IT.CC_CHE_ENVIADOS.monto
+  is 'Valor del Cheque.';
+comment on column IT.CC_CHE_ENVIADOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CC_CHE_ENVIADOS.mto_equ_local
+  is 'Valor Equivalente.';
+comment on column IT.CC_CHE_ENVIADOS.cod_referencia
+  is 'Codigo de Referencia.';
+comment on column IT.CC_CHE_ENVIADOS.nro_referencia
+  is 'Numero de Referencia.';
+comment on column IT.CC_CHE_ENVIADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_ENVIADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_ENVIADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_ENVIADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_ENVIADOS.cta_libradora
+  is 'Cuenta Libradora del Cheque.';
+comment on column IT.CC_CHE_ENVIADOS.estado
+  is 'Estado. ''I''ngresado, ''E''nviado, ''C''onfirmado, ''L''iberado, ''D''evuelto.';
+comment on column IT.CC_CHE_ENVIADOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CHE_ENVIADOS.cod_cau_devolucion
+  is 'Codigo de Causa de Devolucion.';
+comment on column IT.CC_CHE_ENVIADOS.cod_ofi_compensacion
+  is 'Oficina donde se hara la Compensacion de estos Cheques.';
+comment on column IT.CC_CHE_ENVIADOS.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CC_CHE_ENVIADOS.com_directa
+  is 'Indica si la Compensacion es Directa.';
+comment on column IT.CC_CHE_ENVIADOS.manual
+  is 'Indica si el Cheque fue Ingresado en forma Manual al sistema.';
+comment on column IT.CC_CHE_ENVIADOS.lib_posterior
+  is 'Marca de Liberación Posterior.';
+comment on column IT.CC_CHE_ENVIADOS.liberado
+  is 'Liberado. SI/NO';
+comment on column IT.CC_CHE_ENVIADOS.fec_envio
+  is 'Fecha en que cambió a estado Enviado.';
+comment on column IT.CC_CHE_ENVIADOS.fec_vencimiento
+  is 'Fecha de Vencimiento del Cheque para Cheques en Custodia que vienen de prestamos.';
+create index IT.IN_CCENV_NRO_CUENTA on IT.CC_CHE_ENVIADOS (NRO_CUENTA, NRO_BOLETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_ENVIADOS
+  add constraint UK_CC_CHE_ENVIADOS unique (NRO_CHEQUE, COD_BANCO, CTA_LIBRADORA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_COD_CAU_DEVOLUCION foreign key (COD_CAU_DEVOLUCION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint FK_CCENV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint AVCON_1122756296_ESTAD_000
+  check (ESTADO IN ('I', 'E', 'D', 'C', 'L','P'));
+alter table IT.CC_CHE_ENVIADOS
+  add constraint AVCON_1122819900_COD_C_000
+  check (COD_CAU_DEVOLUCION BETWEEN 0 AND 999);
+alter table IT.CC_CHE_ENVIADOS
+  add constraint CK_CCENV_COM_DIRECTA
+  check (COM_DIRECTA IN ('S','N'));
+

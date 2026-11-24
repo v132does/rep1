@@ -1,0 +1,57 @@
+create table IT.CB_CAN_PER_GASTOS
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_area         NUMBER(3) not null,
+  cantidad         NUMBER(10),
+  fec_insercion    DATE,
+  usu_insercion    VARCHAR2(10),
+  fec_modificacion DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_proceso      DATE not null,
+  hor_proceso      VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_CAN_PER_GASTOS
+  is 'Tabla que registra la cantidad de personas registradas por RRHH por oficina y centro de costos.';
+comment on column IT.CB_CAN_PER_GASTOS.fecha
+  is 'Fecha.';
+comment on column IT.CB_CAN_PER_GASTOS.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.CB_CAN_PER_GASTOS.cod_area
+  is 'Código de Área (Centro de Costos).';
+comment on column IT.CB_CAN_PER_GASTOS.cantidad
+  is 'Cantidad de Personas por Centro de Costos.';
+comment on column IT.CB_CAN_PER_GASTOS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_CAN_PER_GASTOS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_CAN_PER_GASTOS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+comment on column IT.CB_CAN_PER_GASTOS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+alter table IT.CB_CAN_PER_GASTOS
+  add constraint PK_CB_CAN_PER_GASTOS primary key (COD_OFICINA, COD_AREA, FEC_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

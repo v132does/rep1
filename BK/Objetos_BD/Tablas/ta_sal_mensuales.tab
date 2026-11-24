@@ -1,0 +1,97 @@
+create table IT.TA_SAL_MENSUALES
+(
+  nro_cuenta            VARCHAR2(15) not null,
+  ano                   NUMBER(4) not null,
+  mes                   NUMBER(2) not null,
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_oficina           NUMBER(3) not null,
+  sal_financiado        NUMBER(18,2) default 0,
+  sal_facturado         NUMBER(18,2) default 0,
+  sal_facturar          NUMBER(18,2) default 0,
+  acu_sal_financiado    NUMBER(18,2) default 0,
+  acu_sal_facturado     NUMBER(18,2) default 0,
+  acu_sal_facturar      NUMBER(18,2) default 0,
+  can_dia_acumulado     NUMBER(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  acu_sal_cuo_pendiente NUMBER(18,2) default 0,
+  sal_cuo_pendientes    NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SAL_MENSUALES
+  is 'Contiene los saldos de tarjetas  mensuales, sirve para hallar el saldo promedio de la tarjeta para un mes dato ** Mantener seis meses **';
+comment on column IT.TA_SAL_MENSUALES.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.TA_SAL_MENSUALES.ano
+  is 'Año de Saldo.';
+comment on column IT.TA_SAL_MENSUALES.mes
+  is 'Mes de Saldo.';
+comment on column IT.TA_SAL_MENSUALES.cod_modulo
+  is 'Modulo.';
+comment on column IT.TA_SAL_MENSUALES.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.TA_SAL_MENSUALES.cod_oficina
+  is 'Oficina.';
+comment on column IT.TA_SAL_MENSUALES.sal_financiado
+  is 'Saldo Financiado Inicial.';
+comment on column IT.TA_SAL_MENSUALES.sal_facturado
+  is 'Saldo Facturado no Vencido Inicial.';
+comment on column IT.TA_SAL_MENSUALES.sal_facturar
+  is 'Saldo a Facturar Inicial.';
+comment on column IT.TA_SAL_MENSUALES.acu_sal_financiado
+  is 'Acumulado de Saldo Financiado.';
+comment on column IT.TA_SAL_MENSUALES.acu_sal_facturado
+  is 'Acumulado de Saldo Facturado No Vencido.';
+comment on column IT.TA_SAL_MENSUALES.acu_sal_facturar
+  is 'Acumulado de Saldo a Facturar.';
+comment on column IT.TA_SAL_MENSUALES.can_dia_acumulado
+  is 'Cantidad de Dias.';
+comment on column IT.TA_SAL_MENSUALES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_SAL_MENSUALES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_SAL_MENSUALES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.TA_SAL_MENSUALES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.TA_SAL_MENSUALES.acu_sal_cuo_pendiente
+  is 'Acumulado de Saldo Cuota Pendiente.';
+comment on column IT.TA_SAL_MENSUALES.sal_cuo_pendientes
+  is 'Saldo Cuota Pendiente.';
+alter table IT.TA_SAL_MENSUALES
+  add constraint PK_TA_SAL_MENSUALES primary key (NRO_CUENTA, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SAL_MENSUALES
+  add constraint AVCON_1081353182_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.TA_SAL_MENSUALES
+  add constraint AVCON_1081353182_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.TA_SAL_MENSUALES
+  add constraint AVCON_1081353182_COD_O_002
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

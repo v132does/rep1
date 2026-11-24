@@ -1,0 +1,15 @@
+create global temporary table IT.SS2K5_FOREIGN_KEY_COLUMNS
+(
+  db_id                NUMBER(10),
+  constraint_column_id NUMBER(10) not null,
+  constraint_object_id NUMBER(10) not null,
+  parent_object_id     NUMBER(10) not null,
+  parent_column_id     NUMBER(10) not null,
+  referenced_column_id NUMBER(10) not null,
+  referenced_object_id NUMBER(10) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_F_K_C_DB_ID on IT.SS2K5_FOREIGN_KEY_COLUMNS (DB_ID);
+create index IT.SS2K5_F_K_C_PARENT_OBJECT_ID on IT.SS2K5_FOREIGN_KEY_COLUMNS (PARENT_OBJECT_ID);
+create index IT.SS2K5_F_K_C_R_O_ID on IT.SS2K5_FOREIGN_KEY_COLUMNS (REFERENCED_OBJECT_ID);
+

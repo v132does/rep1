@@ -1,0 +1,37 @@
+create table IT.MI_PR_CTA_GASTOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2),
+  fec_ingreso      DATE not null,
+  fec_vencimiento  DATE,
+  fec_ult_pago     DATE,
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  cod_modalidad    NUMBER(3),
+  hor_ult_pago     VARCHAR2(8),
+  cod_modulo       NUMBER(3),
+  fec_ini_vigencia DATE,
+  nro_solicitud    NUMBER(7),
+  cod_tas_ref1     NUMBER(3),
+  val_tas_ref1     NUMBER(20,4),
+  cod_tas_ref2     NUMBER(3),
+  val_tas_ref2     NUMBER(20,4),
+  referencia       VARCHAR2(10),
+  cod_ref_gasto    NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

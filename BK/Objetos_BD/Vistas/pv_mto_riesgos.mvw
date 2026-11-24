@@ -1,0 +1,125 @@
+﻿CREATE MATERIALIZED VIEW IT.PV_MTO_RIESGOS
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT DISTINCT a.nro_cuenta cuenta,
+                b.cod_modulo,
+                nvl(f.saldo, 0) saldo,
+                0 mto_linea,
+                null estado
+  FROM pr_cta_garantias a,
+       pr_cta_prestamos b,
+       --> Jira CROMG-50: A Pedido de Maria Esther Chavez y Domingo Daniel Ramirez se excluye  los intereses devegandos no cobrados
+       (SELECT nvl(SUM(nvl(p.sal_capital, 0) /*+ nvl(p.dev_no_cobrado, 0)*/), 0) saldo,
+               p.nro_cuenta
+          FROM pr_cta_prestamos p, ge_est_cuentas e, ge_cta_clientes cc
+         WHERE p.nro_cuenta = cc.nro_cuenta
+           AND p.estado = e.estado
+           AND p.cod_modulo = e.cod_modulo
+           AND p.cod_modalidad = e.cod_modalidad
+           AND e.activo = 'S'
+           AND cc.relacion = 'P'
+         GROUP BY p.nro_cuenta) f
+ WHERE a.nro_cuenta = b.nro_cuenta
+   and a.nro_cuenta = f.nro_cuenta(+)
+UNION ALL
+-- Cuentas Corrientes.
+SELECT DISTINCT a.nro_cuenta cuenta,
+                b.cod_modulo,
+                nvl(f.saldo, 0) saldo,
+                0 mto_linea,
+                null estado
+  FROM cc_cta_garantias a,
+       cc_cta_corrientes b,
+       (SELECT nvl(SUM(abs(nvl(c.sal_total, 0) - nvl(c.sal_bloqueado, 0) -
+                           nvl(c.sal_retenido, 0))),
+                   0) saldo,
+               c.nro_cuenta
+          FROM cc_cta_corrientes c, ge_est_cuentas e, ge_cta_clientes cc
+         WHERE c.nro_cuenta = cc.nro_cuenta
+           AND c.estado = e.estado
+           AND c.cod_modulo = e.cod_modulo
+           AND c.cod_modalidad = e.cod_modalidad
+           AND e.activo = 'S'
+           AND cc.relacion = 'P'
+           AND c.sal_total < 0
+         GROUP BY c.nro_cuenta) f
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.nro_cuenta = f.nro_cuenta(+)
+UNION ALL
+-- Tarjetas.
+SELECT DISTINCT a.nro_cuenta cuenta,
+                b.cod_modulo,
+                nvl(f.saldo, 0) saldo,
+                nvl(f.mto_linea, 0) mto_linea,
+                f.estado
+  FROM ta_cta_garantias a,
+       ta_cta_tarjetas b,
+       (SELECT nvl(SUM(t.sal_facturar + t.sal_facturado + t.sal_financiado +
+                       t.sal_cuo_pendientes),
+                   0) saldo,
+               nvl(SUM(t.lin_credito), 0) mto_linea,
+               nvl(MAX(t.estado), 'N') estado,
+               t.nro_cuenta
+          FROM ta_cta_tarjetas t, ge_est_cuentas e, ge_cta_clientes cc
+         WHERE t.nro_cuenta = cc.nro_cuenta
+           AND t.estado = e.estado
+           AND t.cod_modulo = e.cod_modulo
+           AND t.cod_modalidad = e.cod_modalidad
+           AND e.activo = 'S'
+           AND cc.relacion = 'P'
+         GROUP BY t.nro_cuenta) f
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.nro_cuenta = f.nro_cuenta(+)
+UNION ALL
+-- Operaciones Vencidas.
+SELECT DISTINCT a.nro_cuenta cuenta,
+                b.cod_modulo,
+                nvl(f.saldo, 0) saldo,
+                0 mto_linea,
+                null estado
+  FROM ov_cta_garantias a,
+       ov_cta_vencidas b,
+       (SELECT nvl(SUM(o.sal_total), 0) saldo, o.nro_cuenta
+          FROM ov_cta_vencidas o, ge_est_cuentas e, ge_cta_clientes cc
+         WHERE o.nro_cuenta = cc.nro_cuenta
+           AND o.estado = e.estado
+           AND o.cod_modulo = e.cod_modulo
+           AND o.cod_modalidad = e.cod_modalidad
+           AND e.activo = 'S'
+           AND cc.relacion = 'P'
+         GROUP BY o.nro_cuenta) f
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND a.nro_cuenta = f.nro_cuenta(+)
+UNION ALL
+-- Comercio Exterior.
+SELECT DISTINCT a.nro_cuenta cuenta,
+                b.cod_modulo,
+                (nvl(sal_fianzas, 0) + nvl(sal_exterior, 0)) saldo,
+                0 mto_linea,
+                null estado
+  FROM cx_cta_garantias a,
+       cx_cta_importaciones b,
+       ( -- Comercio Fianzas
+        SELECT nvl(SUM(xf.monto), 0) sal_fianzas, xf.nro_cuenta
+          FROM cx_fianzas xf, ge_est_cuentas ec
+         WHERE xf.estado = ec.estado
+           AND xf.cod_modulo = ec.cod_modulo
+           AND xf.cod_modalidad = ec.cod_modalidad
+           AND ec.activo = 'S'
+           AND xf.monto > 0
+           AND xf.estado = 'A'
+         GROUP BY xf.nro_cuenta) f,
+       ( -- Comercio Exterior Importaciones
+        SELECT nvl(SUM(xi.saldo), 0) sal_exterior, xi.nro_cuenta
+          FROM cx_cta_importaciones xi, ge_est_cuentas ec, ge_cta_clientes cc
+         WHERE cc.nro_cuenta = xi.nro_cuenta
+           AND xi.estado = ec.estado
+           AND xi.cod_modulo = ec.cod_modulo
+           AND xi.cod_modalidad = ec.cod_modalidad
+           AND ec.activo = 'S'
+           AND cc.relacion = 'P'
+           AND xi.saldo > 0
+         GROUP BY xi.nro_cuenta) e
+ WHERE a.nro_cuenta = b.nro_cuenta
+   and a.nro_cuenta = f.nro_cuenta(+)
+   and a.nro_cuenta = e.nro_cuenta(+);

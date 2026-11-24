@@ -1,0 +1,47 @@
+create table IT.CC_SOB_INVENTARIO
+(
+  cod_persona     VARCHAR2(10),
+  nom_completo    VARCHAR2(120),
+  cta_contable    VARCHAR2(30),
+  nro_cuenta      VARCHAR2(15),
+  cod_oficina     NUMBER(3),
+  producto        VARCHAR2(20),
+  subcta          VARCHAR2(20),
+  cod_moneda      VARCHAR2(3),
+  sal_total       NUMBER(18,2),
+  sal_retenido    NUMBER(18,2),
+  sal_bloqueado   NUMBER(18,2),
+  mto_embargo     NUMBER(18,2),
+  sal_disponible  NUMBER(18,2),
+  monto_linea     NUMBER(18,2),
+  excesos         NUMBER(18,2),
+  fec_entrada     DATE,
+  fec_vencimiento DATE,
+  gestor          VARCHAR2(120),
+  fec_insercion   DATE default SYSDATE,
+  fecha           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_CC_SOB_INV_FEC on IT.CC_SOB_INVENTARIO (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

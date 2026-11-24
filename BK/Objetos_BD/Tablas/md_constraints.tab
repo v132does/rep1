@@ -1,0 +1,64 @@
+create table IT.MD_CONSTRAINTS
+(
+  id                NUMBER not null,
+  delete_clause     VARCHAR2(4000),
+  name              VARCHAR2(4000),
+  constraint_type   VARCHAR2(4000),
+  table_id_fk       NUMBER not null,
+  reftable_id_fk    NUMBER,
+  constraint_text   CLOB,
+  language          VARCHAR2(40) not null,
+  comments          VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_CONSTRAINTS
+  is 'Table for storing information about a constraint';
+comment on column IT.MD_CONSTRAINTS.id
+  is 'Primary Key';
+comment on column IT.MD_CONSTRAINTS.delete_clause
+  is 'delete option , can be either CASCADE, RESTRICT or NULL';
+comment on column IT.MD_CONSTRAINTS.name
+  is 'Name of the constraint //OBJECTNAME';
+comment on column IT.MD_CONSTRAINTS.constraint_type
+  is 'Type of the constraint (e.g. CHECK)';
+comment on column IT.MD_CONSTRAINTS.table_id_fk
+  is 'Table on which this constraint exists //PARENTFIELD';
+comment on column IT.MD_CONSTRAINTS.reftable_id_fk
+  is 'Used in foreign keys - this gives the table that we refer to.';
+comment on column IT.MD_CONSTRAINTS.constraint_text
+  is 'The text of the constraint';
+comment on column IT.MD_CONSTRAINTS.language
+  is '//PUBLIC';
+alter table IT.MD_CONSTRAINTS
+  add constraint MD_CONSTRAINTS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_CONSTRAINTS
+  add constraint MD_CONSTRAINTS_MD_TABLES_FK1 foreign key (TABLE_ID_FK)
+  references IT.MD_TABLES (ID) on delete cascade;
+

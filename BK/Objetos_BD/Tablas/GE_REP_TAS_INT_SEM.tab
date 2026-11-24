@@ -1,0 +1,32 @@
+CREATE TABLE IT.GE_REP_TAS_INT_SEM (
+  CORCOD           CHAR(8  BYTE)  NOT NULL,  -- Código de período de corte (8)
+  NRO_CUENTA       CHAR(15 BYTE)  NOT NULL,  -- Código de operación (15)
+  ENTCOD           CHAR(4  BYTE)  NOT NULL,  -- Código de entidad (4)
+  CODCTA           CHAR(6  BYTE)  NOT NULL,  -- Código de cuenta (6)
+  COD_MONEDA       CHAR(4  BYTE)  NOT NULL,  -- Código de moneda (4) 6900/6200
+  ACOD             CHAR(4  BYTE)  NOT NULL,  -- Código de sector económico (4)
+  FEC_APERTURA     CHAR(8  BYTE)  NOT NULL,  -- Fecha DDMMYYYY (8)
+  TAS_LINEAL       CHAR(5  BYTE)  NOT NULL,  -- 2 enteros, coma, 2 decimales (00,00)
+  VAL_TAS_NOMINAL  CHAR(5  BYTE)  NOT NULL,  -- 2 enteros, coma, 2 decimales (00,00)
+  MONTO            CHAR(10  BYTE)  NOT NULL,  -- 10 enteros, padded con ceros (0000000000)
+  PERIODO          CHAR(4  BYTE)  NOT NULL,  -- Días (4) ej 0030
+  TIP_INTERES      CHAR(1  BYTE)  NOT NULL,  -- Régimen (A/V)
+  VAL_TAS_EFECTIVA CHAR(5  BYTE)  NOT NULL   -- 2 enteros, coma, 2 decimales (00,00)
+);
+
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.CORCOD           IS 'Código de período de corte (8)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.NRO_CUENTA       IS 'Código de operación (15)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.ENTCOD           IS 'Código de entidad (4)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.CODCTA           IS 'Código de cuenta (6)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.COD_MONEDA       IS 'Código de moneda (4) 6900/6200';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.ACOD             IS 'Código de sector económico (4)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.FEC_APERTURA     IS 'Fecha de apertura DDMMYYYY (8)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.TAS_LINEAL       IS 'Tasa lineal (formato 00,00)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.VAL_TAS_NOMINAL  IS 'Tasa nominal aplicada (formato 00,00)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.MONTO            IS 'Monto entero 9 dígitos, padded con ceros';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.PERIODO          IS 'Período en días (4)';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.TIP_INTERES      IS 'Régimen A/V';
+COMMENT ON COLUMN IT.GE_REP_TAS_INT_SEM.VAL_TAS_EFECTIVA IS 'Tasa efectiva (formato 00,00)';
+
+CREATE PUBLIC SYNONYM GE_REP_TAS_INT_SEM FOR IT.GE_REP_TAS_INT_SEM;
+GRANT SELECT ON IT.GE_REP_TAS_INT_SEM TO IT_TEMPORAL;

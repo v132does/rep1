@@ -1,0 +1,50 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_EJECUCIONES
+-- Descripción: Control de ejecuciones del proceso de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_EJECUCIONES (
+    id_ejecucion          VARCHAR2(36),
+    ano                   NUMBER(4)           NOT NULL,
+    mes                   NUMBER(2)           NOT NULL,
+    fuente_datos          VARCHAR2(100)       NOT NULL,
+    estado                VARCHAR2(20)        DEFAULT 'INICIADO', -- INICIADO, PROCESANDO, COMPLETADO, ERROR
+    registros_procesados  NUMBER              DEFAULT 0,
+    registros_error       NUMBER              DEFAULT 0,
+    tiempo_ejecucion_ms   NUMBER,
+    fecha_inicio          TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_fin             TIMESTAMP,
+    usuario_ejecucion     VARCHAR2(100)       DEFAULT USER,
+    CONSTRAINT ck_solvencia_estado CHECK (estado IN ('INICIADO', 'PROCESANDO', 'COMPLETADO', 'ERROR'))
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_SOL_EJE_FECHA   ON IT.SB_SOL_EJECUCIONES(ano, mes) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_EJE_ESTADO  ON IT.SB_SOL_EJECUCIONES(estado) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_EJE_INICIO  ON IT.SB_SOL_EJECUCIONES(fecha_inicio) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_SOL_EJECUCIONES IS 'Control y trazabilidad de cada ejecucion del proceso de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.id_ejecucion IS 'Identificador unico de la ejecucion (UUID)';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.ano IS 'Anno del periodo procesado';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.mes IS 'Mes del periodo procesado';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.fuente_datos IS 'Fuente de datos utilizada en la ejecucion';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.estado IS 'Estado de la ejecucion: INICIADO, PROCESANDO, COMPLETADO, ERROR';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.registros_procesados IS 'Cantidad de registros procesados exitosamente';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.registros_error IS 'Cantidad de registros que generaron error';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.tiempo_ejecucion_ms IS 'Tiempo total de ejecucion en milisegundos';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.fecha_inicio IS 'Fecha y hora de inicio de la ejecucion';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.fecha_fin IS 'Fecha y hora de finalizacion de la ejecucion';
+COMMENT ON COLUMN IT.SB_SOL_EJECUCIONES.usuario_ejecucion IS 'Usuario que inicio la ejecucion del proceso';

@@ -1,0 +1,44 @@
+create table IT.GE_DNA_LOG_ORD_TRA
+(
+  nro_ord_transferencia VARCHAR2(50) not null,
+  fecha                 DATE,
+  nro_cuenta            VARCHAR2(35),
+  cod_error             NUMBER(5),
+  det_error             VARCHAR2(4000),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default sysdate not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DNA_LOG_ORD_TRA
+  is 'Log de Errores de Ordenes de Transferencias.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.nro_ord_transferencia
+  is 'Numero de Orden Transferencia.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.fecha
+  is 'Fecha.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.nro_cuenta
+  is 'Nro. Cuenta.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.cod_error
+  is 'Código de Error.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.det_error
+  is 'Detalle del Error.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_DNA_LOG_ORD_TRA.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+

@@ -1,0 +1,60 @@
+create table IT.BA_ENV_SMS
+(
+  nro_sms          NUMBER not null,
+  cod_persona      VARCHAR2(10) not null,
+  tip_producto     NUMBER not null,
+  estado           VARCHAR2(1) default 'P' not null,
+  fec_registro     DATE default sysdate not null,
+  fec_envio        DATE,
+  msj_error        VARCHAR2(4000),
+  texto_sms        LONG,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  cel_destinatario VARCHAR2(80) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ENV_SMS
+  is 'Registro de sms a enviar a los clientes';
+comment on column IT.BA_ENV_SMS.nro_sms
+  is 'contador de sms por persona';
+comment on column IT.BA_ENV_SMS.cod_persona
+  is 'codigo de persona ITGF';
+comment on column IT.BA_ENV_SMS.tip_producto
+  is 'tipo de producto';
+comment on column IT.BA_ENV_SMS.estado
+  is 'estados (P)pendiente (S)enviado (E)error';
+comment on column IT.BA_ENV_SMS.fec_registro
+  is 'fecha de registro';
+comment on column IT.BA_ENV_SMS.msj_error
+  is 'mensaje de error';
+comment on column IT.BA_ENV_SMS.texto_sms
+  is 'json con los datos para armar el mensaje';
+comment on column IT.BA_ENV_SMS.cel_destinatario
+  is 'Celular del destinatario';
+alter table IT.BA_ENV_SMS
+  add constraint PK_BA_ENV_SMS primary key (NRO_SMS)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

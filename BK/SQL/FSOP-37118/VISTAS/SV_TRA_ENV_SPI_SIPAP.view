@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW SV_TRA_ENV_SPI_SIPAP AS
+SELECT s.nro_referencia,
+       s.nro_ref_externa,
+       s.FEC_VALOR,
+       s.fec_insercion,
+       s.cod_per_solicitante,
+       s.nro_doc_solicitante,
+       s.nom_solicitante,
+       s.nro_cta_solicitante,
+       s.cod_swi_pte_beneficiario,
+       p.participante ente_beneficiario,
+       s.nro_doc_beneficiario,
+       s.nom_beneficiario,
+       s.nro_cta_beneficiario,
+       s.cod_moneda,
+       s.monto,
+       s.situacion,
+       re.significado desc_situacion,
+       s.estado,
+       re1.significado desc_estado,
+       s.error error_desc,
+       s.tip_rechazo ,
+      case when s.cod_msj_swift = 8 then
+        (select abreviatura from ba_cod_referencias b where b.dominio = 'TIP_REC_SPI' and b.val_minimo = s.tip_rechazo)
+      else
+         (select abreviatura from ba_cod_referencias b where b.dominio = 'TIP_REC_SNP' and b.val_minimo = s.tip_rechazo )
+      end rechazo
+FROM ge_snp_transferencias s,
+     ba_cod_referencias re,
+     ba_cod_referencias re1,
+     gv_snp_participantes p
+where re.dominio = 'SITUACION'
+and re.val_minimo = s.situacion
+and re1.dominio = 'EST_MSJ_SNP'
+and re1.val_minimo = s.estado
+and s.fec_recepcion is null
+and p.cod_swift = s.cod_swi_pte_beneficiario;
+

@@ -1,0 +1,38 @@
+create table IT.SIMGIA_ARTRNSFC_BKP
+(
+  rcntrnsf  NUMBER,
+  rcfecha   VARCHAR2(6),
+  rcsolic   VARCHAR2(1),
+  rcsuc     NUMBER,
+  rcmoneda  VARCHAR2(3),
+  rcmonto   NUMBER,
+  rcclien   VARCHAR2(10),
+  rcorden   VARCHAR2(4000),
+  rcbcoben  VARCHAR2(4000),
+  rcbenefi  VARCHAR2(4000),
+  rcpais    VARCHAR2(255),
+  rcorigen  VARCHAR2(1),
+  rcmotivo  VARCHAR2(1),
+  rcfinanc  VARCHAR2(1),
+  rcfchval  VARCHAR2(6),
+  rcregopr  VARCHAR2(10),
+  rcestado  VARCHAR2(2),
+  rcveropr  NUMBER,
+  rcproopr  VARCHAR2(3),
+  rcenvopr  VARCHAR2(10),
+  rcfchenv  VARCHAR2(6),
+  rcfchdeb  VARCHAR2(6),
+  fecha_his DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

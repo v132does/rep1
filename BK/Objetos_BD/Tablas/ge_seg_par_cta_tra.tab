@@ -1,0 +1,85 @@
+create table IT.GE_SEG_PAR_CTA_TRA
+(
+  cod_seg_cliente     NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_transaccion     NUMBER(4) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_mod_transaccion NUMBER(3) not null,
+  cod_mad_transaccion NUMBER(3) not null,
+  cod_sub_modalidad   NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SEG_PAR_CTA_TRA
+  is 'Parametros para transacciones prohibidas.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_seg_cliente
+  is 'Numero de Cuenta.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_transaccion
+  is 'Codigo de transaccion prohibida para la cuenta.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_mod_transaccion
+  is 'Codigo del Modulo.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_mad_transaccion
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_SEG_PAR_CTA_TRA.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint PK_GE_SEG_PAR_CTA_TRA primary key (COD_TRANSACCION, COD_SEG_CLIENTE, COD_MODULO, COD_MODALIDAD, COD_MONEDA, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint FK_GSPCT_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MOD_TRANSACCION, COD_MAD_TRANSACCION)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint AVCON_1097167816_COD_M_004
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint AVCON_1097167816_COD_M_005
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint AVCON_1097167816_COD_S_001
+  check (COD_SEG_CLIENTE BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint AVCON_1100188973_COD_M_006
+  check (COD_MOD_TRANSACCION BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_TRA
+  add constraint AVCON_1100188973_COD_M_007
+  check (COD_MAD_TRANSACCION BETWEEN 0 AND 999);
+

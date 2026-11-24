@@ -1,0 +1,122 @@
+create table IT.CB_CIF_FACTURAS_TMP
+(
+  fecha                  DATE,
+  hora                   VARCHAR2(8),
+  cod_usuario            VARCHAR2(10),
+  nro_secuencia          NUMBER(3),
+  nro_factura            VARCHAR2(20),
+  nro_timbrado           VARCHAR2(20),
+  cod_ofi_origen         NUMBER(3),
+  cod_tra_padre          NUMBER(4),
+  nro_documento          NUMBER(15),
+  descripcion            VARCHAR2(35),
+  cod_moneda             VARCHAR2(3),
+  mto_exento             NUMBER(18,2),
+  mto_exento_gs          NUMBER(18,2),
+  mto_gravado_5          NUMBER(18,2),
+  mto_gra_5_gs           NUMBER(18,2),
+  mto_gravado_10         NUMBER(18,2),
+  mto_gra_10_gs          NUMBER(18,2),
+  impuesto_5             NUMBER(18,2),
+  impuesto_5_gs          NUMBER(18,2),
+  impuesto_10            NUMBER(18,2),
+  impuesto_10_gs         NUMBER(18,2),
+  cotizacion             NUMBER(14,4),
+  usu_insercion          VARCHAR2(10),
+  fec_insercion          DATE,
+  usu_modificacion       VARCHAR2(10),
+  fec_modificacion       DATE,
+  nro_cuenta             VARCHAR2(15),
+  aju_impuesto_5         NUMBER(5),
+  aju_impuesto_10        NUMBER(5),
+  cod_mod_padre          NUMBER(3),
+  cod_mad_padre          NUMBER(3),
+  cod_transaccion        NUMBER(4),
+  cod_modulo             NUMBER(3),
+  cod_modalidad          NUMBER(3),
+  tip_comprobante        VARCHAR2(1),
+  tip_venta              VARCHAR2(2),
+  cod_persona            VARCHAR2(10),
+  mov_fecha              DATE,
+  mov_hora               VARCHAR2(8),
+  mov_cod_usuario        VARCHAR2(10),
+  mov_nro_secuencia      NUMBER(3),
+  mov_monto              NUMBER(18,2),
+  mov_mto_equ_local      NUMBER(18,2),
+  mov_nro_cuenta         VARCHAR2(15),
+  mov_cod_persona        VARCHAR2(10),
+  mov_cod_moneda         VARCHAR2(3),
+  mov_cod_tra_padre      NUMBER(4),
+  mov_cod_transaccion    NUMBER(4),
+  mov_cod_modulo         NUMBER(3),
+  mov_cod_modalidad      NUMBER(3),
+  mov_nro_documento      NUMBER(15),
+  mov_referencia         VARCHAR2(20),
+  mov_cod_per_referencia VARCHAR2(10),
+  mov_tip_movimiento     VARCHAR2(13),
+  mov_reversado          VARCHAR2(1),
+  cod_rubro              VARCHAR2(15),
+  match_monto            VARCHAR2(2),
+  match_mto_mon_diff     NUMBER,
+  match_mto_gs_diff      NUMBER,
+  match_tra_pad          VARCHAR2(2),
+  match_nro_cuenta       VARCHAR2(2),
+  match_nro_documento    VARCHAR2(2),
+  match_cta_referencia   VARCHAR2(2),
+  match_per_referencia   VARCHAR2(2),
+  match_cod_persona      VARCHAR2(2),
+  match_nro_secuencia    VARCHAR2(2),
+  match_sec_dif          NUMBER,
+  duplicado              CHAR(2),
+  utilizar               CHAR(2),
+  cod_match              CHAR(20),
+  tip_conciliacion       CHAR(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_FAC_FACPK on IT.CB_CIF_FACTURAS_TMP (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_FAC_MOVPK on IT.CB_CIF_FACTURAS_TMP (MOV_FECHA, MOV_HORA, MOV_COD_USUARIO, MOV_NRO_SECUENCIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_FAC_RUBRO on IT.CB_CIF_FACTURAS_TMP (COD_RUBRO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

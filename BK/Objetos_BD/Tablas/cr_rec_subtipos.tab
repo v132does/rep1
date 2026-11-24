@@ -1,0 +1,52 @@
+create table IT.CR_REC_SUBTIPOS
+(
+  cod_reclamo      NUMBER(5) not null,
+  sub_tip_reclamo  NUMBER(5) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_REC_SUBTIPOS
+  is 'Sub Tipos de Reclamos.';
+comment on column IT.CR_REC_SUBTIPOS.cod_reclamo
+  is 'Codigo de Pedido.';
+comment on column IT.CR_REC_SUBTIPOS.sub_tip_reclamo
+  is 'Subtipo de Pedido.';
+comment on column IT.CR_REC_SUBTIPOS.descripcion
+  is 'Descripcion.';
+comment on column IT.CR_REC_SUBTIPOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_REC_SUBTIPOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_REC_SUBTIPOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_REC_SUBTIPOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_REC_SUBTIPOS
+  add constraint PK_CR_REC_SUBTIPOS primary key (COD_RECLAMO, SUB_TIP_RECLAMO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

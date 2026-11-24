@@ -1,0 +1,20 @@
+create table IT.TA_CAB_EXTRACTO_TMP
+(
+  datos VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CAB_EXTRACTO_TMP
+  is 'Archivo PBEXTCAB';
+comment on column IT.TA_CAB_EXTRACTO_TMP.datos
+  is 'Datos importados del archivo PBEXTCAB';
+

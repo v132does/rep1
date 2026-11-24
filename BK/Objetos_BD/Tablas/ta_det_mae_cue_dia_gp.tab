@@ -1,0 +1,242 @@
+create table IT.TA_DET_MAE_CUE_DIA_GP
+(
+  tip_registro             NUMBER(1),
+  marca                    NUMBER(5),
+  entidad                  NUMBER(5),
+  sucursal                 NUMBER(5),
+  nro_cuenta               NUMBER(10),
+  fec_alt_sistema          DATE,
+  est_cuenta               NUMBER(3),
+  fec_est_cuenta           DATE,
+  gru_afinidad             NUMBER(5),
+  gru_cta_cte              NUMBER(5),
+  fec_alta                 DATE,
+  nro_tarjeta              VARCHAR2(25),
+  est_tarjeta              NUMBER(3),
+  fec_cam_estado           DATE,
+  fec_ven_tarjeta          DATE,
+  nombre                   VARCHAR2(50),
+  apellido                 VARCHAR2(50),
+  lin_credito              NUMBER(19,4),
+  fec_cie_anterior         DATE,
+  fec_cie_actual           DATE,
+  fec_cie_proximo          DATE,
+  fec_vto_pag_min_anterior DATE,
+  fec_ven_pag_min_actual   DATE,
+  fec_vto_pag_min_proximo  DATE,
+  sal_cie_ant_total        NUMBER(19,4),
+  mto_pag_min_actual       NUMBER(19,4),
+  mto_pag_mes              NUMBER(19,4),
+  sal_pag_minimo           NUMBER(19,4),
+  tas_dia_punitorio        NUMBER(6,4),
+  porc_pag_minimo          NUMBER(2),
+  fec_ult_pago             DATE,
+  mto_mora                 NUMBER(19,4),
+  cod_com_seg_vida         NUMBER(5),
+  des_comp_seg_vida        VARCHAR2(50),
+  tas_int_moratorio        NUMBER(6,4),
+  tas_int_financiacion     NUMBER(6,4),
+  dia_mora                 NUMBER(4),
+  sal_facturar             NUMBER(19,4),
+  sal_facturado            NUMBER(19,4),
+  sal_financiado           NUMBER(19,4),
+  sal_cuo_pendientes       NUMBER(19,4),
+  sal_deu_total            NUMBER(19,4),
+  tip_cobro                NUMBER(3),
+  fec_ult_compra           DATE,
+  fec_ult_operacion        DATE,
+  nro_documento            VARCHAR2(20),
+  adicional                NUMBER(1),
+  int_cor_suspenso         NUMBER(19,4),
+  int_mor_suspenso         NUMBER(19,4),
+  int_pun_suspenso         NUMBER(19,4),
+  filler                   VARCHAR2(95),
+  fec_ult_proceso          DATE default TRUNC(SYSDATE),
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10),
+  mto_car_suspenso         NUMBER(19,4),
+  iva_int_suspenso         NUMBER(19,4),
+  iva_car_suspenso         NUMBER(19,4),
+  tot_car_suspenso         NUMBER(19,4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_DET_MAE_CUE_DIA_GP
+  is 'Detalle ,procesamiento de archivo T1016D';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.tip_registro
+  is 'Tipo de registro. 1: Header.
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.marca
+  is 'Código asignado a la Marca.
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.entidad
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sucursal
+  is 'Código asignado a la Sucursal
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.nro_cuenta
+  is 'Número de cuenta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_alt_sistema
+  is 'Fecha de alta en la Entidad del Socio
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.est_cuenta
+  is 'Código de estado de la cuenta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_est_cuenta
+  is 'Fecha de cambio de estado de la cuenta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.gru_afinidad
+  is 'Grupo de afinidad del socio
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.gru_cta_cte
+  is 'Grupo de cirre del extracto
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_alta
+  is 'Fecha de alta del socio de la tarjeta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.nro_tarjeta
+  is 'Número de tarjeta del Socio
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.est_tarjeta
+  is 'Código de estado de la tarjeta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_cam_estado
+  is 'Fecha de cambio de estado de la tarjeta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_ven_tarjeta
+  is 'Fecha de vencimiento de la tarjeta
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.nombre
+  is 'Nombre de la persona
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.apellido
+  is 'Apellido de la persona
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.lin_credito
+  is 'Linea de credito asignado a la tarjeta';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_cie_anterior
+  is 'Fecha de cierre anterior - aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_cie_actual
+  is 'Fecha de cierre actual - aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_cie_proximo
+  is 'Fecha de cierre próxima - aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_vto_pag_min_anterior
+  is 'Fecha de vto. del pago mínimo anterior - aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_ven_pag_min_actual
+  is 'Fecha de vto. del pago mínimo actual - aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_vto_pag_min_proximo
+  is 'Fecha de vencimiento del pago mínimo próximo - aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_cie_ant_total
+  is 'Saldo de cierre mes anterior en Moneda Loca
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.mto_pag_min_actual
+  is 'Pago mínimo actual
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.mto_pag_mes
+  is 'Total pagos del mes moneda local
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_pag_minimo
+  is 'Pago mínimo impago
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.tas_dia_punitorio
+  is 'Tasa diaria de punitorios en moneda local (TNA cargada de punitorios cargada a ese día)
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.porc_pag_minimo
+  is 'Porcentaje para determinar pago mínimo
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_ult_pago
+  is 'Fecha del último pago realizado por el Socio – aaaammdd
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.mto_mora
+  is 'Importe de la deuda morosa
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.cod_com_seg_vida
+  is 'Código de compañía Seguro de Vida
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.des_comp_seg_vida
+  is 'Descripción del nombre de la compañía
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.tas_int_moratorio
+  is 'Tasa de interes aplicada a el saldo en mora (TNA Int Moratoria)
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.tas_int_financiacion
+  is 'Tasa de interes aplicada a las compras en cuotas (TNA Int Corriente)
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.dia_mora
+  is 'Cantidad de dias transcurridos desde el vencimiento del pago minimo impago
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_facturar
+  is 'Consumos del periodo pendientes de cierre
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_facturado
+  is 'Consumos del periodo cerrado incluido los gastos e impuestos
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_financiado
+  is 'Consumos del periodo cerrado pendiente de pago
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_cuo_pendientes
+  is 'Consumos en cuotras que aún no han sido decaidas (capital de cuotas no facturadas)
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.sal_deu_total
+  is 'Suma de todos los saldos incluidos los gastos e impuestos
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.tip_cobro
+  is 'Forma de pago preferido cliente utlizado. Se mostrará en 0 por ahora
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_ult_compra
+  is 'Fecha de la ultima compra realizada por el cliente
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.fec_ult_operacion
+  is 'Fecha de ultima transaccion del cliente, ya sea adelantos, compras, cargos, etc.
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.nro_documento
+  is 'DOCUMENTO DEL CLIENTE
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.adicional
+  is 'Flag para identificar si la tarjeta es principal o adicional NO=0 SI=1
+';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.int_cor_suspenso
+  is 'Interes corriente en suspenso acumulados pendiente de aplicar Sin IVA';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.int_mor_suspenso
+  is 'Interes moratorio en suspenso acumulados pendiente de aplicar Sin IVA';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.int_pun_suspenso
+  is 'Interes punitorio en suspenso acumulados pendiente de aplicar Sin IVA';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.filler
+  is 'Se informan espacios en blanco';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.mto_car_suspenso
+  is 'Cargos en suspenso acumulados pendiente de aplicar Sin IVA';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.iva_int_suspenso
+  is 'IVA de todos los intereses en suspenso (IVA de campos 48, 49, 50)';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.iva_car_suspenso
+  is 'IVA de los cargos en suspenso acumulados pendientes de aplicar (IVA de campo 51)';
+comment on column IT.TA_DET_MAE_CUE_DIA_GP.tot_car_suspenso
+  is 'Sumatoria de Campos 48, 49, 50, 51, 52, 53';
+create index IT.TA_DET_MAE_NRO_CUENTA on IT.TA_DET_MAE_CUE_DIA_GP (NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

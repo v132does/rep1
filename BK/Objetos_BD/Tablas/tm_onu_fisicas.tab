@@ -1,0 +1,30 @@
+create table IT.TM_ONU_FISICAS
+(
+  nro_documento VARCHAR2(10),
+  nom_completo  VARCHAR2(200),
+  ape_completo  VARCHAR2(200),
+  pais          VARCHAR2(20),
+  msj_error     VARCHAR2(3000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_ONU_FISICAS
+  is 'Archivo temporal de carga de Personas de ONU.';
+comment on column IT.TM_ONU_FISICAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.TM_ONU_FISICAS.nom_completo
+  is 'Nombre completo de la persona.';
+comment on column IT.TM_ONU_FISICAS.ape_completo
+  is 'Apellido completo de la persona.';
+comment on column IT.TM_ONU_FISICAS.pais
+  is 'Pais de la persona.';
+

@@ -1,0 +1,22 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end;
+/
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PAC_SOB_PARALLEL','EJEC PARALELA UPDATE CC_SOBREGIROS','GE_PAR_DINAMICOS','Activa el update en Paralelo en CC_SOBREGIROS','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PAC_SOB_PARALLEL','PARALLEL_EXECUTE');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PAC_SOB_TAM_FRAG','TAM FRAGMENTO UPDATE CC_SOBRIGROS','GE_PAR_DINAMICOS','Cantidad de registros por fragmento (chunk) al realizar el update en Paralelo en CC_SOBREGIROS','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PAC_SOB_TAM_FRAG','50000');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PAC_SOB_JOB_CANT','CANT JOBS PARA UPDATE CC_SOBRIGROS','GE_PAR_DINAMICOS','Cantidad de Jobs (workers) que se ejecutan al mismo tiempo para procesar los fragmentos (chunks) en el update en Paralelo en CC_SOBREGIROS','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PAC_SOB_JOB_CANT','7');
+
+COMMIT;

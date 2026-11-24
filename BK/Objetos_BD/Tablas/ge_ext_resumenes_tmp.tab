@@ -1,0 +1,65 @@
+-- Create table
+create global temporary table IT.GE_EXT_RESUMENES_TMP
+(
+  nro_cuenta       VARCHAR2(20),
+  cod_persona      VARCHAR2(10),
+  fec_extracto     DATE,
+  tipo             VARCHAR2(1),
+  mto_capital      NUMBER(18,2),
+  mto_interes      NUMBER(18,2),
+  fec_vencimiento  DATE,
+  cod_extracto     NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fre_extracto     VARCHAR2(1),
+  fec_inicio       DATE,
+  beneficiario     VARCHAR2(200),
+  sal_disponible   NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  cod_modalidad    NUMBER(3)
+)
+on commit preserve rows;
+-- Add comments to the table 
+comment on table IT.GE_EXT_RESUMENES_TMP
+  is 'Tabla que contiene el resumen por tipo de cuenta (tarjeta - prestamo - cda) (Extracto a Requerimiento).';
+-- Add comments to the columns 
+comment on column IT.GE_EXT_RESUMENES_TMP.nro_cuenta
+  is 'Numero de Cuenta de la Operacion.';
+comment on column IT.GE_EXT_RESUMENES_TMP.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.GE_EXT_RESUMENES_TMP.fec_extracto
+  is 'Fecha de Extracto.';
+comment on column IT.GE_EXT_RESUMENES_TMP.tipo
+  is 'Tipo de Resumen.';
+comment on column IT.GE_EXT_RESUMENES_TMP.mto_capital
+  is 'Monto de Capital.';
+comment on column IT.GE_EXT_RESUMENES_TMP.mto_interes
+  is 'Monto de Interes.';
+comment on column IT.GE_EXT_RESUMENES_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_EXT_RESUMENES_TMP.cod_extracto
+  is 'Codigo de Extracto.';
+comment on column IT.GE_EXT_RESUMENES_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EXT_RESUMENES_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EXT_RESUMENES_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_RESUMENES_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_RESUMENES_TMP.fre_extracto
+  is 'Frecuencia de Extracto (D, S, M).';
+comment on column IT.GE_EXT_RESUMENES_TMP.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.GE_EXT_RESUMENES_TMP.beneficiario
+  is 'Beneficiario.';
+comment on column IT.GE_EXT_RESUMENES_TMP.sal_disponible
+  is 'Saldo Disponible.';
+comment on column IT.GE_EXT_RESUMENES_TMP.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_EXT_RESUMENES_TMP.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+-- Create/Recreate indexes 
+create index IT.IN_GERTM_COD_PERSONA on IT.GE_EXT_RESUMENES_TMP (COD_PERSONA, COD_EXTRACTO, FEC_EXTRACTO, FRE_EXTRACTO, TIPO, NRO_CUENTA);

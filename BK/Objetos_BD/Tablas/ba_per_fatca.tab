@@ -1,0 +1,94 @@
+create table IT.BA_PER_FATCA
+(
+  cod_persona        VARCHAR2(10) not null,
+  cod_pais           NUMBER(3) not null,
+  estado             VARCHAR2(5) not null,
+  est_anterior       VARCHAR2(5),
+  nro_identificador  VARCHAR2(30),
+  tip_documento      VARCHAR2(30),
+  fec_vencimiento    DATE,
+  fec_caducidad      DATE,
+  observacion        VARCHAR2(4000),
+  ind_bloqueo        VARCHAR2(1) default 'N' not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  tip_actualizacion  VARCHAR2(1) default 'A',
+  tip_indicio        VARCHAR2(1),
+  pro_actualizacion  VARCHAR2(120),
+  fec_ult_act_estado DATE,
+  usu_ult_act_estado VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_FATCA
+  is 'Para registrar informaciones que tengan que ver con obligaciones tributarias de FATCA.';
+comment on column IT.BA_PER_FATCA.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.BA_PER_FATCA.cod_pais
+  is 'Indica el País relacionado al Cliente en FATCA.';
+comment on column IT.BA_PER_FATCA.estado
+  is 'Estado de obligaciones tributarias en el extranjero.';
+comment on column IT.BA_PER_FATCA.est_anterior
+  is 'Estado anterior de obligaciones FATCA.';
+comment on column IT.BA_PER_FATCA.nro_identificador
+  is 'Número Identificador TIN para Personas Físicas y EIN para Personas Jurídicas, este dato indica que es contribuyente ante el IRS (Servicio de Impuestos Internos, agencia federal del Gobierno de los Estados Unidos, encargada de la recaudación fiscal y del cumplimiento de las leyes tributarias).';
+comment on column IT.BA_PER_FATCA.tip_documento
+  is 'Tipo de documento respaldatorio a ser presentado por el Cliente.';
+comment on column IT.BA_PER_FATCA.fec_vencimiento
+  is 'Fecha Vencimiento Tope de Presentación. Período de tiempo que tiene el cliente para presentar al oficial de cuentasl los documentos respaldatorios.';
+comment on column IT.BA_PER_FATCA.fec_caducidad
+  is 'Fecha de Caducidad. Fecha en que expira el documento o el estado asignado en el sistema para el cliente en FATCA.';
+comment on column IT.BA_PER_FATCA.observacion
+  is 'Observación sobre los indicios y valores recuperados al evaluar la situación de la Persona FATCA.';
+comment on column IT.BA_PER_FATCA.ind_bloqueo
+  is 'Indica que el registro tiene estado actualizado por usuarios con rol de FATCA y el estado no es provisorio, por tanto no podrá ser modificado en proceso de asignación automática de estado FATCA.';
+comment on column IT.BA_PER_FATCA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_PER_FATCA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_PER_FATCA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_PER_FATCA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BA_PER_FATCA.tip_actualizacion
+  is 'Tipo de Actualización A-utomática, M-anual.';
+comment on column IT.BA_PER_FATCA.tip_indicio
+  is 'Tipo de Indicio registrado para la persona.';
+comment on column IT.BA_PER_FATCA.pro_actualizacion
+  is 'proceso o programa mediante el cual fue modificado el registro en FATCA.';
+comment on column IT.BA_PER_FATCA.fec_ult_act_estado
+  is 'Fecha de última actualización de Estado FATCA.';
+comment on column IT.BA_PER_FATCA.usu_ult_act_estado
+  is 'Usuario que realizó la última actualización de Estado FATCA.';
+alter table IT.BA_PER_FATCA
+  add constraint PK_BA_PER_FATCA primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_FATCA
+  add constraint FK_BPFAC_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.BA_PER_FATCA
+  add constraint FK_BPFAC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

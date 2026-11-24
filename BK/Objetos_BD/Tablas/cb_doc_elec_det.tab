@@ -1,0 +1,140 @@
+create table IT.CB_DOC_ELEC_DET
+(
+  de_id            NUMBER(8) not null,
+  dcodint          NUMBER(8),
+  ddesproser       VARCHAR2(120),
+  cunimed          NUMBER(8),
+  ddesunimed       VARCHAR2(5),
+  dcantproser      NUMBER(14,4),
+  cpaisorig        VARCHAR2(3),
+  ddespaisorig     VARCHAR2(30),
+  dinfitem         VARCHAR2(500),
+  crelmerc         NUMBER(1),
+  ddesrelmerc      VARCHAR2(21),
+  dcanquimer       NUMBER(14,4),
+  dporquimer       NUMBER(14,4),
+  dcdcanticipo     VARCHAR2(44),
+  dpararanc        NUMBER(4),
+  dncm             NUMBER(8),
+  ddncpg           VARCHAR2(8),
+  ddncpe           VARCHAR2(4),
+  dgtin            VARCHAR2(14),
+  dgtinpq          VARCHAR2(14),
+  dpuniproser      NUMBER(18,4),
+  dticamit         NUMBER(14,4),
+  dtotbruopeitem   NUMBER(18,4),
+  ddescitem        NUMBER(14,4),
+  dporcdesit       NUMBER(14,4),
+  ddescgloitem     NUMBER(14,4),
+  dantpreuniit     NUMBER(14,4),
+  dantglopreuniit  NUMBER(14,4),
+  dtotopeitem      NUMBER(18,4),
+  dtotopegs        NUMBER(14,4),
+  iafeciva         NUMBER(2),
+  ddesafeciva      VARCHAR2(20),
+  dpropiva         NUMBER(3),
+  dtasaiva         NUMBER(3),
+  dbasgraviva      NUMBER(16,2),
+  dliqivaitem      NUMBER(16,2),
+  nro_item         NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_DOC_ELEC_DET
+  is 'Detalle de la facturacion electronica.';
+comment on column IT.CB_DOC_ELEC_DET.de_id
+  is 'ID';
+comment on column IT.CB_DOC_ELEC_DET.dcodint
+  is 'Código interno';
+comment on column IT.CB_DOC_ELEC_DET.ddesproser
+  is 'Descripción del producto y/o servicio';
+comment on column IT.CB_DOC_ELEC_DET.cunimed
+  is 'Unidad de medida';
+comment on column IT.CB_DOC_ELEC_DET.ddesunimed
+  is 'Descripción de la unidad de medida';
+comment on column IT.CB_DOC_ELEC_DET.dcantproser
+  is 'Cantidad del producto y/o servicio';
+comment on column IT.CB_DOC_ELEC_DET.cpaisorig
+  is 'Código del país de origen del producto';
+comment on column IT.CB_DOC_ELEC_DET.ddespaisorig
+  is 'Descripción del país de origen del producto';
+comment on column IT.CB_DOC_ELEC_DET.dinfitem
+  is 'Información de interés del emisor con respecto al ítem';
+comment on column IT.CB_DOC_ELEC_DET.crelmerc
+  is '10 Código de datos de relevancia de las mercaderías';
+comment on column IT.CB_DOC_ELEC_DET.ddesrelmerc
+  is 'Descripción del código de datos de relevancia de las mercaderías';
+comment on column IT.CB_DOC_ELEC_DET.dcanquimer
+  is 'Cantidad de quiebra o merma';
+comment on column IT.CB_DOC_ELEC_DET.dporquimer
+  is 'Porcentaje de quiebra o merma';
+comment on column IT.CB_DOC_ELEC_DET.dcdcanticipo
+  is 'CDC del anticipo';
+comment on column IT.CB_DOC_ELEC_DET.dpararanc
+  is 'Partida arancelaria';
+comment on column IT.CB_DOC_ELEC_DET.dncm
+  is 'Nomenclatura común del Mercosur (NCM)';
+comment on column IT.CB_DOC_ELEC_DET.ddncpg
+  is 'Código DNCP – Nivel General';
+comment on column IT.CB_DOC_ELEC_DET.ddncpe
+  is 'Código DNCP – Nivel Especifico';
+comment on column IT.CB_DOC_ELEC_DET.dgtin
+  is 'Código GTIN por producto';
+comment on column IT.CB_DOC_ELEC_DET.dgtinpq
+  is '20 Código GTIN por paquete';
+comment on column IT.CB_DOC_ELEC_DET.dpuniproser
+  is 'Precio unitario del producto y/o servicio (incluidos impuestos)';
+comment on column IT.CB_DOC_ELEC_DET.dticamit
+  is 'Tipo de cambio por ítem';
+comment on column IT.CB_DOC_ELEC_DET.dtotbruopeitem
+  is 'Total bruto de la operación por ítem';
+comment on column IT.CB_DOC_ELEC_DET.ddescitem
+  is 'Descuento particular sobre el precio unitario por ítem (incluidos impuestos)';
+comment on column IT.CB_DOC_ELEC_DET.dporcdesit
+  is 'Porcentaje de descuento particular por ítem';
+comment on column IT.CB_DOC_ELEC_DET.ddescgloitem
+  is 'Descuento global sobre el precio unitario por ítem (incluidos impuestos)';
+comment on column IT.CB_DOC_ELEC_DET.dantpreuniit
+  is 'Anticipo particular sobre el precio unitario por ítem (incluidos impuestos)';
+comment on column IT.CB_DOC_ELEC_DET.dantglopreuniit
+  is 'Anticipo global sobre el precio unitario por ítem (incluidos impuestos)';
+comment on column IT.CB_DOC_ELEC_DET.dtotopeitem
+  is 'Valor total de la operación por ítem';
+comment on column IT.CB_DOC_ELEC_DET.dtotopegs
+  is '30 Valor total de la operación por ítem en guaraníes';
+comment on column IT.CB_DOC_ELEC_DET.iafeciva
+  is 'Forma de afectación tributaria del IVA';
+comment on column IT.CB_DOC_ELEC_DET.ddesafeciva
+  is 'Descripción de la forma de afectación tributaria del IVA';
+comment on column IT.CB_DOC_ELEC_DET.dpropiva
+  is 'Proporción gravada de IVA';
+comment on column IT.CB_DOC_ELEC_DET.dtasaiva
+  is 'Tasa del IVA';
+comment on column IT.CB_DOC_ELEC_DET.dbasgraviva
+  is 'Base gravada del IVA por ítem';
+comment on column IT.CB_DOC_ELEC_DET.dliqivaitem
+  is '36 Liquidación del IVA por ítem';
+comment on column IT.CB_DOC_ELEC_DET.nro_item
+  is 'Número de item de la factura';
+comment on column IT.CB_DOC_ELEC_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_DOC_ELEC_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_DOC_ELEC_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_DOC_ELEC_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

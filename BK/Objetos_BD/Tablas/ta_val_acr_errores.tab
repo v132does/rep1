@@ -1,0 +1,35 @@
+create table IT.TA_VAL_ACR_ERRORES
+(
+  cod_ente       NUMBER(5) not null,
+  nro_cta_debito VARCHAR2(15) not null,
+  nro_tarjeta    VARCHAR2(25),
+  monto          NUMBER(18,2) default 0 not null,
+  msj_error      VARCHAR2(500) not null,
+  fec_proceso    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_VAL_ACR_ERRORES
+  is 'Contiene registro de los errores dentro del proceso PRT_VAL_ACR_GOURMET.';
+comment on column IT.TA_VAL_ACR_ERRORES.cod_ente
+  is 'Codigo del Ente.';
+comment on column IT.TA_VAL_ACR_ERRORES.nro_cta_debito
+  is 'Numero de Cuenta.';
+comment on column IT.TA_VAL_ACR_ERRORES.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_VAL_ACR_ERRORES.monto
+  is 'Importe.';
+comment on column IT.TA_VAL_ACR_ERRORES.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.TA_VAL_ACR_ERRORES.fec_proceso
+  is 'Fecha de proceso';
+

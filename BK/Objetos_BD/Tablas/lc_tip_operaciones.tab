@@ -1,0 +1,157 @@
+create table IT.LC_TIP_OPERACIONES
+(
+  cod_tip_operacion   VARCHAR2(3) not null,
+  descripcion         VARCHAR2(60) not null,
+  nivel               NUMBER(3) default 1 not null,
+  cod_tip_ope_bcp     VARCHAR2(6),
+  afe_posicion        VARCHAR2(1) default 'N' not null,
+  afe_limite          VARCHAR2(1) default 'N' not null,
+  afe_che_viajero     VARCHAR2(1) default 'N' not null,
+  afe_ope_futura      VARCHAR2(1) default 'N' not null,
+  afe_transferencia   VARCHAR2(1) default 'N' not null,
+  afe_impuestos       VARCHAR2(1) default 'N' not null,
+  caja                VARCHAR2(1) default 'S' not null,
+  tip_valor           VARCHAR2(1) default 'E',
+  cod_mod_origen      NUMBER(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_transaccion     NUMBER(4) not null,
+  cod_mad_hijo        NUMBER(3) not null,
+  afe_cod_transaccion NUMBER(4),
+  cod_tra_cargo1      NUMBER(4),
+  cod_tra_cargo2      NUMBER(4),
+  cod_tra_cargo3      NUMBER(4),
+  cod_tra_cargo4      NUMBER(4),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  modificable         VARCHAR2(1) default 'N',
+  afe_libranza        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TIP_OPERACIONES
+  is 'Contiene los datos de los Tipos de Operaciones habilitadas de Cambios.';
+comment on column IT.LC_TIP_OPERACIONES.cod_tip_operacion
+  is 'Codigo de tipo de Operacion.';
+comment on column IT.LC_TIP_OPERACIONES.descripcion
+  is 'Descripcion del tipo de operacion.';
+comment on column IT.LC_TIP_OPERACIONES.nivel
+  is 'Nivel de afectacion de la operacion.';
+comment on column IT.LC_TIP_OPERACIONES.cod_tip_ope_bcp
+  is 'Codigo BCP asignado por defecto.';
+comment on column IT.LC_TIP_OPERACIONES.afe_posicion
+  is 'Afecta la posicion de cambios (Efectivo/Otros/No afecta).';
+comment on column IT.LC_TIP_OPERACIONES.afe_limite
+  is 'Afecta el limite del Cliente (S/N).';
+comment on column IT.LC_TIP_OPERACIONES.afe_che_viajero
+  is 'Afecta Cheque viajero (S/N).';
+comment on column IT.LC_TIP_OPERACIONES.afe_ope_futura
+  is 'Afecta Operacion a futuro (S/N).';
+comment on column IT.LC_TIP_OPERACIONES.afe_transferencia
+  is 'Afecta transferencias (S/N).';
+comment on column IT.LC_TIP_OPERACIONES.afe_impuestos
+  is 'Afecta impuestos (S/N).';
+comment on column IT.LC_TIP_OPERACIONES.caja
+  is 'Esta operacion pasa por Caja (SN).';
+comment on column IT.LC_TIP_OPERACIONES.tip_valor
+  is 'Es efectivo o cheque(E/C). Solo valido si pasa por caja.';
+comment on column IT.LC_TIP_OPERACIONES.cod_mod_origen
+  is 'Modulo Padre de la operacion.';
+comment on column IT.LC_TIP_OPERACIONES.cod_modulo
+  is 'Codigo del modulo de la operacion.';
+comment on column IT.LC_TIP_OPERACIONES.cod_modalidad
+  is 'Codigo de la modalidad de la operacion.';
+comment on column IT.LC_TIP_OPERACIONES.cod_transaccion
+  is 'Codigo de Transaccion.';
+comment on column IT.LC_TIP_OPERACIONES.cod_mad_hijo
+  is 'Modalidad hija de la operacion(compra/venta).';
+comment on column IT.LC_TIP_OPERACIONES.afe_cod_transaccion
+  is 'Codigo de transaccion afectada.';
+comment on column IT.LC_TIP_OPERACIONES.cod_tra_cargo1
+  is 'Codigo de cargos.';
+comment on column IT.LC_TIP_OPERACIONES.cod_tra_cargo2
+  is 'Codigo de cargos.';
+comment on column IT.LC_TIP_OPERACIONES.cod_tra_cargo3
+  is 'Codigo de cargos.';
+comment on column IT.LC_TIP_OPERACIONES.cod_tra_cargo4
+  is 'Codigo de cargos.';
+comment on column IT.LC_TIP_OPERACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_TIP_OPERACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_TIP_OPERACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_TIP_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_TIP_OPERACIONES.modificable
+  is 'Indica si el valor del parametro es o no modificable.';
+comment on column IT.LC_TIP_OPERACIONES.afe_libranza
+  is 'Afecta Libranza (S/N)';
+create index IT.IN_LTOPE_COD_MODALIDAD on IT.LC_TIP_OPERACIONES (COD_MODALIDAD, COD_MODULO, COD_TIP_OPE_BCP, COD_TRA_CARGO2, COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TIP_OPERACIONES
+  add constraint PK_LC_TIP_OPERACIONES primary key (COD_TIP_OPERACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TIP_OPERACIONES
+  add constraint FK_LTIOP_COD_TIP_OPE_BCP foreign key (COD_TIP_OPE_BCP)
+  references IT.LC_TIP_OPE_BCP (COD_TIP_OPE_BCP);
+alter table IT.LC_TIP_OPERACIONES
+  add constraint FK_LTIOP_COD_TRA_CARGO2 foreign key (COD_TRA_CARGO2, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.LC_TIP_OPERACIONES
+  add constraint FK_LTIOP_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121376014_AFE_C_000
+  check (AFE_CHE_VIAJERO IN ('S', 'N'));
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121376014_AFE_I_000
+  check (AFE_IMPUESTOS IN ('S', 'N'));
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121376014_AFE_L_000
+  check (AFE_LIMITE IN ('S', 'N'));
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121376014_AFE_O_000
+  check (AFE_OPE_FUTURA IN ('S', 'N'));
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121376014_AFE_T_000
+  check (AFE_TRANSFERENCIA IN ('S', 'N'));
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121376014_CAJA_000
+  check (CAJA IN ('S', 'N'));
+alter table IT.LC_TIP_OPERACIONES
+  add constraint AVCON_1121380329_AFE_P_000
+  check (AFE_POSICION IN ('E', 'O','N'));
+

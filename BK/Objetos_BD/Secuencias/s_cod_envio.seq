@@ -1,0 +1,7 @@
+create sequence IT.S_COD_ENVIO
+minvalue 0
+maxvalue 9999999999
+start with 1442546
+increment by 1
+cache 20;
+

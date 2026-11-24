@@ -1,0 +1,76 @@
+create table IT.PR_LIN_TIP_GAR_MAD
+(
+  nro_linea        NUMBER(7) not null,
+  cod_garantia     NUMBER(3) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mto_limite       NUMBER(18,2),
+  mto_aplicado     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LIN_TIP_GAR_MAD
+  is 'Detalle de aplicaciones de líneas por tipo de garantía.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.nro_linea
+  is 'Número de línea.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.cod_garantia
+  is 'Código de garantía.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.mto_limite
+  is 'Monto limite.';
+comment on column IT.PR_LIN_TIP_GAR_MAD.mto_aplicado
+  is 'Monto Aplicado.';
+alter table IT.PR_LIN_TIP_GAR_MAD
+  add constraint UK_PR_LIN_TIP_GAR_MAD unique (NRO_LINEA, COD_GARANTIA, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LIN_TIP_GAR_MAD
+  add constraint FK_PLTGM_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+alter table IT.PR_LIN_TIP_GAR_MAD
+  add constraint FK_PLTGM_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_LIN_TIP_GAR_MAD
+  add constraint FK_PLTGM_NRO_LINEA foreign key (NRO_LINEA)
+  references IT.PR_LINEAS (NRO_LINEA);
+alter table IT.PR_LIN_TIP_GAR_MAD
+  add constraint AVCON_1118688440_COD_M_004
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_LIN_TIP_GAR_MAD
+  add constraint AVCON_1118688440_COD_M_005
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+

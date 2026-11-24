@@ -1,0 +1,45 @@
+create table IT.MD_DEP_MENSAJES
+(
+  cod_mensaje      VARCHAR2(35) not null,
+  nro_referencia   VARCHAR2(20),
+  nro_lote         VARCHAR2(20),
+  orden            NUMBER not null,
+  nro_linea        NUMBER not null,
+  campo            VARCHAR2(3) not null,
+  valor            VARCHAR2(250),
+  descripcion      VARCHAR2(200),
+  ind_requerido    VARCHAR2(1) not null,
+  nro_detalle      NUMBER not null,
+  err_formato      VARCHAR2(1000),
+  err_validacion   VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  referencia       VARCHAR2(4000),
+  nro_ref_externa  VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_DEMEN_COD_MENSAJE on IT.MD_DEP_MENSAJES (COD_MENSAJE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

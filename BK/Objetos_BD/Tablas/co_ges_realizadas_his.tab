@@ -1,0 +1,74 @@
+create table IT.CO_GES_REALIZADAS_HIS
+(
+  fecha              DATE,
+  fec_gestion        DATE,
+  hora               VARCHAR2(8),
+  cod_cliente        VARCHAR2(20),
+  nro_cuenta         VARCHAR2(20),
+  cod_usu_gestion    VARCHAR2(30),
+  cod_usu_asignado   VARCHAR2(30),
+  tar_realizada      VARCHAR2(4),
+  des_ges_realizada  VARCHAR2(100),
+  cod_fig_gestionada VARCHAR2(6),
+  cos_gestion        NUMBER(12),
+  cod_rol_perfil     VARCHAR2(6),
+  rol                VARCHAR2(100),
+  contacto           VARCHAR2(40),
+  mensaje            VARCHAR2(40),
+  cta_pro_pago       VARCHAR2(20),
+  fec_pro_pago       DATE,
+  mto_pro_pago       NUMBER(12,2),
+  nota               CLOB
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_GES_REALIZADAS_HIS
+  is 'Registros de Gestiones Realizadas del día proveniente del Recovery Strategy.';
+comment on column IT.CO_GES_REALIZADAS_HIS.fecha
+  is 'Fecha de registro en ITGF.';
+comment on column IT.CO_GES_REALIZADAS_HIS.fec_gestion
+  is 'Fecha de Gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.hora
+  is 'Hora de Gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.cod_cliente
+  is 'Código de Cliente.';
+comment on column IT.CO_GES_REALIZADAS_HIS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CO_GES_REALIZADAS_HIS.cod_usu_gestion
+  is 'Código de Usuario que realizó la gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.cod_usu_asignado
+  is 'Código de Usuario asignado.';
+comment on column IT.CO_GES_REALIZADAS_HIS.tar_realizada
+  is 'Código de gestión realizada (TAR)';
+comment on column IT.CO_GES_REALIZADAS_HIS.des_ges_realizada
+  is 'Descripción de la gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.cod_fig_gestionada
+  is 'Código de la Figura Gestionada.';
+comment on column IT.CO_GES_REALIZADAS_HIS.cos_gestion
+  is 'Costo de la Gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.cod_rol_perfil
+  is 'Código de rol del perfil del usuario que realizó la gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.rol
+  is 'Descripción Rol del Usuario que realizó la Gestión.';
+comment on column IT.CO_GES_REALIZADAS_HIS.contacto
+  is 'Gestion Implica Contacto?';
+comment on column IT.CO_GES_REALIZADAS_HIS.mensaje
+  is 'Gestion Implica Mensaje?';
+comment on column IT.CO_GES_REALIZADAS_HIS.cta_pro_pago
+  is 'Obligación (nro. de cuenta) sobre la que se realizó la promesa de pago.';
+comment on column IT.CO_GES_REALIZADAS_HIS.fec_pro_pago
+  is 'Fecha de Vencimiento de la promesa de pago.';
+comment on column IT.CO_GES_REALIZADAS_HIS.mto_pro_pago
+  is 'Monto que promete pagar.';
+comment on column IT.CO_GES_REALIZADAS_HIS.nota
+  is 'Nota de la Gestión.';
+

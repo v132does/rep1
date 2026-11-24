@@ -1,0 +1,115 @@
+-- Create table--
+create table IT.CC_CHE_DEVUELTOS_TMP
+(
+  fec_proceso         DATE default trunc(sysdate),
+  cod_bco_receptor    NUMBER(3),
+  nro_cuenta          VARCHAR2(15),
+  nro_cheque          NUMBER(15),
+  monto               NUMBER(18,2),
+  cod_cau_dev_bcp     NUMBER(3),
+  fec_giro            DATE,
+  nro_linea           NUMBER(10),
+  cod_cau_dev_bcp_det VARCHAR2(20),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_moneda          VARCHAR2(3),
+  cod_submotivo_det   VARCHAR2(9),
+  multa               number(18,2),
+  cod_sub_motivo      varchar2(10),
+  tip_importe         NUMBER(1), 
+  cod_cau_secundaria  VARCHAR2(40) ,
+  dev_com_directa     VARCHAR2(1) default 'N',
+  regularizado        VARCHAR2(1) default 'N',
+  nro_caja            NUMBER(3),
+  sal_multa           NUMBER(18,2),
+  tipo                VARCHAR2(1),
+  cod_cau_principal   VARCHAR2(38),
+  cod_ofi_camara      NUMBER(3),
+  fecha               VARCHAR2(10) not null,
+  hora                VARCHAR2(8) default to_char(sysdate,'HH24:MI:SS')
+
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  
+--- Add comments to the table 
+comment on table IT.CC_CHE_DEVUELTOS_TMP
+  is 'Cheques CNB devueltos por Rechazos Formales en Prodep.';
+  
+-- Add comments to the columns 
+comment on column IT.CC_CHE_DEVUELTOS_TMP.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_bco_receptor
+  is 'Banco receptor.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.nro_cuenta
+  is 'Número de cuenta';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.monto
+  is 'Importe del Cheque';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_cau_dev_bcp
+  is 'Código de Devolución BCP';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.fec_giro
+  is 'Fecha de Giro del Cheque';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.nro_linea
+  is 'Nro. de Línea o Correlativo del archivo';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_cau_dev_bcp_det
+  is 'Motivos de Rechazo Secundarios.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_submotivo_det
+  is 'Codigo de submotivos de rechazos detallados';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.multa 
+  is 'Monto de Multa.';
+comment on column IT.cc_che_devueltos_tmp.cod_sub_motivo 
+  is 'Sub-motivo';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.tip_importe
+is 'Tipo de Importe (0 = Bajo Valor ; 1 = Alto Valor).';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_cau_secundaria
+is 'Códigos de causas secundarias. ';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.dev_com_directa
+  is 'Devolución por compensacion directa.';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.regularizado
+  is 'Indica si fue regularizado el cheque(S/N).';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.nro_caja
+  is 'Número de caja.';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.sal_multa
+  is 'Saldo de la Multa.';
+
+comment on column IT.CC_CHE_DEVUELTOS_TMP.tipo
+  is 'Tipo de Causa de Devolución.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_cau_principal
+  is 'Codigo de Causa de Devolución.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.cod_ofi_camara
+  is 'Oficina de cámara.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.fecha
+  is 'Fecha de Devolución.';
+comment on column IT.CC_CHE_DEVUELTOS_TMP.hora
+  is 'Hora de Devolución.';
+

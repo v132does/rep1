@@ -1,0 +1,28 @@
+create table IT.SIMGIA_ARSOBGC_BKP
+(
+  sgcsuc          VARCHAR2(2),
+  sgccta          NUMBER,
+  sgcsub          VARCHAR2(6),
+  sgcfeini        VARCHAR2(6),
+  sgcsdoact       NUMBER,
+  sgcmayor        VARCHAR2(4000),
+  rt              VARCHAR2(4000),
+  sgcfetrasp      VARCHAR2(6),
+  sgcvia          CHAR(1),
+  sgcriesgo       VARCHAR2(10),
+  sgcgrupo        NUMBER,
+  rub_transaccion VARCHAR2(4000),
+  fecha_his       DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

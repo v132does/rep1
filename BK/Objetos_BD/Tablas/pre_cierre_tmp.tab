@@ -1,0 +1,95 @@
+-- Create table
+create table IT.PRE_CIERRE_TMP
+(
+  fecha           DATE,
+  hora            VARCHAR2(10),
+  cod_usuario     VARCHAR2(10),
+  cod_ofi_origen  NUMBER(3),
+  nro_secuencia   NUMBER(3),
+  nro_cuenta      VARCHAR2(15),
+  cod_moneda      VARCHAR2(3),
+  monto           NUMBER(18,2),
+  mto_en_gs       NUMBER(18,2),
+  cod_tra_padre   NUMBER(4),
+  desc_tra_padre  VARCHAR2(60),
+  cod_modalidad   NUMBER(3),
+  cod_transaccion NUMBER(4),
+  desc_tra_hijo   VARCHAR2(60),
+  tip_mov_rubro   VARCHAR2(1),
+  rubro_contable  VARCHAR2(30),
+  desc_rubro      VARCHAR2(100),
+  mto_asiento     NUMBER(18,2),
+  debito          NUMBER(18,2),
+  credito         NUMBER(18,2),
+  referencia      NUMBER,
+  observacion     VARCHAR2(1000),
+  cod_rub_externo VARCHAR2(20),
+  cod_mod_padre   NUMBER(3),
+  cod_mad_padre   NUMBER(3),
+  nro_documento   NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+-- Add comments to the columns 
+comment on column IT.PRE_CIERRE_TMP.fecha
+  is 'Fecha del cierre.';
+comment on column IT.PRE_CIERRE_TMP.hora
+  is 'Hora del cierre.';
+comment on column IT.PRE_CIERRE_TMP.cod_usuario
+  is 'Código de Usuario.';
+comment on column IT.PRE_CIERRE_TMP.cod_ofi_origen
+  is 'Código de Oficina Origen.';
+comment on column IT.PRE_CIERRE_TMP.nro_secuencia
+  is 'Número de secuencia.';
+comment on column IT.PRE_CIERRE_TMP.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.PRE_CIERRE_TMP.monto
+  is 'Monto.';
+comment on column IT.PRE_CIERRE_TMP.mto_en_gs
+  is 'Monto en Gs.';
+comment on column IT.PRE_CIERRE_TMP.cod_tra_padre
+  is 'Código Transacción Padre.';
+comment on column IT.PRE_CIERRE_TMP.desc_tra_padre
+  is 'Descripción Transacción Padre.';
+comment on column IT.PRE_CIERRE_TMP.cod_modalidad
+  is 'Código Modalidad.';
+comment on column IT.PRE_CIERRE_TMP.cod_transaccion
+  is 'Código Transacción.';
+comment on column IT.PRE_CIERRE_TMP.desc_tra_hijo
+  is 'Descripción Transacción Hijo.';
+comment on column IT.PRE_CIERRE_TMP.tip_mov_rubro
+  is 'Tipo de movimiento del Rubro.';
+comment on column IT.PRE_CIERRE_TMP.rubro_contable
+  is 'Rubro Contable.';
+comment on column IT.PRE_CIERRE_TMP.desc_rubro
+  is 'Descripción Rubro.';
+comment on column IT.PRE_CIERRE_TMP.mto_asiento
+  is 'Monto Asiento.';
+comment on column IT.PRE_CIERRE_TMP.debito
+  is 'Débito.';
+comment on column IT.PRE_CIERRE_TMP.credito
+  is 'Crédito.';
+comment on column IT.PRE_CIERRE_TMP.referencia
+  is 'Referencia.';
+comment on column IT.PRE_CIERRE_TMP.observacion
+  is 'Observación.';
+comment on column IT.PRE_CIERRE_TMP.cod_rub_externo
+  is 'Código Rubro Externo.';
+comment on column IT.PRE_CIERRE_TMP.cod_mod_padre
+  is 'Código Módulo Padre.';
+comment on column IT.PRE_CIERRE_TMP.cod_mad_padre
+  is 'Código Modalidad Padre.';
+comment on column IT.PRE_CIERRE_TMP.nro_documento
+  is 'Número de Documnento.';
+  
+grant select, insert, update, delete on IT.PRE_CIERRE_TMP to IT_TEMPORAL;

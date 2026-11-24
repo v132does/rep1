@@ -1,0 +1,109 @@
+create table IT.IG_RES_OFICIALES
+(
+  cod_usu_oficial  VARCHAR2(10) not null,
+  fecha            DATE not null,
+  cod_periodo      NUMBER(3) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_unidad       NUMBER(3) not null,
+  tot_activo       NUMBER(18,2),
+  tot_pasivo       NUMBER(18,2),
+  tot_contingencia NUMBER(18,2),
+  tot_mora         NUMBER(18,2),
+  can_cuentas      NUMBER(8),
+  can_clientes     NUMBER(8),
+  can_activo       NUMBER(8),
+  can_pasivo       NUMBER(8),
+  can_contingencia NUMBER(8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_RES_OFICIALES
+  is 'Resumen General de Operaciones por Oficial.';
+comment on column IT.IG_RES_OFICIALES.cod_usu_oficial
+  is 'Codigo del oficial de cuentas.';
+comment on column IT.IG_RES_OFICIALES.fecha
+  is 'Fecha de proceso.';
+comment on column IT.IG_RES_OFICIALES.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_RES_OFICIALES.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.IG_RES_OFICIALES.cod_unidad
+  is 'Codigo de la unidad de negocios del oficial.';
+comment on column IT.IG_RES_OFICIALES.tot_activo
+  is 'Total en cuentas activas en la moneda de consolidacion.';
+comment on column IT.IG_RES_OFICIALES.tot_pasivo
+  is 'Total en cuentas pasivas en la moneda de consolidacion.';
+comment on column IT.IG_RES_OFICIALES.tot_contingencia
+  is 'Total en cuentas contingencia en la moneda de consolidacion.';
+comment on column IT.IG_RES_OFICIALES.tot_mora
+  is 'Total en mora del oficial en la moneda de consolidacion.';
+comment on column IT.IG_RES_OFICIALES.can_cuentas
+  is 'Cantidad de cuentas.';
+comment on column IT.IG_RES_OFICIALES.can_clientes
+  is 'Cantidad de clientes.';
+comment on column IT.IG_RES_OFICIALES.can_activo
+  is 'Cantidad de cuentas activas.';
+comment on column IT.IG_RES_OFICIALES.can_pasivo
+  is 'Cantidad de cuentas pasivas.';
+comment on column IT.IG_RES_OFICIALES.can_contingencia
+  is 'Cantidad de cuentas contingencia.';
+comment on column IT.IG_RES_OFICIALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_RES_OFICIALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_RES_OFICIALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_RES_OFICIALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_IROFI_FECHA on IT.IG_RES_OFICIALES (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_RES_OFICIALES
+  add constraint UK_IG_RES_OFICIALES unique (COD_USU_OFICIAL, FECHA, COD_PERIODO, COD_OFICINA, COD_UNIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_RES_OFICIALES
+  add constraint FK_IROFI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.IG_RES_OFICIALES
+  add constraint FK_IROFI_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_RES_OFICIALES
+  add constraint FK_IROFI_COD_UNIDAD foreign key (COD_UNIDAD)
+  references IT.IG_UNI_NEGOCIOS (COD_UNIDAD);
+alter table IT.IG_RES_OFICIALES
+  add constraint FK_IROFI_COD_USUARIO foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

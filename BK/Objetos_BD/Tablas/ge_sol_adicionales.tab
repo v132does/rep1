@@ -1,0 +1,58 @@
+create table IT.GE_SOL_ADICIONALES
+(
+  nro_solicitud    NUMBER(7) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nom_embozado     VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_ADICIONALES
+  is 'Adicionales de Solicitudes de Tarjetas.';
+comment on column IT.GE_SOL_ADICIONALES.nro_solicitud
+  is 'Numero de solicitud.';
+comment on column IT.GE_SOL_ADICIONALES.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.GE_SOL_ADICIONALES.nom_embozado
+  is 'Nombre a Embozado del Adicional.';
+comment on column IT.GE_SOL_ADICIONALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_ADICIONALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_ADICIONALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ADICIONALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SOL_ADICIONALES
+  add constraint PK_GE_SOL_ADICIONALES primary key (NRO_SOLICITUD, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ADICIONALES
+  add constraint FK_GSADI_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOLICITUDES (NRO_SOLICITUD);
+alter table IT.GE_SOL_ADICIONALES
+  add constraint FK_GSADI_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

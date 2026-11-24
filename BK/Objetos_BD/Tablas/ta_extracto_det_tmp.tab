@@ -1,0 +1,110 @@
+create table IT.TA_EXTRACTO_DET_TMP
+(
+  fila            VARCHAR2(4000),
+  cod_banco       NUMBER(2),
+  cla_tarjeta     NUMBER(2),
+  afinidad        VARCHAR2(2),
+  cuenta          NUMBER(9),
+  nro_secuencia   NUMBER(3),
+  nro_tarjeta     VARCHAR2(19),
+  fec_compra      DATE,
+  fec_proceso     DATE,
+  cod_comercio    NUMBER(7),
+  tip_caja        VARCHAR2(1),
+  nro_caratula    NUMBER(3),
+  nro_resumen     NUMBER(9),
+  nro_cupon       NUMBER(7),
+  ori_cupon       NUMBER(2),
+  monto           NUMBER(11,2),
+  des_adicional   VARCHAR2(24),
+  tip_registro    VARCHAR2(1),
+  tip_transaccion VARCHAR2(1),
+  lon_tarjeta     NUMBER(2),
+  fec_cierre      DATE,
+  tip_cierre      VARCHAR2(1),
+  agrupacion      NUMBER(1),
+  cod_pais        VARCHAR2(3),
+  cod_moneda      VARCHAR2(3),
+  mto_origen      NUMBER(11,2),
+  comision        NUMBER(9),
+  iva             NUMBER(9),
+  mcc             NUMBER(4),
+  afectacion      NUMBER(2),
+  pun_cobrading   NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_EXTRACTO_DET_TMP
+  is 'Archivo EXTDETA';
+comment on column IT.TA_EXTRACTO_DET_TMP.fila
+  is 'Registro completo del Archivo EXTDETA.';
+comment on column IT.TA_EXTRACTO_DET_TMP.cod_banco
+  is 'Código Banco.';
+comment on column IT.TA_EXTRACTO_DET_TMP.cla_tarjeta
+  is 'Clase Tarjeta.';
+comment on column IT.TA_EXTRACTO_DET_TMP.afinidad
+  is 'Código Afinidad.';
+comment on column IT.TA_EXTRACTO_DET_TMP.cuenta
+  is 'Cuenta.';
+comment on column IT.TA_EXTRACTO_DET_TMP.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.TA_EXTRACTO_DET_TMP.nro_tarjeta
+  is 'Tarjeta.';
+comment on column IT.TA_EXTRACTO_DET_TMP.fec_compra
+  is 'Fecha de Compra (AAAAMMDD).';
+comment on column IT.TA_EXTRACTO_DET_TMP.fec_proceso
+  is 'Fecha Proceso (AAAAMMDD).';
+comment on column IT.TA_EXTRACTO_DET_TMP.cod_comercio
+  is 'Código de Comercio.';
+comment on column IT.TA_EXTRACTO_DET_TMP.tip_caja
+  is 'Caja.';
+comment on column IT.TA_EXTRACTO_DET_TMP.nro_caratula
+  is 'Número de Caratula.';
+comment on column IT.TA_EXTRACTO_DET_TMP.nro_resumen
+  is 'Número Resumen.';
+comment on column IT.TA_EXTRACTO_DET_TMP.nro_cupon
+  is 'Número Cupón.';
+comment on column IT.TA_EXTRACTO_DET_TMP.ori_cupon
+  is 'Origen del Cupón (Cero).';
+comment on column IT.TA_EXTRACTO_DET_TMP.monto
+  is 'Monto.';
+comment on column IT.TA_EXTRACTO_DET_TMP.des_adicional
+  is 'Descripción Adicional. Nombre y numero de Tarjeta del Adicional si lo tuviere.';
+comment on column IT.TA_EXTRACTO_DET_TMP.tip_registro
+  is 'Tipo de Registro.';
+comment on column IT.TA_EXTRACTO_DET_TMP.tip_transaccion
+  is 'Tipo Transacción.';
+comment on column IT.TA_EXTRACTO_DET_TMP.lon_tarjeta
+  is 'Longitud de la Tarjeta.';
+comment on column IT.TA_EXTRACTO_DET_TMP.fec_cierre
+  is 'Fecha de Cierre (AAAAMMDD).';
+comment on column IT.TA_EXTRACTO_DET_TMP.tip_cierre
+  is 'Tipo de Cierre.';
+comment on column IT.TA_EXTRACTO_DET_TMP.agrupacion
+  is 'Agrupación.';
+comment on column IT.TA_EXTRACTO_DET_TMP.cod_pais
+  is 'Código de Pais.';
+comment on column IT.TA_EXTRACTO_DET_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.TA_EXTRACTO_DET_TMP.mto_origen
+  is 'Monto en la Moneda de Origen.';
+comment on column IT.TA_EXTRACTO_DET_TMP.comision
+  is 'Comisión.';
+comment on column IT.TA_EXTRACTO_DET_TMP.iva
+  is 'Iva.';
+comment on column IT.TA_EXTRACTO_DET_TMP.mcc
+  is 'MCC.';
+comment on column IT.TA_EXTRACTO_DET_TMP.afectacion
+  is 'Afectación.';
+comment on column IT.TA_EXTRACTO_DET_TMP.pun_cobrading
+  is 'Puntaje Cobranding.';
+

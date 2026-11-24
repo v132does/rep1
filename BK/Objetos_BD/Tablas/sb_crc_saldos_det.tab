@@ -1,0 +1,151 @@
+create table IT.SB_CRC_SALDOS_DET
+(
+  fecha                   DATE not null,
+  nom_referencia          VARCHAR2(10) not null,
+  nro_formulario          VARCHAR2(3),
+  cod_oficina             NUMBER(4),
+  tip_operacion           NUMBER(3),
+  nro_operacion           VARCHAR2(60),
+  cod_modulo              NUMBER(3),
+  cod_modalidad           NUMBER(3),
+  fec_corte               DATE,
+  fec_vto_cuota           DATE,
+  fec_vto_cuo_vencida     DATE,
+  dia_atraso              NUMBER(5),
+  rub_con_capital         VARCHAR2(18),
+  sal_capital             NUMBER(20,2),
+  sal_cuo_vencida         NUMBER(20,2),
+  nro_registro            NUMBER(9) not null,
+  con_mon_iso             VARCHAR2(3),
+  rub_con_int_devengar    VARCHAR2(18),
+  sal_int_devengar        NUMBER(20,2),
+  rub_con_dev_no_cobrado  VARCHAR2(18),
+  sal_int_dev_no_cobrado  NUMBER(20,2),
+  rub_con_int_dev_cobrado VARCHAR2(18),
+  sal_int_dev_cobrado     NUMBER(20,2),
+  rub_con_dev_suspenso    VARCHAR2(18),
+  sal_int_suspenso        NUMBER(20,2),
+  rub_con_contingencia    VARCHAR2(18),
+  mto_contingencia        NUMBER(20,2),
+  tas_efectiva            NUMBER(5,2),
+  rub_con_prevision       VARCHAR2(18),
+  mto_prevision           NUMBER(20,2),
+  can_cuo_pagadas         NUMBER(20,2),
+  cla_riesgo              VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_SALDOS_DET
+  is 'Datos de los Saldos de las Operaciones para la Generación del Archivo Saldos para envío a CRC.';
+comment on column IT.SB_CRC_SALDOS_DET.fecha
+  is 'Fecha de Periodo de envío del Archivo.';
+comment on column IT.SB_CRC_SALDOS_DET.nom_referencia
+  is 'Nombre del Archivo a Generarse a la CRC (Archivo SALDOS).';
+comment on column IT.SB_CRC_SALDOS_DET.nro_formulario
+  is 'Nro. de Formulario correspondiente al Archivo de Saldos. Este nro. es fijo para identificar dicho Archivo.';
+comment on column IT.SB_CRC_SALDOS_DET.cod_oficina
+  is 'Código de Oficina de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.tip_operacion
+  is 'Tipo de Operación perteneciente a la Operación (Posición 6 a 8 del rubro contable del tipo Capital).';
+comment on column IT.SB_CRC_SALDOS_DET.nro_operacion
+  is 'Nro. de Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.cod_modulo
+  is 'Código del Modulo.';
+comment on column IT.SB_CRC_SALDOS_DET.cod_modalidad
+  is 'Código de la modalidad.';
+comment on column IT.SB_CRC_SALDOS_DET.fec_corte
+  is 'Fecha de Corte de Generación del Archivo.';
+comment on column IT.SB_CRC_SALDOS_DET.fec_vto_cuota
+  is 'Fecha de Vencimiento de la Próxima Cuota.';
+comment on column IT.SB_CRC_SALDOS_DET.fec_vto_cuo_vencida
+  is 'Fecha de Vencimiento de la Cuota Vencida/Impaga.';
+comment on column IT.SB_CRC_SALDOS_DET.dia_atraso
+  is 'Días de Atraso en caso de Vencer la Cuota de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_capital
+  is 'Rubro/Cuenta correspondiente al Saldo Capital de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.sal_capital
+  is 'Saldo Capital de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.sal_cuo_vencida
+  is 'Monto de la Cuota Vencida (Saldo Capital + Intereses Devengados no Cobrados).';
+comment on column IT.SB_CRC_SALDOS_DET.nro_registro
+  is 'Nro. de Registro Único.';
+comment on column IT.SB_CRC_SALDOS_DET.con_mon_iso
+  is 'Código de Moneda ISO de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_int_devengar
+  is 'Rubro/Cuenta Contable correspondientes a Interese Devengados no cobrados de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.sal_int_devengar
+  is 'Saldo de Interes a Devengar de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_dev_no_cobrado
+  is 'Rubro/Cuenta Contable correspondiente al Interés Devengado no Cobrado de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.sal_int_dev_no_cobrado
+  is 'Saldo de Interés Devengado no Cobrado.';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_int_dev_cobrado
+  is 'Rubro/Cuenta Contable correspondiente al Interés Devengado Cobrado de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.sal_int_dev_cobrado
+  is 'Saldo de Interés Devengado Cobrado (Dev. Acumulado - Dev. no Cobrado).';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_dev_suspenso
+  is 'Rubro/Cuenta Contable Correspondiente al Interés Devengado en suspenso de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.sal_int_suspenso
+  is 'Saldo Interés en Suspenso.';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_contingencia
+  is 'Rubro/Cuenta Contable correspondiente a la Contingencia (Para Sobregiros y Tarjetas de Crédito: Línea-Deuda).';
+comment on column IT.SB_CRC_SALDOS_DET.mto_contingencia
+  is 'Monto de Contingencia (Para Sobregiros y Tarjetas de Crédito: Línea-Deuda).';
+comment on column IT.SB_CRC_SALDOS_DET.tas_efectiva
+  is 'Tasa Efectiva de la Cuenta.';
+comment on column IT.SB_CRC_SALDOS_DET.rub_con_prevision
+  is 'Rubro/Cuenta Contable correspondiente a la Previsión de la Cuenta de la Operación.';
+comment on column IT.SB_CRC_SALDOS_DET.mto_prevision
+  is 'Monto de Previsión.';
+comment on column IT.SB_CRC_SALDOS_DET.can_cuo_pagadas
+  is 'Cantidad de Cuotas Pagadas/Canceladas';
+comment on column IT.SB_CRC_SALDOS_DET.cla_riesgo
+  is 'Clasificación de Riesgo de la Operación (1, 1a, 1b, 2, 3, 4, 5, 6).';
+create index IT.IN_NRO_OPE_SALDOS on IT.SB_CRC_SALDOS_DET (NVL(SUBSTR(NRO_OPERACION,1,INSTR(NRO_OPERACION,'#')-1),NRO_OPERACION))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_SCSDE_NRO_OPERACION on IT.SB_CRC_SALDOS_DET (NRO_OPERACION, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CRC_SALDOS_DET
+  add constraint PK_SB_CRC_SALDOS_DET primary key (FECHA, NOM_REFERENCIA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

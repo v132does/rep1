@@ -1,0 +1,74 @@
+create table IT.BW_TOK_TAR_AUTENTICACION
+(
+  cod_autenticacion VARCHAR2(36) not null,
+  cod_respuesta     VARCHAR2(36),
+  cod_tokenizacion  VARCHAR2(36),
+  tip_autenticacion VARCHAR2(36),
+  inf_enmascarada   VARCHAR2(36),
+  dir_cliente       VARCHAR2(36),
+  dir_origen        VARCHAR2(36),
+  plataforma        VARCHAR2(36),
+  contacto          VARCHAR2(36),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_AUTENTICACION.cod_autenticacion
+  is 'Código Autogenerado';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.cod_respuesta
+  is 'Codigo del response';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.cod_tokenizacion
+  is 'Codigo Tokenizacion referencia PanRefId y TokenRefId';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.tip_autenticacion
+  is 'cell_phone, email, bank_app, customer_service, outbound_call';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.inf_enmascarada
+  is 'maskedInfo, contacto del cliente';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.dir_cliente
+  is 'customerAddress';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.dir_origen
+  is 'sourceAddress';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.plataforma
+  is 'Es utilizado cuando tipo es bank_app: IOS, ANDROID, WINDOWS, WEB';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.contacto
+  is 'Contacto del cliente';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_AUTENTICACION.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_AUTENTICACION
+  add constraint PK_BW_TOK_TAR_AUTENTICACION primary key (COD_AUTENTICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_AUTENTICACION
+  add constraint FK_BTTAUTENTICACION_COD_RESP foreign key (COD_RESPUESTA)
+  references IT.BW_TOK_TAR_RESPUESTAS (COD_RESPUESTA);
+alter table IT.BW_TOK_TAR_AUTENTICACION
+  add constraint FK_BTTAUTENTICACION_COD_TOKEN foreign key (COD_TOKENIZACION)
+  references IT.BW_TOK_TAR_TOKENIZACION (COD_TOKENIZACION);
+

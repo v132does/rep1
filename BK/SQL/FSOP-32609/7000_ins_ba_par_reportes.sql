@@ -1,0 +1,15 @@
+BEGIN pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+insert into ba_par_reportes (COD_PROGRAMA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO)
+values ('CLDCHRD1', 'COD_MONEDA', 'CC_CHE_DEVUELTOS', null, 'F', 4, 'V', 'S', 'N');
+
+insert into ba_par_reportes (COD_PROGRAMA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO)
+values ('CLDCHRD1', 'TIP_IMPORT', 'CC_CHE_DEVUELTOS', null, 'F', 5, 'V', 'S', 'N');
+
+insert into ba_par_reportes (COD_PROGRAMA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO)
+values ('CLDCHRR1', 'COD_MONEDA', 'CC_CHE_DEVUELTOS', null, 'F', 4, 'V', 'S', 'N');
+
+insert into ba_par_reportes (COD_PROGRAMA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO)
+values ('CLDCHRR1', 'TIP_IMPORT', 'CC_CHE_DEVUELTOS', null, 'F', 5, 'V', 'S', 'N');
+
+COMMIT;

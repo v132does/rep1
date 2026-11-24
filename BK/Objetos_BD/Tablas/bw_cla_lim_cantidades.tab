@@ -1,0 +1,73 @@
+create table IT.BW_CLA_LIM_CANTIDADES
+(
+  cod_tip_mensaje  VARCHAR2(3) not null,
+  tip_persona      VARCHAR2(1) not null,
+  estado           VARCHAR2(1) not null,
+  can_maxima       NUMBER(4) not null,
+  cod_persona      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CLA_LIM_CANTIDADES
+  is 'Almacena los límites de cantidad de operaciones por Tipos de Mensajes. Se utiliza para controlar la cantidad máxima de operaciones por tipo de operación. ';
+comment on column IT.BW_CLA_LIM_CANTIDADES.cod_tip_mensaje
+  is 'Código del tipo de mensajes en bw_tip_mensajes a ser utilizado.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.tip_persona
+  is 'F:Física; J:Jurídica.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.estado
+  is 'S: Activo; N: Inactivo; P: Pendiente.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.can_maxima
+  is 'Cantidad máxima permitida para el tipo de operación.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.cod_persona
+  is 'Si se define el límite se aplica a todas las Cuentas de la persona.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.nro_cuenta
+  is 'Si se define el límite se aplica a todas las operaciones de una Cuenta.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.BW_CLA_LIM_CANTIDADES.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+alter table IT.BW_CLA_LIM_CANTIDADES
+  add constraint UK_BW_CLA_LIM_CANTIDADES unique (COD_TIP_MENSAJE, TIP_PERSONA, COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLA_LIM_CANTIDADES
+  add constraint FK_WCLCA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_CLA_LIM_CANTIDADES
+  add constraint FK_WCLCA_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+alter table IT.BW_CLA_LIM_CANTIDADES
+  add constraint FK_WCLCA_NRO_CUENTAS foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.BW_CLA_LIM_CANTIDADES
+  add constraint CK_WCLCA_ESTADO
+  check (ESTADO IN ('S', 'N', 'P'));
+

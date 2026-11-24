@@ -1,0 +1,64 @@
+create table IT.PR_TAS_REFERENCIAS
+(
+  fecha            DATE not null,
+  cod_periodo      VARCHAR2(10) not null,
+  descripcion      VARCHAR2(100),
+  monto            NUMBER(20,4) not null,
+  cod_moneda       VARCHAR2(3),
+  fec_vencimiento  DATE,
+  observaciones    VARCHAR2(3000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_TAS_REFERENCIAS
+  is 'Tasas de Ref. Pre.Tas Variable';
+comment on column IT.PR_TAS_REFERENCIAS.fecha
+  is 'Fecha';
+comment on column IT.PR_TAS_REFERENCIAS.cod_periodo
+  is 'Codigo de Periodo';
+comment on column IT.PR_TAS_REFERENCIAS.descripcion
+  is 'Descripcion';
+comment on column IT.PR_TAS_REFERENCIAS.monto
+  is 'Monto';
+comment on column IT.PR_TAS_REFERENCIAS.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.PR_TAS_REFERENCIAS.fec_vencimiento
+  is 'Fecha de Vencimiento';
+comment on column IT.PR_TAS_REFERENCIAS.observaciones
+  is 'Observaciones';
+comment on column IT.PR_TAS_REFERENCIAS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.PR_TAS_REFERENCIAS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.PR_TAS_REFERENCIAS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.PR_TAS_REFERENCIAS.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.PR_TAS_REFERENCIAS
+  add constraint PK_PR_TAS_REFERENCIAS primary key (FECHA, COD_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

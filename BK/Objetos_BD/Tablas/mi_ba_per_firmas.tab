@@ -1,0 +1,50 @@
+create table IT.MI_BA_PER_FIRMAS
+(
+  cod_persona        VARCHAR2(10) not null,
+  fec_escaneo        DATE not null,
+  est_firma          VARCHAR2(1),
+  observacion        VARCHAR2(120),
+  fec_insercion      DATE default SYSDATE not null,
+  usu_insercion      VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_aprobacion     DATE,
+  cod_usu_aprobacion VARCHAR2(10),
+  ima_firma          BLOB
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_BA_PER_FIRMAS
+  is 'Datos del Registro de Firmas por Persona.';
+comment on column IT.MI_BA_PER_FIRMAS.cod_persona
+  is 'Codigo de la persona fisica.';
+comment on column IT.MI_BA_PER_FIRMAS.fec_escaneo
+  is 'Fecha y Hora del Scaneo.';
+comment on column IT.MI_BA_PER_FIRMAS.est_firma
+  is 'Estado.';
+comment on column IT.MI_BA_PER_FIRMAS.observacion
+  is 'Observacion.';
+comment on column IT.MI_BA_PER_FIRMAS.fec_insercion
+  is 'Fecha de Auditoria.';
+comment on column IT.MI_BA_PER_FIRMAS.usu_insercion
+  is 'Codigo de Usuario Auditoria.';
+comment on column IT.MI_BA_PER_FIRMAS.fec_modificacion
+  is 'Fecha de Auditoria.';
+comment on column IT.MI_BA_PER_FIRMAS.usu_modificacion
+  is 'Codigo de Usuario Auditoria.';
+comment on column IT.MI_BA_PER_FIRMAS.fec_aprobacion
+  is 'Fecha Aprobacion de la Firma.';
+comment on column IT.MI_BA_PER_FIRMAS.cod_usu_aprobacion
+  is 'Codigo de usuario.';
+comment on column IT.MI_BA_PER_FIRMAS.ima_firma
+  is 'Imagen de la Firma.';
+

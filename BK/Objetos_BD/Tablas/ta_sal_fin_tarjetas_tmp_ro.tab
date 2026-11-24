@@ -1,0 +1,104 @@
+create table IT.TA_SAL_FIN_TARJETAS_TMP_RO
+(
+  cod_entidad               NUMBER(3),
+  nro_cuenta                NUMBER(11),
+  cod_moneda                NUMBER(3),
+  mora                      NUMBER(15,2),
+  pag_minimo                NUMBER(15,2),
+  sal_acu_pag_minimo        NUMBER(15,2),
+  pag_min_facturado         NUMBER(15,2),
+  sal_acu_pag_mes           NUMBER(15,2),
+  sal_ult_resumen           NUMBER(15,2),
+  for_pago                  CHAR(1),
+  cta_bancaria              NUMBER(15),
+  cob_gas_financiero        CHAR(1),
+  tip_pago                  CHAR(1),
+  por_pag_minimo            NUMBER(5,2),
+  mto_min_pag_min           NUMBER(15,2),
+  mto_pag_minimo            NUMBER(15,2),
+  tip_tas_financiacion      CHAR(1),
+  fac_multiplicador         NUMBER(5,2),
+  tip_cta_bancaria          CHAR(1),
+  pag_min_personalizado     CHAR(1),
+  tip_tas_int_personalizada CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SAL_FIN_TARJETAS_TMP_RO
+  is 'Tabla de Saldos de Tarjetas';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.cod_entidad
+  is 'Código de la Entidad.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.mora
+  is 'Mora';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.pag_minimo
+  is 'Monto de Pago Mínimo';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.sal_acu_pag_minimo
+  is 'Saldo Acumulado del Pago Mínimo.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.pag_min_facturado
+  is 'Pago mínimo facturado.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.sal_acu_pag_mes
+  is 'Saldo acumulado del Pago del Mes.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.sal_ult_resumen
+  is 'Saldo del último Resumen.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.for_pago
+  is 'Forma de Pago';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.cta_bancaria
+  is 'Cuenta Bancaria';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.cob_gas_financiero
+  is 'Cobro Financiero.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.tip_pago
+  is 'Tipo de Pago.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.por_pag_minimo
+  is 'Porcentaje de pago Mínimo.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.mto_min_pag_min
+  is 'Monto MÌnimo del Pago Mínimo.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.mto_pag_minimo
+  is 'Monto del pago mínimo.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.tip_tas_financiacion
+  is 'Tipo de tasa de financiación.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.fac_multiplicador
+  is 'Factor Multiplicador.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.tip_cta_bancaria
+  is 'Tipo de Cuenta Bancaria.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.pag_min_personalizado
+  is 'Pago Mínimo Personalizado.';
+comment on column IT.TA_SAL_FIN_TARJETAS_TMP_RO.tip_tas_int_personalizada
+  is 'Tipo de Tasa Personalizada.';
+create index IT.IN_TSFIN_COD_MONEDA1 on IT.TA_SAL_FIN_TARJETAS_TMP_RO (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TSFIN_NRO_CUENTA1 on IT.TA_SAL_FIN_TARJETAS_TMP_RO (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,44 @@
+create table IT.BW_EXT_CLIC_MASIVO_TMP
+(
+  nro_orden        NUMBER(10) not null,
+  cod_persona      VARCHAR2(10) not null,
+  ret_cuentas      VARCHAR2(1) default 'N',
+  ret_tarjetas     VARCHAR2(1) default 'N',
+  nro_tarjeta      VARCHAR2(25),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_EXT_CLIC_MASIVO_TMP
+  is 'Tabla a utilizar en el proceso de importacion de datos SUS_MAS_EXT_CLIC';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.nro_orden
+  is 'Nro. Orden de la Solicitud.';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.cod_persona
+  is 'Codigo de persona del cliente.';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.ret_cuentas
+  is 'Indica si se va a suscribir todas las cuentas del cliente. Valores posibles (S/N)';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.ret_tarjetas
+  is 'Indica si se va a suscribir todas las tarjetas del cliente. Valores posibles (S/N)';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.nro_tarjeta
+  is 'Numero de tarjeta que va a suscribirse al servicio de forma individual. En este caso no se tendrá en cuenta el valor de RET_TARJETAS.';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro. ';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación. ';
+comment on column IT.BW_EXT_CLIC_MASIVO_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+

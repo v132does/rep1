@@ -1,0 +1,79 @@
+create table IT.GE_DIR_ENVIOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  tip_envio        VARCHAR2(1) not null,
+  referencia       VARCHAR2(35),
+  nro_cuenta       VARCHAR2(15),
+  observacion      VARCHAR2(250),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DIR_ENVIOS
+  is 'Direcciones de envio por Persona.';
+comment on column IT.GE_DIR_ENVIOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_DIR_ENVIOS.tip_envio
+  is 'ipo de Envio: D = Direccion, R = Retener, C = Casilla de Correo, K = Casillero.';
+comment on column IT.GE_DIR_ENVIOS.referencia
+  is 'En base al tipo de envio esta columna tendra la direccion o sucursal de retencion de los documentos.';
+comment on column IT.GE_DIR_ENVIOS.nro_cuenta
+  is 'Numero de la cuenta en caso de que este personalizado de lo contrario es nulo.';
+comment on column IT.GE_DIR_ENVIOS.observacion
+  is 'Observaciones de la direccion de envio.';
+comment on column IT.GE_DIR_ENVIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DIR_ENVIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DIR_ENVIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DIR_ENVIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GDENV_NRO_CUENTA on IT.GE_DIR_ENVIOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DIR_ENVIOS
+  add constraint UK_GE_DIR_ENVIOS unique (COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DIR_ENVIOS
+  add constraint FK_GDENV_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_DIR_ENVIOS
+  add constraint FK_GDENV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_DIR_ENVIOS
+  add constraint AVCON_1080843414_TIP_E_000
+  check (TIP_ENVIO IN ('D', 'K', 'C', 'R','N'));
+

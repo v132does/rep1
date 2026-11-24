@@ -1,0 +1,45 @@
+create table IT.LC_FOR_CUR_CUPONES_TMP
+(
+  cod_moneda       VARCHAR2(3),
+  fec_subasta      DATE,
+  dia_plazo        NUMBER(6),
+  val_tasa         NUMBER(20,4),
+  cad_plazo        VARCHAR2(200),
+  cad_tasa         VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.fec_subasta
+  is 'Fecha de Subasta en BCP';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.dia_plazo
+  is 'Dia de Plazo';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.val_tasa
+  is 'Valor de la Tasa';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.cad_plazo
+  is 'Cadena de texto de plazo usado en importacion de archivo';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.cad_tasa
+  is 'Cadena de texto de tasa usado en importacion de archivo';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.LC_FOR_CUR_CUPONES_TMP.fec_modificacion
+  is 'Fecha e Modificacion';
+

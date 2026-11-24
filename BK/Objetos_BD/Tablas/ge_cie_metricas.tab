@@ -1,0 +1,73 @@
+﻿-- Create table
+create table it.ge_cie_metricas
+(
+  nro_orden         NUMBER not null,     
+  fecha             DATE default SYSDATE not null,
+  cod_proceso       NUMBER(3) not null,
+  hor_inicio        VARCHAR2(8),
+  hor_fin           VARCHAR2(8),
+  duracion          VARCHAR2(8),
+  dur_procesos      VARCHAR2(8),
+  tot_duracion      VARCHAR2(8),
+  tot_dur_procesado VARCHAR2(8),
+  hor_operativa     VARCHAR2(8),
+  dif_duracion      VARCHAR2(8),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  dur_bkp1          VARCHAR2(8),
+  dur_bkp2          VARCHAR2(8),
+  dur_paralelo      VARCHAR2(8)
+  )
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column ge_cie_metricas.nro_orden
+  is 'Orden de ejecucion del cierre operativo';
+comment on column ge_cie_metricas.fecha
+  is 'Fecha de cierre operativo';
+comment on column ge_cie_metricas.cod_proceso
+  is 'Codigo de proceso';
+comment on column ge_cie_metricas.hor_inicio
+  is 'Hora inicio del proceso';
+comment on column ge_cie_metricas.hor_fin
+  is 'Hora fin del proceso';
+comment on column ge_cie_metricas.duracion
+  is 'Tiempo total de duracion del proceso entre hora fin y hora inicio';
+comment on column ge_cie_metricas.dur_procesos
+  is 'Tiempo total de duracion de todos los nro_orden del proceso ';
+comment on column ge_cie_metricas.tot_duracion
+  is 'Suma total de los tiempos de cierre, postCierre y inicio ';
+comment on column ge_cie_metricas.tot_dur_procesado
+  is 'Suma total de los tiempos de duracion del detalle de proceso';
+comment on column ge_cie_metricas.hor_operativa
+  is 'Hora operativa (Hora fin del nro_orden PRG_ABR_MODULOS)';
+comment on column ge_cie_metricas.usu_insercion
+  is 'Usuario de insercion';
+comment on column ge_cie_metricas.fec_insercion
+  is 'Fecha de insercion';
+comment on column ge_cie_metricas.usu_modificacion
+  is 'Usuario de modificacion';
+comment on column ge_cie_metricas.fec_modificacion
+  is 'Fecha de modificacion';
+comment on column ge_cie_metricas.dif_duracion
+  is 'Diferencia entre tot_duracion y tot_dur_procesos';
+comment on column ge_cie_metricas.dur_bkp1
+  is 'Tiempo total de duracion de backup1 ';
+comment on column ge_cie_metricas.dur_bkp2
+  is 'Tiempo total de duracion de backup2';
+comment on column GE_CIE_METRICAS.dur_paralelo
+  is 'Tiempo total de procesos en paralelo.';  
+
+-- Grant/Revoke object privileges  
+grant select, insert, update, delete on IT.ge_cie_metricas to IT_TEMPORAL;

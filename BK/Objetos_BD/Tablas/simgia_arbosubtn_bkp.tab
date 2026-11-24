@@ -1,0 +1,43 @@
+create table IT.SIMGIA_ARBOSUBTN_BKP
+(
+  tnserie    VARCHAR2(5),
+  tndesde    NUMBER,
+  tnhasta    NUMBER,
+  tnseq      CHAR(1),
+  tntitur    VARCHAR2(15),
+  tnnumclien VARCHAR2(10),
+  tntipoper  VARCHAR2(1),
+  tnnomsigla VARCHAR2(200),
+  tntipodoc  VARCHAR2(4),
+  tnnrodoc   VARCHAR2(20),
+  tncontacto VARCHAR2(4000),
+  tnnacion   VARCHAR2(255),
+  tnfenacimi CHAR(1),
+  tnestadoci CHAR(1),
+  tnconyuge  VARCHAR2(4000),
+  tndomic    CHAR(1),
+  tnciudad   CHAR(1),
+  tnpaisres  NUMBER,
+  tntelef1   CHAR(1),
+  tntelef2   CHAR(1),
+  tnfax      CHAR(1),
+  tnemail    CHAR(1),
+  tnsuc      VARCHAR2(2),
+  tncta      NUMBER,
+  tnsub      VARCHAR2(6),
+  tnfereg    VARCHAR2(8),
+  tnusuario  VARCHAR2(10),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

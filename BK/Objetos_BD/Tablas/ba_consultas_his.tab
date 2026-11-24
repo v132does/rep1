@@ -1,0 +1,58 @@
+create table IT.BA_CONSULTAS_HIS
+(
+  fecha            DATE default SYSDATE not null,
+  cod_consulta     VARCHAR2(10) not null,
+  descripcion      VARCHAR2(100),
+  cod_usuario      VARCHAR2(10),
+  permiso          VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_CONSULTAS_HIS
+  is 'Histórico de definición de Consultas SQL.';
+comment on column IT.BA_CONSULTAS_HIS.fecha
+  is 'Fecha del registro';
+comment on column IT.BA_CONSULTAS_HIS.cod_consulta
+  is 'Codigo de la consulta.';
+comment on column IT.BA_CONSULTAS_HIS.descripcion
+  is 'Descripcion de la consulta.';
+comment on column IT.BA_CONSULTAS_HIS.cod_usuario
+  is 'Usuario dueño de la consulta sql.';
+comment on column IT.BA_CONSULTAS_HIS.permiso
+  is 'Roles a quienes se da permiso.';
+comment on column IT.BA_CONSULTAS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_CONSULTAS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_CONSULTAS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_CONSULTAS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_CONSULTAS_HIS
+  add constraint PK_BA_CONSULTAS_HIS primary key (COD_CONSULTA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

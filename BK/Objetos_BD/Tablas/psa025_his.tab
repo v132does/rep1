@@ -1,0 +1,173 @@
+create table IT.PSA025_HIS
+(
+  psa025_hisfin VARCHAR2(8) not null,
+  psa025_hisffi VARCHAR2(8) not null,
+  psa025_hispai NUMBER(3) not null,
+  psa025_histdo NUMBER(4) not null,
+  psa025_hisndo VARCHAR2(25) not null,
+  psa025_hiscpr VARCHAR2(25) not null,
+  psa025_hisnpr VARCHAR2(40),
+  psa025_hisent NUMBER(3),
+  psa025_hisden VARCHAR2(40),
+  psa025_hisvsl NUMBER(9),
+  psa025_histoc NUMBER(18,2),
+  psa025_hiscoc NUMBER(10),
+  psa025_histod NUMBER(18,2),
+  psa025_hiscod NUMBER(10),
+  psa025_hissdo NUMBER(18,2),
+  psa025_hisvcm NUMBER(18,2),
+  psa025_hisfei VARCHAR2(8),
+  psa025_hisvfp NUMBER(9),
+  psa025_hisn01 NUMBER(18,2),
+  psa025_hisn02 NUMBER(18,2),
+  psa025_hisn03 NUMBER(18,2),
+  psa025_hisn04 NUMBER(18,2),
+  psa025_hisn05 NUMBER(18,2),
+  psa025_hisn06 NUMBER(18,2),
+  psa025_hisn07 NUMBER(18,2),
+  psa025_hisn08 NUMBER(18,2),
+  psa025_hisn09 NUMBER(18,2),
+  psa025_hisn10 NUMBER(18,2),
+  psa025_hisc01 VARCHAR2(100),
+  psa025_hisc02 VARCHAR2(100),
+  psa025_hisc03 VARCHAR2(100),
+  psa025_hisc04 VARCHAR2(100),
+  psa025_hisc05 VARCHAR2(100),
+  psa025_hisc06 VARCHAR2(100),
+  psa025_hisc07 VARCHAR2(100),
+  psa025_hisc08 VARCHAR2(100),
+  psa025_hisc09 VARCHAR2(100),
+  psa025_hisc10 VARCHAR2(100),
+  psa025_hisf01 VARCHAR2(8),
+  psa025_hisf02 VARCHAR2(8),
+  psa025_hisf03 VARCHAR2(8),
+  psa025_hisf04 VARCHAR2(8),
+  psa025_hisf05 VARCHAR2(8),
+  psa025_hisf06 VARCHAR2(8),
+  psa025_hisf07 VARCHAR2(8),
+  psa025_hisf08 VARCHAR2(8),
+  psa025_hisf09 VARCHAR2(8),
+  psa025_hisf10 VARCHAR2(8)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA025_HIS
+  is 'TABLA Base de Productos de PIC';
+comment on column IT.PSA025_HIS.psa025_hisfin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA025_HIS.psa025_hisffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA025_HIS.psa025_hispai
+  is 'Pais del documento.';
+comment on column IT.PSA025_HIS.psa025_histdo
+  is 'Tipo de documento.';
+comment on column IT.PSA025_HIS.psa025_hisndo
+  is 'Numero de documento.';
+comment on column IT.PSA025_HIS.psa025_hiscpr
+  is 'Codigo de Producto.';
+comment on column IT.PSA025_HIS.psa025_hisnpr
+  is 'Nombre de Producto.';
+comment on column IT.PSA025_HIS.psa025_hisent
+  is 'Entidad.';
+comment on column IT.PSA025_HIS.psa025_hisden
+  is 'Descripcion Entidad.';
+comment on column IT.PSA025_HIS.psa025_hisvsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA025_HIS.psa025_histoc
+  is 'Volumen Total de las Operaciones Credito.';
+comment on column IT.PSA025_HIS.psa025_hiscoc
+  is 'Cantidad de Operaciones Credito.';
+comment on column IT.PSA025_HIS.psa025_histod
+  is 'Volumen Total de las Operaciones Debito.';
+comment on column IT.PSA025_HIS.psa025_hiscod
+  is 'Cantidad de Operaciones Debito.';
+comment on column IT.PSA025_HIS.psa025_hissdo
+  is 'Saldo del Producto al Final del Periodo.';
+comment on column IT.PSA025_HIS.psa025_hisvcm
+  is 'Valor de la Cuota Correspondiente al Periodo.';
+comment on column IT.PSA025_HIS.psa025_hisfei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA025_HIS.psa025_hisvfp
+  is 'Vulnerabilidad del Factor Productos.';
+comment on column IT.PSA025_HIS.psa025_hisn01
+  is 'Auxiliar Numerico 01.';
+comment on column IT.PSA025_HIS.psa025_hisn02
+  is 'Auxiliar Numerico 02.';
+comment on column IT.PSA025_HIS.psa025_hisn04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA025_HIS.psa025_hisn05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA025_HIS.psa025_hisn06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA025_HIS.psa025_hisn07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA025_HIS.psa025_hisn08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA025_HIS.psa025_hisn09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA025_HIS.psa025_hisn10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA025_HIS.psa025_hisc01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA025_HIS.psa025_hisc02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA025_HIS.psa025_hisc03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA025_HIS.psa025_hisc04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA025_HIS.psa025_hisc05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA025_HIS.psa025_hisc06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA025_HIS.psa025_hisc07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA025_HIS.psa025_hisc08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA025_HIS.psa025_hisc09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA025_HIS.psa025_hisc10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA025_HIS.psa025_hisf01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA025_HIS.psa025_hisf02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA025_HIS.psa025_hisf03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA025_HIS.psa025_hisf04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA025_HIS.psa025_hisf05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA025_HIS.psa025_hisf06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA025_HIS.psa025_hisf07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA025_HIS.psa025_hisf08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA025_HIS.psa025_hisf09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA025_HIS.psa025_hisf10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA025_HIS
+  add constraint PK_PSA025_HIS primary key (PSA025_HISFIN, PSA025_HISFFI, PSA025_HISPAI, PSA025_HISTDO, PSA025_HISNDO, PSA025_HISCPR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

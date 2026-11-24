@@ -1,0 +1,82 @@
+create table IT.BA_TAB_DEF_ADICIONALES
+(
+  tab_relacion     VARCHAR2(30) not null,
+  parametro        VARCHAR2(30) not null,
+  etiqueta         VARCHAR2(35),
+  tip_campo        VARCHAR2(1) default 'T',
+  tip_dato         VARCHAR2(1) default 'A',
+  obligatorio      VARCHAR2(1) default 'N' not null,
+  modificable      VARCHAR2(1) default 'N' not null,
+  val_defecto      VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  lon_maxima       NUMBER(3) default 200,
+  referencia       VARCHAR2(30),
+  observacion      VARCHAR2(200),
+  tipo             VARCHAR2(50),
+  nro_orden        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_TAB_DEF_ADICIONALES
+  is 'Definicion de Datos Adicionales por tablas';
+comment on column IT.BA_TAB_DEF_ADICIONALES.tab_relacion
+  is 'Tabla a la cual se agregaran estos datos';
+comment on column IT.BA_TAB_DEF_ADICIONALES.parametro
+  is 'Codigo de campo.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.etiqueta
+  is 'Etiqueta del Campo';
+comment on column IT.BA_TAB_DEF_ADICIONALES.tip_campo
+  is 'Tipo de Campo: T-exto, L-Lista, C-heck ';
+comment on column IT.BA_TAB_DEF_ADICIONALES.tip_dato
+  is 'Tipo de Dato si es  F-echa, H-ora, $-monto, %-tasa, A-lfanumerico, C-odigo, M-mayusculas , L-Letras, N-numerico.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.obligatorio
+  is 'Es obligatorio la carga del campo.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.modificable
+  is 'Es modificable el campo.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.val_defecto
+  is 'Es el valor por defecto.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.lon_maxima
+  is 'Longitud Maxima del campo.';
+comment on column IT.BA_TAB_DEF_ADICIONALES.referencia
+  is 'Referencia para indicar la lista de valores para este campo';
+comment on column IT.BA_TAB_DEF_ADICIONALES.observacion
+  is 'Comentario del campo';
+comment on column IT.BA_TAB_DEF_ADICIONALES.tipo
+  is 'Tipo para que los casos en los que aplica. Ejemplo: Tipo de Reclamo';
+comment on column IT.BA_TAB_DEF_ADICIONALES.nro_orden
+  is 'Nro de orden de aparicion del campo';
+alter table IT.BA_TAB_DEF_ADICIONALES
+  add constraint PK_BA_TAB_DEF_ADICIONALES unique (TAB_RELACION, PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

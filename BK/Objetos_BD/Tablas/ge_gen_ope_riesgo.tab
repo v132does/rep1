@@ -1,0 +1,182 @@
+create table IT.GE_GEN_OPE_RIESGO
+(
+  cod_persona               VARCHAR2(10) not null,
+  fec_desde                 DATE not null,
+  fec_hasta                 DATE not null,
+  cod_tip_documento         VARCHAR2(3) not null,
+  nro_documento             VARCHAR2(25) not null,
+  nro_operacion             VARCHAR2(60) not null,
+  fec_operacion             DATE not null,
+  cod_tip_instrumento       VARCHAR2(10),
+  mto_equ_local             NUMBER(20,2) not null,
+  nro_cuenta                VARCHAR2(50),
+  tip_cuenta                VARCHAR2(3),
+  cod_moneda                NUMBER(4),
+  mto_mon_origen            NUMBER(20,2),
+  cotizacion                NUMBER(20,2),
+  mto_mon_extranjera        NUMBER(20,2) not null,
+  cod_mon_destino           NUMBER(4),
+  cot_mon_destino           NUMBER(20,2),
+  cod_entidad               NUMBER(4) default 1007 not null,
+  cod_oficina               VARCHAR2(5),
+  nom_ent_externa           VARCHAR2(30),
+  nom_ofi_ent_externa       VARCHAR2(30),
+  nro_cta_ent_externa       VARCHAR2(50),
+  cod_pai_ent_externa       VARCHAR2(5),
+  nom_ciu_ent_externa       VARCHAR2(50),
+  nro_cheque                VARCHAR2(30),
+  beneficiario              VARCHAR2(100),
+  ordenante                 VARCHAR2(100),
+  nro_boleta                VARCHAR2(25),
+  motivo                    VARCHAR2(60),
+  observacion               VARCHAR2(50),
+  comentario                VARCHAR2(50),
+  saldo                     NUMBER(20,2),
+  cod_pai_bco_intermediario VARCHAR2(6),
+  nom_bco_intermediario     VARCHAR2(30),
+  cod_aba_bco_intermediario VARCHAR2(18),
+  cod_swi_bco_intermediario VARCHAR2(18),
+  nom_corresponsal          VARCHAR2(30),
+  usu_insercion             VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion             DATE default SYSDATE,
+  usu_modificacion          VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion          DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_GEN_OPE_RIESGO
+  is 'Datos para SEPRELAD - Información transaccional complementaria. Resolución 104';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_persona
+  is 'Codigo de la persona sobre la que se hace el informe.';
+comment on column IT.GE_GEN_OPE_RIESGO.fec_desde
+  is 'Fecha inicial desde la que se hace el Informe de Transacciones.';
+comment on column IT.GE_GEN_OPE_RIESGO.fec_hasta
+  is 'Fecha final hasta la que se informa de las Transacciones.';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_tip_documento
+  is 'Tipo de identificación del actor reportado
+según codificación convenida (Ej. Cédula
+de identidad, RUC, pasaporte, etc.)';
+comment on column IT.GE_GEN_OPE_RIESGO.nro_documento
+  is 'Nro de identificación del actor reportado
+(Ej. Cédula de identidad, RUC, pasaporte,
+etc.)';
+comment on column IT.GE_GEN_OPE_RIESGO.nro_operacion
+  is 'Número asignado por la entidad que
+identifica univocamente la operación
+realizada.';
+comment on column IT.GE_GEN_OPE_RIESGO.fec_operacion
+  is 'Fecha en que se realizó la operación.';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_tip_instrumento
+  is 'Código de tipo de instrumento según
+codificación convenida.';
+comment on column IT.GE_GEN_OPE_RIESGO.mto_equ_local
+  is 'Monto en moneda local (guaraníes) de la
+operación / Importe del cheque, depósito,
+cargos, transferencia, compra/venta
+divisas, arbitraje, ATM, extracciones,
+préstamo, etc.';
+comment on column IT.GE_GEN_OPE_RIESGO.nro_cuenta
+  is 'Numero de Cuenta Corriente / Caja de
+Ahorro / etc.';
+comment on column IT.GE_GEN_OPE_RIESGO.tip_cuenta
+  is 'Código de Tipo de Cuenta: Caja de Ahorro,
+Cuenta Corriente, etc, según codificación
+convenida.';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_moneda
+  is 'Código de Moneda(BCP) según codificación convenida.';
+comment on column IT.GE_GEN_OPE_RIESGO.mto_mon_origen
+  is 'Monto en Moneda de origen usado en
+operaciones con Moneda origen distinta a
+moneda local.';
+comment on column IT.GE_GEN_OPE_RIESGO.cotizacion
+  is 'Cotización del dólar estadounidense en la
+moneda de origen. Si la moneda origen es
+Dólar estadounidense, completar con 1.00';
+comment on column IT.GE_GEN_OPE_RIESGO.mto_mon_extranjera
+  is 'Monto en dólares de la operación
+informada, según cotización de la fecha
+de la operación.';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_mon_destino
+  is 'Código de Moneda (BCP) según codificación convenida para arbitraje.';
+comment on column IT.GE_GEN_OPE_RIESGO.cot_mon_destino
+  is 'Cotización de la Moneda destino sólo para
+tipo de operación arbitraje. Cotización
+del Dólar estadounidense en la moneda
+destino. Si la moneda destino es dólar
+estadounidense, completar con 1.00';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_entidad
+  is 'Código de entidad de Sujeto obligado,
+según codificación convenida, asignado por defecto Codigo de la Entidad para el BCP.';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_oficina
+  is 'Código de agencia de la entidad de Sujeto
+obligado, según codificación convenida.';
+comment on column IT.GE_GEN_OPE_RIESGO.nom_ent_externa
+  is 'Nombre otra entidad origen/destino o
+Banco Corresponsal, en casos de
+transferencias.';
+comment on column IT.GE_GEN_OPE_RIESGO.nom_ofi_ent_externa
+  is 'Nombre otra sucursal origen / destino , en
+casos de transferencia.';
+comment on column IT.GE_GEN_OPE_RIESGO.nro_cta_ent_externa
+  is 'Número de otra Cuenta origen / destino.
+(en casos de transferencias)';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_pai_ent_externa
+  is 'Código de pais de la otra entidad origen /
+destino o Banco Corresponsal, según
+codificación convenida en casos de
+transferencias.';
+comment on column IT.GE_GEN_OPE_RIESGO.nom_ciu_ent_externa
+  is 'Nombre de otra ciudad origen / destino,
+(en casos de transferencias)';
+comment on column IT.GE_GEN_OPE_RIESGO.nro_cheque
+  is 'Número de Cheque / Nro.cupón
+(depósitos, cobro cheques, etc.)';
+comment on column IT.GE_GEN_OPE_RIESGO.beneficiario
+  is 'Persona que recibe la transferencia /
+beneficiario CDA / beneficiario de cheque /
+etc.';
+comment on column IT.GE_GEN_OPE_RIESGO.ordenante
+  is 'Persona que ordena la transferencia .';
+comment on column IT.GE_GEN_OPE_RIESGO.nro_boleta
+  is 'Nro de boleta o comprobante de depósito /
+extracción / compra / venta divisas /
+nro.CDA / nro.cupón de tarjeta / etc.';
+comment on column IT.GE_GEN_OPE_RIESGO.motivo
+  is 'Descripción del motivo de la transferencia,
+devolución, préstamo, etc.';
+comment on column IT.GE_GEN_OPE_RIESGO.observacion
+  is 'Observación en el caso de ser rechazado
+por falta de fondo.Cheque emitido débito /
+Cargos bancarios o varios débito / crédito
+/ Extracciones caja de ahorro débito.';
+comment on column IT.GE_GEN_OPE_RIESGO.comentario
+  is 'Comentarios de la operación / transacción';
+comment on column IT.GE_GEN_OPE_RIESGO.saldo
+  is 'Saldo de la cuenta (Informativo)';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_pai_bco_intermediario
+  is 'Código de país de Banco Intermediario,
+según codificación convenida.';
+comment on column IT.GE_GEN_OPE_RIESGO.nom_bco_intermediario
+  is 'Nombre de Banco Intermediario';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_aba_bco_intermediario
+  is 'Código alfanumérico. Usado en
+Transferencias internacionales.';
+comment on column IT.GE_GEN_OPE_RIESGO.cod_swi_bco_intermediario
+  is 'Código internacional alfanumérico. Usado
+en Transferencias internacionales.';
+comment on column IT.GE_GEN_OPE_RIESGO.nom_corresponsal
+  is 'Nombre de sucursal de Banco
+Corresponsal.';
+alter table IT.GE_GEN_OPE_RIESGO
+  add constraint FK_GGRIE_CODPERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

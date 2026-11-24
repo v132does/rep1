@@ -1,0 +1,97 @@
+create table IT.GE_SPI_ALI_CAS
+(
+  nro_referencia      VARCHAR2(33) not null,
+  tip_identificador   VARCHAR2(10) not null,
+  val_identificador   VARCHAR2(80) not null,
+  cod_persona         VARCHAR2(10),
+  fec_registro        DATE,
+  fec_ven_registro    DATE,
+  nro_cta_solicitante VARCHAR2(35),
+  est_alias           VARCHAR2(20),
+  est_solicitud       VARCHAR2(1),
+  cli_recordid        VARCHAR2(33),
+  ali_recordid        VARCHAR2(33),
+  cue_recordid        VARCHAR2(33),
+  cta_por_defecto     VARCHAR2(1),
+  error               VARCHAR2(4000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default sysdate not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default sysdate not null,
+  tip_accion          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_ALI_CAS
+  is 'Registro de las columnas de Consulta de datos en alias CAS.';
+comment on column IT.GE_SPI_ALI_CAS.nro_referencia
+  is 'Número de referencia de la solicitud';
+comment on column IT.GE_SPI_ALI_CAS.tip_identificador
+  is 'Tipo de Identificador del Alias.';
+comment on column IT.GE_SPI_ALI_CAS.val_identificador
+  is 'Valor de Identificador del Alias';
+comment on column IT.GE_SPI_ALI_CAS.cod_persona
+  is 'Código de persona solicitante.';
+comment on column IT.GE_SPI_ALI_CAS.fec_registro
+  is 'Fecha de registro del alias';
+comment on column IT.GE_SPI_ALI_CAS.fec_ven_registro
+  is 'Fecha de vencimiento del registro.';
+comment on column IT.GE_SPI_ALI_CAS.nro_cta_solicitante
+  is 'Número de cuenta del solicitante';
+comment on column IT.GE_SPI_ALI_CAS.est_alias
+  is 'Estado del Alias';
+comment on column IT.GE_SPI_ALI_CAS.est_solicitud
+  is 'Estado de la Solicitud';
+comment on column IT.GE_SPI_ALI_CAS.cli_recordid
+  is 'Identificador del Cliente en el módulo CAS';
+comment on column IT.GE_SPI_ALI_CAS.ali_recordid
+  is 'Identificador del Alias en el módulo CAS';
+comment on column IT.GE_SPI_ALI_CAS.cue_recordid
+  is 'Identificador de la Cuenta en el módulo CAS';
+comment on column IT.GE_SPI_ALI_CAS.cta_por_defecto
+  is ' Indicador de cuenta por defecto. Valores:
+
+''S'' [SI]
+
+''N'' [N]';
+comment on column IT.GE_SPI_ALI_CAS.error
+  is 'Detalles de error';
+comment on column IT.GE_SPI_ALI_CAS.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_SPI_ALI_CAS.fec_insercion
+  is 'Fecha de insercion del registro';
+comment on column IT.GE_SPI_ALI_CAS.usu_modificacion
+  is 'Usuario que modifica el registro';
+comment on column IT.GE_SPI_ALI_CAS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.GE_SPI_ALI_CAS.tip_accion
+  is 'Se identifica si el alta es via web o itgf.
+valores
+''A'' alta que viene desde la web
+''E'' Edicion que viene desde la web
+null  via itgf
+';
+alter table IT.GE_SPI_ALI_CAS
+  add constraint PK_REF_ALI_CAS primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,55 @@
+create table IT.BW_INF_CLAVES
+(
+  nro_lote         NUMBER not null,
+  cod_persona      VARCHAR2(10) not null,
+  est_clave        VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_INF_CLAVES
+  is 'Datos de la Clave Transaccional del Cliente.';
+comment on column IT.BW_INF_CLAVES.nro_lote
+  is 'Número de Lote (identificación para visualizar la generación masiva de claves).';
+comment on column IT.BW_INF_CLAVES.cod_persona
+  is 'Código del Cliente.';
+comment on column IT.BW_INF_CLAVES.est_clave
+  is 'Estado de la clave (N/Nuevo, B/Bloqueado, A/Activo, I/Impreso, X/Anulado).';
+comment on column IT.BW_INF_CLAVES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_INF_CLAVES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_INF_CLAVES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_INF_CLAVES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.BW_INF_CLAVES
+  add constraint PK_BW_INF_CLAVES primary key (NRO_LOTE, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_INF_CLAVES
+  add constraint FK_WOINF_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

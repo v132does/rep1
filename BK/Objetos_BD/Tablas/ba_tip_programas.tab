@@ -1,0 +1,82 @@
+create table IT.BA_TIP_PROGRAMAS
+(
+  cod_tip_programa NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE,
+  inserta          VARCHAR2(1) default 'N' not null,
+  actualiza        VARCHAR2(1) default 'N' not null,
+  elimina          VARCHAR2(1) default 'N' not null,
+  consulta         VARCHAR2(1) default 'N' not null,
+  imprime          VARCHAR2(1) default 'N' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_TIP_PROGRAMAS
+  is 'Tipos de Programas Logicos.';
+comment on column IT.BA_TIP_PROGRAMAS.cod_tip_programa
+  is 'Codigo de Tipo de Programa.';
+comment on column IT.BA_TIP_PROGRAMAS.descripcion
+  is 'Descripcion del tipo de programa.';
+comment on column IT.BA_TIP_PROGRAMAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_TIP_PROGRAMAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_TIP_PROGRAMAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TIP_PROGRAMAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TIP_PROGRAMAS.inserta
+  is 'Indica si al Tipo de Programa puede asignarse Permiso de Inserción.';
+comment on column IT.BA_TIP_PROGRAMAS.actualiza
+  is 'Indica si al Tipo de Programa puede asignarse Permiso de Actualización.';
+comment on column IT.BA_TIP_PROGRAMAS.elimina
+  is 'Indica si al Tipo de Programa puede asignarse Permiso de Eliminación.';
+comment on column IT.BA_TIP_PROGRAMAS.consulta
+  is 'Indica si al Tipo de Programa puede asignarse Permiso de Consulta.';
+comment on column IT.BA_TIP_PROGRAMAS.imprime
+  is 'Indica si al Tipo de Programa puede asignarse Permiso de Impresión.';
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint PK_BA_TIP_PROGRAMAS primary key (COD_TIP_PROGRAMA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint AVCON_1080842839_COD_T_005
+  check (COD_TIP_PROGRAMA BETWEEN 1 AND 999);
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint CK_ACTUALIZA
+  check (ACTUALIZA IN ('S', 'N'));
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint CK_CONSULTA
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint CK_ELIMINA
+  check (ELIMINA IN ('S', 'N'));
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint CK_IMPRIME
+  check (IMPRIME IN ('S', 'N'));
+alter table IT.BA_TIP_PROGRAMAS
+  add constraint CK_INSERTA
+  check (INSERTA IN ('S', 'N'));
+

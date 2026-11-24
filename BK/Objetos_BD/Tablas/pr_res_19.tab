@@ -1,0 +1,55 @@
+create table IT.PR_RES_19
+(
+  nro_cta                VARCHAR2(20),
+  nro_cta_nue            VARCHAR2(20),
+  cod_moneda             VARCHAR2(10),
+  tabla                  VARCHAR2(3),
+  sal_inv_interes        NUMBER(18,2) default 0,
+  sal_inv_interes1       NUMBER(18,2) default 0,
+  dif_inv_interes        NUMBER(18,2) default 0,
+  sal_inv_int_moratorio  NUMBER(18,2) default 0,
+  sal_inv_int_moratorio1 NUMBER(18,2) default 0,
+  dif_inv_moratorio      NUMBER(18,2) default 0,
+  sal_inv_int_punitorio  NUMBER(18,2) default 0,
+  sal_inv_int_punitorio1 NUMBER(18,2) default 0,
+  dif_inv_punitorio      NUMBER(18,2) default 0,
+  sal_inv_ges_cobranza   NUMBER(18,2) default 0,
+  sal_inv_ges_cobranza1  NUMBER(18,2) default 0,
+  dif_inv_ges_cobranza   NUMBER(18,2) default 0,
+  sal_inv_sobregiro      NUMBER(18,2) default 0,
+  sal_inv_sobregiro1     NUMBER(18,2) default 0,
+  dif_inv_sobregiro      NUMBER(18,2) default 0,
+  sal_inv_val_suspenso   NUMBER(18,2) default 0,
+  sal_inv_val_suspenso1  NUMBER(18,2) default 0,
+  dif_inv_val_suspenso   NUMBER(18,2) default 0,
+  nro_secuencia          NUMBER(10),
+  nro_sol_nueva          NUMBER(10),
+  fec_cancelacion        DATE,
+  cod_oficina            NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_RES_19
+  is 'Paises.';
+create index IT.IND_RES19 on IT.PR_RES_19 (NRO_CTA, NRO_CTA_NUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

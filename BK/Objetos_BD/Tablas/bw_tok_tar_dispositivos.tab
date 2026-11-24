@@ -1,0 +1,56 @@
+create table IT.BW_TOK_TAR_DISPOSITIVOS
+(
+  cod_dispositivo  VARCHAR2(30) not null,
+  nro_dispositivo  VARCHAR2(36),
+  nom_dispositivo  VARCHAR2(36),
+  tip_dispositivo  VARCHAR2(36),
+  ind_dispositivo  VARCHAR2(36),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.cod_dispositivo
+  is 'Codigo Dispotivo';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.nro_dispositivo
+  is 'Número Dispositivo';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.nom_dispositivo
+  is 'Nombre del Dispositivo';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.tip_dispositivo
+  is 'Tipo de dispositivo. UNKNOWN, MOBILE_PHONE, TABLET, WATCH';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.ind_dispositivo
+  is 'Índice del baúl donde el deviceID es almacenado';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_DISPOSITIVOS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_DISPOSITIVOS
+  add constraint PK_BW_TOK_TAR_DISPOSITIVOS primary key (COD_DISPOSITIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

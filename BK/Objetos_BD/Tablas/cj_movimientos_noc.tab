@@ -1,0 +1,163 @@
+create table IT.CJ_MOVIMIENTOS_NOC
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  nro_secuencia      NUMBER(3) not null,
+  cod_tra_padre      NUMBER(4) not null,
+  cod_mod_padre      NUMBER(3) not null,
+  cod_mad_padre      NUMBER(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  nro_caja           NUMBER(3) not null,
+  nro_cuenta         VARCHAR2(15),
+  monto              NUMBER(18,2) default 0 not null,
+  tip_monto          VARCHAR2(1) not null,
+  tot_detallado      NUMBER(18,2) default 0,
+  tipo               VARCHAR2(1),
+  nro_documento      NUMBER(15),
+  nro_doc_referencia NUMBER(15),
+  cod_rubro          VARCHAR2(15),
+  cod_ofi_rubro      NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  estado             VARCHAR2(1) default 'N' not null,
+  can_impresion      NUMBER(3),
+  nro_ref_externo    VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_MOVIMIENTOS_NOC
+  is 'Transacciones de Caja ** Se carga diariamente **';
+comment on column IT.CJ_MOVIMIENTOS_NOC.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.hora
+  is 'Hora de la transaccion.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.nro_secuencia
+  is 'Nro. de Secuencia.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_tra_padre
+  is 'Codigo de transaccion.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.nro_caja
+  is 'Numero de caja.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.monto
+  is 'Importe de la Transaccion.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.tip_monto
+  is 'Tipo de Monto (E=Efectivo, C=Cargo Nuestro, O=Cargo Otros).';
+comment on column IT.CJ_MOVIMIENTOS_NOC.tot_detallado
+  is 'Total Detallado de Cheques.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.tipo
+  is 'Indicador de si Entrega o Recibe (E=Entrega, R=Recibe).';
+comment on column IT.CJ_MOVIMIENTOS_NOC.nro_documento
+  is 'Numero de Documento (Boleta).';
+comment on column IT.CJ_MOVIMIENTOS_NOC.nro_doc_referencia
+  is 'Numero de Documento de Referencia.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_rubro
+  is 'Codigo de cuenta Contable.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.cod_ofi_rubro
+  is 'Oficina de la Cuenta Contable.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.estado
+  is 'Estado del movimiento.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.can_impresion
+  is 'Cantidad de veces que se imprimió un comprobante/ operación.';
+comment on column IT.CJ_MOVIMIENTOS_NOC.nro_ref_externo
+  is 'Almacena el número identificador de la verificación realizada en el servicio externo FACPOD.';
+create index IT.IN_JMONO_NRO_CUENTA on IT.CJ_MOVIMIENTOS_NOC (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint PK_CJ_MOVIMIENTOS_NOC primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint FK_JMONO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint FK_JMONO_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint FK_JMONO_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint FK_JMONO_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint FK_JMONO_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_COD_M_002
+  check (COD_MOD_PADRE BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_COD_M_003
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_COD_O_002
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_COD_O_003
+  check (COD_OFI_RUBRO BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_COD_T_001
+  check (COD_TRA_PADRE BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_NRO_C_001
+  check (NRO_CAJA BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_NRO_S_001
+  check (NRO_SECUENCIA BETWEEN 0 AND 999);
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_TIP_M_001
+  check (TIP_MONTO IN ('E', 'C', 'O', 'T', 'S','X'));
+alter table IT.CJ_MOVIMIENTOS_NOC
+  add constraint AVCON_1082384226_TIPO_001
+  check (TIPO IN ('D', 'C', 'N'));
+

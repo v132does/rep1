@@ -1,0 +1,17 @@
+create index IT.IN_GSMEN_COD_FEC_VALOR on IT.GE_SNP_MENSAJES("COD_MSJ_SWIFT","FEC_VALOR")
+ONLINE                                                                                   
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  LOCAL 
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  

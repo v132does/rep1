@@ -1,0 +1,1 @@
+drop procedure it.prt_act_tar_vir_credito;

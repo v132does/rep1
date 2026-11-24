@@ -1,0 +1,142 @@
+create table IT.PR_GAR_VEHICULOS
+(
+  nro_garantia      NUMBER(7) not null,
+  nro_contrato      NUMBER(8) not null,
+  cod_marca         NUMBER(5),
+  modelo            VARCHAR2(50),
+  ano               NUMBER(4),
+  nro_motor         VARCHAR2(20),
+  nro_chasis        VARCHAR2(20),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  nro_chapa         VARCHAR2(15),
+  nro_cedula        VARCHAR2(15),
+  fec_inscripcion   DATE,
+  cod_ent_seguro    NUMBER(5),
+  nro_poliza        VARCHAR2(20),
+  fec_vto_seguro    DATE,
+  tip_prenda        VARCHAR2(1),
+  cod_ent_tasador   NUMBER(5),
+  val_tasacion      NUMBER(18,2),
+  fec_inicio        DATE,
+  fec_vencimiento   DATE,
+  movil             VARCHAR2(1),
+  val_seguro        NUMBER(18,2),
+  val_vta_rapida    NUMBER(18,2) default 0,
+  fec_fir_escritura DATE,
+  nro_inscripcion   VARCHAR2(20),
+  nro_folio         NUMBER(5),
+  fec_ini_seguro    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_GAR_VEHICULOS
+  is 'Contiene los datos de Garantías Prendarias(vehiculos).';
+comment on column IT.PR_GAR_VEHICULOS.nro_garantia
+  is 'Número identificador de la Garantía.';
+comment on column IT.PR_GAR_VEHICULOS.nro_contrato
+  is 'Número del Contrato.';
+comment on column IT.PR_GAR_VEHICULOS.cod_marca
+  is 'Código de marca del vehículo.';
+comment on column IT.PR_GAR_VEHICULOS.modelo
+  is 'Modelo del vehículo.';
+comment on column IT.PR_GAR_VEHICULOS.ano
+  is 'Año del vehículo.';
+comment on column IT.PR_GAR_VEHICULOS.nro_motor
+  is 'Número de motor.';
+comment on column IT.PR_GAR_VEHICULOS.nro_chasis
+  is 'Número de Chasis.';
+comment on column IT.PR_GAR_VEHICULOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GAR_VEHICULOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GAR_VEHICULOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_VEHICULOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_VEHICULOS.nro_chapa
+  is 'Número de Chapa.';
+comment on column IT.PR_GAR_VEHICULOS.nro_cedula
+  is 'Número de Cédula. ';
+comment on column IT.PR_GAR_VEHICULOS.fec_inscripcion
+  is 'Fecha de Inscripción.';
+comment on column IT.PR_GAR_VEHICULOS.cod_ent_seguro
+  is 'Código del Seguro.';
+comment on column IT.PR_GAR_VEHICULOS.nro_poliza
+  is 'Número de Poliza de Seguro.';
+comment on column IT.PR_GAR_VEHICULOS.fec_vto_seguro
+  is 'Fecha de Vencimiento del Seguro.';
+comment on column IT.PR_GAR_VEHICULOS.tip_prenda
+  is 'Tipo de Prenda (M=Maquinaria, E=Equipos Agricolas, I=Industriales, A=Automoviles).';
+comment on column IT.PR_GAR_VEHICULOS.cod_ent_tasador
+  is 'Código de Tasador.';
+comment on column IT.PR_GAR_VEHICULOS.val_tasacion
+  is 'Valor de la Tasación.';
+comment on column IT.PR_GAR_VEHICULOS.fec_inicio
+  is 'Fecha de Tasación.';
+comment on column IT.PR_GAR_VEHICULOS.fec_vencimiento
+  is 'Fecha de Vencimiento de la Tasación.';
+comment on column IT.PR_GAR_VEHICULOS.movil
+  is 'Indica si es móvil o no.';
+comment on column IT.PR_GAR_VEHICULOS.val_seguro
+  is 'Valor del serguro.';
+comment on column IT.PR_GAR_VEHICULOS.val_vta_rapida
+  is 'Monto de Venta Rápida.';
+comment on column IT.PR_GAR_VEHICULOS.fec_fir_escritura
+  is 'Fecha de Firma de Escritura del Seguro.';
+comment on column IT.PR_GAR_VEHICULOS.nro_inscripcion
+  is 'Nro. de Inscripción de Registro Público de la Prenda.';
+comment on column IT.PR_GAR_VEHICULOS.nro_folio
+  is 'Nro. de Folio del Registro Público de la Prenda.';
+comment on column IT.PR_GAR_VEHICULOS.fec_ini_seguro
+  is 'Fecha de Inicio de Seguro.';
+create index IT.IN_PGVEH_COD_ENT_SEGURO on IT.PR_GAR_VEHICULOS (COD_ENT_SEGURO, COD_ENT_TASADOR, COD_MARCA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_VEHICULOS
+  add constraint PK_PR_GAR_VEHICULOS primary key (NRO_GARANTIA, NRO_CONTRATO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_VEHICULOS
+  add constraint FK_PGVEH_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GAR_VEHICULOS
+  add constraint FK_PGVEH_COD_ENT_TASADOR foreign key (COD_ENT_TASADOR)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GAR_VEHICULOS
+  add constraint FK_PGVEH_COD_MARCA foreign key (COD_MARCA)
+  references IT.CR_MAR_VEHICULOS (COD_MARCA);
+alter table IT.PR_GAR_VEHICULOS
+  add constraint FK_PGVEH_NRO_GARANTIA foreign key (NRO_GARANTIA)
+  references IT.PR_GARANTIAS (NRO_GARANTIA);
+

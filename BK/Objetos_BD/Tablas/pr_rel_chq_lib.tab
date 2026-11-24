@@ -1,0 +1,79 @@
+create table IT.PR_REL_CHQ_LIB
+(
+  cod_banco         NUMBER(3) not null,
+  nro_cheque        NUMBER(15) not null,
+  cta_libradora     VARCHAR2(20) not null,
+  nro_documento     VARCHAR2(20) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_tip_documento NUMBER(3) default 1 not null,
+  sexo              VARCHAR2(1),
+  cod_rub_primario  VARCHAR2(6),
+  fec_nacimiento    DATE,
+  fec_vto_documento DATE,
+  telefono          VARCHAR2(10),
+  direccion         VARCHAR2(80)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_REL_CHQ_LIB
+  is 'Relacion Cheques con Libradores.';
+comment on column IT.PR_REL_CHQ_LIB.cod_banco
+  is 'Cóodigo de banco.';
+comment on column IT.PR_REL_CHQ_LIB.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.PR_REL_CHQ_LIB.cta_libradora
+  is 'Número de cuenta libradora.';
+comment on column IT.PR_REL_CHQ_LIB.nro_documento
+  is 'Número de documento (cédula de identidad o ruc).';
+comment on column IT.PR_REL_CHQ_LIB.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_REL_CHQ_LIB.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_REL_CHQ_LIB.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_REL_CHQ_LIB.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_REL_CHQ_LIB.cod_tip_documento
+  is 'Código de tipo de documento.';
+create index IT.IN_PRCLI_CTA_LIBRADORA on IT.PR_REL_CHQ_LIB (CTA_LIBRADORA, COD_BANCO, NRO_CHEQUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 9M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_REL_CHQ_LIB
+  add constraint PK_PR_REL_CHQ_LIB primary key (COD_BANCO, NRO_CHEQUE, CTA_LIBRADORA, COD_TIP_DOCUMENTO, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 14M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_REL_CHQ_LIB
+  add constraint FK_PRCLI_COD_TIP_DOCUMENTO foreign key (COD_TIP_DOCUMENTO)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+

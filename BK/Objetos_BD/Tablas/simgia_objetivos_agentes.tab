@@ -1,0 +1,34 @@
+create table IT.SIMGIA_OBJETIVOS_AGENTES
+(
+  fecha           DATE,
+  nombre_gestor   VARCHAR2(50),
+  objetivo        NUMBER(18,2),
+  cod_usu_oficial VARCHAR2(20),
+  competencia     VARCHAR2(10),
+  tipo            VARCHAR2(2),
+  visualizar      VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_OBJ_AGE on IT.SIMGIA_OBJETIVOS_AGENTES (COD_USU_OFICIAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

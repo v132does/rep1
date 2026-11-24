@@ -1,0 +1,250 @@
+create table IT.GE_CLIENTES_HIS
+(
+  fecha                DATE not null,
+  cod_persona          VARCHAR2(10) not null,
+  cod_oficina          NUMBER(3) not null,
+  cat_riesgo           VARCHAR2(1),
+  cod_gru_economico    NUMBER(5),
+  exo_impuestos        VARCHAR2(1) default 'N' not null,
+  cod_usu_oficial      VARCHAR2(10) not null,
+  cli_especial         VARCHAR2(1) default 'N' not null,
+  residente            VARCHAR2(1) default 'N' not null,
+  cod_sec_contable     VARCHAR2(1) not null,
+  cod_tip_deudor       NUMBER(3) not null,
+  cod_departamento     NUMBER(3),
+  niv_cruzamiento      NUMBER(8,2),
+  clave                VARCHAR2(40),
+  est_clave            VARCHAR2(1),
+  fec_est_clave        DATE,
+  can_intentos         NUMBER(2),
+  tipo                 VARCHAR2(1),
+  tot_deu_real         NUMBER(18,2) default 0,
+  tot_deu_contingente  NUMBER(18,2) default 0,
+  cat_subjetiva        NUMBER(1),
+  tot_gar_computables  NUMBER(18,2) default 0,
+  tot_prevision        NUMBER(18,2) default 0,
+  tip_extracto         VARCHAR2(1) default 'C' not null,
+  cod_usu_gestion      VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  fec_ingreso          DATE default TRUNC(SYSDATE) not null,
+  cod_seg_cliente      NUMBER(3),
+  cli_confidencial     VARCHAR2(1) default 'N' not null,
+  tot_deu_sistema      NUMBER(18,2),
+  cat_automatica       NUMBER(3,2) default 1 not null,
+  cat_sistema          NUMBER(1),
+  cat_renovaciones     NUMBER(1),
+  cat_gru_economico    NUMBER(3,2),
+  cat_anterior         NUMBER(3,2),
+  fec_cat_anterior     DATE,
+  fec_ult_clasif       DATE,
+  cat_atraso           VARCHAR2(2),
+  tip_clave            VARCHAR2(1),
+  tot_deu_cod_sistema  NUMBER(18,2),
+  tot_deu_codeudoria   NUMBER(18,2),
+  tot_deu_con_sistema  NUMBER(18,2),
+  ult_cat_riesgo       VARCHAR2(1),
+  fec_ult_cat_sub      DATE,
+  fec_ult_cat_3        DATE,
+  cod_perfil           VARCHAR2(20),
+  fec_ult_acceso       DATE,
+  cod_canal            NUMBER(3),
+  val_comercial        NUMBER(2),
+  fec_ult_cla_sistema  DATE,
+  cod_seg_preferente   NUMBER(3),
+  cod_seg_pre_anterior NUMBER(3),
+  usu_imp_clave        VARCHAR2(10),
+  cod_ofi_imp_clave    NUMBER(3),
+  fec_imp_clave        DATE,
+  cod_banca            NUMBER(3),
+  tip_gru_cobranza     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLIENTES_HIS
+  is 'Historico de Clientes que existen de GE_CLA_OPERACIONES_HIS.';
+comment on column IT.GE_CLIENTES_HIS.fecha
+  is 'Fecha.';
+comment on column IT.GE_CLIENTES_HIS.cod_persona
+  is 'C¿digo de cliente.';
+comment on column IT.GE_CLIENTES_HIS.cod_oficina
+  is 'C¿digo de la Oficina.';
+comment on column IT.GE_CLIENTES_HIS.cat_riesgo
+  is 'Categoria de Riesgo (1- Normal ; 2- Potencial; 3- Real ; 4-Alto Riesgo; 5-Irrecuperable).';
+comment on column IT.GE_CLIENTES_HIS.cod_gru_economico
+  is 'C¿digo de grupo economico.';
+comment on column IT.GE_CLIENTES_HIS.exo_impuestos
+  is 'Tiene exoneraci¿n de impuestos (S= SI ; N= No).';
+comment on column IT.GE_CLIENTES_HIS.cod_usu_oficial
+  is 'C¿digo del oficial de cuentas.';
+comment on column IT.GE_CLIENTES_HIS.cli_especial
+  is 'Cliente especial. (N/S).';
+comment on column IT.GE_CLIENTES_HIS.residente
+  is 'Indica si es IND_RESIDENTE (S/N).';
+comment on column IT.GE_CLIENTES_HIS.cod_sec_contable
+  is 'C¿digo de sector.';
+comment on column IT.GE_CLIENTES_HIS.cod_tip_deudor
+  is 'Tipo de deudor.';
+comment on column IT.GE_CLIENTES_HIS.cod_departamento
+  is 'C¿digo del departamento.';
+comment on column IT.GE_CLIENTES_HIS.niv_cruzamiento
+  is 'Nivel de Cruzamiento (Porcentaje de productos que que posee el Cliente con respecto a los productos ofrecidos por la Entidad.';
+comment on column IT.GE_CLIENTES_HIS.clave
+  is 'Clave.';
+comment on column IT.GE_CLIENTES_HIS.est_clave
+  is 'Estado de la Clave.';
+comment on column IT.GE_CLIENTES_HIS.fec_est_clave
+  is 'Fecha de Estado.';
+comment on column IT.GE_CLIENTES_HIS.can_intentos
+  is 'Cantidad de intentos fallidos.';
+comment on column IT.GE_CLIENTES_HIS.tipo
+  is 'Tipo de cliente (R = Comercial Mayor Vinculado a la Entidad, M = Comercial Mayores, G = Comercial Mayor Vinculado a otros Grupos Econ¿micos, N = Comercial Menor Vinculado a la Entidad, C = Comercial Menor, P = Personal - Credito de Consumo, V = Personal - Credito de Vivienda, T = Microcr¿ditos).';
+comment on column IT.GE_CLIENTES_HIS.tot_deu_real
+  is 'Total de la deuda real.';
+comment on column IT.GE_CLIENTES_HIS.tot_deu_contingente
+  is 'Total de la deuda contingente.';
+comment on column IT.GE_CLIENTES_HIS.cat_subjetiva
+  is 'Categoria subjetiva.';
+comment on column IT.GE_CLIENTES_HIS.tot_gar_computables
+  is 'Monto total de la garantias computables.';
+comment on column IT.GE_CLIENTES_HIS.tot_prevision
+  is 'Monto total de la Previsi¿n.';
+comment on column IT.GE_CLIENTES_HIS.tip_extracto
+  is 'Tipo de impresi¿n de extracto. C-Impreso,  Z-x Mail,  N-No impreso X-Env¿o x mail e impreso.';
+comment on column IT.GE_CLIENTES_HIS.cod_usu_gestion
+  is 'C¿digo de Usuario de Gesti¿n de Cobranza.';
+comment on column IT.GE_CLIENTES_HIS.usu_insercion
+  is 'Usuario que realiz¿ la inserci¿n del registro.';
+comment on column IT.GE_CLIENTES_HIS.fec_insercion
+  is 'Fecha en que se insert¿ el registro.';
+comment on column IT.GE_CLIENTES_HIS.usu_modificacion
+  is 'Usuario que realiz¿ la ¿ltima modificaci¿n en el registro.';
+comment on column IT.GE_CLIENTES_HIS.fec_modificacion
+  is 'Fecha en que se realiz¿ la ¿ltima modificaci¿n en el registro.';
+comment on column IT.GE_CLIENTES_HIS.fec_ingreso
+  is 'Fecha de ingreso del cliente en la Entidad.';
+comment on column IT.GE_CLIENTES_HIS.cod_seg_cliente
+  is 'Segmento del cliente.';
+comment on column IT.GE_CLIENTES_HIS.cli_confidencial
+  is 'Indica si el cliente es confidencial.';
+comment on column IT.GE_CLIENTES_HIS.tot_deu_sistema
+  is 'Total de la deuda del sistema financiero global.';
+comment on column IT.GE_CLIENTES_HIS.cat_automatica
+  is 'Categoria ponderada.';
+comment on column IT.GE_CLIENTES_HIS.cat_sistema
+  is 'categoria final del sistema financiero.(ultima informacion).';
+comment on column IT.GE_CLIENTES_HIS.cat_renovaciones
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones.';
+comment on column IT.GE_CLIENTES_HIS.cat_gru_economico
+  is 'categoria del grupo economico al que corresponde.';
+comment on column IT.GE_CLIENTES_HIS.cat_anterior
+  is 'Categor¿a anterior.';
+comment on column IT.GE_CLIENTES_HIS.fec_cat_anterior
+  is 'Fecha de categorizaci¿n anterior.';
+comment on column IT.GE_CLIENTES_HIS.fec_ult_clasif
+  is 'Fecha de ¿ltima clasificaci¿n o categorizaci¿n.';
+comment on column IT.GE_CLIENTES_HIS.cat_atraso
+  is 'Categor¿a por atraso.';
+comment on column IT.GE_CLIENTES_HIS.tip_clave
+  is 'Tipo de clave: C-consulta T-Transaccional.';
+comment on column IT.GE_CLIENTES_HIS.tot_deu_cod_sistema
+  is 'Total deuda codeudor¿a en el Sistema Financiero Global.';
+comment on column IT.GE_CLIENTES_HIS.tot_deu_codeudoria
+  is 'Total deuda codeudor¿a en la entidad.';
+comment on column IT.GE_CLIENTES_HIS.tot_deu_con_sistema
+  is 'Total deuda contingencia en el Sistema Financiero Global.';
+comment on column IT.GE_CLIENTES_HIS.ult_cat_riesgo
+  is '¿ltima categor¿a de riesgo, por cancelaci¿n de cuentas.';
+comment on column IT.GE_CLIENTES_HIS.fec_ult_cat_sub
+  is 'Fecha de ¿ltima Categorizaci¿n Subjetiva.';
+comment on column IT.GE_CLIENTES_HIS.fec_ult_cat_3
+  is 'Fecha de ¿ltima Categorizaci¿n a 3.';
+comment on column IT.GE_CLIENTES_HIS.cod_perfil
+  is 'C¿digo de Perfil.';
+comment on column IT.GE_CLIENTES_HIS.fec_ult_acceso
+  is 'Fecha ¿ltimo Acceso.';
+comment on column IT.GE_CLIENTES_HIS.cod_canal
+  is 'C¿digo de Canal.';
+comment on column IT.GE_CLIENTES_HIS.val_comercial
+  is 'Valor Comercial del Cliente para el Banco. Ej: Alto Valor Acutal, Alto Valor Potencial, etc.';
+comment on column IT.GE_CLIENTES_HIS.fec_ult_cla_sistema
+  is 'Fecha de ¿ltima Clasificaci¿n en el Sistema.';
+comment on column IT.GE_CLIENTES_HIS.cod_seg_preferente
+  is 'Segmento Preferente del Cliente.';
+comment on column IT.GE_CLIENTES_HIS.cod_seg_pre_anterior
+  is 'Segmento Preferente Anterior del Cliente.';
+comment on column IT.GE_CLIENTES_HIS.usu_imp_clave
+  is 'Usuario que realizó la Impresión de la Clave.';
+comment on column IT.GE_CLIENTES_HIS.cod_ofi_imp_clave
+  is 'Código de Oficina donde se realizó la Impresión.';
+comment on column IT.GE_CLIENTES_HIS.fec_imp_clave
+  is 'Fecha de la Impresión de la Clave.';
+comment on column IT.GE_CLIENTES_HIS.cod_banca
+  is 'Código de Banca.';
+comment on column IT.GE_CLIENTES_HIS.tip_gru_cobranza
+  is 'Tipo de Agrupación para envios de datos a tercerización de Cobranza (1 = Se externaliza, 0 = No se externaliza).';
+create index IT.IN_GCHIS_COD_DEPARTAMENTO on IT.GE_CLIENTES_HIS (COD_DEPARTAMENTO, COD_GRU_ECONOMICO, COD_SEG_CLIENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCHIS_COD_OFICINA on IT.GE_CLIENTES_HIS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CLIENTES_HIS
+  add constraint PK_GE_CLIENTES_HIS primary key (COD_PERSONA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CLIENTES_HIS
+  add constraint FK_GCHIS_COD_DEPARTAMENTO foreign key (COD_DEPARTAMENTO)
+  references IT.BA_DEPARTAMENTOS (COD_DEPARTAMENTO);
+alter table IT.GE_CLIENTES_HIS
+  add constraint FK_GCHIS_COD_GRU_ECONOMICO foreign key (COD_GRU_ECONOMICO)
+  references IT.GE_GRU_ECONOMICOS (COD_GRU_ECONOMICO);
+alter table IT.GE_CLIENTES_HIS
+  add constraint FK_GCHIS_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_CLIENTES_HIS
+  add constraint FK_GCHIS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_CLIENTES_HIS
+  add constraint FK_GCHIS_COD_SEG_CLIENTE foreign key (COD_SEG_CLIENTE)
+  references IT.GE_SEG_CLIENTES (COD_SEG_CLIENTE);
+

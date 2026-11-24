@@ -1,0 +1,7 @@
+create sequence IT.S_REF_FACPOD
+minvalue 1
+maxvalue 999999999999999999999999
+start with 558999
+increment by 1
+nocache;
+

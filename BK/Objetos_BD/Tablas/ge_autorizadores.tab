@@ -1,0 +1,85 @@
+create table IT.GE_AUTORIZADORES
+(
+  cod_usuario      VARCHAR2(10) not null,
+  cod_tra_padre    NUMBER(4),
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_oficina      NUMBER(3),
+  monto            NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AUTORIZADORES
+  is 'Autorizadores del Sistema. Contiene todas las autorizaciones ON-LINE o previas realizadas en el Sistema.';
+comment on column IT.GE_AUTORIZADORES.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_AUTORIZADORES.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_AUTORIZADORES.cod_mod_padre
+  is 'Codigo del Modulo para transaccion padre.';
+comment on column IT.GE_AUTORIZADORES.cod_mad_padre
+  is 'Codigo de la modalidad para la transaccion padre.';
+comment on column IT.GE_AUTORIZADORES.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_AUTORIZADORES.monto
+  is 'Monto.';
+comment on column IT.GE_AUTORIZADORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_AUTORIZADORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_AUTORIZADORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AUTORIZADORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_AUTORIZADORES
+  add constraint UK_GE_AUTORIZADORES unique (COD_USUARIO, COD_MOD_PADRE, COD_MAD_PADRE, COD_OFICINA, COD_TRA_PADRE, MONTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AUTORIZADORES
+  add constraint FK_GAUTR_COD_MODALIDAD foreign key (COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_AUTORIZADORES
+  add constraint FK_GAUTR_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_AUTORIZADORES
+  add constraint FK_GAUTR_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_AUTORIZADORES
+  add constraint FK_GAUTR_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_AUTORIZADORES
+  add constraint AVCON_1097596402_COD_M_004
+  check (COD_MOD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_AUTORIZADORES
+  add constraint AVCON_1097596402_COD_M_005
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_AUTORIZADORES
+  add constraint AVCON_1097596402_COD_O_001
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.GE_AUTORIZADORES
+  add constraint AVCON_1097596402_COD_T_001
+  check (COD_TRA_PADRE BETWEEN 0 AND 9999);
+

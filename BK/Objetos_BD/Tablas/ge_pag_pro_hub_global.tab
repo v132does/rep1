@@ -1,0 +1,146 @@
+create table IT.GE_PAG_PRO_HUB_GLOBAL
+(
+  nro_orden                NUMBER(12) not null,
+  nro_factura              VARCHAR2(20),
+  tip_comprobante          VARCHAR2(1),
+  for_pago                 VARCHAR2(1),
+  nro_cheque               NUMBER(15),
+  nro_cta_credito          VARCHAR2(15),
+  fec_ingreso              DATE,
+  fec_pago                 DATE,
+  monto                    NUMBER(18,2),
+  nro_recibo               NUMBER(7),
+  beneficiario             VARCHAR2(60),
+  concepto                 VARCHAR2(40),
+  estado                   VARCHAR2(1),
+  cod_usu_operador         VARCHAR2(10),
+  cod_ente                 NUMBER(5) not null,
+  cod_proceso              NUMBER(3),
+  cod_moneda               VARCHAR2(3),
+  fec_insercion            DATE default sysdate not null,
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default sysdate not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  tip_carga                VARCHAR2(1),
+  cod_mon_recibido         VARCHAR2(3),
+  ref_facturas             VARCHAR2(1000),
+  referencia               VARCHAR2(15),
+  mon_tot_recibo           NUMBER(18,2),
+  ret_fac_proveedor        NUMBER(18,2),
+  des_fac_proveedor        NUMBER(18,2),
+  ret_facturas             NUMBER(18,2),
+  des_sucursal             VARCHAR2(100),
+  tipo                     VARCHAR2(1),
+  nro_cta_debito           VARCHAR2(15),
+  nro_secuencia            NUMBER(6),
+  nro_archivo              NUMBER(6) not null,
+  cod_tip_doc_beneficiario NUMBER(3),
+  nro_doc_beneficiario     VARCHAR2(20),
+  nro_cta_beneficiario     VARCHAR2(35),
+  ent_bca_beneficiario     NUMBER(5),
+  ind_valor                VARCHAR2(1),
+  dir_beneficiario         VARCHAR2(100),
+  tip_factura              VARCHAR2(1),
+  nro_con_cambio           NUMBER(7),
+  ben_dir_correo           VARCHAR2(80),
+  nro_ord_archivo          NUMBER(6),
+  cod_one_bank             VARCHAR2(20),
+  tip_acreditamiento       VARCHAR2(1) default 'C',
+  tip_transferencia        VARCHAR2(2),
+  cod_respuesta            VARCHAR2(30),
+  msj_respuesta            VARCHAR2(1000),
+  des_respuesta            VARCHAR2(1000),
+  hub_agrupado             VARCHAR2(1000),
+  hub_nom_fichero          VARCHAR2(100),
+  hub_iso_err_codigo       VARCHAR2(4),
+  hub_iso_err_mensaje      VARCHAR2(1000),
+  hub_nom_agrupado         VARCHAR2(1000) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.nro_factura
+  is 'Si se paga mas de una factura, se ingresa la primera aquí y las demas en REF_FACTURAS';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.for_pago
+  is ' ''I'' (Interbancaria SIPAP)/ ''C'' (Pago BBVA)';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.nro_cta_credito
+  is 'Nro.Cta.Crédito(Pago BBVA)/En Blanco(Pago SIPAP)';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.fec_pago
+  is 'Siempre en Blanco';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.monto
+  is 'Importe a Pagar';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.beneficiario
+  is 'Nombre del Beneficiario del Pago';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.concepto
+  is 'Concepto de Pago(Pago SIPAP)/ En Blanco(Pago BBVA)';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.estado
+  is 'Estado de la Orden de Pago. E=Error, C=Cargado, N=Pagado, A=Anulado, R=Reactivado.';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.cod_ente
+  is 'Codigo de la empresa';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.ref_facturas
+  is 'Referencias de Facturas en caso de varias facturas a Pagar';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.referencia
+  is 'Nro.Identificador(Entrada/Salida) para seguimiento empresa.';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.nro_doc_beneficiario
+  is 'Nro. Documento Beneficiario(RUC/CI)(Pago SIPAP)/En Blanco (Pago BBVA)';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.nro_cta_beneficiario
+  is 'Tipo de Documento Beneficiario(Pago SIPAP)(1- CI/6- RUC)*Ver Tipos de Documentos';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.ent_bca_beneficiario
+  is 'Cód. Banco Receptor(Pago SIPAP)/00000(Pago BBVA) *Ver Bancos Sipap';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.ind_valor
+  is '( ''A'' Alta-On Line/''B'' Baja- En Batch (Pago SIPAP))/ En Blanco (Pagos BBVA)';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.tip_factura
+  is 'Tipo de Factura, 1:Contado, 2:Credito';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.nro_con_cambio
+  is 'Nro. De Contrato de Cambio Pre-pactado BBVA(Sino existe en Blanco)(Pago SIPAP)/En Blanco(Pago BBVA)';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.ben_dir_correo
+  is 'Dirección de Correo para envio de confirmación de pago a proveedores';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.tip_acreditamiento
+  is 'Credito';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.tip_transferencia
+  is 'Tipo de Transferencia. 01 Pago a proveedores';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.hub_agrupado
+  is 'Cabecera del agrupado al cual pertenece el pago';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.hub_nom_fichero
+  is 'Nombre del fichero dentro del agrupado';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.hub_iso_err_codigo
+  is 'Codigo de error ISO';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.hub_iso_err_mensaje
+  is 'Mensaje de error ISO';
+comment on column IT.GE_PAG_PRO_HUB_GLOBAL.hub_nom_agrupado
+  is 'Nombre del archivo donde vino el agrupado';
+alter table IT.GE_PAG_PRO_HUB_GLOBAL
+  add constraint PK_GE_PAG_PRO_HUB_GLOBAL primary key (COD_ENTE, NRO_ARCHIVO, HUB_NOM_AGRUPADO, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_PRO_HUB_GLOBAL
+  add constraint CK_GPPHG_ESTADO
+  check (ESTADO IN ('I','E','C','N','A','T','P'));
+alter table IT.GE_PAG_PRO_HUB_GLOBAL
+  add constraint CK_GPPHG_FOR_PAGO
+  check (FOR_PAGO IN ('C','G','E','R','I'));
+alter table IT.GE_PAG_PRO_HUB_GLOBAL
+  add constraint CK_GPPHG_NRO_ORDEN
+  check (NRO_ORDEN BETWEEN 0 AND 999999999999);
+alter table IT.GE_PAG_PRO_HUB_GLOBAL
+  add constraint CK_GPPHG_TIP_CARGA
+  check (TIP_CARGA IN ('G'));
+

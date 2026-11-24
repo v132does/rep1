@@ -1,0 +1,52 @@
+create table IT.CS_CON_CUO_REV_TMP
+(
+  nro_contrato      VARCHAR2(10),
+  cod_caj_seguridad VARCHAR2(5),
+  cod_oficina       NUMBER(3),
+  fec_apertura      DATE,
+  fec_vencimiento   DATE,
+  estado            VARCHAR2(1),
+  tip_pago          VARCHAR2(1),
+  nro_cta_debito    VARCHAR2(15),
+  per_pago          NUMBER(3),
+  fec_ult_pago      DATE,
+  fec_sig_pago      DATE,
+  upd_fec_sig_pago  DATE,
+  cod_moneda        VARCHAR2(3),
+  observaciones     VARCHAR2(300),
+  nro_cuota         NUMBER(6),
+  fec_desde         DATE,
+  udp_fec_desde     DATE,
+  fec_hasta         DATE,
+  udp_fec_hasta     DATE,
+  fec_vencimiento_c DATE,
+  fec_pago          DATE,
+  monto             NUMBER(18,2),
+  estado_c          VARCHAR2(1),
+  hora              VARCHAR2(8),
+  obs_planilla      VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CS_CON_CUO_REV on IT.CS_CON_CUO_REV_TMP (NRO_CONTRATO, FEC_PAGO, HORA, MONTO, NRO_CUOTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

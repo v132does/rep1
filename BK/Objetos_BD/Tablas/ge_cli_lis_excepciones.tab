@@ -1,0 +1,75 @@
+create table IT.GE_CLI_LIS_EXCEPCIONES
+(
+  nro_documento     VARCHAR2(10) not null,
+  nombre            VARCHAR2(80),
+  apellido          VARCHAR2(80),
+  cod_tip_documento NUMBER(3),
+  cod_pais          NUMBER(3),
+  tipo_persona      VARCHAR2(1),
+  est_civil         VARCHAR2(1),
+  cod_sexo          VARCHAR2(1),
+  fec_nacimiento    DATE,
+  estado            VARCHAR2(2),
+  fec_vigencia      DATE,
+  fec_vencimiento   DATE,
+  observacion       VARCHAR2(50),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLI_LIS_EXCEPCIONES
+  is 'Tabla de Clientes de Excepciones - LISTA BLANCA';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.nro_documento
+  is 'Nro de documento del cliente';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.nombre
+  is 'Nombre del cliente';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.apellido
+  is 'Apellido del cliente';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.cod_tip_documento
+  is 'Código del tipo de documento del cliente';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.cod_pais
+  is 'Codigo del pais al que pertenece el cliente';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.tipo_persona
+  is 'Tipo Persona , J= Juridica , F= Fisica';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.est_civil
+  is 'Estado Civil de la persona';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.cod_sexo
+  is 'Sexo de la persona';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.fec_nacimiento
+  is 'Nacimiento de la persona';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.estado
+  is 'Estado del Registro, AP= Aprobado, PA= Pendiente Aprobacion, RE= Rechazado';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.fec_vigencia
+  is 'Fecha de vigencia';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.fec_vencimiento
+  is 'Fecha de vencimiento';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.observacion
+  is 'Observacion ingresada por el usuario';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.fec_insercion
+  is 'Fecha que se inserto el registro';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_CLI_LIS_EXCEPCIONES.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+alter table IT.GE_CLI_LIS_EXCEPCIONES
+  add constraint PK_GE_CLI_LIS_EXCEPCIONES primary key (NRO_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

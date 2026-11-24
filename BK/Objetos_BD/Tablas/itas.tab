@@ -1,0 +1,21 @@
+create table IT.ITAS
+(
+  terminal VARCHAR2(10),
+  numero   VARCHAR2(20),
+  tipo     VARCHAR2(10),
+  pedido   VARCHAR2(200),
+  cedula   VARCHAR2(20),
+  cuenta   VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

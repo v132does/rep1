@@ -1,0 +1,52 @@
+create table IT.CS_CON_ACCIONES
+(
+  nro_contrato     VARCHAR2(10) not null,
+  cod_accion       VARCHAR2(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_CON_ACCIONES
+  is 'Detalle de las acciones posibles sobre la Caja por Contrato.';
+comment on column IT.CS_CON_ACCIONES.nro_contrato
+  is 'Codigo del Contrato.';
+comment on column IT.CS_CON_ACCIONES.cod_accion
+  is 'Accion que puede realizar.';
+comment on column IT.CS_CON_ACCIONES.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CS_CON_ACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CS_CON_ACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_ACCIONES.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+alter table IT.CS_CON_ACCIONES
+  add constraint PK_CS_CON_ACCIONES primary key (NRO_CONTRATO, COD_ACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CS_CON_ACCIONES
+  add constraint FK_CCACC_NRO_CONTRATO foreign key (NRO_CONTRATO)
+  references IT.CS_CONTRATOS (NRO_CONTRATO);
+

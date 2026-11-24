@@ -1,0 +1,30 @@
+create table IT.GE_LOG_RBA
+(
+  fecha          DATE,
+  nom_referencia VARCHAR2(40),
+  mensaje        VARCHAR2(1000),
+  usu_insercion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_LOG_RBA.fecha
+  is 'Fecha de Generación del Log.';
+comment on column IT.GE_LOG_RBA.nom_referencia
+  is 'Nombre del Archivo de Referencia. (Ej.: OCUPACIONES)';
+comment on column IT.GE_LOG_RBA.mensaje
+  is 'Mensaje de Error o de Finalización del Proceso.';
+comment on column IT.GE_LOG_RBA.usu_insercion
+  is 'Usuario que realiza la inserción del registro.';
+comment on column IT.GE_LOG_RBA.fec_insercion
+  is 'Fecha Inserción del Proceso.';
+

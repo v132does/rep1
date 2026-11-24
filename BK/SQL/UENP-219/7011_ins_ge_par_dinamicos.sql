@@ -1,0 +1,104 @@
+﻿begin  pre_ini_aplicacion;  pae_cnf.g_cod_modulo := 1; end;
+/
+insert into ge_par_dinamicos
+  (parametro,
+   val_parametro,
+   cod_modulo,
+   cod_modalidad,
+   cod_oficina,
+   cod_moneda,
+   usu_insercion,
+   fec_insercion,
+   usu_modificacion,
+   fec_modificacion,
+   cod_sub_modalidad)
+values
+  ('COD_RUB_CHE_ROGA',
+   '970000',
+   null,
+   null,
+   null,
+   null,
+   user,
+   sysdate,
+   user,
+   sysdate,
+   null);
+commit;
+insert into ge_par_dinamicos
+  (parametro,
+   val_parametro,
+   cod_modulo,
+   cod_modalidad,
+   cod_oficina,
+   cod_moneda,
+   usu_insercion,
+   fec_insercion,
+   usu_modificacion,
+   fec_modificacion,
+   cod_sub_modalidad)
+values
+  ('COD_MOD_CHE_ROGA',
+   '668',
+   null,
+   null,
+   null,
+   null,
+   user,
+   sysdate,
+   user,
+   sysdate,
+   null);
+commit;
+
+insert into ge_par_dinamicos
+  (parametro,
+   val_parametro,
+   cod_modulo,
+   cod_modalidad,
+   cod_oficina,
+   cod_moneda,
+   usu_insercion,
+   fec_insercion,
+   usu_modificacion,
+   fec_modificacion,
+   cod_sub_modalidad)
+values
+  ('DIR_MAIL_OPERATIVO',
+   'notificaciones@ueno.com.py',
+   null,
+   null,
+   null,
+   null,
+   user,
+   sysdate,
+   user,
+   sysdate,
+   null);
+commit;
+insert into ge_par_dinamicos
+  (parametro,
+   val_parametro,
+   cod_modulo,
+   cod_modalidad,
+   cod_oficina,
+   cod_moneda,
+   usu_insercion,
+   fec_insercion,
+   usu_modificacion,
+   fec_modificacion,
+   cod_sub_modalidad)
+values
+  ('PRE_COD_CAU_CHE_ROGA',
+   '926',
+   null,
+   null,
+   null,
+   null,
+   user,
+   sysdate,
+   user,
+   sysdate,
+   null);
+
+commit;

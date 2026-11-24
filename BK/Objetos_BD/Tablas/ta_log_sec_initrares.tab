@@ -1,0 +1,65 @@
+create table IT.TA_LOG_SEC_INITRARES
+(
+  cod_respuesta     NUMBER not null,
+  tip_3dsec         NVARCHAR2(10),
+  est_respuesta     VARCHAR2(20),
+  cod_error         NUMBER,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_alta          DATE,
+  fec_modificacion  DATE,
+  cod_persona       VARCHAR2(10),
+  cod_autenticacion VARCHAR2(36)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LOG_SEC_INITRARES.cod_respuesta
+  is 'Autogenerado - UID';
+comment on column IT.TA_LOG_SEC_INITRARES.tip_3dsec
+  is 'StepupType';
+comment on column IT.TA_LOG_SEC_INITRARES.est_respuesta
+  is 'Status';
+comment on column IT.TA_LOG_SEC_INITRARES.cod_error
+  is 'ErrorReferenceNumber';
+comment on column IT.TA_LOG_SEC_INITRARES.usu_insercion
+  is 'Usuario Creacion';
+comment on column IT.TA_LOG_SEC_INITRARES.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.TA_LOG_SEC_INITRARES.fec_alta
+  is 'Fecha Alta';
+comment on column IT.TA_LOG_SEC_INITRARES.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.TA_LOG_SEC_INITRARES.cod_persona
+  is 'Codigo persona';
+comment on column IT.TA_LOG_SEC_INITRARES.cod_autenticacion
+  is 'FK de TA_LOG_SEC_INITRAN';
+alter table IT.TA_LOG_SEC_INITRARES
+  add constraint PK_TA_LOG_SEC_INITRARES primary key (COD_RESPUESTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_LOG_SEC_INITRARES
+  add constraint FK_TLSECERR_COD_ERROR foreign key (COD_ERROR)
+  references IT.TA_LOG_SEC_ERRORES (COD_ERROR);
+alter table IT.TA_LOG_SEC_INITRARES
+  add constraint FK_TLSECINIRES_COD_AUTEN foreign key (COD_AUTENTICACION)
+  references IT.TA_LOG_SEC_INITRAN (COD_AUTENTICACION);
+

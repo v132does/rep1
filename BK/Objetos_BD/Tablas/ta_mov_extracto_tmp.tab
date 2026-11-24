@@ -1,0 +1,200 @@
+create table IT.TA_MOV_EXTRACTO_TMP
+(
+  fec_proceso            DATE default sysdate,
+  cod_banco              VARCHAR2(2),
+  cod_cla_tarjeta        VARCHAR2(2),
+  afinidad               VARCHAR2(2),
+  nro_cuenta             VARCHAR2(15),
+  nom_usuario            VARCHAR2(30),
+  direccion              VARCHAR2(35),
+  localidad              VARCHAR2(15),
+  nro_telefono           VARCHAR2(12),
+  lin_credito            NUMBER(18,2),
+  sal_financiado         NUMBER(18,2),
+  sal_ult_resumen        NUMBER(18,2),
+  cod_oficina            NUMBER(3),
+  nro_cta_bancaria       VARCHAR2(15),
+  cantidad               NUMBER(3),
+  nro_tarjeta            VARCHAR2(16),
+  vto_tarjeta            VARCHAR2(4),
+  des_banco              VARCHAR2(30),
+  des_afinidad           VARCHAR2(20),
+  fec_cierre             DATE,
+  fec_vencimiento        DATE,
+  lim_compra             NUMBER(18,2),
+  mto_int_corriente      NUMBER(18,2),
+  mto_int_moratorio      NUMBER(18,2),
+  mto_impuesto           NUMBER(18,2),
+  mto_gasto              NUMBER(18,2),
+  mto_deuda              NUMBER(18,2),
+  mto_com_no_financiable NUMBER(18,2),
+  por_com_financiable    NUMBER(18,2),
+  mto_pag_minimo         NUMBER(18,2),
+  por_pag_minimo         NUMBER(18,2),
+  mto_iva                NUMBER(18,2),
+  des_exceso             VARCHAR2(8),
+  des_mora               VARCHAR2(8),
+  des_retencion          VARCHAR2(13),
+  nro_control            NUMBER(6),
+  nro_hoja               NUMBER(2),
+  longitud               NUMBER(2),
+  tip_cierre             VARCHAR2(1),
+  lin_cuotas             NUMBER(18,2),
+  sal_cuo_pendiente      NUMBER(18,2),
+  tip_int_cuotas         VARCHAR2(1),
+  mto_cuo_interes        NUMBER(18,2),
+  mto_cuo_reversion      NUMBER(18,2),
+  mto_cuo_impuesto       NUMBER(18,2),
+  tas_int_corriente      NUMBER(4,2),
+  tas_int_cuota          NUMBER(4,2),
+  tas_int_moratorio      NUMBER(4,2),
+  tas_int_compra         NUMBER(4,2),
+  mto_int_compra         NUMBER(18,2),
+  tas_efectiva           NUMBER(4,2),
+  nro_factura            VARCHAR2(20),
+  timbrado               VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_EXTRACTO_TMP
+  is 'Tabla temporal de movimiento de extracto proveniente de Bancard de tarjetas de crédito. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.fec_proceso
+  is 'Fecha de Proceso del archivo. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.cod_banco
+  is 'Código de Identificatorio de Entidad en Bancard. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.cod_cla_tarjeta
+  is 'Código de Clase de Tarjeta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.afinidad
+  is 'Afinidad de la Tarjeta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_cuenta
+  is 'Nro. de Cuenta de la Tarjeta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nom_usuario
+  is 'Nombre del Cliente. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.direccion
+  is 'Dirección del Cliente. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.localidad
+  is 'Localidad de la Dirección del Cliente. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_telefono
+  is 'Nro. de Teléfono del Cliente. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.lin_credito
+  is 'Línea de Crédito de la Tarjeta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.sal_financiado
+  is 'Saldo Financiado. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.sal_ult_resumen
+  is 'Saldo de último resumen. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.cod_oficina
+  is 'Código de Oficina de la Cuenta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_cta_bancaria
+  is 'Nro. de Cuenta Bancaria. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.cantidad
+  is 'Cantidad de Extractos. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_tarjeta
+  is 'Nro. de Tarjeta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.vto_tarjeta
+  is 'Vencimiento de la Tarjeta (Mes/año).';
+comment on column IT.TA_MOV_EXTRACTO_TMP.des_banco
+  is 'Descripción de la Entidad. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.des_afinidad
+  is 'Descripción de la Afinidad de la tarjeta.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.fec_cierre
+  is 'Fecha de Cierre del extracto. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento del extracto. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.lim_compra
+  is 'Límite Compra. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_int_corriente
+  is 'Mto. interés corriente. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_int_moratorio
+  is 'Mo. interés moratorio. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_impuesto
+  is 'Mto. impuesto. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_gasto
+  is 'Mto. de Gastos financieros.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_deuda
+  is 'Mto. de la Deuda. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_com_no_financiable
+  is 'Mto. de Compras no financiables.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.por_com_financiable
+  is 'Porcentaje de compras financiables. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_pag_minimo
+  is 'Mto. de Pago Mínimo. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.por_pag_minimo
+  is 'Porcentaje de Pago Mínimo.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_iva
+  is 'Mto. de IVA. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.des_exceso
+  is 'Descripción del Exceso. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.des_mora
+  is 'Descripción de la Mora. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.des_retencion
+  is 'Descripción de la Retención. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_control
+  is 'Nro. de Control.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_hoja
+  is 'Nro. de Hoja de Extracto. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.longitud
+  is 'Longitud de la tarjeta.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tip_cierre
+  is 'Tipo de Cierre de la Tarjeta. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.lin_cuotas
+  is 'Mto. de Línea en Cuotas.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.sal_cuo_pendiente
+  is 'Saldo de Cuotas Pendientes.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tip_int_cuotas
+  is 'Tipo de Interés en Cuotas. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_cuo_interes
+  is 'Mto. de Interés en Cuotas. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_cuo_reversion
+  is 'Mto. de Reversión en Cuotas. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_cuo_impuesto
+  is 'Mto. de Impuesto en Cuotas.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tas_int_corriente
+  is 'Valor de tasa de interés corriente. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tas_int_cuota
+  is 'Valor de tasa de interés en cuotas.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tas_int_moratorio
+  is 'Valor de tasa de interés moratorio.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tas_int_compra
+  is 'Valor de tasa de interés en compra.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.mto_int_compra
+  is 'Mto. de Interés en compras.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.tas_efectiva
+  is 'Valor de tasa efectiva.';
+comment on column IT.TA_MOV_EXTRACTO_TMP.nro_factura
+  is 'Nro. de Factura generado en Bancard. ';
+comment on column IT.TA_MOV_EXTRACTO_TMP.timbrado
+  is 'Timbrado de la Entidad. ';
+create index IT.IN_TA_MEXT_FEC_PROCESO on IT.TA_MOV_EXTRACTO_TMP (FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TA_MEXT_NRO_CUENTA on IT.TA_MOV_EXTRACTO_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

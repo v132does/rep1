@@ -1,0 +1,85 @@
+create table IT.GE_NIV_ENDEUDAMIENTO
+(
+  nro_solicitud    NUMBER(7) not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_concepto     NUMBER(3) not null,
+  ing_egreso       VARCHAR2(1) not null,
+  importe          NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_NIV_ENDEUDAMIENTO
+  is 'Nivel de Endeudamiento de la persona.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.nro_solicitud
+  is 'Numero de solicitud.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.cod_concepto
+  is 'Concepto de Ingreso / Egreso.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.ing_egreso
+  is 'Indicador de ingreso o egreso.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.importe
+  is 'Importe del ingreso o egreso.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_NIV_ENDEUDAMIENTO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GNEND_COD_PERSONA on IT.GE_NIV_ENDEUDAMIENTO (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_NIV_ENDEUDAMIENTO
+  add constraint PK_GE_NIV_ENDEUDAMIENTO primary key (NRO_SOLICITUD, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_NIV_ENDEUDAMIENTO
+  add constraint FK_GNEND_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.CR_CON_ING_EGR (COD_CONCEPTO);
+alter table IT.GE_NIV_ENDEUDAMIENTO
+  add constraint FK_GNEND_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_NIV_ENDEUDAMIENTO
+  add constraint FK_GNEND_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOLICITUDES (NRO_SOLICITUD);
+alter table IT.GE_NIV_ENDEUDAMIENTO
+  add constraint AVCON_1083264899_COD_C_002
+  check (COD_CONCEPTO BETWEEN 0 AND 999);
+alter table IT.GE_NIV_ENDEUDAMIENTO
+  add constraint AVCON_1083264899_ING_E_000
+  check (ING_EGRESO IN ('I', 'E'));
+

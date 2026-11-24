@@ -1,0 +1,42 @@
+create table IT.TA_CTA_CLIENTES_PRO_TMP
+(
+  nro_cuenta          VARCHAR2(15),
+  nro_tarjeta         VARCHAR2(16),
+  nro_tar_principal   VARCHAR2(16),
+  cod_modulo          VARCHAR2(3),
+  cod_modalidad       VARCHAR2(3),
+  tip_tarjeta         NUMBER(1),
+  nom_embozar         VARCHAR2(30),
+  nro_documento       VARCHAR2(10),
+  nro_ruc             VARCHAR2(20),
+  lin_credito         NUMBER(13,2) default 0,
+  lin_cuotas          NUMBER(13,2) default 0,
+  lin_especial        NUMBER(13,2) default 0,
+  fec_archivo         VARCHAR2(18),
+  cod_ent_procesadora VARCHAR2(18),
+  cod_afinidad        VARCHAR2(3),
+  otr_documento       VARCHAR2(20),
+  mar_activa          VARCHAR2(1),
+  mar_bloqueo         VARCHAR2(1),
+  nro_cta_alternativo VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CTA_CLIENTES_PRO_TMP
+  is 'Tabla temporal de Clientes Especiales de Tarjetas Procard';
+comment on column IT.TA_CTA_CLIENTES_PRO_TMP.mar_activa
+  is 'Marca Activa';
+comment on column IT.TA_CTA_CLIENTES_PRO_TMP.mar_bloqueo
+  is 'Marca de Bloqueo A=Administrativo U=Usuario.';
+comment on column IT.TA_CTA_CLIENTES_PRO_TMP.nro_cta_alternativo
+  is 'N?mero de Cuenta Alternativo para la entidad';
+

@@ -1,0 +1,49 @@
+create table IT.WF_TIP_CIR_CONDICIONES
+(
+  cod_tip_circuito NUMBER(3) not null,
+  cod_campo        VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_TIP_CIR_CONDICIONES
+  is 'Posibles condiciones que pueden utilizarse en el circuito';
+comment on column IT.WF_TIP_CIR_CONDICIONES.cod_tip_circuito
+  is 'Codigo del tipo de circuito';
+comment on column IT.WF_TIP_CIR_CONDICIONES.cod_campo
+  is 'Codigo de Campo de filtro';
+comment on column IT.WF_TIP_CIR_CONDICIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_TIP_CIR_CONDICIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_TIP_CIR_CONDICIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_TIP_CIR_CONDICIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.WF_TIP_CIR_CONDICIONES
+  add constraint PK_WF_TIP_CIR_CONDICIONES primary key (COD_TIP_CIRCUITO, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

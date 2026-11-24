@@ -1,0 +1,7 @@
+create sequence IT.S_APN
+minvalue 1
+maxvalue 999999999
+start with 100038487
+increment by 1
+nocache;
+

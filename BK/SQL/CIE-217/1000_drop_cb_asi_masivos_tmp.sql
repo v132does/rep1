@@ -1,0 +1,1 @@
+drop table IT.CB_ASI_MASIVOS_TMP;

@@ -1,0 +1,19 @@
+create table IT.VALE_PDM
+(
+  dname VARCHAR2(100),
+  sname VARCHAR2(100),
+  fname VARCHAR2(100),
+  iblob BLOB
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

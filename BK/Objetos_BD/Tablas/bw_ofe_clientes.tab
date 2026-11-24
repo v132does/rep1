@@ -1,0 +1,70 @@
+create table IT.BW_OFE_CLIENTES
+(
+  cod_persona      VARCHAR2(10) not null,
+  producto         VARCHAR2(100) not null,
+  cantidad         NUMBER default 1 not null,
+  inicio           VARCHAR2(1) default 'S' not null,
+  fec_inicio       DATE,
+  fec_fin          DATE,
+  mensaje          VARCHAR2(4000) not null,
+  url_imagen       VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OFE_CLIENTES
+  is 'Contiene las ofertas popup para los clientes desde mobile';
+comment on column IT.BW_OFE_CLIENTES.cod_persona
+  is 'Codigo cliente.';
+comment on column IT.BW_OFE_CLIENTES.producto
+  is 'Producto a ofertar.';
+comment on column IT.BW_OFE_CLIENTES.cantidad
+  is 'Numero de veces para mostrar la oferta.';
+comment on column IT.BW_OFE_CLIENTES.inicio
+  is 'S: Mostrar al hacer login, N: mostrar al hacer logout.';
+comment on column IT.BW_OFE_CLIENTES.fec_inicio
+  is 'Fecha inicio de la oferta.';
+comment on column IT.BW_OFE_CLIENTES.fec_fin
+  is 'Fecha final de oferta.';
+comment on column IT.BW_OFE_CLIENTES.mensaje
+  is 'Mensaje pop up a mostrar al usuario.';
+comment on column IT.BW_OFE_CLIENTES.url_imagen
+  is 'Url de imagen a mostrar.';
+comment on column IT.BW_OFE_CLIENTES.usu_insercion
+  is 'Usuario insercion.';
+comment on column IT.BW_OFE_CLIENTES.fec_insercion
+  is 'Fecha insercion.';
+comment on column IT.BW_OFE_CLIENTES.usu_modificacion
+  is 'Usuario modificacion.';
+comment on column IT.BW_OFE_CLIENTES.fec_modificacion
+  is 'Fecha modificacion.';
+alter table IT.BW_OFE_CLIENTES
+  add constraint PK_BW_OFCLI_COD_PERSONA primary key (COD_PERSONA, INICIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OFE_CLIENTES
+  add constraint CK_BOCLI_INICIO
+  check (INICIO IN ('S', 'N'));
+

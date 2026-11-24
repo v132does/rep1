@@ -1,0 +1,20 @@
+create table IT.BW_NOT_ISO_CODIGOS
+(
+  cod_iso VARCHAR2(3) not null,
+  moneda  VARCHAR2(3) not null,
+  entidad VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_NOT_ISO_CODIGOS
+  is 'Para obtener las monedas de las operaciones de bancard';
+

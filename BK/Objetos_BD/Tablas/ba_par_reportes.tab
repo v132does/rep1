@@ -1,0 +1,76 @@
+create table IT.BA_PAR_REPORTES
+(
+  cod_programa     VARCHAR2(30) not null,
+  cod_campo        VARCHAR2(10) not null,
+  alias            VARCHAR2(30),
+  val_defecto      VARCHAR2(300),
+  tipo             VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_orden        NUMBER(3),
+  tip_val_defecto  VARCHAR2(1) default 'V',
+  modificable      VARCHAR2(1) default 'S',
+  obligatorio      VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PAR_REPORTES
+  is 'Parametros por Reporte.';
+comment on column IT.BA_PAR_REPORTES.cod_programa
+  is 'Codigo del Programa.';
+comment on column IT.BA_PAR_REPORTES.cod_campo
+  is 'Codigo del campo.';
+comment on column IT.BA_PAR_REPORTES.alias
+  is 'Alias de la tabla si tiene.';
+comment on column IT.BA_PAR_REPORTES.val_defecto
+  is 'Valor del campo filtrado.';
+comment on column IT.BA_PAR_REPORTES.tipo
+  is 'Tipo de parametro: F=Filtro, P=parametro, A=ambos.';
+comment on column IT.BA_PAR_REPORTES.usu_insercion
+  is 'Usuario que Inserta.';
+comment on column IT.BA_PAR_REPORTES.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.BA_PAR_REPORTES.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.BA_PAR_REPORTES.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.BA_PAR_REPORTES.nro_orden
+  is 'Nro de orden para despliegue en la pantalla.';
+comment on column IT.BA_PAR_REPORTES.tip_val_defecto
+  is 'Tipo de Valor por Defecto: V-Valore directo o S-Sql.';
+comment on column IT.BA_PAR_REPORTES.modificable
+  is 'Si el valor del parametro es o no modificable.';
+comment on column IT.BA_PAR_REPORTES.obligatorio
+  is 'Si el parametro debe ser ingresado si o no.';
+alter table IT.BA_PAR_REPORTES
+  add constraint PK_BA_PAR_REPORTES primary key (COD_PROGRAMA, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PAR_REPORTES
+  add constraint FK_EPREP_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.BA_PAR_REPORTES
+  add constraint AVCON_1083076470_TIPO_000
+  check (TIPO IN ('F', 'P', 'A'));
+

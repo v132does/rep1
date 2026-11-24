@@ -1,0 +1,130 @@
+create table IT.CB_SAL_OFICINAS_HIS
+(
+  cod_oficina            NUMBER(3) not null,
+  cod_rubro              VARCHAR2(15) not null,
+  ano                    NUMBER(4) not null,
+  mes                    NUMBER(2) not null,
+  sal_mon_loc_ant        NUMBER(18,2) default 0,
+  deb_mon_local          NUMBER(18,2) default 0,
+  cre_mon_local          NUMBER(18,2) default 0,
+  sal_ini_mes_mon_local  NUMBER(18,2) default 0,
+  sal_mon_rub_ant        NUMBER(18,2) default 0,
+  deb_mon_rubro          NUMBER(18,2) default 0,
+  cre_mon_rubro          NUMBER(18,2) default 0,
+  sal_ini_mes_mon_rubro  NUMBER(18,2) default 0,
+  sal_ini_mes_mon_fuerte NUMBER(18,2) default 0,
+  protegido              VARCHAR2(1) default 'N' not null,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  sal_equ_loc_ant        NUMBER(18,2) default 0,
+  deb_equ_local          NUMBER(18,2) default 0,
+  cre_equ_local          NUMBER(18,2) default 0,
+  sal_ini_mes_equ_local  NUMBER(18,2) default 0
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_OFICINAS_HIS
+  is 'Saldos Mensuales Por Oficina - Oficina ** Mantener un a?o completo **';
+comment on column IT.CB_SAL_OFICINAS_HIS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_SAL_OFICINAS_HIS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_SAL_OFICINAS_HIS.ano
+  is 'Año del saldo.';
+comment on column IT.CB_SAL_OFICINAS_HIS.mes
+  is 'Mes del saldo.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_mon_loc_ant
+  is 'Saldo de ayer en moneda local.';
+comment on column IT.CB_SAL_OFICINAS_HIS.deb_mon_local
+  is 'Debitos de hoy en moneda local.';
+comment on column IT.CB_SAL_OFICINAS_HIS.cre_mon_local
+  is 'Creditos de hoy en moneda local.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_ini_mes_mon_local
+  is 'Saldo de inicio del mes en moneda local.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_mon_rub_ant
+  is 'Saldo de ayer en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.deb_mon_rubro
+  is 'Debitos de hoy en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.cre_mon_rubro
+  is 'Creditos de hoy en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_ini_mes_mon_rubro
+  is 'Saldo de inicio del mes en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_ini_mes_mon_fuerte
+  is 'Saldo de inicio de mes convertido a U$S.';
+comment on column IT.CB_SAL_OFICINAS_HIS.protegido
+  is 'Protegido? S=Registro protegido, no puede ser eliminado. N=Registro no protegido, puede ser eliminado.';
+comment on column IT.CB_SAL_OFICINAS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SAL_OFICINAS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SAL_OFICINAS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_OFICINAS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_equ_loc_ant
+  is 'Saldo anterior del equivalente en gs de la moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.deb_equ_local
+  is 'Total de debitos del equivalente en gs de la moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.cre_equ_local
+  is 'Total de creditos del equivalente en gs de la moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_HIS.sal_ini_mes_equ_local
+  is 'Saldo inicial del mes equivalente en gs de la moneda extranjera.';
+create index IT.IN_BSOHI_COD_RUBRO on IT.CB_SAL_OFICINAS_HIS (COD_RUBRO, ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint PK_CB_SAL_OFICINAS_HIS primary key (COD_OFICINA, COD_RUBRO, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint FK_BSOHI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint AVCON_1082384743_COD_O_010
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint AVCON_1082384743_PROTE_005
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint AVCON_1085418068_COD_O_010
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint AVCON_1085418068_PROTE_005
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint AVCON_1086033593_COD_O_010
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_SAL_OFICINAS_HIS
+  add constraint AVCON_1086033593_PROTE_005
+  check (PROTEGIDO IN ('S', 'N'));
+

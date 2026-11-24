@@ -1,0 +1,32 @@
+create table IT.MI_IT_BA_PERSONAS_01
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nro_documento     VARCHAR2(20) not null,
+  fec_operacion     DATE default sysdate,
+  fec_migracion     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_MI_IT_BA_PER_01 on IT.MI_IT_BA_PERSONAS_01 (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

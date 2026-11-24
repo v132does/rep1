@@ -1,0 +1,260 @@
+create table IT.GE_EQU_PER_FISICAS
+(
+  fecha             DATE not null,
+  nro_secuencia     VARCHAR2(15) not null,
+  tip_accion        VARCHAR2(1),
+  cod_sucursal      VARCHAR2(10),
+  tip_transaccion   VARCHAR2(2),
+  id_operacion      VARCHAR2(50),
+  tip_vinculacion   VARCHAR2(2),
+  nro_cliente       VARCHAR2(20),
+  can_dia_atraso    VARCHAR2(10),
+  ope_cerrada       VARCHAR2(1),
+  periodo           VARCHAR2(10),
+  consentimiento    VARCHAR2(1),
+  fec_valor         VARCHAR2(10),
+  tip_documento     VARCHAR2(5),
+  cod_pai_documento VARCHAR2(2),
+  nro_documento     VARCHAR2(30) not null,
+  nacionalidad      VARCHAR2(2),
+  pri_apellido      VARCHAR2(50),
+  seg_apellido      VARCHAR2(50),
+  ape_casada        VARCHAR2(50),
+  pri_nombre        VARCHAR2(50),
+  seg_nombre        VARCHAR2(50),
+  fec_nacimiento    VARCHAR2(10),
+  cod_sexo          VARCHAR2(1),
+  est_civil         VARCHAR2(1),
+  calle             VARCHAR2(255),
+  nro_puerta        VARCHAR2(10),
+  apartamento       VARCHAR2(5),
+  piso              VARCHAR2(5),
+  complemento       VARCHAR2(100),
+  kilometro         VARCHAR2(10),
+  manzana           VARCHAR2(10),
+  lote              VARCHAR2(10),
+  block             VARCHAR2(30),
+  esquina1          VARCHAR2(30),
+  esquina2          VARCHAR2(30),
+  pension           VARCHAR2(1),
+  tip_vivienda      VARCHAR2(1),
+  id_ciudad         VARCHAR2(15),
+  ciudad            VARCHAR2(50),
+  barrio            VARCHAR2(200),
+  departamento      VARCHAR2(2),
+  cod_postal        VARCHAR2(2),
+  telefono          VARCHAR2(85),
+  emp_empleo        VARCHAR2(120),
+  cargo             VARCHAR2(50),
+  profesion         VARCHAR2(50),
+  calle_laboral     VARCHAR2(255),
+  nro_pue_laboral   VARCHAR2(5),
+  apart_laboral     VARCHAR2(5),
+  piso_laboral      VARCHAR2(5),
+  comp_laboral      VARCHAR2(100),
+  kilo_laboral      VARCHAR2(10),
+  man_laboral       VARCHAR2(10),
+  lote_laboral      VARCHAR2(10),
+  blo_laboral       VARCHAR2(30),
+  esq1_laboral      VARCHAR2(30),
+  esq2_laboral      VARCHAR2(30),
+  id_ciu_laboral    VARCHAR2(15),
+  ciu_laboral       VARCHAR2(50),
+  loc_laboral       VARCHAR2(200),
+  dep_laboral       VARCHAR2(2),
+  cod_pos_laboral   VARCHAR2(5),
+  ing_empleo        VARCHAR2(8),
+  tel_empleo        VARCHAR2(85),
+  tip_doc_conyuge   VARCHAR2(5),
+  pai_doc_conyuge   VARCHAR2(2),
+  nro_doc_conyuge   VARCHAR2(30),
+  nac_conyuge       VARCHAR2(2),
+  pri_ape_conyuge   VARCHAR2(50),
+  seg_ape_conyuge   VARCHAR2(50),
+  ape_cas_conyuge   VARCHAR2(50),
+  pri_nom_conyuge   VARCHAR2(50),
+  seg_nom_conyuge   VARCHAR2(50),
+  tip_proceso       VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EQU_PER_FISICAS
+  is 'Es la tabla donde se generan los datos de Altas de Personas Físicas a enviar a Equifax Mensualmente.';
+comment on column IT.GE_EQU_PER_FISICAS.fecha
+  is 'Fecha en que es ejecutado el proceso.';
+comment on column IT.GE_EQU_PER_FISICAS.nro_secuencia
+  is 'Identificador único de cada registro generado';
+comment on column IT.GE_EQU_PER_FISICAS.tip_accion
+  is 'Tipo de operación a realizar ("I"nclusión, "M"odificación, "E"liminación)';
+comment on column IT.GE_EQU_PER_FISICAS.cod_sucursal
+  is 'Nro de sucursal del cliente en sistema de Equifax';
+comment on column IT.GE_EQU_PER_FISICAS.tip_transaccion
+  is 'Tipo de transacción que se registra (1P, 3T,etc)';
+comment on column IT.GE_EQU_PER_FISICAS.id_operacion
+  is 'Identificación única del cliente/operación';
+comment on column IT.GE_EQU_PER_FISICAS.tip_vinculacion
+  is 'Tipo de vinculación de la persona con la operación (Titular, Garante, etc)';
+comment on column IT.GE_EQU_PER_FISICAS.nro_cliente
+  is 'Identificación interna del cliente en la entidad reportante';
+comment on column IT.GE_EQU_PER_FISICAS.can_dia_atraso
+  is 'Días de atraso en pago.';
+comment on column IT.GE_EQU_PER_FISICAS.ope_cerrada
+  is 'Indica si el mes reportado es el último para la operación (se cierra).';
+comment on column IT.GE_EQU_PER_FISICAS.periodo
+  is 'Período (año y mes) a que corresponde la información(AAAAMM).';
+comment on column IT.GE_EQU_PER_FISICAS.consentimiento
+  is 'Consentimiento brindado por la persona para el tratamiento de sus datos personales.';
+comment on column IT.GE_EQU_PER_FISICAS.fec_valor
+  is 'Fecha valor de la información de la persona enviada (no de la operación) (Formato AAAAMMDD)';
+comment on column IT.GE_EQU_PER_FISICAS.tip_documento
+  is 'Tipo de documento de identificación de la persona';
+comment on column IT.GE_EQU_PER_FISICAS.cod_pai_documento
+  is 'País de emitido el documento de identificación de la persona';
+comment on column IT.GE_EQU_PER_FISICAS.nro_documento
+  is 'Número de Documento de identificación de la persona';
+comment on column IT.GE_EQU_PER_FISICAS.nacionalidad
+  is 'Nacionalidad, reportada en ISO 3166-1 alfa-3';
+comment on column IT.GE_EQU_PER_FISICAS.pri_apellido
+  is '1er. Apellido, o todos los apellidos si no se tienen particionados.';
+comment on column IT.GE_EQU_PER_FISICAS.seg_apellido
+  is '2do. Apellido, o vacío si no se tienen particionados (se reportaron en el campo "1er.Apellido").';
+comment on column IT.GE_EQU_PER_FISICAS.ape_casada
+  is 'Apellido de casada (si corresponde)';
+comment on column IT.GE_EQU_PER_FISICAS.pri_nombre
+  is '1er. Nombre, o todos los nombres si no se tienen particionados.';
+comment on column IT.GE_EQU_PER_FISICAS.seg_nombre
+  is '2do. Nombre, o vacío si no se tienen particionados (se reportaron en el campo "1er.Nombre").';
+comment on column IT.GE_EQU_PER_FISICAS.fec_nacimiento
+  is 'Fecha de Nacimiento (fto AAAAMMDD).';
+comment on column IT.GE_EQU_PER_FISICAS.cod_sexo
+  is 'M=Masculino - F=Femenino';
+comment on column IT.GE_EQU_PER_FISICAS.est_civil
+  is 'Estado Civil';
+comment on column IT.GE_EQU_PER_FISICAS.calle
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.nro_puerta
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.apartamento
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.piso
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.complemento
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.kilometro
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.manzana
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.lote
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.block
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.esquina1
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.esquina2
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.pension
+  is 'Dirección Personal';
+comment on column IT.GE_EQU_PER_FISICAS.tip_vivienda
+  is 'Dirección Personal. Propietario, inquilino, copropietario, etc.';
+comment on column IT.GE_EQU_PER_FISICAS.id_ciudad
+  is 'Dirección Personal. Propietario, inquilino, copropietario, etc.';
+comment on column IT.GE_EQU_PER_FISICAS.ciudad
+  is 'Dirección Personal. Nombre de la Ciudad/Distrito del domicilio personal';
+comment on column IT.GE_EQU_PER_FISICAS.barrio
+  is 'Dirección Personal. Nombre de la  Localidad/Barrio del domicilio personal';
+comment on column IT.GE_EQU_PER_FISICAS.departamento
+  is 'Dirección Personal. Departamento del domicilio personal.';
+comment on column IT.GE_EQU_PER_FISICAS.cod_postal
+  is 'Dirección Personal. Código postal del domicilio personal.';
+comment on column IT.GE_EQU_PER_FISICAS.telefono
+  is 'Dirección Personal. Teléfono(s) personales';
+comment on column IT.GE_EQU_PER_FISICAS.emp_empleo
+  is 'Dirección Personal. Empresa donde trabaja la persona';
+comment on column IT.GE_EQU_PER_FISICAS.cargo
+  is 'Dirección Personal. Ocupación (cargo, función)';
+comment on column IT.GE_EQU_PER_FISICAS.profesion
+  is 'Dirección Personal. Profesión de la persona';
+comment on column IT.GE_EQU_PER_FISICAS.calle_laboral
+  is 'Dirección Laboral';
+comment on column IT.GE_EQU_PER_FISICAS.nro_pue_laboral
+  is 'Dirección Laboral. Numero de Puerta';
+comment on column IT.GE_EQU_PER_FISICAS.apart_laboral
+  is 'Dirección Laboral. Apartamento';
+comment on column IT.GE_EQU_PER_FISICAS.piso_laboral
+  is 'Dirección Laboral';
+comment on column IT.GE_EQU_PER_FISICAS.comp_laboral
+  is 'Dirección Laboral. Complemento';
+comment on column IT.GE_EQU_PER_FISICAS.kilo_laboral
+  is 'Dirección Laboral. Kilómetro';
+comment on column IT.GE_EQU_PER_FISICAS.man_laboral
+  is 'Dirección Laboral. Manzana';
+comment on column IT.GE_EQU_PER_FISICAS.lote_laboral
+  is 'Dirección Laboral. Lote';
+comment on column IT.GE_EQU_PER_FISICAS.blo_laboral
+  is 'Dirección Laboral. Block';
+comment on column IT.GE_EQU_PER_FISICAS.esq1_laboral
+  is 'Dirección Laboral. Esquina 1';
+comment on column IT.GE_EQU_PER_FISICAS.esq2_laboral
+  is 'Dirección Laboral. Esquina 2';
+comment on column IT.GE_EQU_PER_FISICAS.id_ciu_laboral
+  is 'Dirección Laboral. ID de la ciudad';
+comment on column IT.GE_EQU_PER_FISICAS.ciu_laboral
+  is 'Dirección Laboral. Nombre de la Ciudad/Distrito';
+comment on column IT.GE_EQU_PER_FISICAS.loc_laboral
+  is 'Dirección Laboral. Nombre de la  Localidad/Barrio';
+comment on column IT.GE_EQU_PER_FISICAS.dep_laboral
+  is 'Dirección Laboral. Departamento de empleo.';
+comment on column IT.GE_EQU_PER_FISICAS.cod_pos_laboral
+  is 'Dirección Laboral. Código Postal del empleo. Numérico, entre 1 y 99999';
+comment on column IT.GE_EQU_PER_FISICAS.ing_empleo
+  is 'Dirección Laboral. Fecha de inicio de actividad en el empleo (fto AAAAMMDD)';
+comment on column IT.GE_EQU_PER_FISICAS.tel_empleo
+  is 'Dirección Laboral. Teléfono(s) del empleo';
+comment on column IT.GE_EQU_PER_FISICAS.tip_doc_conyuge
+  is 'Tipo de documento de identificación del cónyuge';
+comment on column IT.GE_EQU_PER_FISICAS.pai_doc_conyuge
+  is 'País de emitido el documento de identificación del cónyuge';
+comment on column IT.GE_EQU_PER_FISICAS.nro_doc_conyuge
+  is 'Número de Documento de identificación del cónyuge';
+comment on column IT.GE_EQU_PER_FISICAS.nac_conyuge
+  is 'Nacionalidad, reportada en ISO 3166-1 alfa-3';
+comment on column IT.GE_EQU_PER_FISICAS.pri_ape_conyuge
+  is '1er Apellido del cónyuge (o ambos si no estuvieran particionados)';
+comment on column IT.GE_EQU_PER_FISICAS.seg_ape_conyuge
+  is '2do Apellido del cónyuge (vacío si no estuviera particionado)';
+comment on column IT.GE_EQU_PER_FISICAS.ape_cas_conyuge
+  is 'Apellido de casada del cónyuge (si corresponde)';
+comment on column IT.GE_EQU_PER_FISICAS.pri_nom_conyuge
+  is '1er Nombre del cónyuge (ambos nombres si no estuvieran particionados y Nombres + Apellidos si lo tuvieran en un solo campo)';
+comment on column IT.GE_EQU_PER_FISICAS.seg_nom_conyuge
+  is '2do Nombre del cónyuge (vacío si no estuviera particionado)';
+comment on column IT.GE_EQU_PER_FISICAS.tip_proceso
+  is 'Tipo de Proceso (M-Manual / A-Automático)';
+alter table IT.GE_EQU_PER_FISICAS
+  add constraint PK_GE_EQU_PER_FISICAS primary key (FECHA, NRO_SECUENCIA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

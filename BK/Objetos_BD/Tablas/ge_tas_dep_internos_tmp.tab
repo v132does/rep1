@@ -1,0 +1,83 @@
+create table IT.GE_TAS_DEP_INTERNOS_TMP
+(
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3),
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  plazo             NUMBER(18,2),
+  cod_tasa          NUMBER(3),
+  cod_transaccion   NUMBER(4),
+  fec_final         DATE,
+  val_tasa          NUMBER(20,4),
+  fec_vigencia      DATE,
+  tip_valor         VARCHAR2(1),
+  tipo              VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE,
+  cod_sub_modalidad NUMBER(3),
+  pla_transcurrido  NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TAS_DEP_INTERNOS_TMP
+  is 'Tabla que registra los datos del valor de las tasas a fin de optimizar el proceso de depósitos internos.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_modulo
+  is 'Modulo.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_oficina
+  is 'Oficina.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_moneda
+  is 'Moneda.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.plazo
+  is 'Rango de Plazo.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_tasa
+  is 'Código de Tasa.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_transaccion
+  is 'Código de Transacción.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.fec_final
+  is 'Fecha desde la cual se obtiene las Tasas Vigentes.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.val_tasa
+  is 'Valor de la Tasa.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.fec_vigencia
+  is 'Fecha de Vigencia de la Tasa.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.tip_valor
+  is 'Tipo Valor.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.tipo
+  is 'Tipo de Tasa.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.cod_sub_modalidad
+  is 'Sub-modalidad.';
+comment on column IT.GE_TAS_DEP_INTERNOS_TMP.pla_transcurrido
+  is 'Plazo Transcurrido de la operación.';
+create index IT.IN_GTDI_COD_MODULO on IT.GE_TAS_DEP_INTERNOS_TMP (COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, COD_SUB_MODALIDAD, PLAZO, TIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

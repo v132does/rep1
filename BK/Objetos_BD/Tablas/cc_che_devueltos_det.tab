@@ -1,0 +1,64 @@
+create table IT.CC_CHE_DEVUELTOS_DET
+(
+  fecha            DATE not null,
+  nro_cuenta       VARCHAR2(15),
+  nro_cheque       NUMBER(15) not null,
+  cod_causa        NUMBER(3) not null,
+  cod_cau_dev_bcp  NUMBER(3),
+  tip_importe      NUMBER(1) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_moneda       VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_DEVUELTOS_DET
+  is 'Detalle de Motivos de Rechazos Secundarios de Cheques cargo Nuestro Banco.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.fecha
+  is 'Fecha de Devolucion.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.nro_cuenta
+  is 'Cuenta Libradora del cheque';
+comment on column IT.CC_CHE_DEVUELTOS_DET.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.cod_causa
+  is 'Código de Devolución de Cheque.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.cod_cau_dev_bcp
+  is 'Código de Devolución BCP';
+comment on column IT.CC_CHE_DEVUELTOS_DET.tip_importe
+  is 'Tipo de Importe 0 = Bajo Valor / 1 = Alto Valor';
+comment on column IT.CC_CHE_DEVUELTOS_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_DEVUELTOS_DET.cod_moneda
+  is 'Codigo de Moneda';
+alter table IT.CC_CHE_DEVUELTOS_DET
+  add constraint PK_CC_CHE_DEVUELTOS_DET unique (FECHA, NRO_CHEQUE, NRO_CUENTA, COD_CAUSA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,50 @@
+create table IT.GE_BANCAS_CRM
+(
+  cod_banca        NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion TIMESTAMP(6) default current_timestamp not null,
+  tip_accion       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_BANCAS_CRM
+  is 'Bancas habilitadas.';
+comment on column IT.GE_BANCAS_CRM.cod_banca
+  is 'Codigo de banca.';
+comment on column IT.GE_BANCAS_CRM.descripcion
+  is 'Descripcion de la Banca.';
+comment on column IT.GE_BANCAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_BANCAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_BANCAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_BANCAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_BANCAS_CRM
+  add constraint PK_GE_BANCAS_CRM primary key (FEC_MODIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

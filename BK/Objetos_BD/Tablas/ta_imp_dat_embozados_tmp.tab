@@ -1,0 +1,34 @@
+create table IT.TA_IMP_DAT_EMBOZADOS_TMP
+(
+  txt_linea VARCHAR2(800) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_IMP_DAT_EMBOZADOS_TMP
+  is 'Temporal de embozados de tarjetas global a nominar';
+comment on column IT.TA_IMP_DAT_EMBOZADOS_TMP.txt_linea
+  is 'Datos de tarjetas a nominar';
+alter table IT.TA_IMP_DAT_EMBOZADOS_TMP
+  add constraint PK_TA_IMP_DAT_EMBOZADOS_TMP primary key (TXT_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 768K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

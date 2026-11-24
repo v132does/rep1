@@ -1,0 +1,55 @@
+-- Create table
+create table IT.GE_ONB_VERIFICADOS
+(
+  id               VARCHAR2(32) not null,
+  nro_documento    VARCHAR2(20) not null,
+  nro_intento      NUMBER(10),
+  usu_insercion    VARCHAR2(255),
+  fec_insercion    TIMESTAMP(6),
+  usu_modificacion VARCHAR2(255),
+  fec_modificacion TIMESTAMP(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_ONB_VERIFICADOS
+  is 'Tabla para registros de seguimientos de creación de clientes en onboarding.';
+-- Add comments to the columns 
+comment on column IT.GE_ONB_VERIFICADOS.id
+  is 'Corresponde a Identiifcador';
+comment on column IT.GE_ONB_VERIFICADOS.nro_documento
+  is 'Numero de documento';
+comment on column IT.GE_ONB_VERIFICADOS.nro_intento
+  is 'Numero de intento';
+comment on column IT.GE_ONB_VERIFICADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_ONB_VERIFICADOS.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.GE_ONB_VERIFICADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.GE_ONB_VERIFICADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_ONB_VERIFICADOS
+  add constraint PK_GE_ONB_VERIFICADOS primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

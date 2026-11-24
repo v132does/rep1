@@ -1,0 +1,115 @@
+create table IT.CC_CHE_GER_EMITIDOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cheque       NUMBER(15) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_usu_pagador  VARCHAR2(10),
+  fecha            DATE not null,
+  beneficiario     VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tip_referencia   VARCHAR2(1),
+  nro_referencia   VARCHAR2(15),
+  fec_pago         DATE,
+  impreso          VARCHAR2(1) default 'N' not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_transaccion  NUMBER(4),
+  fec_pag_diferido DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_GER_EMITIDOS
+  is 'Cheques Gerencia Emitidos.';
+comment on column IT.CC_CHE_GER_EMITIDOS.nro_cuenta
+  is 'Cuenta Gerencia.';
+comment on column IT.CC_CHE_GER_EMITIDOS.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_GER_EMITIDOS.monto
+  is 'Monto del Cheque.';
+comment on column IT.CC_CHE_GER_EMITIDOS.cod_usuario
+  is 'Usuario.';
+comment on column IT.CC_CHE_GER_EMITIDOS.cod_usu_pagador
+  is 'Usuario que realizo el Pago.';
+comment on column IT.CC_CHE_GER_EMITIDOS.fecha
+  is 'Fecha de Emision.';
+comment on column IT.CC_CHE_GER_EMITIDOS.beneficiario
+  is 'Beneficiario.';
+comment on column IT.CC_CHE_GER_EMITIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_GER_EMITIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_GER_EMITIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_GER_EMITIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_GER_EMITIDOS.tip_referencia
+  is 'Tipo de Desembolso.';
+comment on column IT.CC_CHE_GER_EMITIDOS.nro_referencia
+  is 'Cuenta Origen.';
+comment on column IT.CC_CHE_GER_EMITIDOS.fec_pago
+  is 'Fecha de Pago Real.';
+comment on column IT.CC_CHE_GER_EMITIDOS.impreso
+  is 'Indica si el Cheque fue Impreso. (S/N).';
+comment on column IT.CC_CHE_GER_EMITIDOS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.CC_CHE_GER_EMITIDOS.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.CC_CHE_GER_EMITIDOS.cod_transaccion
+  is 'Codigo de la Transaccion.';
+comment on column IT.CC_CHE_GER_EMITIDOS.fec_pag_diferido
+  is 'Fecha de Pago estimado para Pagos Diferidos.';
+create index IT.IN_CCGEM_COD_MODALIDAD on IT.CC_CHE_GER_EMITIDOS (COD_MODALIDAD, COD_MODULO, COD_TRANSACCION, COD_USUARIO, COD_USU_PAGADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_GER_EMITIDOS
+  add constraint PK_CC_CHE_GER_EMITIDOS primary key (NRO_CUENTA, NRO_CHEQUE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_GER_EMITIDOS
+  add constraint FK_CCGEM_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CC_CHE_GER_EMITIDOS
+  add constraint FK_CCGEM_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_CHE_GER_EMITIDOS
+  add constraint FK_CCGEM_COD_USU_PAGADOR foreign key (COD_USU_PAGADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_CHE_GER_EMITIDOS
+  add constraint FK_CCGEM_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_CHE_GER_EMITIDOS
+  add constraint AVCON_1095197009_IMPRE_000
+  check (IMPRESO IN ('S', 'N'));
+

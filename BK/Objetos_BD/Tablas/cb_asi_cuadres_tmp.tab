@@ -1,0 +1,49 @@
+create table IT.CB_ASI_CUADRES_TMP
+(
+  cod_rubro      VARCHAR2(15) not null,
+  cod_oficina    NUMBER(3),
+  cod_moneda     VARCHAR2(3),
+  tot_inventario NUMBER(21,2),
+  sal_contable   NUMBER(21,2),
+  diferencia     NUMBER(21,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_ASI_CUADRES_TMP
+  is 'Tabla temporal para generar asientos automaticos de cuadres de balances/inventario.';
+comment on column IT.CB_ASI_CUADRES_TMP.cod_rubro
+  is 'Código de rubro contable.';
+comment on column IT.CB_ASI_CUADRES_TMP.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.CB_ASI_CUADRES_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CB_ASI_CUADRES_TMP.tot_inventario
+  is 'Total saldo del inventario.';
+comment on column IT.CB_ASI_CUADRES_TMP.sal_contable
+  is 'Total saldo contable.';
+comment on column IT.CB_ASI_CUADRES_TMP.diferencia
+  is 'Diferencia entre ambos saldos a generar apunte automático.';
+alter table IT.CB_ASI_CUADRES_TMP
+  add constraint UK_CB_ASI_CUADRES_TMP unique (COD_RUBRO, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

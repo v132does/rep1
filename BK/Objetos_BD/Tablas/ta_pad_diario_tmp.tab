@@ -1,0 +1,123 @@
+create table IT.TA_PAD_DIARIO_TMP
+(
+  tip_registro  NUMBER(1),
+  cod_marca     NUMBER(5),
+  cod_entidad   NUMBER(5),
+  cod_sucursal  NUMBER(5),
+  nro_cuenta    NUMBER(10),
+  cod_producto  NUMBER(3),
+  apellido      VARCHAR2(50),
+  nombre        VARCHAR2(50),
+  tip_documento NUMBER(5),
+  nro_documento VARCHAR2(15),
+  dis_compra    NUMBER(19,4),
+  signo1        VARCHAR2(1),
+  dis_adelanto  NUMBER(19,4),
+  signo2        VARCHAR2(1),
+  dis_com_usd   NUMBER(19,4),
+  signo3        VARCHAR2(1),
+  dis_ade_usd   NUMBER(19,4),
+  signo4        VARCHAR2(1),
+  tra_pen_gs    NUMBER(19,4),
+  signo5        VARCHAR2(1),
+  tra_pen_usd   NUMBER(19,4),
+  signo6        VARCHAR2(1),
+  est_cuenta    NUMBER(3),
+  sal_ant_gs    NUMBER(19,4),
+  signo7        VARCHAR2(1),
+  sal_ant_usd   NUMBER(19,4),
+  signo8        VARCHAR2(1),
+  sal_act_gs    NUMBER(19,4),
+  signo9        VARCHAR2(1),
+  sal_act_usd   NUMBER(19,4),
+  signo10       VARCHAR2(1),
+  filler        VARCHAR2(17)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PAD_DIARIO_TMP
+  is 'Procesamiento archivo T1015D Padrón Diario Disponibles';
+comment on column IT.TA_PAD_DIARIO_TMP.tip_registro
+  is '2 - Detalle
+';
+comment on column IT.TA_PAD_DIARIO_TMP.cod_marca
+  is 'Código de Marca
+';
+comment on column IT.TA_PAD_DIARIO_TMP.cod_entidad
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_PAD_DIARIO_TMP.cod_sucursal
+  is 'Código asignado a la Sucursal
+';
+comment on column IT.TA_PAD_DIARIO_TMP.nro_cuenta
+  is 'Número de cuenta
+';
+comment on column IT.TA_PAD_DIARIO_TMP.cod_producto
+  is 'Código del tipo de producto
+';
+comment on column IT.TA_PAD_DIARIO_TMP.apellido
+  is 'Primer apellido de la persona
+';
+comment on column IT.TA_PAD_DIARIO_TMP.nombre
+  is 'Primer nombre de la persona
+';
+comment on column IT.TA_PAD_DIARIO_TMP.tip_documento
+  is 'Código de tipo de documento
+';
+comment on column IT.TA_PAD_DIARIO_TMP.nro_documento
+  is 'Numero del documento
+';
+comment on column IT.TA_PAD_DIARIO_TMP.dis_compra
+  is 'Disponible de compra en moneda local de la cuenta al momento de generación del archivo.Formato 15,4
+';
+comment on column IT.TA_PAD_DIARIO_TMP.dis_adelanto
+  is 'Disponible de adelanto en moneda local de la cuenta al momento de generación del archivo';
+comment on column IT.TA_PAD_DIARIO_TMP.dis_com_usd
+  is 'Disponible de compra en moneda dólar de la cuenta al momento de generación del archivo
+';
+comment on column IT.TA_PAD_DIARIO_TMP.dis_ade_usd
+  is 'Disponible de adelanto en moneda dólar de la cuenta al momento de generación del archivo
+';
+comment on column IT.TA_PAD_DIARIO_TMP.tra_pen_gs
+  is 'Importe transitorio pendiente de presentación en Moneda Local
+';
+comment on column IT.TA_PAD_DIARIO_TMP.tra_pen_usd
+  is 'Importe transitorio pendiente de presentación en Moneda Dólar
+';
+comment on column IT.TA_PAD_DIARIO_TMP.est_cuenta
+  is 'Estado de la cuenta
+';
+comment on column IT.TA_PAD_DIARIO_TMP.sal_ant_gs
+  is 'Saldo al inicio del periodo de moneda local
+';
+comment on column IT.TA_PAD_DIARIO_TMP.sal_ant_usd
+  is 'Saldo al inicio del periodo de moneda dólar
+';
+comment on column IT.TA_PAD_DIARIO_TMP.sal_act_gs
+  is 'Saldo al momento moneda local
+';
+comment on column IT.TA_PAD_DIARIO_TMP.sal_act_usd
+  is 'Saldo al momento moneda dólar
+';
+create index IT.IN_TPDTMP_COD_PRODUCTO on IT.TA_PAD_DIARIO_TMP (COD_PRODUCTO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

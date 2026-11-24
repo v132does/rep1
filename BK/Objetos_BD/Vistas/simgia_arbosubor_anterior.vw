@@ -1,0 +1,4 @@
+create or replace force view it.simgia_arbosubor_anterior as
+select "BSSERIE","BSNUMERO","BSCUPON","BSTITUR","BSSUC","BSNUMCLIEN","BSAGENTE","BSMONEDA","BSMONTO","BSFEMISI","BSVENCIM","BSTIPOT","BSTASA1","BSTASA2","BSTASA3","BSTASA4","BSLRM_LIB","BSFEINI","BSDEVENG","BSUSUARIO","BSFEREG","BSPIGNO","FECHA_HIS"
+from simgia_arbosubor_bkp a;
+

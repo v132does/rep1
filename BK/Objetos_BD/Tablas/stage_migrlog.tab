@@ -1,0 +1,38 @@
+create table IT.STAGE_MIGRLOG
+(
+  svrid_fk        NUMBER,
+  dbid_gen_fk     NUMBER,
+  id              NUMBER not null,
+  ref_object_id   NUMBER,
+  ref_object_type VARCHAR2(4000),
+  log_date        TIMESTAMP(6) not null,
+  severity        NUMBER(4) not null,
+  logtext         VARCHAR2(4000),
+  phase           VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.STAGE_MIGRLOG
+  add constraint STAGE_MIGRLOG_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

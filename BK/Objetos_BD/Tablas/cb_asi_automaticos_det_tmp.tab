@@ -1,0 +1,159 @@
+﻿-- Create table
+create table IT.CB_ASI_AUTOMATICOS_DET_TMP
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  tip_movimiento   VARCHAR2(1),
+  mto_mon_rubro    NUMBER(18,2) default 0,
+  mto_mon_local    NUMBER(18,2) default 0,
+  descripcion      VARCHAR2(60),
+  referencia       VARCHAR2(11),
+  protegido        VARCHAR2(1) default 'N',
+  actualizado      VARCHAR2(1) default 'N',
+  val_cotizacion   NUMBER(14,8) default 0,
+  distribuido      VARCHAR2(1) default 'N',
+  ref_movimiento   NUMBER(10),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_tra_padre    NUMBER(4),
+  fec_valor        DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  is 'Contiene los datos correspondientes a las lineas de detalle de los asientos contables generados automaticamente.';
+-- Add comments to the columns 
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.fecha
+  is 'Fecha del Asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.cod_oficina
+  is 'Codigo de la oficina del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.nro_linea
+  is 'Numero de linea del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.cod_rubro
+  is 'Codigo de la cuenta contable imputada.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.tip_movimiento
+  is 'Tipo de movimiento ( D=Debito, C=Credito ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.mto_mon_rubro
+  is 'Importe del movimiento en moneda extranjera.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.mto_mon_local
+  is 'Importe del movimiento en moneda local.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.descripcion
+  is 'Descripcion de la linea del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.referencia
+  is 'Referencia de la linea de asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.protegido
+  is 'Registro Protegido ? ( S=Registro protegido, no se puede borrar, N=Registro no protegido, se puede borrar ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.actualizado
+  is 'Actualizado en saldo de cuentas ? ( S=Registro actualizado en saldo de cuentas, N=Registro no actualizado en saldo de cuentas ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.val_cotizacion
+  is 'Valor de la tasa de cambio usada para generar asientos de cuentas de moneda extranjera.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.distribuido
+  is 'Cuenta de distribucion ? ( S=Tiene cuenta de distribucion, N=No tiene cuenta de distribucion ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.ref_movimiento
+  is 'Numero de referencia de desglose del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.cod_modulo
+  is 'Codigo de modulo padre del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.cod_modalidad
+  is 'Codigo de modalidad padre del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.cod_ofi_origen
+  is 'Codigo de oficina origen.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.cod_tra_padre
+  is 'Codigo de transaccion padre para cortes de asientos.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_TMP.fec_valor
+  is 'Fecha valor del Asiento.';
+-- Create/Recreate indexes 
+create index IT.IN_BAADT_FEC_NRO_REFERENCIA on IT.CB_ASI_AUTOMATICOS_DET_TMP (FECHA, REF_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_FK_CB_ASI_AUTOMATICOS_DET_TMP_COD_OFI_ORIGEN on IT.CB_ASI_AUTOMATICOS_DET_TMP (COD_OFI_ORIGEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 40
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BAADT_MOD_MAD_OFI_FEC_VALOR on IT.CB_ASI_AUTOMATICOS_DET_TMP (COD_MODULO, COD_MODALIDAD, COD_OFICINA, FECHA, FEC_VALOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  );   
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint FK_BAADT_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+-- Create/Recreate check constraints 
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_ACTUALIZADO
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_COD_MODALIDAD
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_COD_MODULO
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_COD_OFICINA
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_COD_OFI_ORIGEN
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_DISTRIBUIDO
+  check (DISTRIBUIDO IN ('S', 'N'));
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_PROTEGIDO
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_ASI_AUTOMATICOS_DET_TMP
+  add constraint CK_BAADT_TIP_MOVIMIENTO
+  check (TIP_MOVIMIENTO IN ('D', 'C'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CB_ASI_AUTOMATICOS_DET_TMP to IT_TEMPORAL;

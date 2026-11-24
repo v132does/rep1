@@ -1,0 +1,69 @@
+create table IT.BA_USU_ROLES
+(
+  cod_rol          VARCHAR2(20) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_USU_ROLES
+  is 'Usuarios por Roles.';
+comment on column IT.BA_USU_ROLES.cod_rol
+  is 'Codigo del rol.';
+comment on column IT.BA_USU_ROLES.cod_usuario
+  is 'Codigo del usuario.';
+comment on column IT.BA_USU_ROLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_USU_ROLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_USU_ROLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_USU_ROLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_EUROL_COD_USUARIO on IT.BA_USU_ROLES (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_USU_ROLES
+  add constraint PK_BA_USU_ROLES primary key (COD_ROL, COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_USU_ROLES
+  add constraint FK_EUROL_COD_ROL foreign key (COD_ROL)
+  references IT.BA_ROLES (COD_ROL);
+alter table IT.BA_USU_ROLES
+  add constraint FK_EUROL_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO)
+  disable
+  novalidate;
+

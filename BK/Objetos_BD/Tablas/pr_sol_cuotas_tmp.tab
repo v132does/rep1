@@ -1,0 +1,72 @@
+create table IT.PR_SOL_CUOTAS_TMP
+(
+  cal_cuo_frances     NUMBER,
+  val_tasa            NUMBER,
+  sal_capital         NUMBER(18,2),
+  cuo_sugerida        NUMBER(18,2),
+  dif_cuota           NUMBER(18,2),
+  tot_capital         NUMBER(18,2),
+  tot_refuerzo        NUMBER(18,2),
+  can_cuo_ref         NUMBER(6),
+  can_cuota           NUMBER(6),
+  veces               NUMBER(8),
+  redondeo            NUMBER(2),
+  limite              NUMBER,
+  dias                NUMBER,
+  fec_vcto            DATE,
+  fec_ven_anterior    DATE,
+  tot_interes         NUMBER,
+  mto_capital         NUMBER,
+  val_interes         NUMBER,
+  val_cuota           NUMBER,
+  tot_cuota           NUMBER,
+  dia_interes         NUMBER,
+  sumo                VARCHAR2(2),
+  fec_inicio          DATE,
+  ant_diferencia      NUMBER,
+  ant_val_cuota       NUMBER,
+  mto_refuerzo        NUMBER,
+  val_cuo_refuerzo    NUMBER,
+  fec_insercion       DATE default sysdate,
+  mto_cap_inicial     NUMBER(18,2),
+  fec_pri_vencimiento DATE,
+  nro_solicitud       NUMBER(7) not null,
+  dia_periodo         NUMBER(4),
+  mto_interes         NUMBER(20,4) default 0,
+  fec_vencimiento     DATE,
+  nro_cuota           NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_SOL_CUOTAS_TMP.dia_periodo
+  is 'Cantidad de dias del periodo';
+comment on column IT.PR_SOL_CUOTAS_TMP.mto_interes
+  is 'Monto interes';
+comment on column IT.PR_SOL_CUOTAS_TMP.fec_vencimiento
+  is 'Fecha de vencimiento';
+comment on column IT.PR_SOL_CUOTAS_TMP.nro_cuota
+  is 'Numero de cuota.';
+alter table IT.PR_SOL_CUOTAS_TMP
+  add constraint PK_PR_SOL_CUOTAS_TMP primary key (NRO_SOLICITUD, NRO_CUOTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

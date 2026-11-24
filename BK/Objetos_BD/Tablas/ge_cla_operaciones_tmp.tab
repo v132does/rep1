@@ -1,0 +1,246 @@
+create table IT.GE_CLA_OPERACIONES_TMP
+(
+  cod_persona           VARCHAR2(10) not null,
+  nro_cuenta            VARCHAR2(15) not null,
+  fecha					        DATE not null,
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_estado            VARCHAR2(1) not null,
+  tot_deu_real          NUMBER(18,2) default 0,
+  tot_deu_contingente   NUMBER(18,2) default 0,
+  dev_no_cobrado        NUMBER(18,2) default 0,
+  cat_automatica        NUMBER(3,2),
+  dia_atraso            NUMBER(5) not null,
+  cod_moneda            VARCHAR2(3) not null,
+  tot_gar_computables   NUMBER(18,2) default 0,
+  cod_oficina           NUMBER(3),
+  tipo                  VARCHAR2(1) not null,
+  tot_prevision         NUMBER(18,2) default 0,
+  mto_original          NUMBER(18,2) default 0,
+  tip_destino           NUMBER(2),
+  cod_sec_credito       NUMBER(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  cat_renovaciones      NUMBER(3,2),
+  cat_ren_anterior      NUMBER(3,2),
+  lib_prevision         VARCHAR2(1),
+  tot_pri_prevision     NUMBER(18,2),
+  cod_rub_economico     VARCHAR2(6),
+  tot_cap_pri_prevision NUMBER(18,2) default 0,
+  tot_cap_seg_prevision NUMBER(18,2) default 0,
+  tot_int_pri_prevision NUMBER(18,2) default 0,
+  tot_int_seg_prevision NUMBER(18,2) default 0,
+  mto_pre_total         NUMBER(18,2),
+  cat_pre_diferida      NUMBER(3,2),
+  cat_prevision         NUMBER(3,2),
+  tot_seg_prevision     NUMBER(18,2),
+  tot_gar_aplicada      NUMBER(18,2),
+  tot_rie_no_cubierto   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLA_OPERACIONES_TMP
+  is 'Operaciones clasificadas de Tarjetas segun Resolución 37.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_persona
+  is 'Codigo del cliente.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.fecha
+  is 'Fecha del sistema en la que se registró.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_modulo
+  is 'Tipo de producto.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_modalidad
+  is 'Sub tipo de Producto.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_estado
+  is 'Estado de la cuenta.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_deu_real
+  is 'Total de la deuda real.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_deu_contingente
+  is 'Total de la deuda contingente.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.dev_no_cobrado
+  is 'Devengado no cobrado.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cat_automatica
+  is 'Categoria automatica del Sistema.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.dia_atraso
+  is 'dias de atraso.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_moneda
+  is 'moneda de la cuenta.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_gar_computables
+  is 'Monto total de la garantias computables.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_oficina
+  is 'Codigo de la sucursal.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tipo
+  is 'Tipo A-nuevo, N-Renovado, R-Refinanciado, E-Restructurado.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_prevision
+  is 'Monto total de la Previsión.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.mto_original
+  is 'Monto original de la operacion.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tip_destino
+  is 'Destino del Crédito (1=Grandes Deudores-2=Pequeños Deudores-3=Vivienda-4=Consumo-5=Microcreditos.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_sec_credito
+  is 'Código de sector de crédito.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cat_renovaciones
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cat_ren_anterior
+  is 'Categoria de Renovación anterior, si es que mejora por pago.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.lib_prevision
+  is 'Indica si va a liberar o no la previsión (S/N).';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_pri_prevision
+  is 'Monto calculado para la primera prevision.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.cod_rub_economico
+  is 'Código de Rubro Económico.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_cap_pri_prevision
+  is 'Primera Previsión del Saldo Capital de la Operación.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_cap_seg_prevision
+  is 'Segunda Previsión del Saldo Capital de la Operación.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_int_pri_prevision
+  is 'Primera Previsión de Interés de la Operación.';
+comment on column IT.GE_CLA_OPERACIONES_TMP.tot_int_seg_prevision
+  is 'Segunda Previsión de Interés de la Operación.';
+create index IT.IN_GCOPET_NRCUENTA on IT.GE_CLA_OPERACIONES_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCOPET_COD_ESTADO on IT.GE_CLA_OPERACIONES_TMP (COD_MODULO, COD_MODALIDAD, COD_ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCOPET_COD_MONEDA on IT.GE_CLA_OPERACIONES_TMP (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCOPET_COD_OFICINA on IT.GE_CLA_OPERACIONES_TMP (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCOPET_COD_PERSONA on IT.GE_CLA_OPERACIONES_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCOPET_COD_SEC_CREDITO on IT.GE_CLA_OPERACIONES_TMP (COD_SEC_CREDITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCOPET_FECHA on IT.GE_CLA_OPERACIONES_TMP (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint PK_GE_CLA_OPERACIONES_TMP primary key (NRO_CUENTA, COD_PERSONA, COD_ESTADO, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint FK_GCOPET_COD_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, COD_ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint FK_GCOPET_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint FK_GCOPET_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint FK_GCOPET_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint FK_GCOPET_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA)
+  disable
+  novalidate;
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint CK_RANGO_MODULO
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint CK_RANGO_MODALIDAD
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint CK_RANGO_COD_OFICINA
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.GE_CLA_OPERACIONES_TMP
+  add constraint CK_RANGO_SEC_CREDITO
+  check (COD_SEC_CREDITO BETWEEN 0 AND 999);
+

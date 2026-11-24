@@ -1,0 +1,361 @@
+create table IT.TA_CAB_EXTRACTO
+(
+  fec_cierre                  DATE not null,
+  nro_cuenta                  NUMBER(11) not null,
+  cod_moneda                  NUMBER(3),
+  nom_cuenta                  VARCHAR2(42),
+  cod_entidad                 NUMBER(3),
+  afinidad                    NUMBER(6),
+  marca                       VARCHAR2(3),
+  pro_marca                   VARCHAR2(3),
+  tip_cuenta                  VARCHAR2(15),
+  cod_emp_adherida            NUMBER(5),
+  nom_emp_adherida            VARCHAR2(26),
+  cod_persona                 NUMBER(7),
+  tip_persona                 VARCHAR2(15),
+  nom_per_fisica              VARCHAR2(20),
+  ape_per_fisica              VARCHAR2(20),
+  tip_doc_persona             VARCHAR2(3),
+  nro_doc_persona             VARCHAR2(16),
+  tip_cli_persona             VARCHAR2(15),
+  ruc_extracto                VARCHAR2(11),
+  raz_social                  VARCHAR2(30),
+  ruc_per_juridica            VARCHAR2(11),
+  dir_1                       VARCHAR2(50),
+  dir_2                       VARCHAR2(50),
+  dir_3                       VARCHAR2(50),
+  cod_pais                    NUMBER(3),
+  cod_departamento            NUMBER(3),
+  cod_ciudad                  NUMBER(6),
+  nom_ciudad                  VARCHAR2(40),
+  cod_zona                    VARCHAR2(10),
+  nom_zon_entidad             VARCHAR2(40),
+  nro_telefono                VARCHAR2(15),
+  nro_celular                 VARCHAR2(15),
+  email                       VARCHAR2(60),
+  cod_suc_entidad             NUMBER(4),
+  nom_suc_entidad             VARCHAR2(40),
+  cod_ofi_cuenta              NUMBER(7),
+  nom_ofi_cuenta              VARCHAR2(42),
+  cta_vip                     VARCHAR2(2),
+  ret_extracto                VARCHAR2(2),
+  mot_no_lis_extracto         NUMBER(3),
+  sec_sep_extracto            NUMBER(6),
+  tip_cierre                  VARCHAR2(2),
+  cal_bcp                     VARCHAR2(2),
+  cod_cliente                 VARCHAR2(15),
+  sit_cuenta                  VARCHAR2(15),
+  dia_mora                    NUMBER(5),
+  car_suspendido              VARCHAR2(2),
+  tip_doc_cuenta              VARCHAR2(3),
+  nro_doc_cuenta              VARCHAR2(16),
+  ruc                         VARCHAR2(11),
+  mod_pago                    VARCHAR2(1),
+  des_mod_pago                VARCHAR2(30),
+  tip_cta_bancaria            VARCHAR2(1),
+  des_cta_bancaria            VARCHAR2(30),
+  cta_bancaria                NUMBER(15),
+  tip_pago                    VARCHAR2(1),
+  cgf_aplicar                 VARCHAR2(1),
+  des_cgf_aplicar             VARCHAR2(30),
+  cgf_apl_dia_mora            VARCHAR2(1),
+  des_cgf_apl_dia_mora        VARCHAR2(30),
+  ttf_aplicar                 VARCHAR2(1),
+  per_ttis                    VARCHAR2(2),
+  per_pag_minimo              VARCHAR2(2),
+  por_pag_minimo              NUMBER(5,2),
+  imp_min_pag_minimo          NUMBER(15,2),
+  imp_fij_pag_minimo          NUMBER(15,2),
+  fac_mul_vip                 NUMBER(5,2),
+  sal_ult_resumen             NUMBER(15,2),
+  num_com_per_anterior        NUMBER(18),
+  can_extractos               NUMBER(5),
+  dia_mora_inicial            NUMBER(5),
+  num_com_per_actual          NUMBER(18),
+  tas_alt_cierre              VARCHAR2(2),
+  fec_ult_actualizacion       DATE,
+  des_tti                     VARCHAR2(15),
+  cta_excedida                VARCHAR2(2),
+  imp_mora                    NUMBER(15,2),
+  imp_exceso                  NUMBER(15,2),
+  imp_com_no_financiable      NUMBER(15,2),
+  imp_gas_financiero          NUMBER(15,2),
+  imp_por_com_financiable     NUMBER(15,2),
+  imp_aju_por_com_financiable NUMBER(15,2),
+  imp_pag_minimo              NUMBER(15,2),
+  tas_aplicada                NUMBER(5,2),
+  tas_anu_efe_aplicada        NUMBER(6,3),
+  con_extracto                VARCHAR2(15),
+  nom_formulario              VARCHAR2(10),
+  nro_control                 NUMBER(7),
+  nro_factura                 NUMBER(13),
+  timbrado                    NUMBER(11),
+  vto_pag_min_actual          DATE,
+  deu_total                   NUMBER(15,2),
+  res_est_meses               NUMBER(5),
+  res_est_total               NUMBER(15,2),
+  pun_anteriores              NUMBER(15,2),
+  pun_generados               NUMBER(15,2),
+  pun_canjeados               NUMBER(15,2),
+  pun_vencidos                NUMBER(15,2),
+  pun_baja                    NUMBER(15,2),
+  sal_puntos                  NUMBER(15,2),
+  pro_lealtad                 NUMBER(12),
+  nom_puntos                  VARCHAR2(40),
+  des_tip_pago                VARCHAR2(15),
+  car_sus_acumulado           NUMBER(15,2),
+  pro_int_anteriores          NUMBER(15,2),
+  pro_int_periodo             NUMBER(15,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CAB_EXTRACTO
+  is 'Archivo PBEXTCAB';
+comment on column IT.TA_CAB_EXTRACTO.fec_cierre
+  is 'Fecha de Cierre.';
+comment on column IT.TA_CAB_EXTRACTO.nro_cuenta
+  is 'Id. Cuenta: Identificador de la cuenta en Bancard.';
+comment on column IT.TA_CAB_EXTRACTO.cod_moneda
+  is 'Cód. Moneda: Código ISO numérico de Moneda.';
+comment on column IT.TA_CAB_EXTRACTO.nom_cuenta
+  is 'Nombre Cuenta.';
+comment on column IT.TA_CAB_EXTRACTO.cod_entidad
+  is 'Cód. Entidad: Código de la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.afinidad
+  is 'Id. Afinidad: Código de Afinidad.';
+comment on column IT.TA_CAB_EXTRACTO.marca
+  is 'Cód. Marca: Código de Marca. Ref. Tabla Marca.';
+comment on column IT.TA_CAB_EXTRACTO.pro_marca
+  is 'Cód. Producto Marca: Código de Marca Producto. Ref. Tabla Marca Producto.';
+comment on column IT.TA_CAB_EXTRACTO.tip_cuenta
+  is 'Tipo Cuenta ("PERSONAL";"EMPRESARIAL").';
+comment on column IT.TA_CAB_EXTRACTO.cod_emp_adherida
+  is 'Cód. Empresa Adherida. Código definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.nom_emp_adherida
+  is 'Nombre Empresa Adherida.';
+comment on column IT.TA_CAB_EXTRACTO.cod_persona
+  is 'Id. Persona.';
+comment on column IT.TA_CAB_EXTRACTO.tip_persona
+  is 'Tipo Persona ("JURIDICA"; "FISICA").';
+comment on column IT.TA_CAB_EXTRACTO.nom_per_fisica
+  is 'Nombre 1 Persona Física.';
+comment on column IT.TA_CAB_EXTRACTO.ape_per_fisica
+  is 'Apellido 1 Persona Física';
+comment on column IT.TA_CAB_EXTRACTO.tip_doc_persona
+  is 'Id. Tipo Documento Persona. Ref. Tabla Tipo Documento.';
+comment on column IT.TA_CAB_EXTRACTO.nro_doc_persona
+  is 'Nro. Documento Persona.';
+comment on column IT.TA_CAB_EXTRACTO.tip_cli_persona
+  is 'Tipo de Cliente Persona ("INTERCLASS"; "OTROS").';
+comment on column IT.TA_CAB_EXTRACTO.ruc_extracto
+  is 'RUC para Extracto.';
+comment on column IT.TA_CAB_EXTRACTO.raz_social
+  is 'Razón Social.';
+comment on column IT.TA_CAB_EXTRACTO.ruc_per_juridica
+  is 'RUC Persona Jurídica.';
+comment on column IT.TA_CAB_EXTRACTO.dir_1
+  is 'Dirección 1.';
+comment on column IT.TA_CAB_EXTRACTO.dir_2
+  is 'Dirección 2.';
+comment on column IT.TA_CAB_EXTRACTO.dir_3
+  is 'Dirección 3.';
+comment on column IT.TA_CAB_EXTRACTO.cod_pais
+  is 'Cód. País: Código ISO numérico de País.';
+comment on column IT.TA_CAB_EXTRACTO.cod_departamento
+  is 'Cód. Departamento. Ref. Tabla Departamento.';
+comment on column IT.TA_CAB_EXTRACTO.cod_ciudad
+  is 'Cód. Ciudad. Ref. Tabla Ciudad.';
+comment on column IT.TA_CAB_EXTRACTO.nom_ciudad
+  is 'Nombre Ciudad.';
+comment on column IT.TA_CAB_EXTRACTO.cod_zona
+  is 'Cód. Zona Entidad. Código definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.nom_zon_entidad
+  is 'Nombre Zona Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.nro_telefono
+  is 'Nro. Teléfono.';
+comment on column IT.TA_CAB_EXTRACTO.nro_celular
+  is 'Nro. Celular.';
+comment on column IT.TA_CAB_EXTRACTO.email
+  is 'Email.';
+comment on column IT.TA_CAB_EXTRACTO.cod_suc_entidad
+  is 'Cód. Sucursal Entidad. Código definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.nom_suc_entidad
+  is 'Nombre Sucursal Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.cod_ofi_cuenta
+  is 'Id. Oficial Cuenta. Código definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.nom_ofi_cuenta
+  is 'Nombre Oficial Cuenta.';
+comment on column IT.TA_CAB_EXTRACTO.cta_vip
+  is 'Cuenta VIP. ("SI"; "NO").';
+comment on column IT.TA_CAB_EXTRACTO.ret_extracto
+  is 'Retener Extracto. ("SI"; "NO").';
+comment on column IT.TA_CAB_EXTRACTO.mot_no_lis_extracto
+  is 'Id. Motivo no Listar Extracto. Definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.sec_sep_extracto
+  is 'Secuencia Separación Extracto. Definición del código dado por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.tip_cierre
+  is 'Id. Tipo Cierre.';
+comment on column IT.TA_CAB_EXTRACTO.cal_bcp
+  is 'Calificación BCP. Definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.cod_cliente
+  is 'Cód. Cliente Entidad. Definido por la Entidad.';
+comment on column IT.TA_CAB_EXTRACTO.sit_cuenta
+  is 'Situación Cuenta. ("ACTIVO"; "INACTIVO"; "BAJA").';
+comment on column IT.TA_CAB_EXTRACTO.dia_mora
+  is 'Días Mora.';
+comment on column IT.TA_CAB_EXTRACTO.car_suspendido
+  is 'Con Cargos Suspendidos ("SI"; "NO").';
+comment on column IT.TA_CAB_EXTRACTO.tip_doc_cuenta
+  is 'Id. Tipo Documento Cuenta. Ref. Tabla Tipo Documento.';
+comment on column IT.TA_CAB_EXTRACTO.nro_doc_cuenta
+  is 'Nro. Documento Cuenta';
+comment on column IT.TA_CAB_EXTRACTO.ruc
+  is 'RUC';
+comment on column IT.TA_CAB_EXTRACTO.mod_pago
+  is 'Modo Pago ("V"; "D")';
+comment on column IT.TA_CAB_EXTRACTO.des_mod_pago
+  is 'Descripción Modo Pago ("VENTANILLA"; "DEBITO AUTOMATICO").';
+comment on column IT.TA_CAB_EXTRACTO.tip_cta_bancaria
+  is 'Tipo Cta. Bancaria ("1"; "2"; " ").';
+comment on column IT.TA_CAB_EXTRACTO.des_cta_bancaria
+  is 'Descripción Tipo Cta. Bancaria.';
+comment on column IT.TA_CAB_EXTRACTO.cta_bancaria
+  is 'Cuenta Bancaria.';
+comment on column IT.TA_CAB_EXTRACTO.tip_pago
+  is 'Tipo Pago ("T"; "M").';
+comment on column IT.TA_CAB_EXTRACTO.cgf_aplicar
+  is 'CGF a Aplicar. Ref. Tabla CGF.';
+comment on column IT.TA_CAB_EXTRACTO.des_cgf_aplicar
+  is 'Descripción CGF a Aplicar';
+comment on column IT.TA_CAB_EXTRACTO.cgf_apl_dia_mora
+  is 'CGF a Aplicar por Dias Mora. Ref. Tabla CGF.';
+comment on column IT.TA_CAB_EXTRACTO.des_cgf_apl_dia_mora
+  is 'Descripción CGF a Aplicar por Días Mora';
+comment on column IT.TA_CAB_EXTRACTO.ttf_aplicar
+  is 'TTF a Aplicar ("N"; "P")';
+comment on column IT.TA_CAB_EXTRACTO.per_ttis
+  is 'Personalizar TTIs (Tipo Tasa de Interés). ("SI"; "NO")';
+comment on column IT.TA_CAB_EXTRACTO.per_pag_minimo
+  is 'Personalizar Pago Mínimo ("SI"; "NO").';
+comment on column IT.TA_CAB_EXTRACTO.por_pag_minimo
+  is 'Porcentaje Pago Mínimo';
+comment on column IT.TA_CAB_EXTRACTO.imp_min_pag_minimo
+  is 'Importe Mínimo Pago Mínimo';
+comment on column IT.TA_CAB_EXTRACTO.imp_fij_pag_minimo
+  is 'Importe Fijo Pago Mínimo';
+comment on column IT.TA_CAB_EXTRACTO.fac_mul_vip
+  is 'Factor Multiplicador VIP';
+comment on column IT.TA_CAB_EXTRACTO.sal_ult_resumen
+  is 'Saldo Ultimo Resumen';
+comment on column IT.TA_CAB_EXTRACTO.num_com_per_anterior
+  is 'Numeral Compras Período Anterior';
+comment on column IT.TA_CAB_EXTRACTO.can_extractos
+  is 'Cantidad Extractos';
+comment on column IT.TA_CAB_EXTRACTO.dia_mora_inicial
+  is 'Días Mora Inicial';
+comment on column IT.TA_CAB_EXTRACTO.num_com_per_actual
+  is 'Numeral Compras Período Actual';
+comment on column IT.TA_CAB_EXTRACTO.tas_alt_cierre
+  is 'Tasa Alterada en Cierre ("SI"; "NO").';
+comment on column IT.TA_CAB_EXTRACTO.fec_ult_actualizacion
+  is 'FH Ultima Actualización';
+comment on column IT.TA_CAB_EXTRACTO.des_tti
+  is 'Descripción Tipo Tasa de Interés ("NORMAL"; "PREFERENTE").';
+comment on column IT.TA_CAB_EXTRACTO.cta_excedida
+  is 'Cuenta Excedida ("SI"; "NO").';
+comment on column IT.TA_CAB_EXTRACTO.imp_mora
+  is 'Importe en Mora';
+comment on column IT.TA_CAB_EXTRACTO.imp_exceso
+  is 'Importe en Exceso';
+comment on column IT.TA_CAB_EXTRACTO.imp_com_no_financiable
+  is 'Importe Compra No Financiable';
+comment on column IT.TA_CAB_EXTRACTO.imp_gas_financiero
+  is 'Importe Gasto Financiero';
+comment on column IT.TA_CAB_EXTRACTO.imp_por_com_financiable
+  is 'Importe Porcentaje Compra Financiable';
+comment on column IT.TA_CAB_EXTRACTO.imp_aju_por_com_financiable
+  is 'Importe Ajuste Porcentaje Compra Financiable';
+comment on column IT.TA_CAB_EXTRACTO.imp_pag_minimo
+  is 'Importe Pago Mínimo';
+comment on column IT.TA_CAB_EXTRACTO.tas_aplicada
+  is 'Tasa Aplicada';
+comment on column IT.TA_CAB_EXTRACTO.tas_anu_efe_aplicada
+  is 'Tasa Anual Efectiva Aplicada';
+comment on column IT.TA_CAB_EXTRACTO.con_extracto
+  is 'Condición Extracto ("IMPRIMIR", "NO IMPRIMIR","NO EXTRACTAR", "NO GENERAR")';
+comment on column IT.TA_CAB_EXTRACTO.nom_formulario
+  is 'Nombre Formulario. Relacionado al tipo de papel a utilizar en la impresión y también define la agrupación de la impresión.';
+comment on column IT.TA_CAB_EXTRACTO.nro_control
+  is 'Número Control';
+comment on column IT.TA_CAB_EXTRACTO.nro_factura
+  is 'Número Factura';
+comment on column IT.TA_CAB_EXTRACTO.timbrado
+  is 'Timbrado';
+comment on column IT.TA_CAB_EXTRACTO.vto_pag_min_actual
+  is 'Vencimiento Pago Mínimo Actual';
+comment on column IT.TA_CAB_EXTRACTO.deu_total
+  is 'Deuda Total';
+comment on column IT.TA_CAB_EXTRACTO.res_est_meses
+  is 'Resol.3 Estimación Meses';
+comment on column IT.TA_CAB_EXTRACTO.res_est_total
+  is 'Resol.3 Estimación Total';
+comment on column IT.TA_CAB_EXTRACTO.pun_anteriores
+  is 'Puntos Anteriores. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.pun_generados
+  is 'Puntos Generados. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.pun_canjeados
+  is 'Puntos Canjeados. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.pun_vencidos
+  is 'Puntos Vencidos. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.pun_baja
+  is 'Puntos de Baja. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.sal_puntos
+  is 'Saldo de Puntos. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.pro_lealtad
+  is 'Id. programa lealtad. Dato del Sistema Lealtad.';
+comment on column IT.TA_CAB_EXTRACTO.nom_puntos
+  is 'Nombre de Puntos.';
+comment on column IT.TA_CAB_EXTRACTO.des_tip_pago
+  is 'Descripción Tipo Pago ("TOTAL"; "MINIMO").';
+comment on column IT.TA_CAB_EXTRACTO.car_sus_acumulado
+  is 'Cargos Suspendidos Acumulado.';
+comment on column IT.TA_CAB_EXTRACTO.pro_int_anteriores
+  is 'Productiva Intereses Anteriores';
+comment on column IT.TA_CAB_EXTRACTO.pro_int_periodo
+  is 'Productiva Interés Periodo';
+create index IT.IN_TCABEXT_NRO_CUENTA on IT.TA_CAB_EXTRACTO (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_CAB_EXTRACTO
+  add constraint PK_TA_CAB_EXTRACTO primary key (FEC_CIERRE, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

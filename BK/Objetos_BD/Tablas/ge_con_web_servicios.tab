@@ -1,0 +1,52 @@
+create table IT.GE_CON_WEB_SERVICIOS
+(
+  cod_servicio VARCHAR2(10) not null,
+  descripcion  VARCHAR2(200) not null,
+  url_servicio VARCHAR2(60) not null,
+  fec_inicio   DATE,
+  fec_final    DATE,
+  frecuencia   NUMBER not null,
+  param        VARCHAR2(1) default 'S' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CON_WEB_SERVICIOS
+  is 'Configuraciones de servicios web calendarizados';
+comment on column IT.GE_CON_WEB_SERVICIOS.cod_servicio
+  is 'Codigo identificador del servicio web';
+comment on column IT.GE_CON_WEB_SERVICIOS.descripcion
+  is 'Descripcion del servicio web';
+comment on column IT.GE_CON_WEB_SERVICIOS.url_servicio
+  is 'Url del servicio';
+comment on column IT.GE_CON_WEB_SERVICIOS.fec_inicio
+  is 'Fecha inicio de ejecucion de servicio';
+comment on column IT.GE_CON_WEB_SERVICIOS.fec_final
+  is 'Fecha final de ejecucion de servicio';
+comment on column IT.GE_CON_WEB_SERVICIOS.frecuencia
+  is 'Frecuencia de ejecución del servicio ';
+comment on column IT.GE_CON_WEB_SERVICIOS.param
+  is 'Si requiere detalles en ge_par_web_servicios';
+alter table IT.GE_CON_WEB_SERVICIOS
+  add constraint PK_COD_SERVICIO primary key (COD_SERVICIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

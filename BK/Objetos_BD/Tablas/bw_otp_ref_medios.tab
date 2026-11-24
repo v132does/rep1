@@ -1,0 +1,69 @@
+create table IT.BW_OTP_REF_MEDIOS
+(
+  nro_serial       VARCHAR2(20) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(1),
+  ref_medio        VARCHAR2(100) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OTP_REF_MEDIOS
+  is 'Referencias deTipos de Medios para dispositivos OTP.';
+comment on column IT.BW_OTP_REF_MEDIOS.nro_serial
+  is 'Número de serial del dispositivo OTP.';
+comment on column IT.BW_OTP_REF_MEDIOS.cod_persona
+  is 'Código de persona.';
+comment on column IT.BW_OTP_REF_MEDIOS.tipo
+  is 'Tipo de medio. (E/Dirección de correo electrónico, C/Celular).';
+comment on column IT.BW_OTP_REF_MEDIOS.ref_medio
+  is 'Número de teléfono o dirección de correo.';
+comment on column IT.BW_OTP_REF_MEDIOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_OTP_REF_MEDIOS.fec_insercion
+  is 'Fecha en que se realizó la inserción del registro.';
+comment on column IT.BW_OTP_REF_MEDIOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_OTP_REF_MEDIOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.BW_OTP_REF_MEDIOS
+  add constraint PK_BW_OTP_REF_MEDIOS primary key (NRO_SERIAL, COD_PERSONA, REF_MEDIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OTP_REF_MEDIOS
+  add constraint UK_BORME_REF_MEDIO unique (REF_MEDIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

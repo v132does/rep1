@@ -1,0 +1,1 @@
+comment on column bw_mov_pendientes.estado is 'Estado de la Operacion. A-ANULADA, C-CONFIRMADA, P-PENDIENTE, E-ENCOLADO, B-Eliminado por el registrador, I-Procesando, G-Error en el lote async, X-Error Proceso';

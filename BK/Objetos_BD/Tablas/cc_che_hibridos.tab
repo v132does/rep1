@@ -1,0 +1,95 @@
+create table IT.CC_CHE_HIBRIDOS
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(10) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cheque       NUMBER(15),
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  nro_caja         NUMBER(5),
+  situacion        VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_causa        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_HIBRIDOS
+  is 'Datos de los Cheques Hibridos BT-ITGF.';
+comment on column IT.CC_CHE_HIBRIDOS.fecha
+  is 'Fecha.';
+comment on column IT.CC_CHE_HIBRIDOS.hora
+  is 'Hora del movimiento.';
+comment on column IT.CC_CHE_HIBRIDOS.cod_usuario
+  is 'Usuario Movimiento.';
+comment on column IT.CC_CHE_HIBRIDOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CHE_HIBRIDOS.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_HIBRIDOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CC_CHE_HIBRIDOS.monto
+  is 'Monto del Cheque.';
+comment on column IT.CC_CHE_HIBRIDOS.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CC_CHE_HIBRIDOS.situacion
+  is 'Situacion: C=Confirmado, P=Pendiente, R=Rechazado, D=Devuelto, V=reVersado, N=NoConfirmado';
+comment on column IT.CC_CHE_HIBRIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_HIBRIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_HIBRIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_HIBRIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_HIBRIDOS.cod_causa
+  is 'Motivo Rechazo/Devolucion (GE_CAUSALES)';
+create index IT.IND_CHE_HIB_MOV on IT.CC_CHE_HIBRIDOS (FECHA, HORA, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_CHE_HIB on IT.CC_CHE_HIBRIDOS (NRO_CHEQUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_CTA_HIB on IT.CC_CHE_HIBRIDOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

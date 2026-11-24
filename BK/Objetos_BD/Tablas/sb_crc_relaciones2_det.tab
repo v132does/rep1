@@ -1,0 +1,67 @@
+create table IT.SB_CRC_RELACIONES2_DET
+(
+  fecha          DATE not null,
+  nom_referencia VARCHAR2(10) not null,
+  nro_formulario VARCHAR2(3),
+  tip_documento  VARCHAR2(3),
+  nro_documento  VARCHAR2(30),
+  periodo        DATE,
+  mto_ingreso    NUMBER(20,2),
+  cod_persona    VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_RELACIONES2_DET
+  is 'Archivo de relaciones 2 para la central de información.';
+comment on column IT.SB_CRC_RELACIONES2_DET.fecha
+  is 'Fecha de Periodo de envío del Archivo (Formato: AAAAMMDD)';
+comment on column IT.SB_CRC_RELACIONES2_DET.nom_referencia
+  is 'Nombre del Archivo a generarse a la CRC (Archivo RELACIONES2).';
+comment on column IT.SB_CRC_RELACIONES2_DET.nro_formulario
+  is 'Nro. de Formulario correspondiente al Archivo de Relaciones2. Este nro. es fijo para identificar dicho Archivo.';
+comment on column IT.SB_CRC_RELACIONES2_DET.tip_documento
+  is 'Tipo de Documento de la Persona (CI=Cedula de Identidad / CRC=Código de Persona no residente / CRP=Carné de Residencia Permanente / RUC=Regsitro Unico Contribuyente).';
+comment on column IT.SB_CRC_RELACIONES2_DET.nro_documento
+  is 'Nro. de Documento de la Persona Vinculada.';
+comment on column IT.SB_CRC_RELACIONES2_DET.periodo
+  is 'YYYYMMDD(corresponde a la fecha de cierre fiscal utilizada para la consignación del ingreso del cliente; no corresonde a la fecha de remisión del archivo.';
+comment on column IT.SB_CRC_RELACIONES2_DET.mto_ingreso
+  is 'Monto del ingreso anual o facturación anual, equivalente en guaraníes (utilizar como base la facturación anual, el útimo ejercicio fiscal disponible (acumulado 12 meses).';
+comment on column IT.SB_CRC_RELACIONES2_DET.cod_persona
+  is 'Código de Persona.';
+create index IT.IN_SCRDE_COD_PERSONA on IT.SB_CRC_RELACIONES2_DET (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CRC_RELACIONES2_DET
+  add constraint PK_SB_CRC_RELACIONES2_DET primary key (FECHA, NOM_REFERENCIA, COD_PERSONA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

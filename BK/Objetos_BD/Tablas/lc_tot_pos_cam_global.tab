@@ -1,0 +1,70 @@
+create table IT.LC_TOT_POS_CAM_GLOBAL
+(
+  fecha            DATE not null,
+  rend_usd         NUMBER(22,20) default 0 not null,
+  rend_eur         NUMBER(22,20) default 0 not null,
+  rend_brl         NUMBER(22,20) default 0 not null,
+  volatilidad      NUMBER(22,20) default 0 not null,
+  valor_riesgo     NUMBER(18,2) default 0 not null,
+  pos_neta_pyg     NUMBER(18,2) default 0 not null,
+  limite_var       NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TOT_POS_CAM_GLOBAL
+  is 'Tabla que contendrá los valores por fecha calculados en el proceso de cálculo del VaR Canasto';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.fecha
+  is 'Fecha de cálculo.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.rend_usd
+  is 'Rendimiento Moneda Dólar.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.rend_eur
+  is 'Rendimiento Moneda Euro.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.rend_brl
+  is 'Rendimiento Moneda Real.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.volatilidad
+  is 'Volatilidad del portfolio.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.valor_riesgo
+  is 'Valor de Riesgo (VaR).';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.pos_neta_pyg
+  is 'Posición Neta en Moneda Local (GS).';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.limite_var
+  is 'Limite de Valor de Riesgo definido al momento del cálculo.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.LC_TOT_POS_CAM_GLOBAL.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.LC_TOT_POS_CAM_GLOBAL
+  add constraint PK_LC_TOT_POS_CAM_GLOBAL primary key (FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TOT_POS_CAM_GLOBAL
+  add constraint CK_LTPCG_FECHA
+  check (fecha = TRUNC(fecha));
+

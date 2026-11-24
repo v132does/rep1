@@ -1,0 +1,278 @@
+-- Create table
+create table it.ta_con_tra_dia_det_gp_tmp
+(
+  tip_registro         NUMBER,
+  nro_cuenta           VARCHAR2(15),
+  adicional            NUMBER,
+  nro_tarjeta          VARCHAR2(25),
+  fec_hora             VARCHAR2(20),
+  importe              NUMBER(20,4),
+  tip_moneda           VARCHAR2(3),
+  aut_moneda           VARCHAR2(3),
+  plan                 VARCHAR2(20),
+  cuotas               VARCHAR2(3),
+  cod_autorizacion     VARCHAR2(10),
+  aut_forzada          NUMBER,
+  aut_rev_flag         NUMBER,
+  aut_aut_debi         NUMBER,
+  nro_comercio         VARCHAR2(15),
+  nom_comercio         VARCHAR2(40),
+  estado               VARCHAR2(9),
+  relacionada          VARCHAR2(2),
+  origen               NUMBER,
+  rechazo              VARCHAR2(80),
+  ica                  NUMBER,
+  mcc                  NUMBER,
+  tcc                  VARCHAR2(1),
+  cod_reg_fraude       NUMBER,
+  des_reg_fraude       VARCHAR2(50),
+  mod_entrada          VARCHAR2(2),
+  terminal             VARCHAR2(16),
+  usuario              VARCHAR2(20),
+  standin              VARCHAR2(2),
+  aut_mon_ori_so       VARCHAR2(3),
+  imp_ori_autorizacion NUMBER(17,4),
+  imp_aut_convertido   NUMBER(17,4),
+  sig_imp_aut_con      VARCHAR2(1),
+  tot_imp_cargos       NUMBER(17,4),
+  sig_imp_cargos       VARCHAR2(1),
+  tot_imp_iva          NUMBER(17,4),
+  sig_imp_iva          VARCHAR2(1),
+  tot_imp_car_con      NUMBER(17,4),
+  sig_car_convertido   VARCHAR2(1),
+  tot_imp_iva_con      NUMBER(17,4),
+  sig_iva_car_con      VARCHAR2(1),
+  con_cargo            VARCHAR2(5),
+  imp_car_1            NUMBER,
+  sig_imp_car_1        VARCHAR2(1),
+  imp_car_iva_1        NUMBER(17,4),
+  con_car_2            VARCHAR2(5),
+  imp_car_2            NUMBER(17,4),
+  sig_imp_2            VARCHAR2(1),
+  imp_iva_car_2        NUMBER,
+  con_car_3            VARCHAR2(5),
+  imp_car_3            NUMBER(17,4),
+  sig_imp_3            VARCHAR2(1),
+  imp_iva_car_3        NUMBER(17,4),
+  imp_rg4240           NUMBER,
+  sig_imp_rg4240       VARCHAR2(1),
+  imp_iibb_rg4240      NUMBER(17,4),
+  sig_imp_iibb_rg4240  VARCHAR2(1),
+  pro_iibb_rg4240      VARCHAR2(2),
+  mto_imp_ley_pais     NUMBER(17,4),
+  sig_imp_ley_pais     VARCHAR2(1),
+  filtro               VARCHAR2(295),
+  cta_externa          VARCHAR2(300),
+  request_id           VARCHAR2(300),
+  cod_estado           VARCHAR2(1),
+  fec_estado           VARCHAR2(20),
+  imp_rg4815           NUMBER(20,4),
+  sig_imp_rg4815       VARCHAR2(1),
+  tra_tokenizada       VARCHAR2(1),
+  ori_transaccion      NUMBER,
+  aut_id               NUMBER,
+  ext_cash             VARCHAR2(1),
+  imp_ext_cash         NUMBER(20,4),
+  sig_ext_cash         VARCHAR2(1),
+  imp_rg_5272          NUMBER(20,4),
+  sig_imp_rg_5272      VARCHAR2(1),
+  fec_transferencia    VARCHAR2(20),
+  cod_ins_adquieriente NUMBER,
+  nro_ref_recuperacion VARCHAR2(12),
+  id_terminal          VARCHAR2(8),
+  nom_terminal         VARCHAR2(50),
+  dat_token            NUMBER,
+  dat_red              VARCHAR2(12),
+  dat_billetera        VARCHAR2(3),
+  per_env_fondos       VARCHAR2(320),
+  cod_tip_producto     NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TA_CON_TRA_DIA_DET_GP_TMP
+  is 'Conciliacion detalle de archivo';
+-- Add comments to the columns 
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tip_registro
+  is 'Tipo de Registro';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.nro_cuenta
+  is 'Nro. de cuenta del socio';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.adicional
+  is 'Nro. de adicional del titular';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.nro_tarjeta
+  is 'Nro. de Tarjeta del titular o adicional';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.fec_hora
+  is '
+Fecha y Hora  de la transacc.  (dd/mm/aaaa hh:mm:ss)';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.importe
+  is 'Importe de la solicitud de autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tip_moneda
+  is 'Tipo de Moneda';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.aut_moneda
+  is 'Codigo de moneda ISO de la Autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.plan
+  is 'Consumo/adelantos Pesos-Consumos Adelantos Dolar';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cuotas
+  is 'Cantidad de cuotas del plan';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cod_autorizacion
+  is 'Nro de autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.aut_forzada
+  is '1=Forzada';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.aut_rev_flag
+  is '1=Indica si se trata de una reversa';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.aut_aut_debi
+  is '1=Indica si se trata de un debito automatico';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.nro_comercio
+  is 'Nro de Comercio sin DV';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.nom_comercio
+  is 'Nombre del comercio y localidad';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.estado
+  is 'Solicitud de autorizacion Anulada-Depurada-Aprobada-Rechazada';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.relacionada
+  is 'Autorizacion relacionada con consumo - se infroma NO';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.origen
+  is '0=Online / 1=Manual / 2=Forzada IPM / 3=Refinanciacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.rechazo
+  is 'Codigo de rechazo para las solicitud autorizacion rechazadas descripcion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.ica
+  is 'ICA Emisor';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.mcc
+  is 'MCC';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tcc
+  is 'Letra de TCC';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cod_reg_fraude
+  is 'Codigo de regla de Fraude';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.des_reg_fraude
+  is 'Descripcion de Regla de Fraude';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.mod_entrada
+  is 'Valores posibles 1/2/81/90 y blancos';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.terminal
+  is 'nro de terminal';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.usuario
+  is 'Usuario que realizo la autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.standin
+  is 'Si MCW informo la autorizacion   tendra el valor "SI" caso contrario "NO"';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.aut_mon_ori_so
+  is 'Codigo de moneda ISO original';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_ori_autorizacion
+  is 'Importe original de autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_aut_convertido
+  is 'Importe de la autorizacion convertido';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_aut_con
+  is 'Signo del campo anterior Valores posibles + o -';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tot_imp_cargos
+  is 'Total de importe de cargos';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_cargos
+  is 'Signo del campo anterior Valores posibles + o -';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tot_imp_iva
+  is 'Total importe iva cargos';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_iva
+  is 'Signo del campo anterior Valores posibles + o -';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tot_imp_car_con
+  is 'Importe de cargo convertido';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_car_convertido
+  is 'Signo del campo anterior Valores posibles + o -';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tot_imp_iva_con
+  is 'Importe de IVA cargo convertido';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_iva_car_con
+  is 'Signo del campo anterior Valores posibles + o -';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.con_cargo
+  is 'Concepto del cargo';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_car_1
+  is 'Importe de cargo 1';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_car_1
+  is 'Signo del campo anterior Valores posibles + o -';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_car_iva_1
+  is 'Importe IVA cargo 1';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.con_car_2
+  is 'Concepto de cargo 2';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_car_2
+  is 'Importe de cargo 2';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_2
+  is 'Signo de importe 2';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_iva_car_2
+  is 'Importe de IVA cargo 2';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.con_car_3
+  is 'Concepto de cargo 3';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_car_3
+  is 'Importe de cargo 3';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_3
+  is 'Signo de importe 3';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_iva_car_3
+  is 'Importe de IVA cargo 3';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_rg4240
+  is 'Importe RG4240';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_rg4240
+  is 'Signo Importe RG4240';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_iibb_rg4240
+  is 'Importe IIBB RG4240';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_iibb_rg4240
+  is 'Signo Importe IIBB RG4240 ';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.pro_iibb_rg4240
+  is 'Provincia IIBB RG4240';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.mto_imp_ley_pais
+  is '
+Importe IMPUESTO LEY PAIS';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_ley_pais
+  is 'Signo del campo anterior. Valores posibles: "-", "+" ';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.filtro
+  is 'Filtros';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cta_externa
+  is 'Nro. de cuenta del emisor';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.request_id
+  is 'Nro. de Requerimiento de autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cod_estado
+  is 'Cod. Ultimo estado de la autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.fec_estado
+  is 'Fecha de ultimo cambio de estado de autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_rg4815
+  is 'Importe impuesto RG4815';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_rg4815
+  is 'Signo del campo anterior. Valores posibles: "-", "+"';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.tra_tokenizada
+  is 'Identifica las transacciones que llegarian por una Tarjeta Tokenizada. Opciones 0- No tokenizada, 1- Tokenizada';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.ori_transaccion
+  is 'Origen de la transaccion. Local=0, Internacional=1';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.aut_id
+  is 'ID de la Autorizacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.ext_cash
+  is '0 - No / 1 - Si';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_ext_cash
+  is 'Importe Extra Cash';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_ext_cash
+  is 'Signo Importe Extra Cash. Valores posibles: "-","+"';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.imp_rg_5272
+  is 'Importe de Impuesto RG 5272 25%';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.sig_imp_rg_5272
+  is 'Signo del Impuesto RG 5272. Valores posibles: "-", "+"';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.fec_transferencia
+  is 'Fecha (mes y día) en que los fondos serán transferidos entre un adquirente y un emisor o un intermediario apropiado';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cod_ins_adquieriente
+  is 'Codigo de identificacion de la institucion adquiriente';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.nro_ref_recuperacion
+  is 'Numero de referencia de recuperacion';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.id_terminal
+  is 'Identificacion de la terminal';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.nom_terminal
+  is 'Nombre/ubicación de la terminal de tarjetas para todas las transacciones';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.dat_token
+  is 'ID del solicitante del Token';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.dat_red
+  is 'Datos de Red';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.dat_billetera
+  is 'Identificador de la Billetera';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.per_env_fondos
+  is 'Persona que envia la Transferencia de Fondos';
+comment on column IT.TA_CON_TRA_DIA_DET_GP_TMP.cod_tip_producto
+  is 'Codigo de Producto GP - id_producto';
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.TA_CON_TRA_DIA_DET_GP_TMP to IT_TEMPORAL;

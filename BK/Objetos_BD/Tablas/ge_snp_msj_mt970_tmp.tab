@@ -1,0 +1,42 @@
+create table IT.GE_SNP_MSJ_MT970_TMP
+(
+  fecha            DATE,
+  cod_archivo      NUMBER(18),
+  cod_mensaje      VARCHAR2(20),
+  tex_linea        VARCHAR2(4000),
+  nro_orden        NUMBER(10),
+  det_error        VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  procesado        VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_MSJ_MT970_TMP
+  is 'Tabla temporal de lectura y desglose de lineas del mensaje MT940';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.fecha
+  is 'Fecha en que el sistema leyo el archivo';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.cod_archivo
+  is 'Numero de secuencia generado';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.cod_mensaje
+  is 'Codigo de Mensaje (Para relacionar con la cabecera y el detalle)';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.tex_linea
+  is 'Linea del Mensaje swift';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.nro_orden
+  is 'Nro de orden de la linea de texto dentro del mensaje';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.det_error
+  is 'Detalle del error u observacion del proceso de la mensajeria';
+comment on column IT.GE_SNP_MSJ_MT970_TMP.procesado
+  is 'S/N Indica si ya fue desparseado y enviado a las tablas definitivas.';
+

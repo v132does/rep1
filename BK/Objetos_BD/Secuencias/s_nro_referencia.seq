@@ -1,0 +1,7 @@
+﻿create sequence IT.S_NRO_REFERENCIA
+minvalue 1
+maxvalue 999999999
+start with 6119398
+increment by 1
+CACHE 10000
+cycle;

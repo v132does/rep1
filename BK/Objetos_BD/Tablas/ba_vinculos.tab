@@ -1,0 +1,88 @@
+create table IT.BA_VINCULOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_per_vinculo  VARCHAR2(10) not null,
+  tipo             VARCHAR2(2) not null,
+  fec_vencimiento  DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_perfil       VARCHAR2(20),
+  estado           VARCHAR2(1) default 'A' not null,
+  activo           VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_VINCULOS
+  is 'Vinculos entre Personas.';
+comment on column IT.BA_VINCULOS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.BA_VINCULOS.cod_per_vinculo
+  is 'Código de la Persona Vinculada.';
+comment on column IT.BA_VINCULOS.tipo
+  is 'Tipo de Vinculo.';
+comment on column IT.BA_VINCULOS.fec_vencimiento
+  is 'Fecha de vencimiento del vinculo.';
+comment on column IT.BA_VINCULOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_VINCULOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_VINCULOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_VINCULOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_VINCULOS.cod_perfil
+  is 'Código del Perfil de la Persona para ingreso a la Web.';
+comment on column IT.BA_VINCULOS.estado
+  is 'Estado del vínculo.';
+comment on column IT.BA_VINCULOS.activo
+  is 'Indica si el registro esta activo(S) ? no.';
+create index IT.IN_EVINC_COD_PER_VINCULO on IT.BA_VINCULOS (COD_PER_VINCULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_VINCULOS
+  add constraint PK_BA_VINCULOS primary key (COD_PERSONA, COD_PER_VINCULO, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_VINCULOS
+  add constraint FK_EVINC_COD_PERFIL foreign key (COD_PERFIL)
+  references IT.BW_PERFILES (COD_PERFIL);
+alter table IT.BA_VINCULOS
+  add constraint FK_EVINC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BA_VINCULOS
+  add constraint FK_EVINC_COD_PER_VINCULO foreign key (COD_PER_VINCULO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BA_VINCULOS
+  add constraint FK_EVINC_COD_TIP_VINCULO foreign key (TIPO)
+  references IT.BA_TIP_VINCULOS (COD_TIP_VINCULO);
+

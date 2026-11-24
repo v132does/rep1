@@ -1,0 +1,70 @@
+create table IT.CB_SAL_DEP_INTERNOS
+(
+  fecha              DATE not null,
+  cod_rubro          VARCHAR2(15) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3),
+  cod_transaccion    NUMBER(4),
+  sal_promedio       NUMBER(18,2),
+  can_dia_acumulados NUMBER(3),
+  val_tasa           NUMBER(20,4),
+  mto_dep_interno    NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default substr(user,1,10),
+  fec_insercion      DATE default sysdate,
+  usu_modificacion   VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion   DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_DEP_INTERNOS
+  is 'Tabla que registra los calculos de Depositos Internos.';
+comment on column IT.CB_SAL_DEP_INTERNOS.fecha
+  is 'Fecha.';
+comment on column IT.CB_SAL_DEP_INTERNOS.cod_rubro
+  is 'Rubro Contable.';
+comment on column IT.CB_SAL_DEP_INTERNOS.cod_oficina
+  is 'Código de la Oficina.';
+comment on column IT.CB_SAL_DEP_INTERNOS.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.CB_SAL_DEP_INTERNOS.cod_transaccion
+  is 'Código de Transacción a ser utilizado para la generación de asientos contables.';
+comment on column IT.CB_SAL_DEP_INTERNOS.sal_promedio
+  is 'Saldo Promedio del Rubro Interoficina.';
+comment on column IT.CB_SAL_DEP_INTERNOS.can_dia_acumulados
+  is 'Cantidad de Días Acumulados.';
+comment on column IT.CB_SAL_DEP_INTERNOS.val_tasa
+  is 'Valor de la Tasa.';
+comment on column IT.CB_SAL_DEP_INTERNOS.mto_dep_interno
+  is 'Monto del Deposito Interno.';
+comment on column IT.CB_SAL_DEP_INTERNOS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CB_SAL_DEP_INTERNOS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_SAL_DEP_INTERNOS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_SAL_DEP_INTERNOS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+alter table IT.CB_SAL_DEP_INTERNOS
+  add constraint PK_CB_SAL_DEP_INTERNOS primary key (FECHA, COD_RUBRO, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

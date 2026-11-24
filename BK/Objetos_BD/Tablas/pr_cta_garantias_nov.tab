@@ -1,0 +1,92 @@
+create table IT.PR_CTA_GARANTIAS_NOV
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_garantia       NUMBER(7),
+  cod_garantia       NUMBER(3) not null,
+  mto_aplicado       NUMBER(18,2) default 0 not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  mto_apl_total      NUMBER(18,2) default 0,
+  mto_apl_computable NUMBER(18,2),
+  mto_apl_modificado NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CTA_GARANTIAS_NOV
+  is 'Contiene los datos de las novedades de garantias por cobro de prestamos';
+comment on column IT.PR_CTA_GARANTIAS_NOV.fecha
+  is 'Fecha';
+comment on column IT.PR_CTA_GARANTIAS_NOV.hora
+  is 'Hora';
+comment on column IT.PR_CTA_GARANTIAS_NOV.cod_usuario
+  is 'Usuario que realizo el cobro';
+comment on column IT.PR_CTA_GARANTIAS_NOV.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.PR_CTA_GARANTIAS_NOV.nro_garantia
+  is 'Numero de la garantia asociada o Numero de cliente(codeudor)';
+comment on column IT.PR_CTA_GARANTIAS_NOV.cod_garantia
+  is 'Tipo de Garantia';
+comment on column IT.PR_CTA_GARANTIAS_NOV.mto_aplicado
+  is 'Monto de garantia ';
+comment on column IT.PR_CTA_GARANTIAS_NOV.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CTA_GARANTIAS_NOV.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_CTA_GARANTIAS_NOV.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_CTA_GARANTIAS_NOV.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_CTA_GARANTIAS_NOV.mto_apl_total
+  is 'Monto total de la garantia aplicado al prestamo.';
+comment on column IT.PR_CTA_GARANTIAS_NOV.mto_apl_computable
+  is 'Monto aplicado de la garantia computable.';
+comment on column IT.PR_CTA_GARANTIAS_NOV.mto_apl_modificado
+  is 'Monto Aplicados despues de la modificacion';
+create index IT.IN_PCGNO_COD_GARANTIA on IT.PR_CTA_GARANTIAS_NOV (COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PCGNO_FECHA on IT.PR_CTA_GARANTIAS_NOV (FECHA, HORA, COD_USUARIO, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_GARANTIAS_NOV
+  add constraint FK_PCGNO_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+alter table IT.PR_CTA_GARANTIAS_NOV
+  add constraint FK_PCGNO_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.PR_CTA_GARANTIAS_NOV
+  add constraint FK_PCGNO_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

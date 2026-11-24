@@ -1,0 +1,94 @@
+create table IT.SB_DAT_FIN_INV_RENTABLE_TMP
+(
+  fecha                 DATE,
+  cod_rubro             VARCHAR2(15),
+  descripcion           VARCHAR2(100),
+  cod_modulo            NUMBER(3),
+  cod_modalidad         NUMBER(3),
+  cod_moneda            VARCHAR2(3),
+  tip_saldo             VARCHAR2(1),
+  nro_cuenta            VARCHAR2(15),
+  cod_persona           VARCHAR2(10),
+  nom_completo          VARCHAR2(100),
+  tip_persona           VARCHAR2(1),
+  tip_documento         NUMBER(3),
+  abreviatura           VARCHAR2(5),
+  nro_documento         VARCHAR2(20),
+  tipo_cliente          VARCHAR2(1),
+  cat_riesgo            NUMBER(1),
+  cat_sistema           NUMBER(1),
+  cat_subjetiva         NUMBER(1),
+  cat_aut_cliente       NUMBER(1),
+  cat_aut_cuenta        NUMBER(1),
+  cat_crc               NUMBER(1),
+  cod_gru_economico     NUMBER(5),
+  cat_gru_economico     NUMBER(1),
+  ofi_cuenta            VARCHAR2(50),
+  ofi_cliente           VARCHAR2(50),
+  id_gestor             VARCHAR2(100),
+  ofi_gestor            VARCHAR2(50),
+  ban_gestor            VARCHAR2(50),
+  tot_deu_sistema       NUMBER(20,2),
+  tot_con_sistema       NUMBER(20,2),
+  tot_deu_real          NUMBER(20,2),
+  tot_deu_contingencia  NUMBER(20,2),
+  dev_no_cobrado        NUMBER(20,2),
+  tot_gar_computables   NUMBER(20,2),
+  tot_prevision         NUMBER(20,2),
+  sal_actual            NUMBER(20,2),
+  sal_actual_con_sig    NUMBER(20,2),
+  sal_mon_local         NUMBER(20,2),
+  sal_mon_local_con_sig NUMBER(20,2),
+  tasa                  NUMBER(20,2),
+  fec_inicio            DATE,
+  fec_vencimiento       DATE,
+  sal_promedio          NUMBER(20,2),
+  sal_pro_con_sig       NUMBER(20,2),
+  pro_sal_mon_local_cs  NUMBER(20,2),
+  dias_mora             NUMBER(4),
+  mto_mora              NUMBER(20,2),
+  pro_sal_mon_local     NUMBER(20,2),
+  mto_capital           NUMBER(20,2),
+  sec_credito_bcp       NUMBER(4),
+  cod_estado_cuenta     NUMBER(4),
+  des_estado_cuenta     VARCHAR2(30),
+  tip_renovacion        VARCHAR2(1),
+  tip_destino           NUMBER(2),
+  des_tip_destino       VARCHAR2(20),
+  des_capitulo_bcp      VARCHAR2(90),
+  des_grupo_bcp         VARCHAR2(90),
+  des_rubro_bcp         VARCHAR2(90),
+  des_subrubro_bcp      VARCHAR2(90),
+  des_division_mis      VARCHAR2(40),
+  des_capitulo_mis      VARCHAR2(40),
+  des_grupo_mis         VARCHAR2(20),
+  des_subgrupo_mis      VARCHAR2(50),
+  des_sector_mis        VARCHAR2(50),
+  des_actividad_mis     VARCHAR2(50),
+  des_subactividad_mis  VARCHAR2(50),
+  origen                VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PK_SB_DAT_FIN_INV_REN on IT.SB_DAT_FIN_INV_RENTABLE_TMP (COD_PERSONA, NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,55 @@
+create table IT.CB_PAR_DER_GASTOS
+(
+  cod_rubro            VARCHAR2(15) not null,
+  cod_tip_distribucion VARCHAR2(5) not null,
+  cod_tip_asientos     NUMBER(4) not null,
+  usu_insercion        VARCHAR2(10),
+  fec_insercion        DATE,
+  usu_modificacion     VARCHAR2(10),
+  fec_modificacion     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_PAR_DER_GASTOS
+  is 'Tabla que registra la parametrización del tipo de distribución a ser utilizado por rubro para el proceso de derrama de gastos.';
+comment on column IT.CB_PAR_DER_GASTOS.cod_rubro
+  is 'Código del Rubro Contable.';
+comment on column IT.CB_PAR_DER_GASTOS.cod_tip_distribucion
+  is 'Código del Tipo de Distribución: Referencias Generales (TIP_DIS_CEN_COSTOS).';
+comment on column IT.CB_PAR_DER_GASTOS.cod_tip_asientos
+  is 'Número de Asiento para generar los movimientos.';
+comment on column IT.CB_PAR_DER_GASTOS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_PAR_DER_GASTOS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_PAR_DER_GASTOS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_PAR_DER_GASTOS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+alter table IT.CB_PAR_DER_GASTOS
+  add constraint PK_CB_PAR_DER_GASTOS primary key (COD_RUBRO, COD_TIP_DISTRIBUCION, COD_TIP_ASIENTOS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_PAR_DER_GASTOS
+  add constraint FK_BPCCOS_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

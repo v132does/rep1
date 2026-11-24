@@ -1,0 +1,39 @@
+create table IT.CB_RG_90_IMP
+(
+  tipo_registro        NUMBER(1),
+  cod_tip_documento    VARCHAR2(200),
+  nro_identificador    VARCHAR2(20),
+  raz_social           VARCHAR2(120),
+  cod_tipo_comprobante VARCHAR2(200),
+  fecha_emision        DATE,
+  nro_timbrado         VARCHAR2(20),
+  nro_comprobante      VARCHAR2(20),
+  monto_gravado_10     NUMBER,
+  monto_gravado_5      NUMBER,
+  monto_exento         NUMBER,
+  monto_total          NUMBER,
+  condicion            VARCHAR2(1),
+  moneda_extranjera    VARCHAR2(1),
+  imputa_iva           VARCHAR2(1),
+  imputa_ire           VARCHAR2(1),
+  imputa_irp_rsp       VARCHAR2(1),
+  no_imputa            VARCHAR2(1),
+  factura_asociada     VARCHAR2(20),
+  timbrado_asociado    VARCHAR2(20),
+  procesado            VARCHAR2(1),
+  error                VARCHAR2(1000),
+  usu_insercion        VARCHAR2(10) default user,
+  fec_insercion        DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

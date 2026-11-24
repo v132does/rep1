@@ -1,0 +1,42 @@
+create table IT.GE_LOG_PAG_NOMINAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8),
+  cod_error        NUMBER(5),
+  descripcion      VARCHAR2(400),
+  cod_ent_desv     NUMBER(5),
+  cod_usu_oficial  VARCHAR2(10),
+  ind_desvinculado VARCHAR2(1),
+  nro_lote         NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_LOG_PAG_NOMINAS.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.GE_LOG_PAG_NOMINAS.fecha
+  is 'Fecha de proceso';
+comment on column IT.GE_LOG_PAG_NOMINAS.hora
+  is 'Hora de proceso';
+comment on column IT.GE_LOG_PAG_NOMINAS.cod_error
+  is 'Codigo de error';
+comment on column IT.GE_LOG_PAG_NOMINAS.descripcion
+  is 'Descripcion del error';
+comment on column IT.GE_LOG_PAG_NOMINAS.cod_ent_desv
+  is 'Codigo de ente desvinculado';
+comment on column IT.GE_LOG_PAG_NOMINAS.cod_usu_oficial
+  is 'Código del oficial';
+comment on column IT.GE_LOG_PAG_NOMINAS.ind_desvinculado
+  is 'Indicador de desvinculación ''S'' o ''N''';
+comment on column IT.GE_LOG_PAG_NOMINAS.nro_lote
+  is 'Numero de Lote del Proceso';
+

@@ -1,0 +1,111 @@
+-- Create table
+create table IT.BW_ESTADO_PAGO_INTENCION
+(
+  id               NUMBER default IT.S_BW_ESTADO_PAGO_INTENCION.NEXTVAL not null,
+  cod_intencion    NUMBER not null,
+  estado           VARCHAR2(50) not null,
+  respuesta        CLOB,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.BW_ESTADO_PAGO_INTENCION
+  is 'Registro de estados de pago de intenciones.';
+-- Add comments to the columns 
+comment on column IT.BW_ESTADO_PAGO_INTENCION.id
+  is 'Identificador único autogenerado del registro de estado de pago.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.cod_intencion
+  is 'Código de intención asociado al pago.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.estado
+  is 'Estado del pago de la intención.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.respuesta
+  is 'Respuesta detallada del procesamiento del pago.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_ESTADO_PAGO_INTENCION.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_BWESTPAGOINT_COD_INT on IT.BW_ESTADO_PAGO_INTENCION (COD_INTENCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWESTPAGOINT_ESTADO on IT.BW_ESTADO_PAGO_INTENCION (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BWESTPAGOINT_FEC_INS on IT.BW_ESTADO_PAGO_INTENCION (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BW_ESTADO_PAGO_INTENCION
+  add constraint PK_BW_ESTADO_PAGO_INTENCION primary key (ID)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_ESTADO_PAGO_INTENCION
+  add constraint UK_BW_ESTADO_PAGO_COD_INT unique (COD_INTENCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.BW_ESTADO_PAGO_INTENCION to IT_TEMPORAL;

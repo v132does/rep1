@@ -1,0 +1,75 @@
+create table IT.RH_TIP_PROVISIONES
+(
+  cod_tip_provision VARCHAR2(3) not null,
+  cod_transaccion   NUMBER(4) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_modulo        NUMBER(3) not null,
+  descripcion       VARCHAR2(40) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_TIP_PROVISIONES
+  is 'Tipos de Provisiones.';
+comment on column IT.RH_TIP_PROVISIONES.cod_tip_provision
+  is 'Codigo del Tipo de Provision.';
+comment on column IT.RH_TIP_PROVISIONES.cod_transaccion
+  is 'Codigo de la Transaccion.';
+comment on column IT.RH_TIP_PROVISIONES.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.RH_TIP_PROVISIONES.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.RH_TIP_PROVISIONES.descripcion
+  is 'Descripcion del Tipo de Provision.';
+comment on column IT.RH_TIP_PROVISIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_TIP_PROVISIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_TIP_PROVISIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_TIP_PROVISIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_TIP_PROVISIONES
+  add constraint PK_RH_TIP_PROVISIONES primary key (COD_TIP_PROVISION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_TIP_PROVISIONES
+  add constraint UK_HTPRO_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_TIP_PROVISIONES
+  add constraint FK_HTPRO_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

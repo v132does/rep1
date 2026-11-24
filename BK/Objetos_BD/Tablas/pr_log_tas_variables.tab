@@ -1,0 +1,56 @@
+create table IT.PR_LOG_TAS_VARIABLES
+(
+  fecha         DATE not null,
+  nro_solicitud VARCHAR2(200),
+  nro_cuenta    VARCHAR2(200),
+  lugar         VARCHAR2(200),
+  det_error     VARCHAR2(4000),
+  hora          VARCHAR2(8),
+  usuario       VARCHAR2(8),
+  fec_error     DATE,
+  automatico    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LOG_TAS_VARIABLES
+  is 'Log de Errores en Proceso de Recalculo de Tasa Variable';
+comment on column IT.PR_LOG_TAS_VARIABLES.fecha
+  is 'Fecha de reproceso.';
+comment on column IT.PR_LOG_TAS_VARIABLES.nro_solicitud
+  is 'Nro de Solicitud';
+comment on column IT.PR_LOG_TAS_VARIABLES.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.PR_LOG_TAS_VARIABLES.lugar
+  is 'Lugar del error dentro del programa';
+comment on column IT.PR_LOG_TAS_VARIABLES.det_error
+  is 'Detalle del Error';
+comment on column IT.PR_LOG_TAS_VARIABLES.hora
+  is 'Hora del Error';
+comment on column IT.PR_LOG_TAS_VARIABLES.usuario
+  is 'Usuario que Ejecuto el proceso';
+comment on column IT.PR_LOG_TAS_VARIABLES.fec_error
+  is 'Fecha de Error';
+comment on column IT.PR_LOG_TAS_VARIABLES.automatico
+  is 'Automático S';
+create index IT.ID_FECHA on IT.PR_LOG_TAS_VARIABLES (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

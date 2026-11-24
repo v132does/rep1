@@ -1,0 +1,25 @@
+create table IT.PR_SOL_CUO_REF_TMP
+(
+  nro_solicitud    NUMBER(7) not null,
+  nro_cuota        NUMBER(3) not null,
+  mto_capital      NUMBER(18,2) default 0,
+  fec_vto_habil    DATE,
+  fec_vto_exacto   DATE,
+  val_int_original NUMBER(20,4),
+  usu_insercion    VARCHAR2(10) default user not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default user not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

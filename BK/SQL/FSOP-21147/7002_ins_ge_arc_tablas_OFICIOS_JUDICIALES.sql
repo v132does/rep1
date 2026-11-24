@@ -1,0 +1,7 @@
+BEGIN pre_ini_aplicacion; pae_cnf.G_COD_MODULO := 1; END; 
+/
+
+insert into GE_ARC_TABLAS (REFERENCIA, NOM_TABLA, ARCHIVO, NRO_SECUENCIA, BORRAR, USU_MODIFICACION, FEC_MODIFICACION, USU_INSERCION, FEC_INSERCION)
+values ('OFICIOS_JUDICIALES', 'TM_PER_JUDICIALES', 'OFICIOS JUDICIALES.CSV', 1, 'N', 'IT', to_date('07-01-2022 16:59:30', 'dd-mm-yyyy hh24:mi:ss'), 'IT', to_date('07-01-2022 16:59:30', 'dd-mm-yyyy hh24:mi:ss'));
+
+commit;

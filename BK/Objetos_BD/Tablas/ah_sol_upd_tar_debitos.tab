@@ -1,0 +1,65 @@
+create table IT.AH_SOL_UPD_TAR_DEBITOS
+(
+  fec_sistema      DATE,
+  descripcion      VARCHAR2(300),
+  usu_solicitud    VARCHAR2(10),
+  nro_cta_global   VARCHAR2(16) not null,
+  est_global       VARCHAR2(60),
+  nro_tar_debito   VARCHAR2(19) not null,
+  estado           VARCHAR2(1),
+  det_error        VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_SOL_UPD_TAR_DEBITOS
+  is 'Solicitud para actualizar estado de tarjeta de debito en Global via WS de forma asincrona.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.fec_sistema
+  is 'Fecha del Sistema cuando se cargo la solicitud de cambio de estado de la tarjeta de debito.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.usu_solicitud
+  is 'Usuario que solicita el cambio de estado.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.nro_cta_global
+  is 'Nro. de cuenta generado por Global Processing. ';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.est_global
+  is 'Estado a cambiar en Global, debe ir el nombre del estado. Ejemplo: "BloqueoTemporal".';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.nro_tar_debito
+  is 'Nro. Tarjeta Debito generado por Global Processing.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.estado
+  is 'Estados: S= Solicitado, E= Enviado, X = Con error.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.det_error
+  is 'Detalle del error.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_SOL_UPD_TAR_DEBITOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AH_SOL_UPD_TAR_DEBITOS
+  add constraint PK_AH_SOL_UPD_TAR_DEBITOS primary key (NRO_CTA_GLOBAL, NRO_TAR_DEBITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

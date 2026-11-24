@@ -1,0 +1,79 @@
+create table IT.GE_CRM_LEADS
+(
+  cod_crm_lead     VARCHAR2(10) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_documento    VARCHAR2(20) not null,
+  cod_oficina      NUMBER(3),
+  cod_canal        NUMBER(3),
+  cod_campana      NUMBER(3),
+  fec_alt_crm      DATE,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_tip_lead     VARCHAR2(10) not null,
+  dat_asunto       VARCHAR2(200) not null,
+  dat_adicional    VARCHAR2(200) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CRM_LEADS
+  is 'Tabla de leads dados de alta en el CRM';
+comment on column IT.GE_CRM_LEADS.cod_crm_lead
+  is 'Id del Lead generado en CRM.';
+comment on column IT.GE_CRM_LEADS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_CRM_LEADS.nro_documento
+  is 'Numero de Documento.';
+comment on column IT.GE_CRM_LEADS.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.GE_CRM_LEADS.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.GE_CRM_LEADS.cod_campana
+  is 'Codigo de Campana.';
+comment on column IT.GE_CRM_LEADS.fec_alt_crm
+  is 'Fecha de alta en CRM.';
+comment on column IT.GE_CRM_LEADS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.GE_CRM_LEADS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.GE_CRM_LEADS.cod_tip_lead
+  is 'Codigo de Tipo de Lead BA_COD_REFERENCIAS.';
+comment on column IT.GE_CRM_LEADS.dat_asunto
+  is 'Asunto del mail enviado para el Lead CRM.';
+comment on column IT.GE_CRM_LEADS.dat_adicional
+  is 'Datos Adicionales para el Lead CRM.';
+comment on column IT.GE_CRM_LEADS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CRM_LEADS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CRM_LEADS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CRM_LEADS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CRM_LEADS
+  add constraint PK_COD_CRM_LEAD primary key (COD_CRM_LEAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

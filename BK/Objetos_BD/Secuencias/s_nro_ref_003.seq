@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_REF_003
+minvalue 1
+maxvalue 9999999999999999999999999
+start with 4996
+increment by 1
+nocache;
+

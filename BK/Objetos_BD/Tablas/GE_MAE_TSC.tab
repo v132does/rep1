@@ -1,0 +1,45 @@
+-- =====================================================================================
+-- Tabla maestro de cuentas para Tasas Saldos Contables
+-- =====================================================================================
+CREATE TABLE IT.GE_MAE_TSC (
+    NRO_CUENTA       VARCHAR2(15 BYTE)   NOT NULL,
+    COD_RUBRO        VARCHAR2(15 BYTE)   NOT NULL,
+    COD_MODULO       NUMBER,
+    COD_MODALIDAD    NUMBER,
+    ACOD             NUMBER,
+	USA_ACOD_MAESTRO CHAR(1) DEFAULT 'N' NOT NULL,
+    USU_ALTA         VARCHAR2(30 BYTE),
+    FEC_ALTA         DATE,
+    USU_ULT_ACT      VARCHAR2(30 BYTE),
+    FEC_ULT_ACT      DATE,
+    CONSTRAINT PK_GE_MAE_TSC PRIMARY KEY (NRO_CUENTA, COD_RUBRO)
+) TABLESPACE IT_DATA;
+
+-- Comentarios descriptivos
+COMMENT ON TABLE  IT.GE_MAE_TSC              IS 'Maestro de cuentas para Tasas Saldos Contables: ACOD histórico por cuenta y cod_rubro';
+COMMENT ON COLUMN IT.GE_MAE_TSC.NRO_CUENTA   IS 'Número de cuenta (formato CB_SAL_INV_FINMES.NRO_CUENTA)';
+COMMENT ON COLUMN IT.GE_MAE_TSC.COD_RUBRO    IS 'Código de rubro asociado a la cuenta';
+COMMENT ON COLUMN IT.GE_MAE_TSC.ACOD         IS 'Código de área (ACOD) histórico para la cuenta/rubro';
+COMMENT ON COLUMN IT.GE_MAE_TSC.USU_ALTA     IS 'Usuario que insertó el registro';
+COMMENT ON COLUMN IT.GE_MAE_TSC.FEC_ALTA     IS 'Fecha de inserción del registro';
+COMMENT ON COLUMN IT.GE_MAE_TSC.USU_ULT_ACT  IS 'Usuario que realizó la última actualización';
+COMMENT ON COLUMN IT.GE_MAE_TSC.FEC_ULT_ACT  IS 'Fecha de última actualización';
+
+ALTER TABLE IT.GE_MAE_TSC
+  ADD CONSTRAINT CK_GE_MAE_TSC_USA_ACOD
+  CHECK (USA_ACOD_MAESTRO IN ('S','N'));
+  
+-- Índice adicional (por si se busca sólo por NRO_CUENTA)
+CREATE INDEX IT.IDX_GE_MAE_TSC_CTA
+    ON IT.GE_MAE_TSC (NRO_CUENTA)
+TABLESPACE IT_IND;
+
+CREATE INDEX IT.IX_GE_MAE_TSC_USA_ACOD
+  ON IT.GE_MAE_TSC (NRO_CUENTA, COD_RUBRO, USA_ACOD_MAESTRO)
+TABLESPACE IT_IND;
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_MAE_TSC FOR IT.GE_MAE_TSC;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+  ON IT.GE_MAE_TSC TO IT_TEMPORAL;

@@ -1,0 +1,145 @@
+create table IT.PR_GAR_CASH
+(
+  nro_garantia       NUMBER(7) not null,
+  nro_cta_referencia VARCHAR2(15),
+  cod_emisor         NUMBER(5),
+  cod_cas_tipo       NUMBER(3) not null,
+  serie              VARCHAR2(5),
+  nro_certificado    NUMBER(15),
+  cod_moneda         VARCHAR2(3) not null,
+  monto              NUMBER(18,2) default 0 not null,
+  observacion        VARCHAR2(1000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  beneficiario       VARCHAR2(200),
+  fec_inicio         DATE,
+  fec_vencimiento    DATE,
+  observacion_his    VARCHAR2(4000),
+  nro_documento      NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_GAR_CASH
+  is 'Detalle de Garantias Tipo Cash. ';
+comment on column IT.PR_GAR_CASH.nro_garantia
+  is 'Código de Garantía.';
+comment on column IT.PR_GAR_CASH.nro_cta_referencia
+  is 'Número de Cuenta de Referencia.';
+comment on column IT.PR_GAR_CASH.cod_emisor
+  is 'Código del emisor del documento, si es banco es el código del bcp si es financiera el código es mayor a 2000.';
+comment on column IT.PR_GAR_CASH.cod_cas_tipo
+  is 'Código del Tipo de Cash.';
+comment on column IT.PR_GAR_CASH.serie
+  is 'Serie.';
+comment on column IT.PR_GAR_CASH.nro_certificado
+  is 'Número de Certificado.';
+comment on column IT.PR_GAR_CASH.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.PR_GAR_CASH.monto
+  is 'Valor.';
+comment on column IT.PR_GAR_CASH.observacion
+  is 'Observación.';
+comment on column IT.PR_GAR_CASH.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GAR_CASH.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GAR_CASH.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_CASH.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_CASH.beneficiario
+  is 'Beneficiario del CDA o TIF.';
+comment on column IT.PR_GAR_CASH.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.PR_GAR_CASH.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.PR_GAR_CASH.observacion_his
+  is 'Guarda las observaciones que superaron los 1000 caracteres.';
+comment on column IT.PR_GAR_CASH.nro_documento
+  is 'Número de documento de relación con tabla de bloqueo.';
+create index IT.IDXJJSAL_INV on IT.PR_GAR_CASH (NRO_CTA_REFERENCIA, NRO_GARANTIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGCAS_COD_MONEDA on IT.PR_GAR_CASH (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PRGACA_NRO_GARANTIA on IT.PR_GAR_CASH (NRO_GARANTIA, SERIE, NRO_CERTIFICADO, NRO_CTA_REFERENCIA, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.PK_PR_GAR_CASH on IT.PR_GAR_CASH (NRO_GARANTIA, SERIE, NRO_CERTIFICADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_CASH
+  add constraint UK_PR_GAR_CASH unique (NRO_GARANTIA, SERIE, NRO_CERTIFICADO, NRO_CTA_REFERENCIA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_CASH
+  add constraint FK_PGCAS_COD_CAS_TIPO foreign key (COD_CAS_TIPO)
+  references IT.PR_CAS_TIPOS (COD_CAS_TIPO);
+alter table IT.PR_GAR_CASH
+  add constraint FK_PGCAS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_GAR_CASH
+  add constraint FK_PGCAS_NRO_GARANTIA foreign key (NRO_GARANTIA)
+  references IT.PR_GARANTIAS (NRO_GARANTIA);
+alter table IT.PR_GAR_CASH
+  add constraint AVCON_1099324296_COD_C_000
+  check (COD_CAS_TIPO BETWEEN 0 AND 999);
+

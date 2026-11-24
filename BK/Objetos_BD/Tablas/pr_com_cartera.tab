@@ -1,0 +1,286 @@
+create table IT.PR_COM_CARTERA
+(
+  fecha                     DATE default trunc(SYSDATE) not null,
+  cod_oficina               NUMBER(3) default 1,
+  nro_documento             VARCHAR2(20) not null,
+  cod_tip_documento         NUMBER(3) not null,
+  cod_pais                  NUMBER(3) not null,
+  nombre                    VARCHAR2(60) not null,
+  apellido                  VARCHAR2(60) not null,
+  tipo                      VARCHAR2(1) not null,
+  fec_nacimiento            DATE not null,
+  dir_particular            VARCHAR2(80) not null,
+  nro_dir_particular        VARCHAR2(8) not null,
+  cod_pais_dir_particular   NUMBER(3) not null,
+  cod_ciu_dir_particular    NUMBER(3),
+  cod_bar_dir_particular    NUMBER(3),
+  obs_dir_particular        VARCHAR2(100),
+  dir_laboral               VARCHAR2(80) not null,
+  nro_dir_laboral           VARCHAR2(8) not null,
+  cod_pais_dir_laboral      NUMBER(3) not null,
+  cod_ciu_dir_laboral       NUMBER(3),
+  cod_bar_dir_laboral       NUMBER(3),
+  obs_dir_laboral           VARCHAR2(100),
+  tip_linea_particular      VARCHAR2(1) default 'B' not null,
+  area_tel_particular       VARCHAR2(10) not null,
+  tel_particular            VARCHAR2(10) not null,
+  tip_linea_laboral         VARCHAR2(1) default 'B' not null,
+  area_tel_laboral          VARCHAR2(10) not null,
+  tel_laboral               VARCHAR2(10) not null,
+  lug_trabajo               VARCHAR2(70) not null,
+  mto_ingreso               NUMBER(18,2) not null,
+  antiguedad                NUMBER(10),
+  des_puesto                VARCHAR2(80) not null,
+  cod_banca                 NUMBER(3) not null,
+  cod_rub_economico         VARCHAR2(6) not null,
+  tip_destino               VARCHAR2(1) not null,
+  cod_moneda                VARCHAR2(3) not null,
+  sal_prestamo              NUMBER(18,2) not null,
+  can_cuotas                NUMBER(5) not null,
+  val_tasa                  NUMBER(20,4) not null,
+  fec_pri_vencimiento       DATE not null,
+  mto_cuota                 NUMBER(18,2) not null,
+  mto_gto_administrativo    NUMBER(18,2),
+  mto_seguro                NUMBER(18,2),
+  descripcion               VARCHAR2(35) not null,
+  procesado                 VARCHAR2(1) default 'N',
+  observaciones             VARCHAR2(1000),
+  nro_operacion             VARCHAR2(15) not null,
+  nro_lote                  NUMBER(10),
+  cod_ente                  NUMBER(5) not null,
+  cod_rub_primario          VARCHAR2(6),
+  nro_solicitud             NUMBER(7),
+  cod_canal                 NUMBER(3),
+  cod_campana               NUMBER(3),
+  cod_usu_oficial           VARCHAR2(10),
+  usu_insercion             VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion             DATE default SYSDATE not null,
+  usu_modificacion          VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion          DATE default SYSDATE not null,
+  cod_sex_cliente           VARCHAR2(1),
+  fec_ini_operacion         DATE,
+  nom_codeudor              VARCHAR2(60),
+  ape_codeudor              VARCHAR2(60),
+  nro_doc_codeudor          VARCHAR2(20),
+  cod_tip_doc_codeudor      NUMBER(3),
+  cod_sex_codeudor          VARCHAR2(1),
+  nom_conyuge               VARCHAR2(60),
+  ape_conyuge               VARCHAR2(60),
+  nro_doc_conyuge           VARCHAR2(20),
+  cod_tip_doc_conyuge       NUMBER(3),
+  cod_sex_conyuge           VARCHAR2(1),
+  nom_cony_codeudor         VARCHAR2(60),
+  ape_cony_codeudor         VARCHAR2(60),
+  nro_doc_cony_codeudor     VARCHAR2(20),
+  cod_tip_doc_cony_codeudor NUMBER(3),
+  cod_sex_cony_codeudor     VARCHAR2(1),
+  judicializado             VARCHAR2(1),
+  fec_juicio                DATE,
+  inhibido                  VARCHAR2(1),
+  fec_inhibicion            DATE,
+  ind_recurso               VARCHAR2(1) default 'N',
+  tip_prestamo              VARCHAR2(15) not null,
+  sec_publico               VARCHAR2(1) default 'N' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_COM_CARTERA
+  is 'Operaciones Compra de Cartera';
+comment on column IT.PR_COM_CARTERA.fecha
+  is 'Fecha de importación.';
+comment on column IT.PR_COM_CARTERA.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.PR_COM_CARTERA.nro_documento
+  is 'Numero de documento.';
+comment on column IT.PR_COM_CARTERA.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.PR_COM_CARTERA.cod_pais
+  is 'País de Origen.';
+comment on column IT.PR_COM_CARTERA.nombre
+  is 'Nombre.';
+comment on column IT.PR_COM_CARTERA.apellido
+  is 'Apellido.';
+comment on column IT.PR_COM_CARTERA.tipo
+  is 'Tipo de Persona (F=Física, J=Jurídica).';
+comment on column IT.PR_COM_CARTERA.fec_nacimiento
+  is 'Fecha de nacimiento.';
+comment on column IT.PR_COM_CARTERA.dir_particular
+  is 'Dirección Particular o Nombre de la Calle.';
+comment on column IT.PR_COM_CARTERA.nro_dir_particular
+  is 'Numero o altura de la vivienda en la Calle.';
+comment on column IT.PR_COM_CARTERA.cod_pais_dir_particular
+  is 'Código de país de la dirección Particular.';
+comment on column IT.PR_COM_CARTERA.cod_ciu_dir_particular
+  is 'Código de ciudad de la dirección Particular.';
+comment on column IT.PR_COM_CARTERA.cod_bar_dir_particular
+  is 'Código de barrio de la dirección Particular.';
+comment on column IT.PR_COM_CARTERA.obs_dir_particular
+  is 'Observaciones de la dirección Particular.';
+comment on column IT.PR_COM_CARTERA.dir_laboral
+  is 'Dirección Laboral o Nombre de la Calle.';
+comment on column IT.PR_COM_CARTERA.nro_dir_laboral
+  is 'Numero o altura de la vivienda en la Calle.';
+comment on column IT.PR_COM_CARTERA.cod_pais_dir_laboral
+  is 'Código de país de la dirección Laboral.';
+comment on column IT.PR_COM_CARTERA.cod_ciu_dir_laboral
+  is 'Código de ciudad de la dirección Laboral.';
+comment on column IT.PR_COM_CARTERA.cod_bar_dir_laboral
+  is 'Código de barrio de la dirección Laboral.';
+comment on column IT.PR_COM_CARTERA.obs_dir_laboral
+  is 'Observaciones de la dirección Laboral.';
+comment on column IT.PR_COM_CARTERA.tip_linea_particular
+  is 'Tipo de Línea Particular(B-Baja,-Celular).';
+comment on column IT.PR_COM_CARTERA.area_tel_particular
+  is 'Código de Área del Número de Teléfono.';
+comment on column IT.PR_COM_CARTERA.tel_particular
+  is 'Número de Teléfono Particular.';
+comment on column IT.PR_COM_CARTERA.tip_linea_laboral
+  is 'Tipo de Línea Laboral(B-Baja,C-Celular).';
+comment on column IT.PR_COM_CARTERA.area_tel_laboral
+  is 'Código de Área del Número de Teléfono.';
+comment on column IT.PR_COM_CARTERA.tel_laboral
+  is 'Número de Teléfono Laboral.';
+comment on column IT.PR_COM_CARTERA.lug_trabajo
+  is 'Lugar de Trabajo.';
+comment on column IT.PR_COM_CARTERA.mto_ingreso
+  is 'Monto de Ingreso.';
+comment on column IT.PR_COM_CARTERA.antiguedad
+  is 'Antiguedad Laboral.';
+comment on column IT.PR_COM_CARTERA.des_puesto
+  is 'Descripción del Puesto Laboral  .';
+comment on column IT.PR_COM_CARTERA.cod_banca
+  is 'Código de Banca.';
+comment on column IT.PR_COM_CARTERA.cod_rub_economico
+  is 'Código de Rubro Económico.';
+comment on column IT.PR_COM_CARTERA.tip_destino
+  is 'Tipo de Destino.';
+comment on column IT.PR_COM_CARTERA.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.PR_COM_CARTERA.sal_prestamo
+  is 'Saldo del préstamo.';
+comment on column IT.PR_COM_CARTERA.can_cuotas
+  is 'Cantidad de cuotas Pendientes.';
+comment on column IT.PR_COM_CARTERA.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.PR_COM_CARTERA.fec_pri_vencimiento
+  is 'Fecha de primer vencimiento.';
+comment on column IT.PR_COM_CARTERA.mto_cuota
+  is 'Fecha de primer vencimiento.';
+comment on column IT.PR_COM_CARTERA.mto_gto_administrativo
+  is 'Monto de Gasto Administrativo.';
+comment on column IT.PR_COM_CARTERA.mto_seguro
+  is 'Monto de Seguro de Vida.';
+comment on column IT.PR_COM_CARTERA.descripcion
+  is 'Descripción del préstamo.';
+comment on column IT.PR_COM_CARTERA.procesado
+  is 'Indica si fue procesado el registro.';
+comment on column IT.PR_COM_CARTERA.observaciones
+  is 'Observaciones.';
+comment on column IT.PR_COM_CARTERA.nro_operacion
+  is 'Nro. de operación original.';
+comment on column IT.PR_COM_CARTERA.nro_lote
+  is 'Nro. de Lote.';
+comment on column IT.PR_COM_CARTERA.cod_ente
+  is 'Código de la entidad.';
+comment on column IT.PR_COM_CARTERA.cod_rub_primario
+  is 'Código de Rubro Económico Primario.';
+comment on column IT.PR_COM_CARTERA.nro_solicitud
+  is 'Numero de propuesta generada.';
+comment on column IT.PR_COM_CARTERA.cod_canal
+  is 'Código de canal.';
+comment on column IT.PR_COM_CARTERA.cod_campana
+  is 'Código de la campaña.';
+comment on column IT.PR_COM_CARTERA.cod_usu_oficial
+  is 'Oficial de ctas.';
+comment on column IT.PR_COM_CARTERA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_COM_CARTERA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_COM_CARTERA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_COM_CARTERA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_COM_CARTERA.cod_sex_cliente
+  is 'Codigo del sexo (M=Masculino / F=Femenino).';
+comment on column IT.PR_COM_CARTERA.fec_ini_operacion
+  is 'Fecha de inicio de la operación.';
+comment on column IT.PR_COM_CARTERA.nom_codeudor
+  is 'Nombre del Codeudor.';
+comment on column IT.PR_COM_CARTERA.ape_codeudor
+  is 'Apellido del Codeudor.';
+comment on column IT.PR_COM_CARTERA.nro_doc_codeudor
+  is 'Nro. de Documento de Identidad  del Codeudor.';
+comment on column IT.PR_COM_CARTERA.cod_tip_doc_codeudor
+  is 'Tipo de documento del Codeudor(1-CI,2-pasaporte, etc).';
+comment on column IT.PR_COM_CARTERA.cod_sex_codeudor
+  is 'Codigo del sexo (M=Masculino / F=Femenino).';
+comment on column IT.PR_COM_CARTERA.nom_conyuge
+  is 'Nombre del Cónyuge.';
+comment on column IT.PR_COM_CARTERA.ape_conyuge
+  is 'Apellido del Cónyuge.';
+comment on column IT.PR_COM_CARTERA.nro_doc_conyuge
+  is 'Nro. de Documento de Identidad  del Conyuge.';
+comment on column IT.PR_COM_CARTERA.cod_tip_doc_conyuge
+  is 'Tipo de documento del Cónyuge(1-CI,2-pasaporte, etc).';
+comment on column IT.PR_COM_CARTERA.cod_sex_conyuge
+  is 'Codigo del sexo (M=Masculino / F=Femenino).';
+comment on column IT.PR_COM_CARTERA.nom_cony_codeudor
+  is 'Nombre del Cónyuge del codeudor.';
+comment on column IT.PR_COM_CARTERA.ape_cony_codeudor
+  is 'Apellido del Cónyuge del codeudor.';
+comment on column IT.PR_COM_CARTERA.nro_doc_cony_codeudor
+  is 'Nro. de Documento de Identidad  del Conyuge del codeudor.';
+comment on column IT.PR_COM_CARTERA.cod_tip_doc_cony_codeudor
+  is 'Tipo de documento del Cónyuge del codeudor(1-CI,2-pasaporte, etc).';
+comment on column IT.PR_COM_CARTERA.cod_sex_cony_codeudor
+  is 'Codigo del sexo (M=Masculino / F=Femenino).';
+comment on column IT.PR_COM_CARTERA.judicializado
+  is 'Judicializado.';
+comment on column IT.PR_COM_CARTERA.fec_juicio
+  is 'Fecha de Juicio.';
+comment on column IT.PR_COM_CARTERA.inhibido
+  is 'Inhibido.';
+comment on column IT.PR_COM_CARTERA.fec_inhibicion
+  is 'Fecha de Inhibición.';
+comment on column IT.PR_COM_CARTERA.ind_recurso
+  is 'Indicador de recurso S/N. ';
+comment on column IT.PR_COM_CARTERA.tip_prestamo
+  is 'Tipo de Prestamo COMERCIAL o de CONSUMO';
+comment on column IT.PR_COM_CARTERA.sec_publico
+  is 'Sector Publico S o N';
+create index IT.IN_PCCAR_COD_RUB_ECONOMICO on IT.PR_COM_CARTERA (COD_RUB_ECONOMICO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COM_CARTERA
+  add constraint PK_PR_COM_CARTERA primary key (NRO_OPERACION, COD_ENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

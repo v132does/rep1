@@ -1,0 +1,73 @@
+create table IT.RH_SANCIONES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_tip_sancion  NUMBER(3) not null,
+  fecha            DATE not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_SANCIONES
+  is 'Sanciones recibidas por el Empleado.';
+comment on column IT.RH_SANCIONES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_SANCIONES.cod_tip_sancion
+  is 'Tipo de Sancion.';
+comment on column IT.RH_SANCIONES.fecha
+  is 'Fecha de la Sancion.';
+comment on column IT.RH_SANCIONES.observacion
+  is 'Observacion.';
+comment on column IT.RH_SANCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_SANCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_SANCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_SANCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HSANC_COD_TIP_SANCION on IT.RH_SANCIONES (COD_TIP_SANCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_SANCIONES
+  add constraint PK_RH_SANCIONES primary key (COD_PERSONA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_SANCIONES
+  add constraint FK_HSANC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_SANCIONES
+  add constraint FK_HSANC_COD_TIP_SANCION foreign key (COD_TIP_SANCION)
+  references IT.RH_TIP_SANCIONES (COD_TIP_SANCION);
+

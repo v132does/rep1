@@ -1,0 +1,133 @@
+create table IT.AH_SOL_CERTIFICADOS
+(
+  nro_solicitud       NUMBER(18) not null,
+  fecha               DATE,
+  cod_persona         VARCHAR2(10),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  capital             NUMBER(18,2),
+  cod_moneda          VARCHAR2(3),
+  estado              VARCHAR2(1),
+  tip_capitalizacion  NUMBER(2),
+  cre_automatico      VARCHAR2(1),
+  nro_cta_credito     VARCHAR2(15),
+  nro_cta_debito      VARCHAR2(15),
+  plazo               NUMBER(5),
+  cod_for_pago        VARCHAR2(5),
+  cod_for_entrega     VARCHAR2(5),
+  cod_ofi_entrega     NUMBER(3),
+  ind_imp_cupones     VARCHAR2(1),
+  observacion         VARCHAR2(2000),
+  nro_cuenta          VARCHAR2(15),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_tasa            NUMBER(3),
+  ind_cus_certificado VARCHAR2(1),
+  cod_canal           VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_SOL_CERTIFICADOS
+  is 'Solicitud de CDA.';
+comment on column IT.AH_SOL_CERTIFICADOS.nro_solicitud
+  is 'Numero Solicitud.';
+comment on column IT.AH_SOL_CERTIFICADOS.fecha
+  is 'Fecha de Solicitud.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.AH_SOL_CERTIFICADOS.capital
+  is 'Capital.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.AH_SOL_CERTIFICADOS.estado
+  is 'Estado. P:Pendiente, R:Rechazado, C:Cuenta Generada.';
+comment on column IT.AH_SOL_CERTIFICADOS.tip_capitalizacion
+  is 'Tipo de Capitalizacion.';
+comment on column IT.AH_SOL_CERTIFICADOS.cre_automatico
+  is 'Credito Automatico S/N.';
+comment on column IT.AH_SOL_CERTIFICADOS.nro_cta_credito
+  is 'Numero de Cuenta Credito.';
+comment on column IT.AH_SOL_CERTIFICADOS.nro_cta_debito
+  is 'Numero de Cuenta Debito.';
+comment on column IT.AH_SOL_CERTIFICADOS.plazo
+  is 'Plazo en dias.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_for_pago
+  is 'Codigo de Forma Pago.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_for_entrega
+  is 'Codigo Forma Entrega.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_ofi_entrega
+  is 'Codigo Oficina de Entrega';
+comment on column IT.AH_SOL_CERTIFICADOS.ind_imp_cupones
+  is 'Impresion Cupones S/N.';
+comment on column IT.AH_SOL_CERTIFICADOS.observacion
+  is 'Observacion.';
+comment on column IT.AH_SOL_CERTIFICADOS.nro_cuenta
+  is 'Nro. Cuenta CDA.';
+comment on column IT.AH_SOL_CERTIFICADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_SOL_CERTIFICADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_SOL_CERTIFICADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_SOL_CERTIFICADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_tasa
+  is 'Codigo Tasa del CDA.';
+comment on column IT.AH_SOL_CERTIFICADOS.ind_cus_certificado
+  is 'Indica custodia de CDA. S/N';
+comment on column IT.AH_SOL_CERTIFICADOS.cod_canal
+  is 'Codigo de Canal.';
+create index IT.IN_GSCDA_PERSONA on IT.AH_SOL_CERTIFICADOS (COD_MODULO, COD_MODALIDAD, COD_PERSONA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSCDA_SOLICITUD on IT.AH_SOL_CERTIFICADOS (FECHA, NRO_SOLICITUD)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_SOL_CERTIFICADOS
+  add constraint PK_AH_SOL_CERTIFICADOS primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

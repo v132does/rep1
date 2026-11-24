@@ -1,0 +1,68 @@
+create table IT.BW_COD_LIM_RELACION
+(
+  cod_tip_mensaje  VARCHAR2(3) not null,
+  cod_tra_padre    NUMBER(4),
+  nombre           VARCHAR2(60) not null,
+  req_monto        VARCHAR2(1) default 'S' not null,
+  tip_ente         VARCHAR2(2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_COD_LIM_RELACION.cod_tip_mensaje
+  is 'Codigo mensaje de operaciones en canales.';
+comment on column IT.BW_COD_LIM_RELACION.cod_tra_padre
+  is 'Nombre para apis externas.';
+comment on column IT.BW_COD_LIM_RELACION.nombre
+  is 'Indica si la operacion requiere monto.';
+comment on column IT.BW_COD_LIM_RELACION.req_monto
+  is 'Transaccion padre.';
+comment on column IT.BW_COD_LIM_RELACION.tip_ente
+  is 'Tipo de ente.';
+comment on column IT.BW_COD_LIM_RELACION.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_COD_LIM_RELACION.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_COD_LIM_RELACION.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_COD_LIM_RELACION.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create unique index IT.IN_BCLRE_NOMBRE on IT.BW_COD_LIM_RELACION (NOMBRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_COD_LIM_RELACION
+  add constraint PK_BCLRE_COD_TIP_MENSAJE primary key (COD_TIP_MENSAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

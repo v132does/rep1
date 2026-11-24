@@ -1,0 +1,157 @@
+create table IT.GE_COB_SER_PARAMETROS
+(
+  cod_servicio         NUMBER(3) not null,
+  descripcion          VARCHAR2(30),
+  cod_oficina          NUMBER(3),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  nro_cuenta           VARCHAR2(15),
+  cod_transaccion      NUMBER(4) not null,
+  hab_caja             VARCHAR2(1) default 'N' not null,
+  eti_campo1           VARCHAR2(20),
+  for_campo1           VARCHAR2(20),
+  val_campo1           VARCHAR2(1),
+  eti_campo2           VARCHAR2(20),
+  for_campo2           VARCHAR2(20),
+  val_campo2           VARCHAR2(1),
+  sig_nro_remision     NUMBER(7),
+  fec_ult_remision     DATE,
+  cod_tra_comision     NUMBER(4),
+  deb_automatico       VARCHAR2(1) default 'N' not null,
+  cod_ofi_cta_remision NUMBER(3),
+  centralizado         VARCHAR2(1) default 'S' not null,
+  cob_comision         VARCHAR2(1) default 'C' not null,
+  usu_insercion        VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_persona          VARCHAR2(10) not null,
+  ref_archivo          VARCHAR2(30),
+  com_incluida         VARCHAR2(1) default 'N' not null,
+  cod_mod_cta_remision NUMBER(3),
+  cod_mad_cta_remision NUMBER(3),
+  nro_cta_remision     VARCHAR2(15),
+  nom_vis_remision     VARCHAR2(30),
+  tip_monto            VARCHAR2(1) default 'B',
+  tip_servicio         VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SER_PARAMETROS
+  is 'Cobro de Servicios';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_servicio
+  is 'Código de Servicio';
+comment on column IT.GE_COB_SER_PARAMETROS.descripcion
+  is 'Descripción del Servicio';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_oficina
+  is 'Código de Oficina';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_modulo
+  is 'Código del Modulo';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_modalidad
+  is 'Código de Modalidad';
+comment on column IT.GE_COB_SER_PARAMETROS.nro_cuenta
+  is 'Nro. Cuenta para los créditos de los cobros.';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_transaccion
+  is 'Código Transacción. Por defecto se utiliza la transacción de caja.';
+comment on column IT.GE_COB_SER_PARAMETROS.hab_caja
+  is 'Habilitado en Caja';
+comment on column IT.GE_COB_SER_PARAMETROS.eti_campo1
+  is 'Etiqueta Campo 1';
+comment on column IT.GE_COB_SER_PARAMETROS.for_campo1
+  is 'Formato  Campo 1';
+comment on column IT.GE_COB_SER_PARAMETROS.val_campo1
+  is 'Validación Campo 1';
+comment on column IT.GE_COB_SER_PARAMETROS.eti_campo2
+  is 'Etiqueta Campo 2';
+comment on column IT.GE_COB_SER_PARAMETROS.for_campo2
+  is 'Formato Campo 2';
+comment on column IT.GE_COB_SER_PARAMETROS.val_campo2
+  is 'Validación Campo 2';
+comment on column IT.GE_COB_SER_PARAMETROS.sig_nro_remision
+  is 'Siguiente Nro Remisión';
+comment on column IT.GE_COB_SER_PARAMETROS.fec_ult_remision
+  is 'Fecha Ultima Remisión';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_tra_comision
+  is 'Código de Transacción de  Comisión';
+comment on column IT.GE_COB_SER_PARAMETROS.deb_automatico
+  is 'Indica si es débito automático (S = SI  / N = NO)';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_ofi_cta_remision
+  is 'Código de la oficina de la cta. de remisión';
+comment on column IT.GE_COB_SER_PARAMETROS.centralizado
+  is 'Centralizado (S= SI, procesado en casa Matríz - N=NO, procesado en cada oficina)';
+comment on column IT.GE_COB_SER_PARAMETROS.cob_comision
+  is 'Indica si la comisión se cobra x el total o por detalle (D/C)';
+comment on column IT.GE_COB_SER_PARAMETROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_COB_SER_PARAMETROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_COB_SER_PARAMETROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_COB_SER_PARAMETROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_persona
+  is 'Código de persona relacionada al servicio a cobrarse.';
+comment on column IT.GE_COB_SER_PARAMETROS.ref_archivo
+  is 'Referencia del archivo a utilizar como importador de datos.';
+comment on column IT.GE_COB_SER_PARAMETROS.com_incluida
+  is 'Indica si la Comisión está incluída en el monto cobrado (S = SI  / N = NO)';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_mod_cta_remision
+  is 'Código del módulo de la cta. de remisión';
+comment on column IT.GE_COB_SER_PARAMETROS.cod_mad_cta_remision
+  is 'Código de la Modalidad de la cta. de crédito de remisión';
+comment on column IT.GE_COB_SER_PARAMETROS.nro_cta_remision
+  is 'Nro. de la cuenta de remisión';
+comment on column IT.GE_COB_SER_PARAMETROS.nom_vis_remision
+  is 'Nombre de la vista a utilizar para generar el ascii de remisión.';
+comment on column IT.GE_COB_SER_PARAMETROS.tip_monto
+  is 'Tipo de monto que viene en archivo ascii. B-Bruto(contiene la comision e iva) o neto(se debe calcular la comision e iva sobre este monto)';
+comment on column IT.GE_COB_SER_PARAMETROS.tip_servicio
+  is 'Tipo de Servicio';
+create index IT.IN_GSEPA_NRO_CUENTA on IT.GE_COB_SER_PARAMETROS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_PARAMETROS
+  add constraint PK_GE_COB_SER_PARAMETROS primary key (COD_SERVICIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_PARAMETROS
+  add constraint AVCON_1122416244_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_COB_SER_PARAMETROS
+  add constraint AVCON_1122416244_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_COB_SER_PARAMETROS
+  add constraint AVCON_1122416244_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.GE_COB_SER_PARAMETROS
+  add constraint AVCON_1122416244_COD_S_000
+  check (COD_SERVICIO BETWEEN 0 AND 999);
+

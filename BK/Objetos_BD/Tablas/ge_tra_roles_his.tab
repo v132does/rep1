@@ -1,0 +1,70 @@
+create table IT.GE_TRA_ROLES_HIS
+(
+  fecha            DATE default SYSDATE not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_rol          VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default Substr(user,1,10),
+  fec_modificacion DATE default SYSDATE,
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  ope_fec_valor    VARCHAR2(1) default 'N',
+  can_dias         NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRA_ROLES_HIS
+  is 'Histórico de los permisos por transacciones que posee cada rol.';
+comment on column IT.GE_TRA_ROLES_HIS.fecha
+  is 'Fecha del registro';
+comment on column IT.GE_TRA_ROLES_HIS.cod_transaccion
+  is 'Codigo de Transaccion.';
+comment on column IT.GE_TRA_ROLES_HIS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_TRA_ROLES_HIS.cod_modalidad
+  is 'Codigo de la Transaccion.';
+comment on column IT.GE_TRA_ROLES_HIS.cod_rol
+  is 'Codigo del Rol.';
+comment on column IT.GE_TRA_ROLES_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TRA_ROLES_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TRA_ROLES_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRA_ROLES_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRA_ROLES_HIS.hor_inicio
+  is 'Hora del dia desde la que se puede operar con esta transaccion.';
+comment on column IT.GE_TRA_ROLES_HIS.hor_fin
+  is 'Hora del dia hasta la que se puede operar con esta transaccion.';
+comment on column IT.GE_TRA_ROLES_HIS.ope_fec_valor
+  is 'Indica si permite operar con Fecha Valor. (S/N).';
+comment on column IT.GE_TRA_ROLES_HIS.can_dias
+  is 'Cantidad de Dias hacia atras permitidos para operar con Fecha Valor.';
+alter table IT.GE_TRA_ROLES_HIS
+  add constraint PK_GE_TRA_ROLES_HIS primary key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, COD_ROL, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

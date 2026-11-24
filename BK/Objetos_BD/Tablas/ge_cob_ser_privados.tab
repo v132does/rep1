@@ -1,0 +1,110 @@
+create table IT.GE_COB_SER_PRIVADOS
+(
+  cod_usuario      VARCHAR2(10),
+  cod_servicio     NUMBER(5) not null,
+  fec_proceso      DATE,
+  cod_modalidad    NUMBER(3),
+  nro_cuenta       VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  fec_envio        DATE,
+  tipo             VARCHAR2(1),
+  monto            NUMBER(18,2) default 0,
+  estado           VARCHAR2(1),
+  cod_proceso      NUMBER(3),
+  cod_modulo       NUMBER(3),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  error            VARCHAR2(100),
+  nro_operacion    NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SER_PRIVADOS
+  is 'Detalle de Cobro de Servicios Privados.';
+comment on column IT.GE_COB_SER_PRIVADOS.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.GE_COB_SER_PRIVADOS.cod_servicio
+  is 'codigo de ente.';
+comment on column IT.GE_COB_SER_PRIVADOS.fec_proceso
+  is 'fecha de proceso.';
+comment on column IT.GE_COB_SER_PRIVADOS.cod_modalidad
+  is 'codigo de modalidad.';
+comment on column IT.GE_COB_SER_PRIVADOS.nro_cuenta
+  is 'nro de cuenta.';
+comment on column IT.GE_COB_SER_PRIVADOS.cod_moneda
+  is 'cod moneda.';
+comment on column IT.GE_COB_SER_PRIVADOS.fec_envio
+  is 'fecha de envio.';
+comment on column IT.GE_COB_SER_PRIVADOS.tipo
+  is 'tipo.';
+comment on column IT.GE_COB_SER_PRIVADOS.monto
+  is 'monto.';
+comment on column IT.GE_COB_SER_PRIVADOS.estado
+  is 'estado.';
+comment on column IT.GE_COB_SER_PRIVADOS.cod_proceso
+  is 'codigo de proceso.';
+comment on column IT.GE_COB_SER_PRIVADOS.cod_modulo
+  is 'codigo de modulo.';
+comment on column IT.GE_COB_SER_PRIVADOS.fec_insercion
+  is 'fecha de insercion.';
+comment on column IT.GE_COB_SER_PRIVADOS.usu_insercion
+  is 'usuario de insercion.';
+comment on column IT.GE_COB_SER_PRIVADOS.fec_modificacion
+  is 'fecha de modificacion.';
+comment on column IT.GE_COB_SER_PRIVADOS.usu_modificacion
+  is 'usuario de modificacion.';
+comment on column IT.GE_COB_SER_PRIVADOS.error
+  is 'Descripcion del error.';
+comment on column IT.GE_COB_SER_PRIVADOS.nro_operacion
+  is 'Numero de operacion.';
+create index IT.IN_GPSEPR_COD_SERVICIO on IT.GE_COB_SER_PRIVADOS (COD_SERVICIO, FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPSEPR_NRO_CUENTA on IT.GE_COB_SER_PRIVADOS (NRO_CUENTA, FEC_PROCESO, COD_SERVICIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_PRIVADOS
+  add constraint FK_GPSEPR_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_COB_SER_PRIVADOS
+  add constraint FK_GPSEPR_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_COB_SER_PRIVADOS
+  add constraint FK_GPSEPR_COD_SERVICIO foreign key (COD_SERVICIO)
+  references IT.GE_COB_SER_PARAMETROS (COD_SERVICIO);
+alter table IT.GE_COB_SER_PRIVADOS
+  add constraint FK_GPSEPR_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_COB_SER_PRIVADOS
+  add constraint FK_GPSEPR_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

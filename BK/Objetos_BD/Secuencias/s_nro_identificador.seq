@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_IDENTIFICADOR
+minvalue 1
+maxvalue 99999999
+start with 61
+increment by 1
+cache 20;
+

@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_RETROCESION
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 78347
+increment by 1
+cache 20;
+

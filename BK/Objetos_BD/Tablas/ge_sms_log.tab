@@ -1,0 +1,103 @@
+create table IT.GE_SMS_LOG
+(
+  nro_tra_banco    NUMBER(10) not null,
+  tip_operacion    VARCHAR2(2),
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_ser_sms      NUMBER(3),
+  servicio         VARCHAR2(40),
+  nro_telefono     VARCHAR2(15),
+  mensaje          VARCHAR2(1000),
+  fec_sistema      VARCHAR2(21),
+  fec_salida       VARCHAR2(21),
+  msj_xml          VARCHAR2(2000),
+  cod_error        NUMBER(2),
+  msj_error        VARCHAR2(150),
+  nro_tra_servidor NUMBER(10),
+  cod_persona      VARCHAR2(10),
+  ref_tra_servidor NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SMS_LOG
+  is 'Log de mensajes SMS';
+comment on column IT.GE_SMS_LOG.nro_tra_banco
+  is 'Nro. de transaccion unica del banco';
+comment on column IT.GE_SMS_LOG.tip_operacion
+  is 'Tipo de Operacion';
+comment on column IT.GE_SMS_LOG.fecha
+  is 'Fecha';
+comment on column IT.GE_SMS_LOG.hora
+  is 'Hora';
+comment on column IT.GE_SMS_LOG.cod_ser_sms
+  is 'Codigo de servicio SMS';
+comment on column IT.GE_SMS_LOG.servicio
+  is 'Proveedor del telefono';
+comment on column IT.GE_SMS_LOG.nro_telefono
+  is 'Nro. de telefono';
+comment on column IT.GE_SMS_LOG.mensaje
+  is 'Contenido del mensaje';
+comment on column IT.GE_SMS_LOG.fec_sistema
+  is 'Fecha del sistema';
+comment on column IT.GE_SMS_LOG.fec_salida
+  is 'Fecha de salida del mensaje';
+comment on column IT.GE_SMS_LOG.msj_xml
+  is 'Mensaje xml';
+comment on column IT.GE_SMS_LOG.cod_error
+  is 'Codigo de error';
+comment on column IT.GE_SMS_LOG.msj_error
+  is 'Mensaje de error';
+comment on column IT.GE_SMS_LOG.nro_tra_servidor
+  is 'Nro. de transaccion unica generado por el servidor';
+comment on column IT.GE_SMS_LOG.cod_persona
+  is 'Codigo de persona';
+comment on column IT.GE_SMS_LOG.ref_tra_servidor
+  is 'Nro. de transaccion del MO que origina este MT si lo hubiera';
+create index IT.IN_GSLOG_COD_PERSONA on IT.GE_SMS_LOG (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSLOG_FEC_PROCESO on IT.GE_SMS_LOG (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SMS_LOG
+  add constraint PK_GE_SMS_LOG primary key (NRO_TRA_BANCO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

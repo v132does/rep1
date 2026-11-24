@@ -1,0 +1,178 @@
+create table IT.PR_CTA_GAS_SEGUROS
+(
+  nro_cuenta             VARCHAR2(15),
+  cod_transaccion        NUMBER(4) not null,
+  cod_moneda             VARCHAR2(3) not null,
+  monto                  NUMBER(18,2),
+  fec_ingreso            DATE not null,
+  fec_vencimiento        DATE,
+  fec_ult_pago           DATE,
+  cod_modalidad          NUMBER(3),
+  hor_ult_pago           VARCHAR2(8),
+  cod_modulo             NUMBER(3),
+  fec_ini_vigencia       DATE,
+  nro_solicitud          NUMBER(7),
+  cod_tas_ref1           NUMBER(3),
+  val_tas_ref1           NUMBER(20,4),
+  mto_car_ref1           NUMBER(18,2),
+  cod_tas_ref2           NUMBER(3),
+  val_tas_ref2           NUMBER(20,4),
+  mto_car_ref2           NUMBER(18,2),
+  mto_dif_referencias    NUMBER(18,2),
+  nro_cuota              NUMBER(3),
+  estado                 VARCHAR2(1),
+  fec_anu_sug_pag_ase    DATE,
+  mto_car_cli_base       NUMBER(18,2),
+  mto_car_pri_base       NUMBER(18,2),
+  mto_car_pri_com_base   NUMBER(18,2),
+  mto_car_pri_iva_base   NUMBER(18,2),
+  mto_car_bco_base       NUMBER(18,2),
+  mto_car_bco_com_base   NUMBER(18,2),
+  mto_car_bco_iva_base   NUMBER(18,2),
+  mto_car_dis_seguro     NUMBER(18,2),
+  mto_car_dis_com_seguro NUMBER(18,2),
+  mto_car_dis_iva_seguro NUMBER(18,2),
+  mto_car_dis_banco      NUMBER(18,2),
+  mto_car_dis_com_banco  NUMBER(18,2),
+  mto_car_dis_iva_banco  NUMBER(18,2),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion          DATE default SYSDATE,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion       DATE default SYSDATE,
+  ano                    NUMBER(4),
+  sal_capital            NUMBER(18,2),
+  ano_pag_prima          NUMBER(4),
+  mes_pag_prima          NUMBER(2),
+  fec_pag_prima          DATE,
+  dia_acu_cuota          NUMBER(10),
+  dia_cuota              NUMBER(10),
+  cod_ent_seguro         NUMBER(5),
+  cod_persona            VARCHAR2(10),
+  cod_ref_gasto          NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CTA_GAS_SEGUROS
+  is 'Contiene los gastos adicionales a cobrar por préstamos.';
+comment on column IT.PR_CTA_GAS_SEGUROS.nro_cuenta
+  is 'Número de Cuenta vinculada al seguro.';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_transaccion
+  is 'Código de la Transacción.';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_moneda
+  is 'Moneda.';
+comment on column IT.PR_CTA_GAS_SEGUROS.monto
+  is 'Monto del Cargo.';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_ingreso
+  is 'Fecha de Ingreso (del sistema).';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_ult_pago
+  is 'Fecha de último pago.';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.PR_CTA_GAS_SEGUROS.hor_ult_pago
+  is 'Hora Último pago.';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_ini_vigencia
+  is 'Fecha Inicio Vigencia.';
+comment on column IT.PR_CTA_GAS_SEGUROS.nro_solicitud
+  is 'Número de Propuesta.';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_tas_ref1
+  is 'Código de tasa aplicada al saldo capital para el cobro de cargo al cliente';
+comment on column IT.PR_CTA_GAS_SEGUROS.val_tas_ref1
+  is 'Valor de la tasa aplicada  al saldo capital para el cobro de cargo al cliente';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_ref1
+  is 'Monto del Cargo aplicado al saldo capital para el cobro de cargo al cliente, corresponde al Monto de la Ref1';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_tas_ref2
+  is 'Código de tasa aplicada para obtener el monto de la prima aplicado al cargo cobrado al cliente';
+comment on column IT.PR_CTA_GAS_SEGUROS.val_tas_ref2
+  is 'Valor de la tasa aplicada para obtener el monto de la prima aplicado al cargo cobrado al cliente';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_ref2
+  is 'Monto de la Prima sobre Cargo aplicado al saldo capital para el cobro de cargo al cliente, corresponde al Monto de la Ref2';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_dif_referencias
+  is 'Monto correspondiente a la diferencia del Cobro de Cargo y la Prima del seguro cobrado al cliente, corresponde a la ganancia mas iva.';
+comment on column IT.PR_CTA_GAS_SEGUROS.nro_cuota
+  is 'Número de cuota de la operación.';
+comment on column IT.PR_CTA_GAS_SEGUROS.estado
+  is 'Estado del registro del gato de seguri / I-Insertado, G-Generado';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_anu_sug_pag_ase
+  is 'Fecha Anual Sugerida para el pago del seguro a la Aseguradora, se calculará en periodos anuales con el fin de agrupar los registros.';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_cli_base
+  is 'Monto del Seguro cobrado al cliente Basado en Cálculo Mensual sobre saldo capital, calculado en desembolso.';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_pri_base
+  is 'Monto de la Prima a pagar al Ente asegurador Basado en Cálculo Mensual sobre capital, calculado en desembolso.';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_bco_base
+  is 'Monto del Seguro para el Banco compuesto de Ganancia mas iva Basado en Cálculo Mensual sobre saldo capital, calculado en desembolso.';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_dis_seguro
+  is 'Monto del cargo para el seguro ';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_dis_iva_seguro
+  is 'Monto distribuido del Iva del cargo del seguro';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_dis_banco
+  is 'Monto del cargo para el banco';
+comment on column IT.PR_CTA_GAS_SEGUROS.mto_car_dis_iva_banco
+  is 'Monto distribuido del Iva del cargo del banco';
+comment on column IT.PR_CTA_GAS_SEGUROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_CTA_GAS_SEGUROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_CTA_GAS_SEGUROS.ano
+  is 'Año al cual corresponde el prorateo';
+comment on column IT.PR_CTA_GAS_SEGUROS.sal_capital
+  is 'Saldo del Capital de la cuota';
+comment on column IT.PR_CTA_GAS_SEGUROS.ano_pag_prima
+  is 'Año de pago de la prima anual del seguro';
+comment on column IT.PR_CTA_GAS_SEGUROS.mes_pag_prima
+  is 'Mes de pago de la prima anual del seguro';
+comment on column IT.PR_CTA_GAS_SEGUROS.fec_pag_prima
+  is 'Fecha de pago de la proma anual del seguro';
+comment on column IT.PR_CTA_GAS_SEGUROS.dia_acu_cuota
+  is 'Dias acumulados de la cuota desde inicio';
+comment on column IT.PR_CTA_GAS_SEGUROS.dia_cuota
+  is 'Dias de plazo de la cuota';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_ent_seguro
+  is 'Código del seguro';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_persona
+  is 'Codigo de la persona';
+comment on column IT.PR_CTA_GAS_SEGUROS.cod_ref_gasto
+  is 'Codigo de referencia de gasto';
+create index IT.IN_CTA_GAS_SEGUROS_JJ on IT.PR_CTA_GAS_SEGUROS (NRO_SOLICITUD)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_GAS_SEGUROS
+  add constraint UK_PR_CTA_GAS_SEGUROS unique (NRO_CUENTA, COD_TRANSACCION, FEC_INGRESO, NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

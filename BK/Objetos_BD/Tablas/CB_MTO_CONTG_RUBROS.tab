@@ -1,0 +1,35 @@
+-- =====================================================================
+-- TABLA: IT.CB_MTO_CONTG_RUBROS
+-- Descripción: Rubros para el monto de contingencia
+-- =====================================================================
+
+CREATE TABLE IT.CB_MTO_CONTG_RUBROS (
+    COD_RUBRO             VARCHAR2(100),
+    DESCRIPCION           VARCHAR2(100),
+    PONDERACION           NUMBER,
+    ORDEN                 NUMBER,
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.CB_MTO_CONTG_RUBROS IS 'Catalogo de rubros para el calculo del monto de contingencia';
+COMMENT ON COLUMN IT.CB_MTO_CONTG_RUBROS.COD_RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.CB_MTO_CONTG_RUBROS.DESCRIPCION IS 'Descripcion del rubro';
+COMMENT ON COLUMN IT.CB_MTO_CONTG_RUBROS.PONDERACION IS 'Ponderacion del rubro en el calculo de contingencia';
+COMMENT ON COLUMN IT.CB_MTO_CONTG_RUBROS.ORDEN IS 'Orden de presentacion en el informe';
+COMMENT ON COLUMN IT.CB_MTO_CONTG_RUBROS.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.CB_MTO_CONTG_RUBROS.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';

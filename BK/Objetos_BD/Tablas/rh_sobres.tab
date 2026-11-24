@@ -1,0 +1,73 @@
+create table IT.RH_SOBRES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_sobre        NUMBER(7) not null,
+  ano              NUMBER(4) not null,
+  mes              NUMBER(2) not null,
+  quincena         NUMBER(1) not null,
+  nro_patronal     NUMBER(15),
+  fec_calculo      DATE not null,
+  ind_pagado       VARCHAR2(1) default 'N',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_SOBRES
+  is 'Sobres de Liquidacion del Empleado.';
+comment on column IT.RH_SOBRES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_SOBRES.nro_sobre
+  is 'Numero de Sobre.';
+comment on column IT.RH_SOBRES.ano
+  is 'Año al cual corresponde el salario.';
+comment on column IT.RH_SOBRES.mes
+  is 'Mes al cual corresponde el salario.';
+comment on column IT.RH_SOBRES.quincena
+  is 'Quincena a la cual corresponde el salario.';
+comment on column IT.RH_SOBRES.nro_patronal
+  is 'Numero patronal de IPS que corresponde al Empleado.';
+comment on column IT.RH_SOBRES.fec_calculo
+  is 'Fecha en que se realizo el calculo de sueldo.';
+comment on column IT.RH_SOBRES.ind_pagado
+  is 'Indica si ya fue depositado o no en la cuenta del Empleado.';
+comment on column IT.RH_SOBRES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_SOBRES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_SOBRES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_SOBRES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_SOBRES
+  add constraint PK_RH_SOBRES primary key (NRO_SOBRE, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_SOBRES
+  add constraint FK_HSOBR_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_SOBRES
+  add constraint AVCON_1191539761_IND_P_000
+  check (IND_PAGADO IN ('S', 'N'));
+

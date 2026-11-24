@@ -1,0 +1,41 @@
+create table IT.GE_REC_DEPOSITANTES_TMP
+(
+  cod_ente          NUMBER(5),
+  cod_depositante   NUMBER(18),
+  cod_tip_documento NUMBER(3),
+  nro_documento     VARCHAR2(20),
+  nom_depositante   VARCHAR2(120),
+  activo            VARCHAR2(1) default 'S',
+  procesado         VARCHAR2(1) default 'N',
+  error             VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REC_DEPOSITANTES_TMP
+  is 'Guarda la relación entre entes recaudadores y su clientes (depositantes).';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.cod_ente
+  is 'Código de Ente Recaudador.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.cod_depositante
+  is 'Código de Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.cod_tip_documento
+  is 'Código del tipo de Documento del Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.nro_documento
+  is 'Número de Documento del Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.nom_depositante
+  is 'Nombre del Cliente Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.activo
+  is 'Indicador del Estado del Depositante. S/N.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.procesado
+  is 'Indicador si el registro es correcto para actualizar en ge_rec_depositantes.';
+comment on column IT.GE_REC_DEPOSITANTES_TMP.error
+  is 'Detalle del error en caso de no procesar.';
+

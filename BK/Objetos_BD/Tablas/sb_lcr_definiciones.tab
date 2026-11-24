@@ -1,0 +1,60 @@
+CREATE TABLE IT.SB_LCR_DEFINICIONES
+(
+  NRO_ITEM			NUMBER(10) NOT NULL,
+  ID_PADRE			NUMBER(10),
+  NRO_AGRUPADOR		NUMBER(10),
+  NRO_ORDEN			NUMBER(10),
+  DESCRIPCION		VARCHAR2(100),
+  DESC_INFORME		VARCHAR2(1000),
+  PORC_PONDERACION	NUMBER(5,2),
+  SQL				CLOB,
+  USU_INSERCION		VARCHAR2(10),
+  FEC_INSERCION		DATE,
+  USU_MODIFICACION	VARCHAR2(10),
+  FEC_MODIFICACION	DATE
+
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+comment on table IT.SB_LCR_DEFINICIONES
+  is 'Definiciones para informe de Liquidez de ratio';
+
+comment on column IT.SB_LCR_DEFINICIONES.NRO_ITEM
+  is 'NRO.ITEM';
+
+comment on column IT.SB_LCR_DEFINICIONES.ID_PADRE
+  is 'IDENTIFICADOR DE ITEM AL CUAL PERTENECE';
+  
+comment on column IT.SB_LCR_DEFINICIONES.NRO_AGRUPADOR
+  is '1= ACTIVOS LÍQUIDOS 2= SALIDA DE EFECTIVO 3=ENTRADAS DE EFECTIVO';
+
+comment on column IT.SB_LCR_DEFINICIONES.NRO_ORDEN
+  is 'ORDEN DE EJECUCION';
+
+comment on column IT.SB_LCR_DEFINICIONES.PORC_PONDERACION
+  is 'PORCENTAJE DE PONDERACION';
+  
+alter table IT.SB_LCR_DEFINICIONES
+  add constraint PK_SB_LCR_DEFINICIONES primary key (NRO_ITEM)
+  using index
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

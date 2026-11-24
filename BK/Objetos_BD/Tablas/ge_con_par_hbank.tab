@@ -1,0 +1,19 @@
+create table IT.GE_CON_PAR_HBANK
+(
+  can_res_secuencia     NUMBER(4),
+  cod_usu_ult_cambio    VARCHAR2(10),
+  nro_ult_cam_secuencia NUMBER(5) default 0,
+  tot_acu_uti_secuencia NUMBER(11)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

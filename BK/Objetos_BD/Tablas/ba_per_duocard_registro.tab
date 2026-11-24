@@ -1,0 +1,47 @@
+create table IT.BA_PER_DUOCARD_REGISTRO
+(
+  cod_persona      VARCHAR2(10) not null,
+  col_tarjeta      VARCHAR2(20) not null,
+  fec_solicitud    DATE default SYSDATE,
+  estado           VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  origen           VARCHAR2(120),
+  observacion      VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_DUOCARD_REGISTRO
+  is 'Registro de datos de clientes que solicitaron la oferta de Plástico Combo Mastercard UENO.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.cod_persona
+  is 'Código de Persona.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.col_tarjeta
+  is 'Color de la tarjeta';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.fec_solicitud
+  is 'Fecha de registro.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.estado
+  is 'S = solicitado / D = enviado / E = entregado / V = vinculado / C = cancelado';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.origen
+  is 'punto desde donde se realizó el pedido o retiro de la duocard';
+comment on column IT.BA_PER_DUOCARD_REGISTRO.observacion
+  is 'Observaciones varias que se necesiten registrar';
+

@@ -1,0 +1,53 @@
+create table IT.T_DISKA
+(
+  cdent VARCHAR2(15),
+  n1    VARCHAR2(30),
+  n2    NUMBER(3),
+  n3    VARCHAR2(30),
+  n4    VARCHAR2(1),
+  n5    VARCHAR2(50),
+  n7    VARCHAR2(30),
+  n8    VARCHAR2(50),
+  n9    VARCHAR2(30),
+  n10   DATE,
+  n11   VARCHAR2(30),
+  n12   VARCHAR2(30),
+  n13   VARCHAR2(30),
+  n14   VARCHAR2(30),
+  n15   VARCHAR2(30),
+  n16   VARCHAR2(30),
+  n17   VARCHAR2(30),
+  n18   VARCHAR2(30),
+  n19   VARCHAR2(30),
+  n20   VARCHAR2(30),
+  n21   VARCHAR2(30),
+  n22   VARCHAR2(30),
+  n23   VARCHAR2(30),
+  n6    VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.T_DISKA.cdent
+  is 'Código de Identidad';
+comment on column IT.T_DISKA.n2
+  is 'Tipo de identidad';
+comment on column IT.T_DISKA.n3
+  is 'Nro. de Identidad';
+comment on column IT.T_DISKA.n4
+  is 'Tipo de Persona';
+comment on column IT.T_DISKA.n5
+  is 'Apellido de Persona';
+comment on column IT.T_DISKA.n8
+  is 'Nombre de Persona';
+comment on column IT.T_DISKA.n10
+  is 'Fecha de Nacimiento';
+

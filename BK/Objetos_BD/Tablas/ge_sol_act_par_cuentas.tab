@@ -1,0 +1,73 @@
+create table IT.GE_SOL_ACT_PAR_CUENTAS
+(
+  nro_solicitud    NUMBER(14) not null,
+  cod_persona      VARCHAR2(10) not null,
+  parametro        VARCHAR2(30) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  valor            VARCHAR2(500) not null,
+  tip_modificacion VARCHAR2(1) default 'N' not null,
+  det_modificacion CLOB,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_ACT_PAR_CUENTAS
+  is 'Parametros Adicionales de la cuenta.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.nro_solicitud
+  is 'Número de la Solicitud.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.parametro
+  is 'Parámetro de la cuenta';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.nro_cuenta
+  is 'Numero de la cuenta.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.valor
+  is 'Valor del parametro.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.tip_modificacion
+  is 'I=Insercion; M=Modificacion; E; Eliminacion; N=iNsercion iNicial';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.det_modificacion
+  is 'Detalle del cambio realizado';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ACT_PAR_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SOL_ACT_PAR_CUENTAS
+  add constraint PK_GE_SOL_ACT_PAR_CUENTAS primary key (NRO_SOLICITUD, NRO_CUENTA, PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ACT_PAR_CUENTAS
+  add constraint FK_GSAPC_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_SOL_ACT_PAR_CUENTAS
+  add constraint FK_GSAPC_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOL_ACT_DATOS (NRO_SOLICITUD);
+alter table IT.GE_SOL_ACT_PAR_CUENTAS
+  add constraint FK_GSAPC_PARAMETRO foreign key (PARAMETRO)
+  references IT.GE_PARAMETROS (PARAMETRO);
+

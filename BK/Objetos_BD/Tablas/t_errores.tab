@@ -1,0 +1,45 @@
+create table IT.T_ERRORES
+(
+  fuente        VARCHAR2(2) not null,
+  mensaje       VARCHAR2(255) not null,
+  identificador VARCHAR2(15),
+  numreg        NUMBER,
+  informado     VARCHAR2(100),
+  calculado     VARCHAR2(100),
+  iderror       NUMBER not null,
+  modulo        VARCHAR2(3) not null,
+  cdent         VARCHAR2(6) not null,
+  fecha_err     DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.T_ERRORES.fuente
+  is 'Fuente donde indica los errores.';
+comment on column IT.T_ERRORES.mensaje
+  is 'mensaje que el error que se produjo.';
+comment on column IT.T_ERRORES.identificador
+  is 'El código de Identificador.';
+comment on column IT.T_ERRORES.numreg
+  is 'Número de Registro de los errores.';
+comment on column IT.T_ERRORES.informado
+  is 'Si es Informado.';
+comment on column IT.T_ERRORES.calculado
+  is 'Si es Calculado.';
+comment on column IT.T_ERRORES.iderror
+  is 'El código del Error.';
+comment on column IT.T_ERRORES.modulo
+  is 'Indica el Módulo.';
+comment on column IT.T_ERRORES.cdent
+  is 'Código de Entidad.';
+comment on column IT.T_ERRORES.fecha_err
+  is 'Fecha en que se insertó el error.';
+

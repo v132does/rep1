@@ -1,0 +1,58 @@
+create table IT.SIMGIA_ARDEUPEND
+(
+  dpsuc       NUMBER(2),
+  dpcta       NUMBER(6),
+  dpsub       NUMBER(6),
+  dpprior     NUMBER(1),
+  dpseq       NUMBER(2),
+  dptipor     CHAR(1),
+  dpriesgo    NUMBER(6),
+  dpprop      NUMBER(6),
+  dpcongru    NUMBER(12),
+  dpvencim    NUMBER(8),
+  dpdocnro    NUMBER(6),
+  dpmonto     NUMBER(13,2),
+  dptasa      NUMBER(4,2),
+  dpsuctrp    NUMBER(2),
+  dpctatrp    NUMBER(6),
+  dpsubtrp    NUMBER(6),
+  dpblqado    NUMBER(13,2),
+  dpiva       NUMBER(13,2),
+  fec_proceso DATE,
+  cod_persona VARCHAR2(10),
+  nro_cuenta  VARCHAR2(15),
+  respuesta   VARCHAR2(4000),
+  est_proceso VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SIMGIA_ARDEUPEND.fec_proceso
+  is 'Fecha del proceso de migracion / completa trigger';
+comment on column IT.SIMGIA_ARDEUPEND.cod_persona
+  is 'Codigo de persona / completa trigger';
+comment on column IT.SIMGIA_ARDEUPEND.nro_cuenta
+  is 'Numero Cuenta formatado IT / completa trigger';
+comment on column IT.SIMGIA_ARDEUPEND.est_proceso
+  is '0 no se bloquea; 1 se bloquea; 2 - 9 resp diferente 000;';
+create index IT.NRO_CUENTA on IT.SIMGIA_ARDEUPEND (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

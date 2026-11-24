@@ -1,0 +1,53 @@
+create table IT.MD_MIGR_WEAKDEP
+(
+  id                NUMBER not null,
+  connection_id_fk  NUMBER not null,
+  schema_id_fk      NUMBER not null,
+  parent_id         NUMBER not null,
+  child_name        VARCHAR2(4000) not null,
+  parent_type       VARCHAR2(4000) not null,
+  child_type        VARCHAR2(4000) not null,
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_MIGR_WEAKDEP.child_name
+  is 'name of the child,  as weak dependencies dont have reference to child id';
+comment on column IT.MD_MIGR_WEAKDEP.parent_type
+  is 'MD_<tablename>';
+comment on column IT.MD_MIGR_WEAKDEP.child_type
+  is 'Generic Type (not MD_<tablename>)';
+alter table IT.MD_MIGR_WEAKDEP
+  add constraint MIGR_WEAKDEP_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_MIGR_WEAKDEP
+  add constraint MIGR_WEAKDEP_FK1 foreign key (CONNECTION_ID_FK)
+  references IT.MD_CONNECTIONS (ID) on delete cascade;
+alter table IT.MD_MIGR_WEAKDEP
+  add constraint MIGR_WEAKDEP_FK2 foreign key (SCHEMA_ID_FK)
+  references IT.MD_SCHEMAS (ID) on delete cascade;
+

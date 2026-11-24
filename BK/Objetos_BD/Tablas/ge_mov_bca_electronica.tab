@@ -1,0 +1,71 @@
+create table IT.GE_MOV_BCA_ELECTRONICA
+(
+  fecha         DATE not null,
+  hora          VARCHAR2(8) not null,
+  nro_caja      NUMBER(3),
+  nro_operacion NUMBER(10),
+  cod_operacion VARCHAR2(3),
+  dir_ip        VARCHAR2(20) not null,
+  tip_dato      VARCHAR2(1) not null,
+  dato          VARCHAR2(20) not null,
+  clave         VARCHAR2(20) not null,
+  cod_respuesta VARCHAR2(3) not null,
+  cod_persona   VARCHAR2(10),
+  observacion   VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_BCA_ELECTRONICA
+  is 'Tabla de log de Bca Electronica...';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.fecha
+  is 'Fecha en la que se realiza la operacion.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.hora
+  is 'Hora en la que se realiza la operacion.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.nro_caja
+  is 'Nro de Terminal desde la cual se accede.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.nro_operacion
+  is 'Nro de Operación.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.cod_operacion
+  is 'Código de Operación realizada.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.dir_ip
+  is 'Direccion IP desde la cual se accedio.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.tip_dato
+  is 'Tipo de dato con la cual se accedio.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.dato
+  is 'Dato con la cual se accedio.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.clave
+  is 'Clave con la cual se accedio.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.cod_respuesta
+  is 'Respuesta.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_MOV_BCA_ELECTRONICA.observacion
+  is 'Observaciones.';
+create index IT.IN_NRO_CAJA on IT.GE_MOV_BCA_ELECTRONICA (NRO_CAJA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_BCA_ELECTRONICA
+  add constraint FK_GMBEC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_MOV_BCA_ELECTRONICA
+  add constraint FK_GMBEC_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+

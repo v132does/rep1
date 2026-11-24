@@ -1,0 +1,129 @@
+create table IT.GE_PER_INFORMES
+(
+  cod_persona          VARCHAR2(10) not null,
+  fecha                DATE not null,
+  demanda              VARCHAR2(1) default 'S' not null,
+  fec_ini_demanda      DATE,
+  fec_fin_demanda      DATE,
+  inhibicion           VARCHAR2(1) default 'N' not null,
+  fec_inhibicion       DATE,
+  inh_ctacte           VARCHAR2(1) default 'N' not null,
+  convocatoria         VARCHAR2(1) default 'S',
+  fec_fin_convocatoria DATE,
+  remate               VARCHAR2(1) default 'N' not null,
+  moroso               VARCHAR2(1) default 'N' not null,
+  inf_adicional        VARCHAR2(1) default 'N' not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  observacion          VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PER_INFORMES
+  is 'Informes de Informconf.';
+comment on column IT.GE_PER_INFORMES.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.GE_PER_INFORMES.fecha
+  is 'Fecha en que se verifico.';
+comment on column IT.GE_PER_INFORMES.demanda
+  is 'Indica la demanda: S/C/F.';
+comment on column IT.GE_PER_INFORMES.fec_ini_demanda
+  is 'Fecha de inscripcion de la demanda.';
+comment on column IT.GE_PER_INFORMES.fec_fin_demanda
+  is 'Fecha fin de la demanda.';
+comment on column IT.GE_PER_INFORMES.inhibicion
+  is 'Indica si posee inhibicion S/N.';
+comment on column IT.GE_PER_INFORMES.fec_inhibicion
+  is 'Fecha de la inhibicion.';
+comment on column IT.GE_PER_INFORMES.inh_ctacte
+  is 'Indicador de inhibicion de cuentas corriestes. (S/N).';
+comment on column IT.GE_PER_INFORMES.convocatoria
+  is 'Indicador de convocatoria. S/C/F.';
+comment on column IT.GE_PER_INFORMES.fec_fin_convocatoria
+  is 'Fecha fin de la convocatoria.';
+comment on column IT.GE_PER_INFORMES.remate
+  is 'Indica si se encuentra en remate. S/N.';
+comment on column IT.GE_PER_INFORMES.moroso
+  is 'Indica si es moroso S/N.';
+comment on column IT.GE_PER_INFORMES.inf_adicional
+  is 'Indica si posee informacion adicional (ADEFI). S/N.';
+comment on column IT.GE_PER_INFORMES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PER_INFORMES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PER_INFORMES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PER_INFORMES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PER_INFORMES.observacion
+  is 'Alguna observacion sobre el informe.';
+alter table IT.GE_PER_INFORMES
+  add constraint PK_GE_PER_INFORMES primary key (COD_PERSONA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PER_INFORMES
+  add constraint FK_GPINF_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_CONVO_000
+  check (CONVOCATORIA IN ('S', 'C', 'F'));
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_DEMAN_000
+  check (DEMANDA IN ('S', 'C', 'F'));
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_INF_A_000
+  check (INF_ADICIONAL IN ('S', 'N'));
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_INH_C_000
+  check (INH_CTACTE IN ('S', 'N'));
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_INHIB_000
+  check (INHIBICION IN ('S', 'N'));
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_MOROS_000
+  check (MOROSO IN ('S', 'N'));
+alter table IT.GE_PER_INFORMES
+  add constraint AVCON_1086355437_REMAT_000
+  check (REMATE IN ('S', 'N'));
+alter table IT.GE_PER_INFORMES
+  add constraint CK_CONVOCATORIA
+  check ((convocatoria in ('S','C') and fec_fin_convocatoria is null)
+or
+(convocatoria = 'F' and fec_fin_convocatoria is not null));
+alter table IT.GE_PER_INFORMES
+  add constraint CK_DEMANDA
+  check ((demanda = 'S'
+and fec_ini_demanda is null and fec_fin_demanda is null)
+or
+(demanda = 'C'
+and fec_ini_demanda is not null and fec_fin_demanda is null)
+or
+(demanda = 'F'
+and fec_ini_demanda is not null and fec_fin_demanda is not null));
+alter table IT.GE_PER_INFORMES
+  add constraint CK_INHIBICION
+  check ((inhibicion = 'S' and fec_inhibicion is not null)
+or
+(inhibicion = 'N' and fec_inhibicion is null));
+

@@ -1,0 +1,171 @@
+create table IT.GE_COB_SERVICIOS
+(
+  cod_servicio      NUMBER(3) not null,
+  nro_caja          NUMBER(3),
+  monto             NUMBER(18,2) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  mto_debito        NUMBER(18,2),
+  mto_efectivo      NUMBER(18,2),
+  mto_che_nue_banco NUMBER(18,2),
+  mto_che_otr_banco NUMBER(18,2),
+  nro_remision      NUMBER(7),
+  fec_remision      DATE,
+  mto_comision      NUMBER(18,2),
+  mto_impuesto      NUMBER(18,2),
+  nro_cta_debito    VARCHAR2(15),
+  estado            VARCHAR2(1) not null,
+  cod_error         VARCHAR2(10),
+  fec_vencimiento   DATE,
+  usu_insercion     VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  nro_operacion     NUMBER(10) not null,
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  referencia1       VARCHAR2(20),
+  referencia2       VARCHAR2(20),
+  comentarios       VARCHAR2(2000),
+  tip_cobro         VARCHAR2(1) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  cod_ofi_origen    NUMBER(3) not null,
+  referencia3       VARCHAR2(50),
+  referencia4       VARCHAR2(50),
+  nro_cuota         NUMBER(3),
+  fecha_2           DATE,
+  ref_numerico1     NUMBER(18)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SERVICIOS
+  is 'Detalles de Cobros de Servicios x caja.';
+comment on column IT.GE_COB_SERVICIOS.cod_servicio
+  is 'Codigo de Servicio.';
+comment on column IT.GE_COB_SERVICIOS.nro_caja
+  is 'Nro Caja.';
+comment on column IT.GE_COB_SERVICIOS.monto
+  is 'Monto.';
+comment on column IT.GE_COB_SERVICIOS.cod_moneda
+  is 'Moneda.';
+comment on column IT.GE_COB_SERVICIOS.mto_debito
+  is 'Monto Debito.';
+comment on column IT.GE_COB_SERVICIOS.mto_efectivo
+  is 'Monto Efectivo.';
+comment on column IT.GE_COB_SERVICIOS.mto_che_nue_banco
+  is 'Cheque Ntro Banco.';
+comment on column IT.GE_COB_SERVICIOS.mto_che_otr_banco
+  is 'Cheque Otros Bancos.';
+comment on column IT.GE_COB_SERVICIOS.nro_remision
+  is 'Nro Remision.';
+comment on column IT.GE_COB_SERVICIOS.fec_remision
+  is 'Fecha Remision.';
+comment on column IT.GE_COB_SERVICIOS.mto_comision
+  is 'Monto Comision.';
+comment on column IT.GE_COB_SERVICIOS.mto_impuesto
+  is 'Monto IVA.';
+comment on column IT.GE_COB_SERVICIOS.nro_cta_debito
+  is 'Nro.Cta.Debito.';
+comment on column IT.GE_COB_SERVICIOS.estado
+  is 'Estado: ''P''-procesado, ''E''-Error, ''I''-ingresado.';
+comment on column IT.GE_COB_SERVICIOS.cod_error
+  is 'Codigo de Error.';
+comment on column IT.GE_COB_SERVICIOS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_COB_SERVICIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_COB_SERVICIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_COB_SERVICIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_COB_SERVICIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_COB_SERVICIOS.nro_operacion
+  is 'Numero de operacion.';
+comment on column IT.GE_COB_SERVICIOS.fecha
+  is 'Fecha Transaccion.';
+comment on column IT.GE_COB_SERVICIOS.hora
+  is 'Hora Movimiento.';
+comment on column IT.GE_COB_SERVICIOS.referencia1
+  is 'Nro Documento.';
+comment on column IT.GE_COB_SERVICIOS.referencia2
+  is 'Nro Documento2.';
+comment on column IT.GE_COB_SERVICIOS.comentarios
+  is 'Comentario.';
+comment on column IT.GE_COB_SERVICIOS.tip_cobro
+  is 'Tipo de cobro: por caja, debito manual, debito automatico, banca electronica, etc.';
+comment on column IT.GE_COB_SERVICIOS.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_COB_SERVICIOS.cod_ofi_origen
+  is 'Codigo de oficina origen del cobro.';
+comment on column IT.GE_COB_SERVICIOS.referencia3
+  is 'Referencia general, para la proveedora de servicios.';
+comment on column IT.GE_COB_SERVICIOS.referencia4
+  is 'Referencia general, para la proveedora de servicios.';
+comment on column IT.GE_COB_SERVICIOS.nro_cuota
+  is 'Numero de cuota a cobrar.';
+create index IT.IN_GCSER_COD_SERVICIO on IT.GE_COB_SERVICIOS (COD_SERVICIO, NRO_REMISION, FEC_REMISION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCSER_HORA on IT.GE_COB_SERVICIOS (HORA, FECHA, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SERVICIOS
+  add constraint PK_GE_COB_SERVICIOS primary key (COD_SERVICIO, TIP_COBRO, NRO_OPERACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SERVICIOS
+  add constraint FK_GCSER_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_COB_SERVICIOS
+  add constraint FK_GCSER_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_COB_SERVICIOS
+  add constraint FK_GCSER_COD_SERVICIO foreign key (COD_SERVICIO)
+  references IT.GE_COB_SER_PARAMETROS (COD_SERVICIO);
+alter table IT.GE_COB_SERVICIOS
+  add constraint FK_GCSER_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_COB_SERVICIOS
+  add constraint AVCON_1122666092_ESTAD_000
+  check (ESTADO IN ('P', 'E', 'I'));
+alter table IT.GE_COB_SERVICIOS
+  add constraint AVCON_1122666092_NRO_O_000
+  check (NRO_OPERACION BETWEEN 0 AND 999999999);
+

@@ -1,0 +1,55 @@
+create table IT.MI_SB_TAS_APE_SEMANALES
+(
+  nro_cuenta            VARCHAR2(15) not null,
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  cod_mon_original      VARCHAR2(4) not null,
+  cod_moneda            VARCHAR2(4) not null,
+  fec_apertura          DATE not null,
+  mto_ape_original      NUMBER(18,2) not null,
+  monto                 NUMBER(18,2) not null,
+  val_tas_nominal       NUMBER(5,2) not null,
+  val_tas_efectiva      NUMBER(5,2) not null,
+  cod_plazo             NUMBER(3) not null,
+  corcod                NUMBER(8) not null,
+  entcod                NUMBER(5) not null,
+  codcta                VARCHAR2(8) not null,
+  acod                  VARCHAR2(5) not null,
+  periodo               NUMBER(5) not null,
+  tasreg                VARCHAR2(1) not null,
+  usu_insercion         VARCHAR2(10) not null,
+  fec_insercion         DATE not null,
+  usu_modificacion      VARCHAR2(10) not null,
+  fec_modificacion      DATE not null,
+  val_tas_nom_ponderado NUMBER(20,16)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_SB_TAS_APE_SEMANALES
+  is 'Generacion del informe Tasas Activas y Pasivas.';
+comment on column IT.MI_SB_TAS_APE_SEMANALES.val_tas_nom_ponderado
+  is 'Tasa nominal ponderado';
+alter table IT.MI_SB_TAS_APE_SEMANALES
+  add constraint PK_MI_SB_TAS_APE_SEMANALES primary key (NRO_CUENTA, CORCOD, FEC_APERTURA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

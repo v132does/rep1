@@ -1,0 +1,53 @@
+create table IT.BW_TOK_TAR_DISP_TOKENS
+(
+  cod_dispositivo  VARCHAR2(36) not null,
+  cod_tokenizacion VARCHAR2(36) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_DISP_TOKENS.cod_dispositivo
+  is 'Codigo Dispotivo';
+comment on column IT.BW_TOK_TAR_DISP_TOKENS.cod_tokenizacion
+  is 'Codigo Tokenizacion referencia PanRefId y TokenRefId';
+comment on column IT.BW_TOK_TAR_DISP_TOKENS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_DISP_TOKENS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_DISP_TOKENS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_DISP_TOKENS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_DISP_TOKENS
+  add constraint PK_BW_TOK_TAR_DISP_TOKENS primary key (COD_DISPOSITIVO, COD_TOKENIZACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_DISP_TOKENS
+  add constraint FK_BTTDTOKENS_COD_DISP foreign key (COD_DISPOSITIVO)
+  references IT.BW_TOK_TAR_DISPOSITIVOS (COD_DISPOSITIVO);
+alter table IT.BW_TOK_TAR_DISP_TOKENS
+  add constraint FK_BTTDTOKENS_COD_TOKEN foreign key (COD_TOKENIZACION)
+  references IT.BW_TOK_TAR_TOKENIZACION (COD_TOKENIZACION);
+

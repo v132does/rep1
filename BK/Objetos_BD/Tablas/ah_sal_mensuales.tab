@@ -1,0 +1,121 @@
+create table IT.AH_SAL_MENSUALES
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  ano               NUMBER(4) not null,
+  mes               NUMBER(2) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_oficina       NUMBER(3) not null,
+  can_debitos       NUMBER(8) not null,
+  can_creditos      NUMBER(8) not null,
+  tot_debitos       NUMBER(18,2) default 0 not null,
+  tot_creditos      NUMBER(18,2) default 0 not null,
+  can_che_devueltos NUMBER(4) not null,
+  sal_acu_diario    NUMBER(18,2) default 0 not null,
+  can_dia_acumulado NUMBER(4) not null,
+  sal_ini_mes       NUMBER(18,2) default 0 not null,
+  sal_fin_mes       NUMBER(18,2) default 0,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE,
+  mto_int_devengado NUMBER(18,2),
+  sal_ult_extracto  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_SAL_MENSUALES
+  is 'Contiene datos sobre los Saldos Mensuales de Ahorros ** Mantener seis meses **';
+comment on column IT.AH_SAL_MENSUALES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_SAL_MENSUALES.ano
+  is 'Año del Saldo Mensual.';
+comment on column IT.AH_SAL_MENSUALES.mes
+  is 'Mes del Saldo Mensual.';
+comment on column IT.AH_SAL_MENSUALES.cod_modulo
+  is 'Codigo de Modulo de la cuenta.';
+comment on column IT.AH_SAL_MENSUALES.cod_modalidad
+  is 'Codigo de Modalidad de la cuenta.';
+comment on column IT.AH_SAL_MENSUALES.cod_oficina
+  is 'Codigo de Oficina de la cuenta.';
+comment on column IT.AH_SAL_MENSUALES.can_debitos
+  is 'Cantidad de Debitos.';
+comment on column IT.AH_SAL_MENSUALES.can_creditos
+  is 'Cantidad de Creditos.';
+comment on column IT.AH_SAL_MENSUALES.tot_debitos
+  is 'Total de Debitos.';
+comment on column IT.AH_SAL_MENSUALES.tot_creditos
+  is 'Total de Creditos.';
+comment on column IT.AH_SAL_MENSUALES.can_che_devueltos
+  is 'Cantidad de Cheques Devueltos.';
+comment on column IT.AH_SAL_MENSUALES.sal_acu_diario
+  is 'Acumulado de Saldo Diario.';
+comment on column IT.AH_SAL_MENSUALES.can_dia_acumulado
+  is 'Cantidad de Dias Acumulados.';
+comment on column IT.AH_SAL_MENSUALES.sal_ini_mes
+  is 'Saldo Inicial del Mes.';
+comment on column IT.AH_SAL_MENSUALES.sal_fin_mes
+  is 'Saldo Final del Mes.';
+comment on column IT.AH_SAL_MENSUALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_SAL_MENSUALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_SAL_MENSUALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_SAL_MENSUALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_SAL_MENSUALES.mto_int_devengado
+  is 'Monto de Interes Devengado.';
+comment on column IT.AH_SAL_MENSUALES.sal_ult_extracto
+  is 'Saldo de Último Extracto.';
+create index IT.IN_ASMEN_COD_MODALIDAD on IT.AH_SAL_MENSUALES (COD_MODALIDAD, COD_MODULO, COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_SAL_MENSUALES
+  add constraint PK_AH_SAL_MENSUALES primary key (NRO_CUENTA, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_SAL_MENSUALES
+  add constraint FK_ASMEN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.AH_SAL_MENSUALES
+  add constraint FK_ASMEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.AH_SAL_MENSUALES
+  add constraint AVCON_1080844426_COD_M_018
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.AH_SAL_MENSUALES
+  add constraint AVCON_1080844426_COD_M_019
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+alter table IT.AH_SAL_MENSUALES
+  add constraint AVCON_1080844426_COD_O_012
+  check (COD_OFICINA BETWEEN 1 AND 999);
+

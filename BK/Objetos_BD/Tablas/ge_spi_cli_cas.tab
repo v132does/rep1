@@ -1,0 +1,123 @@
+create table IT.GE_SPI_CLI_CAS
+(
+  nro_referencia    VARCHAR2(33) not null,
+  cli_recordid      VARCHAR2(33),
+  tip_identificador VARCHAR2(10) not null,
+  val_identificador VARCHAR2(80) not null,
+  fec_vto_documento DATE,
+  residencia        VARCHAR2(1),
+  nombre            VARCHAR2(80),
+  apellido          VARCHAR2(60),
+  apodo             VARCHAR2(30),
+  genero            VARCHAR2(10),
+  fec_nacimiento    DATE,
+  lugar_nacimiento  VARCHAR2(80),
+  direccion         VARCHAR2(80),
+  pais              VARCHAR2(35),
+  ciudad            VARCHAR2(35),
+  departamento      VARCHAR2(35),
+  inf_adicional     VARCHAR2(2000),
+  det_adicional_pv  VARCHAR2(2000),
+  est_cliente       VARCHAR2(20),
+  est_solicitud     VARCHAR2(1),
+  error             VARCHAR2(2000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  cod_persona       VARCHAR2(10),
+  tip_accion        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_CLI_CAS
+  is 'Registro de Clientes para el CAS.';
+comment on column IT.GE_SPI_CLI_CAS.nro_referencia
+  is 'Número de referencia de la solicitud.';
+comment on column IT.GE_SPI_CLI_CAS.cli_recordid
+  is 'Número identificador del cliente en el módulo CAS.';
+comment on column IT.GE_SPI_CLI_CAS.tip_identificador
+  is 'Tipo de identificador del cliente en el módulo CAS.';
+comment on column IT.GE_SPI_CLI_CAS.val_identificador
+  is 'Valor del identificador del cliente en el módulo CAS.';
+comment on column IT.GE_SPI_CLI_CAS.fec_vto_documento
+  is 'Fecha de validez del documento del cliente.';
+comment on column IT.GE_SPI_CLI_CAS.residencia
+  is 'Residencia del cliente. Valores:- ''S'' [SI]- ''N'' [NO]';
+comment on column IT.GE_SPI_CLI_CAS.nombre
+  is 'Nombre del cliente';
+comment on column IT.GE_SPI_CLI_CAS.apellido
+  is 'Apellido del cliente';
+comment on column IT.GE_SPI_CLI_CAS.apodo
+  is 'Apodo para mostrar en GUI';
+comment on column IT.GE_SPI_CLI_CAS.genero
+  is 'Genero del cliente. Valores:- Male  [Masculino]- Female [Femenino]';
+comment on column IT.GE_SPI_CLI_CAS.fec_nacimiento
+  is 'Fecha de nacimiento del cliente (Formato YYYY-MM-DD)';
+comment on column IT.GE_SPI_CLI_CAS.lugar_nacimiento
+  is 'Lugar de nacimiento del cliente';
+comment on column IT.GE_SPI_CLI_CAS.direccion
+  is 'Direccion del cliente';
+comment on column IT.GE_SPI_CLI_CAS.pais
+  is 'Pais del cliente';
+comment on column IT.GE_SPI_CLI_CAS.ciudad
+  is 'Ciudad del cliente';
+comment on column IT.GE_SPI_CLI_CAS.departamento
+  is 'Departamento del cliente';
+comment on column IT.GE_SPI_CLI_CAS.inf_adicional
+  is 'Informacion Adicional. Campo no obligatorio';
+comment on column IT.GE_SPI_CLI_CAS.det_adicional_pv
+  is 'Detalle Adicional. Campo no obligatorio';
+comment on column IT.GE_SPI_CLI_CAS.est_cliente
+  is 'Estado del cliente. Valores:Active,Inactive,Suspended';
+comment on column IT.GE_SPI_CLI_CAS.est_solicitud
+  is 'Estado de la solicitud. Valores:
+                                P [Pendiente de Aprobacion] - Solicitud cargada y pendiente de aprobacion en circuito
+                                U [Solicitud autorizada] - Solicitud autorizada
+                                W [Autorizado y Pendiente de Respuesta] - Pendiente de respuesta en el modulo CAS
+                                A [Aprobada en el modulo CAS] - Solicitud exitosa en el modulo CAS
+                                E [Solicitud con respuesta de error] - Solicitud enviada con respuesta de error
+                                N [No autorizado] - No autorizado o Credenciales incorrectas
+                                T [Tiempo fuera] - Pide tiempo fuera
+                                C [Solicitud Cancelada] - Solicitud cancelada desde el circuito';
+comment on column IT.GE_SPI_CLI_CAS.error
+  is 'Detalles para respuesta de error.';
+comment on column IT.GE_SPI_CLI_CAS.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_SPI_CLI_CAS.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.GE_SPI_CLI_CAS.usu_modificacion
+  is 'Usuario que modifica el registro.';
+comment on column IT.GE_SPI_CLI_CAS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.GE_SPI_CLI_CAS.tip_accion
+  is 'Se identifica si el alta es via web o itgf.
+valores
+''A'' alta que viene desde la web
+''E'' Edicion que viene desde la web
+null  via itgf
+';
+alter table IT.GE_SPI_CLI_CAS
+  add constraint PK_NRO_CLIENTE_CAS primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

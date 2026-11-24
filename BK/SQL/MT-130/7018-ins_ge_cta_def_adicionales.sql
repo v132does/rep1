@@ -1,0 +1,6 @@
+BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:=1; END;
+/
+insert into ge_cta_def_adicionales (PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, COD_BANCA, OBLIGATORIO, MODIFICABLE, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, TIP_CAMPO, TIP_DATO, LON_MAXIMA, VAL_DEFECTO, TIP_PERMISO, PERMISO)
+values ('COD_RET_DEP_EFE_TED', 3, null, null, null, null, 'N', 'S', 'IT', to_date('04-05-2023 13:39:06', 'dd-mm-yyyy hh24:mi:ss'), 'IT', to_date('04-05-2023 13:39:06', 'dd-mm-yyyy hh24:mi:ss'), 'L', 'C', 200, '10', null, null);
+
+commit;

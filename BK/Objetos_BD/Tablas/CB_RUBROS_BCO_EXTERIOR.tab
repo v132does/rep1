@@ -1,0 +1,37 @@
+-- =====================================================================
+-- TABLA: IT.CB_RUBROS_BCO_EXTERIOR
+-- Descripción: Rubros para el anexo Banco del Exterior
+-- =====================================================================
+
+CREATE TABLE IT.CB_RUBROS_BCO_EXTERIOR (
+    COD_RUBRO             VARCHAR2(40 BYTE),
+    DESCRIPCION           VARCHAR2(100 BYTE),
+    PAIS                  VARCHAR2(100 BYTE),
+    CIUDAD                VARCHAR2(100 BYTE),
+    COD_MONEDA            VARCHAR2(3 BYTE),
+    FECHA_CREACION        TIMESTAMP(6)        DEFAULT SYSTIMESTAMP NOT NULL,
+    FECHA_ACTUALIZACION   TIMESTAMP(6)        DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.CB_RUBROS_BCO_EXTERIOR IS 'Catalogo de rubros para el anexo de bancos del exterior';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.COD_RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.DESCRIPCION IS 'Descripcion del rubro';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.PAIS IS 'Pais del banco exterior';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.CIUDAD IS 'Ciudad del banco exterior';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.COD_MONEDA IS 'Codigo de moneda (ISO 4217)';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.FECHA_CREACION IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_EXTERIOR.FECHA_ACTUALIZACION IS 'Fecha de ultima actualizacion del registro';

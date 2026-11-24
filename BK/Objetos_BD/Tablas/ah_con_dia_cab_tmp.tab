@@ -1,0 +1,45 @@
+﻿-- Create table
+create table it.ah_con_dia_cab_tmp
+(
+  tip_registro    VARCHAR2(1),
+  cod_marca       VARCHAR2(5),
+  cod_ent_emisora VARCHAR2(5),
+  fec_proceso     VARCHAR2(8),
+  hor_proceso     VARCHAR2(8),
+  archivo         VARCHAR2(8),
+  des_archivo     VARCHAR2(30),
+  filtros         VARCHAR2(1735)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.AH_CON_DIA_CAB_TMP
+  is 'Conciliacion de transacciones diaria Cabecera';
+-- Add comments to the columns 
+comment on column IT.AH_CON_DIA_CAB_TMP.tip_registro
+  is 'Tipo de Registro (2-Detalle)';
+comment on column IT.AH_CON_DIA_CAB_TMP.cod_marca
+  is 'Codigo de Marca';
+comment on column IT.AH_CON_DIA_CAB_TMP.cod_ent_emisora
+  is 'Codigo asignado a la entidad otorgante.';
+comment on column IT.AH_CON_DIA_CAB_TMP.fec_proceso
+  is 'Fecha de Proceso del Archivo';
+comment on column IT.AH_CON_DIA_CAB_TMP.hor_proceso
+  is 'Hora de proceso del archivo';
+comment on column IT.AH_CON_DIA_CAB_TMP.archivo
+  is 'Nombre del Archivo';
+comment on column IT.AH_CON_DIA_CAB_TMP.des_archivo
+  is 'Descripcion del Archivo';
+comment on column IT.AH_CON_DIA_CAB_TMP.filtros
+  is 'Filtros.';
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.AH_CON_DIA_CAB_TMP to IT_TEMPORAL;

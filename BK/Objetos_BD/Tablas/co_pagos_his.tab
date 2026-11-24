@@ -1,0 +1,41 @@
+create table IT.CO_PAGOS_HIS
+(
+  fecha       DATE,
+  nro_cuenta  VARCHAR2(20),
+  fec_valor   DATE,
+  fec_entrada DATE,
+  nro_cuota   NUMBER(6),
+  fec_sistema DATE,
+  mto_pagado  NUMBER(12,2),
+  cod_usuario VARCHAR2(30)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_PAGOS_HIS
+  is 'Registros de Pagos Históricos proveniente del Recovery Strategy.';
+comment on column IT.CO_PAGOS_HIS.fecha
+  is 'Fecha de Registro en ITGF.';
+comment on column IT.CO_PAGOS_HIS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CO_PAGOS_HIS.fec_valor
+  is 'Fecha Valor del Pago.';
+comment on column IT.CO_PAGOS_HIS.fec_entrada
+  is 'Fecha de Entrada del Pago.';
+comment on column IT.CO_PAGOS_HIS.nro_cuota
+  is 'Número de cuota pagada.';
+comment on column IT.CO_PAGOS_HIS.fec_sistema
+  is 'Fecha de Entrada al RS.';
+comment on column IT.CO_PAGOS_HIS.mto_pagado
+  is 'Monto Pagado.';
+comment on column IT.CO_PAGOS_HIS.cod_usuario
+  is 'Usuario que recibió el mérito por el pago.';
+

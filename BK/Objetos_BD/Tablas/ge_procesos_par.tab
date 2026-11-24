@@ -1,0 +1,67 @@
+create table IT.GE_PROCESOS_PAR
+(
+  cod_proceso      NUMBER(3) not null,
+  nro_orden        NUMBER(3) not null,
+  cod_programa     VARCHAR2(30) not null,
+  cod_campo        VARCHAR2(10) not null,
+  val_defecto      VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PROCESOS_PAR
+  is 'Parametros de reportes.';
+comment on column IT.GE_PROCESOS_PAR.cod_proceso
+  is 'Codigo del proceso padre.';
+comment on column IT.GE_PROCESOS_PAR.nro_orden
+  is 'Nro de orden del reporte en el proceso.';
+comment on column IT.GE_PROCESOS_PAR.cod_programa
+  is 'Nombre del programa.';
+comment on column IT.GE_PROCESOS_PAR.cod_campo
+  is 'Codigo del filtro utilizado.';
+comment on column IT.GE_PROCESOS_PAR.val_defecto
+  is 'Valor del campo filtrado.';
+comment on column IT.GE_PROCESOS_PAR.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PROCESOS_PAR.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PROCESOS_PAR.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PROCESOS_PAR.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_PROCESOS_PAR
+  add constraint PK_GE_PROCESOS_PAR primary key (COD_PROCESO, NRO_ORDEN, COD_PROGRAMA, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PROCESOS_PAR
+  add constraint FK_GPPAR_COD_CAMPO foreign key (COD_CAMPO)
+  references IT.GE_FILTROS (COD_CAMPO);
+alter table IT.GE_PROCESOS_PAR
+  add constraint FK_GPPAR_COD_PROCESO foreign key (COD_PROCESO)
+  references IT.GE_PROCESOS (COD_PROCESO);
+alter table IT.GE_PROCESOS_PAR
+  add constraint FK_GPPAR_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+

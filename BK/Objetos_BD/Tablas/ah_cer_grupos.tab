@@ -1,0 +1,124 @@
+create table IT.AH_CER_GRUPOS
+(
+  cod_cer_grupo       NUMBER(6) not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_usu_responsable VARCHAR2(10) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  tip_moneda          VARCHAR2(1) not null,
+  serie               VARCHAR2(3) not null,
+  nro_inicial         NUMBER(10) not null,
+  nro_final           NUMBER(10) not null,
+  cantidad            NUMBER(10) not null,
+  estado              VARCHAR2(1) default 'S' not null,
+  ult_nro_emitido     NUMBER(10),
+  can_disponibles     NUMBER(10),
+  can_emitidos        NUMBER(10),
+  can_anulados        NUMBER(10),
+  cod_cer_gru_origen  NUMBER(6),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  est_anterior        VARCHAR2(1),
+  can_entregados      NUMBER(10),
+  origen              VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CER_GRUPOS
+  is 'Grupos de Cartones de CDA.';
+comment on column IT.AH_CER_GRUPOS.cod_cer_grupo
+  is 'Codigo del Grupo de Certificado.';
+comment on column IT.AH_CER_GRUPOS.cod_oficina
+  is 'Codigo de Oficina del usuario responsable.';
+comment on column IT.AH_CER_GRUPOS.cod_usu_responsable
+  is 'COdigo del Usuario responsable.';
+comment on column IT.AH_CER_GRUPOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.AH_CER_GRUPOS.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.AH_CER_GRUPOS.tip_moneda
+  is 'Tipo de Moneda (Local o Extranjera).';
+comment on column IT.AH_CER_GRUPOS.serie
+  is 'Serie de los Cartones.';
+comment on column IT.AH_CER_GRUPOS.nro_inicial
+  is 'Numero Inicial de Cartones del Grupo.';
+comment on column IT.AH_CER_GRUPOS.nro_final
+  is 'Numero Final de Cartones del Grupo.';
+comment on column IT.AH_CER_GRUPOS.cantidad
+  is 'Cantidad de Cartones a ser emitidos.';
+comment on column IT.AH_CER_GRUPOS.estado
+  is 'Estado del Grupo: (S)olicitado, (B)Enviado a BCP, (R)ecibido de Bcp, (A)ctivo, (N)Anulado, (E)ntregado a Responsable, (T)otalmente utilizado.';
+comment on column IT.AH_CER_GRUPOS.ult_nro_emitido
+  is 'Ultimo Numero de Carton utilizado.';
+comment on column IT.AH_CER_GRUPOS.can_disponibles
+  is 'Cantidad de Cartones aun Disponibles del grupo.';
+comment on column IT.AH_CER_GRUPOS.can_emitidos
+  is 'Cantidad de Cartones Emitidos.';
+comment on column IT.AH_CER_GRUPOS.can_anulados
+  is 'Cantidad de Cartones Anulados.';
+comment on column IT.AH_CER_GRUPOS.cod_cer_gru_origen
+  is 'Codigo del Grupo de Certificado origen.';
+comment on column IT.AH_CER_GRUPOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CER_GRUPOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CER_GRUPOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CER_GRUPOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CER_GRUPOS.observacion
+  is 'Alguna Observacion sobre la creacion del grupo.';
+comment on column IT.AH_CER_GRUPOS.est_anterior
+  is 'Estado Anterior del Grupo: (S)olicitado, (B)Enviado a BCP, (R)ecibido de Bcp, (A)ctivo, (N)Anulado, (E)ntregado a Responsable, (T)otalmente utilizado.';
+comment on column IT.AH_CER_GRUPOS.can_entregados
+  is 'Cantidad de Cartones Entregados.';
+comment on column IT.AH_CER_GRUPOS.origen
+  is 'Origen de Numeracion del Carton: BBVA o GNB';
+alter table IT.AH_CER_GRUPOS
+  add constraint PK_AH_CER_GRUPOS primary key (COD_CER_GRUPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CER_GRUPOS
+  add constraint FK_ACGRU_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.AH_CER_GRUPOS
+  add constraint FK_ACGRU_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.AH_CER_GRUPOS
+  add constraint FK_ACGRU_COD_USUARIO foreign key (COD_USU_RESPONSABLE)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AH_CER_GRUPOS
+  add constraint AVCON_1106754281_COD_C_000
+  check (COD_CER_GRU_ORIGEN BETWEEN 0 AND 999999);
+alter table IT.AH_CER_GRUPOS
+  add constraint AVCON_1106754281_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.AH_CER_GRUPOS
+  add constraint AVCON_1106754281_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.AH_CER_GRUPOS
+  add constraint AVCON_1106754281_COD_O_003
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

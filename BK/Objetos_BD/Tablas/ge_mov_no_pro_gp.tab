@@ -1,0 +1,67 @@
+create table IT.GE_MOV_NO_PRO_GP
+(
+  nro_transaccion  VARCHAR2(100) not null,
+  fec_proceso      VARCHAR2(8),
+  hor_proceso      VARCHAR2(8),
+  monto            NUMBER,
+  cod_comercio     VARCHAR2(15),
+  nom_comercio     VARCHAR2(200),
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  observacion      VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_NO_PRO_GP
+  is 'Registro de movimientos no procesado en ITGF';
+comment on column IT.GE_MOV_NO_PRO_GP.nro_transaccion
+  is 'Nro de Transaccion no procesada (reques_id)';
+comment on column IT.GE_MOV_NO_PRO_GP.fec_proceso
+  is 'Fecha de Proceso';
+comment on column IT.GE_MOV_NO_PRO_GP.hor_proceso
+  is 'Hora de proceso';
+comment on column IT.GE_MOV_NO_PRO_GP.monto
+  is 'Mto. del movimiento';
+comment on column IT.GE_MOV_NO_PRO_GP.cod_comercio
+  is 'Codigo de comercio';
+comment on column IT.GE_MOV_NO_PRO_GP.nom_comercio
+  is 'Nombre del comercio';
+comment on column IT.GE_MOV_NO_PRO_GP.cod_moneda
+  is 'Moneda del movimiento';
+comment on column IT.GE_MOV_NO_PRO_GP.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_MOV_NO_PRO_GP.fec_insercion
+  is 'Fecha de insercion';
+comment on column IT.GE_MOV_NO_PRO_GP.usu_modificacion
+  is 'Usuario que modificar el registro';
+comment on column IT.GE_MOV_NO_PRO_GP.fec_modificacion
+  is 'Fecha de modificacion';
+comment on column IT.GE_MOV_NO_PRO_GP.observacion
+  is 'Observacion de donde proviene la informacion';
+alter table IT.GE_MOV_NO_PRO_GP
+  add constraint PK_GE_MOV_NO_PRO_GP primary key (NRO_TRANSACCION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

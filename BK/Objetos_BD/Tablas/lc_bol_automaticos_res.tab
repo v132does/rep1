@@ -1,0 +1,74 @@
+create table IT.LC_BOL_AUTOMATICOS_RES
+(
+  fecha              DATE,
+  hora               VARCHAR2(8),
+  cod_usuario        VARCHAR2(10),
+  monto              NUMBER(18,2),
+  cod_moneda         VARCHAR2(3),
+  cod_oficina        NUMBER(3),
+  cod_mod_padre      NUMBER(3),
+  cod_mad_padre      NUMBER(3),
+  cod_tra_padre      NUMBER(4),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  cod_transaccion    NUMBER(4),
+  nro_documento      NUMBER(15),
+  concepto           VARCHAR2(100),
+  cotizacion         NUMBER(14,8),
+  mto_equ_local      NUMBER(18,2),
+  cod_tip_ope_cambio VARCHAR2(3),
+  cod_bco_central    VARCHAR2(6),
+  referencia         VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_BOL_AUTOMATICOS_RES
+  is 'Movimientos generados para Posición de Cambios';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.fecha
+  is 'Fecha de Generación';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.hora
+  is 'Hora del movimiento.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_usuario
+  is 'Código de operador.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.monto
+  is 'Importe de la transacción.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_mod_padre
+  is 'Código de modulo padre.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_mad_padre
+  is 'Código de Modalidad Padre.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_tra_padre
+  is 'Código de transaccion padre.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_modulo
+  is 'Código de Módulo';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_transaccion
+  is 'Código de transaccion hijo.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.nro_documento
+  is 'Número de Boleta.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cotizacion
+  is 'Cotización';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_tip_ope_cambio
+  is 'Codigo de tipo de operacion de cambio.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.cod_bco_central
+  is 'Codigo en el BCP.';
+comment on column IT.LC_BOL_AUTOMATICOS_RES.referencia
+  is 'Referencia. Proceso desde el cual se genera el movimiento.';
+

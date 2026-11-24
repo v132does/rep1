@@ -1,0 +1,128 @@
+create table IT.CB_ASI_AUTOMATICOS_TMP
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  tot_control      NUMBER(18,2) default 0,
+  actualizado      VARCHAR2(1) default 'N',
+  reversado        VARCHAR2(1) default 'N',
+  ofi_integrada    VARCHAR2(1) default 'N',
+  confirmado       VARCHAR2(1) default 'N',
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  nro_asi_real     NUMBER(6),
+  cod_gru_asiento  NUMBER(3),
+  fec_valor        DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_ASI_AUTOMATICOS_TMP
+  is 'Contiene los datos correspondientes a la Cabecera de los Asientos Contables Automaticos.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.fecha
+  is 'Fecha de los movimientos que genera el asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.cod_oficina
+  is 'Codigo de la oficina origen del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.nro_asiento
+  is 'Numero del asiento automatico.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.cod_usuario
+  is 'Codigo del usuario que genero el asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.cod_modulo
+  is 'Codigo de modulo del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.cod_modalidad
+  is 'Codigo de modalidad del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.tot_control
+  is 'Suma de debitos y creditos para control.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.actualizado
+  is 'Asiento actualizado ? ( S=El asiento ya actualizo el saldo de la cuenta, N=El asiento no actualizo el saldo de la cuenta ).';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.reversado
+  is 'Asiento reversado? ( S=Asiento reversado, N=Asiento no reversado ).';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.ofi_integrada
+  is 'Oficina integrada? ( S=Oficina integrada, N=Oficina no integrada ).';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.confirmado
+  is 'Asiento confirmado Ok? ( S= Asiento confirmado, puede actualizar saldo de cuenta, N= Asiento no confirmado, no puede actualizar saldo de cuenta ).';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.cod_ofi_origen
+  is 'Codigo de oficina destino.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.nro_asi_real
+  is 'Numero de asiento real en el sistema contable.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.cod_gru_asiento
+  is 'Codigo de grupo de asiento parametrizado.';
+comment on column IT.CB_ASI_AUTOMATICOS_TMP.fec_valor
+  is 'Fecha valor de los movimientos que genera el asiento.';
+create index IT.IN_BAAUT_FEC_NRO_ASI_REAL on IT.CB_ASI_AUTOMATICOS_TMP (FECHA, NRO_ASI_REAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BAAUT_NRO_ASIENTO on IT.CB_ASI_AUTOMATICOS_TMP (NRO_ASIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint FK_BAATT_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint FK_BAATT_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint FK_BAATT_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_ACTUALIZADO
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_COD_MODALIDAD
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_COD_MODULO
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_COD_OFI_ORIGEN
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_CONFIRMADO
+  check (CONFIRMADO IN ('S', 'N'));
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_OFI_INTEGRADA
+  check (OFI_INTEGRADA IN ('S', 'N'));
+alter table IT.CB_ASI_AUTOMATICOS_TMP
+  add constraint CK_CASIA_REVERSADO
+  check (REVERSADO IN ('S', 'N'));
+

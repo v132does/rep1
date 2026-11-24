@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_OPERACION
+minvalue 1
+maxvalue 9999999
+start with 1891377
+increment by 1
+nocache;
+

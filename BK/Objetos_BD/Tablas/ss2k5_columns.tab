@@ -1,0 +1,20 @@
+create global temporary table IT.SS2K5_COLUMNS
+(
+  db_id             NUMBER(10),
+  name              VARCHAR2(256),
+  rule_object_id    NUMBER(10) not null,
+  column_id         NUMBER(10) not null,
+  max_length        NUMBER(5) not null,
+  precision         NUMBER(5) not null,
+  scale             NUMBER(5) not null,
+  is_nullable       NUMBER(5),
+  user_type_id      NUMBER(10) not null,
+  system_type_id    NUMBER(5) not null,
+  default_object_id NUMBER(10) not null,
+  object_id         NUMBER(10) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_COLUMNS_COLUMN_ID on IT.SS2K5_COLUMNS (COLUMN_ID);
+create index IT.SS2K5_COLUMNS_DB_ID on IT.SS2K5_COLUMNS (DB_ID);
+create index IT.SS2K5_COLUMNS_OBJID on IT.SS2K5_COLUMNS (OBJECT_ID, COLUMN_ID);
+

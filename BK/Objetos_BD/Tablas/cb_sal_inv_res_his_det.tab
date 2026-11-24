@@ -1,0 +1,76 @@
+create table IT.CB_SAL_INV_RES_HIS_DET
+(
+  cod_rubro        VARCHAR2(15) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  periodo          VARCHAR2(4) not null,
+  tipo             VARCHAR2(2) not null,
+  saldo_total      NUMBER(18,2),
+  saldo_tot_gs     NUMBER(18,4),
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INV_RES_HIS_DET
+  is 'Saldos historicos para inventario de cuentas de resultado.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.cod_rubro
+  is 'Rubro del saldo.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.nro_cuenta
+  is 'Nro. de cuenta.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.periodo
+  is 'Periodo de devengamiento.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.tipo
+  is 'Tipo de Cta de resultado (DE:Devengados MO:Movimientos DS: Devengado en Suspenso OC:Operaciones de Cambios CO:Comisiones Cobradas y Pagadas CD:Comisiones Diferidas PO:ComisionesPagadasOperaciones PT:ComisionesPagadasTarjetas DP:DesafectacionPrevisiones PR:Previsiones VL:Valuaciones VC:VentadeCartera)';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.saldo_total
+  is 'Saldo total devengado.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.saldo_tot_gs
+  is 'Saldo total devengado en Guaranies.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.cod_moneda
+  is 'Código de Moneda para Comisiones Diferidas. Representa la moneda del movimiento y no la moneda de la cuenta.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.fec_insercion
+  is 'Fecha de inserción.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.usu_modificacion
+  is 'Usuario que realizo la modificación.';
+comment on column IT.CB_SAL_INV_RES_HIS_DET.fec_modificacion
+  is 'Fecha de modificación.';
+create index IT.IN_AIDEV_NRO_CUENTA on IT.CB_SAL_INV_RES_HIS_DET (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 27M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_INV_RES_HIS_DET
+  add constraint PK_CB_SAL_INV_RES_HIS primary key (COD_RUBRO, NRO_CUENTA, PERIODO, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 56M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,103 @@
+create table IT.GE_SOL_ACT_DATOS
+(
+  nro_solicitud      NUMBER(15) not null,
+  cod_persona        VARCHAR2(10) not null,
+  fec_solicitud      DATE not null,
+  estado             VARCHAR2(3) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_usu_aprobacion VARCHAR2(10),
+  cod_ofi_aprobacion NUMBER(3),
+  fec_cam_estado     DATE,
+  est_anterior       VARCHAR2(3),
+  mot_rechazo        VARCHAR2(2000),
+  observacion        VARCHAR2(1000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_ACT_DATOS
+  is 'Solicitudes de Actualización de Datos de la Persona.';
+comment on column IT.GE_SOL_ACT_DATOS.nro_solicitud
+  is 'Numero de Solicitud.';
+comment on column IT.GE_SOL_ACT_DATOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_SOL_ACT_DATOS.fec_solicitud
+  is 'Fecha de la solicitud.';
+comment on column IT.GE_SOL_ACT_DATOS.estado
+  is 'Estado de la solicitud.';
+comment on column IT.GE_SOL_ACT_DATOS.cod_usuario
+  is 'Codigo del usuario solicitante.';
+comment on column IT.GE_SOL_ACT_DATOS.cod_oficina
+  is 'Codigo de oficina del usuario solicitante';
+comment on column IT.GE_SOL_ACT_DATOS.cod_usu_aprobacion
+  is 'Codigo del usuario que aprobó la solicitud.';
+comment on column IT.GE_SOL_ACT_DATOS.cod_ofi_aprobacion
+  is 'Codigo de oficina del usuario que aprobó';
+comment on column IT.GE_SOL_ACT_DATOS.fec_cam_estado
+  is 'Fecha de cambio de estado de la solicitud.';
+comment on column IT.GE_SOL_ACT_DATOS.est_anterior
+  is 'Estado anterior al actual';
+comment on column IT.GE_SOL_ACT_DATOS.mot_rechazo
+  is 'Motivo de rechazo.';
+comment on column IT.GE_SOL_ACT_DATOS.observacion
+  is 'Observaciones del autorizador en la aprobacion.';
+comment on column IT.GE_SOL_ACT_DATOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_ACT_DATOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_ACT_DATOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ACT_DATOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IND_GSAD_COD_PERSONA on IT.GE_SOL_ACT_DATOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GSAD_SOLICITUD on IT.GE_SOL_ACT_DATOS (NRO_SOLICITUD, FEC_SOLICITUD, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ACT_DATOS
+  add constraint PK_GE_SOL_ACT_DATOS primary key (NRO_SOLICITUD);
+alter table IT.GE_SOL_ACT_DATOS
+  add constraint FK_GSAD_COD_OFI_USU_APR foreign key (COD_OFI_APROBACION)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_SOL_ACT_DATOS
+  add constraint FK_GSAD_COD_OFI_USU_SOL foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_SOL_ACT_DATOS
+  add constraint FK_GSAD_COD_USU_APROBACION foreign key (COD_USU_APROBACION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_SOL_ACT_DATOS
+  add constraint FK_GSAD_COD_USU_SOLICITANTE foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

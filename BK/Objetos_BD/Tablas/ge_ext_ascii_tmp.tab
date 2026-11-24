@@ -1,0 +1,76 @@
+create table IT.GE_EXT_ASCII_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  mail             VARCHAR2(500),
+  formato          VARCHAR2(20),
+  fre_extracto     VARCHAR2(20),
+  fre_ext_ascii    VARCHAR2(20),
+  fec_ult_extracto DATE,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_oficina      NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  sal_ult_extracto NUMBER(18,2),
+  ext_separado     VARCHAR2(1),
+  cod_paquete      NUMBER(3),
+  cod_extracto     NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_ASCII_TMP
+  is 'Tabla temporal para generacion y envio de extracto en ASCII';
+comment on column IT.GE_EXT_ASCII_TMP.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.GE_EXT_ASCII_TMP.nro_cuenta
+  is 'Nro. de Cuenta';
+comment on column IT.GE_EXT_ASCII_TMP.mail
+  is 'Mail para envio de Extractos';
+comment on column IT.GE_EXT_ASCII_TMP.formato
+  is 'Formato de Extracto';
+comment on column IT.GE_EXT_ASCII_TMP.fre_extracto
+  is 'Frecuencia de Extracto Normal';
+comment on column IT.GE_EXT_ASCII_TMP.fre_ext_ascii
+  is 'Frecuencia de Extracto en ASCII';
+comment on column IT.GE_EXT_ASCII_TMP.fec_ult_extracto
+  is 'Fecha de Ultimo Extracto';
+comment on column IT.GE_EXT_ASCII_TMP.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.GE_EXT_ASCII_TMP.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.GE_EXT_ASCII_TMP.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.GE_EXT_ASCII_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_EXT_ASCII_TMP.sal_ult_extracto
+  is 'Saldo Ultimo Extracto';
+comment on column IT.GE_EXT_ASCII_TMP.ext_separado
+  is 'Extracto Separado (S/N)';
+comment on column IT.GE_EXT_ASCII_TMP.cod_paquete
+  is 'Codigo de Paquete';
+comment on column IT.GE_EXT_ASCII_TMP.cod_extracto
+  is 'Codigo de Extracto';
+alter table IT.GE_EXT_ASCII_TMP
+  add constraint PK_GE_EXT_ASCII_TMP primary key (COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

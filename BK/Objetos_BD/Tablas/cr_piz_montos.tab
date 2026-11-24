@@ -1,0 +1,79 @@
+create table IT.CR_PIZ_MONTOS
+(
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  mto_desde         NUMBER(18,2) default 0 not null,
+  mto_hasta         NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_sub_modalidad NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PIZ_MONTOS
+  is 'Pizarra de Montos.';
+comment on column IT.CR_PIZ_MONTOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.CR_PIZ_MONTOS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CR_PIZ_MONTOS.cod_moneda
+  is 'Moneda.';
+comment on column IT.CR_PIZ_MONTOS.mto_desde
+  is 'Monto desde.';
+comment on column IT.CR_PIZ_MONTOS.mto_hasta
+  is 'Monto Hasta.';
+comment on column IT.CR_PIZ_MONTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PIZ_MONTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PIZ_MONTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_MONTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_MONTOS.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+alter table IT.CR_PIZ_MONTOS
+  add constraint UK_CR_PIZ_MONTOS unique (COD_MODULO, COD_MODALIDAD, COD_MONEDA, MTO_DESDE, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PIZ_MONTOS
+  add constraint FK_RPIZM_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_PIZ_MONTOS
+  add constraint FK_RPIZM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PIZ_MONTOS
+  add constraint FK_RPIZM_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.CR_PIZ_MONTOS
+  add constraint AVCON_1085002325_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CR_PIZ_MONTOS
+  add constraint AVCON_1085002325_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CR_PIZ_MONTOS
+  add constraint CK_MONTO
+  check (MTO_DESDE <= MTO_HASTA);
+

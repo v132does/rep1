@@ -1,0 +1,48 @@
+-- Create table
+create table IT.CR_PIZ_PLAZOS_HIS
+(
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  mto_desde          NUMBER(18,2) not null,
+  plz_desde          NUMBER(5) not null,
+  plz_hasta          NUMBER(5) not null,
+  tas_interes        NUMBER(20,4) not null,
+  tas_minima         NUMBER(20,4) not null,
+  tas_maxima         NUMBER(20,4) not null,
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) not null,
+  fec_modificacion   DATE not null,
+  tip_capitalizacion NUMBER(2),
+  tas_efectiva       NUMBER(20,4),
+  cod_sub_modalidad  NUMBER(3),
+  ano                NUMBER(4),
+  mes                NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CR_PIZ_PLAZOS_HIS
+  add constraint UK_CR_PIZ_PLAZOS_HIS unique (COD_MODULO, COD_MODALIDAD, COD_MONEDA, MTO_DESDE, PLZ_DESDE, TIP_CAPITALIZACION, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

@@ -1,0 +1,64 @@
+-- Create table
+create table IT.AH_AUDITORIAS_HIS
+(
+  tabla          VARCHAR2(40) not null,
+  clave          VARCHAR2(100) not null,
+  usuario        VARCHAR2(30) default USER not null,
+  fec_sistema    DATE not null,
+  fec_calendario DATE not null,
+  tip_novedad    VARCHAR2(1) not null,
+  terminal       VARCHAR2(40),
+  detalle        VARCHAR2(2000) not null,
+  origen         VARCHAR2(40),
+  fec_historico  DATE default SYSDATE not null
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.AH_AUDITORIAS_HIS
+  is 'Registra la auditoria de operaciones o novedades sobre los registros.';
+-- Add comments to the columns 
+comment on column IT.AH_AUDITORIAS_HIS.tabla
+  is 'Nombre de la tabla auditada.';
+comment on column IT.AH_AUDITORIAS_HIS.clave
+  is 'Clave primaria correspondiente al registro auditado a ser identificado.';
+comment on column IT.AH_AUDITORIAS_HIS.usuario
+  is 'Usuario responsable por la novedad ocurrida sobre los datos.';
+comment on column IT.AH_AUDITORIAS_HIS.fec_sistema
+  is 'Fecha del sistema en que se realizo la operacion.';
+comment on column IT.AH_AUDITORIAS_HIS.fec_calendario
+  is 'Fecha calendario del modulo en el momento de realizarse la operacion.';
+comment on column IT.AH_AUDITORIAS_HIS.tip_novedad
+  is 'Tipo de novedad u operacion realizada con el dato.';
+comment on column IT.AH_AUDITORIAS_HIS.terminal
+  is 'Nombre de la terminal en la que se ejecuto la operacion.';
+comment on column IT.AH_AUDITORIAS_HIS.detalle
+  is 'Detalle de modificaciones realizadas.';
+comment on column IT.AH_AUDITORIAS_HIS.origen
+  is 'Nombre del programa o aplicacion desde el cual se ejecuto la operacion.';
+comment on column IT.AH_AUDITORIAS_HIS.fec_historico
+  is 'Fecha en que se realizo el proceso de pase a historico.';
+-- Create/Recreate indexes 
+create index IT.IN_AAHIS_TABLA on IT.AH_AUDITORIAS_HIS (TABLA, CLAVE, USUARIO, FEC_SISTEMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.AH_AUDITORIAS_HIS to IT_TEMPORAL;

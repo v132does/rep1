@@ -1,0 +1,67 @@
+create table IT.GE_POL_COBROS
+(
+  codigo           NUMBER not null,
+  nro_cuota        NUMBER not null,
+  nro_pago         NUMBER(10) not null,
+  fec_cobro        DATE,
+  importe          NUMBER(18,2),
+  tip_cobro        NUMBER(1),
+  nro_recibo       NUMBER(20),
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_POL_COBROS
+  is 'Tabla de Cobros de Seguros';
+comment on column IT.GE_POL_COBROS.codigo
+  is 'Codigo identificador de registro. Igual al Numero de Solicitud en SEBAOT.';
+comment on column IT.GE_POL_COBROS.nro_cuota
+  is 'Nro de Cuota';
+comment on column IT.GE_POL_COBROS.nro_pago
+  is 'Parcial (Nro de Pago Parcial)';
+comment on column IT.GE_POL_COBROS.fec_cobro
+  is 'Fecha de Cobro de la Cuota';
+comment on column IT.GE_POL_COBROS.importe
+  is 'Importe de la cuota';
+comment on column IT.GE_POL_COBROS.tip_cobro
+  is 'Tipo 0-Normal/1-Amortizacion/2-Cred. de Prima de Anulacion/3-Cred.de Iva Anulacion';
+comment on column IT.GE_POL_COBROS.nro_recibo
+  is 'Nro de Recibo de Cobro';
+comment on column IT.GE_POL_COBROS.observacion
+  is 'Observacion';
+comment on column IT.GE_POL_COBROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_POL_COBROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_POL_COBROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_POL_COBROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_POL_COBROS
+  add constraint PK_GE_POL_COBROS primary key (CODIGO, NRO_CUOTA, NRO_PAGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

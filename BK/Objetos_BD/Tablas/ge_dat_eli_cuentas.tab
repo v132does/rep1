@@ -1,0 +1,73 @@
+create table IT.GE_DAT_ELI_CUENTAS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  sal_contable        NUMBER(18,2) default 0,
+  estado              VARCHAR2(1),
+  sal_total           NUMBER(18,2) default 0,
+  sal_blo_tot         NUMBER(18,2) default 0,
+  sal_retenido        NUMBER(18,2) default 0,
+  mto_cre_pendientes  NUMBER(18,2) default 0,
+  mto_deb_pendientes  NUMBER(18,2) default 0,
+  mto_cre_a_confirmar NUMBER(18,2) default 0,
+  cod_persona         VARCHAR2(10),
+  cod_oficina         NUMBER(18),
+  fec_apertura        DATE,
+  procesado           VARCHAR2(1) default 'N',
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DAT_ELI_CUENTAS.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.GE_DAT_ELI_CUENTAS.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_DAT_ELI_CUENTAS.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.GE_DAT_ELI_CUENTAS.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.GE_DAT_ELI_CUENTAS.sal_contable
+  is 'Saldo Contable';
+comment on column IT.GE_DAT_ELI_CUENTAS.estado
+  is 'Estado de Cuenta';
+comment on column IT.GE_DAT_ELI_CUENTAS.sal_total
+  is 'Saldo total';
+comment on column IT.GE_DAT_ELI_CUENTAS.sal_blo_tot
+  is 'Saldo total bloqueado';
+comment on column IT.GE_DAT_ELI_CUENTAS.sal_retenido
+  is 'Saldo Retenido';
+comment on column IT.GE_DAT_ELI_CUENTAS.mto_cre_pendientes
+  is 'Mto. Cred. Pendientes';
+comment on column IT.GE_DAT_ELI_CUENTAS.mto_deb_pendientes
+  is 'Mto. Deb.Pendientes';
+comment on column IT.GE_DAT_ELI_CUENTAS.mto_cre_a_confirmar
+  is 'Mto. Cred. a Coanfirmar';
+comment on column IT.GE_DAT_ELI_CUENTAS.cod_persona
+  is 'Codigo de cliente.';
+comment on column IT.GE_DAT_ELI_CUENTAS.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.GE_DAT_ELI_CUENTAS.fec_apertura
+  is 'Fecha de Apertura';
+comment on column IT.GE_DAT_ELI_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DAT_ELI_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DAT_ELI_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DAT_ELI_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

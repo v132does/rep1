@@ -1,0 +1,131 @@
+create table IT.GE_PRO_PRE_APROBADOS_TMP
+(
+  cod_persona       VARCHAR2(10),
+  cod_oficina       NUMBER(3),
+  cod_usu_oficial   VARCHAR2(10),
+  lin_vigente_tc    NUMBER(18,2),
+  lin_nueva_tc      NUMBER(18,2),
+  mto_max_cuota     NUMBER(18,2),
+  plz_12_meses      NUMBER(18,2),
+  plz_18_meses      NUMBER(18,2),
+  plz_24_meses      NUMBER(18,2),
+  plz_30_meses      NUMBER(18,2),
+  plz_36_meses      NUMBER(18,2),
+  plz_42_meses      NUMBER(18,2),
+  plz_48_meses      NUMBER(18,2),
+  plz_54_meses      NUMBER(18,2),
+  plz_60_meses      NUMBER(18,2),
+  cod_segmento      VARCHAR2(10),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  val_min_tasa      NUMBER(20,4),
+  val_max_tasa      NUMBER(20,4),
+  cod_campana       NUMBER(3),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  min_monto         NUMBER(18,2),
+  max_monto         NUMBER(18,2),
+  min_plazo         NUMBER(4),
+  max_plazo         NUMBER(4),
+  ind_evaluacion    VARCHAR2(1),
+  nro_cta_renovada  VARCHAR2(15),
+  ind_hab_atm       VARCHAR2(1),
+  ind_hab_hb        VARCHAR2(1),
+  pun_scoring       NUMBER(17,9),
+  pro_mora          NUMBER(17,9),
+  cod_sub_modalidad NUMBER(3),
+  denominacion      VARCHAR2(100),
+  fec_vto_campana   DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PRO_PRE_APROBADOS_TMP
+  is 'Productos Preaprobados';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_oficina
+  is 'Código de la Oficina';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_usu_oficial
+  is 'Código del Oficial.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.lin_vigente_tc
+  is 'Línea Vigente de la Tarjeta de Crédito.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.lin_nueva_tc
+  is 'Línea Nueva o Ampliación de la Tarjeta de Crédito.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.mto_max_cuota
+  is 'Monto Máximo de la Cuota de Préstamos.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_12_meses
+  is 'Monto del Plazo a 12 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_18_meses
+  is 'Monto del Plazo a 18 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_24_meses
+  is 'Monto del Plazo a 24 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_30_meses
+  is 'Monto del Plazo a 30 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_36_meses
+  is 'Monto del Plazo a 36 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_42_meses
+  is 'Monto del Plazo a 42 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_48_meses
+  is 'Monto del Plazo a 48 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_54_meses
+  is 'Monto del Plazo a 54 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.plz_60_meses
+  is 'Monto del Plazo a 60 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_segmento
+  is 'Código del Grupo de Segmentación.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.val_min_tasa
+  is 'Valor de Tasa Mínima.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.val_max_tasa
+  is 'Valor de Tasa Máxima.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_campana
+  is 'Código de la Campaña.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_modalidad
+  is 'Código de la Modalidad.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.min_monto
+  is 'Monto Mínimo.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.max_monto
+  is 'Monto Máximo.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.min_plazo
+  is 'Plazo Mínimo.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.max_plazo
+  is 'Plazo Máximo.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.ind_evaluacion
+  is 'Indica si una solicitud debe pasar por el Motor de Evaluación de Riesgos.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.nro_cta_renovada
+  is 'Número de Cuenta a ser renovada con los prestamos pre-aprobados REKUTU otorgados a los clientes.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.ind_hab_atm
+  is 'Indica que el Pre-Aprobado está habilitado para desembolso en ATM, S=Si, N=Null=No.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.ind_hab_hb
+  is 'Indica que el Pre-Aprobado está habilitado para desembolso en HB, S=Si, N=Null=No.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.pun_scoring
+  is 'Puntaje de Scoring del Interviniente proveniente de la herramienta externa.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.pro_mora
+  is 'Probabilidad de Mora. (PD)';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.cod_sub_modalidad
+  is 'Código de la Sub-Modalidad.';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.denominacion
+  is 'Denominacion de CP';
+comment on column IT.GE_PRO_PRE_APROBADOS_TMP.fec_vto_campana
+  is 'Fecha de Vencimiento de Campaña';
+

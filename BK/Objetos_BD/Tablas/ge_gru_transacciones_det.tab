@@ -1,0 +1,70 @@
+create table IT.GE_GRU_TRANSACCIONES_DET
+(
+  cod_gru_transaccion NUMBER(5) not null,
+  cod_transaccion     NUMBER(4) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_GRU_TRANSACCIONES_DET
+  is 'Detalle de Grupo de Transacciones [].';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.cod_gru_transaccion
+  is 'Codigo de grupo de transaccion.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_GRU_TRANSACCIONES_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_GRU_TRANSACCIONES_DET
+  add constraint PK_GE_GRU_TRANSACCIONES_DET primary key (COD_GRU_TRANSACCION, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_GRU_TRANSACCIONES_DET
+  add constraint FK_GGTDE_COD_GRU_TRANSACCION foreign key (COD_GRU_TRANSACCION)
+  references IT.GE_GRU_TRANSACCIONES (COD_GRU_TRANSACCION);
+alter table IT.GE_GRU_TRANSACCIONES_DET
+  add constraint FK_GGTDE_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_GRU_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_M_017
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.GE_GRU_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_M_018
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+alter table IT.GE_GRU_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_T_005
+  check (COD_TRANSACCION BETWEEN 0 AND 9999);
+

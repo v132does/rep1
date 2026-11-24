@@ -1,0 +1,24 @@
+CREATE OR REPLACE TRIGGER "IT".AA_BA_USU_CAN_VIGIA
+ AFTER DELETE OR UPDATE
+ ON BA_USU_CAN_VIGIA
+ FOR EACH ROW
+
+
+DECLARE
+ r_eaudi ba_auditorias%rowtype; -- Registro de la tabla BA_AUDITORIAS
+BEGIN
+   r_eaudi.tabla := 'BA_USU_CAN_VIGIA';
+   r_eaudi.clave := :old.ID ||'#'|| :old.USU_ID_INS ||'#'||:old.COD_USUARIO ||'#'|| :old.COD_CANAL ||'#'||	:old.CANAL_PRESENCIAL ;
+   r_eaudi.fec_calendario := pae_cnf.fu_obt_fec_actual(1);
+   if updating then
+      r_eaudi.tip_novedad := 'M';
+   elsif deleting then
+      r_eaudi.tip_novedad := 'E';
+   end if;
+   --- Registrar Detalle
+   r_eaudi.detalle := pae_cnf.fu_reg_auditoria(r_eaudi.tip_novedad,'USU_ID_INS',:old.USU_ID_INS,:new.USU_ID_INS);
+   r_eaudi.detalle := r_eaudi.detalle||pae_cnf.fu_reg_auditoria(r_eaudi.tip_novedad,'COD_USUARIO',:old.cod_usuario,:new.cod_usuario);
+   r_eaudi.detalle := r_eaudi.detalle||pae_cnf.fu_reg_auditoria(r_eaudi.tip_novedad,'COD_CANAL',:old.COD_CANAL,:new.COD_CANAL);
+   --- Insertar tabla de auditoria
+   pae_cnf.pr_ins_ba_auditoria(r_eaudi);
+END;

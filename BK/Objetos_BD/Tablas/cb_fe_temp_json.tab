@@ -1,0 +1,6 @@
+create global temporary table IT.CB_FE_TEMP_JSON
+(
+  json_value CLOB
+)
+on commit delete rows;
+

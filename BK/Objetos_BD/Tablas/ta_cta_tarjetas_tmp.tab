@@ -1,0 +1,287 @@
+create table IT.TA_CTA_TARJETAS_TMP
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  denominacion         VARCHAR2(65),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  cod_oficina          NUMBER(4),
+  cod_moneda           VARCHAR2(3),
+  lin_credito          NUMBER(18,2) default 0,
+  lin_cuotas           NUMBER(18,2) default 0,
+  sal_facturar         NUMBER(18,2) default 0,
+  sal_facturado        NUMBER(18,2) default 0,
+  sal_financiado       NUMBER(18,2) default 0,
+  sal_ult_extracto     NUMBER(18,2) default 0,
+  sal_cuo_pendientes   NUMBER(18,2) default 0,
+  mto_pag_minimo       NUMBER(18,2) default 0,
+  sal_pag_minimo       NUMBER(18,2) default 0,
+  mto_mora             NUMBER(18,2) default 0,
+  dia_mora             NUMBER(14,2),
+  mto_autorizaciones   NUMBER(18,2) default 0,
+  mto_int_compras      NUMBER(18,2) default 0,
+  mto_pag_mes          NUMBER(18,2) default 0,
+  mto_gas_mora         NUMBER(18,2) default 0,
+  estado               VARCHAR2(1),
+  est_administradora   VARCHAR2(1),
+  fec_solicitud        DATE,
+  fec_apertura         DATE,
+  fec_ult_pago         DATE,
+  fec_ult_compra       DATE,
+  fec_ult_operacion    DATE,
+  fec_ult_extracto     DATE,
+  fec_ult_cierre       DATE,
+  fec_vct_ult_cierre   DATE,
+  tip_cierre           VARCHAR2(2),
+  cob_gas_financiero   VARCHAR2(1) default 'N',
+  tip_tas_financiacion VARCHAR2(1),
+  tip_com_emision      VARCHAR2(1),
+  tas_financiacion     NUMBER(20,4) default 0,
+  tas_adelanto         NUMBER(20,4) default 0,
+  tas_mora             NUMBER(20,4) default 0,
+  tas_cuotas           NUMBER(20,4) default 0,
+  deb_automatico       VARCHAR2(1) default 'N',
+  tip_cobro            VARCHAR2(1) default 'M',
+  nro_cta_debito       VARCHAR2(15),
+  mto_min_pago         NUMBER(18,2) default 0,
+  por_pag_minimo       NUMBER(5,2) default 0,
+  cod_usu_promotor     VARCHAR2(10),
+  mar_mora             VARCHAR2(1),
+  mar_excedido         VARCHAR2(1),
+  mar_recuperado       VARCHAR2(1),
+  mar_bloqueo          VARCHAR2(1),
+  con_costo            VARCHAR2(1) default 'N',
+  nro_solicitud        NUMBER(15),
+  cod_causa            NUMBER(3),
+  cat_automatica       NUMBER(2),
+  cod_canal            NUMBER(3),
+  cod_campana          NUMBER(3),
+  en_juicio            VARCHAR2(1) default 'N',
+  fec_juicio           DATE,
+  cod_ent_juicio       NUMBER(5),
+  max_atraso           NUMBER(5),
+  pro_atraso           NUMBER(5),
+  nro_linea            NUMBER(7),
+  sit_cuenta           NUMBER(1),
+  cod_sucursal         NUMBER(4),
+  nro_reg              NUMBER(10),
+  cod_usu_ente         VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_ent_procesadora  NUMBER(5),
+  cod_afinidad         VARCHAR2(6),
+  det_error            VARCHAR2(4000),
+  mto_fij_pag_minimo   NUMBER(18,2),
+  mto_min_pag_minimo   NUMBER(18,2),
+  tas_int_corriente    NUMBER(18,2),
+  tas_int_compra       NUMBER(18,2),
+  tas_int_mora         NUMBER(18,2),
+  tip_doc_bancard      VARCHAR2(3),
+  nro_documento        VARCHAR2(20),
+  car_no_aplicar       VARCHAR2(30),
+  ret_extracto         VARCHAR2(1),
+  mot_ret_extracto     NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CTA_TARJETAS_TMP
+  is 'Es la tabla temporal de Cuentas de Tarjetas, aqui se reciben los datos desde las procesadoras.';
+comment on column IT.TA_CTA_TARJETAS_TMP.nro_cuenta
+  is 'Numero de la Cuenta de Tarjeta.';
+comment on column IT.TA_CTA_TARJETAS_TMP.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_oficina
+  is 'Oficina.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.TA_CTA_TARJETAS_TMP.lin_credito
+  is 'Linea de Credito.';
+comment on column IT.TA_CTA_TARJETAS_TMP.lin_cuotas
+  is 'Limite de Cuotas.';
+comment on column IT.TA_CTA_TARJETAS_TMP.sal_facturar
+  is 'Saldo a Facturar.';
+comment on column IT.TA_CTA_TARJETAS_TMP.sal_facturado
+  is 'Saldo Facturado No vencido.';
+comment on column IT.TA_CTA_TARJETAS_TMP.sal_financiado
+  is 'Saldo Financiado.';
+comment on column IT.TA_CTA_TARJETAS_TMP.sal_ult_extracto
+  is 'Saldo de Ultimo Extracto.';
+comment on column IT.TA_CTA_TARJETAS_TMP.sal_cuo_pendientes
+  is 'Saldo de Cuotas Pendientes.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_pag_minimo
+  is 'Monto de Pago Minimo (Extracto).';
+comment on column IT.TA_CTA_TARJETAS_TMP.sal_pag_minimo
+  is 'Saldo de Pago Minimo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_mora
+  is 'Monto en Mora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.dia_mora
+  is 'Dias de Mora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_autorizaciones
+  is 'Importe Autorizado no Cargado.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_int_compras
+  is 'Monto de Interes s/Compras.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_pag_mes
+  is 'Monto de Pagos del Mes.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_gas_mora
+  is 'Importe de Gastos por Mora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.TA_CTA_TARJETAS_TMP.est_administradora
+  is 'Estado de la Cuenta en la Administradora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_solicitud
+  is 'Fecha de Ingreso de la Solicitud.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_ult_pago
+  is 'Fecha de ultimo pago.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_ult_compra
+  is 'Fecha de utlima compra.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_ult_operacion
+  is 'Fecha de utlima operacion.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_ult_extracto
+  is 'Fecha de ultimo extracto.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_ult_cierre
+  is 'Fecha de ultimo cierre.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_vct_ult_cierre
+  is 'Fecha de vencimiento de ultimo cierre.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tip_cierre
+  is 'Tipo de Cierre.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cob_gas_financiero
+  is 'Cobro de Gastos Financieros.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tip_tas_financiacion
+  is 'Tipo de Tasa de Financiacion.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tip_com_emision
+  is 'Tipo de comision de Emision.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_financiacion
+  is 'Tasa de Financiacion.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_adelanto
+  is 'Tasa de Interes por Adelantos.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_mora
+  is 'Tasa de Interes por Mora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_cuotas
+  is 'Tasa de Interes Cuotas.';
+comment on column IT.TA_CTA_TARJETAS_TMP.deb_automatico
+  is 'Debito Automatico (S / N).';
+comment on column IT.TA_CTA_TARJETAS_TMP.tip_cobro
+  is 'Tipo de Cobro (Minimo o Total).';
+comment on column IT.TA_CTA_TARJETAS_TMP.nro_cta_debito
+  is 'Numerode Cuenta para Debito Automatico.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_min_pago
+  is 'Monto Minimo para Pagos.';
+comment on column IT.TA_CTA_TARJETAS_TMP.por_pag_minimo
+  is 'Porcentaje de Pago Minimo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_usu_promotor
+  is 'Promotor.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mar_mora
+  is 'Marca de Mora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mar_excedido
+  is 'Marca de Excedido.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mar_recuperado
+  is 'Marca de Recuperado.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mar_bloqueo
+  is 'Marca de Bloqueo A=Administrativo U=Usuario.';
+comment on column IT.TA_CTA_TARJETAS_TMP.con_costo
+  is 'Ind. De Con Costo o no (S= SI / N = NO).';
+comment on column IT.TA_CTA_TARJETAS_TMP.nro_solicitud
+  is 'Numerode Solicitud.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_causa
+  is 'Causa de Bloqueo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cat_automatica
+  is 'Categoria de Riesgo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_campana
+  is 'Codigo de Campaña.';
+comment on column IT.TA_CTA_TARJETAS_TMP.en_juicio
+  is 'Indica si la tarjeta se encuentra en estado judicial.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_juicio
+  is 'Fecha en la cual paso a juicio.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_ent_juicio
+  is 'Ente al cual se derivo el juicio.';
+comment on column IT.TA_CTA_TARJETAS_TMP.max_atraso
+  is 'Cantidad maxima de dias de atraso.';
+comment on column IT.TA_CTA_TARJETAS_TMP.pro_atraso
+  is 'Promedio de dias de atraso.';
+comment on column IT.TA_CTA_TARJETAS_TMP.nro_linea
+  is 'Numero del Limite.';
+comment on column IT.TA_CTA_TARJETAS_TMP.sit_cuenta
+  is 'Situacion de la cuenta en la Procesadora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_sucursal
+  is 'Codigo de sucursal de la tarjeta en la procesadora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.nro_reg
+  is 'Numero de registro de posicion en el archivo recibido.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_usu_ente
+  is 'Codigo de usuario en el Ente de la Procesadora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_CTA_TARJETAS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_CTA_TARJETAS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_ent_procesadora
+  is 'Codigo de Ente de la Procesadora.';
+comment on column IT.TA_CTA_TARJETAS_TMP.cod_afinidad
+  is 'Código de Adinidad de la Tarjeta. Ref.Externa.';
+comment on column IT.TA_CTA_TARJETAS_TMP.det_error
+  is 'Detalle del error.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_fij_pag_minimo
+  is 'Monto Fijo de Pago Mínimo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.mto_min_pag_minimo
+  is 'Monto Mínimo de Pago Mínimo.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_int_corriente
+  is 'Tasa de Interés Corriente.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_int_compra
+  is 'Tasa de Interés por Compras.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tas_int_mora
+  is 'Tasa de Interés Moratorio.';
+comment on column IT.TA_CTA_TARJETAS_TMP.tip_doc_bancard
+  is 'Tipo de documento en Bancard.';
+comment on column IT.TA_CTA_TARJETAS_TMP.nro_documento
+  is 'Numero de documento de identidad.';
+comment on column IT.TA_CTA_TARJETAS_TMP.car_no_aplicar
+  is 'Cargos a No Aplicar. Relacionado a los campos Franqueo y Aplica Seguro de Vida';
+comment on column IT.TA_CTA_TARJETAS_TMP.ret_extracto
+  is 'Retención Extracto (''S'', ''N'')';
+comment on column IT.TA_CTA_TARJETAS_TMP.mot_ret_extracto
+  is 'Motivo de Retención Extracto';
+create index IT.IN_TCTTM_NRO_CUENTA on IT.TA_CTA_TARJETAS_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TCTTM_NRO_CUENTA_01 on IT.TA_CTA_TARJETAS_TMP (TO_NUMBER(NRO_CUENTA))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

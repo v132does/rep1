@@ -1,0 +1,58 @@
+create table IT.GE_CTA_BOC_COBRO
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(20) not null,
+  activo           VARCHAR2(1),
+  sal_pen_cierre   NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_BOC_COBRO
+  is 'Cuentas de Bocas de Cobro.';
+comment on column IT.GE_CTA_BOC_COBRO.cod_modulo
+  is 'Codigo de módulo.';
+comment on column IT.GE_CTA_BOC_COBRO.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_CTA_BOC_COBRO.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_CTA_BOC_COBRO.activo
+  is 'Activo: S/N.';
+comment on column IT.GE_CTA_BOC_COBRO.sal_pen_cierre
+  is 'Saldo Pendiente al cierre.';
+comment on column IT.GE_CTA_BOC_COBRO.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_CTA_BOC_COBRO.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_CTA_BOC_COBRO.usu_modificacion
+  is 'Usuario de Modificacion.';
+comment on column IT.GE_CTA_BOC_COBRO.fec_modificacion
+  is 'Fecha de Modificacion.';
+alter table IT.GE_CTA_BOC_COBRO
+  add constraint PK_GE_CTA_BOC_COBRO primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

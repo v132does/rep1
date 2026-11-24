@@ -1,0 +1,95 @@
+create table IT.AF_TIP_MOVIMIENTOS
+(
+  cod_tip_movimiento VARCHAR2(1) not null,
+  cod_movimiento     VARCHAR2(1) not null,
+  descripcion        VARCHAR2(35) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_transaccion    NUMBER(4) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AF_TIP_MOVIMIENTOS
+  is 'Tipos de Movimientos del Activo Fijo.';
+comment on column IT.AF_TIP_MOVIMIENTOS.cod_tip_movimiento
+  is 'Tipo de Movimiento.';
+comment on column IT.AF_TIP_MOVIMIENTOS.cod_movimiento
+  is 'Codigo del Movimiento.';
+comment on column IT.AF_TIP_MOVIMIENTOS.descripcion
+  is 'Descripcion del Tipo de Movimiento.';
+comment on column IT.AF_TIP_MOVIMIENTOS.cod_modalidad
+  is 'Modalidad del Tipo de Movimiento.';
+comment on column IT.AF_TIP_MOVIMIENTOS.cod_modulo
+  is 'Modulo del Tipo de Movimiento.';
+comment on column IT.AF_TIP_MOVIMIENTOS.cod_transaccion
+  is 'Transaccion del Tipo de Movimiento.';
+comment on column IT.AF_TIP_MOVIMIENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AF_TIP_MOVIMIENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AF_TIP_MOVIMIENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AF_TIP_MOVIMIENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AF_TIP_MOVIMIENTOS
+  add constraint PK_AF_TIP_MOVIMIENTOS primary key (COD_TIP_MOVIMIENTO, COD_MOVIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_TIP_MOVIMIENTOS
+  add constraint UK_FTMOV_COD_MOVIMIENTO unique (COD_MOVIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_TIP_MOVIMIENTOS
+  add constraint UK_FTMOV_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_TIP_MOVIMIENTOS
+  add constraint FK_FTMOV_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_TIP_MOVIMIENTOS
+  add constraint AVCON_1191860012_COD_T_000
+  check (COD_TIP_MOVIMIENTO IN ('A', 'B', 'V', 'T'));
+

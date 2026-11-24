@@ -1,0 +1,127 @@
+create table IT.BA_ROL_PROGRAMAS
+(
+  cod_programa     VARCHAR2(30) not null,
+  cod_rol          VARCHAR2(20) not null,
+  inserta          VARCHAR2(1) default 'N' not null,
+  actualiza        VARCHAR2(1) default 'N' not null,
+  elimina          VARCHAR2(1) default 'N' not null,
+  consulta         VARCHAR2(1) default 'N' not null,
+  imprime          VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ROL_PROGRAMAS
+  is 'Contiene los permisos por programas que posee cada rol.';
+comment on column IT.BA_ROL_PROGRAMAS.cod_programa
+  is 'Codigo del Programa.';
+comment on column IT.BA_ROL_PROGRAMAS.cod_rol
+  is 'Codigo del Rol.';
+comment on column IT.BA_ROL_PROGRAMAS.inserta
+  is 'Indicador de Insercion.';
+comment on column IT.BA_ROL_PROGRAMAS.actualiza
+  is 'Indicador de Actualizacion.';
+comment on column IT.BA_ROL_PROGRAMAS.elimina
+  is 'Indicador de Eliminacion.';
+comment on column IT.BA_ROL_PROGRAMAS.consulta
+  is 'Indicador de Consulta.';
+comment on column IT.BA_ROL_PROGRAMAS.imprime
+  is 'Indica el permiso de Impresion.';
+comment on column IT.BA_ROL_PROGRAMAS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.BA_ROL_PROGRAMAS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.BA_ROL_PROGRAMAS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.BA_ROL_PROGRAMAS.fec_modificacion
+  is 'Fecha de modificacion.';
+create index IT.IN_ERPRO_COD_ROL on IT.BA_ROL_PROGRAMAS (COD_ROL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 960K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint PK_BA_ROL_PROGRAMAS primary key (COD_PROGRAMA, COD_ROL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 896K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint FK_ERPRO_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint FK_ERPRO_COD_ROL foreign key (COD_ROL)
+  references IT.BA_ROLES (COD_ROL);
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080842839_ACTUA_000
+  check (ACTUALIZA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080842839_CONSU_000
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080842839_ELIMI_000
+  check (ELIMINA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080842839_IMPRI_000
+  check (IMPRIME IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080842839_INSER_000
+  check (INSERTA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080847569_ACTUA_000
+  check (ACTUALIZA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080847569_CONSU_000
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080847569_ELIMI_000
+  check (ELIMINA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080847569_IMPRI_000
+  check (IMPRIME IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1080847569_INSER_000
+  check (INSERTA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1081349332_ACTUA_000
+  check (ACTUALIZA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1081349332_CONSU_000
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1081349332_ELIMI_000
+  check (ELIMINA IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1081349332_IMPRI_000
+  check (IMPRIME IN ('S', 'N'));
+alter table IT.BA_ROL_PROGRAMAS
+  add constraint AVCON_1081349332_INSER_000
+  check (INSERTA IN ('S', 'N'));
+

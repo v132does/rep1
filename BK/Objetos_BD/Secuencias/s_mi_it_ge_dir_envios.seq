@@ -1,0 +1,7 @@
+create sequence IT.S_MI_IT_GE_DIR_ENVIOS
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 437833
+increment by 1
+nocache;
+

@@ -1,0 +1,91 @@
+create table IT.GE_ARC_MULTICASH_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  fec_extracto     DATE not null,
+  cod_extracto     NUMBER(5) not null,
+  fre_extracto     VARCHAR2(1) not null,
+  nro_cuenta       VARCHAR2(20) not null,
+  nro_linea        NUMBER(6) not null,
+  cod_tip_extracto VARCHAR2(1) not null,
+  fec_especifica   DATE,
+  texto            VARCHAR2(500),
+  nom_archivo      VARCHAR2(100),
+  cod_ente         NUMBER(5),
+  estado           VARCHAR2(1),
+  cod_can_envio    VARCHAR2(5),
+  det_error        VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_ARC_MULTICASH_TMP.fec_extracto
+  is 'Fecha del Extracto.';
+comment on column IT.GE_ARC_MULTICASH_TMP.cod_extracto
+  is 'Codigo de Extracto ITGF.';
+comment on column IT.GE_ARC_MULTICASH_TMP.nro_cuenta
+  is 'Cuenta del cliente.';
+comment on column IT.GE_ARC_MULTICASH_TMP.nro_linea
+  is 'Numero de linea, orden de impresión de los datos.';
+comment on column IT.GE_ARC_MULTICASH_TMP.cod_tip_extracto
+  is 'Tipo de Extracto Generado. M mensual, R requerimiento, D diario.';
+comment on column IT.GE_ARC_MULTICASH_TMP.fec_especifica
+  is 'Fecha de Generacion Personalizada.';
+comment on column IT.GE_ARC_MULTICASH_TMP.texto
+  is 'Informacion de la linea, contenido del Extracto.';
+comment on column IT.GE_ARC_MULTICASH_TMP.nom_archivo
+  is 'Nombre del Archivo del Extracto Multicash.';
+comment on column IT.GE_ARC_MULTICASH_TMP.cod_ente
+  is 'Codigo Ente del Cliente.';
+comment on column IT.GE_ARC_MULTICASH_TMP.estado
+  is 'Estado del archivo Multicash. G Generado, E Enviado, F Fallo (con error).';
+comment on column IT.GE_ARC_MULTICASH_TMP.cod_can_envio
+  is 'Canal de envio. M Mail, F Ftp.';
+comment on column IT.GE_ARC_MULTICASH_TMP.det_error
+  is 'Descripcion del Error.';
+comment on column IT.GE_ARC_MULTICASH_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ARC_MULTICASH_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ARC_MULTICASH_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ARC_MULTICASH_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GEMUL_NRO_CUENTA on IT.GE_ARC_MULTICASH_TMP (NRO_CUENTA, FEC_EXTRACTO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARC_MULTICASH_TMP
+  add constraint PK_GE_ARC_MULTICASH_TMP primary key (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA, NRO_LINEA, COD_TIP_EXTRACTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

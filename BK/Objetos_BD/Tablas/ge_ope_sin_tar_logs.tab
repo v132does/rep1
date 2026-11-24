@@ -1,0 +1,44 @@
+create table IT.GE_OPE_SIN_TAR_LOGS
+(
+  cod_persona      VARCHAR2(10),
+  celular          VARCHAR2(16),
+  accion           VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate,
+  observacion      VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_OPE_SIN_TAR_LOGS
+  is 'almacenaje de transacciones sobre datos de suscripciones de operaciones de tarjetas';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.cod_persona
+  is 'Codigo de persona del cliente';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.celular
+  is 'Nro de telefono del cliente';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.accion
+  is 'Accion a ser realizada sobre la suscripcion';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.nro_cuenta
+  is 'Cuenta del cliente';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.fec_insercion
+  is 'fecha de insercion del registro';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.usu_modificacion
+  is 'usuario que modifica el regsitro';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.fec_modificacion
+  is 'fecha de modificacion del registro';
+comment on column IT.GE_OPE_SIN_TAR_LOGS.observacion
+  is 'Observacion de respuesta';
+

@@ -1,0 +1,177 @@
+create table IT.GE_DAT_CANCELACION
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  sal_contable        NUMBER(18,2) default 0,
+  estado              VARCHAR2(1),
+  sal_total           NUMBER(18,2) default 0,
+  sal_blo_tot         NUMBER(18,2) default 0,
+  sal_retenido        NUMBER(18,2) default 0,
+  mto_cre_pendientes  NUMBER(18,2) default 0,
+  mto_deb_pendientes  NUMBER(18,2) default 0,
+  mto_cre_a_confirmar NUMBER(18,2) default 0,
+  sal_capital         NUMBER(18,2) default 0,
+  mto_sob_suspenso    NUMBER(18,2) default 0,
+  embargo             NUMBER(18,2) default 0,
+  bloqueo             NUMBER(18,2) default 0,
+  mto_devengado       NUMBER(18,2) default 0,
+  tip_capitalizacion  NUMBER(3),
+  mto_prev_sob        NUMBER(18,2) default 0,
+  mto_prev_con        NUMBER(18,2) default 0,
+  linea_sob           NUMBER(10),
+  tra_proh            VARCHAR2(1),
+  td                  NUMBER(10),
+  cod_persona         VARCHAR2(10),
+  nro_cta_cli_btw     NUMBER(9),
+  integracion         VARCHAR2(2000),
+  nro_sub_cta_cli_btw NUMBER(9),
+  mto1                NUMBER(18,2) default 0,
+  mto2                NUMBER(18,2) default 0,
+  cod_oficina         NUMBER(18),
+  migra_ola           NUMBER(10),
+  cam_estado          VARCHAR2(1),
+  sal_ret_batch       NUMBER(18,2) default 0,
+  sal_blo_batch       NUMBER(18,2) default 0,
+  sal_tot_batch       NUMBER(18,2) default 0,
+  cod_sub_modalidad   NUMBER(3) default 1,
+  fec_apertura        DATE,
+  procesado           VARCHAR2(1) default 'N',
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DAT_CANCELACION.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.GE_DAT_CANCELACION.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_DAT_CANCELACION.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.GE_DAT_CANCELACION.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.GE_DAT_CANCELACION.sal_contable
+  is 'Saldo Contable';
+comment on column IT.GE_DAT_CANCELACION.estado
+  is 'Estado de Cuenta';
+comment on column IT.GE_DAT_CANCELACION.sal_total
+  is 'Saldo total';
+comment on column IT.GE_DAT_CANCELACION.sal_blo_tot
+  is 'Saldo total bloqueado';
+comment on column IT.GE_DAT_CANCELACION.sal_retenido
+  is 'Saldo Retenido';
+comment on column IT.GE_DAT_CANCELACION.mto_cre_pendientes
+  is 'Mto. Cred. Pendientes';
+comment on column IT.GE_DAT_CANCELACION.mto_deb_pendientes
+  is 'Mto. Deb.Pendientes';
+comment on column IT.GE_DAT_CANCELACION.mto_cre_a_confirmar
+  is 'Mto. Cred. a Coanfirmar';
+comment on column IT.GE_DAT_CANCELACION.sal_capital
+  is 'Saldo Capital';
+comment on column IT.GE_DAT_CANCELACION.mto_sob_suspenso
+  is 'Mto. Sob. en suspenso';
+comment on column IT.GE_DAT_CANCELACION.embargo
+  is 'Monto Embargo';
+comment on column IT.GE_DAT_CANCELACION.bloqueo
+  is 'Monto Bloqueo';
+comment on column IT.GE_DAT_CANCELACION.mto_devengado
+  is 'Monto de Devengado';
+comment on column IT.GE_DAT_CANCELACION.tip_capitalizacion
+  is 'Tipo de Capitalización Devengado.';
+comment on column IT.GE_DAT_CANCELACION.mto_prev_sob
+  is 'Mto.Previsiones Sobregiro';
+comment on column IT.GE_DAT_CANCELACION.mto_prev_con
+  is 'Mto.Previsiones Contiengente';
+comment on column IT.GE_DAT_CANCELACION.linea_sob
+  is 'Tiene Linea de Sobregiro';
+comment on column IT.GE_DAT_CANCELACION.tra_proh
+  is 'Tiene Transaccion Prohibida';
+comment on column IT.GE_DAT_CANCELACION.td
+  is 'Tiene Tarjeta de Debito Activa';
+comment on column IT.GE_DAT_CANCELACION.cod_persona
+  is 'Codigo de cliente.';
+comment on column IT.GE_DAT_CANCELACION.nro_cta_cli_btw
+  is 'Numero de Cuenta de BT';
+comment on column IT.GE_DAT_CANCELACION.integracion
+  is 'Integracion';
+comment on column IT.GE_DAT_CANCELACION.nro_sub_cta_cli_btw
+  is 'Nro de Sub Cuenta de BT';
+comment on column IT.GE_DAT_CANCELACION.mto1
+  is 'otro monto';
+comment on column IT.GE_DAT_CANCELACION.mto2
+  is 'Otro Monto 2';
+comment on column IT.GE_DAT_CANCELACION.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.GE_DAT_CANCELACION.migra_ola
+  is 'En que ola se migra';
+comment on column IT.GE_DAT_CANCELACION.cam_estado
+  is 'Si solo se cambia estado';
+comment on column IT.GE_DAT_CANCELACION.sal_ret_batch
+  is 'Saldo Retenido Batch.';
+comment on column IT.GE_DAT_CANCELACION.sal_blo_batch
+  is 'Saldo Bloqueado Batch.';
+comment on column IT.GE_DAT_CANCELACION.sal_tot_batch
+  is 'Saldo Total Batch.';
+comment on column IT.GE_DAT_CANCELACION.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+comment on column IT.GE_DAT_CANCELACION.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.GE_DAT_CANCELACION.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DAT_CANCELACION.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DAT_CANCELACION.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DAT_CANCELACION.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IND_COD_PER_MIG_1 on IT.GE_DAT_CANCELACION (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_CTA_BTX_1 on IT.GE_DAT_CANCELACION (NRO_CTA_CLI_BTW)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_CTA_EST_1 on IT.GE_DAT_CANCELACION (NRO_CUENTA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DAT_CANCELACION
+  add constraint PK_NRO_CTA_MIG_1 primary key (NRO_CUENTA);
+

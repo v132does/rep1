@@ -1,0 +1,101 @@
+create table IT.CB_ASI_AUTOMATICOS_DET_ANT
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  tip_movimiento   VARCHAR2(1),
+  mto_mon_rubro    NUMBER(18,2) default 0,
+  mto_mon_local    NUMBER(18,2) default 0,
+  descripcion      VARCHAR2(60),
+  referencia       VARCHAR2(11),
+  protegido        VARCHAR2(1) default 'N',
+  actualizado      VARCHAR2(1) default 'N',
+  val_cotizacion   NUMBER(14,8) default 0,
+  distribuido      VARCHAR2(1) default 'N',
+  ref_movimiento   NUMBER(7),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_tra_padre    NUMBER(4),
+  fec_valor        DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_ASI_AUTOMATICOS_DET_ANT
+  is 'Contiene los datos correspondientes a las lineas de detalle de los asientos contables generados automaticamente.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.fecha
+  is 'Fecha del Asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.cod_oficina
+  is 'Codigo de la oficina del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.nro_linea
+  is 'Numero de linea del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.cod_rubro
+  is 'Codigo de la cuenta contable imputada.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.tip_movimiento
+  is 'Tipo de movimiento ( D=Debito, C=Credito ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.mto_mon_rubro
+  is 'Importe del movimiento en moneda extranjera.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.mto_mon_local
+  is 'Importe del movimiento en moneda local.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.descripcion
+  is 'Descripcion de la linea del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.referencia
+  is 'Referencia de la linea de asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.protegido
+  is 'Registro Protegido ? ( S=Registro protegido, no se puede borrar, N=Registro no protegido, se puede borrar ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.actualizado
+  is 'Actualizado en saldo de cuentas ? ( S=Registro actualizado en saldo de cuentas, N=Registro no actualizado en saldo de cuentas ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.val_cotizacion
+  is 'Valor de la tasa de cambio usada para generar asientos de cuentas de moneda extranjera.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.distribuido
+  is 'Cuenta de distribucion ? ( S=Tiene cuenta de distribucion, N=No tiene cuenta de distribucion ).';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.ref_movimiento
+  is 'Numero de referencia de desglose del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.cod_modulo
+  is 'Codigo de modulo padre del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.cod_modalidad
+  is 'Codigo de modalidad padre del asiento.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.cod_ofi_origen
+  is 'Codigo de oficina origen.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.cod_tra_padre
+  is 'Codigo de transaccion padre para cortes de asientos.';
+comment on column IT.CB_ASI_AUTOMATICOS_DET_ANT.fec_valor
+  is 'Fecha valor del Asiento.';
+create index IT.IN_BAADA_REFERENCIA on IT.CB_ASI_AUTOMATICOS_DET_ANT (REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

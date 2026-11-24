@@ -1,0 +1,40 @@
+create table IT.BW_PAG_COD_SERVICIOS
+(
+  cod_servicio     NUMBER(10) not null,
+  descripcion      VARCHAR2(250) not null,
+  cod_proveedor    NUMBER(4) default 0 not null,
+  usu_insercion    VARCHAR2(10) default substr(user, 1, 10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user, 1, 10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_PAG_COD_SERVICIOS.cod_servicio
+  is 'Codigo de Servicio de Pronet del cual se realiza el Pago';
+comment on column IT.BW_PAG_COD_SERVICIOS.cod_proveedor
+  is 'Proveedor asociado al servicio';
+alter table IT.BW_PAG_COD_SERVICIOS
+  add constraint PK_BW_PAG_COD_SERVICIOS primary key (COD_SERVICIO, COD_PROVEEDOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,11 @@
+create global temporary table IT.STAGE_TERADATA_PROCEDURES
+(
+  mdid          NUMBER,
+  databasename  VARCHAR2(128 CHAR),
+  procname      VARCHAR2(128 CHAR),
+  proctype      CHAR(2),
+  requesttext   CLOB,
+  commentstring VARCHAR2(510 CHAR)
+)
+on commit preserve rows;
+

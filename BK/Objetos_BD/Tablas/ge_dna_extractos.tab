@@ -1,0 +1,53 @@
+create table IT.GE_DNA_EXTRACTOS
+(
+  cod_extracto     NUMBER(18) not null,
+  fecha            DATE,
+  cod_persona      VARCHAR2(10),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  nro_cuenta       NUMBER(18),
+  cod_moneda       VARCHAR2(20),
+  sal_anterior     NUMBER(18,2),
+  sal_actual       NUMBER(18,2),
+  estado           VARCHAR2(4),
+  cod_retorno      VARCHAR2(4),
+  msj_retorno      VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DNA_EXTRACTOS
+  is 'Extracto de Aduanas.';
+comment on column IT.GE_DNA_EXTRACTOS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_DNA_EXTRACTOS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_DNA_EXTRACTOS.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_DNA_EXTRACTOS.fec_modificacion
+  is 'Fecha de Modificación.';
+create index IT.IND_GEXDND on IT.GE_DNA_EXTRACTOS (COD_EXTRACTO, FECHA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

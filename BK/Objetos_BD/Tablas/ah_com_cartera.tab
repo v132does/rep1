@@ -1,0 +1,41 @@
+create table IT.AH_COM_CARTERA
+(
+  fecha            DATE default trunc(SYSDATE) not null,
+  nro_documento    VARCHAR2(20) not null,
+  nombre           VARCHAR2(60) not null,
+  apellido         VARCHAR2(60) not null,
+  estado           VARCHAR2(15) not null,
+  observaciones    VARCHAR2(1000),
+  retorno          NUMBER not null,
+  nro_cuenta       VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_COM_CARTERA
+  add constraint PK_AH_COM_CARTERA primary key (FECHA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

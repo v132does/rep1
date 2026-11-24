@@ -1,0 +1,97 @@
+create table IT.RH_NIV_ACADEMICOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_niv_estudio  NUMBER(3) not null,
+  cur_alcanzado    NUMBER(1),
+  carrera          VARCHAR2(40),
+  universidad      VARCHAR2(40),
+  titulo           VARCHAR2(40),
+  mot_abandono     VARCHAR2(40),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_NIV_ACADEMICOS
+  is 'Niveles Academicos del Empleado.';
+comment on column IT.RH_NIV_ACADEMICOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_NIV_ACADEMICOS.cod_niv_estudio
+  is 'Nivel Academico.';
+comment on column IT.RH_NIV_ACADEMICOS.cur_alcanzado
+  is 'Curso alcanzado por el Empleado.';
+comment on column IT.RH_NIV_ACADEMICOS.carrera
+  is 'Carrera.';
+comment on column IT.RH_NIV_ACADEMICOS.universidad
+  is 'Universidad.';
+comment on column IT.RH_NIV_ACADEMICOS.titulo
+  is 'Titulo obtenido.';
+comment on column IT.RH_NIV_ACADEMICOS.mot_abandono
+  is 'Motivo de abandono de la carrera.';
+comment on column IT.RH_NIV_ACADEMICOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_NIV_ACADEMICOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_NIV_ACADEMICOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro';
+comment on column IT.RH_NIV_ACADEMICOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HNACA_COD_PERSONA on IT.RH_NIV_ACADEMICOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HNACA_COD_TIP_NIV_ACADEMICO on IT.RH_NIV_ACADEMICOS (COD_NIV_ESTUDIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_NIV_ACADEMICOS
+  add constraint PK_RH_NIV_ACADEMICOS primary key (COD_PERSONA, COD_NIV_ESTUDIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_NIV_ACADEMICOS
+  add constraint FK_HNACA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_NIV_ACADEMICOS
+  add constraint FK_HNACA_NIV_ESTUDIOS foreign key (COD_NIV_ESTUDIO)
+  references IT.BA_NIV_ESTUDIOS (COD_NIV_ESTUDIO);
+alter table IT.RH_NIV_ACADEMICOS
+  add constraint CK_CUR_ALCANZADO
+  check (CUR_ALCANZADO > 0);
+

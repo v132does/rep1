@@ -1,0 +1,141 @@
+﻿-- Create table
+create global temporary table IT.PR_COBROS_TMP
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  nro_cuota              NUMBER(3) not null,
+  fec_valor              DATE not null,
+  fec_vencimiento        DATE not null,
+  estado                 VARCHAR2(1) not null,
+  sal_capital_pre        NUMBER(18,2) default 0,
+  sal_interes_pre        NUMBER(18,2) default 0,
+  sal_capital_cuo        NUMBER(18,2) default 0,
+  sal_interes_cuo        NUMBER(18,2) default 0,
+  sal_int_documentado    NUMBER(18,2) default 0,
+  fec_ult_pago           DATE,
+  dia_mora               NUMBER,
+  mto_capital            NUMBER(18,2) default 0,
+  mto_interes            NUMBER(18,2) default 0,
+  mto_int_documentado    NUMBER(18,2) default 0,
+  mto_int_moratorio      NUMBER(18,2) default 0,
+  mto_int_mor_interes    NUMBER(18,2) default 0,
+  mto_int_mor_adelantado NUMBER(18,2) default 0,
+  mto_int_punitorio      NUMBER(18,2) default 0,
+  mto_cargo              NUMBER(18,2) default 0,
+  mto_cargo_iva          NUMBER(18,2) default 0,
+  mto_impuesto           NUMBER(18,2) default 0,
+  mto_int_descontado     NUMBER(18,2) default 0,
+  nro_documento          NUMBER(15),
+  mto_int_mor_cal        NUMBER(18,2) default 0,
+  mto_int_mor_int_cal    NUMBER(18,2) default 0,
+  mto_int_mor_ade_cal    NUMBER(18,2) default 0,
+  mto_int_pun_cal        NUMBER(18,2) default 0,
+  mto_cargo_cal          NUMBER(18,2) default 0,
+  mto_car_iva_cal        NUMBER(18,2) default 0,
+  mto_impuesto_cal       NUMBER(18,2) default 0,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  mto_int_mor_des        NUMBER(18,2) default 0,
+  mto_int_mor_int_des    NUMBER(18,2) default 0,
+  mto_int_mor_ade_des    NUMBER(18,2) default 0,
+  mto_int_pun_des        NUMBER(18,2) default 0,
+  mto_car_des            NUMBER(18,2) default 0,
+  dev_no_cobrado         NUMBER(18,2) default 0,
+  dev_suspenso           NUMBER(18,2) default 0,
+  dev_acumulado          NUMBER(18,2) default 0
+)
+on commit preserve rows;
+-- Add comments to the table 
+comment on table IT.PR_COBROS_TMP
+  is 'Se utiliza para los cobros de cuotas para calculos temporales.';
+-- Add comments to the columns 
+comment on column IT.PR_COBROS_TMP.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.PR_COBROS_TMP.nro_cuota
+  is 'Número de cuota.';
+comment on column IT.PR_COBROS_TMP.fec_valor
+  is 'Fecha valor del cobro.';
+comment on column IT.PR_COBROS_TMP.fec_vencimiento
+  is 'Fecha de vencimiento de la cuota.';
+comment on column IT.PR_COBROS_TMP.estado
+  is 'Estado de la cuota en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP.sal_capital_pre
+  is 'Saldo capital del préstamo en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP.sal_interes_pre
+  is 'Saldo interés del préstamo en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP.sal_capital_cuo
+  is 'Saldo capital de la cuota.';
+comment on column IT.PR_COBROS_TMP.sal_interes_cuo
+  is 'Saldo interés de la cuota.';
+comment on column IT.PR_COBROS_TMP.sal_int_documentado
+  is 'Saldo interes documentado de la cuota en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP.fec_ult_pago
+  is 'Fecha de ultimo pago en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP.dia_mora
+  is 'Dias de mora si estaba vencida la cuota.';
+comment on column IT.PR_COBROS_TMP.mto_capital
+  is 'Monto capital cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_interes
+  is 'Monto interés cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_int_documentado
+  is 'Monto interés documentado cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_int_moratorio
+  is 'Monto interés moratorio cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_interes
+  is 'Monto interes moratorio sobre interes vencido cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_adelantado
+  is 'Monto interés moratorio sobre interes adelantado vencido cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_int_punitorio
+  is 'Monto interés punitorio cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_cargo
+  is 'Monto del cargo cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_cargo_iva
+  is 'Monto de impuesto sobre cargo cobrado.';
+comment on column IT.PR_COBROS_TMP.mto_impuesto
+  is 'Monto de impuestos cobrados.';
+comment on column IT.PR_COBROS_TMP.mto_int_descontado
+  is 'Monto interes descontado.';
+comment on column IT.PR_COBROS_TMP.nro_documento
+  is 'Número de documento.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_cal
+  is 'Monto interés moratorio calculado.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_int_cal
+  is 'Monto interes moratorio sobre interes calculado.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_ade_cal
+  is 'Monto interes moratorio sobre interes adelantado calculado.';
+comment on column IT.PR_COBROS_TMP.mto_int_pun_cal
+  is 'Monto de interes punitorio calculado.';
+comment on column IT.PR_COBROS_TMP.mto_cargo_cal
+  is 'Monto de cargos calculado.';
+comment on column IT.PR_COBROS_TMP.mto_car_iva_cal
+  is 'Monto de impuesto sobre cargo calculado.';
+comment on column IT.PR_COBROS_TMP.mto_impuesto_cal
+  is 'Monto de impuesto calculado.';
+comment on column IT.PR_COBROS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_COBROS_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_COBROS_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_COBROS_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_des
+  is 'Monto interés moratorio descontado.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_int_des
+  is 'Monto interes moratorio sobre interes vencido descontado.';
+comment on column IT.PR_COBROS_TMP.mto_int_mor_ade_des
+  is 'Monto interés moratorio sobre interes adelantado vencido descontado.';
+comment on column IT.PR_COBROS_TMP.mto_int_pun_des
+  is 'Monto interés punitorio descontado.';
+comment on column IT.PR_COBROS_TMP.mto_car_des
+  is 'Monto del cargo descontado.';
+comment on column IT.PR_COBROS_TMP.dev_no_cobrado
+  is 'Devengado No Cobrado.';
+comment on column IT.PR_COBROS_TMP.dev_suspenso
+  is 'Devengado en Suspenso.';
+comment on column IT.PR_COBROS_TMP.dev_acumulado
+  is 'Devengado acumulado.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.PR_COBROS_TMP
+  add constraint PK_PR_COBROS_TMP primary key (NRO_CUENTA, NRO_CUOTA);

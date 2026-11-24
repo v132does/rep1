@@ -1,0 +1,173 @@
+create table IT.PSA058
+(
+  psa058fin VARCHAR2(8) not null,
+  psa058ffi VARCHAR2(8) not null,
+  psa058pai NUMBER(3) not null,
+  psa058tdo NUMBER(4) not null,
+  psa058ndo VARCHAR2(25) not null,
+  psa058cpr VARCHAR2(25) not null,
+  psa058npr VARCHAR2(40),
+  psa058ent NUMBER(3),
+  psa058den VARCHAR2(40),
+  psa058vsl NUMBER(9),
+  psa058toc NUMBER(18,2),
+  psa058coc NUMBER(10),
+  psa058tod NUMBER(18,2),
+  psa058cod NUMBER(10),
+  psa058sdo NUMBER(18,2),
+  psa058vcm NUMBER(18,2),
+  psa058fei VARCHAR2(8),
+  psa058vfp NUMBER(9),
+  psa058n01 NUMBER(18,2),
+  psa058n02 NUMBER(18,2),
+  psa058n03 NUMBER(18,2),
+  psa058n04 NUMBER(18,2),
+  psa058n05 NUMBER(18,2),
+  psa058n06 NUMBER(18,2),
+  psa058n07 NUMBER(18,2),
+  psa058n08 NUMBER(18,2),
+  psa058n09 NUMBER(18,2),
+  psa058n10 NUMBER(18,2),
+  psa058c01 VARCHAR2(100),
+  psa058c02 VARCHAR2(100),
+  psa058c03 VARCHAR2(100),
+  psa058c04 VARCHAR2(100),
+  psa058c05 VARCHAR2(100),
+  psa058c06 VARCHAR2(100),
+  psa058c07 VARCHAR2(100),
+  psa058c08 VARCHAR2(100),
+  psa058c09 VARCHAR2(100),
+  psa058c10 VARCHAR2(100),
+  psa058f01 VARCHAR2(8),
+  psa058f02 VARCHAR2(8),
+  psa058f03 VARCHAR2(8),
+  psa058f04 VARCHAR2(8),
+  psa058f05 VARCHAR2(8),
+  psa058f06 VARCHAR2(8),
+  psa058f07 VARCHAR2(8),
+  psa058f08 VARCHAR2(8),
+  psa058f09 VARCHAR2(8),
+  psa058f10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA058
+  is 'TABLA Base de Productos de PIC';
+comment on column IT.PSA058.psa058fin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA058.psa058ffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA058.psa058pai
+  is 'Pais del documento.';
+comment on column IT.PSA058.psa058tdo
+  is 'Tipo de documento.';
+comment on column IT.PSA058.psa058ndo
+  is 'Numero de documento.';
+comment on column IT.PSA058.psa058cpr
+  is 'Codigo de Producto.';
+comment on column IT.PSA058.psa058npr
+  is 'Nombre de Producto.';
+comment on column IT.PSA058.psa058ent
+  is 'Entidad.';
+comment on column IT.PSA058.psa058den
+  is 'Descripcion Entidad.';
+comment on column IT.PSA058.psa058vsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA058.psa058toc
+  is 'Volumen Total de las Operaciones Credito.';
+comment on column IT.PSA058.psa058coc
+  is 'Cantidad de Operaciones Credito.';
+comment on column IT.PSA058.psa058tod
+  is 'Volumen Total de las Operaciones Debito.';
+comment on column IT.PSA058.psa058cod
+  is 'Cantidad de Operaciones Debito.';
+comment on column IT.PSA058.psa058sdo
+  is 'Saldo del Producto al Final del Periodo.';
+comment on column IT.PSA058.psa058vcm
+  is 'Valor de la Cuota Correspondiente al Periodo.';
+comment on column IT.PSA058.psa058fei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA058.psa058vfp
+  is 'Vulnerabilidad del Factor Productos.';
+comment on column IT.PSA058.psa058n01
+  is 'Auxiliar Numerico 01.';
+comment on column IT.PSA058.psa058n02
+  is 'Auxiliar Numerico 02.';
+comment on column IT.PSA058.psa058n04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA058.psa058n05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA058.psa058n06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA058.psa058n07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA058.psa058n08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA058.psa058n09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA058.psa058n10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA058.psa058c01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA058.psa058c02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA058.psa058c03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA058.psa058c04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA058.psa058c05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA058.psa058c06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA058.psa058c07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA058.psa058c08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA058.psa058c09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA058.psa058c10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA058.psa058f01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA058.psa058f02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA058.psa058f03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA058.psa058f04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA058.psa058f05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA058.psa058f06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA058.psa058f07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA058.psa058f08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA058.psa058f09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA058.psa058f10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA058
+  add constraint PK_PSA058 primary key (PSA058FIN, PSA058FFI, PSA058PAI, PSA058TDO, PSA058NDO, PSA058CPR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,113 @@
+create table IT.CB_LIB_COMPRAS
+(
+  fecha             DATE not null,
+  nro_factura       VARCHAR2(20) not null,
+  tipo              VARCHAR2(2) not null,
+  cod_persona       VARCHAR2(10) not null,
+  mto_exento        NUMBER(18,2) default 0,
+  mto_gravado_10    NUMBER(18,2),
+  impuesto_10       NUMBER(18,2) default 0,
+  mto_gravado_5     NUMBER(18,2) default 0,
+  impuesto_5        NUMBER(18,2) default 0,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  procesado         VARCHAR2(1) default 'N',
+  nro_timbrado      VARCHAR2(20) not null,
+  nro_documento     VARCHAR2(20) not null,
+  raz_social        VARCHAR2(120),
+  cod_ofi_origen    NUMBER(4) not null,
+  cod_ent_proveedor NUMBER(5) not null,
+  fec_pago          DATE,
+  can_cuota         NUMBER(3),
+  tip_origen        VARCHAR2(1) default 'N',
+  tip_comprobante   VARCHAR2(1) default 'F',
+  nro_ref_timbrado  VARCHAR2(20),
+  nro_ref_factura   VARCHAR2(20),
+  cod_moneda        VARCHAR2(3),
+  ind_fac_virtual   VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_LIB_COMPRAS
+  is 'Libro Compras';
+comment on column IT.CB_LIB_COMPRAS.fecha
+  is 'Fecha de la Factura';
+comment on column IT.CB_LIB_COMPRAS.nro_factura
+  is 'Numero de Factura.';
+comment on column IT.CB_LIB_COMPRAS.tipo
+  is 'Tipo.';
+comment on column IT.CB_LIB_COMPRAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CB_LIB_COMPRAS.mto_exento
+  is 'Monto Exento.';
+comment on column IT.CB_LIB_COMPRAS.mto_gravado_10
+  is 'Monto Gravado 10.';
+comment on column IT.CB_LIB_COMPRAS.impuesto_10
+  is 'Impuesto 10.';
+comment on column IT.CB_LIB_COMPRAS.mto_gravado_5
+  is 'Monto Gravado 5.';
+comment on column IT.CB_LIB_COMPRAS.impuesto_5
+  is 'Impuesto 5.';
+comment on column IT.CB_LIB_COMPRAS.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_LIB_COMPRAS.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_LIB_COMPRAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LIB_COMPRAS.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+comment on column IT.CB_LIB_COMPRAS.procesado
+  is 'Indica si fue procesado para Hechauka';
+comment on column IT.CB_LIB_COMPRAS.nro_timbrado
+  is 'Nro. de Timbrado';
+comment on column IT.CB_LIB_COMPRAS.nro_documento
+  is 'Nro. de RUC del Proveedor';
+comment on column IT.CB_LIB_COMPRAS.raz_social
+  is 'Razon Social del Proveedor';
+comment on column IT.CB_LIB_COMPRAS.cod_ofi_origen
+  is 'Oficina donde ingreso la factura';
+comment on column IT.CB_LIB_COMPRAS.cod_ent_proveedor
+  is 'Codigo de entidad del Proveedor.';
+comment on column IT.CB_LIB_COMPRAS.fec_pago
+  is 'Fecha de pago';
+comment on column IT.CB_LIB_COMPRAS.can_cuota
+  is 'Cantidad de cuotas';
+comment on column IT.CB_LIB_COMPRAS.tip_origen
+  is 'Origen de la Factura. N=Normal, C=Operación de Cambios.';
+comment on column IT.CB_LIB_COMPRAS.tip_comprobante
+  is 'Tipo de Comprobante';
+comment on column IT.CB_LIB_COMPRAS.nro_ref_timbrado
+  is 'Numero de Referencia de Timbrado';
+comment on column IT.CB_LIB_COMPRAS.nro_ref_factura
+  is 'Numero de Referencia de Factura';
+comment on column IT.CB_LIB_COMPRAS.cod_moneda
+  is 'Código moneda que toma desde la pantalla de mantenimiento del Iva Compra.';
+comment on column IT.CB_LIB_COMPRAS.ind_fac_virtual
+  is 'Indica si la Factura: P /Preimpreso, E/Comprobante Electronico, V/Comprobante Virtual.se inserta desde la pantalla de
+      mantenimiento del iva compra';
+alter table IT.CB_LIB_COMPRAS
+  add constraint PK_CB_LIB_COMPRAS primary key (NRO_FACTURA, COD_PERSONA, NRO_TIMBRADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

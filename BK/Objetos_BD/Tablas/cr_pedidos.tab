@@ -1,0 +1,121 @@
+create table IT.CR_PEDIDOS
+(
+  cod_persona        VARCHAR2(10) not null,
+  nro_secuencia      NUMBER(10) not null,
+  val_campo          VARCHAR2(30),
+  dia_plazo          NUMBER(5),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  can_cuotas         NUMBER(4),
+  tip_capitalizacion NUMBER(2),
+  cod_moneda         VARCHAR2(3),
+  monto              NUMBER(18,2) default 0,
+  sub_tipo           NUMBER(5),
+  nro_cuenta         VARCHAR2(15),
+  tip_chequera       VARCHAR2(5),
+  cod_oficina        NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PEDIDOS
+  is 'Detalle de Pedido.';
+comment on column IT.CR_PEDIDOS.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.CR_PEDIDOS.nro_secuencia
+  is 'Numero de secuencia unico.';
+comment on column IT.CR_PEDIDOS.val_campo
+  is 'Valor del Campo solicitado.';
+comment on column IT.CR_PEDIDOS.dia_plazo
+  is 'Plazo en dias.';
+comment on column IT.CR_PEDIDOS.cod_modulo
+  is 'Modulo.';
+comment on column IT.CR_PEDIDOS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.CR_PEDIDOS.can_cuotas
+  is 'Cantidad de Cuotas.';
+comment on column IT.CR_PEDIDOS.tip_capitalizacion
+  is 'Tipo Capitalizacion.';
+comment on column IT.CR_PEDIDOS.cod_moneda
+  is 'Moneda.';
+comment on column IT.CR_PEDIDOS.monto
+  is 'Monto.';
+comment on column IT.CR_PEDIDOS.sub_tipo
+  is 'Sub Tipo.';
+comment on column IT.CR_PEDIDOS.nro_cuenta
+  is 'Numero de Cuenta o Tarjeta.';
+comment on column IT.CR_PEDIDOS.tip_chequera
+  is 'Tipo Chequera.';
+comment on column IT.CR_PEDIDOS.cod_oficina
+  is 'Oficina.';
+comment on column IT.CR_PEDIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PEDIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PEDIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PEDIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_RPDET_NRO_CUENTA on IT.CR_PEDIDOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PEDIDOS
+  add constraint PK_CR_PEDIDOS primary key (COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PEDIDOS
+  add constraint FK_RPDET_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_PEDIDOS
+  add constraint FK_RPDET_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PEDIDOS
+  add constraint FK_RPDET_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CR_PEDIDOS
+  add constraint FK_RPDET_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PEDIDOS
+  add constraint AVCON_1085334179_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CR_PEDIDOS
+  add constraint AVCON_1085334179_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CR_PEDIDOS
+  add constraint AVCON_1085334179_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CR_PEDIDOS
+  add constraint AVCON_1085403441_TIP_C_000
+  check (TIP_CAPITALIZACION IN (1, 2, 3, 4, 6, 12, 99));
+

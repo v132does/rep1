@@ -1,0 +1,44 @@
+create table IT.CR_PUN_RIE_SUGERIDOS
+(
+  cod_puntaje  NUMBER(3),
+  pun_desde    NUMBER(5,3),
+  pun_hasta    NUMBER(5,3),
+  puntaje      NUMBER(3),
+  rie_sugerido VARCHAR2(240)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUN_RIE_SUGERIDOS
+  is 'Riesgos Sugeridos por Puntaje.';
+comment on column IT.CR_PUN_RIE_SUGERIDOS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUN_RIE_SUGERIDOS.pun_desde
+  is 'Rango inferior de puntaje.';
+comment on column IT.CR_PUN_RIE_SUGERIDOS.pun_hasta
+  is 'Rango superior de puntaje.';
+comment on column IT.CR_PUN_RIE_SUGERIDOS.puntaje
+  is 'Puntaje sugerido para el rango.';
+comment on column IT.CR_PUN_RIE_SUGERIDOS.rie_sugerido
+  is 'Nivel de riesgo sugerido para el rango.';
+create index IT.IN_RPRSU_COD_PUNTAJE on IT.CR_PUN_RIE_SUGERIDOS (COD_PUNTAJE, PUN_DESDE, PUN_HASTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,157 @@
+create table IT.BW_OPE_PROGRAMADAS
+(
+  nro_referencia     NUMBER(18) not null,
+  cod_persona        VARCHAR2(10) not null,
+  cod_tip_mensaje    VARCHAR2(3) not null,
+  frecuencia         VARCHAR2(1) not null,
+  fec_inicio         DATE not null,
+  fec_fin_plazo      DATE,
+  fec_sig_operacion  DATE not null,
+  fec_anulacion      DATE,
+  estado             VARCHAR2(1) not null,
+  concepto           VARCHAR2(60) not null,
+  can_operaciones    NUMBER,
+  can_ope_realizadas NUMBER,
+  cod_mon_debito     VARCHAR2(3) not null,
+  monto              NUMBER(18,2) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  nro_cta_debito     VARCHAR2(15) not null,
+  cod_ofi_debito     NUMBER(3) not null,
+  nro_cta_credito    VARCHAR2(35) not null,
+  nom_cta_credito    VARCHAR2(120) not null,
+  cod_mon_credito    VARCHAR2(3) not null,
+  parametros         VARCHAR2(3000),
+  nro_caja           NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OPE_PROGRAMADAS
+  is 'Contiene los datos de las operaciones programadas de los clientes';
+comment on column IT.BW_OPE_PROGRAMADAS.nro_referencia
+  is 'Referencia de la programacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.cod_persona
+  is 'Codigo cliente.';
+comment on column IT.BW_OPE_PROGRAMADAS.cod_tip_mensaje
+  is 'Codigo de operacion homebanking.';
+comment on column IT.BW_OPE_PROGRAMADAS.frecuencia
+  is 'Frecuencia de la operacion. U: Unica,D: Diaria,S: Semanal,Q: Quincenal,M: Mensual,B: Bimensual,T: Trimestral';
+comment on column IT.BW_OPE_PROGRAMADAS.fec_inicio
+  is 'Fecha inicio de la operacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.fec_fin_plazo
+  is 'Fecha fin de la programacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.fec_sig_operacion
+  is 'Fecha siguiente operacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.fec_anulacion
+  is 'Fecha anulacion de la programacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.estado
+  is 'Estado de la operacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.concepto
+  is 'Concepto de la programacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.can_operaciones
+  is 'Cantidad de operaciones a realizar.';
+comment on column IT.BW_OPE_PROGRAMADAS.can_ope_realizadas
+  is 'Cantidad de operaciones realizadas.';
+comment on column IT.BW_OPE_PROGRAMADAS.cod_mon_debito
+  is 'Codigo de moneda de la cuenta debito.';
+comment on column IT.BW_OPE_PROGRAMADAS.monto
+  is 'Monto de la operacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.cod_moneda
+  is 'Moneda de la operacion.';
+comment on column IT.BW_OPE_PROGRAMADAS.nro_cta_debito
+  is 'Numero de cuenta a debitar.';
+comment on column IT.BW_OPE_PROGRAMADAS.cod_ofi_debito
+  is 'Codigo oficina de la cuenta debito.';
+comment on column IT.BW_OPE_PROGRAMADAS.nro_cta_credito
+  is 'Numero de la cuenta a acreditar.';
+comment on column IT.BW_OPE_PROGRAMADAS.nom_cta_credito
+  is 'Denominacion de la cuenta credito.';
+comment on column IT.BW_OPE_PROGRAMADAS.cod_mon_credito
+  is 'Codigo de moneda de la cuenta credito.';
+comment on column IT.BW_OPE_PROGRAMADAS.parametros
+  is 'Parametros adicionales en formato XML.';
+comment on column IT.BW_OPE_PROGRAMADAS.nro_caja
+  is 'Numero de caja.';
+comment on column IT.BW_OPE_PROGRAMADAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_OPE_PROGRAMADAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_OPE_PROGRAMADAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_OPE_PROGRAMADAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_BOPRO_COD_PERSONA on IT.BW_OPE_PROGRAMADAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BOPRO_FEC_FIN_PLAZO on IT.BW_OPE_PROGRAMADAS (FEC_FIN_PLAZO, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint PK_BOPRO_NRO_REFERENCIA primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_COD_MON_CREDITO foreign key (COD_MON_CREDITO)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_COD_MON_DEBITO foreign key (COD_MON_DEBITO)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_COD_OFI_DEBITO foreign key (COD_OFI_DEBITO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.GE_CLIENTES (COD_PERSONA);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint FK_BOPRO_NRO_CTA_DEBITO foreign key (NRO_CTA_DEBITO)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.BW_OPE_PROGRAMADAS
+  add constraint CK_BOPRO_ESTADO
+  check (ESTADO IN ('C','V','A'));
+

@@ -1,0 +1,37 @@
+-- Tabla de log
+CREATE TABLE IT.GE_LOG_TAS_INT_SEM (
+    ID_LOG                NUMBER PRIMARY KEY,
+    ID_EJECUCION          NUMBER,
+    FEC_EJECUCION         DATE DEFAULT SYSDATE,
+    TIPO_INFORME          VARCHAR2(3),    -- 'SEM' o 'MEN'
+    CANT_CUENTAS          NUMBER,
+    CANT_ERRORES          NUMBER,
+    ESTADO                VARCHAR2(20),   -- 'OK', 'ERROR', 'ADVERTENCIA'
+    MENSAJE               VARCHAR2(1000),
+    FEC_FIN_EJECUCION     DATE,
+    USU_INSERCION         VARCHAR2(10),
+    FEC_INSERCION         DATE DEFAULT SYSDATE
+) TABLESPACE IT_DATA;
+
+-- Comentarios descriptivos
+COMMENT ON TABLE IT.GE_LOG_TAS_INT_SEM IS 'Log de ejecucion del proceso de generacion de tasas de interes semanales (NOR-314)';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.ID_LOG IS 'Identificador unico del log (por secuencia)';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.ID_EJECUCION IS 'ID que agrupa los registros generados en GE_INF_TAS_INT_SEM';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.FEC_EJECUCION IS 'Fecha/hora de inicio de ejecucion';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.TIPO_INFORME IS 'Tipo de informe generado (SEM o MEN)';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.CANT_CUENTAS IS 'Cantidad de cuentas procesadas';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.CANT_ERRORES IS 'Cantidad de registros con errores de validacion';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.ESTADO IS 'Resultado general del proceso';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.MENSAJE IS 'Mensaje de log funcional/tecnico';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.FEC_FIN_EJECUCION IS 'Fecha/hora de finalizacion del proceso';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.USU_INSERCION IS 'Usuario que ejecuto el proceso';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM.FEC_INSERCION IS 'Fecha de insercion del log';
+
+-- indice para trazabilidad
+CREATE INDEX IDX_GE_LOG_TAS_EJECUCION ON IT.GE_LOG_TAS_INT_SEM (ID_EJECUCION)
+TABLESPACE IT_IND;
+
+-- Sinonimo y permisos
+CREATE PUBLIC SYNONYM GE_LOG_TAS_INT_SEM FOR IT.GE_LOG_TAS_INT_SEM;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.GE_LOG_TAS_INT_SEM TO IT_TEMPORAL;

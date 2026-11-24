@@ -1,0 +1,53 @@
+create table IT.GE_COB_SERVICIOS_CAB
+(
+  cod_servicio     NUMBER(3),
+  cantidad         NUMBER(8),
+  total            NUMBER(20),
+  fecha            DATE,
+  cod_ofi_origen   NUMBER(3),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  referencia       VARCHAR2(40)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SERVICIOS_CAB
+  is 'Cabecera de Cobro de Servicios.';
+comment on column IT.GE_COB_SERVICIOS_CAB.cod_servicio
+  is 'Codigo del Servicio.';
+comment on column IT.GE_COB_SERVICIOS_CAB.cantidad
+  is 'Cantidad.';
+comment on column IT.GE_COB_SERVICIOS_CAB.total
+  is 'Total del Servicio.';
+comment on column IT.GE_COB_SERVICIOS_CAB.fecha
+  is 'Fecha de Proceso.';
+comment on column IT.GE_COB_SERVICIOS_CAB.cod_ofi_origen
+  is 'Codigo de Oficina Origen.';
+comment on column IT.GE_COB_SERVICIOS_CAB.usu_insercion
+  is 'Usuario que inserto el Registro.';
+comment on column IT.GE_COB_SERVICIOS_CAB.fec_insercion
+  is 'Fecha de insercion del Registro.';
+comment on column IT.GE_COB_SERVICIOS_CAB.usu_modificacion
+  is 'Usuario que modifico el Registro.';
+comment on column IT.GE_COB_SERVICIOS_CAB.fec_modificacion
+  is 'Fecha de modificacion del Registro.';
+comment on column IT.GE_COB_SERVICIOS_CAB.referencia
+  is 'Referencia.';
+alter table IT.GE_COB_SERVICIOS_CAB
+  add constraint FK_GCSCA_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_COB_SERVICIOS_CAB
+  add constraint FK_GCSCA_COD_SERVICIO foreign key (COD_SERVICIO)
+  references IT.GE_COB_SER_PARAMETROS (COD_SERVICIO);
+

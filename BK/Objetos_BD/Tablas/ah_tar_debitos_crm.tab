@@ -1,0 +1,131 @@
+create table IT.AH_TAR_DEBITOS_CRM
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  tar_activa          VARCHAR2(1),
+  fec_ingreso         DATE,
+  cod_persona         VARCHAR2(10) not null,
+  embozado            VARCHAR2(26),
+  cod_usuario         VARCHAR2(10),
+  fec_grabacion       DATE,
+  adherente           VARCHAR2(2) default '00' not null,
+  nro_emision         VARCHAR2(2) not null,
+  cod_causa           NUMBER(3),
+  cod_ofi_origen      NUMBER(3),
+  fec_recepcion       DATE,
+  fec_entrega         DATE,
+  fec_ult_impresion   DATE,
+  fec_vencimiento     DATE,
+  fec_cancelacion     DATE,
+  nro_planilla        NUMBER(8),
+  tip_planilla        NUMBER(2),
+  nro_pla_anterior    NUMBER(8),
+  tip_envio           VARCHAR2(1),
+  referencia          VARCHAR2(35),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    TIMESTAMP(6) default current_timestamp not null,
+  cod_est_solicitud   NUMBER(3),
+  fec_envio           DATE,
+  motivo              VARCHAR2(40),
+  fec_activacion      DATE,
+  cod_ent_procesadora NUMBER(5),
+  tip_tar_debito      VARCHAR2(2),
+  nro_tarjeta         VARCHAR2(19),
+  cod_est_pin         VARCHAR2(1),
+  nro_bin             VARCHAR2(6) not null,
+  renovacion          VARCHAR2(1),
+  fec_ult_mov_pos     DATE,
+  fec_ult_mov_atm     DATE,
+  tip_accion          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEBITOS_CRM
+  is 'Tarjetas de Debito.';
+comment on column IT.AH_TAR_DEBITOS_CRM.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.AH_TAR_DEBITOS_CRM.tar_activa
+  is 'Tiene Tarjeta Activa (S/N).';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_persona
+  is 'Cliente.';
+comment on column IT.AH_TAR_DEBITOS_CRM.embozado
+  is 'Embozado.';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_usuario
+  is 'Usuario.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_grabacion
+  is 'Fecha de Grabacion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.adherente
+  is '(00) Es Principal o (01...) Adicional.';
+comment on column IT.AH_TAR_DEBITOS_CRM.nro_emision
+  is 'Nro. de Emision.';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_causa
+  is 'Motivo de Cancelacion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_ofi_origen
+  is 'Oficina Origen.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_recepcion
+  is 'Fecha de Recepcion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_entrega
+  is 'Fecha de Entrega.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_ult_impresion
+  is 'Fecha Ultima Impresion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_cancelacion
+  is 'Fecha de Cancelacion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.nro_planilla
+  is 'Nro. de Planilla.';
+comment on column IT.AH_TAR_DEBITOS_CRM.tip_planilla
+  is 'Tipo de Planilla.';
+comment on column IT.AH_TAR_DEBITOS_CRM.nro_pla_anterior
+  is 'Nro. de Planilla Anterior.';
+comment on column IT.AH_TAR_DEBITOS_CRM.tip_envio
+  is 'Tipo de Envio.';
+comment on column IT.AH_TAR_DEBITOS_CRM.referencia
+  is 'Codigo de Direccion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_TAR_DEBITOS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_est_solicitud
+  is 'Estado de la Tarjeta.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_envio
+  is 'fecha de Proceso.';
+comment on column IT.AH_TAR_DEBITOS_CRM.motivo
+  is 'Motivo de Cancelacion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_activacion
+  is 'Fecha de Envio a Activacion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_ent_procesadora
+  is 'Entidad Procesadora de la Tarjeta.';
+comment on column IT.AH_TAR_DEBITOS_CRM.tip_tar_debito
+  is 'Tipo de Tarjeta de Debito.';
+comment on column IT.AH_TAR_DEBITOS_CRM.nro_tarjeta
+  is 'Nro. de Tarjeta';
+comment on column IT.AH_TAR_DEBITOS_CRM.cod_est_pin
+  is 'Estado del Pin.';
+comment on column IT.AH_TAR_DEBITOS_CRM.nro_bin
+  is 'Numero de Bin.';
+comment on column IT.AH_TAR_DEBITOS_CRM.renovacion
+  is 'Indicador de Renovacion.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_ult_mov_pos
+  is 'Fecha de Ultimo Movimiento POS.';
+comment on column IT.AH_TAR_DEBITOS_CRM.fec_ult_mov_atm
+  is 'Fecha de Ultimo Movimiento ATM.';
+comment on column IT.AH_TAR_DEBITOS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+

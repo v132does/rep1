@@ -1,0 +1,42 @@
+-- =====================================================================================
+-- Log general del proceso de Tasas Saldos Contables
+-- =====================================================================================
+CREATE TABLE IT.GE_LOG_TSC (
+    ID_LOG              NUMBER(18)    NOT NULL,
+    ID_EJECUCION        NUMBER(18),
+    FECHA_LOG           DATE          DEFAULT SYSDATE,
+    PASO                VARCHAR2(50 BYTE),
+    DESCRIPCION         VARCHAR2(500 BYTE),
+    ESTADO              VARCHAR2(20 BYTE),   -- EN_PROCESO / OK / ERROR / WARN
+    TOTAL_DETALLE       NUMBER,
+    PROCESADOS_DETALLE  NUMBER,
+    TIPO_MENSAJE        VARCHAR2(10 BYTE),   -- INFO / ERROR / WARN
+    COD_ERROR           VARCHAR2(50 BYTE),
+    DETALLE_ERROR       VARCHAR2(2000 BYTE),
+    CONSTRAINT PK_GE_LOG_TSC PRIMARY KEY (ID_LOG)
+) TABLESPACE IT_DATA;
+
+-- Comentarios
+COMMENT ON TABLE  IT.GE_LOG_TSC                    IS 'Log general del proceso de generación de Tasas Saldos Contables';
+COMMENT ON COLUMN IT.GE_LOG_TSC.ID_LOG             IS 'Identificador único del log (por secuencia)';
+COMMENT ON COLUMN IT.GE_LOG_TSC.ID_EJECUCION       IS 'ID de ejecución del proceso TSC';
+COMMENT ON COLUMN IT.GE_LOG_TSC.FECHA_LOG          IS 'Fecha y hora del evento de log';
+COMMENT ON COLUMN IT.GE_LOG_TSC.PASO               IS 'Nombre del paso o etapa del proceso';
+COMMENT ON COLUMN IT.GE_LOG_TSC.DESCRIPCION        IS 'Descripción funcional/técnica del evento';
+COMMENT ON COLUMN IT.GE_LOG_TSC.ESTADO             IS 'Estado del paso (EN_PROCESO, OK, ERROR, WARN)';
+COMMENT ON COLUMN IT.GE_LOG_TSC.TOTAL_DETALLE      IS 'Cantidad total estimada de registros a procesar en el detalle';
+COMMENT ON COLUMN IT.GE_LOG_TSC.PROCESADOS_DETALLE IS 'Cantidad de registros procesados hasta el momento';
+COMMENT ON COLUMN IT.GE_LOG_TSC.TIPO_MENSAJE       IS 'Tipo de mensaje (INFO, ERROR, WARN)';
+COMMENT ON COLUMN IT.GE_LOG_TSC.COD_ERROR          IS 'Código de error (ORA-XXXX o código propio)';
+COMMENT ON COLUMN IT.GE_LOG_TSC.DETALLE_ERROR      IS 'Detalle ampliado del error, si corresponde';
+
+-- Índice para trazabilidad por ejecución
+CREATE INDEX IT.IDX_GE_LOG_TSC_EJEC
+    ON IT.GE_LOG_TSC (ID_EJECUCION)
+TABLESPACE IT_IND;
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_LOG_TSC FOR IT.GE_LOG_TSC;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+  ON IT.GE_LOG_TSC TO IT_TEMPORAL;

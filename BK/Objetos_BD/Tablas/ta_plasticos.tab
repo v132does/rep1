@@ -1,0 +1,46 @@
+create table IT.TA_PLASTICOS
+(
+  cod_ent_procesadora NUMBER(5),
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cantidad            NUMBER(14) not null,
+  cod_tip_tarjeta     VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PLASTICOS
+  is 'Tabla de Plasticos.';
+comment on column IT.TA_PLASTICOS.cod_ent_procesadora
+  is 'Procesadora donde se encuentran los plasticos.';
+comment on column IT.TA_PLASTICOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.TA_PLASTICOS.cod_modalidad
+  is 'Codigo de Modalidad de tarjeta.';
+comment on column IT.TA_PLASTICOS.cantidad
+  is 'Cantidad en existencia en la procesadora.';
+comment on column IT.TA_PLASTICOS.cod_tip_tarjeta
+  is 'Código del tipo de tarjeta.';
+alter table IT.TA_PLASTICOS
+  add constraint UK_TA_PLASTICOS unique (COD_ENT_PROCESADORA, COD_MODULO, COD_MODALIDAD, COD_TIP_TARJETA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

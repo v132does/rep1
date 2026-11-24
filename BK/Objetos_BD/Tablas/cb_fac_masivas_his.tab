@@ -1,0 +1,11 @@
+CREATE TABLE IT.CB_FAC_MASIVAS_HIS (
+    fecha           DATE            NOT NULL,
+    nro_factura     VARCHAR2(20)    NOT NULL,
+    fec_factura     DATE            NOT NULL,
+    tip_comprobante VARCHAR(1)      NOT NULL
+);
+
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_HIS.fecha IS 'Fecha en que se inserta el registro';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_HIS.nro_factura IS 'Nro de factura o NC';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_HIS.fec_factura IS 'Fecha de la factura';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_HIS.tip_comprobante IS 'Tipo de comprobante: F = Factura, N = Nota de credito';

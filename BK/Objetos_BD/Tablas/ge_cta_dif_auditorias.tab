@@ -1,0 +1,23 @@
+create table it.ge_cta_dif_auditorias (
+    origen              varchar2(50),
+    nro_cuenta          varchar2(50) NOT NULL, 
+    campo               varchar2(50),
+    usuario             varchar2(50) NOT NULL,
+    fec_calendario      date 	     NOT NULL,
+    fec_sistema         date		 NOT NULL,
+    val_anterior        number,
+    val_actual          number
+ )TABLESPACE it_data;
+
+
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.ORIGEN IS 'Origen del registro de auditoría';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.NRO_CUENTA IS 'Número de cuenta';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.CAMPO IS 'Campo';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.USUARIO IS 'Usuario';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.FEC_CALENDARIO IS 'Fecha del evento en el calendario.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.FEC_SISTEMA IS 'Fecha del sistema en que se registró la auditoría.';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.VAL_ANTERIOR IS 'Valor inicial';
+COMMENT ON COLUMN IT.GE_CTA_DIF_AUDITORIAS.VAL_ACTUAL IS 'Valor final';
+
+CREATE INDEX IT.IDX_AUD_CUENTA_FECHA_CAMPO
+ON it.ge_cta_dif_auditorias (nro_cuenta, fec_calendario,campo)TABLESPACE IT_IND;

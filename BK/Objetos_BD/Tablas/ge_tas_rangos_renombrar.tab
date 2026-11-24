@@ -1,0 +1,35 @@
+create table IT.GE_TAS_RANGOS_RENOMBRAR
+(
+  cod_tasa          NUMBER(3) not null,
+  fec_vigencia      DATE not null,
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  nro_cuenta        VARCHAR2(15),
+  val_hasta         NUMBER(18,2) not null,
+  val_tasa          NUMBER(20,4),
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null,
+  cod_sub_modalidad NUMBER(3),
+  no_actualizable   VARCHAR2(1),
+  val_extension     NUMBER(20,4),
+  cod_persona       VARCHAR2(10),
+  observaciones     VARCHAR2(100),
+  fec_vencimiento   DATE,
+  cod_ente          NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

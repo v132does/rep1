@@ -1,0 +1,96 @@
+-- Create table
+create table IT.GE_MOV_TRANSACCIONES_TMP
+(
+  fecha           DATE not null,
+  hora            VARCHAR2(8) not null,
+  cod_usuario     VARCHAR2(10) not null,
+  nro_secuencia   NUMBER(3) not null,
+  cod_ofi_origen  NUMBER(3),
+  cod_mod_padre   NUMBER(3) not null,
+  cod_mad_padre   NUMBER(3) not null,
+  tip_mov_rubro   VARCHAR2(1),
+  cod_rubro       VARCHAR2(15),
+  cod_moneda      VARCHAR2(3) not null,
+  monto           NUMBER(18,2) default 0,
+  cotizacion      NUMBER(14,8) default 0,
+  mto_equ_local   NUMBER(18,2) default 0,
+  observacion     VARCHAR2(1000),
+  usu_insercion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  nro_asiento     NUMBER(8),
+  nro_linea       NUMBER(8),
+  cod_tra_padre   NUMBER(4),
+  cod_modulo      NUMBER(3),
+  cod_modalidad   NUMBER(3),
+  cod_oficina     NUMBER(3),
+  cod_transaccion NUMBER(4),
+  nro_cuenta      VARCHAR2(15),
+  nro_documento   NUMBER(15),
+  actualizado     VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_MOV_TRANSACCIONES_TMP
+  is 'Tabla temporal de movimientos transaccionales.';
+-- Add comments to the columns 
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_ofi_origen
+  is 'Codigo de oficina origen.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.tip_mov_rubro
+  is 'Tipo de movimiento.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_rubro
+  is 'Codigo de cuenta contable.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.monto
+  is 'Importe de la transaccion.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cotizacion
+  is 'Cotizacion.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.observacion
+  is 'Comentario de la linea.';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.usu_insercion
+  is 'Usuario que ejecuto la verificacion';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.nro_asiento
+  is 'Nro de asiento generado';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.nro_linea
+  is 'Nro de linea del asiento en el que se encuentra';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_tra_padre
+  is 'Transaccion padre';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_modulo
+  is 'Modulo de la cuenta';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_modalidad
+  is 'Modalidad de la cuenta';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_oficina
+  is 'Oficina de la cuenta';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.cod_transaccion
+  is 'Transaccion hijo';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.nro_cuenta
+  is 'Nro. de cuenta';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.nro_documento
+  is 'Nro. de documento';
+comment on column IT.GE_MOV_TRANSACCIONES_TMP.actualizado
+  is 'Asiento actualizado ? ( S=El asiento ya actualizo el saldo de la cuenta, N=El asiento no actualizo el saldo de la cuenta ).';
+
+

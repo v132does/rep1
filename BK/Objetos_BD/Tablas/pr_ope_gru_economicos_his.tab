@@ -1,0 +1,45 @@
+create table IT.PR_OPE_GRU_ECONOMICOS_HIS
+(
+  cod_gru_economico  NUMBER(5),
+  cod_persona        VARCHAR2(10),
+  nom_completo       VARCHAR2(4000),
+  nro_linea          NUMBER(7),
+  monto              NUMBER(18,2),
+  mto_aplicado       NUMBER(18,2),
+  mto_ope_especifica NUMBER(18,2),
+  saldo              NUMBER(18,2),
+  apl_linea          VARCHAR2(1),
+  nro_secuencia      NUMBER(18)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.cod_gru_economico
+  is 'Grupo Económico.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.nom_completo
+  is 'Nombre Completo de la Persona.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.nro_linea
+  is 'Número de Línea individual en caso de no tener línea individual se asignará 0.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.monto
+  is 'Monto Límite del la Línea individual.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.mto_aplicado
+  is 'Monto Aplicado de la línea individual.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.mto_ope_especifica
+  is 'Monto de Operaciones Especificas de la Persona.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.saldo
+  is 'Saldo de la línea individual.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.apl_linea
+  is 'Indicador si esta o no aplicado la línea individual al límite global.';
+comment on column IT.PR_OPE_GRU_ECONOMICOS_HIS.nro_secuencia
+  is 'Secuencia de inserción en el histórico de Límites Globales.';
+

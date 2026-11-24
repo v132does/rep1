@@ -1,0 +1,135 @@
+﻿-- Create table
+create table IT.PR_PRE_MTO_DEUDA_TMP
+(
+  nro_cuota             NUMBER(3),
+  fec_vencimiento       DATE,
+  cuota                 NUMBER(18,3),
+  sal_pen_cuota         NUMBER(30),
+  moratorio             NUMBER(30),
+  punitorio             NUMBER(30),
+  iva                   NUMBER(30),
+  estado                VARCHAR2(30),
+  estadodesc            VARCHAR2(30),
+  descripcion           VARCHAR2(30),
+  mostrar               VARCHAR2(30),
+  fecha_pago            DATE,
+  cod_moneda            VARCHAR2(20),
+  desc_moneda           VARCHAR2(30),
+  nro_cuenta            NUMBER(30),
+  dia_atraso            NUMBER(5),
+  dia_atrasodesc        NUMBER(5),
+  mto_capital           NUMBER(18,3),
+  mto_interes           NUMBER(18,3),
+  mto_cargo             NUMBER(18,3),
+  mto_pagado            NUMBER(18,3),
+  hora_pago             VARCHAR2(8),
+  nro_transaccion       NUMBER(30),
+  tip_operacion         VARCHAR2(30),
+  nro_cta_debito        NUMBER(30),
+  alias_cta_debito      NUMBER(30),
+  sal_pen_pago          NUMBER(18,3),
+  accountname           VARCHAR2(120),
+  nro_cheque            NUMBER(30),
+  razon_social          VARCHAR2(120),
+  can_cuotas            NUMBER(3),
+  nombre_banco_librador VARCHAR2(120),
+  fec_emision           DATE,
+  titular_cta_debito    VARCHAR2(120),
+  mto_cobro_cuota       NUMBER(18,3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  tot_cargo             NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.PR_PRE_MTO_DEUDA_TMP
+  is 'Monto deuda de prestamos.';
+-- Add comments to the columns 
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.nro_cuota
+  is 'Nro de cuota.';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.fec_vencimiento
+  is 'Fecha Vencimiento.';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.cuota
+  is 'Cuota.';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.sal_pen_cuota
+  is 'Saldo Pendiente cuota.';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.punitorio
+  is 'Punitorio';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.iva
+  is 'Iva';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.estado
+  is 'Estado';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.estadodesc
+  is 'Estado descripcion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.descripcion
+  is 'Descripcion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.mostrar
+  is 'Mostrar';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.cod_moneda
+  is 'Codigo de moneda';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.desc_moneda
+  is 'Descripcion Moneda';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.dia_atraso
+  is 'Dias de atraso';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.dia_atrasodesc
+  is 'Descripcion Atraso';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.mto_capital
+  is 'Monto Capital';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.mto_interes
+  is 'Monto Interes';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.mto_cargo
+  is 'Monto Cargo';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.mto_pagado
+  is 'Monto Pagado';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.hora_pago
+  is 'Hora Pago';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.nro_transaccion
+  is 'Nro de transaccion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.tip_operacion
+  is 'Tipo de Operacion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.nro_cta_debito
+  is 'Nro cuenta debito';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.alias_cta_debito
+  is 'Alias cuenta debito';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.sal_pen_pago
+  is 'Saldo pendiente pago';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.accountname
+  is 'Accountname';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.nro_cheque
+  is 'Nro.Cheque';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.razon_social
+  is 'Razon Social';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.can_cuotas
+  is 'Cantidad de cuotas';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.nombre_banco_librador
+  is 'Nombre Banco Librador';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.fec_emision
+  is 'Fecha emision';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.titular_cta_debito
+  is 'Titular cuenta debito';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.mto_cobro_cuota
+  is 'Monto cobro cuota';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.usu_insercion
+  is 'Usuario Insercion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.fec_insercion
+  is 'Fecha Insercion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.PR_PRE_MTO_DEUDA_TMP.tot_cargo
+  is 'Total cargo por cuota.';
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.PR_PRE_MTO_DEUDA_TMP to IT_TEMPORAL;

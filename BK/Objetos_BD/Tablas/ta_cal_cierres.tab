@@ -1,0 +1,83 @@
+-- Create table
+create table IT.TA_CAL_CIERRES
+(
+  cod_ent_procesadora NUMBER(5) not null,
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  ano                 NUMBER(4) not null,
+  mes                 NUMBER(2) not null,
+  fec_cierre          DATE not null,
+  fec_vencimiento     DATE not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_tip_cierre      NUMBER(2) default 1 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TA_CAL_CIERRES
+  is 'Calendario de cierres para tarjetas.';
+-- Add comments to the columns 
+comment on column IT.TA_CAL_CIERRES.cod_ent_procesadora
+  is 'Codigo de Ente para la Procesadora de tarjetas.';
+comment on column IT.TA_CAL_CIERRES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.TA_CAL_CIERRES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.TA_CAL_CIERRES.ano
+  is 'Año del cierre de tarjetas.';
+comment on column IT.TA_CAL_CIERRES.mes
+  is 'Mes del cierre de tarjetas.';
+comment on column IT.TA_CAL_CIERRES.fec_cierre
+  is 'Fecha de cierre del periodo.';
+comment on column IT.TA_CAL_CIERRES.fec_vencimiento
+  is 'Fecha de vencimiento del extracto.';
+comment on column IT.TA_CAL_CIERRES.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.TA_CAL_CIERRES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_CAL_CIERRES.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.TA_CAL_CIERRES.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+comment on column IT.TA_CAL_CIERRES.cod_tip_cierre
+  is 'Código del Tipo de Cierre.';
+-- Create/Recreate indexes 
+create unique index IT.UK_TCACI_MES on IT.TA_CAL_CIERRES (COD_ENT_PROCESADORA, COD_MODULO, COD_MODALIDAD, ANO, MES, COD_TIP_CIERRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.TA_CAL_CIERRES
+  add constraint UK_TA_CAL_CIERRES unique (COD_ENT_PROCESADORA, COD_MODULO, COD_MODALIDAD, ANO, MES, COD_TIP_CIERRE);
+alter table IT.TA_CAL_CIERRES
+  add constraint FK_TCACI_COD_ENTE foreign key (COD_ENT_PROCESADORA)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.TA_CAL_CIERRES
+  add constraint FK_TCACI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.TA_CAL_CIERRES
+  add constraint FK_TCACI_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.TA_CAL_CIERRES
+  add constraint FK_TCACI_COD_TIP_CIERRE foreign key (COD_TIP_CIERRE)
+  references IT.TA_TIP_CIERRES (COD_TIP_CIERRE);

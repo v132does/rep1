@@ -1,0 +1,52 @@
+create table IT.MI_GE_SEG_CLIENTES
+(
+  cod_seg_cliente  NUMBER(3) not null,
+  descripcion      VARCHAR2(35),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_GE_SEG_CLIENTES
+  is 'Segmetnos del Cliente.';
+comment on column IT.MI_GE_SEG_CLIENTES.cod_seg_cliente
+  is 'Codigo de segmento del cliente.';
+comment on column IT.MI_GE_SEG_CLIENTES.descripcion
+  is 'Descripcion del Segmento.';
+comment on column IT.MI_GE_SEG_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.MI_GE_SEG_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.MI_GE_SEG_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.MI_GE_SEG_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.MI_GE_SEG_CLIENTES
+  add constraint PK_MI_GE_SEG_CLIENTES primary key (COD_SEG_CLIENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MI_GE_SEG_CLIENTES
+  add constraint AVCON_1094507820_COD_S_000
+  check (COD_SEG_CLIENTE BETWEEN 0 AND 999);
+

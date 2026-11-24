@@ -1,0 +1,150 @@
+create table IT.GE_SEP_OPERACIONES
+(
+  nro_orden             NUMBER(18),
+  fec_operacion         DATE,
+  cod_oficina           VARCHAR2(3),
+  nro_comprobante       VARCHAR2(20),
+  cod_instrumento       VARCHAR2(15),
+  nom_completo          VARCHAR2(120),
+  nro_documento         VARCHAR2(30),
+  cod_moneda            VARCHAR2(3),
+  monto                 NUMBER(18,2),
+  cotizacion            NUMBER(14,8),
+  mto_equ_gs            NUMBER(18,2),
+  nro_doc_beneficiario  VARCHAR2(30),
+  nom_beneficiario      VARCHAR2(120),
+  nro_cuenta            VARCHAR2(30),
+  tip_documento         VARCHAR2(3),
+  tip_doc_beneficiario  VARCHAR2(3),
+  nro_cheque            NUMBER(15),
+  bco_emisor            VARCHAR2(40),
+  swift                 VARCHAR2(50),
+  nro_cta_otr_entidad   VARCHAR2(31),
+  swi_beneficiario      VARCHAR2(50),
+  ciudad                VARCHAR2(35),
+  motivo                VARCHAR2(500),
+  pai_ent_internacional VARCHAR2(3),
+  ent_origen            VARCHAR2(40),
+  ent_destino           VARCHAR2(40),
+  nro_doc_autorizado    VARCHAR2(15),
+  nom_autorizado        VARCHAR2(120),
+  sal_cuenta            NUMBER(18,2),
+  tip_persona           VARCHAR2(1),
+  cod_tra_padre         NUMBER(4) not null,
+  cod_mod_padre         NUMBER(3) not null,
+  cod_mad_padre         NUMBER(3) not null,
+  cod_transaccion       NUMBER(4),
+  cod_modulo            NUMBER(3),
+  cod_modalidad         NUMBER(3),
+  observacion           VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SEP_OPERACIONES.nro_orden
+  is 'Nro_Orden. Item';
+comment on column IT.GE_SEP_OPERACIONES.fec_operacion
+  is 'Fecha Operacion. ';
+comment on column IT.GE_SEP_OPERACIONES.cod_oficina
+  is 'Codigo de Oficina. Sucursal';
+comment on column IT.GE_SEP_OPERACIONES.nro_comprobante
+  is 'Numbero Comprobante.';
+comment on column IT.GE_SEP_OPERACIONES.cod_instrumento
+  is 'Codigo Instrumento Seprelad';
+comment on column IT.GE_SEP_OPERACIONES.nom_completo
+  is 'Nombre o Razon Social. (Deudor Canc)';
+comment on column IT.GE_SEP_OPERACIONES.nro_documento
+  is 'Numero Documento del Cliente. (Deudor Canc)';
+comment on column IT.GE_SEP_OPERACIONES.cod_moneda
+  is 'Moneda de la Operacion.';
+comment on column IT.GE_SEP_OPERACIONES.monto
+  is 'Monto.';
+comment on column IT.GE_SEP_OPERACIONES.cotizacion
+  is 'Cotizacion.';
+comment on column IT.GE_SEP_OPERACIONES.mto_equ_gs
+  is 'Monto de la Operacion en GS. (Canc no corresponde)';
+comment on column IT.GE_SEP_OPERACIONES.nro_doc_beneficiario
+  is 'Numero Documento del Beneficiario. (Canc no corresponde)';
+comment on column IT.GE_SEP_OPERACIONES.nom_beneficiario
+  is 'Nombre del Beneficiario. (Canc no corresponde)';
+comment on column IT.GE_SEP_OPERACIONES.nro_cuenta
+  is 'Numero de la Cuenta. (Canc nroCredito)';
+comment on column IT.GE_SEP_OPERACIONES.tip_documento
+  is 'Tipo Documento. (Canc tipDocDeu)';
+comment on column IT.GE_SEP_OPERACIONES.tip_doc_beneficiario
+  is 'Tipo Documento del Beneficiario. (Canc TipDocAuT)';
+comment on column IT.GE_SEP_OPERACIONES.nro_cheque
+  is 'Numero de Cheque. (solo Cambios)';
+comment on column IT.GE_SEP_OPERACIONES.bco_emisor
+  is 'Banco Emisor. (solo Cambios)';
+comment on column IT.GE_SEP_OPERACIONES.swift
+  is 'Codigo Swift de la entidad del ordenante. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.nro_cta_otr_entidad
+  is 'Numero cuenta de la otra entidad involucrada o beneficiario. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.swi_beneficiario
+  is 'Codigo Swift de la otra entidad. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.ciudad
+  is 'Ciudad del Beneficiario. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.motivo
+  is 'Motivo de la transaccion. (Transf y Canc)';
+comment on column IT.GE_SEP_OPERACIONES.pai_ent_internacional
+  is 'Codigo del pais del ordenante o beneficiario, segun el tipo de trans internacional. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.ent_origen
+  is 'Entidad beneficiaria. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.ent_destino
+  is 'Entidad ordenante. (solo Transf)';
+comment on column IT.GE_SEP_OPERACIONES.nro_doc_autorizado
+  is 'Nro de documento del tercero autorizado. (solo Canc)';
+comment on column IT.GE_SEP_OPERACIONES.nom_autorizado
+  is 'Nombre del tercero autorizado. (solo Canc)';
+comment on column IT.GE_SEP_OPERACIONES.sal_cuenta
+  is 'Saldo de la Cuenta';
+comment on column IT.GE_SEP_OPERACIONES.tip_persona
+  is 'Tipo de Persona';
+comment on column IT.GE_SEP_OPERACIONES.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_SEP_OPERACIONES.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_SEP_OPERACIONES.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_SEP_OPERACIONES.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_SEP_OPERACIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_SEP_OPERACIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_SEP_OPERACIONES.observacion
+  is 'Observacion.';
+create index IT.IN_GSOPE_FEC_OPERACION on IT.GE_SEP_OPERACIONES (FEC_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSOPE_NRO_COMPROBANTE on IT.GE_SEP_OPERACIONES (NRO_COMPROBANTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,61 @@
+create table IT.BA_SER_PROFESIONES
+(
+  cod_profesion    NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  deseng           VARCHAR2(35),
+  cod_map          NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  activo           VARCHAR2(1) default 'S'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_SER_PROFESIONES
+  is 'Permite registrar las profesiones utilizadas para los servicios';
+comment on column IT.BA_SER_PROFESIONES.cod_profesion
+  is 'Codigo de la profesion.';
+comment on column IT.BA_SER_PROFESIONES.descripcion
+  is 'Breve descripcion de la profesion.';
+comment on column IT.BA_SER_PROFESIONES.deseng
+  is 'Breve descripcion en ingles de la profesion.';
+comment on column IT.BA_SER_PROFESIONES.cod_map
+  is 'Codigo de mapeo con profesiones para WU';
+comment on column IT.BA_SER_PROFESIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_SER_PROFESIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_SER_PROFESIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_SER_PROFESIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_SER_PROFESIONES.activo
+  is 'Indica si el registro se encuentra Activo o Inactivo.';
+alter table IT.BA_SER_PROFESIONES
+  add constraint PK_BA_SER_PROFESIONES primary key (COD_PROFESION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_SER_PROFESIONES
+  add constraint AVCON_1080842839_COD_P_007
+  check (COD_PROFESION BETWEEN 1 AND 999);
+

@@ -1,0 +1,45 @@
+create table IT.GE_TIP_SEG_CLIENTES
+(
+  tipo          VARCHAR2(1) default '1' not null,
+  descripcion   VARCHAR2(240) default ' ',
+  usu_insercion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion DATE default SYSDATE not null,
+  residente     CHAR(1),
+  tipo_per      CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TIP_SEG_CLIENTES
+  is 'Tabla parametrica, donde se clasifican por tipo de segmentacion de la clientela';
+comment on column IT.GE_TIP_SEG_CLIENTES.tipo
+  is 'Codigo tipo de clientes (Fisicas, Juridicas, Fisicas Residentes, etc.)';
+comment on column IT.GE_TIP_SEG_CLIENTES.descripcion
+  is 'Descripción del codigo';
+comment on column IT.GE_TIP_SEG_CLIENTES.usu_insercion
+  is 'Usuario inserción ';
+comment on column IT.GE_TIP_SEG_CLIENTES.fec_insercion
+  is 'Fec inserción';
+alter table IT.GE_TIP_SEG_CLIENTES
+  add constraint PK_GE_TIP_SEG_CLIENTES primary key (TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

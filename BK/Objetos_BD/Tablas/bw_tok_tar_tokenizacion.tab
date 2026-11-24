@@ -1,0 +1,60 @@
+create table IT.BW_TOK_TAR_TOKENIZACION
+(
+  cod_tokenizacion VARCHAR2(36) not null,
+  cod_ref_token    VARCHAR2(36) not null,
+  cod_ref_pan      VARCHAR2(36) not null,
+  evento           VARCHAR2(36),
+  resultado        VARCHAR2(36),
+  fec_evento       DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_TOKENIZACION.cod_tokenizacion
+  is 'Codigo Autogenerado';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.cod_ref_token
+  is 'TokenRefId';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.cod_ref_pan
+  is 'PanRefId';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.evento
+  is 'Evento del token';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.resultado
+  is 'Resultado de la tokenizacion';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_TOKENIZACION.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_TOKENIZACION
+  add constraint PK_BW_TOK_TAR_TOKENIZACION primary key (COD_TOKENIZACION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_TOKENIZACION
+  add constraint FK_BTTTOKEN_COD_REF_PAN foreign key (COD_REF_PAN)
+  references IT.BW_TOK_TAR_PANREF (COD_REF_PAN);
+

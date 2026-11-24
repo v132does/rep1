@@ -1,0 +1,37 @@
+CREATE OR REPLACE TYPE IT."TYP_OBTTRANSPENDIENTE008"                                          AS OBJECT
+( nro_referencia                                 VARCHAR2(15),
+  fec_ingreso                                    DATE,
+  hora                                           VARCHAR2(15),
+  moneda                                         VARCHAR2(3),
+  monto                                          NUMBER(18,2),
+  nom_solicitante                                VARCHAR2(120),
+  doc_solicitante                                VARCHAR2(20),
+  tip_doc_solicitante                            VARCHAR2(15),
+  cta_solicitante                                VARCHAR2(35),
+  swi_participante_sol                           VARCHAR2(20),
+  tipo_sol                                       VARCHAR2(20),
+  cta_participante_sol                           VARCHAR2(15),
+  swi_participante_ben                           VARCHAR2(20),
+  tipo_ben                                       VARCHAR2(20),
+  cta_participante_ben                           VARCHAR2(15),
+  nom_beneficiario                               VARCHAR2(120),
+  doc_beneficiario                               VARCHAR2(20),
+  tip_doc_beneficiario                           VARCHAR2(15),
+  cta_beneficiario                               VARCHAR2(35),
+  concepto                                       VARCHAR2(140),
+  observacion                                    VARCHAR2(1000),
+  fec_actual                                     DATE,
+  nro_ref_externa                                VARCHAR2(33),
+  cod_tip_operacion                              VARCHAR2(3),
+  des_sub_pte_beneficiario                       VARCHAR2(40), --SPI Fase2
+  swi_sub_pte_beneficiario                       VARCHAR2(20),
+  nro_cta_suc_pte_beneficiario                   VARCHAR2(35),
+  instrumento                                    VARCHAR2(10),
+  nro_ref_solicitud                              VARCHAR2(33),
+  des_uetr                                       VARCHAR2(50),
+  identificacion                                 VARCHAR2(140),
+  remesa                                         VARCHAR2(1000),
+  id_pago                                        VARCHAR2(35) 
+  );
+/
+

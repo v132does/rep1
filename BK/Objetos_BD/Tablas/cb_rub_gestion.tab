@@ -1,0 +1,31 @@
+create table IT.CB_RUB_GESTION
+(
+  cod_gestion VARCHAR2(20) not null,
+  descripcion VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_GESTION
+  add constraint PK_CB_CTA_GESTION primary key (COD_GESTION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

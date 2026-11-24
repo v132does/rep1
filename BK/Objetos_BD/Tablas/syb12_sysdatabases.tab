@@ -1,0 +1,23 @@
+create global temporary table IT.SYB12_SYSDATABASES
+(
+  db_id           NUMBER(10),
+  name            VARCHAR2(255),
+  dbid            NUMBER(10),
+  db_suid         NUMBER(10),
+  status          NUMBER(10),
+  version         NUMBER(10),
+  logptr          NUMBER(12),
+  crdate          VARCHAR2(255),
+  dumptrdate      VARCHAR2(255),
+  status2         NUMBER(10),
+  audflags        NUMBER(10),
+  deftabaud       NUMBER(10),
+  defvwaud        NUMBER(10),
+  defpraud        NUMBER(10),
+  def_remote_type NUMBER(10),
+  def_remote_loc  VARCHAR2(255),
+  status3         NUMBER(10),
+  status4         NUMBER(10)
+)
+on commit preserve rows;
+

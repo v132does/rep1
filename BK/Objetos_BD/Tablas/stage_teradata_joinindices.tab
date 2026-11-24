@@ -1,0 +1,10 @@
+create global temporary table IT.STAGE_TERADATA_JOININDICES
+(
+  databasename        VARCHAR2(128 CHAR),
+  tablename           VARCHAR2(128 CHAR),
+  joinidxdatabasename VARCHAR2(128 CHAR),
+  joinidxxname        VARCHAR2(128 CHAR),
+  indextype           CHAR(1 CHAR)
+)
+on commit preserve rows;
+

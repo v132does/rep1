@@ -1,0 +1,100 @@
+create table IT.PR_GAR_WARRANTS
+(
+  nro_garantia     NUMBER(7) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_warrants     VARCHAR2(15) not null,
+  cla_mercaderia   VARCHAR2(200) not null,
+  val_unitario     NUMBER(18,2),
+  marca            VARCHAR2(60),
+  bulto            VARCHAR2(200),
+  cantidad         NUMBER(10),
+  peso             NUMBER(18,2),
+  cod_ent_deposito NUMBER(5),
+  fec_inicio       DATE,
+  fec_vencimiento  DATE,
+  uni_medida       VARCHAR2(2),
+  cod_ent_seguro   NUMBER(5),
+  nro_poliza       VARCHAR2(20),
+  fec_vto_seguro   DATE,
+  fec_inscripcion  DATE,
+  fec_ini_seguro   DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_GAR_WARRANTS
+  is 'Detalle de Garantías Tipo Warrants.';
+comment on column IT.PR_GAR_WARRANTS.nro_garantia
+  is 'Número identificador de la Garantía.';
+comment on column IT.PR_GAR_WARRANTS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GAR_WARRANTS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GAR_WARRANTS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_WARRANTS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_WARRANTS.nro_warrants
+  is 'Número del Warrants y del certificado.';
+comment on column IT.PR_GAR_WARRANTS.cla_mercaderia
+  is 'Clase de Mercadería.';
+comment on column IT.PR_GAR_WARRANTS.val_unitario
+  is 'Valor unitario.';
+comment on column IT.PR_GAR_WARRANTS.marca
+  is 'Marca de la Mercadería.';
+comment on column IT.PR_GAR_WARRANTS.bulto
+  is 'Bulto.';
+comment on column IT.PR_GAR_WARRANTS.cantidad
+  is 'Cantidad.';
+comment on column IT.PR_GAR_WARRANTS.peso
+  is 'Peso.';
+comment on column IT.PR_GAR_WARRANTS.cod_ent_deposito
+  is 'Código de Ente Deposito.';
+comment on column IT.PR_GAR_WARRANTS.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.PR_GAR_WARRANTS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.PR_GAR_WARRANTS.uni_medida
+  is 'Unidad de Medida.';
+comment on column IT.PR_GAR_WARRANTS.cod_ent_seguro
+  is 'Código de la Aseguradora.';
+comment on column IT.PR_GAR_WARRANTS.nro_poliza
+  is 'Número de Póliza de Seguro.';
+comment on column IT.PR_GAR_WARRANTS.fec_vto_seguro
+  is 'Fecha de Vencimiento del Seguro.';
+comment on column IT.PR_GAR_WARRANTS.fec_inscripcion
+  is 'Fecha de Inscripción del Seguro.';
+comment on column IT.PR_GAR_WARRANTS.fec_ini_seguro
+  is 'Fecha de valor del seguro. ';
+alter table IT.PR_GAR_WARRANTS
+  add constraint PK_PR_GAR_WARRANTS primary key (NRO_GARANTIA, NRO_WARRANTS, CLA_MERCADERIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_WARRANTS
+  add constraint FK_PGWAR_COD_ENT_DEPOSITO foreign key (COD_ENT_DEPOSITO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GAR_WARRANTS
+  add constraint FK_PGWAR_NRO_GARANTIA foreign key (NRO_GARANTIA)
+  references IT.PR_GARANTIAS (NRO_GARANTIA);
+

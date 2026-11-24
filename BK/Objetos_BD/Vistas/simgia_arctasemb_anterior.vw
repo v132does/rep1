@@ -1,0 +1,4 @@
+create or replace force view it.simgia_arctasemb_anterior as
+select "CENROR","CEFECHAREG","CESUC","CECTA","CESUB","CEINDCDA","CETITULAR","CEMONEDA","CEMONTO","CESALDO","CECAUSA","CEFECHACOM","CEFECHACAN","CEOPERADOR","FECHA_HIS"
+from SIMGIA_ARCTASEMB_bkp a;
+

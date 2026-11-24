@@ -1,0 +1,15 @@
+create global temporary table IT.SS2K5_OBJECTS
+(
+  db_id            NUMBER(10),
+  schema_id        NUMBER(10) not null,
+  object_id        NUMBER(10) not null,
+  name             VARCHAR2(256) not null,
+  type             CHAR(2) not null,
+  parent_object_id NUMBER(10) not null,
+  is_ms_shipped    NUMBER(1) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_OBJECTS_DB_ID on IT.SS2K5_OBJECTS (DB_ID);
+create index IT.SS2K5_OBJECTS_OBJECT_ID on IT.SS2K5_OBJECTS (OBJECT_ID);
+create index IT.SS2K5_OBJECTS_SCHEMA_ID on IT.SS2K5_OBJECTS (SCHEMA_ID);
+

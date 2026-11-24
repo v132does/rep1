@@ -1,0 +1,94 @@
+create table IT.CO_PER_TELEFONOS_TMP
+(
+  cod_per_telefono NUMBER(10) not null,
+  tip_operacion    VARCHAR2(1),
+  cod_persona      VARCHAR2(20),
+  tip_telefono     VARCHAR2(6),
+  cod_telefono     VARCHAR2(6),
+  origen           VARCHAR2(3),
+  cod_pais         NUMBER(3),
+  cod_area         VARCHAR2(5),
+  numero           VARCHAR2(30),
+  extension        VARCHAR2(10),
+  contacto         VARCHAR2(1),
+  valido           VARCHAR2(1),
+  estado           VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_PER_TELEFONOS_TMP
+  is 'Temporal de Teléfonos modificados en el Recovery Strategy.';
+comment on column IT.CO_PER_TELEFONOS_TMP.cod_per_telefono
+  is 'Código de Teléfono de la Persona.';
+comment on column IT.CO_PER_TELEFONOS_TMP.tip_operacion
+  is 'Tipo de Operación.';
+comment on column IT.CO_PER_TELEFONOS_TMP.cod_persona
+  is 'Código de Cliente.';
+comment on column IT.CO_PER_TELEFONOS_TMP.tip_telefono
+  is 'Tipo de Teléfono.';
+comment on column IT.CO_PER_TELEFONOS_TMP.cod_telefono
+  is 'Código de Teléfono.';
+comment on column IT.CO_PER_TELEFONOS_TMP.origen
+  is 'Origen.';
+comment on column IT.CO_PER_TELEFONOS_TMP.cod_pais
+  is 'Código de País.';
+comment on column IT.CO_PER_TELEFONOS_TMP.cod_area
+  is 'Código de Área.';
+comment on column IT.CO_PER_TELEFONOS_TMP.numero
+  is 'Número.';
+comment on column IT.CO_PER_TELEFONOS_TMP.extension
+  is 'Extensión.';
+comment on column IT.CO_PER_TELEFONOS_TMP.contacto
+  is 'Es Teléfono de contacto?.';
+comment on column IT.CO_PER_TELEFONOS_TMP.valido
+  is 'Es Teléfono válido?.';
+comment on column IT.CO_PER_TELEFONOS_TMP.estado
+  is 'Estado.';
+comment on column IT.CO_PER_TELEFONOS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CO_PER_TELEFONOS_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CO_PER_TELEFONOS_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CO_PER_TELEFONOS_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_OPTTM_COD_PERSONA on IT.CO_PER_TELEFONOS_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_PER_TELEFONOS_TMP
+  add constraint PK_CO_PER_TELEFONOS_TMP primary key (COD_PER_TELEFONO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

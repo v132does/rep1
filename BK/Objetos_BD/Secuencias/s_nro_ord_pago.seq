@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_ORD_PAGO
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 71668
+increment by 1
+nocache;
+

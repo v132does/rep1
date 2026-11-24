@@ -1,0 +1,52 @@
+create table IT.SB_SNP_FORMATOS
+(
+  formato          VARCHAR2(60) not null,
+  descripcion      VARCHAR2(200) not null,
+  exp_regular      VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SNP_FORMATOS
+  is 'Contiene los Formatos de Validación para los campos (Tags) de los mensajes de SNP.';
+comment on column IT.SB_SNP_FORMATOS.formato
+  is 'Indentificador del Formato según documentación.';
+comment on column IT.SB_SNP_FORMATOS.descripcion
+  is 'Descripción del Formato a validar.';
+comment on column IT.SB_SNP_FORMATOS.exp_regular
+  is 'Expresión Regular para validación del formato.';
+comment on column IT.SB_SNP_FORMATOS.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.SB_SNP_FORMATOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_SNP_FORMATOS.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.SB_SNP_FORMATOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.SB_SNP_FORMATOS
+  add constraint PK_SB_SNP_FORMATOS primary key (FORMATO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,58 @@
+create table IT.SIMGIA_MAERECLAS
+(
+  rcriesgo   NUMBER(6),
+  rcfecha    VARCHAR2(8),
+  rcreclasif VARCHAR2(1),
+  rcponderac VARCHAR2(1),
+  rcsit01    VARCHAR2(1),
+  rcsit02    VARCHAR2(1),
+  rcsit03    VARCHAR2(1),
+  rcsit04    VARCHAR2(1),
+  rcsit05    VARCHAR2(1),
+  rcsit06    VARCHAR2(1),
+  rcsit07    VARCHAR2(1),
+  rcsit08    VARCHAR2(1),
+  rcsit09    VARCHAR2(1),
+  rcsit10    VARCHAR2(1),
+  rcobs01    VARCHAR2(64),
+  rcobs02    VARCHAR2(64),
+  rcresponsa VARCHAR2(40),
+  rcusuario  VARCHAR2(10),
+  rcterminal VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_RCRECLASIF on IT.SIMGIA_MAERECLAS (RCRECLASIF)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_RCRIESGO on IT.SIMGIA_MAERECLAS (RCRIESGO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,39 @@
+create table IT.GE_PAG_SUE_IPS_LOG
+(
+  fecha            DATE default sysdate not null,
+  nro_lote         NUMBER(10),
+  nro_orden        NUMBER(10),
+  mensaje          VARCHAR2(3000),
+  fec_insercion    DATE default sysdate not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR (USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR (USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_SUE_IPS_LOG.fecha
+  is 'Fecha del Log';
+comment on column IT.GE_PAG_SUE_IPS_LOG.nro_lote
+  is 'ID del Lote de pagos';
+comment on column IT.GE_PAG_SUE_IPS_LOG.nro_orden
+  is 'ID del registro de pago';
+comment on column IT.GE_PAG_SUE_IPS_LOG.mensaje
+  is 'Mensaje de log';
+comment on column IT.GE_PAG_SUE_IPS_LOG.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAG_SUE_IPS_LOG.usu_insercion
+  is 'Usuario que realizó la insercion del registro.';
+comment on column IT.GE_PAG_SUE_IPS_LOG.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAG_SUE_IPS_LOG.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+

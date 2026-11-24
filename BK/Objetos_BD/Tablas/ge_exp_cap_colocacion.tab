@@ -1,0 +1,154 @@
+create table IT.GE_EXP_CAP_COLOCACION
+(
+  cod_mensaje           NUMBER(5) not null,
+  guid_crm              VARCHAR2(3000) not null,
+  cod_campana           NUMBER(3),
+  cod_modulo            NUMBER(3),
+  cod_modalidad         NUMBER(3),
+  cod_moneda            VARCHAR2(3),
+  cod_oficina           NUMBER(3),
+  cod_per_principal     VARCHAR2(10),
+  cod_per_adicional1    VARCHAR2(10),
+  cod_per_adicional2    VARCHAR2(10),
+  cod_per_adicional3    VARCHAR2(10),
+  cod_tasa              NUMBER(3),
+  cx_cod_bco_emisor     NUMBER(3),
+  cx_con_venta          VARCHAR2(3),
+  denominacion          VARCHAR2(100),
+  fec_actual            DATE,
+  hora                  VARCHAR2(8),
+  fec_solicitud         DATE,
+  fec_sancion           DATE,
+  fec_pro_revision      DATE,
+  fec_vencimiento       DATE,
+  mto_producto          NUMBER(18,2),
+  mto_gar_aplicado      NUMBER(18,2),
+  mto_sub_producto      NUMBER(18,2),
+  nro_sol_crm           NUMBER(7),
+  nro_solicitud         NUMBER(7),
+  plazo                 NUMBER(4),
+  pr_cod_sec_credito    NUMBER(3),
+  pr_per_gracia         NUMBER(4),
+  pr_per_vto_capital    NUMBER(4),
+  pr_tip_amortizacion   VARCHAR2(1),
+  pr_tip_monto          VARCHAR2(1),
+  ah_tip_capitalizacion NUMBER(2),
+  tip_operacion         VARCHAR2(1),
+  tip_venta             VARCHAR2(1),
+  tip_garantia          NUMBER(3),
+  observacion           VARCHAR2(4000),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1 ,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXP_CAP_COLOCACION
+  is 'Datos comunicacion entre aplicaciones.';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_mensaje
+  is 'Identificador Unico del Registro en IT.';
+comment on column IT.GE_EXP_CAP_COLOCACION.guid_crm
+  is 'Identificador Unico del Registro en CRM.';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_campana
+  is 'Campana Relacionada a la Venta';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_modulo
+  is 'Modulo del Producto';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_modalidad
+  is 'Modalidad del Producto';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_moneda
+  is 'Moneda del Producto';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_oficina
+  is 'Oficina del Cliente';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_per_principal
+  is 'Codigo de Persona del Cliente Principal';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_per_adicional1
+  is 'Codigo de Persona del Cliente Adicional y/o Garante';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_per_adicional2
+  is 'Codigo de Persona del Cliente Adicional y/o Garante';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_per_adicional3
+  is 'Codigo de Persona del Cliente Adicional y/o Garante';
+comment on column IT.GE_EXP_CAP_COLOCACION.cod_tasa
+  is 'Codigo de la tasa';
+comment on column IT.GE_EXP_CAP_COLOCACION.cx_cod_bco_emisor
+  is 'Codigo del Banco Emisor para Cuentas de Exportaciones/Importaciones';
+comment on column IT.GE_EXP_CAP_COLOCACION.cx_con_venta
+  is 'Condicion de Venta de Importaciones';
+comment on column IT.GE_EXP_CAP_COLOCACION.denominacion
+  is 'Denominacion de la Cuenta o Plastico';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_actual
+  is 'Fecha Actual de Ejecucion del Proceso';
+comment on column IT.GE_EXP_CAP_COLOCACION.hora
+  is 'Hora de Ejecucion del Proceso';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_solicitud
+  is 'Fecha de creación de la Solicitud';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_sancion
+  is 'Fecha de Sancion de la Solicitud';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_pro_revision
+  is 'Fecha de Proxima Revision de la Solicitud';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_vencimiento
+  is 'Fecha de Vencimiento del Producto';
+comment on column IT.GE_EXP_CAP_COLOCACION.mto_producto
+  is 'Monto del Producto si es un Límite de Crédito aqui se coloca el monto total del límite';
+comment on column IT.GE_EXP_CAP_COLOCACION.mto_gar_aplicado
+  is 'Monto aplicado para cada garantia';
+comment on column IT.GE_EXP_CAP_COLOCACION.mto_sub_producto
+  is 'Monto del Producto  si es un Limite de Credito aqui se coloca el monto para cada producto por garantia';
+comment on column IT.GE_EXP_CAP_COLOCACION.nro_sol_crm
+  is 'Numero de Solicitud de CRM';
+comment on column IT.GE_EXP_CAP_COLOCACION.nro_solicitud
+  is 'Numero de Solicitud de IT';
+comment on column IT.GE_EXP_CAP_COLOCACION.plazo
+  is 'Plazo de la Operacion';
+comment on column IT.GE_EXP_CAP_COLOCACION.pr_cod_sec_credito
+  is 'PRESTAMO: Codigo de Sector del Credito';
+comment on column IT.GE_EXP_CAP_COLOCACION.pr_per_gracia
+  is 'PRESTAMO: Periodo de Gracia en dias';
+comment on column IT.GE_EXP_CAP_COLOCACION.pr_per_vto_capital
+  is 'PRESTAMO: Periodo de Vencimiento del Capital';
+comment on column IT.GE_EXP_CAP_COLOCACION.pr_tip_amortizacion
+  is 'PRESTAMO: Tipo de Amortizacion';
+comment on column IT.GE_EXP_CAP_COLOCACION.pr_tip_monto
+  is 'PRESTAMO: Tipo Monto';
+comment on column IT.GE_EXP_CAP_COLOCACION.ah_tip_capitalizacion
+  is 'AH_CERTIFICADOS: Tipo de Capitalizacion';
+comment on column IT.GE_EXP_CAP_COLOCACION.tip_operacion
+  is 'Tipo de Operacion L:Limite de Credito - P:Puntual';
+comment on column IT.GE_EXP_CAP_COLOCACION.tip_venta
+  is 'Tipo de Venta N:Nuevo  R:Renovacion  F:Refinanciacion  E:Restructuraion';
+comment on column IT.GE_EXP_CAP_COLOCACION.tip_garantia
+  is 'Tipo de Garantia';
+comment on column IT.GE_EXP_CAP_COLOCACION.observacion
+  is 'Observacion';
+comment on column IT.GE_EXP_CAP_COLOCACION.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.GE_EXP_CAP_COLOCACION.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.GE_EXP_CAP_COLOCACION.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.GE_EXP_CAP_COLOCACION
+  add constraint PK_GE_EXP_CAP_COLOCACION primary key (COD_MENSAJE, GUID_CRM)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

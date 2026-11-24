@@ -1,0 +1,59 @@
+create table IT.BA_AREAS_CRM
+(
+  cod_oficina        NUMBER(3) not null,
+  cod_area           NUMBER(3) not null,
+  descripcion        VARCHAR2(35),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   TIMESTAMP(6) default current_timestamp not null,
+  sigla              VARCHAR2(3),
+  cod_usu_supervisor VARCHAR2(10),
+  tip_accion         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_AREAS_CRM
+  is 'Areas de Oficinas.';
+comment on column IT.BA_AREAS_CRM.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.BA_AREAS_CRM.cod_area
+  is 'Codigo del Area.';
+comment on column IT.BA_AREAS_CRM.descripcion
+  is 'Nombre del Area.';
+comment on column IT.BA_AREAS_CRM.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.BA_AREAS_CRM.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.BA_AREAS_CRM.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.BA_AREAS_CRM.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.BA_AREAS_CRM.sigla
+  is 'Sigla del Area.';
+comment on column IT.BA_AREAS_CRM.cod_usu_supervisor
+  is 'Supervisor del Area.';
+comment on column IT.BA_AREAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.IN_CRMAREA_COD_OFICINA on IT.BA_AREAS_CRM (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

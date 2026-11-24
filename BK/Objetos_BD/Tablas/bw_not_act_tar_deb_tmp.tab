@@ -1,0 +1,21 @@
+create table IT.BW_NOT_ACT_TAR_DEB_TMP
+(
+  cod_persona   VARCHAR2(10) not null,
+  nom_completo  VARCHAR2(120),
+  nro_documento VARCHAR2(20) not null,
+  nro_cuenta    VARCHAR2(15) not null,
+  nro_tarjeta   VARCHAR2(25) not null,
+  error         VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

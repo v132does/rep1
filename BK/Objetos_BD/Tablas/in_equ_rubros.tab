@@ -1,0 +1,38 @@
+create table IT.IN_EQU_RUBROS
+(
+  cod_rubro        VARCHAR2(15) not null,
+  entidad          VARCHAR2(20) not null,
+  descripcion      VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IN_EQU_RUBROS
+  is 'Cuentas contables equivalentes con el sistema anterior.';
+alter table IT.IN_EQU_RUBROS
+  add constraint RUBR_PK primary key (COD_RUBRO, ENTIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 832K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

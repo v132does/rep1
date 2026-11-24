@@ -1,0 +1,33 @@
+create table IT.PR_LOG_ERRORES
+(
+  det_error        CLOB,
+  cod_programa     VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_LOG_ERRORES.det_error
+  is 'Detalle del error detectado.';
+comment on column IT.PR_LOG_ERRORES.cod_programa
+  is 'Código de programa desde el cual se realiza la actualización.';
+comment on column IT.PR_LOG_ERRORES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_LOG_ERRORES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_LOG_ERRORES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_LOG_ERRORES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

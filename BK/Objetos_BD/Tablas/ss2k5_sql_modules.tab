@@ -1,0 +1,10 @@
+create global temporary table IT.SS2K5_SQL_MODULES
+(
+  db_id      NUMBER(10),
+  definition CLOB,
+  object_id  NUMBER(10) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_SQL_MODULES_DB_ID on IT.SS2K5_SQL_MODULES (DB_ID);
+create index IT.SS2K5_SQL_MODULES_OBJECT_ID on IT.SS2K5_SQL_MODULES (OBJECT_ID);
+

@@ -1,0 +1,113 @@
+--------------------------------------------------------------------------------
+-- Tabla: IT.GE_CRC_PASOS_ORQ
+-- Descripción: Configuración de pasos del orquestador CRC desacoplado (NOR-508).
+--------------------------------------------------------------------------------
+
+CREATE TABLE IT.GE_CRC_PASOS_ORQ (
+    ID_PASO           NUMBER(10)     NOT NULL,
+    ORDEN             NUMBER(3)      NOT NULL,
+    COD_PASO          VARCHAR2(40)   NOT NULL,
+    DESCRIPCION       VARCHAR2(200)  NOT NULL,
+
+    ACTIVO            CHAR(1)        DEFAULT 'S' NOT NULL,
+    CRITICO           CHAR(1)        DEFAULT 'S' NOT NULL,
+
+    TIPO_EJECUCION    VARCHAR2(10)   DEFAULT 'PROC' NOT NULL, -- PROC | SQL | JOB | CHAIN
+    OBJETO_EJECUCION  VARCHAR2(200)  NOT NULL,                 -- Ej: IT.PAG_CRC.prc_validar_entorno
+
+    TIMEOUT_MIN       NUMBER(5)      NULL,
+    REINTENTOS        NUMBER(3)      DEFAULT 0 NOT NULL,
+
+    OBSERVACION       VARCHAR2(1000) NULL,
+
+    USU_INSERCION     VARCHAR2(10)   NOT NULL,
+    FEC_INSERCION     DATE           NOT NULL,
+    USU_MODIFICACION  VARCHAR2(10)   NOT NULL,
+    FEC_MODIFICACION  DATE           NOT NULL,
+
+    CONSTRAINT PK_GE_CRC_PASOS_ORQ
+        PRIMARY KEY (ID_PASO),
+
+    CONSTRAINT UK_GE_CRC_PASOS_ORQ_01
+        UNIQUE (ORDEN),
+
+    CONSTRAINT UK_GE_CRC_PASOS_ORQ_02
+        UNIQUE (COD_PASO),
+
+    CONSTRAINT CK_GE_CRC_PASOS_ORQ_ACT
+        CHECK (ACTIVO IN ('S', 'N')),
+
+    CONSTRAINT CK_GE_CRC_PASOS_ORQ_CRI
+        CHECK (CRITICO IN ('S', 'N'))
+)
+TABLESPACE IT_DATA;
+
+--------------------------------------------------------------------------------
+-- Comentarios
+--------------------------------------------------------------------------------
+
+COMMENT ON TABLE IT.GE_CRC_PASOS_ORQ IS
+'Configuración de pasos del orquestador CRC desacoplado (NOR-508). Define la secuencia de ejecución, criticidad, tipo y objeto de ejecución por paso.';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.ID_PASO IS
+'Identificador único del paso configurado (PK).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.ORDEN IS
+'Orden secuencial de ejecución del paso dentro del orquestador. Debe ser único.';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.COD_PASO IS
+'Código lógico del paso (ej: VALIDAR_ENTORNO, OBTENER_CONFIG, EJECUTAR_CRC, EJECUTAR_CONTROLES, DISP_EXTRACTOR).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.DESCRIPCION IS
+'Descripción funcional del paso del orquestador.';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.ACTIVO IS
+'Indica si el paso está habilitado para ejecución (S=Sí, N=No).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.CRITICO IS
+'Indica si el paso es crítico (S=Sí, N=No). Si es crítico y falla, se detiene la ejecución del orquestador.';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.TIPO_EJECUCION IS
+'Tipo de ejecución del paso: PROC (procedimiento), SQL (sentencia dinámica), JOB (DBMS_SCHEDULER), CHAIN (cadena de jobs).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.OBJETO_EJECUCION IS
+'Objeto a ejecutar según el tipo: nombre de procedimiento, sentencia SQL, nombre de JOB o CHAIN.';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.TIMEOUT_MIN IS
+'Tiempo máximo de espera en minutos para la ejecución del paso (aplicable si se implementa control de timeout).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.REINTENTOS IS
+'Cantidad de reintentos automáticos ante errores transitorios (aplicable si se implementa según tipo de ejecución).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.OBSERVACION IS
+'Observaciones operativas o técnicas del paso (notas de uso, restricciones, consideraciones).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.USU_INSERCION IS
+'Usuario que realizó la inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.FEC_INSERCION IS
+'Fecha de inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.USU_MODIFICACION IS
+'Usuario de última modificación del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_PASOS_ORQ.FEC_MODIFICACION IS
+'Fecha de última modificación del registro (auditoría).';
+
+--------------------------------------------------------------------------------
+-- Índices
+--------------------------------------------------------------------------------
+
+CREATE INDEX IT.IDX_GE_CRC_PASOS_ORQ_01
+    ON IT.GE_CRC_PASOS_ORQ (ACTIVO, ORDEN)
+TABLESPACE IT_IND;
+
+--------------------------------------------------------------------------------
+-- Sinónimos y grants
+--------------------------------------------------------------------------------
+
+CREATE PUBLIC SYNONYM GE_CRC_PASOS_ORQ FOR IT.GE_CRC_PASOS_ORQ;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+ON IT.GE_CRC_PASOS_ORQ
+TO IT_TEMPORAL;

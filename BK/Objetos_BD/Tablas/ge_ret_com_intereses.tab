@@ -1,0 +1,109 @@
+create table IT.GE_RET_COM_INTERESES
+(
+  nro_devolucion    NUMBER(7) not null,
+  estado            VARCHAR2(1) not null,
+  tipo              VARCHAR2(1) not null,
+  cod_oficina       NUMBER(3) not null,
+  cod_persona       VARCHAR2(10) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cotizacion        NUMBER(14,8) default 0,
+  nro_cta_credito   VARCHAR2(15) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  tot_monto         NUMBER(18,2) default 0 not null,
+  tot_iva           NUMBER(18,2) default 0 not null,
+  tot_retrocesion   NUMBER(18,2) default 0 not null,
+  tot_mon_local     NUMBER(18,2) default 0 not null,
+  tot_iva_mon_local NUMBER(18,2) default 0 not null,
+  tot_ret_mon_local NUMBER(18,2) default 0 not null,
+  observacion       VARCHAR2(4000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RET_COM_INTERESES
+  is 'Retrocesiones de Comisiones e Intereses';
+comment on column IT.GE_RET_COM_INTERESES.nro_devolucion
+  is 'Número de Solicitud de la Retrocesión.';
+comment on column IT.GE_RET_COM_INTERESES.estado
+  is 'Estado de la solicitud: P/Pendiente, A/Aprobado, R/Rechazado, C/Cancelado';
+comment on column IT.GE_RET_COM_INTERESES.tipo
+  is 'Tipo DEVOLUCION o REINTEGRO: Categoría de Retrocesión a registrar: O/Operativa, C/Comercial.';
+comment on column IT.GE_RET_COM_INTERESES.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_RET_COM_INTERESES.cod_persona
+  is 'Código de Persona.Código de cliente.';
+comment on column IT.GE_RET_COM_INTERESES.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.GE_RET_COM_INTERESES.cotizacion
+  is 'Cotización a la Fecha de la Retrocesión.';
+comment on column IT.GE_RET_COM_INTERESES.nro_cta_credito
+  is 'Número de Cuenta para la Devolución.';
+comment on column IT.GE_RET_COM_INTERESES.cod_modulo
+  is 'Código del módulo.';
+comment on column IT.GE_RET_COM_INTERESES.cod_modalidad
+  is 'Código de la modalidad.';
+comment on column IT.GE_RET_COM_INTERESES.tot_monto
+  is 'Total del importe a devolver en la moneda seleccionada.';
+comment on column IT.GE_RET_COM_INTERESES.tot_iva
+  is 'Total del IVA del importe ingresado.';
+comment on column IT.GE_RET_COM_INTERESES.tot_retrocesion
+  is 'Total del Importe + IVA.';
+comment on column IT.GE_RET_COM_INTERESES.tot_mon_local
+  is 'Total del Monto en Moneda Local.';
+comment on column IT.GE_RET_COM_INTERESES.tot_iva_mon_local
+  is 'Total IVA en Moneda Local.';
+comment on column IT.GE_RET_COM_INTERESES.tot_ret_mon_local
+  is 'Total de la Retención en Moneda Local.';
+comment on column IT.GE_RET_COM_INTERESES.observacion
+  is 'Observación para explicar el motivo de la devolución. Es un campo de texto libre.';
+comment on column IT.GE_RET_COM_INTERESES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_RET_COM_INTERESES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_RET_COM_INTERESES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_RET_COM_INTERESES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_RET_COM_INTERESES
+  add constraint PK_GE_RET_COM_INTERESES primary key (NRO_DEVOLUCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RET_COM_INTERESES
+  add constraint FK_GRCIN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_RET_COM_INTERESES
+  add constraint FK_GRCIN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_RET_COM_INTERESES
+  add constraint FK_GRCIN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_RET_COM_INTERESES
+  add constraint FK_GRCIN_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_RET_COM_INTERESES
+  add constraint FK_GRCIN_NRO_CUENTA foreign key (NRO_CTA_CREDITO)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

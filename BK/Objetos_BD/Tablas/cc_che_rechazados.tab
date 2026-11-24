@@ -1,0 +1,145 @@
+create table IT.CC_CHE_RECHAZADOS
+(
+  fec_proceso        DATE not null,
+  nro_cheque         NUMBER(15) not null,
+  cta_libradora      VARCHAR2(20),
+  monto              NUMBER(18,2) not null,
+  cod_bco_emisor     NUMBER(3) not null,
+  cod_bco_receptor   NUMBER(3),
+  nro_cuenta         VARCHAR2(15),
+  cod_cau_devolucion NUMBER(3) not null,
+  cod_ofi_camara     NUMBER(3) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  cod_usuario        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  tip_debito         VARCHAR2(1) default 'C' not null,
+  cod_oficina        NUMBER(3),
+  cod_rubro          VARCHAR2(15),
+  cob_cargos         VARCHAR2(1) default 'N' not null,
+  estado             VARCHAR2(1) default 'P' not null,
+  procesar           VARCHAR2(1) default 'N',
+  msj_error          VARCHAR2(200),
+  cod_moneda         VARCHAR2(3) not null,
+  cod_cau_dev_bcp    NUMBER(3),
+  com_directa        VARCHAR2(1) default 'N',
+  nro_linea          NUMBER(10),
+  cod_submotivo      NUMBER(1),
+  cod_submotivo_det  VARCHAR2(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_RECHAZADOS
+  is 'Cheques Cargo Otros Bancos rechazados de Cámara.';
+comment on column IT.CC_CHE_RECHAZADOS.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.CC_CHE_RECHAZADOS.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.CC_CHE_RECHAZADOS.cta_libradora
+  is 'Cuenta Libradora del cheque';
+comment on column IT.CC_CHE_RECHAZADOS.monto
+  is 'Importe del Cheque';
+comment on column IT.CC_CHE_RECHAZADOS.cod_bco_emisor
+  is 'Banco emisor.';
+comment on column IT.CC_CHE_RECHAZADOS.cod_bco_receptor
+  is 'Banco receptor.';
+comment on column IT.CC_CHE_RECHAZADOS.nro_cuenta
+  is 'Número de cuenta';
+comment on column IT.CC_CHE_RECHAZADOS.cod_cau_devolucion
+  is 'Código de Devolución de Cheque.';
+comment on column IT.CC_CHE_RECHAZADOS.cod_ofi_camara
+  is 'Oficina de Camara.';
+comment on column IT.CC_CHE_RECHAZADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_RECHAZADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_RECHAZADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_RECHAZADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_RECHAZADOS.cod_usuario
+  is 'Código de usuario que realiza la operación.';
+comment on column IT.CC_CHE_RECHAZADOS.tip_debito
+  is 'Tipo de Débito (C=Cuenta Cliente, B=Rubro Contable)';
+comment on column IT.CC_CHE_RECHAZADOS.cod_oficina
+  is 'Código de Oficina';
+comment on column IT.CC_CHE_RECHAZADOS.cod_rubro
+  is 'Código de Cuenta Contable (Si se eligio tipo de débito B)';
+comment on column IT.CC_CHE_RECHAZADOS.cob_cargos
+  is 'Indica si se cobra Cargos por la devolución';
+comment on column IT.CC_CHE_RECHAZADOS.estado
+  is 'Estado del registro (P=Pendiente, C=Confirmado,E=Error)';
+comment on column IT.CC_CHE_RECHAZADOS.procesar
+  is 'Indica si se va a procesar el registro';
+comment on column IT.CC_CHE_RECHAZADOS.msj_error
+  is 'Mensaje de Error';
+comment on column IT.CC_CHE_RECHAZADOS.cod_moneda
+  is 'Código de Moneda';
+comment on column IT.CC_CHE_RECHAZADOS.cod_cau_dev_bcp
+  is 'Código de Devolución BCP';
+comment on column IT.CC_CHE_RECHAZADOS.com_directa
+  is 'Indica si es Compensación Directa';
+comment on column IT.CC_CHE_RECHAZADOS.nro_linea
+  is 'Nro. de Línea o Correlativo del archivo';
+comment on column IT.CC_CHE_RECHAZADOS.cod_submotivo
+  is 'Submotivos de rechazos';
+comment on column IT.CC_CHE_RECHAZADOS.cod_submotivo_det
+  is 'Submotivos de rechazos';
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint PK_CC_CHE_RECHAZADOS unique (FEC_PROCESO, NRO_CHEQUE, CTA_LIBRADORA, COD_BCO_EMISOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_BCO_EMI foreign key (COD_BCO_EMISOR)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_BCO_REC foreign key (COD_BCO_RECEPTOR)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_CAU_DEVOLUCION foreign key (COD_CAU_DEVOLUCION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_OFI_CAM foreign key (COD_OFI_CAMARA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint FK_CCRCH_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint CK_CCRCH_COM_DIRECTA
+  check (COM_DIRECTA IN ('S','N'));
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint CK_CCRCH_ESTADO
+  check (ESTADO IN ('P','C','E'));
+alter table IT.CC_CHE_RECHAZADOS
+  add constraint CK_RCH_COD_CAU_DEV
+  check (COD_CAU_DEVOLUCION BETWEEN 0 AND 999);
+

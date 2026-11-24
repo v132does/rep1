@@ -1,0 +1,46 @@
+create table IT.MAEACT_MAEICPC
+(
+  riesgo    NUMBER(6),
+  vto       NUMBER(8),
+  docnro    NUMBER(6),
+  sucursal  NUMBER(2),
+  interes   NUMBER(13,2),
+  feini     NUMBER(8),
+  intdev    NUMBER(13,2),
+  intnodev  NUMBER(13,2),
+  fechcont  NUMBER(8),
+  periodo   NUMBER(2),
+  rubrocr   NUMBER(12),
+  inddocum  NUMBER(2),
+  ctaactivo NUMBER(12),
+  ctaordact NUMBER(12),
+  ctapasivo NUMBER(12),
+  cobadl    NUMBER(13,2),
+  propuesta NUMBER(6),
+  devsusp   NUMBER(13,2),
+  filler    VARCHAR2(32)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_PR_MAEICPC on IT.MAEACT_MAEICPC (RIESGO, SUCURSAL, PROPUESTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

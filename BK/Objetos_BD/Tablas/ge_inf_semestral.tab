@@ -1,0 +1,99 @@
+create table IT.GE_INF_SEMESTRAL
+(
+  semestre        VARCHAR2(1) not null,
+  ano             VARCHAR2(4) not null,
+  cod_oficina     NUMBER(3),
+  cod_persona     VARCHAR2(10) not null,
+  des_fecha       VARCHAR2(100),
+  nro_ruc         VARCHAR2(100),
+  nom_completo    VARCHAR2(120),
+  direccion       VARCHAR2(500),
+  telefono        VARCHAR2(50),
+  ruc_entidad     VARCHAR2(50),
+  matriz          VARCHAR2(100),
+  dir_oficina     VARCHAR2(120),
+  tel_oficina     VARCHAR2(50),
+  cod_moneda      VARCHAR2(3),
+  nom_entidad     VARCHAR2(100),
+  tip_persona     VARCHAR2(1),
+  ind_funcionario VARCHAR2(1),
+  ind_nomina      VARCHAR2(1),
+  ind_web         VARCHAR2(1),
+  tip_extracto    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_SEMESTRAL.tip_extracto
+  is 'Tipo Extracto (''S'', ''N'')';
+create index IT.IN_GINFS_COD_OFICINA on IT.GE_INF_SEMESTRAL (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GINFS_COD_PERSONA on IT.GE_INF_SEMESTRAL (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GINFS_COD_PERSONA_01 on IT.GE_INF_SEMESTRAL (TO_NUMBER(COD_PERSONA))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GINFS_SEMESTRE on IT.GE_INF_SEMESTRAL (SEMESTRE, ANO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_INF_SEMESTRAL
+  add constraint PK_GE_INF_SEMESTRAL primary key (SEMESTRE, ANO, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

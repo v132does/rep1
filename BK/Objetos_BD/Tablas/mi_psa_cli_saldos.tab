@@ -1,0 +1,32 @@
+create table IT.MI_PSA_CLI_SALDOS
+(
+  cod_persona VARCHAR2(10) not null,
+  tot_activo  NUMBER(18,2),
+  tot_pasivo  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MI_PSA_CLI_SALDOS
+  add constraint PK_MI_PSA_CLI_SALDOS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

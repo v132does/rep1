@@ -1,0 +1,119 @@
+create table IT.PR_LIN_VIN_PRODUCTOS_HIS
+(
+  nro_linea        NUMBER(7) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  mto_aplicado     NUMBER,
+  mto_limite       NUMBER,
+  hora             VARCHAR2(8),
+  fecha            DATE,
+  cod_usuario      VARCHAR2(10),
+  cod_motivo       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR (USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR (USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.nro_linea
+  is 'Número de línea de crédito que ha sido desvinculado del producto';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.cod_persona
+  is 'Código de persona del cliente ';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.nro_cuenta
+  is 'Número de cuenta al cual pertenece el límite desvinculado';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.cod_moneda
+  is 'Código Moneda del limite.';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.mto_aplicado
+  is 'Monto Aplicado a la cuenta';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.mto_limite
+  is 'Monto del límite';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.hora
+  is 'Hora de insercion del registro';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.fecha
+  is 'Fecha de insercion del registro';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.cod_usuario
+  is 'Usuario que realiza la insercion del registro';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.cod_motivo
+  is 'Código Motivo por el cual se realiza la desvinculacion del límite';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.usu_insercion
+  is 'Usuario de Insercion, corresponde a campos de auditoría propios de todas las tablas';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.fec_insercion
+  is 'Fecha de Insercion, corresponde a campos de auditoría propios de todas las tablas';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.usu_modificacion
+  is 'Usuario modificacion, corresponde a campos de auditoría propios de todas las tablas';
+comment on column IT.PR_LIN_VIN_PRODUCTOS_HIS.fec_modificacion
+  is 'Fecha de modificacion, corresponde a campos de auditoría propios de todas las tablas';
+create index IT.IN_PVIN_COD_PERSONA on IT.PR_LIN_VIN_PRODUCTOS_HIS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PVIN_FECHA on IT.PR_LIN_VIN_PRODUCTOS_HIS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PVIN_NRO_CUENTA on IT.PR_LIN_VIN_PRODUCTOS_HIS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PVIN_NRO_LINEA on IT.PR_LIN_VIN_PRODUCTOS_HIS (NRO_LINEA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LIN_VIN_PRODUCTOS_HIS
+  add constraint PK_PR_LIN_VIN_PRODUCTOS_HIS primary key (NRO_LINEA, COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,67 @@
+create table IT.GE_SAL_ACT_VTA_CARTERA
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(15) not null,
+  fec_saldo        DATE not null,
+  fec_venta        DATE not null,
+  can_dia_mora     NUMBER(5),
+  saldo            NUMBER(20,2),
+  estado           VARCHAR2(1),
+  error            VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SAL_ACT_VTA_CARTERA
+  is 'Saldo Actualizado de Venta de Cartera.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.fec_saldo
+  is 'Fecha de saldo de la cuenta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.fec_venta
+  is 'Fecha de venta de cartera.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.can_dia_mora
+  is 'Días de Mora de la Cuenta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.saldo
+  is 'Saldo de la cuenta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.estado
+  is 'Estado del Registro (P)Procesado - (E)Error.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.error
+  is 'Descripción del error del registro.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SAL_ACT_VTA_CARTERA
+  add constraint PK_GE_SAL_ACT_VTA_CARTERA primary key (NRO_CUENTA, FEC_SALDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

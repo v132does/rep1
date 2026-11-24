@@ -1,0 +1,98 @@
+create table IT.GE_DEV_RES4_DET
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_orden          NUMBER(20) not null,
+  fec_inicio         DATE,
+  fec_final          DATE,
+  mto_dev_actual     NUMBER(18,2) default 0,
+  can_dia_dev_actual NUMBER(6),
+  mto_dev_acumulado  NUMBER(18,2) default 0,
+  can_dia_acumulado  NUMBER(6) default 0,
+  tot_dias           NUMBER(6) default 0,
+  mto_interes        NUMBER(18,2) default 0,
+  mto_dev_diario     NUMBER(18,2) default 0,
+  estado             VARCHAR2(2),
+  cod_moneda         VARCHAR2(3) not null,
+  nro_cuota          NUMBER(3),
+  ult_proceso        VARCHAR2(1),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEV_RES4_DET
+  is ' Detalle de Devengados RE4.';
+comment on column IT.GE_DEV_RES4_DET.nro_cuenta
+  is 'Número de Préstamo.';
+comment on column IT.GE_DEV_RES4_DET.nro_orden
+  is 'Numero de Orden de Insercion';
+comment on column IT.GE_DEV_RES4_DET.fec_inicio
+  is 'Fecha de inicio del devengamiento.';
+comment on column IT.GE_DEV_RES4_DET.fec_final
+  is 'Fecha de final del devengamiento.';
+comment on column IT.GE_DEV_RES4_DET.mto_dev_actual
+  is 'Monto total devengado actual';
+comment on column IT.GE_DEV_RES4_DET.can_dia_dev_actual
+  is 'Cantidad de Dias Devengado actual';
+comment on column IT.GE_DEV_RES4_DET.mto_dev_acumulado
+  is 'Monto acumulado';
+comment on column IT.GE_DEV_RES4_DET.can_dia_acumulado
+  is 'Cantidad de Dias Acumulados';
+comment on column IT.GE_DEV_RES4_DET.tot_dias
+  is 'Total de dias a devengar';
+comment on column IT.GE_DEV_RES4_DET.mto_interes
+  is 'Monto de Interes sobre el cual se Devenga';
+comment on column IT.GE_DEV_RES4_DET.mto_dev_diario
+  is 'Monto Devengado Diario';
+comment on column IT.GE_DEV_RES4_DET.estado
+  is 'Estado ''DE'' devengando/ ''AD'' A devengar /''FI'' Finalizado';
+comment on column IT.GE_DEV_RES4_DET.cod_moneda
+  is 'Código de la moneda.';
+comment on column IT.GE_DEV_RES4_DET.nro_cuota
+  is 'Numero de Cuota devengada.';
+comment on column IT.GE_DEV_RES4_DET.ult_proceso
+  is 'Ultimo proceso Ejecutado';
+comment on column IT.GE_DEV_RES4_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DEV_RES4_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DEV_RES4_DET.usu_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_DEV_RES4_DET.fec_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+create index IT.IND_NRO_CUENTA on IT.GE_DEV_RES4_DET (NRO_CUENTA, NRO_ORDEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_REV_NRO_CTA on IT.GE_DEV_RES4_DET (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

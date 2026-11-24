@@ -1,0 +1,55 @@
+create table IT.MD_GROUP_MEMBERS
+(
+  id                 NUMBER not null,
+  group_id_fk        NUMBER not null,
+  user_id_fk         NUMBER,
+  group_member_id_fk NUMBER,
+  security_group_id  NUMBER default 0 not null,
+  created_on         DATE default sysdate not null,
+  created_by         VARCHAR2(255),
+  last_updated_on    DATE,
+  last_updated_by    VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_GROUP_MEMBERS
+  is 'This table is used to store the members of a group.';
+comment on column IT.MD_GROUP_MEMBERS.id
+  is 'Primary Key';
+comment on column IT.MD_GROUP_MEMBERS.user_id_fk
+  is 'Id of member';
+comment on column IT.MD_GROUP_MEMBERS.group_member_id_fk
+  is 'groups can be members of groups';
+alter table IT.MD_GROUP_MEMBERS
+  add constraint MD_GROUP_MEMBERS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_GROUP_MEMBERS
+  add constraint MD_GROUPMEMBERS_MD_GROUPS_FK1 foreign key (GROUP_ID_FK)
+  references IT.MD_GROUPS (ID) on delete cascade;
+alter table IT.MD_GROUP_MEMBERS
+  add constraint MD_GROUPMEMBERS_MD_GROUPS_FK2 foreign key (GROUP_MEMBER_ID_FK)
+  references IT.MD_GROUPS (ID) on delete cascade;
+alter table IT.MD_GROUP_MEMBERS
+  add constraint MD_GROUPMEMBERS_MD_USERS_FK1 foreign key (USER_ID_FK)
+  references IT.MD_USERS (ID) on delete cascade;
+

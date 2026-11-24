@@ -1,0 +1,93 @@
+create table IT.IG_PARAMETROS
+(
+  cod_periodo      NUMBER(3) not null,
+  descripcion      VARCHAR2(100) not null,
+  fec_hasta        DATE not null,
+  tip_periodo      VARCHAR2(1) not null,
+  fec_desde        DATE not null,
+  liquidado        VARCHAR2(1) default 'N' not null,
+  mar_operativo    VARCHAR2(1) default 'N' not null,
+  coeficiente      NUMBER(3,2) not null,
+  fec_ult_proceso  DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_PARAMETROS
+  is 'Parametros del Sistema de Gratificacion Periodica.';
+comment on column IT.IG_PARAMETROS.cod_periodo
+  is 'Codigo identificador del periodo.';
+comment on column IT.IG_PARAMETROS.descripcion
+  is 'Descripcion del periodo.';
+comment on column IT.IG_PARAMETROS.fec_hasta
+  is 'Fecha final del periodo.';
+comment on column IT.IG_PARAMETROS.tip_periodo
+  is 'Tipo de periodo: S-Semanal, Q-Quincenal, M-Mensual, T-Trimestral, A-Anual.';
+comment on column IT.IG_PARAMETROS.fec_desde
+  is 'Fecha inicial del periodo, se calcula a partir de la fecha hasta y el tipo de periodo.';
+comment on column IT.IG_PARAMETROS.liquidado
+  is 'Indica si el periodo ya fue liquidado o procesado.';
+comment on column IT.IG_PARAMETROS.mar_operativo
+  is 'Indica si se tiene en cuenta el Margen Operativo para pagar al oficial por llegar a las metas. S/N.';
+comment on column IT.IG_PARAMETROS.coeficiente
+  is 'Porcentaje a utilizar para obtener el maximo premio posible por oficial.';
+comment on column IT.IG_PARAMETROS.fec_ult_proceso
+  is 'Fecha en que se ejecuto por ultima vez el proceso durante el periodo.';
+comment on column IT.IG_PARAMETROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_PARAMETROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_PARAMETROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_PARAMETROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_PARAMETROS
+  add constraint PK_IG_PARAMETROS primary key (COD_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_PARAMETROS
+  add constraint UK_IG_PARAMETROS unique (FEC_HASTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_PARAMETROS
+  add constraint AVCON_1180382030_LIQUI_002
+  check (LIQUIDADO IN ('S', 'N'));
+alter table IT.IG_PARAMETROS
+  add constraint AVCON_1180382030_MAR_O_000
+  check (MAR_OPERATIVO IN ('S', 'N'));
+alter table IT.IG_PARAMETROS
+  add constraint AVCON_1180382030_TIP_P_000
+  check (TIP_PERIODO IN ('S', 'Q', 'M', 'A', 'T'));
+

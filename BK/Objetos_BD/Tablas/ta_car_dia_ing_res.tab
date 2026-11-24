@@ -1,0 +1,39 @@
+create table IT.TA_CAR_DIA_ING_RES
+(
+  nro_car_dia       NUMBER(18),
+  tip_registro      NUMBER(1),
+  cod_ent_emisora   VARCHAR2(5),
+  cod_ide_archivo   VARCHAR2(8),
+  can_registros     VARCHAR2(9),
+  sum_imp_mon_local NUMBER(16,2),
+  sum_imp_mon_ext   NUMBER(16,2),
+  filler            VARCHAR2(245)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CAR_DIA_ING_RES
+  is 'Resumen importacion archivo T3052 GP';
+comment on column IT.TA_CAR_DIA_ING_RES.tip_registro
+  is '3 - Trailer
+';
+comment on column IT.TA_CAR_DIA_ING_RES.cod_ent_emisora
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_CAR_DIA_ING_RES.cod_ide_archivo
+  is 'T3052D
+';
+comment on column IT.TA_CAR_DIA_ING_RES.can_registros
+  is 'Cantidad de registros de detalle informados
+';
+comment on column IT.TA_CAR_DIA_ING_RES.filler
+  is 'Espacios';
+

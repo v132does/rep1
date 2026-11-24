@@ -1,0 +1,103 @@
+create table IT.CC_CHE_VENTANILLAS
+(
+  cod_oficina      NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  nro_che_inicial  NUMBER(15) not null,
+  nro_che_final    NUMBER(15) not null,
+  ult_che_emitido  NUMBER(15),
+  estado           VARCHAR2(1) default 'S' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  serie            VARCHAR2(5),
+  tipo             VARCHAR2(1) not null,
+  cod_gru_envio    NUMBER(5),
+  can_cheques      NUMBER(5) not null,
+  fec_solicitud    DATE,
+  hor_solicitud    VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  cantidad         NUMBER(5) not null,
+  observacion      VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_VENTANILLAS
+  is 'Datos de las chequeras ventanilla.';
+comment on column IT.CC_CHE_VENTANILLAS.cod_oficina
+  is 'Codigo de oficina de la Cuenta.';
+comment on column IT.CC_CHE_VENTANILLAS.cod_moneda
+  is 'Codigo de la moneda con que opera la Cuenta.';
+comment on column IT.CC_CHE_VENTANILLAS.nro_che_inicial
+  is 'Numero de cheque inicial.';
+comment on column IT.CC_CHE_VENTANILLAS.nro_che_final
+  is 'Numero de cheque final.';
+comment on column IT.CC_CHE_VENTANILLAS.ult_che_emitido
+  is 'Ultimo cheque emitido.';
+comment on column IT.CC_CHE_VENTANILLAS.estado
+  is 'Estado de la chequera.';
+comment on column IT.CC_CHE_VENTANILLAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_VENTANILLAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_VENTANILLAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_VENTANILLAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_VENTANILLAS.serie
+  is 'Serie de los cheques.';
+comment on column IT.CC_CHE_VENTANILLAS.tipo
+  is 'Tipo de solicitud de chequera.';
+comment on column IT.CC_CHE_VENTANILLAS.cod_gru_envio
+  is 'Codigo del grupo de envio de la chequera.';
+comment on column IT.CC_CHE_VENTANILLAS.can_cheques
+  is 'Cantidad de cheques.';
+comment on column IT.CC_CHE_VENTANILLAS.fec_solicitud
+  is 'Fecha de solicitud o entrega de la chequera.';
+comment on column IT.CC_CHE_VENTANILLAS.hor_solicitud
+  is 'Hora de solicitud o entrega de la chequera.';
+comment on column IT.CC_CHE_VENTANILLAS.cod_usuario
+  is 'Usuario que realizo la solicitud.';
+comment on column IT.CC_CHE_VENTANILLAS.cantidad
+  is 'Cantidad de cheques.';
+comment on column IT.CC_CHE_VENTANILLAS.observacion
+  is 'Observacion.';
+alter table IT.CC_CHE_VENTANILLAS
+  add constraint PK_CC_CHE_VENTANILLAS primary key (COD_OFICINA, COD_MONEDA, NRO_CHE_INICIAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_VENTANILLAS
+  add constraint FK_CCVEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CHE_VENTANILLAS
+  add constraint FK_CCVEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CHE_VENTANILLAS
+  add constraint FK_CCVEN_TIPO foreign key (TIPO)
+  references IT.CC_TIP_CHEQUERAS (COD_TIP_CHEQUERA);
+alter table IT.CC_CHE_VENTANILLAS
+  add constraint AVCON_1100727541_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 99999);
+alter table IT.CC_CHE_VENTANILLAS
+  add constraint AVCON_1101390232_ESTAD_000
+  check (ESTADO IN ('S', 'V', 'R', 'P', 'A', 'I', 'E', 'N'));
+

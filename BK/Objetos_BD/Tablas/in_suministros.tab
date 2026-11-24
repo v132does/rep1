@@ -1,0 +1,136 @@
+create table IT.IN_SUMINISTROS
+(
+  cod_suministro    NUMBER(10) not null,
+  cod_articulo      NUMBER(10) not null,
+  descripcion       VARCHAR2(250),
+  cod_oficina       NUMBER(3) not null,
+  cod_area          NUMBER(3) not null,
+  nro_serie         NUMBER(20),
+  val_compra        NUMBER(18,2) default 0 not null,
+  cod_moneda        VARCHAR2(3) not null,
+  fecha             DATE not null,
+  cod_ent_proveedor NUMBER(5),
+  nro_factura       VARCHAR2(20),
+  tipo              VARCHAR2(1),
+  estado            VARCHAR2(1) default 'A' not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  fec_transferencia DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IN_SUMINISTROS
+  is 'Suministros.';
+comment on column IT.IN_SUMINISTROS.cod_suministro
+  is 'Codigo del Suministro.';
+comment on column IT.IN_SUMINISTROS.cod_articulo
+  is 'Codigo del Articulo.';
+comment on column IT.IN_SUMINISTROS.descripcion
+  is 'Descripcion del Bien.';
+comment on column IT.IN_SUMINISTROS.cod_oficina
+  is 'Oficina a la que pertenece el Suministro.';
+comment on column IT.IN_SUMINISTROS.cod_area
+  is 'Area a la que pertenece el Suministro.';
+comment on column IT.IN_SUMINISTROS.nro_serie
+  is 'Numero de serie del Suministro.';
+comment on column IT.IN_SUMINISTROS.val_compra
+  is 'Monto de la compra.';
+comment on column IT.IN_SUMINISTROS.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.IN_SUMINISTROS.fecha
+  is 'Fecha de la compra.';
+comment on column IT.IN_SUMINISTROS.cod_ent_proveedor
+  is 'Codigo de entidad del Proveedor.';
+comment on column IT.IN_SUMINISTROS.nro_factura
+  is 'Numero de la factura de compra.';
+comment on column IT.IN_SUMINISTROS.tipo
+  is 'Tipo de Comprobante: F / Factura o B / Boleta de Venta.';
+comment on column IT.IN_SUMINISTROS.estado
+  is 'Estado del Bien.';
+comment on column IT.IN_SUMINISTROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IN_SUMINISTROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IN_SUMINISTROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IN_SUMINISTROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.IN_SUMINISTROS.fec_transferencia
+  is 'Fecha de Transferencia a la sucursal destino';
+create index IT.IN_ZSUM_COD_ARTICULO on IT.IN_SUMINISTROS (COD_ARTICULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ZSUM_COD_OFICINA on IT.IN_SUMINISTROS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ZSUM_ESTADO on IT.IN_SUMINISTROS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IN_SUMINISTROS
+  add constraint PK_IN_SUMINISTROS primary key (COD_SUMINISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IN_SUMINISTROS
+  add constraint FK_ZSUM_COD_AREA foreign key (COD_AREA, COD_OFICINA)
+  references IT.BA_AREAS (COD_AREA, COD_OFICINA);
+alter table IT.IN_SUMINISTROS
+  add constraint FK_ZSUM_COD_ARTICULO foreign key (COD_ARTICULO)
+  references IT.AF_ARTICULOS (COD_ARTICULO);
+alter table IT.IN_SUMINISTROS
+  add constraint FK_ZSUM_COD_ENT_PROVEEDOR foreign key (COD_ENT_PROVEEDOR)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.IN_SUMINISTROS
+  add constraint FK_ZSUM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.IN_SUMINISTROS
+  add constraint AVCON_1203019586_COD_S_000
+  check (COD_SUMINISTRO BETWEEN 0 AND 999999999);
+

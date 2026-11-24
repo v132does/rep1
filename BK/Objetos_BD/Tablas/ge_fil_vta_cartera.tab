@@ -1,0 +1,67 @@
+create table IT.GE_FIL_VTA_CARTERA
+(
+  ref_lote      NUMBER not null,
+  prevision     NUMBER,
+  nomina        VARCHAR2(1),
+  dia_desde     NUMBER,
+  dia_hasta     NUMBER,
+  garantia      VARCHAR2(1),
+  tipos         VARCHAR2(1000),
+  deu_desde     NUMBER,
+  deu_hasta     NUMBER,
+  gru_economico VARCHAR2(1),
+  modulo        VARCHAR2(20),
+  cod_moneda    VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_FIL_VTA_CARTERA
+  is 'Filtros aplicados a Cartera de Clientes.';
+comment on column IT.GE_FIL_VTA_CARTERA.ref_lote
+  is 'Numero Referencia al Lote de cartera de clientes';
+comment on column IT.GE_FIL_VTA_CARTERA.prevision
+  is 'Monto de prevision: mayor o igual a';
+comment on column IT.GE_FIL_VTA_CARTERA.nomina
+  is 'Cliente Nomina: S/N';
+comment on column IT.GE_FIL_VTA_CARTERA.dia_desde
+  is 'Rango Dias de atraso - Desde';
+comment on column IT.GE_FIL_VTA_CARTERA.dia_hasta
+  is 'Rango Dias de atraso - Hasta';
+comment on column IT.GE_FIL_VTA_CARTERA.garantia
+  is 'Garantia Activa: S/N';
+comment on column IT.GE_FIL_VTA_CARTERA.tipos
+  is 'Tipos de Inhibidos';
+comment on column IT.GE_FIL_VTA_CARTERA.deu_desde
+  is 'Rango de Deuda - Desde';
+comment on column IT.GE_FIL_VTA_CARTERA.deu_hasta
+  is 'Rango de Deuda - Hasta';
+comment on column IT.GE_FIL_VTA_CARTERA.gru_economico
+  is 'Grupo Economico: S/N';
+comment on column IT.GE_FIL_VTA_CARTERA.modulo
+  is 'Modulos que se aplicarán';
+comment on column IT.GE_FIL_VTA_CARTERA.cod_moneda
+  is 'Moneda aplicada a los filtros';
+alter table IT.GE_FIL_VTA_CARTERA
+  add constraint PK_GE_FIL_VTA_CARTERA primary key (REF_LOTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

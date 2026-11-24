@@ -1,0 +1,7 @@
+create sequence IT.S_PROCESOS_AUT
+minvalue 1
+maxvalue 99999999
+start with 341
+increment by 1
+cache 20;
+

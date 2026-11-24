@@ -1,0 +1,250 @@
+create table IT.CR_AGENDAS
+(
+  cod_agenda           NUMBER(10) not null,
+  cod_persona          VARCHAR2(10) not null,
+  cod_usu_encargado    VARCHAR2(10) not null,
+  cod_actividad        NUMBER(3) not null,
+  cod_estado           NUMBER(2) not null,
+  cod_mot_actividad    VARCHAR2(5) not null,
+  fec_actividad        DATE not null,
+  can_reprogramaciones NUMBER(2) default 0,
+  det_actividad        VARCHAR2(2000) not null,
+  fec_realizacion      DATE,
+  fec_vencimiento      DATE,
+  revisado             VARCHAR2(1) default 'N' not null,
+  det_respuesta        VARCHAR2(1000),
+  automatico           VARCHAR2(1) default 'N',
+  cod_campana          NUMBER(3),
+  cod_age_anterior     NUMBER(10),
+  nro_referencia       VARCHAR2(20),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_canal            NUMBER(3),
+  nro_orden            NUMBER(10) default 1,
+  cod_respuesta        NUMBER(2),
+  dia_atraso           NUMBER(5) default 0,
+  mto_mora             NUMBER(18,2) default 0,
+  fec_ini_asignacion   DATE,
+  mto_capital          NUMBER(18,2) default 0,
+  tel_contacto         VARCHAR2(20),
+  doc_adjunto          BLOB,
+  orden                NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AGENDAS
+  is 'Agenda.';
+comment on column IT.CR_AGENDAS.cod_agenda
+  is 'Numero de secuencia unico.';
+comment on column IT.CR_AGENDAS.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.CR_AGENDAS.cod_usu_encargado
+  is 'Encargado de la actividad.';
+comment on column IT.CR_AGENDAS.cod_actividad
+  is 'Codigo de actividad.';
+comment on column IT.CR_AGENDAS.cod_estado
+  is 'Estado actual de la actividad.';
+comment on column IT.CR_AGENDAS.cod_mot_actividad
+  is 'Codigo de motivo de actividad.';
+comment on column IT.CR_AGENDAS.fec_actividad
+  is 'Fecha de actividad.';
+comment on column IT.CR_AGENDAS.can_reprogramaciones
+  is 'Numero de reprogramaciones. Por defecto 0.';
+comment on column IT.CR_AGENDAS.det_actividad
+  is 'Detalle de la actividad.';
+comment on column IT.CR_AGENDAS.fec_realizacion
+  is 'Fecha de realizacion. Contiene la hora.';
+comment on column IT.CR_AGENDAS.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.CR_AGENDAS.revisado
+  is 'Indicador de revisado (S/N).';
+comment on column IT.CR_AGENDAS.det_respuesta
+  is 'Detalle de la Respuesta.';
+comment on column IT.CR_AGENDAS.automatico
+  is 'Indicador de si la actividad fue generada en forma automatica (s/N).';
+comment on column IT.CR_AGENDAS.cod_campana
+  is 'Codigo de campaña asociada.';
+comment on column IT.CR_AGENDAS.cod_age_anterior
+  is 'Numero de la actividad predecesora, en los casos de reprogramaciones o reasignaciones.';
+comment on column IT.CR_AGENDAS.nro_referencia
+  is 'Numero de Referencia Externa.';
+comment on column IT.CR_AGENDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AGENDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AGENDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGENDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGENDAS.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.CR_AGENDAS.nro_orden
+  is 'Nro de orden de las actividades generadas en forma automatica.';
+comment on column IT.CR_AGENDAS.cod_respuesta
+  is 'Codigo de respuesta.';
+comment on column IT.CR_AGENDAS.dia_atraso
+  is 'Maxima cantidad de dias de atraso.';
+comment on column IT.CR_AGENDAS.mto_mora
+  is 'Total de monto en mora.';
+comment on column IT.CR_AGENDAS.fec_ini_asignacion
+  is 'Fecha inicial de asignacion de la actividad.';
+comment on column IT.CR_AGENDAS.mto_capital
+  is 'Corresponde al monto total de las operaciones adeudadas por el cliente.';
+create index IT.IN_BBVA_COD_ACTIVIDAD on IT.CR_AGENDAS (COD_ACTIVIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_AGE_ANTERIOR on IT.CR_AGENDAS (COD_AGE_ANTERIOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_CAMPANAA on IT.CR_AGENDAS (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_CANAL on IT.CR_AGENDAS (COD_CANAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_MOT_ACTIVIDAD on IT.CR_AGENDAS (COD_MOT_ACTIVIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_USU_ENCARGADO on IT.CR_AGENDAS (COD_USU_ENCARGADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RAGEN_COD_PERSONA on IT.CR_AGENDAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RAGEN_NRO_REFERENCIA on IT.CR_AGENDAS (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_AGENDAS
+  add constraint PK_CR_AGENDAS primary key (COD_AGENDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_AGENDAS
+  add constraint FK_RAGEN_COD_ACTIVIDAD foreign key (COD_ACTIVIDAD)
+  references IT.CR_AGE_ACTIVIDADES (COD_ACTIVIDAD);
+alter table IT.CR_AGENDAS
+  add constraint FK_RAGEN_COD_AGE_ANTERIOR foreign key (COD_AGE_ANTERIOR)
+  references IT.CR_AGENDAS (COD_AGENDA);
+alter table IT.CR_AGENDAS
+  add constraint FK_RAGEN_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.CR_AGENDAS
+  add constraint FK_RAGEN_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.CR_AGENDAS
+  add constraint FK_RAGEN_COD_MOT_ACTIVIDAD foreign key (COD_MOT_ACTIVIDAD)
+  references IT.CR_AGE_MOT_ACTIVIDADES (COD_MOT_ACTIVIDAD);
+alter table IT.CR_AGENDAS
+  add constraint FK_RAGEN_COD_USU_ENCARGADO foreign key (COD_USU_ENCARGADO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_AGENDAS
+  add constraint AVCON_1080843837_AUTOM_001
+  check (AUTOMATICO IN ('S', 'N'));
+alter table IT.CR_AGENDAS
+  add constraint AVCON_1080843837_REVIS_000
+  check (REVISADO IN ('S', 'N'));
+alter table IT.CR_AGENDAS
+  add constraint AVCON_1118232349_COD_A_003
+  check (COD_ACTIVIDAD BETWEEN 0 AND 999);
+alter table IT.CR_AGENDAS
+  add constraint AVCON_1118232349_COD_C_002
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.CR_AGENDAS
+  add constraint AVCON_1118232349_COD_C_003
+  check (COD_CANAL BETWEEN 0 AND 999);
+alter table IT.CR_AGENDAS
+  add constraint AVCON_1118232349_COD_R_000
+  check (COD_RESPUESTA BETWEEN 0 AND 999);
+

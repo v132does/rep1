@@ -1,0 +1,88 @@
+create table IT.GE_TRANSACCIONES_DET
+(
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_tra_hijo     NUMBER(4) not null,
+  cod_mod_hijo     NUMBER(3) not null,
+  cod_mad_hijo     NUMBER(3) not null,
+  nro_orden        NUMBER(3) not null,
+  obligatorio      VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRANSACCIONES_DET
+  is 'Transacciones Hijos.';
+comment on column IT.GE_TRANSACCIONES_DET.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_TRANSACCIONES_DET.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_TRANSACCIONES_DET.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_TRANSACCIONES_DET.cod_tra_hijo
+  is 'Codigo de transaccion.';
+comment on column IT.GE_TRANSACCIONES_DET.cod_mod_hijo
+  is 'Codigo de modulo.';
+comment on column IT.GE_TRANSACCIONES_DET.cod_mad_hijo
+  is 'Codigo de modalidad.';
+comment on column IT.GE_TRANSACCIONES_DET.nro_orden
+  is 'Numero de orden.';
+comment on column IT.GE_TRANSACCIONES_DET.obligatorio
+  is 'Obligatorio. (S = SI / N = NO).';
+comment on column IT.GE_TRANSACCIONES_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TRANSACCIONES_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TRANSACCIONES_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRANSACCIONES_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint PK_GE_TRANSACCIONES_DET primary key (COD_MODULO, COD_MODALIDAD, COD_TRANSACCION, COD_MOD_HIJO, COD_MAD_HIJO, COD_TRA_HIJO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint FK_GTDET_COD_TRA_HIJO foreign key (COD_TRA_HIJO, COD_MOD_HIJO, COD_MAD_HIJO)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint FK_GTDET_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_M_030
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_M_031
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_M_032
+  check (COD_MOD_HIJO BETWEEN 1 AND 999);
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_COD_M_033
+  check (COD_MAD_HIJO BETWEEN 1 AND 999);
+alter table IT.GE_TRANSACCIONES_DET
+  add constraint AVCON_1080843414_OBLIG_003
+  check (OBLIGATORIO IN ('S', 'N'));
+

@@ -1,0 +1,57 @@
+create table IT.GE_REI_BENEFICIOS
+(
+    id_reintegro                  VARCHAR2(30),
+    tip_operacion                VARCHAR2(8) not null,
+    fec_confirmacion              DATE,
+    usu_insercion                 VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+    fec_insercion                 DATE default SYSDATE not null,
+    usu_modificacion              VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+    fec_modificacion              DATE default SYSDATE not null
+)
+
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+comment on table IT.GE_REI_BENEFICIOS
+  is 'Tabla de Beneficios como tabla de marcas de reintegros';
+comment on column IT.GE_REI_BENEFICIOS.id_reintegro
+  is 'Identificador de la operacion';
+comment on column IT.GE_REI_BENEFICIOS.tip_operacion
+  is 'El tipo de operacion del reintegro';
+comment on column IT.GE_REI_BENEFICIOS.fec_confirmacion
+  is 'Fecha en que se realizo la confirmacion del envio del reintegro.';
+comment on column IT.GE_REI_BENEFICIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_REI_BENEFICIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_REI_BENEFICIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_REI_BENEFICIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+
+  -- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_REI_BENEFICIOS to IT_TEMPORAL;
+
+alter table IT.GE_REI_BENEFICIOS
+  add constraint PK_GE_REI_BENEFICIOS primary key (id_reintegro)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

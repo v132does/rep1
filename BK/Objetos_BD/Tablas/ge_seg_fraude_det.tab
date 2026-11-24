@@ -1,0 +1,80 @@
+create table IT.GE_SEG_FRAUDE_DET
+(
+  nro_proceso      NUMBER(10) not null,
+  ano              NUMBER(4) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cuota        NUMBER(5) not null,
+  mes              NUMBER(2) not null,
+  cobrado          VARCHAR2(1) not null,
+  contabilizado    VARCHAR2(1) not null,
+  mto_debito       NUMBER(18,2) not null,
+  mto_ganancia     NUMBER(18,2) not null,
+  iva_pago         NUMBER(18,2) not null,
+  iva_costo        NUMBER(18,2) not null,
+  cotizacion       NUMBER(16,4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  error            VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SEG_FRAUDE_DET.nro_proceso
+  is 'Numero de Proceso.';
+comment on column IT.GE_SEG_FRAUDE_DET.ano
+  is 'Año del seguro.';
+comment on column IT.GE_SEG_FRAUDE_DET.nro_cuenta
+  is 'Numero de Cuenta de la Tarjeta de Débito.';
+comment on column IT.GE_SEG_FRAUDE_DET.nro_cuota
+  is 'Numero de Cuota Anual del Seguro.';
+comment on column IT.GE_SEG_FRAUDE_DET.mes
+  is 'Mes de la Cuota.';
+comment on column IT.GE_SEG_FRAUDE_DET.cobrado
+  is 'Indicador si el Cargo ya pudo ser cobrado.';
+comment on column IT.GE_SEG_FRAUDE_DET.contabilizado
+  is 'Indicador si la Ganancia ya fue contabilizada.';
+comment on column IT.GE_SEG_FRAUDE_DET.mto_debito
+  is 'Monto Debitado al Cliente.';
+comment on column IT.GE_SEG_FRAUDE_DET.mto_ganancia
+  is 'Monto correspondiente a la ganancia.';
+comment on column IT.GE_SEG_FRAUDE_DET.iva_pago
+  is 'Monto del IVA Pago.';
+comment on column IT.GE_SEG_FRAUDE_DET.iva_costo
+  is 'Monto del IVA Cargo.';
+comment on column IT.GE_SEG_FRAUDE_DET.cotizacion
+  is 'Cotizacion.';
+comment on column IT.GE_SEG_FRAUDE_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SEG_FRAUDE_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SEG_FRAUDE_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_FRAUDE_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_FRAUDE_DET.error
+  is 'Error al tratar de cobrar cargos.';
+alter table IT.GE_SEG_FRAUDE_DET
+  add constraint PK_GE_SEG_FRAUDE_DET primary key (ANO, NRO_CUENTA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

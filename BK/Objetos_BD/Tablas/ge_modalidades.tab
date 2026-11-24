@@ -1,0 +1,106 @@
+create table IT.GE_MODALIDADES
+(
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  descripcion         VARCHAR2(35) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_gru_cruzamiento NUMBER(3),
+  sigla               VARCHAR2(4),
+  cod_pro_contable    NUMBER(3),
+  tipo                VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MODALIDADES
+  is 'Modalidades.';
+comment on column IT.GE_MODALIDADES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_MODALIDADES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MODALIDADES.descripcion
+  is 'Descripcion de la modalidad.';
+comment on column IT.GE_MODALIDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MODALIDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MODALIDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MODALIDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MODALIDADES.cod_gru_cruzamiento
+  is 'Codigo de Grupo de Cruzamiento.';
+comment on column IT.GE_MODALIDADES.sigla
+  is 'Sigla de la modalidad.';
+comment on column IT.GE_MODALIDADES.cod_pro_contable
+  is 'Codigo Contable del Producto.';
+comment on column IT.GE_MODALIDADES.tipo
+  is 'Tipo.';
+create index IT.IN_GEMAD_COD_PRO_CONTABLE on IT.GE_MODALIDADES (COD_PRO_CONTABLE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.UN_GEMAD_COD_MODALIDAD on IT.GE_MODALIDADES (COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MODALIDADES
+  add constraint PK_GE_MODALIDADES primary key (COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MODALIDADES
+  add constraint FK_GMODA_COD_GRU_CRUZAMIENTO foreign key (COD_GRU_CRUZAMIENTO)
+  references IT.GE_GRU_CRUZAMIENTOS (COD_GRU_CRUZAMIENTO);
+alter table IT.GE_MODALIDADES
+  add constraint FK_GMODA_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.GE_MODALIDADES
+  add constraint AVCON_1082384743_COD_M_009
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_MODALIDADES
+  add constraint AVCON_1082384743_COD_M_010
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_MODALIDADES
+  add constraint AVCON_1085329119_COD_G_000
+  check (COD_GRU_CRUZAMIENTO BETWEEN 0 AND 999);
+alter table IT.GE_MODALIDADES
+  add constraint AVCON_1118689162_TIPO_000
+  check (TIPO IN ('A', 'P', 'C', 'I'));
+

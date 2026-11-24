@@ -1,0 +1,122 @@
+create table IT.TA_COB_ESP_VIP
+(
+  cod_transaccion    VARCHAR2(3) not null,
+  fecha              DATE not null,
+  nro_tarjeta        VARCHAR2(20) not null,
+  marca              VARCHAR2(5),
+  tip_tarjeta        VARCHAR2(5),
+  cod_servicio       VARCHAR2(5),
+  cod_prestacion     VARCHAR2(5),
+  tip_transaccion    VARCHAR2(20),
+  monto              NUMBER(18,2) not null,
+  cod_respuesta      NUMBER(5) not null,
+  nro_boleta         NUMBER(18),
+  fec_movimiento     DATE,
+  hor_movimiento     VARCHAR2(10),
+  cod_usu_movimiento VARCHAR2(10),
+  nro_cuenta         VARCHAR2(15),
+  cod_persona        VARCHAR2(10),
+  mto_comision       NUMBER(18,2),
+  iva_comision       NUMBER(18,2),
+  mto_retencion      NUMBER(18,2),
+  fec_insercion      DATE default SYSDATE,
+  usu_insercion      VARCHAR2(10) default USER,
+  fec_modificacion   DATE default SYSDATE,
+  usu_modificacion   VARCHAR2(10) default USER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_COB_ESP_VIP
+  is 'Tabla temporal de transacciones generadas por uso del espacio VIP en Aereopuerto ';
+comment on column IT.TA_COB_ESP_VIP.cod_transaccion
+  is 'Codigo de Transaccion';
+comment on column IT.TA_COB_ESP_VIP.fecha
+  is 'Fecha de Transaccion';
+comment on column IT.TA_COB_ESP_VIP.nro_tarjeta
+  is 'Nro. de Tarjeta';
+comment on column IT.TA_COB_ESP_VIP.marca
+  is 'Marca de Tarjeta: VISA, MASTERCARD, BANCARDCHECK';
+comment on column IT.TA_COB_ESP_VIP.tip_tarjeta
+  is 'Tipo de Tarjeta: Oro, Black, Clasica';
+comment on column IT.TA_COB_ESP_VIP.cod_servicio
+  is 'Codigo de Servicio: Atm, Pos, Web';
+comment on column IT.TA_COB_ESP_VIP.cod_prestacion
+  is 'Codigo de Prestacion del Servico: TC, TD';
+comment on column IT.TA_COB_ESP_VIP.tip_transaccion
+  is 'Tipo de Transaccion: L-Local, I-Internacional';
+comment on column IT.TA_COB_ESP_VIP.monto
+  is 'Monto de la Transaccion';
+comment on column IT.TA_COB_ESP_VIP.cod_respuesta
+  is 'Codigo de respuesta';
+comment on column IT.TA_COB_ESP_VIP.nro_boleta
+  is 'Nro. de boleta';
+comment on column IT.TA_COB_ESP_VIP.fec_movimiento
+  is 'Fecha del movimiento.';
+comment on column IT.TA_COB_ESP_VIP.hor_movimiento
+  is 'Hora del movimiento.';
+comment on column IT.TA_COB_ESP_VIP.cod_usu_movimiento
+  is 'Codigo de usuario que genero el movimiento';
+comment on column IT.TA_COB_ESP_VIP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.TA_COB_ESP_VIP.cod_persona
+  is 'Código de la persona titular de la cuenta';
+comment on column IT.TA_COB_ESP_VIP.mto_comision
+  is 'Monto de la comision calculada para pago a Bancard.';
+comment on column IT.TA_COB_ESP_VIP.iva_comision
+  is 'Monto de Iva calculado de la comisión';
+comment on column IT.TA_COB_ESP_VIP.mto_retencion
+  is 'Monto de la Retencion de Renta';
+comment on column IT.TA_COB_ESP_VIP.fec_insercion
+  is 'Fecha Insercion';
+comment on column IT.TA_COB_ESP_VIP.usu_insercion
+  is 'Usuario Insercion';
+comment on column IT.TA_COB_ESP_VIP.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.TA_COB_ESP_VIP.usu_modificacion
+  is 'Usuario Modificacion';
+create index IT.IND_CSV_FEC_TRANSCCION on IT.TA_COB_ESP_VIP (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_CSV_NRO_CUENTA on IT.TA_COB_ESP_VIP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PK_SALA_VIP on IT.TA_COB_ESP_VIP (FECHA, NRO_TARJETA, NRO_BOLETA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

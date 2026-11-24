@@ -1,0 +1,17 @@
+create table IT.CO_CTA_PREVENTIVAS_TMP
+(
+  nro_cuenta VARCHAR2(15),
+  ano_mes    NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

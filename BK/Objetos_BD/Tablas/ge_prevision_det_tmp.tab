@@ -1,0 +1,87 @@
+create table IT.GE_PREVISION_DET_TMP
+(
+  cod_modulo               NUMBER(3),
+  riesgo                   VARCHAR2(10),
+  nombre_per               VARCHAR2(120),
+  doc                      VARCHAR2(4),
+  nro_doc                  VARCHAR2(20),
+  cat_riesgo               VARCHAR2(1),
+  cat_crc                  NUMBER,
+  ofi                      NUMBER(3),
+  oficina                  VARCHAR2(35),
+  ofi_usu                  NUMBER(3),
+  cod_usu_oficial          VARCHAR2(10),
+  nombre_usu               VARCHAR2(60),
+  banca                    VARCHAR2(35),
+  cat_subjetiva            NUMBER(1),
+  gru_eco                  NUMBER(5),
+  gru_eco_informado        NUMBER(5),
+  cat_gru_economico        NUMBER(3,2),
+  cat_sistema              NUMBER(1),
+  tot_deu_rsistema         NUMBER(18,2),
+  tot_con_rsistema         NUMBER(18,2),
+  tipo                     VARCHAR2(1),
+  tip_cliente              VARCHAR2(40),
+  rubro                    VARCHAR2(4000),
+  cod_modalidad            NUMBER(3),
+  nro_cuenta               VARCHAR2(15),
+  saldo_interes            NUMBER(18,2),
+  fecha_inicio_oper        VARCHAR2(4000),
+  cod_moneda               VARCHAR2(3),
+  cod_estado               VARCHAR2(1),
+  estado                   VARCHAR2(35),
+  tot_deu_real             NUMBER(18,2),
+  tot_deu_contingente      NUMBER(18,2),
+  dev_no_cobrado           NUMBER(18,2),
+  tot_gar_computables      NUMBER(18,2),
+  tot_prevision            NUMBER(18,2),
+  cat_automatica           NUMBER(3,2),
+  cat_renovaciones         NUMBER(3,2),
+  dia_atraso               NUMBER(5),
+  sdo_mora                 NUMBER,
+  tip_destino              NUMBER,
+  destino                  VARCHAR2(20),
+  cod_sec_credito          NUMBER(3),
+  desc_sec_crd             VARCHAR2(60),
+  tip_renovacion           VARCHAR2(17),
+  mto_mora                 NUMBER,
+  sect_prestamo            NUMBER(3),
+  desc_sect_prestamo       VARCHAR2(60),
+  prim_prevision           NUMBER,
+  seg_prevision            NUMBER,
+  cod_sub_modalidad        NUMBER(3),
+  cod_campana              NUMBER(3),
+  gru_eco_bcp              VARCHAR2(240),
+  sub_cat_individual_no_r4 NUMBER,
+  sub_cat_individual_r4    NUMBER,
+  es_covid                 VARCHAR2(4000),
+  sub_cat_grupo            NUMBER,
+  capital                  NUMBER,
+  tot_deuda                NUMBER,
+  rie_des_prv_ant_garantia NUMBER,
+  rie_gar_nocubierto       NUMBER,
+  capital_inicial          NUMBER,
+  act_primaria             VARCHAR2(6),
+  des_act_primaria         VARCHAR2(4000),
+  cod_seg_cliente          NUMBER(3),
+  nro_solicitud            NUMBER(7),
+  canal_prestamo           NUMBER(3),
+  cod_pais                 NUMBER(3),
+  cod_tip_documento        NUMBER(3),
+  cat_de_persona           NUMBER(3,2),
+  tot_cap_prev             NUMBER,
+  tot_int_prev             NUMBER,
+  query_10                 CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

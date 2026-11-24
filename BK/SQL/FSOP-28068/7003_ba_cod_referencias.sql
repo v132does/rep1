@@ -1,0 +1,21 @@
+begin pre_ini_aplicacion;pae_cnf.g_cod_modulo:=1;end;
+/
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ACTIVO)
+values ('CONSUMIDORES_API', 'CONSUMIDOR REDIPRO', 'BEPSA', 'BEPSA', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ACTIVO)
+values ('CONSUMIDORES_API', 'CONSUMIDOR REDIPRO', 'PAGOPAR', 'PAGOPAR', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ACTIVO)
+values ('CONSUMIDORES_API', 'CONSUMIDOR REDIPRO', 'REDIPRO', 'TRANSFERS', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ACTIVO)
+values ('SNP_SPI_USUARIOS', 'USER PARA TRANSF. REDIPRO', 'TRANSFERS', 'TRANSFER', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ACTIVO)
+values ('SNP_SPI_USUARIOS', 'USER PARA TRANSF. PAGOPAR', 'PAGOPAR', 'PAGOPAR', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ACTIVO)
+values ('SNP_SPI_USUARIOS', 'USER PARA TRANSF. BEPSA', 'BEPSA', 'BEPSA', 'S');
+
+commit;

@@ -1,0 +1,70 @@
+create table IT.AH_CER_ANULADOS
+(
+  cod_modulo       NUMBER(3) default 3 not null,
+  cod_modalidad    NUMBER(3) default 33 not null,
+  nro_cuenta       VARCHAR2(15),
+  serie            VARCHAR2(5) not null,
+  nro_certificado  NUMBER(7) not null,
+  fecha            DATE not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_oficina      NUMBER(3),
+  cod_moneda       VARCHAR2(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CER_ANULADOS
+  is 'Certificados Anulados.';
+comment on column IT.AH_CER_ANULADOS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.AH_CER_ANULADOS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.AH_CER_ANULADOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_CER_ANULADOS.serie
+  is 'Nro. Serie.';
+comment on column IT.AH_CER_ANULADOS.nro_certificado
+  is 'Numero de Certificado Anulado.';
+comment on column IT.AH_CER_ANULADOS.fecha
+  is 'Fecha de Anulacion.';
+comment on column IT.AH_CER_ANULADOS.observacion
+  is 'Motivo de Anulacion.';
+comment on column IT.AH_CER_ANULADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CER_ANULADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CER_ANULADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CER_ANULADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CER_ANULADOS.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.AH_CER_ANULADOS.cod_moneda
+  is 'Codigo de Moneda.';
+alter table IT.AH_CER_ANULADOS
+  add constraint PK_AH_ANU_CERTIFICADOS primary key (COD_MODULO, COD_MODALIDAD, SERIE, NRO_CERTIFICADO, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

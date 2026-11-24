@@ -1,0 +1,10 @@
+create global temporary table IT.SS2K5_FOREIGN_KEYS
+(
+  db_id     NUMBER(10),
+  name      VARCHAR2(256) not null,
+  object_id NUMBER(10) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_FOREIGN_KEYS_DB_ID on IT.SS2K5_FOREIGN_KEYS (DB_ID);
+create index IT.SS2K5_FOREIGN_KEYS_OBJECT_ID on IT.SS2K5_FOREIGN_KEYS (OBJECT_ID);
+

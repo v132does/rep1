@@ -1,0 +1,54 @@
+create table IT.TA_COB_AJUSTES_CAB
+(
+  nro_cob_dia      NUMBER(18),
+  tip_registro     NUMBER(1),
+  cod_ent_emisora  VARCHAR2(5),
+  cod_marca        VARCHAR2(3),
+  cod_ide_archivo  VARCHAR2(8),
+  des_archivo      VARCHAR2(30),
+  fec_proceso      DATE,
+  hor_proceso      VARCHAR2(8),
+  filler           VARCHAR2(237),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_COB_AJUSTES_CAB.nro_cob_dia
+  is 'Nro. Carga diaria.';
+comment on column IT.TA_COB_AJUSTES_CAB.tip_registro
+  is '1 - Header.';
+comment on column IT.TA_COB_AJUSTES_CAB.cod_ent_emisora
+  is 'Código asignado a la Entidad Otorgante.';
+comment on column IT.TA_COB_AJUSTES_CAB.cod_marca
+  is 'Código de Marca.';
+comment on column IT.TA_COB_AJUSTES_CAB.cod_ide_archivo
+  is 'T3022D.';
+comment on column IT.TA_COB_AJUSTES_CAB.des_archivo
+  is 'Cargos ingresados.';
+comment on column IT.TA_COB_AJUSTES_CAB.fec_proceso
+  is 'Fecha de generación del archivo.';
+comment on column IT.TA_COB_AJUSTES_CAB.hor_proceso
+  is 'Hora de generación del archivo, formato HH:MM:SS.';
+comment on column IT.TA_COB_AJUSTES_CAB.filler
+  is 'Espacios.';
+comment on column IT.TA_COB_AJUSTES_CAB.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_COB_AJUSTES_CAB.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_COB_AJUSTES_CAB.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_COB_AJUSTES_CAB.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

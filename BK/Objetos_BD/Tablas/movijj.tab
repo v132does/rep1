@@ -1,0 +1,38 @@
+create table IT.MOVIJJ
+(
+  mto_debito       NUMBER(18,2),
+  mto_credito      NUMBER(18,2),
+  ind_acumula      VARCHAR2(1),
+  cod_tra_padre    NUMBER(4),
+  cod_persona      VARCHAR2(10),
+  fec_extracto     DATE,
+  cod_extracto     NUMBER(5),
+  nro_cuenta       VARCHAR2(15),
+  fec_movimiento   DATE,
+  fec_valor        DATE,
+  hor_movimiento   VARCHAR2(8),
+  nro_documento    NUMBER(15),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  fre_extracto     VARCHAR2(1),
+  nro_secuencia    NUMBER(3),
+  cod_ofi_origen   NUMBER(3),
+  concepto         VARCHAR2(100),
+  ind_bloqueo      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

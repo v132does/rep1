@@ -1,0 +1,47 @@
+create table IT.AH_TAR_DEB_SOL_AUT
+(
+  nro_cuenta       VARCHAR2(15),
+  cod_persona      VARCHAR2(10),
+  fec_solicitud    DATE,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10) default user,
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default user,
+  fec_modificacion DATE default sysdate,
+  relaciona        VARCHAR2(1) default 'N'
+)
+tablespace IT_AUD
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEB_SOL_AUT
+  is 'Tabla de solicitudes de tarjetas de débitos generadas en forma automática, al dar de alta una nueva  cuenta.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.cod_persona
+  is 'Cliente.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.fec_solicitud
+  is 'Fecha en que se inserto la solicitud.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.cod_modulo
+  is 'Codigo del Modulo de la Cuenta.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.cod_modalidad
+  is 'Codigo de la Modalidad de la Cuenta.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.usu_insercion
+  is 'Usuario Inserción.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.fec_insercion
+  is 'Fecha  Inserción.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.usu_modificacion
+  is 'Usuario Modificación.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.fec_modificacion
+  is 'Fecha Modificación.';
+comment on column IT.AH_TAR_DEB_SOL_AUT.relaciona
+  is 'Indica si se relaciono la nueva Cta. a una TD activa del cliente.';
+

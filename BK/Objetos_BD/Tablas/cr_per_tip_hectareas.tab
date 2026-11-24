@@ -1,0 +1,61 @@
+create table IT.CR_PER_TIP_HECTAREAS
+(
+  cod_persona        VARCHAR2(10) not null,
+  cod_rub_primario   VARCHAR2(6) not null,
+  tip_hec_cultivadas NUMBER(4) not null,
+  nro_hec_cultivadas NUMBER(18,2) not null,
+  mes                VARCHAR2(2),
+  anho               VARCHAR2(4),
+  usu_insercion      VARCHAR2(10) default substr(user,1,10),
+  fec_insercion      DATE default sysdate,
+  usu_modificacion   VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion   DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_TIP_HECTAREAS
+  is 'Tabla que registra los datos adicionales para la segmentación del cliente del tipo de actividad (agricultura).';
+comment on column IT.CR_PER_TIP_HECTAREAS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.CR_PER_TIP_HECTAREAS.cod_rub_primario
+  is 'Código de Actividad Primaria del Cliente.';
+comment on column IT.CR_PER_TIP_HECTAREAS.tip_hec_cultivadas
+  is 'Tipo de Hectáreas Cultivadas.';
+comment on column IT.CR_PER_TIP_HECTAREAS.nro_hec_cultivadas
+  is 'Número de Hectáreas Cultivadas.';
+comment on column IT.CR_PER_TIP_HECTAREAS.mes
+  is 'Mes de declaración.';
+comment on column IT.CR_PER_TIP_HECTAREAS.anho
+  is 'Año de declaración.';
+comment on column IT.CR_PER_TIP_HECTAREAS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CR_PER_TIP_HECTAREAS.fec_insercion
+  is 'Fecha que realizo la inserción del registro.';
+comment on column IT.CR_PER_TIP_HECTAREAS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CR_PER_TIP_HECTAREAS.fec_modificacion
+  is 'Fecha de la modificación del registro.';
+alter table IT.CR_PER_TIP_HECTAREAS
+  add constraint PK_CR_PER_TIP_HECTAREAS primary key (COD_PERSONA, COD_RUB_PRIMARIO, TIP_HEC_CULTIVADAS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

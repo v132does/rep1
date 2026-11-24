@@ -1,0 +1,34 @@
+BEGIN pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 0', 'APICAJERO0', '0', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 1', 'APICAJERO1', '1', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 2', 'APICAJERO2', '2', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 3 ', 'APICAJERO3', '3', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 4', 'APICAJERO4', '4', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 5', 'APICAJERO5', '5', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 6 ', 'APICAJERO6', '6', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 7', 'APICAJERO7', '7', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 8 ', 'APICAJERO8', '8', 'APICAJERO', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario APICAJERO 9', 'APICAJERO9', '9', 'APICAJERO', 'S');
+
+
+COMMIT;

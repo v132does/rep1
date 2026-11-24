@@ -1,0 +1,73 @@
+create table IT.GE_CLI_DAT_FINANCIEROS
+(
+  cod_persona      VARCHAR2(10) not null,
+  fre_mes_dinero   NUMBER(3),
+  fre_com_exterior NUMBER(3),
+  acu_anterior     NUMBER(18,2),
+  acu_actual       NUMBER(18,2),
+  tot_importacion  NUMBER(18,2),
+  tot_exportacion  NUMBER(18,2),
+  tot_rie_sistema  NUMBER(18,2),
+  rel_pas_activo   NUMBER(5,2),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLI_DAT_FINANCIEROS
+  is 'Datos Financieros del Cliente';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.fre_mes_dinero
+  is 'Frecuencia de Actividad en Mesa de Dinero.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.fre_com_exterior
+  is 'Frecuenca de Actividad en Comercio Exterior.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.acu_anterior
+  is 'Acumulado Año Anterior.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.acu_actual
+  is 'Acumulado Año Actual.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.tot_importacion
+  is 'Total Importaciones.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.tot_exportacion
+  is 'Total Exportaciones.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.tot_rie_sistema
+  is 'Total de Riesgo en el Sistema.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.rel_pas_activo
+  is 'Relación Activo/Pasivo.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_CLI_DAT_FINANCIEROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_CLI_DAT_FINANCIEROS
+  add constraint PK_GE_CLI_DAT_FINANCIEROS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CLI_DAT_FINANCIEROS
+  add constraint FK_GCDFI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.GE_CLIENTES (COD_PERSONA);
+

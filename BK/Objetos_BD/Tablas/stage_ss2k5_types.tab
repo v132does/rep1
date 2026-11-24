@@ -1,0 +1,17 @@
+create global temporary table IT.STAGE_SS2K5_TYPES
+(
+  svrid_fk       NUMBER(38),
+  dbid_gen_fk    NUMBER(38),
+  name           VARCHAR2(256) not null,
+  user_type_id   NUMBER(38) not null,
+  system_type_id NUMBER(3) not null,
+  schema_id      NUMBER(38),
+  max_length     NUMBER(38),
+  precision      NUMBER(38),
+  scale          NUMBER(38)
+)
+on commit preserve rows;
+create index IT.S_SS2K5_TYPES_DBID_GEN_FK on IT.STAGE_SS2K5_TYPES (DBID_GEN_FK);
+create index IT.S_SS2K5_TYPES_SYSTEM_TYPE_ID on IT.STAGE_SS2K5_TYPES (SYSTEM_TYPE_ID);
+create index IT.S_SS2K5_TYPES_USER_TYPE_ID on IT.STAGE_SS2K5_TYPES (USER_TYPE_ID);
+

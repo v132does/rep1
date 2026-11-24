@@ -1,0 +1,79 @@
+create table IT.CB_VALIDACIONES_AUX
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  error            VARCHAR2(140) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_VALIDACIONES_AUX
+  is 'Validaciones De Asientos.';
+comment on column IT.CB_VALIDACIONES_AUX.fecha
+  is 'Fecha de la Validacion.';
+comment on column IT.CB_VALIDACIONES_AUX.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CB_VALIDACIONES_AUX.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_VALIDACIONES_AUX.nro_linea
+  is 'Numero de linea del asiento.';
+comment on column IT.CB_VALIDACIONES_AUX.error
+  is 'Error.';
+comment on column IT.CB_VALIDACIONES_AUX.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CB_VALIDACIONES_AUX.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.CB_VALIDACIONES_AUX.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_VALIDACIONES_AUX.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_VALIDACIONES_AUX.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_VALIDACIONES_AUX.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_VALIDACIONES_AUX
+  add constraint PK_CB_VALIDACIONES_AUX primary key (FECHA, COD_OFICINA, NRO_ASIENTO, NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_VALIDACIONES_AUX
+  add constraint FK_BVALI_COD_MODALIDAD_AUX foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CB_VALIDACIONES_AUX
+  add constraint FK_BVALI_COD_OFICINA_AUX foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_VALIDACIONES_AUX
+  add constraint AVCON_1082384743_COD_M_005_AUX
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_VALIDACIONES_AUX
+  add constraint AVCON_1082384743_COD_M_006_AUX
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_VALIDACIONES_AUX
+  add constraint AVCON_1082384743_COD_O_009_AUX
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

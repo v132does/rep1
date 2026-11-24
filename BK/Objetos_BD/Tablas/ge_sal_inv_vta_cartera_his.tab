@@ -1,0 +1,123 @@
+create table IT.GE_SAL_INV_VTA_CARTERA_HIS
+(
+  fecha                DATE,
+  cod_persona          VARCHAR2(10),
+  nom_completo         VARCHAR2(120),
+  nro_documento        VARCHAR2(20),
+  cli_nomina           VARCHAR2(1),
+  fec_ult_acreditacion DATE,
+  cod_oficina          NUMBER(3),
+  nro_cuenta           VARCHAR2(15) not null,
+  tip_producto         VARCHAR2(120),
+  nro_tarjeta          VARCHAR2(25),
+  afinidad             VARCHAR2(240),
+  cod_per_codeudor     VARCHAR2(120),
+  gestor               VARCHAR2(120),
+  mto_deuda            NUMBER(18,2),
+  mto_previsiones      NUMBER(18,2),
+  dia_atrasos          NUMBER(5),
+  cat_cliente          NUMBER(3,2),
+  tot_riesgo           NUMBER(18,2),
+  fec_ult_cat_sistema  DATE,
+  cat_sistema          NUMBER(3,2),
+  tot_deu_sistema      NUMBER(18,2),
+  tot_deu_con_sistema  NUMBER(18,2),
+  tot_deu_cod_sistema  NUMBER(18,2),
+  tot_cuotas           NUMBER(5),
+  tot_cuo_vencidas     NUMBER(5),
+  tel_particular       VARCHAR2(20),
+  dir_particular       VARCHAR2(80),
+  tel_laboral          VARCHAR2(20),
+  dir_laboral          VARCHAR2(80),
+  gar_cliente          VARCHAR2(240),
+  gar_ven_cliente      VARCHAR2(240),
+  gar_codeudor         VARCHAR2(240),
+  gar_ven_codeudor     VARCHAR2(240),
+  tip_bloqueo          VARCHAR2(240),
+  tip_inhibicion       VARCHAR2(240),
+  estado               VARCHAR2(1),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  mot_exclucion        VARCHAR2(30),
+  usu_exclucion        VARCHAR2(10),
+  observacion          VARCHAR2(2000),
+  ruc_comprador        VARCHAR2(20),
+  nom_comprador        VARCHAR2(100),
+  ref_lote             NUMBER not null,
+  hor_cancelacion      VARCHAR2(8),
+  mon_venta            NUMBER,
+  usu_venta            VARCHAR2(10),
+  fec_venta            DATE not null,
+  ope_recaptados       VARCHAR2(1) default 'N',
+  mot_reingreso        VARCHAR2(30),
+  usu_reingreso        VARCHAR2(10),
+  obs_reingreso        VARCHAR2(300),
+  mto_deu_mon_cuenta   NUMBER(18,2),
+  sal_deu_cta_actual   NUMBER(18,2),
+  dia_atr_actual       NUMBER(5),
+  cat_ope_actual       NUMBER(3,2),
+  cat_cli_ponderada    NUMBER(3,2),
+  cod_ente             NUMBER(5)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SAL_INV_VTA_CARTERA_HIS
+  is 'Historial de Cartera de Clientes vendidas.';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.estado
+  is 'Estado de la Operación Vendida - (V)Vendida - (C)Confirmada - (E)Excluida - (N)Cancelada';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.fec_venta
+  is 'Corresponde a la fecha de venta de la cartera de clientes';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.ope_recaptados
+  is 'Valores S/N, por defecto N, define los registros que fueron reingresados';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.mot_reingreso
+  is 'Motivo del reingreso';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.usu_reingreso
+  is 'Usuario que realizo el reingreso';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.obs_reingreso
+  is 'Observacion del reingreso';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.mto_deu_mon_cuenta
+  is 'Monto de la Deuda en la Moneda de la Cuenta.';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.sal_deu_cta_actual
+  is 'Saldo de la Deuda en la Moneda de la Cuenta Actualizado.';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.dia_atr_actual
+  is 'Días de atraso del cliente actualizado.';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.cat_ope_actual
+  is 'Categoría de la Operación actualizada.';
+comment on column IT.GE_SAL_INV_VTA_CARTERA_HIS.cat_cli_ponderada
+  is 'Categoría ponderada del cliente actualizada.';
+create index IT.IN_CONJUNTO on IT.GE_SAL_INV_VTA_CARTERA_HIS (ESTADO, OPE_RECAPTADOS, COD_MODULO, COD_MODALIDAD, NRO_CUENTA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SAL_INV_VTA_CARTERA_HIS
+  add constraint PK_GE_SAL_INV_VTA_CARTERA_HIS primary key (FEC_VENTA, REF_LOTE, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,178 @@
+create table IT.GE_OPE_VENCIDAS
+(
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_cta_origen     VARCHAR2(15) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  denominacion       VARCHAR2(65) not null,
+  fec_apertura       DATE not null,
+  tas_personalizada  VARCHAR2(1) default 'N' not null,
+  tra_prohibida      VARCHAR2(1) default 'N' not null,
+  estado             VARCHAR2(1) not null,
+  fec_cam_estado     DATE,
+  fec_ult_movimiento DATE,
+  hor_ult_movimiento VARCHAR2(8),
+  mto_origen         NUMBER(18,2) default 0 not null,
+  sal_total          NUMBER(18,2) default 0,
+  sal_tot_batch      NUMBER(18,2) default 0,
+  mto_interes        NUMBER(18,2) default 0,
+  sal_interes        NUMBER(18,2) default 0,
+  mto_int_punitorio  NUMBER(18,2) default 0,
+  mto_int_moratorio  NUMBER(18,2) default 0,
+  mto_impuesto       NUMBER(18,2) default 0,
+  reg_firma          VARCHAR2(600),
+  dia_atraso         NUMBER(5) default 0,
+  dia_atr_inicial    NUMBER(5) default 0,
+  max_atraso         NUMBER(5) default 0,
+  pro_atraso         NUMBER(5) default 0,
+  mto_mora           NUMBER(18,2) default 0,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  dig_verificador    NUMBER(1) default 0,
+  fec_ini_mora       DATE not null,
+  val_tasa           NUMBER(20,4) default 0,
+  sal_int_punitorio  NUMBER(18,2) default 0,
+  sal_int_moratorio  NUMBER(18,2) default 0,
+  sal_impuesto       NUMBER(18,2) default 0,
+  est_batch          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_OPE_VENCIDAS
+  is 'Operaciones Vencidas.';
+comment on column IT.GE_OPE_VENCIDAS.cod_modulo
+  is 'Codigo de modulo de la Cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.cod_modalidad
+  is 'Codigo de modalidad de la Cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.cod_oficina
+  is 'Codigo de oficina de la Cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.nro_cta_origen
+  is 'Numero de cuenta Origen.';
+comment on column IT.GE_OPE_VENCIDAS.cod_moneda
+  is 'Codigo de la moneda con que opera la Cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.denominacion
+  is 'Rubro o Nombre de la cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.fec_apertura
+  is 'Fecha de apertura de la cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.tas_personalizada
+  is 'Tasa Personalizada.';
+comment on column IT.GE_OPE_VENCIDAS.tra_prohibida
+  is 'Tiene transaccion prohibida. (N=NO / S=SI).';
+comment on column IT.GE_OPE_VENCIDAS.estado
+  is 'Estado de cuenta on line ( A=abierta falta depositar, N=normal, C=cancelada, I=inactiva, T=totalmente bloqueada ).';
+comment on column IT.GE_OPE_VENCIDAS.fec_cam_estado
+  is 'Fecha de cambio de Estado.';
+comment on column IT.GE_OPE_VENCIDAS.fec_ult_movimiento
+  is 'Fecha de ultimo movimiento.';
+comment on column IT.GE_OPE_VENCIDAS.hor_ult_movimiento
+  is 'Hora del ultimo movimiento.';
+comment on column IT.GE_OPE_VENCIDAS.mto_origen
+  is 'Monto Origen.';
+comment on column IT.GE_OPE_VENCIDAS.sal_total
+  is 'Saldo total on line.';
+comment on column IT.GE_OPE_VENCIDAS.sal_tot_batch
+  is 'Saldo total batch.';
+comment on column IT.GE_OPE_VENCIDAS.mto_interes
+  is 'Monto interes cobrado.';
+comment on column IT.GE_OPE_VENCIDAS.sal_interes
+  is 'Saldo del interes on line.';
+comment on column IT.GE_OPE_VENCIDAS.mto_int_punitorio
+  is 'Monto interes punitorio.';
+comment on column IT.GE_OPE_VENCIDAS.mto_int_moratorio
+  is 'Monto interes moratorio.';
+comment on column IT.GE_OPE_VENCIDAS.mto_impuesto
+  is 'Monto de impuestos.';
+comment on column IT.GE_OPE_VENCIDAS.reg_firma
+  is 'Regimen de firmas.';
+comment on column IT.GE_OPE_VENCIDAS.dia_atraso
+  is 'Dias de atraso actual, por sobregiros.';
+comment on column IT.GE_OPE_VENCIDAS.dia_atr_inicial
+  is 'Dias de atraso inicial, por sobregiros.';
+comment on column IT.GE_OPE_VENCIDAS.max_atraso
+  is 'Maximo de dias de atraso, por sobregiros.';
+comment on column IT.GE_OPE_VENCIDAS.pro_atraso
+  is 'Promedio de Dias de atraso, por sobregiros.';
+comment on column IT.GE_OPE_VENCIDAS.mto_mora
+  is 'Monto en mora de la cuenta.';
+comment on column IT.GE_OPE_VENCIDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_OPE_VENCIDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_OPE_VENCIDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_OPE_VENCIDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_OPE_VENCIDAS.dig_verificador
+  is 'Digito verificador.';
+comment on column IT.GE_OPE_VENCIDAS.fec_ini_mora
+  is 'Fecha de Incio de Mora.';
+comment on column IT.GE_OPE_VENCIDAS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.GE_OPE_VENCIDAS.sal_int_punitorio
+  is 'Saldo del interes punitorio.';
+comment on column IT.GE_OPE_VENCIDAS.sal_int_moratorio
+  is 'Saldo del interes moratorio.';
+comment on column IT.GE_OPE_VENCIDAS.sal_impuesto
+  is 'Saldo del impuesto.';
+comment on column IT.GE_OPE_VENCIDAS.est_batch
+  is 'Estado batch de la cuenta ( A=abierta falta depositar, N=normal, C=cancelada, I=inactiva, T=totalmente bloqueada ).';
+alter table IT.GE_OPE_VENCIDAS
+  add constraint PK_GE_OPE_VENCIDAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_OPE_VENCIDAS
+  add constraint FK_GOVEN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint FK_GOVEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint FK_GOVEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint FK_GOVEN_NRO_CTA_ORIGEN foreign key (NRO_CTA_ORIGEN)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint FK_GOVEN_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint AVCON_1123770240_COD_M_003
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint AVCON_1123770240_COD_M_004
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint AVCON_1123770240_COD_O_002
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.GE_OPE_VENCIDAS
+  add constraint AVCON_1123770240_TAS_P_000
+  check (TAS_PERSONALIZADA IN ('S', 'N'));
+alter table IT.GE_OPE_VENCIDAS
+  add constraint AVCON_1123770240_TRA_P_000
+  check (TRA_PROHIBIDA IN ('S', 'N'));
+

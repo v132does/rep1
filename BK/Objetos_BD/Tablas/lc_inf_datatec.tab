@@ -1,0 +1,110 @@
+create table IT.LC_INF_DATATEC
+(
+  id_datatec          NUMBER(10) not null,
+  tip_operacion       VARCHAR2(1),
+  mercado             NUMBER(2),
+  origen              VARCHAR2(12),
+  operacion           VARCHAR2(6),
+  usu_datatec         VARCHAR2(12),
+  fec_transaccion     DATE,
+  hor_transaccion     VARCHAR2(8),
+  fec_ini_contrato    DATE,
+  fec_fin_contrato    DATE,
+  tip_registro        VARCHAR2(5),
+  tip_tasa            VARCHAR2(1),
+  tas_interes         NUMBER(14,8),
+  val_amortizacion    NUMBER(18,2),
+  precio              NUMBER(14,8),
+  monto               NUMBER(18,2),
+  cod_moneda          VARCHAR2(3),
+  cod_mon_contraparte VARCHAR2(3),
+  tip_indentificacion VARCHAR2(1),
+  id_contraparte      VARCHAR2(30),
+  observacion         VARCHAR2(200),
+  cumplimiento        VARCHAR2(12),
+  sis_origen          VARCHAR2(1),
+  ciudad              VARCHAR2(60),
+  estado              VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_INF_DATATEC
+  is 'Registros de operaciones de cambios informados al sistema Datatec via importacion';
+comment on column IT.LC_INF_DATATEC.id_datatec
+  is 'Identificador unico de la transaccion';
+comment on column IT.LC_INF_DATATEC.tip_operacion
+  is '“I” = ingreso de un registro nuevo; “A” = anulacion de un registro existente';
+comment on column IT.LC_INF_DATATEC.mercado
+  is 'Codigo del mercado correspondiente';
+comment on column IT.LC_INF_DATATEC.origen
+  is 'EMPRESA o PARTICULARES';
+comment on column IT.LC_INF_DATATEC.operacion
+  is 'COMPRA o VENTA';
+comment on column IT.LC_INF_DATATEC.usu_datatec
+  is 'Identificacion del usuario del sistema Datatec';
+comment on column IT.LC_INF_DATATEC.fec_transaccion
+  is 'Fecha de la transaccion';
+comment on column IT.LC_INF_DATATEC.hor_transaccion
+  is 'Hora de la transaccion';
+comment on column IT.LC_INF_DATATEC.fec_ini_contrato
+  is 'Fecha de inicio de un contrato. Solo para mercados 87 (Forward)';
+comment on column IT.LC_INF_DATATEC.fec_fin_contrato
+  is 'Fecha de fin de un contrato. Solo para mercados 87 (Forward)';
+comment on column IT.LC_INF_DATATEC.tip_registro
+  is 'Tipo de operacion. Solo para mercados 47 (Arbitraje)';
+comment on column IT.LC_INF_DATATEC.tip_tasa
+  is '“C” = cheque o “E” = efectivo. Solo para mercado 45 (Dólar Efectivo). No requerido';
+comment on column IT.LC_INF_DATATEC.tas_interes
+  is 'Precio en Gs de la segunda moneda, es decir a la venta. Solo para mercados 47 (Arbitraje)';
+comment on column IT.LC_INF_DATATEC.val_amortizacion
+  is 'Monto correspondiente a la venta. Solo para mercados 47 (Arbitraje)';
+comment on column IT.LC_INF_DATATEC.precio
+  is 'Precio de la transaccion. Para los mercados 47 (Arbitraje) es el precio de compra';
+comment on column IT.LC_INF_DATATEC.monto
+  is 'Monto de la transaccion. Para los mercados 47 (Arbitraje) es el monto de compra';
+comment on column IT.LC_INF_DATATEC.cod_moneda
+  is 'Codigo de 3 letras correspondiente a la primera moneda del par de monedas';
+comment on column IT.LC_INF_DATATEC.cod_mon_contraparte
+  is 'Codigo de 3 letras correspondiente a la segunda moneda del par de monedas';
+comment on column IT.LC_INF_DATATEC.tip_indentificacion
+  is '“C” = Cedula; “R” = RUC; “P” = Pasaporte; “T” = Tarjeta de identidad';
+comment on column IT.LC_INF_DATATEC.id_contraparte
+  is 'Valores de la identificacion';
+comment on column IT.LC_INF_DATATEC.observacion
+  is 'Comentario opcional';
+comment on column IT.LC_INF_DATATEC.cumplimiento
+  is 'DELIVERY o NON-DELIVERY. Solo para mercado 87 (Dolár Forward)';
+comment on column IT.LC_INF_DATATEC.sis_origen
+  is '“X” debe procesarse el registro; “D” no debe procesarse';
+comment on column IT.LC_INF_DATATEC.ciudad
+  is 'Ciudad/sucursal desde donde se realizo la operacion';
+comment on column IT.LC_INF_DATATEC.estado
+  is '“I” = insertado o “E” = enviado';
+alter table IT.LC_INF_DATATEC
+  add constraint PK_LC_INF_DATATEC primary key (ID_DATATEC)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

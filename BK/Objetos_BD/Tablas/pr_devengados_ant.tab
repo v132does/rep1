@@ -1,0 +1,112 @@
+create table IT.PR_DEVENGADOS_ANT
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fec_inicio        DATE not null,
+  val_tasa          NUMBER(20,4) default 0 not null,
+  mto_dev_anterior  NUMBER(18,2) default 0,
+  mto_dev_actual    NUMBER(18,2) default 0 not null,
+  capital           NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  nro_cuota         NUMBER(3) not null,
+  tipo              VARCHAR2(1) default 'C' not null,
+  fecha             DATE not null,
+  fec_ult_devengado DATE,
+  cod_moneda        VARCHAR2(3) not null,
+  estado            VARCHAR2(1) not null,
+  categoria         NUMBER(3,2) not null,
+  can_dia_interes   NUMBER(6) default 0 not null,
+  can_dia_anterior  NUMBER(6) default 0,
+  mto_ajuste        NUMBER(18,2) default 0,
+  mto_dev_acumulado NUMBER(18,2) default 0 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_DEVENGADOS_ANT
+  is ' Detalle de Devengados de Prestamos del dia anterior';
+comment on column IT.PR_DEVENGADOS_ANT.nro_cuenta
+  is 'Numero de Prestamo.';
+comment on column IT.PR_DEVENGADOS_ANT.fec_inicio
+  is 'Fecha de inicio del devengamiento.';
+comment on column IT.PR_DEVENGADOS_ANT.val_tasa
+  is 'Valor de la tasa con la cual se devenga.';
+comment on column IT.PR_DEVENGADOS_ANT.mto_dev_anterior
+  is 'Monto del devengado anterior.';
+comment on column IT.PR_DEVENGADOS_ANT.mto_dev_actual
+  is 'Monto del devengado actual.';
+comment on column IT.PR_DEVENGADOS_ANT.capital
+  is 'Monto de Capital sobre el cual se devenga.';
+comment on column IT.PR_DEVENGADOS_ANT.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_DEVENGADOS_ANT.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_DEVENGADOS_ANT.usu_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.PR_DEVENGADOS_ANT.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_DEVENGADOS_ANT.nro_cuota
+  is 'Numero de Cuota devengada.';
+comment on column IT.PR_DEVENGADOS_ANT.tipo
+  is 'Tipo de Devengado: No (C)obrado o En (S)uspenso.';
+comment on column IT.PR_DEVENGADOS_ANT.fecha
+  is 'Fecha del proceso del devengamiento.';
+comment on column IT.PR_DEVENGADOS_ANT.fec_ult_devengado
+  is 'Fecha de ultimo devengado.';
+comment on column IT.PR_DEVENGADOS_ANT.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.PR_DEVENGADOS_ANT.estado
+  is 'Estado en que se encontraba el prestamo en el momento del devengado.';
+comment on column IT.PR_DEVENGADOS_ANT.categoria
+  is 'Categoria en que se encontraba el prestamo en el momento del devengado.';
+comment on column IT.PR_DEVENGADOS_ANT.can_dia_interes
+  is 'Dias de devengamiento.';
+comment on column IT.PR_DEVENGADOS_ANT.can_dia_anterior
+  is 'Cantidad de dias devengados anteriormente.';
+comment on column IT.PR_DEVENGADOS_ANT.mto_ajuste
+  is 'Monto del ajuste del devengado, en el momento del vencimiento de la cuota.';
+comment on column IT.PR_DEVENGADOS_ANT.mto_dev_acumulado
+  is 'Monto total devengado de la cuota.';
+create index IT.IN_PDEVA_NRO_CUENTA on IT.PR_DEVENGADOS_ANT (FECHA, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_DEVENGADOS_ANT
+  add constraint PK_PR_DEVENGADOS_ANT primary key (NRO_CUENTA, NRO_CUOTA, TIPO, COD_MONEDA, ESTADO, CATEGORIA, CAPITAL, VAL_TASA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_DEVENGADOS_ANT
+  add constraint FK_PDEVA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_DEVENGADOS_ANT
+  add constraint FK_PDEVA_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.PR_CTA_PRESTAMOS (NRO_CUENTA);
+

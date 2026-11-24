@@ -1,0 +1,106 @@
+create table IT.BA_CLI_OCASIONALES
+(
+  cod_tip_documento    NUMBER(3) not null,
+  nro_documento        VARCHAR2(20) not null,
+  pri_nombre           VARCHAR2(60) not null,
+  seg_nombre           VARCHAR2(30),
+  pri_apellido         VARCHAR2(30) not null,
+  seg_apellido         VARCHAR2(30),
+  cod_pai_nacionalidad NUMBER(3) not null,
+  cop_documento        VARCHAR2(1),
+  fec_nacimiento       DATE not null,
+  ocupacion            VARCHAR2(30),
+  domicilio            VARCHAR2(300),
+  est_informacion      VARCHAR2(1),
+  fec_generacion       DATE,
+  fec_proceso          DATE,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  cod_oficina          NUMBER(3) default 61 not null,
+  tip_persona          VARCHAR2(1),
+  tip_telefono         VARCHAR2(1),
+  nro_telefono         VARCHAR2(30),
+  est_civil            VARCHAR2(1),
+  sexo                 VARCHAR2(1),
+  email                VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_CLI_OCASIONALES
+  is 'Clientes Ocasionales.';
+comment on column IT.BA_CLI_OCASIONALES.cod_tip_documento
+  is 'Código de tipo de documento.';
+comment on column IT.BA_CLI_OCASIONALES.nro_documento
+  is 'Número de Documento.';
+comment on column IT.BA_CLI_OCASIONALES.pri_nombre
+  is 'Primer Nombre.';
+comment on column IT.BA_CLI_OCASIONALES.seg_nombre
+  is 'Segundo Nombre.';
+comment on column IT.BA_CLI_OCASIONALES.pri_apellido
+  is 'Primer Apellido.';
+comment on column IT.BA_CLI_OCASIONALES.seg_apellido
+  is 'Segundo Apellido.';
+comment on column IT.BA_CLI_OCASIONALES.cod_pai_nacionalidad
+  is 'Código de Nacionalidad.';
+comment on column IT.BA_CLI_OCASIONALES.cop_documento
+  is 'Entrega copia de documento(S/N).';
+comment on column IT.BA_CLI_OCASIONALES.fec_nacimiento
+  is 'Fecha de nacimiento.';
+comment on column IT.BA_CLI_OCASIONALES.ocupacion
+  is 'Ocupación.';
+comment on column IT.BA_CLI_OCASIONALES.domicilio
+  is 'Domicilio.';
+comment on column IT.BA_CLI_OCASIONALES.est_informacion
+  is 'Estado de la información.';
+comment on column IT.BA_CLI_OCASIONALES.fec_generacion
+  is 'Fecha de generación.';
+comment on column IT.BA_CLI_OCASIONALES.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.BA_CLI_OCASIONALES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_CLI_OCASIONALES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_CLI_OCASIONALES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BA_CLI_OCASIONALES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_CLI_OCASIONALES.cod_oficina
+  is 'Código de la Oficina.';
+comment on column IT.BA_CLI_OCASIONALES.tip_persona
+  is 'Tipo de Persona F-Fisica, J-Juridica';
+comment on column IT.BA_CLI_OCASIONALES.tip_telefono
+  is 'Tipo de teléfono';
+comment on column IT.BA_CLI_OCASIONALES.nro_telefono
+  is 'Nro de teléfono';
+comment on column IT.BA_CLI_OCASIONALES.est_civil
+  is 'Estado Civil';
+comment on column IT.BA_CLI_OCASIONALES.sexo
+  is 'Sexo';
+comment on column IT.BA_CLI_OCASIONALES.email
+  is 'Dirección de correo';
+alter table IT.BA_CLI_OCASIONALES
+  add constraint PK_BA_CLI_OCASIONALES primary key (COD_TIP_DOCUMENTO, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,74 @@
+create table IT.SIMGIA_ARCHSOB_BKP
+(
+  m700suc    VARCHAR2(40),
+  m700cta    VARCHAR2(3),
+  m700sub    VARCHAR2(6),
+  nro_cuenta VARCHAR2(15),
+  m700nombre VARCHAR2(4000),
+  m700direcc VARCHAR2(4000),
+  m700telefo NUMBER,
+  m700riesgo NUMBER,
+  m700smeant NUMBER,
+  m700sact   NUMBER,
+  m700ctahmn CHAR(1),
+  m700traspa NUMBER,
+  m700entven NUMBER,
+  m700limiso NUMBER,
+  m700vtolim NUMBER,
+  m700numero NUMBER,
+  m700impue  NUMBER,
+  m700apaxma NUMBER,
+  m700cntdeb NUMBER,
+  m700anopro NUMBER,
+  m700sdmdse NUMBER,
+  m700acudia NUMBER,
+  m700sdomdm NUMBER,
+  m700fecult NUMBER,
+  m700sdonod NUMBER,
+  m700banlq  NUMBER,
+  m700feinex NUMBER,
+  filler     CHAR(1),
+  m700maysdo NUMBER,
+  m700aumeso NUMBER,
+  m700feinso NUMBER,
+  m700sdmdan NUMBER,
+  m700serins NUMBER,
+  m700ctahme CHAR(1),
+  m700totem  NUMBER,
+  m700totblq NUMBER,
+  m700ind1   CHAR(1),
+  m700ind2   CHAR(1),
+  m700ind3   CHAR(1),
+  m700ind4   CHAR(1),
+  m700apunem NUMBER,
+  m700apanl  NUMBER,
+  m700apchq  NUMBER,
+  m700apconf NUMBER,
+  m700apblq  NUMBER,
+  m700totdcn NUMBER,
+  m700totdco NUMBER,
+  m700totcrp NUMBER,
+  m700apcr   NUMBER,
+  m700mtrasp NUMBER,
+  m700totcfo NUMBER,
+  m700grupo  NUMBER,
+  m700plzadl CHAR(1),
+  m700inchqr NUMBER,
+  m700finchq NUMBER,
+  filler2    CHAR(1),
+  m700cntcre NUMBER,
+  m700nrprop NUMBER,
+  fecha_his  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

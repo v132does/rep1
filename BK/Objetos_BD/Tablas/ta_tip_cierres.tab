@@ -1,0 +1,49 @@
+create table IT.TA_TIP_CIERRES
+(
+  cod_tip_cierre   NUMBER(2) not null,
+  descripcion      VARCHAR2(50) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TIP_CIERRES
+  is 'Tabla de Tipos de Cierre.';
+comment on column IT.TA_TIP_CIERRES.cod_tip_cierre
+  is 'Código del Tipo de Cierre.';
+comment on column IT.TA_TIP_CIERRES.descripcion
+  is 'Descripción del Tipo de Cierre.';
+comment on column IT.TA_TIP_CIERRES.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_TIP_CIERRES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_TIP_CIERRES.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.TA_TIP_CIERRES.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+alter table IT.TA_TIP_CIERRES
+  add constraint PK_TA_TIP_CIERRES primary key (COD_TIP_CIERRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

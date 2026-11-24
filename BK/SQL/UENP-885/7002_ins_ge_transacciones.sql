@@ -1,0 +1,6 @@
+BEGIN pre_ini_aplicacion; END; 
+/
+insert into ge_transacciones (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, DESCRIPCION, VE_CLIENTE, TIPO, ABREVIATURA, RUTINA1, RUTINA2, RUTINA3, COD_TIP_ASIENTO, COD_TASA, BATCH, COD_RETENCION, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, INTERNO, AFECTA, COD_TIP_ASIENTO2, DETALLADO, COD_TIP_ASI_RESULTADO, TIP_DESPLIEGUE)
+values (1111, 6, 668, 'CALCULO EXENTO IVA CHE ROGA PORA', 'N', 'C', 'ECR', null, null, null, null, null, 'O', null, 'IT', to_date('25-07-2024 10:05:13', 'dd-mm-yyyy hh24:mi:ss'), 'IT', to_date('25-07-2024 10:05:13', 'dd-mm-yyyy hh24:mi:ss'), 'N', null, null, 'N', null, null);
+
+commit;

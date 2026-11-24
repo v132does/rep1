@@ -1,0 +1,34 @@
+create table IT.MD_REGISTRY
+(
+  object_type      VARCHAR2(30) not null,
+  object_name      VARCHAR2(30) not null,
+  desc_object_name VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_REGISTRY
+  is 'Table to store information on the MD_ repository.  This lists the objects to be dropped if you wish to remove the repository';
+alter table IT.MD_REGISTRY
+  add constraint MD_REGISTRY_PK primary key (OBJECT_TYPE, OBJECT_NAME)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

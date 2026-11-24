@@ -1,0 +1,36 @@
+create table IT.GE_DAT_OPE_CNB
+(
+  id_operacion     INTEGER not null,
+  tip_operacion    VARCHAR2(100) not null,
+  dat_operacion    VARCHAR2(1000) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DAT_OPE_CNB.id_operacion
+  is 'Id Operacion';
+comment on column IT.GE_DAT_OPE_CNB.tip_operacion
+  is 'Tipo Operacion';
+comment on column IT.GE_DAT_OPE_CNB.dat_operacion
+  is 'Dato Operacion';
+comment on column IT.GE_DAT_OPE_CNB.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DAT_OPE_CNB.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DAT_OPE_CNB.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DAT_OPE_CNB.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

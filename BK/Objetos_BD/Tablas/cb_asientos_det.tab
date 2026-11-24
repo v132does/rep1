@@ -1,0 +1,188 @@
+﻿-- Create table
+create table IT.CB_ASIENTOS_DET
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  tip_movimiento   VARCHAR2(1) not null,
+  mto_mon_rubro    NUMBER(18,2) default 0,
+  mto_mon_local    NUMBER(18,2) default 0,
+  descripcion      VARCHAR2(60),
+  referencia       VARCHAR2(11),
+  protegido        VARCHAR2(1) default 'N',
+  actualizado      VARCHAR2(1) default 'N',
+  val_cotizacion   NUMBER(14,8) default 0,
+  distribuido      VARCHAR2(1) default 'N',
+  ref_movimiento   NUMBER(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_valor        DATE,
+  cod_area         NUMBER(3),
+  cod_persona      VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_ASIENTOS_DET
+  is 'Contiene los datos correspondientes a las lineas de detalle de los asientos contables.';
+-- Add comments to the columns 
+comment on column IT.CB_ASIENTOS_DET.fecha
+  is 'Fecha del asiento.';
+comment on column IT.CB_ASIENTOS_DET.cod_oficina
+  is 'Codigo de la oficina del asiento.';
+comment on column IT.CB_ASIENTOS_DET.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_ASIENTOS_DET.nro_linea
+  is 'Numero de linea del asiento.';
+comment on column IT.CB_ASIENTOS_DET.cod_rubro
+  is 'Codigo de la cuenta contable imputada.';
+comment on column IT.CB_ASIENTOS_DET.tip_movimiento
+  is 'Tipo de movimiento ( D=Debito, C=Credito ).';
+comment on column IT.CB_ASIENTOS_DET.mto_mon_rubro
+  is 'Importe del movimiento en la moneda del rubro.';
+comment on column IT.CB_ASIENTOS_DET.mto_mon_local
+  is 'Importe del movimiento en moneda local.';
+comment on column IT.CB_ASIENTOS_DET.descripcion
+  is 'Descripcion de la linea de asiento.';
+comment on column IT.CB_ASIENTOS_DET.referencia
+  is 'Referencia de la linea.';
+comment on column IT.CB_ASIENTOS_DET.protegido
+  is 'Registro IND_PROTEGIDO ? ( S=IND_PROTEGIDO, no puede ser eliminado, N=No IND_PROTEGIDO, se puede eliminar ).';
+comment on column IT.CB_ASIENTOS_DET.actualizado
+  is 'Registro actualizado ? ( S=El asiento ya actualizo el saldo de la cuenta, N=El asiento no actualizo el saldo de la cuenta ).';
+comment on column IT.CB_ASIENTOS_DET.val_cotizacion
+  is 'Valor de la tasa de cambio usada para generacion de asientos de cuentas de moneda extranjera.';
+comment on column IT.CB_ASIENTOS_DET.distribuido
+  is 'Tiene cuenta de distribucion ? ( S=La cuenta debe ser distribuida, N=La cuenta no debe ser distribuida ).';
+comment on column IT.CB_ASIENTOS_DET.ref_movimiento
+  is 'Numero de referencia para desglosar el asiento.';
+comment on column IT.CB_ASIENTOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASIENTOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASIENTOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_DET.fec_modificacion
+  is 'Fecha de ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_DET.fec_valor
+  is 'Fecha valor del asiento.';
+comment on column IT.CB_ASIENTOS_DET.cod_area
+  is 'Codigo del Area.';
+comment on column IT.CB_ASIENTOS_DET.cod_persona
+  is 'Codigo de Persona.';
+-- Create/Recreate indexes 
+create index IT.CB_ASIENTOS_DET_JJ1 on IT.CB_ASIENTOS_DET (COD_RUBRO, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+create index IT.IDXJJ2 on IT.CB_ASIENTOS_DET (FECHA, COD_OFICINA, NRO_ASIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+create index IT.IN_BADET_COD_RUBRO on IT.CB_ASIENTOS_DET (COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_CB_ASI_D on IT.CB_ASIENTOS_DET (COD_RUBRO, COD_OFICINA, TIP_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_CB_OFI_ASI on IT.CB_ASIENTOS_DET (COD_OFICINA, NRO_ASIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_ASIENTOS_DET
+  add constraint PK_CB_ASIENTOS_DET primary key (FECHA, COD_OFICINA, NRO_ASIENTO, NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_ASIENTOS_DET
+  add constraint FK_BADET_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_ASIENTOS_DET
+  add constraint FK_BADET_NRO_ASIENTO foreign key (FECHA, COD_OFICINA, NRO_ASIENTO)
+  references IT.CB_ASIENTOS (FECHA, COD_OFICINA, NRO_ASIENTO)
+  deferrable initially deferred;
+-- Create/Recreate check constraints 
+alter table IT.CB_ASIENTOS_DET
+  add constraint AVCON_1082384743_ACTUA_003
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET
+  add constraint AVCON_1082384743_COD_O_006
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_DET
+  add constraint AVCON_1082384743_DISTR_001
+  check (DISTRIBUIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET
+  add constraint AVCON_1082384743_PROTE_004
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET
+  add constraint AVCON_1082384743_TIP_M_001
+  check (TIP_MOVIMIENTO IN ('D', 'C'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CB_ASIENTOS_DET to IT_TEMPORAL;

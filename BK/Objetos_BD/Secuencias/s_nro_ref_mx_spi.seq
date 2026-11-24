@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_REF_MX_SPI
+minvalue 1
+maxvalue 500000
+start with 343901
+increment by 1
+cache 20
+cycle;
+

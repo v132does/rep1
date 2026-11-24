@@ -1,0 +1,25 @@
+create or replace package it.PAM_DEV is
+
+  -- Author  : GUSTAVO BENITEZ
+  -- Created : 04/02/2008 02:53:13 p.m.
+  -- Purpose : 
+
+/* Insertar devengados */
+PROCEDURE PR_INS_MD_DEVENGADOS;
+
+/* Generar devengado del documento */
+PROCEDURE PR_PRO_DEV_DOCUMENTO
+ (P_PROCESO IN VARCHAR2
+ );
+ 
+/* Proceso de devengado en el momento de la venta del documeento */
+PROCEDURE PR_PRO_DEV_VTA_DOC
+ (P_NRO_CUENTA IN MD_CTA_DOCUMENTOS.NRO_CUENTA%TYPE
+ ,P_FEC_HASTA IN DATE
+ ,P_HORA IN VARCHAR2
+ ,P_MTO_COBRO IN MD_CTA_DOCUMENTOS.MONTO%TYPE
+ ,P_NRO_SECUENCIA IN OUT GE_MOVIMIENTOS.NRO_SECUENCIA%TYPE
+ );
+end PAM_DEV;
+/
+

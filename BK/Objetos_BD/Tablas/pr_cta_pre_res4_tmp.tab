@@ -1,0 +1,54 @@
+create table IT.PR_CTA_PRE_RES4_TMP
+(
+  nro_cuenta      VARCHAR2(15) not null,
+  nro_cuo_desde   NUMBER(5),
+  nro_cuo_hasta   NUMBER(5),
+  cod_persona     VARCHAR2(15) not null,
+  sal_capital     NUMBER(18,2),
+  sal_interes     NUMBER(18,2),
+  mto_iva_interes NUMBER(18,2),
+  mto_mora        NUMBER(18,2),
+  mto_mor_int     NUMBER(18,2),
+  mto_punitorio   NUMBER(18,2),
+  mto_impuesto    NUMBER(18,2),
+  mto_cargo       NUMBER(18,2),
+  mto_deu_neto    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_CTA_PRE_RES4_TMP.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.PR_CTA_PRE_RES4_TMP.nro_cuo_desde
+  is 'Numero de cuota desde';
+comment on column IT.PR_CTA_PRE_RES4_TMP.nro_cuo_hasta
+  is 'Numero de cuota hasta';
+comment on column IT.PR_CTA_PRE_RES4_TMP.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.PR_CTA_PRE_RES4_TMP.sal_capital
+  is 'Saldo del Capital al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.sal_interes
+  is 'Saldo del Interes al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_iva_interes
+  is 'Monto de Iva interes';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_mora
+  is 'Monto de mora sobre capital al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_mor_int
+  is 'Monto de mora sobre interes al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_punitorio
+  is 'Monto de punitorio al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_impuesto
+  is 'Monto del impuesto al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_cargo
+  is 'Monto del cargo al renovar';
+comment on column IT.PR_CTA_PRE_RES4_TMP.mto_deu_neto
+  is 'Monto de deuda neto';
+

@@ -1,0 +1,18 @@
+create global temporary table IT.SB_CRC_CLI_VTA_CARTERA_TMP
+(
+  nom_referencia VARCHAR2(10),
+  fecha          DATE,
+  nro_operacion  VARCHAR2(60),
+  nro_cuenta     VARCHAR2(20),
+  cod_modulo     NUMBER(3),
+  cod_modalidad  NUMBER(3),
+  tip_operacion  NUMBER(3),
+  nro_documento  VARCHAR2(30),
+  sal_capital    NUMBER(20,2),
+  cla_riesgo     VARCHAR2(2),
+  tip_vinculo    VARCHAR2(40)
+)
+on commit delete rows;
+create index IT.IN_SCCVCT_NRO_DOCUMENTO on IT.SB_CRC_CLI_VTA_CARTERA_TMP (NRO_DOCUMENTO, FECHA, NOM_REFERENCIA);
+create index IT.IN_SCCVCT_NRO_OPERACION on IT.SB_CRC_CLI_VTA_CARTERA_TMP (NRO_DOCUMENTO, NRO_OPERACION, FECHA);
+

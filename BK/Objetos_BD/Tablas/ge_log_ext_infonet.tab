@@ -1,0 +1,50 @@
+create table IT.GE_LOG_EXT_INFONET
+(
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  nro_documento    VARCHAR2(15),
+  det_error        VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  monto            NUMBER(18,2),
+  cod_moneda       VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_EXT_INFONET
+  is 'Log Extornos Infonet.';
+comment on column IT.GE_LOG_EXT_INFONET.fecha
+  is 'Fecha del Movimiento.';
+comment on column IT.GE_LOG_EXT_INFONET.hora
+  is 'Hora del Movimiento.';
+comment on column IT.GE_LOG_EXT_INFONET.cod_usuario
+  is 'Código del Usuario que realizó la Operación.';
+comment on column IT.GE_LOG_EXT_INFONET.nro_documento
+  is 'Número de Documento Archivo Infonet.';
+comment on column IT.GE_LOG_EXT_INFONET.det_error
+  is 'Detalle del Error.';
+comment on column IT.GE_LOG_EXT_INFONET.usu_insercion
+  is 'Usuario que realizó la insercion del registro.';
+comment on column IT.GE_LOG_EXT_INFONET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_LOG_EXT_INFONET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_LOG_EXT_INFONET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_LOG_EXT_INFONET.monto
+  is 'Monto de la Operación.';
+comment on column IT.GE_LOG_EXT_INFONET.cod_moneda
+  is 'Código de la Moneda.';
+

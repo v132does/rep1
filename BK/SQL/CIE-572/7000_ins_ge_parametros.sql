@@ -1,0 +1,6 @@
+﻿begin pre_ini_aplicacion;pae_cnf.g_cod_modulo := '1'; end;  
+/
+insert into ge_parametros (PARAMETRO, DESCRIPCION, TAB_RELACION, REFERENCIA, OBSERVACION, PRO_VERIFICACION, PERMISO, MODIFICABLE, VAL_DEFECTO)
+values ('EJE_PRO_DEB_SAL_MINIMO', 'HABILITA EJECUCION DE PROCEDIMIENTO', 'GE_PAR_DINAMICOS', null, 'INDICA SI EL PROCEDIMIENTO SE PUEDE EJECUTAR', null, null, 'N', null);
+
+commit;

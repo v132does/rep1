@@ -1,0 +1,51 @@
+create table IT.DW_CLI_SEGMENTOS
+(
+  fh_informacion         DATE,
+  nu_cte                 VARCHAR2(10),
+  sgto_tecom             CHAR(5),
+  sgto_acido             CHAR(5),
+  sgto_hibrido           CHAR(5),
+  sgto_valor             VARCHAR2(7),
+  sgto_it                CHAR(1),
+  sgto_valor_acido       VARCHAR2(7),
+  sgto_acido_estructural VARCHAR2(8),
+  sgto_valor_2013        VARCHAR2(8),
+  sgto_estructural       VARCHAR2(8),
+  sgto_interno           VARCHAR2(12)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INDEX1 on IT.DW_CLI_SEGMENTOS (FH_INFORMACION, NU_CTE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.TU_LAR_GH2 on IT.DW_CLI_SEGMENTOS (FH_INFORMACION)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

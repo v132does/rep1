@@ -1,0 +1,24 @@
+
+begin
+  pre_ini_aplicacion;pae_cnf.g_cod_modulo := 1;
+end;
+/ 
+
+
+
+ALTER TABLE IT.GE_CTA_DIF_AUDITORIAS 
+ADD (
+    COD_MODALIDAD  NUMBER(3)    NULL,
+    MODALIDAD      VARCHAR2(50) NULL,
+	TIP_SALDO VARCHAR2(20)      NULL
+);
+
+
+ALTER TABLE IT.GE_CTA_DIF_SEGMENTADAS 
+ADD (
+    COD_MODALIDAD  NUMBER(3)    NULL,
+    MODALIDAD      VARCHAR2(50) NULL,
+	TIP_SALDO VARCHAR2(20)      NULL
+); 
+
+COMMIT;

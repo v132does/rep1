@@ -1,0 +1,33 @@
+create table IT.TA_VAL_DATOS_CLIENTE
+(
+  tipo_doc       VARCHAR2(5),
+  nro_documento  VARCHAR2(20),
+  per_dupli      VARCHAR2(1),
+  tip_doc_it     VARCHAR2(3),
+  fec_nacimiento DATE,
+  edad           NUMBER,
+  nacionalidad   VARCHAR2(3),
+  pri_nombre     VARCHAR2(30),
+  pri_apellido   VARCHAR2(30),
+  seg_nombre     VARCHAR2(30),
+  seg_apellido   VARCHAR2(30),
+  dir_principal  VARCHAR2(1),
+  tiene_ciudad   VARCHAR2(1),
+  dir_envio      VARCHAR2(1),
+  tel_principal  VARCHAR2(1),
+  cod_persona_it VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_VAL_DATOS_CLIENTE
+  is 'Esta tabla se utiliza en un procedimiento independiente del sistema, para validar los datos de las personas a quienes se desea dar tarjeta de credito.';
+

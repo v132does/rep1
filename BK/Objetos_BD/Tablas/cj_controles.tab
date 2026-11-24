@@ -1,0 +1,117 @@
+create table IT.CJ_CONTROLES
+(
+  nro_caja         NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  mto_apertura     NUMBER(18,2) default 0 not null,
+  sal_actual       NUMBER(18,2) default 0,
+  mto_cierre       NUMBER(18,2) default 0,
+  tot_debitos      NUMBER(18,2) default 0,
+  tot_creditos     NUMBER(18,2) default 0,
+  can_debitos      NUMBER(6) default 0,
+  can_creditos     NUMBER(6) default 0,
+  tot_che_nue_bco  NUMBER(18,2) default 0,
+  det_che_nue_bco  NUMBER(18,2) default 0,
+  ini_che_otr_bco  NUMBER(18,2) default 0,
+  tot_che_otr_bco  NUMBER(18,2) default 0,
+  det_che_otr_bco  NUMBER(18,2) default 0,
+  sal_che_otr_bco  NUMBER(18,2) default 0,
+  estado           NUMBER(1) not null,
+  cod_usu_actual   VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 60
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CJ_CONTROLES
+  is 'Control de Cajas.';
+-- Add comments to the columns 
+comment on column IT.CJ_CONTROLES.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CJ_CONTROLES.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CJ_CONTROLES.fecha
+  is 'Fecha del Control.';
+comment on column IT.CJ_CONTROLES.mto_apertura
+  is 'Monto de Apertura en Efectivo.';
+comment on column IT.CJ_CONTROLES.sal_actual
+  is 'Saldo Actual en Efectivo.';
+comment on column IT.CJ_CONTROLES.mto_cierre
+  is 'Monto de Cierre en Efectivo.';
+comment on column IT.CJ_CONTROLES.tot_debitos
+  is 'Total de Importes de Debito (ingresos en efectivo a la caja).';
+comment on column IT.CJ_CONTROLES.tot_creditos
+  is 'Total de Importes de Credito (egresos en efectivo de la caja).';
+comment on column IT.CJ_CONTROLES.can_debitos
+  is 'Cantidad de Debitos en Efectivo (ingresos).';
+comment on column IT.CJ_CONTROLES.can_creditos
+  is 'Cantidad de Creditos en Efectivo (egresos).';
+comment on column IT.CJ_CONTROLES.tot_che_nue_bco
+  is 'Importe Cheques Cargo Nuestro Banco.';
+comment on column IT.CJ_CONTROLES.det_che_nue_bco
+  is 'Importe Cheques Detallados Nuestro Banco.';
+comment on column IT.CJ_CONTROLES.ini_che_otr_bco
+  is 'Saldo Inicial de Cheques c/o/Bcos.';
+comment on column IT.CJ_CONTROLES.tot_che_otr_bco
+  is 'Importe Cheques Cargo Otros Bancos ingresados Hoy.';
+comment on column IT.CJ_CONTROLES.det_che_otr_bco
+  is 'Importe Cheques Detallados Otros Bancos ingresados en el Dia.';
+comment on column IT.CJ_CONTROLES.sal_che_otr_bco
+  is 'Saldo Actual de Cheques c/o/Bcos.';
+comment on column IT.CJ_CONTROLES.estado
+  is 'Estado de la Caja. (1=Abierto / 2=Cerrado, 3-Reabierta 4-con arqueo).';
+comment on column IT.CJ_CONTROLES.cod_usu_actual
+  is 'Usuario Actual Conectado a la Caja.';
+comment on column IT.CJ_CONTROLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_CONTROLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_CONTROLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_CONTROLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CJ_CONTROLES
+  add constraint PK_CJ_CONTROLES primary key (NRO_CAJA, COD_MONEDA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_CONTROLES
+  add constraint FK_JCONT_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CJ_CONTROLES
+  add constraint FK_JCONT_COD_USU_ACTUAL foreign key (COD_USU_ACTUAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CJ_CONTROLES
+  add constraint FK_JCONT_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+-- Create/Recreate check constraints 
+alter table IT.CJ_CONTROLES
+  add constraint AVCON_1082384226_NRO_C_002
+  check (NRO_CAJA BETWEEN 0 AND 999)
+  disable
+  novalidate;
+alter table IT.CJ_CONTROLES
+  add constraint AVCON_1082740731_ESTAD_000
+  check (ESTADO IN ('1', '2', '3', '4'));

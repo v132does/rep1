@@ -1,0 +1,83 @@
+CREATE TABLE it.GE_PRO_PROGRAMAS_OUTBOX (
+   ID_EVENTO        NUMBER,
+   ESTADO           VARCHAR2(10 BYTE),
+   COD_PROCESO      NUMBER(3,0),
+   NRO_ORDEN        NUMBER(3,0),
+   TOKEN            VARCHAR2(3000 BYTE),
+   EJE_ESTADO       VARCHAR2(10 BYTE),
+   EJE_MENSAJE      VARCHAR2(1000 BYTE),
+   FEC_ENVIO        TIMESTAMP,
+   FEC_INSERCION    TIMESTAMP DEFAULT SYSTIMESTAMP,
+   FEC_MODIFICACION TIMESTAMP DEFAULT SYSTIMESTAMP,
+   INTENTOS         NUMBER    DEFAULT 0
+)
+tablespace IT_DATA
+pctfree 10
+initrans 1
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+COMMENT ON TABLE it.GE_PRO_PROGRAMAS_OUTBOX IS 'Bandeja de salida de mensajes de eventos de dominio.';
+
+COMMENT ON COLUMN it.GE_PRO_PROGRAMAS_OUTBOX.ID_EVENTO IS 'Identificador del mensaje.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.ESTADO IS 'Estado de la publicación del evento: NEW, PROCESSING, SENT, ERROR, DEAD.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.COD_PROCESO IS 'Código de Proceso.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.NRO_ORDEN IS 'Numero de orden.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.TOKEN IS 'Información codifica para trazar la ejecución hasta el evento de finalización.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.EJE_ESTADO IS 'Estado resultante de la ejecución: FINISHED, ERROR, KILL.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.EJE_MENSAJE IS 'Carga útil. En caso de error, descripción del mismo.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.FEC_ENVIO IS 'Fecha en que el servicio productor de eventos publicó el mensaje en AWS SNS.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.FEC_INSERCION IS 'Fecha en que se inserto el registro. También representa el momento en que se generó el evento.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.FEC_MODIFICACION IS 'Fecha en que se realizo la ultima modificación en el registro.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_OUTBOX.INTENTOS IS 'Cantidad de intentos en el servicio productor de eventos al publicar el mensaje en AWS SNS.';
+
+ALTER TABLE IT.GE_PRO_PROGRAMAS_OUTBOX
+add constraint PK_GE_PRO_PROGRAMAS_OUTBOX primary key (ID_EVENTO)
+using index 
+tablespace IT_IND
+pctfree 10
+initrans 2
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+ALTER TABLE IT.GE_PRO_PROGRAMAS_OUTBOX
+add constraint CHK_PRO_PRO_OUTBOX_ESTADO
+check (ESTADO IN ('NEW', 'PROCESSING', 'SENT', 'ERROR', 'DEAD'));
+
+CREATE INDEX IT.IN_GPROOUTBOX_FEC_ENVIO ON IT.GE_PRO_PROGRAMAS_OUTBOX (FEC_ENVIO, 1)
+TABLESPACE IT_IND
+pctfree 10
+initrans 2
+maxtrans 255;
+
+CREATE INDEX IT.IN_GPROOUTBOX_RECOVERY ON IT.GE_PRO_PROGRAMAS_OUTBOX (ESTADO, FEC_INSERCION)
+TABLESPACE IT_IND
+pctfree 10
+initrans 2
+maxtrans 255;
+
+CREATE PUBLIC SYNONYM GE_PRO_PROGRAMAS_OUTBOX FOR it.GE_PRO_PROGRAMAS_OUTBOX;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT on it.GE_PRO_PROGRAMAS_OUTBOX to IT_TEMPORAL;

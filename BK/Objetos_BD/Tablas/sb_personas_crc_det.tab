@@ -1,0 +1,133 @@
+create table IT.SB_PERSONAS_CRC_DET
+(
+  nom_archivo       VARCHAR2(10) not null,
+  fecha             DATE not null,
+  nro_registro      NUMBER(6) not null,
+  cod_persona       VARCHAR2(10) not null,
+  tip_formulario    VARCHAR2(2) not null,
+  tip_identificador VARCHAR2(3) not null,
+  nro_identificador VARCHAR2(15) not null,
+  tip_persona       NUMBER(3) not null,
+  pri_apellido      VARCHAR2(30),
+  seg_apellido      VARCHAR2(15),
+  ape_conyuge       VARCHAR2(15),
+  pri_nombre        VARCHAR2(60) not null,
+  seg_nombre        VARCHAR2(15),
+  sigla_fecha       DATE,
+  cod_gru_economico NUMBER(5) not null,
+  mto_gar_cobertura NUMBER(15) not null,
+  tot_tc            NUMBER(15) not null,
+  tot_dc            NUMBER(15) not null,
+  tot_tr            NUMBER(15) not null,
+  tot_dr            NUMBER(15) not null,
+  tot_er            NUMBER(15) not null,
+  tot_sr            NUMBER(15) not null,
+  tot_ctr_cred      NUMBER(15) not null,
+  tot_ctr_ries      NUMBER(15) not null,
+  cla_rie_entidad   NUMBER(3,2) not null,
+  por_prevision     NUMBER(5,2) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_PERSONAS_CRC_DET
+  is 'Detalle de personas.';
+comment on column IT.SB_PERSONAS_CRC_DET.nom_archivo
+  is 'Nombre del archivo.';
+comment on column IT.SB_PERSONAS_CRC_DET.fecha
+  is 'Fecha.';
+comment on column IT.SB_PERSONAS_CRC_DET.nro_registro
+  is 'Nro. de registro.';
+comment on column IT.SB_PERSONAS_CRC_DET.cod_persona
+  is 'cliente.';
+comment on column IT.SB_PERSONAS_CRC_DET.tip_formulario
+  is 'Tipo de formulario.';
+comment on column IT.SB_PERSONAS_CRC_DET.tip_identificador
+  is 'tipo identificador.';
+comment on column IT.SB_PERSONAS_CRC_DET.nro_identificador
+  is 'Nro. identificador.';
+comment on column IT.SB_PERSONAS_CRC_DET.tip_persona
+  is 'Tipo de cliente.';
+comment on column IT.SB_PERSONAS_CRC_DET.pri_apellido
+  is 'Primer apellido.';
+comment on column IT.SB_PERSONAS_CRC_DET.seg_apellido
+  is 'Segundo apellido.';
+comment on column IT.SB_PERSONAS_CRC_DET.ape_conyuge
+  is 'Apellido del conyuge.';
+comment on column IT.SB_PERSONAS_CRC_DET.pri_nombre
+  is 'Primer nombre.';
+comment on column IT.SB_PERSONAS_CRC_DET.seg_nombre
+  is 'Segundo nombre.';
+comment on column IT.SB_PERSONAS_CRC_DET.sigla_fecha
+  is 'Sigla fecha.';
+comment on column IT.SB_PERSONAS_CRC_DET.cod_gru_economico
+  is 'Codigo de grupo economico.';
+comment on column IT.SB_PERSONAS_CRC_DET.mto_gar_cobertura
+  is 'Monto garantia cobertura.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_tc
+  is 'Total tc.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_dc
+  is 'Total dc.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_tr
+  is 'Total tr.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_dr
+  is 'Total dr.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_er
+  is 'Total er.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_sr
+  is 'total sr.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_ctr_cred
+  is 'Total control de creditos.';
+comment on column IT.SB_PERSONAS_CRC_DET.tot_ctr_ries
+  is 'Total control de riesgos.';
+comment on column IT.SB_PERSONAS_CRC_DET.cla_rie_entidad
+  is 'Clase riesgo de la entidad.';
+comment on column IT.SB_PERSONAS_CRC_DET.por_prevision
+  is 'Porcentaje de prevision.';
+comment on column IT.SB_PERSONAS_CRC_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_PERSONAS_CRC_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_PERSONAS_CRC_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_PERSONAS_CRC_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_SPDET_COD_PERSONA on IT.SB_PERSONAS_CRC_DET (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_PERSONAS_CRC_DET
+  add constraint SPDET_PK primary key (FECHA, NOM_ARCHIVO, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

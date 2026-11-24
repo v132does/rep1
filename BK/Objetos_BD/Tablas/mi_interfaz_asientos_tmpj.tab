@@ -1,0 +1,32 @@
+create table IT.MI_INTERFAZ_ASIENTOS_TMPJ
+(
+  fecha     DATE,
+  tdia      NUMBER,
+  tsuc      NUMBER(3),
+  tcta      VARCHAR2(6),
+  tbsub     VARCHAR2(6),
+  ttipo     NUMBER,
+  tcodope   NUMBER,
+  tser      NUMBER,
+  timporte  NUMBER(18,2),
+  tnumdoc   NUMBER(6),
+  tvalor    NUMBER,
+  tdivisa   NUMBER,
+  timpordiv VARCHAR2(16),
+  tlinea    NUMBER,
+  tref      VARCHAR2(4000),
+  tusu      VARCHAR2(4000),
+  tid       NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

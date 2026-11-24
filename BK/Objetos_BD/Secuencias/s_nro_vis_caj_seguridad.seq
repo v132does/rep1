@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_VIS_CAJ_SEGURIDAD
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 5076
+increment by 1
+nocache;
+

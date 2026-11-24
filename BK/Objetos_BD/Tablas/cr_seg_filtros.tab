@@ -1,0 +1,55 @@
+create table IT.CR_SEG_FILTROS
+(
+  cod_segmento     VARCHAR2(10) not null,
+  cod_campo        VARCHAR2(10) not null,
+  val_campo        VARCHAR2(300) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_SEG_FILTROS
+  is 'Detalle de filtros asociados al segmento.';
+comment on column IT.CR_SEG_FILTROS.cod_segmento
+  is 'Codigo del segmento.';
+comment on column IT.CR_SEG_FILTROS.cod_campo
+  is 'Codigo del campo a  filtrar.';
+comment on column IT.CR_SEG_FILTROS.val_campo
+  is 'Valor del campo filtrado.';
+comment on column IT.CR_SEG_FILTROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_SEG_FILTROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_SEG_FILTROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_SEG_FILTROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_SEG_FILTROS
+  add constraint PK_CR_SEG_FILTROS primary key (COD_SEGMENTO, COD_CAMPO, VAL_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_SEG_FILTROS
+  add constraint FK_RSFIL_COD_SEGMENTO foreign key (COD_SEGMENTO)
+  references IT.CR_SEGMENTOS (COD_SEGMENTO);
+

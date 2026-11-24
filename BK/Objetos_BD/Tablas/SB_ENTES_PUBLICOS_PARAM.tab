@@ -1,0 +1,59 @@
+CREATE TABLE it.SB_ENTES_PUBLICOS_PARAM
+(
+	id          number,
+	cod_persona varchar2(10),
+	ente        varchar2(100),
+	categoria   varchar2(100),
+	orden       number,
+	-- Columnas de Auditoría
+    USU_CREACION              VARCHAR2(30)  NOT NULL,
+    FEC_CREACION              DATE          NOT NULL,
+    USU_MODIFICACION          VARCHAR2(30),
+    FEC_MODIFICACION          DATE
+);
+
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.ID
+    IS 'Identificador unico del registro.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.COD_PERSONA
+    IS 'Codigo de persona asociado al ente publico.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.ENTE
+    IS 'Nombre del ente publico.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.CATEGORIA
+    IS 'Categoria del ente publico.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.ORDEN
+    IS 'Orden de despliegue de la categoria y el ente.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.USU_CREACION
+    IS 'Usuario que realizo la creacion del registro.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.FEC_CREACION
+    IS 'Fecha de creacion del registro.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.USU_MODIFICACION
+    IS 'Usuario que realizo la ultima modificacion del registro.';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_PARAM.FEC_MODIFICACION
+    IS 'Fecha de la ultima modificacion del registro.';
+
+-- =====================================================================
+-- INDICES
+-- =====================================================================
+
+CREATE INDEX IT.IDX_SB_ENTES_PUBLICOS_PARAM_CATEGORIA 
+    ON IT.SB_ENTES_PUBLICOS_PARAM(CATEGORIA) TABLESPACE IT_IND;
+
+CREATE INDEX IT.IDX_SB_ENTES_PUBLICOS_PARAM_ENTE 
+    ON IT.SB_ENTES_PUBLICOS_PARAM(ENTE) TABLESPACE IT_IND;
+	
+-- =====================================================================
+-- SINONIMOS PUBLICOS
+-- =====================================================================
+
+CREATE OR REPLACE PUBLIC SYNONYM SB_ENTES_PUBLICOS_PARAM 
+    FOR IT.SB_ENTES_PUBLICOS_PARAM;
+
+CREATE OR REPLACE PUBLIC SYNONYM S_ID_ENTES_PUBLICOS_PARAM 
+    FOR IT.S_ID_ENTES_PUBLICOS_PARAM;
+
+-- =====================================================================
+-- GRANTS (Permisos según estándares de la empresa)
+-- =====================================================================
+
+GRANT ALL ON IT.SB_ENTES_PUBLICOS_PARAM TO IT_TEMPORAL;
+GRANT ALL ON IT.SB_ENTES_PUBLICOS_PARAM TO IT_CONSULTAS;

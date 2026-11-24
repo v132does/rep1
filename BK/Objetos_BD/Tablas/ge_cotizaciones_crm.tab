@@ -1,0 +1,45 @@
+create table IT.GE_COTIZACIONES_CRM
+(
+  cod_moneda            VARCHAR2(3) not null,
+  fecha                 DATE,
+  val_conversion        NUMBER(14,8),
+  val_compra            NUMBER(14,8),
+  val_venta             NUMBER(14,8),
+  val_ven_cheque        NUMBER(14,8),
+  val_com_cheque        NUMBER(14,8),
+  val_com_electronica   NUMBER(14,8),
+  val_ven_electronica   NUMBER(14,8),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      TIMESTAMP(6) default current_timestamp not null,
+  val_com_interbancaria NUMBER(14,8),
+  val_ven_interbancaria NUMBER(14,8),
+  tip_accion            VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COTIZACIONES_CRM
+  add constraint PK_GE_COTIZACIONES_CRM primary key (FEC_MODIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

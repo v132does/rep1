@@ -1,0 +1,102 @@
+create table IT.BA_ONB_PERSONAS
+(
+  cod_onb_per      VARCHAR2(10) not null,
+  nro_documento    VARCHAR2(10) not null,
+  telefono         VARCHAR2(30) not null,
+  email            VARCHAR2(80) not null,
+  direccion        VARCHAR2(80),
+  nro_casa         VARCHAR2(8),
+  cod_dpto         NUMBER(3),
+  cod_ciudad       NUMBER(3),
+  cod_barrio       NUMBER(4),
+  cod_ocupacion    VARCHAR2(6),
+  estado           VARCHAR2(6),
+  cod_persona      VARCHAR2(10),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_modificacion DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10),
+  cod_pais         NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ONB_PERSONAS
+  is 'Clientes onboarding sin datos completos';
+comment on column IT.BA_ONB_PERSONAS.cod_onb_per
+  is 'Código de la persona onboarding';
+comment on column IT.BA_ONB_PERSONAS.nro_documento
+  is 'Número de documento';
+comment on column IT.BA_ONB_PERSONAS.telefono
+  is 'Número de teléfono';
+comment on column IT.BA_ONB_PERSONAS.email
+  is 'Dirección de mail';
+comment on column IT.BA_ONB_PERSONAS.direccion
+  is 'Dirección o nombre de calle';
+comment on column IT.BA_ONB_PERSONAS.nro_casa
+  is 'Número de casa';
+comment on column IT.BA_ONB_PERSONAS.cod_dpto
+  is 'Código de departamento';
+comment on column IT.BA_ONB_PERSONAS.cod_ciudad
+  is 'Código de ciudad';
+comment on column IT.BA_ONB_PERSONAS.cod_barrio
+  is 'Código de barrio';
+comment on column IT.BA_ONB_PERSONAS.cod_ocupacion
+  is 'Ocupación';
+comment on column IT.BA_ONB_PERSONAS.estado
+  is 'Estado de la persona onboarding';
+comment on column IT.BA_ONB_PERSONAS.cod_persona
+  is 'Código de persona relacionado';
+comment on column IT.BA_ONB_PERSONAS.fec_insercion
+  is 'Fecha en la que se insertó el registro';
+comment on column IT.BA_ONB_PERSONAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BA_ONB_PERSONAS.fec_modificacion
+  is 'Fecha en la que se realizó la última modificación del registro';
+comment on column IT.BA_ONB_PERSONAS.usu_modificacion
+  is 'Fecha en la que se realizó la última modificación del registro';
+comment on column IT.BA_ONB_PERSONAS.cod_pais
+  is 'Código de país';
+alter table IT.BA_ONB_PERSONAS
+  add constraint PK_BA_ONB_PERSONAS primary key (COD_ONB_PER)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ONB_PERSONAS
+  add constraint UK_ONB_PER_NRO_DOCUMENTO unique (NRO_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ONB_PERSONAS
+  add constraint FK_ONB_PER_BARRIO foreign key (COD_PAIS, COD_CIUDAD, COD_BARRIO)
+  references IT.BA_BARRIOS (COD_PAIS, COD_CIUDAD, COD_BARRIO);
+alter table IT.BA_ONB_PERSONAS
+  add constraint FK_ONB_PER_DPTO foreign key (COD_DPTO)
+  references IT.BA_DEPARTAMENTOS (COD_DEPARTAMENTO);
+

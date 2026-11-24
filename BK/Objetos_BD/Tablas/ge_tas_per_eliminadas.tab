@@ -1,0 +1,59 @@
+create table IT.GE_TAS_PER_ELIMINADAS
+(
+  cod_tasa         NUMBER(3),
+  tipo             VARCHAR2(1),
+  cod_persona      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  fec_vigencia     DATE,
+  val_minimo       NUMBER(18,2),
+  val_maximo       NUMBER(18,2),
+  val_tasa         NUMBER(20,4),
+  por_exoneracion  NUMBER(20,4),
+  fec_vencimiento  DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TAS_PER_ELIMINADAS
+  is 'Histórico de Personalización de Tasas Eliminadas.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.cod_tasa
+  is 'Código de Tasa.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.tipo
+  is 'Tipo de Tasa.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.cod_persona
+  is 'Código de la persona cuya Tasa será registrada.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.fec_vigencia
+  is 'Fecha de vigencia de la Tasa.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.val_minimo
+  is 'Valor Mínimo.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.val_maximo
+  is 'Valor Máximo.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.val_tasa
+  is 'Valor de la Tasa.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.por_exoneracion
+  is 'Exoneración.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_TAS_PER_ELIMINADAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

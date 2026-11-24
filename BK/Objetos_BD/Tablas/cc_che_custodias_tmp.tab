@@ -1,0 +1,59 @@
+create table IT.CC_CHE_CUSTODIAS_TMP
+(
+  banco            NUMBER,
+  nro_cheque       NUMBER,
+  monto            NUMBER(18,2),
+  fec_vencimiento  DATE,
+  librador         VARCHAR2(50),
+  plz_retencion    NUMBER(4),
+  cta_libradora    VARCHAR2(15),
+  cod_usuario      VARCHAR2(10) default USER,
+  msj_error        VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_moneda       VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_CUSTODIAS_TMP
+  is 'Tabla temporal para registrar la importación de datos de cheques.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.banco
+  is 'Banco emisor del Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.nro_cheque
+  is 'Número de Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.monto
+  is 'Monto del Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento del Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.librador
+  is 'Librador del Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.plz_retencion
+  is 'Plazo de Retención.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.cta_libradora
+  is 'Nro. de Cuenta del Cheque.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.cod_usuario
+  is 'Código del Usuario que realiza la importación del archivo.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.msj_error
+  is 'Mensaje de error de datos en la planilla.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_CUSTODIAS_TMP.cod_moneda
+  is 'Código de Moneda con el cual se hará la importacion para cada cheque';
+

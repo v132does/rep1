@@ -1,0 +1,114 @@
+create table IT.RH_PROVISIONES
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_tip_provision VARCHAR2(3) not null,
+  fecha             DATE not null,
+  mto_debe          NUMBER(14,2) not null,
+  mto_haber         NUMBER(14,2) not null,
+  sal_actual        NUMBER(14,2) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  per_desde         NUMBER(4),
+  per_hasta         NUMBER(4),
+  dia_haber         NUMBER(3),
+  dia_debe          NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_PROVISIONES
+  is 'Provisiones de Vacaciones.';
+comment on column IT.RH_PROVISIONES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_PROVISIONES.cod_tip_provision
+  is 'Codigo de Tipo de Provision.';
+comment on column IT.RH_PROVISIONES.fecha
+  is 'Fecha de Provision.';
+comment on column IT.RH_PROVISIONES.mto_debe
+  is 'Monto que Debe el Empleado.';
+comment on column IT.RH_PROVISIONES.mto_haber
+  is 'Monto en el Haber del Empleado.';
+comment on column IT.RH_PROVISIONES.sal_actual
+  is 'Saldo Actual.';
+comment on column IT.RH_PROVISIONES.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_PROVISIONES.per_desde
+  is 'Periodo Desde el cual se computan las Vacaciones.';
+comment on column IT.RH_PROVISIONES.per_hasta
+  is 'Periodo Hasta el cual se computan las Vacaciones.';
+comment on column IT.RH_PROVISIONES.dia_haber
+  is 'Cantidad de Dias correspondientes al Periodo.';
+comment on column IT.RH_PROVISIONES.dia_debe
+  is 'Cantidad de Dias tomados del Periodo.';
+comment on column IT.RH_PROVISIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_PROVISIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_PROVISIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_PROVISIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HPROV_COD_TIP_PROVISION on IT.RH_PROVISIONES (COD_TIP_PROVISION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_PROVISIONES
+  add constraint PK_RH_PROVISIONES primary key (COD_PERSONA, COD_TIP_PROVISION, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_PROVISIONES
+  add constraint UK_HPROV_PER_HASTA unique (COD_PERSONA, PER_DESDE, PER_HASTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_PROVISIONES
+  add constraint FK_HPROV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_PROVISIONES
+  add constraint FK_HPROV_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_PROVISIONES
+  add constraint FK_HPROV_COD_TIP_PROVISION foreign key (COD_TIP_PROVISION)
+  references IT.RH_TIP_PROVISIONES (COD_TIP_PROVISION);
+alter table IT.RH_PROVISIONES
+  add constraint CK_PER_DESDE_PROVISION
+  check (PER_DESDE <= PER_HASTA);
+

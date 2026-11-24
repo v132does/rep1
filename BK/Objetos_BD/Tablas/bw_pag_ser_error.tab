@@ -1,0 +1,58 @@
+create table IT.BW_PAG_SER_ERROR
+(
+  cod_token     VARCHAR2(300) not null,
+  nro_documento VARCHAR2(10) not null,
+  nro_cuenta    VARCHAR2(30) not null,
+  descripcion   VARCHAR2(250) not null,
+  portadora     VARCHAR2(20) not null,
+  monto         NUMBER(18,2) not null,
+  fec_hora      VARCHAR2(50) not null,
+  cod_sesion    VARCHAR2(50) not null,
+  fec_insercion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_PAG_SER_ERROR
+  is 'Operaciones de pago servicios con errores';
+comment on column IT.BW_PAG_SER_ERROR.cod_token
+  is 'Token de Pago.';
+comment on column IT.BW_PAG_SER_ERROR.nro_documento
+  is 'Nro. de Documento.';
+comment on column IT.BW_PAG_SER_ERROR.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.BW_PAG_SER_ERROR.descripcion
+  is 'Descripcion del Servicio .';
+comment on column IT.BW_PAG_SER_ERROR.portadora
+  is 'Descripcion de la Portadora.';
+comment on column IT.BW_PAG_SER_ERROR.monto
+  is 'Monto del Pago.';
+comment on column IT.BW_PAG_SER_ERROR.fec_hora
+  is 'Fecha y hora de Pago.';
+comment on column IT.BW_PAG_SER_ERROR.cod_sesion
+  is 'Codigo de sesion del Cliente.';
+comment on column IT.BW_PAG_SER_ERROR.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+alter table IT.BW_PAG_SER_ERROR
+  add constraint PK_BW_PAG_SER_ERROR primary key (COD_TOKEN, FEC_HORA, COD_SESION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

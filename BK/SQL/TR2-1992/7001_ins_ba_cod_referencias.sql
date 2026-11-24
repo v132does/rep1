@@ -1,0 +1,65 @@
+Begin
+pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1;
+end;
+/    
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 11', 'AIRFLOW_11', '11', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 12', 'AIRFLOW_12', '12', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 13', 'AIRFLOW_13', '13', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 14', 'AIRFLOW_14', '14', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 15', 'AIRFLOW_15', '15', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 16', 'AIRFLOW_16', '16', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 17', 'AIRFLOW_17', '17', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 18', 'AIRFLOW_18', '18', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 19', 'AIRFLOW_19', '19', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 20', 'AIRFLOW_20', '20', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 21', 'AIRFLOW_21', '21', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 22', 'AIRFLOW_22', '22', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 23', 'AIRFLOW_23', '23', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 24', 'AIRFLOW_24', '24', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 25', 'AIRFLOW_25', '25', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 26', 'AIRFLOW_26', '26', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 27', 'AIRFLOW_27', '27', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 28', 'AIRFLOW_28', '28', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 29', 'AIRFLOW_29', '29', 'AIRFLOW', 'S');
+
+insert into ba_cod_referencias (DOMINIO, SIGNIFICADO, VAL_MINIMO, VAL_MAXIMO, ABREVIATURA, ACTIVO)
+values ('USU_MOV_SERVICIO', 'Usuario AIRFLOW 30', 'AIRFLOW_30', '30', 'AIRFLOW', 'S');
+
+commit;

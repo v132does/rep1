@@ -1,0 +1,58 @@
+create table IT.BA_SISTEMAS
+(
+  cod_sistema      NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  des_detallada    VARCHAR2(250),
+  observacion      VARCHAR2(1000),
+  descripcion      VARCHAR2(35) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_SISTEMAS
+  is 'Sistemas Informaticos Instalados en la Entidad.';
+comment on column IT.BA_SISTEMAS.cod_sistema
+  is 'Codigo de Sistema.';
+comment on column IT.BA_SISTEMAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_SISTEMAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_SISTEMAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_SISTEMAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_SISTEMAS.des_detallada
+  is 'Descripcion Detallada.';
+comment on column IT.BA_SISTEMAS.observacion
+  is 'Observacion.';
+comment on column IT.BA_SISTEMAS.descripcion
+  is 'Nombre del Sistema.';
+alter table IT.BA_SISTEMAS
+  add constraint PK_BA_SISTEMAS primary key (COD_SISTEMA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_SISTEMAS
+  add constraint AVCON_1080826138_COD_S_002
+  check (COD_SISTEMA BETWEEN 1 AND 999);
+

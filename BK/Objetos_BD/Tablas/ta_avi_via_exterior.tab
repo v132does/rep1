@@ -1,0 +1,76 @@
+create table IT.TA_AVI_VIA_EXTERIOR
+(
+  cod_viaje           NUMBER(9) not null,
+  tip_adicional       NUMBER(4) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  fec_vig_inicial     DATE not null,
+  fec_vig_final       DATE not null,
+  nro_tarjeta         VARCHAR2(16),
+  lis_cod_pais        VARCHAR2(1000) not null,
+  estado              VARCHAR2(1),
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  observacion         VARCHAR2(4000),
+  cod_not_procesadora VARCHAR2(100),
+  nro_contacto        VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_AVI_VIA_EXTERIOR
+  is 'Avisos de viaje al exterior de tarjetas global';
+comment on column IT.TA_AVI_VIA_EXTERIOR.cod_viaje
+  is 'Codigo de viaje al exterior';
+comment on column IT.TA_AVI_VIA_EXTERIOR.tip_adicional
+  is 'Tipo de adicional (Titular= 0)';
+comment on column IT.TA_AVI_VIA_EXTERIOR.nro_cuenta
+  is 'Numero de cuenta';
+comment on column IT.TA_AVI_VIA_EXTERIOR.fec_vig_inicial
+  is 'Fecha de vigencia inicial';
+comment on column IT.TA_AVI_VIA_EXTERIOR.fec_vig_final
+  is 'Fecha de vigencia final';
+comment on column IT.TA_AVI_VIA_EXTERIOR.nro_tarjeta
+  is 'Numero de tarjeta global';
+comment on column IT.TA_AVI_VIA_EXTERIOR.lis_cod_pais
+  is 'Registro de pais/es';
+comment on column IT.TA_AVI_VIA_EXTERIOR.estado
+  is 'Estado.';
+comment on column IT.TA_AVI_VIA_EXTERIOR.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro';
+comment on column IT.TA_AVI_VIA_EXTERIOR.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro';
+comment on column IT.TA_AVI_VIA_EXTERIOR.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.TA_AVI_VIA_EXTERIOR.fec_insercion
+  is 'Fecha en que se inserto el registro';
+comment on column IT.TA_AVI_VIA_EXTERIOR.observacion
+  is 'Observacion inserta por el usuario';
+comment on column IT.TA_AVI_VIA_EXTERIOR.cod_not_procesadora
+  is 'Codigo de notificacion ';
+comment on column IT.TA_AVI_VIA_EXTERIOR.nro_contacto
+  is 'Nro. de Contacto del Cliente';
+alter table IT.TA_AVI_VIA_EXTERIOR
+  add constraint PK_TA_AVI_VIA_EXTERIOR primary key (COD_VIAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 768K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

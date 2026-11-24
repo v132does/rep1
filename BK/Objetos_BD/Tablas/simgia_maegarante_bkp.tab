@@ -1,0 +1,34 @@
+create table IT.SIMGIA_MAEGARANTE_BKP
+(
+  rcliente   VARCHAR2(10),
+  rmodalidad VARCHAR2(40),
+  rnumero    VARCHAR2(40),
+  rsucursal  VARCHAR2(40),
+  rcuenta    NUMBER,
+  rfchaconst NUMBER,
+  rfchavcto  NUMBER,
+  rdivisa    NUMBER,
+  rmonto     NUMBER,
+  rtasacion  NUMBER,
+  rexceso    NUMBER,
+  rsegvcto   NUMBER,
+  rfchatasac NUMBER,
+  rnescritu  NUMBER,
+  rescriba   VARCHAR2(50),
+  rdescrip   VARCHAR2(35),
+  rbandbenef CHAR(1),
+  rservicio  NUMBER,
+  fecha_his  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

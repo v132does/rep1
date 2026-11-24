@@ -1,0 +1,52 @@
+create table IT.AH_CTA_RESPALDADAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  descripcion      VARCHAR2(40) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CTA_RESPALDADAS
+  is 'Tabla de cuentas de Sponsor para Operaciones en Infonet.';
+comment on column IT.AH_CTA_RESPALDADAS.nro_cuenta
+  is 'Nro. de Cuenta de la entidad respaldada, utilizada para las transacciones con Infonet.';
+comment on column IT.AH_CTA_RESPALDADAS.descripcion
+  is 'Nombre de la Entidad Respaldada.';
+comment on column IT.AH_CTA_RESPALDADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CTA_RESPALDADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CTA_RESPALDADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_RESPALDADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AH_CTA_RESPALDADAS
+  add constraint PK_AH_CTA_RESPALDADAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_RESPALDADAS
+  add constraint FK_ACRES_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

@@ -1,0 +1,64 @@
+create table IT.GE_PAR_CANCELACIONES
+(
+  cod_causa        NUMBER(3) not null,
+  nat_saldo        VARCHAR2(1),
+  cod_modulo       NUMBER(3),
+  det_sql          LONG,
+  tex_telegrama    VARCHAR2(4000),
+  env_mail         VARCHAR2(1),
+  env_ope_vencidas VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAR_CANCELACIONES
+  is 'Definicion de texto para el envio de telegramas en cancelacion masiva de cuentas.';
+comment on column IT.GE_PAR_CANCELACIONES.cod_causa
+  is 'Codigo de Causa.';
+comment on column IT.GE_PAR_CANCELACIONES.nat_saldo
+  is 'Naturaleza del saldo (''P''/Positivo, ''N''/Negativo, ''C''/Cero).';
+comment on column IT.GE_PAR_CANCELACIONES.cod_modulo
+  is 'Código de módulo.';
+comment on column IT.GE_PAR_CANCELACIONES.det_sql
+  is 'Detalle de la Sentencia Sql.';
+comment on column IT.GE_PAR_CANCELACIONES.tex_telegrama
+  is 'Detalle del texto a ser enviado en el telegrama.';
+comment on column IT.GE_PAR_CANCELACIONES.env_mail
+  is 'Indica si se debe enviar mail(S/N).';
+comment on column IT.GE_PAR_CANCELACIONES.env_ope_vencidas
+  is 'Define si las cuentas que recuperará la sentencia se debe pasar a operaciones vencidas(S/N)';
+comment on column IT.GE_PAR_CANCELACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PAR_CANCELACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAR_CANCELACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAR_CANCELACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_PAR_CANCELACIONES
+  add constraint PK_GE_PAR_CANCELACIONES primary key (COD_CAUSA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

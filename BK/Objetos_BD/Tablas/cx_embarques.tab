@@ -1,0 +1,94 @@
+create table IT.CX_EMBARQUES
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_embarque     NUMBER(3) not null,
+  fec_vencimiento  DATE not null,
+  estado           VARCHAR2(1) not null,
+  tip_cobro        VARCHAR2(1) not null,
+  mto_utilizado    NUMBER(18,2) default 0 not null,
+  saldo            NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observacion      VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CX_EMBARQUES
+  is 'Detalle de los Embarques de Cartas de Credito de Importacion y Exportacion.';
+comment on column IT.CX_EMBARQUES.nro_cuenta
+  is 'Nro. de cuenta interno para la operacion.';
+comment on column IT.CX_EMBARQUES.nro_embarque
+  is 'Numero de Embarque o Porcion Embarcada.';
+comment on column IT.CX_EMBARQUES.fec_vencimiento
+  is 'Fecha de Vencimiento del Embarque.';
+comment on column IT.CX_EMBARQUES.estado
+  is 'Estado del Embarque (N)pendiente, (P)pagada.';
+comment on column IT.CX_EMBARQUES.tip_cobro
+  is 'Tipo de cobro: V-Vista o P-Plazo.';
+comment on column IT.CX_EMBARQUES.mto_utilizado
+  is 'Monto Utilizado o Embarcado.';
+comment on column IT.CX_EMBARQUES.saldo
+  is 'Saldo.';
+comment on column IT.CX_EMBARQUES.usu_insercion
+  is 'Codigo de Usuario Auditoria.';
+comment on column IT.CX_EMBARQUES.fec_insercion
+  is 'Fecha de Auditoria.';
+comment on column IT.CX_EMBARQUES.usu_modificacion
+  is 'Codigo de Usuario Auditoria.';
+comment on column IT.CX_EMBARQUES.fec_modificacion
+  is 'Fecha de Auditoria.';
+comment on column IT.CX_EMBARQUES.observacion
+  is 'Observación del Embarque.';
+create index IT.IN_CXEMB_NRO_CUENTA on IT.CX_EMBARQUES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_EMBARQUES
+  add constraint PK_CX_EMBARQUES primary key (NRO_CUENTA, NRO_EMBARQUE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_EMBARQUES
+  add constraint FK_CXEMB_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CX_EMBARQUES
+  add constraint AVCON_1173800607_NRO_C_001
+  check (NRO_EMBARQUE BETWEEN 0 AND 999);
+alter table IT.CX_EMBARQUES
+  add constraint AVCON_1175697839_ESTAD_001
+  check (ESTADO IN ('N', 'P','C'));
+alter table IT.CX_EMBARQUES
+  add constraint CX_XEMBA_MTO_UTILIZADO
+  check (NVL(MTO_UTILIZADO,0) > 0);
+alter table IT.CX_EMBARQUES
+  add constraint CX_XEMBA_SALDO
+  check (NVL(SALDO,0) >= 0);
+

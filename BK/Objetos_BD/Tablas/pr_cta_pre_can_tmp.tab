@@ -1,0 +1,40 @@
+create table IT.PR_CTA_PRE_CAN_TMP
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  cod_persona       VARCHAR2(15) not null,
+  cuo_desde         NUMBER(3),
+  cuo_hasta         NUMBER(3),
+  cod_oficina       NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  dia_atraso        NUMBER(5),
+  mto_dev_no_cob    NUMBER(18,2),
+  mto_dev_suspenso  NUMBER(18,2),
+  mto_int_adevengar NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_PRE_CAN_TMP
+  add constraint PK_CTA_PRE_TMP primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,38 @@
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "IT"."GV_VIGIA_CLIENTE_PERSONA_HIS" (
+    "COD_TIPO_RELACION",
+    "FECHA_DESDE",
+    "FECHA_HASTA",
+    "NRO_CLIENTE",
+    "NRO_PERSO_RELACIONADA",
+    "FEC_PROCESO"
+) AS
+WITH VinculosRecientes AS (
+    -- Obtenemos el último vínculo activo por persona en una sola pasada
+    SELECT 
+        COD_PERSONA,
+        TIPO,
+        FEC_INSERCION,
+        FEC_VENCIMIENTO,
+        COD_PER_VINCULO,
+        ROW_NUMBER() OVER (
+            PARTITION BY COD_PERSONA 
+            ORDER BY FEC_INSERCION DESC, COD_PER_VINCULO DESC
+        ) as rnk
+    FROM BA_VINCULOS
+    WHERE TIPO = 'E' 
+      AND ACTIVO = 'S'
+)
+SELECT 
+    VI.TIPO AS COD_TIPO_RELACION,
+    VI.FEC_INSERCION AS FECHA_DESDE,
+    VI.FEC_VENCIMIENTO AS FECHA_HASTA,
+    PE.COD_PERSONA AS NRO_CLIENTE,
+    VI.COD_PER_VINCULO AS NRO_PERSO_RELACIONADA,
+    pag_cal.fu_obt_fec_actual(6) AS FEC_PROCESO
+FROM BA_PERSONAS PE
+INNER JOIN VinculosRecientes VI 
+    ON VI.COD_PERSONA = PE.COD_PERSONA 
+   AND VI.rnk = 1 -- Filtramos solo el registro más nuevo
+WHERE PE.COD_TIP_DOCUMENTO NOT IN (9, 10)
+ORDER BY PE.COD_PERSONA
+;

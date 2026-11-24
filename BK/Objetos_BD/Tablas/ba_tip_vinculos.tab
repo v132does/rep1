@@ -1,0 +1,61 @@
+create table IT.BA_TIP_VINCULOS
+(
+  cod_tip_vinculo  VARCHAR2(2) not null,
+  descripcion      VARCHAR2(35) not null,
+  tip_persona      VARCHAR2(1) not null,
+  ven_obligatorio  VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_TIP_VINCULOS
+  is 'Tipos de Vinculos.';
+comment on column IT.BA_TIP_VINCULOS.cod_tip_vinculo
+  is 'Codigo de Tipo de Vinculo.';
+comment on column IT.BA_TIP_VINCULOS.descripcion
+  is 'Descripcion del tipo de vinculo.';
+comment on column IT.BA_TIP_VINCULOS.tip_persona
+  is 'Tipo de Persona.';
+comment on column IT.BA_TIP_VINCULOS.ven_obligatorio
+  is 'Vencimiento Obligatorio.';
+comment on column IT.BA_TIP_VINCULOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_TIP_VINCULOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_TIP_VINCULOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TIP_VINCULOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_TIP_VINCULOS
+  add constraint PK_BA_TIP_VINCULOS primary key (COD_TIP_VINCULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_TIP_VINCULOS
+  add constraint AVCON_1101941276_TIP_P_000
+  check (TIP_PERSONA IN ('F', 'J', 'A'));
+alter table IT.BA_TIP_VINCULOS
+  add constraint AVCON_1101941276_VEN_O_000
+  check (VEN_OBLIGATORIO IN ('S', 'N'));
+

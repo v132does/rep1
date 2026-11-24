@@ -1,0 +1,121 @@
+create table IT.MD_TIP_OPERACIONES
+(
+  cod_tip_operacion NUMBER(3) not null,
+  descripcion       VARCHAR2(120) not null,
+  tip_operacion     VARCHAR2(1) not null,
+  cod_tip_ope_bcp   VARCHAR2(6),
+  cod_mad_padre     NUMBER(3) not null,
+  cod_mad_operacion NUMBER(3) not null,
+  cod_tra_padre     NUMBER(4) not null,
+  cod_transaccion   NUMBER(4) not null,
+  tip_persona       VARCHAR2(1) default 'P' not null,
+  tip_prestamo      VARCHAR2(1) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_oficina       NUMBER(3) not null,
+  activo            VARCHAR2(1) default 'S' not null,
+  cod_rub_economico VARCHAR2(6),
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10),
+  fec_modificacion  DATE,
+  cod_sec_contable  VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_TIP_OPERACIONES.cod_tip_operacion
+  is 'Código del Tipo de REPO. Utiliza la secuencia S_COD_TIP_REPO.';
+comment on column IT.MD_TIP_OPERACIONES.descripcion
+  is 'Descripción del Tipo de Operación REPO.';
+comment on column IT.MD_TIP_OPERACIONES.tip_operacion
+  is 'Indica el Tipo de Operación O-torgado, R-ecibido, I-nstrumento.';
+comment on column IT.MD_TIP_OPERACIONES.cod_tip_ope_bcp
+  is 'Código de Operación BCP.';
+comment on column IT.MD_TIP_OPERACIONES.cod_mad_padre
+  is 'Modalidad Padre de la Operación.';
+comment on column IT.MD_TIP_OPERACIONES.cod_mad_operacion
+  is 'Modalidad de la Operación.';
+comment on column IT.MD_TIP_OPERACIONES.cod_tra_padre
+  is 'Código de Transacción Padre de la Operación.';
+comment on column IT.MD_TIP_OPERACIONES.cod_transaccion
+  is 'Código de Transacción de la Operación.';
+comment on column IT.MD_TIP_OPERACIONES.tip_persona
+  is 'Indicador Tipo de Persona: P-Bancos del País, B-BCP, C-Clientes.';
+comment on column IT.MD_TIP_OPERACIONES.tip_prestamo
+  is 'Indica el tipo de Préstamo por defecto. Se permitirá al usuario actualizar el dato si es necesario.';
+comment on column IT.MD_TIP_OPERACIONES.cod_modulo
+  is 'Código Módulo de la Operación. ';
+comment on column IT.MD_TIP_OPERACIONES.cod_oficina
+  is 'Código de oficina de la operación.';
+comment on column IT.MD_TIP_OPERACIONES.activo
+  is 'Indica que la configuración está Activa. Valores Posibles S-Si / N-No. En las pantallas de matenimiento de REPO Compra / Venta solo se desplegarán solo los tipos de Operaciones Activas.';
+comment on column IT.MD_TIP_OPERACIONES.cod_rub_economico
+  is 'Código de Rubro Económico por defecto para el tipo de Operación.';
+comment on column IT.MD_TIP_OPERACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.MD_TIP_OPERACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.MD_TIP_OPERACIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.MD_TIP_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.MD_TIP_OPERACIONES.cod_sec_contable
+  is 'Indica el Codigo de Sector Contable del cliente con quien se realiza la operacion.';
+alter table IT.MD_TIP_OPERACIONES
+  add constraint PK_MD_TIP_OPERACIONES primary key (COD_TIP_OPERACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_TIP_OPERACIONES
+  add constraint UK_FTCOD_MAD_OPERACION unique (COD_MAD_OPERACION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_MAD_OPERACION foreign key (COD_MODULO, COD_MAD_OPERACION)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_MAD_PADRE foreign key (COD_MODULO, COD_MAD_PADRE)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_TIP_OPE_BCP foreign key (COD_TIP_OPE_BCP)
+  references IT.LC_TIP_OPE_BCP (COD_TIP_OPE_BCP);
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MAD_OPERACION)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.MD_TIP_OPERACIONES
+  add constraint FK_MTOPE_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MODULO, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

@@ -1,0 +1,9 @@
+create global temporary table IT.SYB12_SYSCONSTRAINTS
+(
+  db_id           NUMBER(10),
+  table_id        NUMBER(10),
+  constraint_name VARCHAR2(256) not null,
+  db_definition   VARCHAR2(1000)
+)
+on commit preserve rows;
+

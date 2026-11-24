@@ -1,0 +1,31 @@
+create table IT.CB_RUB_TMP_ENCAJE
+(
+  cod_rub_externo VARCHAR2(12) not null,
+  descripcion     VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_TMP_ENCAJE
+  add constraint PK_COD_RUB_EXT primary key (COD_RUB_EXTERNO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

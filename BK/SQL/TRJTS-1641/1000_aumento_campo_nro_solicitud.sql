@@ -1,0 +1,1 @@
+alter table IT.TA_LIN_PRE_APROBADO modify nro_solicitud NUMBER(15);

@@ -1,0 +1,38 @@
+create table IT.BW_NOT_DESTINOS
+(
+  cod_destino      NUMBER(3) not null,
+  nombre           VARCHAR2(50) not null,
+  activo           VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_DESTINOS.activo
+  is 'S, N : El valor S indica si el destino esta activo S';
+alter table IT.BW_NOT_DESTINOS
+  add constraint PK_BW_NOT_DESTINOS primary key (COD_DESTINO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

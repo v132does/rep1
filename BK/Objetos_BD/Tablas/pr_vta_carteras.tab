@@ -1,0 +1,114 @@
+create table IT.PR_VTA_CARTERAS
+(
+  cod_ente         NUMBER(5) not null,
+  fec_ope_ente     DATE default TRUNC(SYSDATE) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  fec_inicio       DATE not null,
+  fec_vencimiento  DATE not null,
+  mto_capital      NUMBER(18,2) not null,
+  can_cuotas       NUMBER(5) not null,
+  cod_sec_credito  NUMBER(3) not null,
+  val_tasa         NUMBER(20,4) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(1) default 'A' not null,
+  estado           VARCHAR2(1) not null,
+  est_batch        VARCHAR2(1),
+  cat_cliente      NUMBER(3,2),
+  dia_atraso       NUMBER(5),
+  tot_riesgo       NUMBER(18,2),
+  ope_recaptada    VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  sal_capital      NUMBER(18,2),
+  dev_no_cobrado   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_VTA_CARTERAS
+  is 'Inventario de cartera vendida para mantenimiento de datos Res 75';
+comment on column IT.PR_VTA_CARTERAS.cod_ente
+  is 'Código del ente que adquirió la cartera.';
+comment on column IT.PR_VTA_CARTERAS.fec_ope_ente
+  is 'Fecha de operación de compra de cartera con el ente.';
+comment on column IT.PR_VTA_CARTERAS.nro_cuenta
+  is 'Numero de Prestamo.';
+comment on column IT.PR_VTA_CARTERAS.cod_oficina
+  is 'Codigo de Oficina del Prestamo.';
+comment on column IT.PR_VTA_CARTERAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.PR_VTA_CARTERAS.cod_modulo
+  is 'Codigo de Modulo del Prestamo.';
+comment on column IT.PR_VTA_CARTERAS.cod_modalidad
+  is 'Codigo de Modalidad del Prestamo.';
+comment on column IT.PR_VTA_CARTERAS.fec_inicio
+  is 'Fecha de Inicio del Prestamo.';
+comment on column IT.PR_VTA_CARTERAS.fec_vencimiento
+  is 'Fecha de Vencimiento del Prestamo.';
+comment on column IT.PR_VTA_CARTERAS.mto_capital
+  is 'Monto Capital.';
+comment on column IT.PR_VTA_CARTERAS.can_cuotas
+  is 'Cantidad de Cuotas.';
+comment on column IT.PR_VTA_CARTERAS.cod_sec_credito
+  is 'Codigo de Sector de Credito.';
+comment on column IT.PR_VTA_CARTERAS.val_tasa
+  is 'Valor de la Tasa de Interes.';
+comment on column IT.PR_VTA_CARTERAS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.PR_VTA_CARTERAS.tipo
+  is 'Tipo de Prestamo (Amortizable, Plazo Fijo, Descto. de Documentos).';
+comment on column IT.PR_VTA_CARTERAS.estado
+  is 'Estado de Cuenta on line (C=Vigente, V=Vencido, G=En Gestion, M=Moroso, I=Incobrable, N=Cancelado).';
+comment on column IT.PR_VTA_CARTERAS.est_batch
+  is 'Estado de Cuenta Batch.';
+comment on column IT.PR_VTA_CARTERAS.cat_cliente
+  is 'Categoria del cliente.';
+comment on column IT.PR_VTA_CARTERAS.dia_atraso
+  is 'Cantidad de días de atraso';
+comment on column IT.PR_VTA_CARTERAS.tot_riesgo
+  is 'Total de riesgo.';
+comment on column IT.PR_VTA_CARTERAS.ope_recaptada
+  is 'Operación Recaptada (S, N).';
+comment on column IT.PR_VTA_CARTERAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_VTA_CARTERAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_VTA_CARTERAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_VTA_CARTERAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.PR_VTA_CARTERAS
+  add constraint PK_PR_CAR_VENDIDAS primary key (NRO_CUENTA, FEC_OPE_ENTE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_VTA_CARTERAS
+  add constraint FK_PCVEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_VTA_CARTERAS
+  add constraint FK_PCVEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

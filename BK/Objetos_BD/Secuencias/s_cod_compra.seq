@@ -1,0 +1,7 @@
+create sequence IT.S_COD_COMPRA
+minvalue 0
+maxvalue 999999999999999999999999999
+start with 54381
+increment by 1
+nocache;
+

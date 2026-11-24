@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_HORA
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 25562992
+increment by 1
+nocache
+cycle;
+

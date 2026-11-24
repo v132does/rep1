@@ -1,0 +1,112 @@
+create table IT.SB_CRC_MOV_CTA_BASICA
+(
+  fecha                DATE not null,
+  nom_referencia       VARCHAR2(10) not null,
+  nro_formulario       VARCHAR2(3),
+  cod_oficina          NUMBER(4),
+  tip_operacion        NUMBER(3),
+  nro_operacion        VARCHAR2(60),
+  cod_moneda           VARCHAR2(3),
+  fec_operacion        DATE,
+  fec_pri_vencimiento  DATE,
+  nro_cuota            NUMBER(3),
+  cta_con_cap_original VARCHAR2(18),
+  mto_ori_capital      NUMBER(20,2),
+  mto_lin_credito      NUMBER(20,2),
+  cta_con_int_original VARCHAR2(18),
+  mto_ori_interes      NUMBER(20,2),
+  cod_rub_primario     VARCHAR2(6),
+  cod_departamento     VARCHAR2(4),
+  cod_rub_economico    VARCHAR2(6),
+  dia_plazo            NUMBER(5),
+  tas_nominal          NUMBER(5,2),
+  nro_registro         NUMBER(9) not null,
+  cod_modulo           NUMBER(3),
+  cod_persona          VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_MOV_CTA_BASICA
+  is 'Datos de Movimientos de CRC Cuenta basica.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.fecha
+  is 'Fecha.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.nom_referencia
+  is 'Nombre de Referencia.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.nro_formulario
+  is 'N�mero de Formulario.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_oficina
+  is 'C�digo de Oficina.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.tip_operacion
+  is 'Tipo de Operaci�n.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.nro_operacion
+  is 'N�mero de Operaci�n.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_moneda
+  is 'C�digo de Moneda.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.fec_operacion
+  is 'Fecha de Operaci�n.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.fec_pri_vencimiento
+  is 'Fecha de Primer Vencimiento.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.nro_cuota
+  is 'N�mero de Cuota.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cta_con_cap_original
+  is 'Cuenta Contable del Capital Original.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.mto_ori_capital
+  is 'Monto del Capital Original.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.mto_lin_credito
+  is 'Monto de L�nea de Cr�dito.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cta_con_int_original
+  is 'Cuenta Contable Inter�s Original.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.mto_ori_interes
+  is 'Monto Original Inter�s.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_rub_primario
+  is 'C�digo de Rubro Primario.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_departamento
+  is 'C�digo de Departamento.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_rub_economico
+  is 'C�digo de Rubro de Cr�dito.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.dia_plazo
+  is 'D�as de Plazo.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.tas_nominal
+  is 'Tasa Nominal.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.nro_registro
+  is 'Tasa Nominal.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_modulo
+  is 'C�digo del M�dulo.';
+comment on column IT.SB_CRC_MOV_CTA_BASICA.cod_persona
+  is 'C�digo de Persona.';
+create index IT.IN_SBCB_NRO_CUENTA on IT.SB_CRC_MOV_CTA_BASICA (NRO_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CRC_MOV_CTA_BASICA
+  add constraint PK_SB_CRC_MOV_CTA_BASICA primary key (FECHA, NOM_REFERENCIA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,116 @@
+create table IT.MD_DERIVATIVES
+(
+  id                       NUMBER not null,
+  src_id                   NUMBER not null,
+  src_type                 VARCHAR2(4000),
+  derived_id               NUMBER not null,
+  derived_type             VARCHAR2(4000),
+  derived_connection_id_fk NUMBER not null,
+  transformed              CHAR(1),
+  original_identifier      VARCHAR2(4000),
+  new_identifier           VARCHAR2(4000),
+  derived_object_namespace VARCHAR2(40),
+  derivative_reason        VARCHAR2(10),
+  security_group_id        NUMBER default 0 not null,
+  created_on               DATE default sysdate not null,
+  created_by               VARCHAR2(255),
+  last_updated_on          DATE,
+  last_updated_by          VARCHAR2(255),
+  enabled                  CHAR(1) default 'Y'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_DERIVATIVES
+  is 'This table is used to store objects that are derived from each other.  For example in a migration an auto-increment column in a source model could be mapped to a primary key, and a sequence, and a trigger.  The MD_DERIVATIVES table would store the fact that these 3 objects are derived from the auto-increment column.';
+comment on column IT.MD_DERIVATIVES.transformed
+  is 'Set this field to ''Y'' if we carry out any sort of transformation on teh derived object.';
+create index IT.MD_DERIVATIVES_PERF_IDX on IT.MD_DERIVATIVES (SRC_ID, DERIVED_CONNECTION_ID_FK)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MD_DERIVATIVES_PERF_IDX1 on IT.MD_DERIVATIVES (SRC_TYPE, DERIVATIVE_REASON)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MD_DERIVATIVES_PERF_IDX2 on IT.MD_DERIVATIVES (NEW_IDENTIFIER)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MD_DERIVATIVES_PERF_IDX3 on IT.MD_DERIVATIVES (ORIGINAL_IDENTIFIER)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MD_DERIVATIVES_PERF_IDX4 on IT.MD_DERIVATIVES (DERIVED_ID, DERIVED_TYPE, DERIVED_CONNECTION_ID_FK)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 165
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_DERIVATIVES
+  add constraint MIGRDREIVATIVES_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_DERIVATIVES
+  add constraint MD_DERIVATIVES_MD_CONNECT_FK1 foreign key (DERIVED_CONNECTION_ID_FK)
+  references IT.MD_CONNECTIONS (ID) on delete cascade;
+alter table IT.MD_DERIVATIVES
+  add constraint MIGRDER_CHK
+  check (ENABLED = 'Y' OR ENABLED = 'y' OR ENABLED = 'N' OR  ENABLED = 'n');
+

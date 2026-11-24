@@ -1,0 +1,78 @@
+create table IT.BW_NOT_CLI_DESTINO_HIS
+(
+  cod_persona_old  VARCHAR2(10),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  cod_persona_new  VARCHAR2(10),
+  cod_destino_old  NUMBER(3),
+  cod_destino_new  NUMBER(3),
+  direccion_old    VARCHAR2(300),
+  direccion_new    VARCHAR2(300),
+  activo_old       VARCHAR2(1),
+  activo_new       VARCHAR2(1),
+  novedad          VARCHAR2(1)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_NOT_CLI_DESTINO_HIS
+  is 'Tabla de auditoría de bw_not_cli_destino';
+create index IT.IN_BNCLH_ACTIVO on IT.BW_NOT_CLI_DESTINO_HIS (ACTIVO_NEW, ACTIVO_OLD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BNCLH_NOVEDAD on IT.BW_NOT_CLI_DESTINO_HIS (NOVEDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_PERSONA_NEW on IT.BW_NOT_CLI_DESTINO_HIS (COD_PERSONA_NEW, COD_DESTINO_NEW, ACTIVO_NEW)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_PERSONA_OLD on IT.BW_NOT_CLI_DESTINO_HIS (COD_PERSONA_OLD, COD_DESTINO_OLD, ACTIVO_OLD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,29 @@
+create table IT.CB_SAL_INVENTARIOS_DET_ANT
+(
+  nro_referencia NUMBER(7) not null,
+  nro_cuenta     VARCHAR2(15) not null,
+  sal_actual     NUMBER(18,2),
+  sal_anterior   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INVENTARIOS_DET_ANT
+  is 'Saldos detallados de Inventarios (Anterior).';
+comment on column IT.CB_SAL_INVENTARIOS_DET_ANT.nro_referencia
+  is 'Numero de Referencia.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_ANT.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_ANT.sal_actual
+  is 'Saldo Actual.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_ANT.sal_anterior
+  is 'Saldo Anterior.';
+

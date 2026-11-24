@@ -1,0 +1,128 @@
+-- Create table
+create table IT.PR_SOL_CARGOS
+(
+  nro_solicitud    NUMBER(7) not null,
+  cod_transaccion  NUMBER(4) not null,
+  fec_tasa         DATE,
+  val_tasa         NUMBER(20,4) default 0,
+  monto            NUMBER(18,2) default 0,
+  cod_tasa         NUMBER(3),
+  cod_ent_seguro   NUMBER(5),
+  cod_moneda       VARCHAR2(3) not null,
+  mto_mon_prestamo NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.PR_SOL_CARGOS
+  is 'Contiene los datos de los cargos cobrados en la aceptación de préstamos.';
+-- Add comments to the columns 
+comment on column IT.PR_SOL_CARGOS.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_SOL_CARGOS.cod_transaccion
+  is 'Código de la transacción del cargo.';
+comment on column IT.PR_SOL_CARGOS.fec_tasa
+  is 'Fecha de la tasa.';
+comment on column IT.PR_SOL_CARGOS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.PR_SOL_CARGOS.monto
+  is 'Monto del cargo.';
+comment on column IT.PR_SOL_CARGOS.cod_tasa
+  is 'Código de tasa aplicada.';
+comment on column IT.PR_SOL_CARGOS.cod_ent_seguro
+  is 'Código del seguro.';
+comment on column IT.PR_SOL_CARGOS.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.PR_SOL_CARGOS.mto_mon_prestamo
+  is 'Monto del cargo en USD.';
+comment on column IT.PR_SOL_CARGOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SOL_CARGOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SOL_CARGOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SOL_CARGOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_PSCAR_COD_ENT_SEGURO on IT.PR_SOL_CARGOS (COD_ENT_SEGURO, COD_MONEDA, COD_TASA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSCAR_COD_MONEDA on IT.PR_SOL_CARGOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSCAR_NRO_SOLICITUD on IT.PR_SOL_CARGOS (NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.PR_SOL_CARGOS
+  add constraint PK_PR_SOL_CARGOS primary key (NRO_SOLICITUD, COD_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOL_CARGOS
+  add constraint FK_PSCAR_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_SOL_CARGOS
+  add constraint FK_PSCAR_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_SOL_CARGOS
+  add constraint FK_PSCAR_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.PR_SOL_CARGOS
+  add constraint FK_PSCAR_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.PR_SOLICITUDES (NRO_SOLICITUD);
+-- Create/Recreate check constraints 
+alter table IT.PR_SOL_CARGOS
+  add constraint AVCON_1085007466_COD_T_001
+  check (COD_TASA BETWEEN 0 AND 999);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.PR_SOL_CARGOS to IT_TEMPORAL;

@@ -1,0 +1,5 @@
+-- Add/modify columns 
+alter table IT.GE_EQU_DATOS modify num_cliente VARCHAR2(15);
+-- Add comments to the columns 
+comment on column IT.GE_EQU_DATOS.num_cliente
+  is 'Número de cliente asignado.';

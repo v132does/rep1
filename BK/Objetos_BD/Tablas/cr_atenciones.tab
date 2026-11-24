@@ -1,0 +1,106 @@
+create table IT.CR_ATENCIONES
+(
+  cod_atencion          NUMBER(8) not null,
+  cod_oficina           NUMBER(3) not null,
+  cod_usu_responsable   VARCHAR2(10) not null,
+  fec_hor_recepcion     DATE not null,
+  cod_asunto            VARCHAR2(5) not null,
+  estado                VARCHAR2(1),
+  cod_persona           VARCHAR2(10) not null,
+  nom_persona           VARCHAR2(50),
+  cod_usu_recepcionista VARCHAR2(10) not null,
+  fec_hor_atencion      DATE,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  observacion           VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_ATENCIONES
+  is 'Tabla de Recepcion a Personas.';
+comment on column IT.CR_ATENCIONES.cod_atencion
+  is 'Nro. secuencial de atencion.';
+comment on column IT.CR_ATENCIONES.cod_oficina
+  is 'Oficina de recepcion.';
+comment on column IT.CR_ATENCIONES.cod_usu_responsable
+  is 'Oficial Responsable.';
+comment on column IT.CR_ATENCIONES.fec_hor_recepcion
+  is 'Fecha y hora de recepcion.';
+comment on column IT.CR_ATENCIONES.cod_asunto
+  is 'Codigo del Asunto a tratar.';
+comment on column IT.CR_ATENCIONES.estado
+  is 'Estado de la Atencion.';
+comment on column IT.CR_ATENCIONES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_ATENCIONES.nom_persona
+  is 'Nombre si aun no esta registrado.';
+comment on column IT.CR_ATENCIONES.cod_usu_recepcionista
+  is 'Recepcionista.';
+comment on column IT.CR_ATENCIONES.fec_hor_atencion
+  is 'Hora de Atencion.';
+comment on column IT.CR_ATENCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_ATENCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_ATENCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_ATENCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_ATENCIONES.observacion
+  is 'Observaciones.';
+create index IT.IN_RATEN_COD_PERSONA on IT.CR_ATENCIONES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_ATENCIONES
+  add constraint PK_CR_ATENCIONES primary key (COD_ATENCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_ATENCIONES
+  add constraint FK_RATEN_COD_ASUNTO foreign key (COD_ASUNTO)
+  references IT.CR_ATE_ASUNTOS (COD_ASUNTO);
+alter table IT.CR_ATENCIONES
+  add constraint FK_RATEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CR_ATENCIONES
+  add constraint FK_RATEN_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_ATENCIONES
+  add constraint FK_RATEN_COD_USU_RECEPCIONISTA foreign key (COD_USU_RECEPCIONISTA)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_ATENCIONES
+  add constraint FK_RATEN_COD_USU_RESPONSABLE foreign key (COD_USU_RESPONSABLE)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_ATENCIONES
+  add constraint AVCON_1080843837_COD_O_004
+  check (COD_OFICINA BETWEEN 1 AND 999);
+

@@ -1,0 +1,30 @@
+create table IT.TM_RUB_CUADRES
+(
+  cod_rubro       VARCHAR2(15),
+  cod_rub_externo VARCHAR2(20),
+  fec_asi_deb     DATE,
+  cod_ofi_deb     NUMBER(4),
+  nro_asi_deb     NUMBER(10),
+  nro_lin_deb     NUMBER(9),
+  mto_debe        NUMBER(18,2),
+  ref_mov_deb     NUMBER(7),
+  fec_asi_hab     DATE,
+  cod_ofi_hab     NUMBER(4),
+  nro_asi_hab     NUMBER(10),
+  nro_lin_hab     NUMBER(9),
+  mto_haber       NUMBER(18,2),
+  ref_mov_hab     NUMBER(7),
+  cod_rub_ext_hab VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

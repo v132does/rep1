@@ -1,0 +1,38 @@
+create table IT.GE_SNP_CTA_RESTRINGIDAS
+(
+  nro_cuenta       VARCHAR2(35) not null,
+  cod_swi_entidad  VARCHAR2(20) not null,
+  estado           VARCHAR2(1) default 'A',
+  usu_insercion    VARCHAR2(128) default user,
+  usu_modificacion VARCHAR2(128) default user,
+  fec_insercion    DATE default sysdate,
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table IT.GE_SNP_CTA_RESTRINGIDAS
+  is 'Se registran las cuentas restringidas para transferencias SIPAP';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.nro_cuenta
+  is 'Numero de la cuenta (PK)';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.cod_swi_entidad
+  is 'Codigo swift de la entidad (PK)';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.estado
+  is 'Estado de la restrincción. A:Activo - I:Inactivo';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SNP_CTA_RESTRINGIDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SNP_CTA_RESTRINGIDAS
+  add constraint PK_GE_SNP_CTA_RESTRINGIDAS primary key (NRO_CUENTA, COD_SWI_ENTIDAD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

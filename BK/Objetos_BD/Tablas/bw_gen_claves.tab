@@ -1,0 +1,65 @@
+create table IT.BW_GEN_CLAVES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_lote         NUMBER not null,
+  nro_orden        NUMBER(3),
+  estado           VARCHAR2(1) default 'N' not null,
+  error            VARCHAR2(300),
+  nro_lote_gen     NUMBER,
+  observacion      VARCHAR2(3000),
+  fec_activacion   DATE,
+  fec_generacion   DATE,
+  fec_inser_lote   DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_GEN_CLAVES
+  is 'CONTIENE LA GENERACION MASIVA DE CLAVES DE PERSONAS';
+comment on column IT.BW_GEN_CLAVES.cod_persona
+  is 'CODIGO DE PERSONA';
+comment on column IT.BW_GEN_CLAVES.nro_lote
+  is 'NRO DE LOTE DE INSERCION';
+comment on column IT.BW_GEN_CLAVES.nro_orden
+  is 'NRO DE ORDEN PARA IMPRESION';
+comment on column IT.BW_GEN_CLAVES.estado
+  is 'ESTADO (I=INGRESADO, G=GENERADO, A=ACTIVADO, R=RECHAZADO)';
+comment on column IT.BW_GEN_CLAVES.error
+  is 'ERROR DE PROCESO';
+comment on column IT.BW_GEN_CLAVES.nro_lote_gen
+  is 'NRO DE LOTE GENERADO';
+comment on column IT.BW_GEN_CLAVES.observacion
+  is 'OBSERVACION DE REGISTRO';
+comment on column IT.BW_GEN_CLAVES.fec_activacion
+  is 'FECHA DE ACTIVACION';
+comment on column IT.BW_GEN_CLAVES.fec_generacion
+  is 'FECHA DE GENERACION';
+comment on column IT.BW_GEN_CLAVES.fec_inser_lote
+  is 'FECHA DE INSERCION DE LOTE';
+alter table IT.BW_GEN_CLAVES
+  add constraint PK_BW_GEN_CLAVES primary key (COD_PERSONA, NRO_LOTE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

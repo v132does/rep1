@@ -1,0 +1,90 @@
+create table IT.GE_EQF_MOR_ACT_ADEFI
+(
+  nro_solicitud         NUMBER(10) not null,
+  cod_persona           VARCHAR2(10) not null,
+  nro_secuencia         NUMBER(5) not null,
+  fec_consulta          DATE,
+  hor_consulta          VARCHAR2(10),
+  nom_ser_webservice    VARCHAR2(50),
+  tip_persona           VARCHAR2(1),
+  act_afiliado          VARCHAR2(50),
+  cantidad              NUMBER(10),
+  men_fec_vto_pendiente VARCHAR2(20),
+  may_fec_vto_pendiente VARCHAR2(20),
+  sum_sal_acreedor      NUMBER(20,2),
+  moneda                VARCHAR2(20),
+  msg_error             VARCHAR2(4000),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.nro_secuencia
+  is 'Nro de secuencia por solicitud';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.fec_consulta
+  is 'Fecha de la consulta al servicio web';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.hor_consulta
+  is 'Hora de la consulta al servicio web';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.nom_ser_webservice
+  is 'Nombre del servicio web consultado';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.tip_persona
+  is 'Tipo de persona F= física, J= jurídica';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.act_afiliado
+  is 'Actividad afiliado';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.cantidad
+  is 'Cantidad morosidades';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.men_fec_vto_pendiente
+  is 'Menor fecha vencimiento pendiente';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.may_fec_vto_pendiente
+  is 'Mayor fecha vencimiento pendiente';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.sum_sal_acreedor
+  is 'Suma saldo acreedor';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.moneda
+  is 'Moneda';
+comment on column IT.GE_EQF_MOR_ACT_ADEFI.msg_error
+  is 'Mensaje de error del webservice si lo hubiere';
+create index IT.IN_MORAC_PER_SOL_FEC on IT.GE_EQF_MOR_ACT_ADEFI (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_MOR_ACT_ADEFI
+  add constraint PK_GE_EQF_MOR_ACT_ADEFI primary key (NRO_SOLICITUD, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_MOR_ACT_ADEFI
+  add constraint FK_EQFMO_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_EQF_SOLICITUDES (NRO_SOLICITUD) on delete cascade;
+

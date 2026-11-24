@@ -1,0 +1,35 @@
+create table IT.GE_LOG_ACT_DIF_IVA
+(
+  fecha         DATE,
+  hora          VARCHAR2(8),
+  cod_usuario   VARCHAR2(10),
+  nro_secuencia NUMBER(3),
+  monto         NUMBER(18,2),
+  det_error     VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_ACT_DIF_IVA
+  is 'Log de Proceso Automático de Ajustes de Diferencias de IVA.';
+comment on column IT.GE_LOG_ACT_DIF_IVA.fecha
+  is 'Fecha de la transacción.';
+comment on column IT.GE_LOG_ACT_DIF_IVA.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_LOG_ACT_DIF_IVA.cod_usuario
+  is 'Código de operador.';
+comment on column IT.GE_LOG_ACT_DIF_IVA.nro_secuencia
+  is 'Número de secuencia.';
+comment on column IT.GE_LOG_ACT_DIF_IVA.monto
+  is 'Importe de la transacción.';
+comment on column IT.GE_LOG_ACT_DIF_IVA.det_error
+  is 'Detalle del Error.';
+

@@ -1,0 +1,175 @@
+create table IT.CB_RUBROS
+(
+  cod_rubro         VARCHAR2(15) not null,
+  descripcion       VARCHAR2(60) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cod_rub_padre     VARCHAR2(15),
+  abreviatura       VARCHAR2(15),
+  tipo              VARCHAR2(1) not null,
+  nivel             NUMBER(2) not null,
+  naturaleza        VARCHAR2(1) not null,
+  deducible         VARCHAR2(1) default 'N' not null,
+  imputable         VARCHAR2(1) default 'N' not null,
+  ajustable         VARCHAR2(1) default 'N' not null,
+  ult_nro_mayor     NUMBER(5),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  fec_inicio        DATE,
+  fec_fin           DATE,
+  cod_rub_externo   VARCHAR2(20),
+  cod_consolidacion VARCHAR2(20),
+  cod_gestion       VARCHAR2(20),
+  nro_gru_rubro     NUMBER(5),
+  transitorio       VARCHAR2(1) default 'N',
+  plz_maximo        NUMBER(5),
+  automatico        VARCHAR2(1) default 'N',
+  afe_naturaleza    VARCHAR2(1) default 'N',
+  cod_area          NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUBROS
+  is 'Contiene los datos del Plan de Cuentas consolidado.';
+comment on column IT.CB_RUBROS.cod_rubro
+  is 'Código de la Cuenta Contable.';
+comment on column IT.CB_RUBROS.descripcion
+  is 'Descripcion larga de la Cuenta.';
+comment on column IT.CB_RUBROS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CB_RUBROS.cod_rub_padre
+  is 'Cuenta Padre.';
+comment on column IT.CB_RUBROS.abreviatura
+  is 'Descripción breve de la Cuenta.';
+comment on column IT.CB_RUBROS.tipo
+  is 'Tipo de Cuenta ( 1=ACTIVO, 2=PASIVO, 3=PATRIMONIO NETO, 4=INGRESOS, 5=EGRESOS, 6=CUENTAS DE ORDEN, 7=CUENTAS DE ORDEN POR CONTRA ).';
+comment on column IT.CB_RUBROS.nivel
+  is 'Nivel de la Cuenta.';
+comment on column IT.CB_RUBROS.naturaleza
+  is 'Naturaleza de la Cuenta. + (Acreedor) o - (Deudor).';
+comment on column IT.CB_RUBROS.deducible
+  is 'Cuenta deducible ? ( S= Si, es una cuenta deducible, N= No, es cuenta de gastos, no deducir gastos, si es ingresos, esta exenta de rentas ).';
+comment on column IT.CB_RUBROS.imputable
+  is 'Cuenta imputable ? ( S= Indica que es una cuenta imputable, puede tener movimientos, N= No es imputable, no permite movimientos ).';
+comment on column IT.CB_RUBROS.ajustable
+  is 'Ajusta la cuenta por oficina(S/N).';
+comment on column IT.CB_RUBROS.ult_nro_mayor
+  is 'Ultimo número de extracto de mayor generado.';
+comment on column IT.CB_RUBROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CB_RUBROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_RUBROS.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.CB_RUBROS.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.CB_RUBROS.fec_inicio
+  is 'Fecha Inicio de vigencia para la utilización del rubro.';
+comment on column IT.CB_RUBROS.fec_fin
+  is 'Fecha Fin de vigencia para la utilización del rubro.';
+comment on column IT.CB_RUBROS.cod_rub_externo
+  is 'Rubro externo al sistema.';
+comment on column IT.CB_RUBROS.cod_consolidacion
+  is 'Código de Consolidación Contable.';
+comment on column IT.CB_RUBROS.cod_gestion
+  is 'Código de Gestion Contable.';
+comment on column IT.CB_RUBROS.nro_gru_rubro
+  is 'Número del Grupo de Rubros';
+comment on column IT.CB_RUBROS.transitorio
+  is 'Indica si la Cuenta es Transitoria o Suspenso (S/N).';
+comment on column IT.CB_RUBROS.plz_maximo
+  is 'Indica el Plazo en días de Permanencia.';
+comment on column IT.CB_RUBROS.automatico
+  is 'Indica si es S/Batchs (Automática) o N/Abiertas (manual). (S/N).';
+comment on column IT.CB_RUBROS.afe_naturaleza
+  is 'Indica si la cuenta puede presentar indistintamente saldo deudor o acreedor (S/N).';
+comment on column IT.CB_RUBROS.cod_area
+  is 'Código de área.';
+create index IT.IN_BRUBR_COD_RUB_PADRE on IT.CB_RUBROS (COD_RUB_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CBRU_IMPUTABLE on IT.CB_RUBROS (IMPUTABLE, COD_MONEDA, COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 768K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUBROS
+  add constraint PK_CB_RUBROS primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 576K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUBROS
+  add constraint FK_BRUBR_COD_AREA foreign key (COD_AREA)
+  references IT.CB_RUB_AREAS (COD_AREA);
+alter table IT.CB_RUBROS
+  add constraint FK_BRUBR_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CB_RUBROS
+  add constraint FK_BRUBR_COD_RUB_PADRE foreign key (COD_RUB_PADRE)
+  references IT.CB_RUBROS (COD_RUBRO)
+  deferrable initially deferred
+  disable
+  novalidate;
+alter table IT.CB_RUBROS
+  add constraint AVCON_1082044079_AJUST_000
+  check (AJUSTABLE IN ('S', 'N'));
+alter table IT.CB_RUBROS
+  add constraint AVCON_1082044079_DEDUC_000
+  check (DEDUCIBLE IN ('S', 'N'));
+alter table IT.CB_RUBROS
+  add constraint AVCON_1082044079_IMPUT_000
+  check (IMPUTABLE IN ('S', 'N'));
+alter table IT.CB_RUBROS
+  add constraint AVCON_1082044079_NATUR_000
+  check (NATURALEZA IN ('+', '-'));
+alter table IT.CB_RUBROS
+  add constraint AVCON_1082044079_TIPO_000
+  check (TIPO IN ('1', '2', '3', '4', '5', '6', '7', '8'));
+alter table IT.CB_RUBROS
+  add constraint CK_BRUBR_AFE_NATURALEZA
+  check (AFE_NATURALEZA IN ('S', 'N'));
+alter table IT.CB_RUBROS
+  add constraint CK_BRUBR_AUTOMATICO
+  check (AUTOMATICO IN ('S', 'N'));
+alter table IT.CB_RUBROS
+  add constraint CK_BRUBR_TRANSITORIO
+  check (TRANSITORIO IN ('S', 'N'));
+alter table IT.CB_RUBROS
+  add constraint CK_RANGO_FECHAS
+  check ((FEC_INICIO IS NOT NULL AND FEC_INICIO <= FEC_FIN) OR (FEC_INICIO IS NULL AND FEC_FIN IS NULL));
+

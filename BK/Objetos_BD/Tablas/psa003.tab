@@ -1,0 +1,216 @@
+create table IT.PSA003
+(
+  psa003af VARCHAR2(15),
+  psa003au VARCHAR2(6),
+  psa003bi VARCHAR2(6),
+  psa003ca NUMBER(9),
+  psa003cb VARCHAR2(25),
+  psa003cd NUMBER(18,2),
+  psa003ci VARCHAR2(25),
+  psa003cl NUMBER(18,2),
+  psa003co VARCHAR2(25),
+  psa003cr NUMBER(9),
+  psa003ct NUMBER(9),
+  psa003da VARCHAR2(40),
+  psa003db VARCHAR2(25),
+  psa003dd VARCHAR2(25),
+  psa003dh NUMBER(1),
+  psa003dl NUMBER(18,2),
+  psa003do VARCHAR2(25),
+  psa003dr VARCHAR2(25),
+  psa003dt NUMBER(9),
+  psa003eb VARCHAR2(65),
+  psa003eo VARCHAR2(65),
+  psa003fc VARCHAR2(30),
+  psa003fi TIMESTAMP(6),
+  psa003ft VARCHAR2(8) not null,
+  psa003fu VARCHAR2(30),
+  psa003ht VARCHAR2(8),
+  psa003id NUMBER(18),
+  psa003mc VARCHAR2(50),
+  psa003md NUMBER(9),
+  psa003ml NUMBER(18,2),
+  psa003mo NUMBER(18,2),
+  psa003mp NUMBER(9),
+  psa003mu NUMBER(9) not null,
+  psa003nc NUMBER(9),
+  psa003op NUMBER(9),
+  psa003or NUMBER(3) not null,
+  psa003os NUMBER(3) not null,
+  psa003pa NUMBER(9),
+  psa003pd NUMBER(9),
+  psa003pr NUMBER(18),
+  psa003rf VARCHAR2(40),
+  psa003rl NUMBER(9) not null,
+  psa003rv VARCHAR2(4),
+  psa003so NUMBER(5),
+  psa003st NUMBER(18,2),
+  psa003su NUMBER(9) not null,
+  psa003ta NUMBER(9) not null,
+  psa003td NUMBER(9),
+  psa003tp VARCHAR2(1),
+  psa003tr NUMBER(9),
+  psa003tt NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA003
+  is 'TABLA Transacciones';
+comment on column IT.PSA003.psa003af
+  is 'Codigo de Afiliado';
+comment on column IT.PSA003.psa003au
+  is 'csAutorizacion';
+comment on column IT.PSA003.psa003bi
+  is 'csBin';
+comment on column IT.PSA003.psa003ca
+  is 'csCanalTrx';
+comment on column IT.PSA003.psa003cb
+  is 'csCuentaBeneficiario';
+comment on column IT.PSA003.psa003cd
+  is 'ciTipoCambio Dólar';
+comment on column IT.PSA003.psa003ci
+  is 'Ciudad';
+comment on column IT.PSA003.psa003cl
+  is 'ciTipoCambio Local';
+comment on column IT.PSA003.psa003co
+  is 'csCuentaOrdenante';
+comment on column IT.PSA003.psa003cr
+  is 'csCodigoRespuesta';
+comment on column IT.PSA003.psa003ct
+  is 'csTipoCuenta';
+comment on column IT.PSA003.psa003da
+  is 'Descripcion Afiliado';
+comment on column IT.PSA003.psa003db
+  is 'csCedulaBeneficiario';
+comment on column IT.PSA003.psa003dd
+  is 'csCedulaDepositante';
+comment on column IT.PSA003.psa003dh
+  is 'csTipoMovimiento';
+comment on column IT.PSA003.psa003do
+  is 'cmMonto Dolares';
+comment on column IT.PSA003.psa003dr
+  is 'csCedulaOrdenante';
+comment on column IT.PSA003.psa003dt
+  is 'Tipo doc del depositante';
+comment on column IT.PSA003.psa003eb
+  is 'csEntidadBeneficiario';
+comment on column IT.PSA003.psa003eo
+  is 'csEntidadOrdenante';
+comment on column IT.PSA003.psa003fc
+  is 'csFuncionario CONFIRMA';
+comment on column IT.PSA003.psa003fi
+  is 'cdFechaHoraIngreso';
+comment on column IT.PSA003.psa003ft
+  is 'cdFechaHoraTransaccion';
+comment on column IT.PSA003.psa003fu
+  is 'csFuncionario INGRESO';
+comment on column IT.PSA003.psa003ht
+  is 'Hora de la transaccion';
+comment on column IT.PSA003.psa003id
+  is 'ciIdTransaccionPK';
+comment on column IT.PSA003.psa003mc
+  is 'csCodigoMcc Tipo de Comercio';
+comment on column IT.PSA003.psa003md
+  is 'csCodigoMoneda Origen';
+comment on column IT.PSA003.psa003ml
+  is 'cmMonto Moneda Local';
+comment on column IT.PSA003.psa003mo
+  is 'cmMonto Moneda Origen';
+comment on column IT.PSA003.psa003mp
+  is 'Medio de Pago';
+comment on column IT.PSA003.psa003mu
+  is 'Modulo contable';
+comment on column IT.PSA003.psa003nc
+  is 'csNumeroCuenta';
+comment on column IT.PSA003.psa003op
+  is 'Operación';
+comment on column IT.PSA003.psa003or
+  is 'Ordinal';
+comment on column IT.PSA003.psa003os
+  is 'Sub-ordinal';
+comment on column IT.PSA003.psa003pa
+  is 'Pais doc';
+comment on column IT.PSA003.psa003pd
+  is 'Pais del depositante';
+comment on column IT.PSA003.psa003pr
+  is 'ciIdProcesoFK';
+comment on column IT.PSA003.psa003rf
+  is 'ciIdDocumento';
+comment on column IT.PSA003.psa003rl
+  is 'Relacion contable';
+comment on column IT.PSA003.psa003rv
+  is 'csreversada';
+comment on column IT.PSA003.psa003so
+  is 'Sub operación';
+comment on column IT.PSA003.psa003st
+  is 'cmSaldoTC';
+comment on column IT.PSA003.psa003ta
+  is 'Transaccion contable';
+comment on column IT.PSA003.psa003td
+  is 'Tipo doc';
+comment on column IT.PSA003.psa003tp
+  is 'ciIdTipoCliente';
+comment on column IT.PSA003.psa003tr
+  is 'csClaseTransEntreCnts';
+comment on column IT.PSA003.psa003tt
+  is 'csTipoTransaccion';
+create index IT.IN_PSA003FT on IT.PSA003 (PSA003FT)
+  tablespace IT_HIS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSA003NC on IT.PSA003 (PSA003NC)
+  tablespace IT_HIS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PSA003SO on IT.PSA003 (PSA003SO)
+  tablespace IT_HIS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PSA003
+  add constraint PK_PSA003 primary key (PSA003OS, PSA003OR, PSA003FT, PSA003SU, PSA003RL, PSA003MU, PSA003TA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

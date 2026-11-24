@@ -1,0 +1,90 @@
+create table IT.BW_OPE_PROGRAMADAS_DET
+(
+  nro_referencia   NUMBER(18) not null,
+  nro_detalle      NUMBER not null,
+  estado           VARCHAR2(1) not null,
+  fec_programada   DATE not null,
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  nro_documento    NUMBER(15),
+  mto_debito       NUMBER(18,2),
+  mto_credito      NUMBER(18,2),
+  cotizacion       NUMBER(14,8),
+  cot_contra       NUMBER(14,8),
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  est_comprobante  VARCHAR2(1) default 'P'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OPE_PROGRAMADAS_DET
+  is 'Detalles de operaciones programadas';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.nro_referencia
+  is 'Nro. referencia padre.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.nro_detalle
+  is 'Nro. de operacion.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.estado
+  is 'Estado de la operacion. C: Confirmado, P: programado, A: anulado';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.fec_programada
+  is 'Fecha de programacion.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.hora
+  is 'Hora del movimiento.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.nro_documento
+  is 'Numero documento del movimiento.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_OPE_PROGRAMADAS_DET.est_comprobante
+  is 'Estado proceso comprobante. P - Pendiente, G - Generado.';
+create index IT.IN_BOPDE_FEC_PROCESO on IT.BW_OPE_PROGRAMADAS_DET (FEC_PROGRAMADA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_PROGRAMADAS_DET
+  add constraint PK_BOPDE_NRO_REFERENCIA primary key (NRO_REFERENCIA, NRO_DETALLE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_OPE_PROGRAMADAS_DET
+  add constraint FK_BOPDE_NRO_REFERENCIA foreign key (NRO_REFERENCIA)
+  references IT.BW_OPE_PROGRAMADAS (NRO_REFERENCIA);
+alter table IT.BW_OPE_PROGRAMADAS_DET
+  add constraint CK_BOPDE_ESTADO
+  check (ESTADO IN ('P','C','A'));
+

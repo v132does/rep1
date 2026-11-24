@@ -1,0 +1,80 @@
+create table IT.PR_TAS_FONDOS
+(
+  cod_tas_fondo      NUMBER(10) not null,
+  cod_ori_fondo      NUMBER(3),
+  val_tasa           NUMBER(20,4) not null,
+  cod_moneda         VARCHAR2(3),
+  fec_hasta          DATE,
+  fec_desde          DATE not null,
+  usu_insercion      VARCHAR2(10) default USER not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default USER not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  cod_modalidad      NUMBER(3),
+  cod_usu_oficial    VARCHAR2(10),
+  fec_des_desembolso DATE,
+  fec_has_desembolso DATE,
+  nro_cuenta         VARCHAR2(15),
+  fec_proceso        DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_TAS_FONDOS.cod_ori_fondo
+  is 'Código de origen de fondo.';
+comment on column IT.PR_TAS_FONDOS.val_tasa
+  is 'Valor de la tasa';
+comment on column IT.PR_TAS_FONDOS.cod_moneda
+  is 'Moneda de la tasa de Origen de Fondos';
+comment on column IT.PR_TAS_FONDOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_TAS_FONDOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_TAS_FONDOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_TAS_FONDOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_TAS_FONDOS.cod_modalidad
+  is 'Código de la Modalidad.';
+comment on column IT.PR_TAS_FONDOS.cod_usu_oficial
+  is 'Código del Oficial.';
+comment on column IT.PR_TAS_FONDOS.fec_des_desembolso
+  is 'Fecha Desde Desembolso.';
+comment on column IT.PR_TAS_FONDOS.fec_has_desembolso
+  is 'Fecha Hasta Desembolso.';
+comment on column IT.PR_TAS_FONDOS.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.PR_TAS_FONDOS.fec_proceso
+  is 'Fecha del Proceso.';
+alter table IT.PR_TAS_FONDOS
+  add constraint PK_PR_TAS_FONDOS primary key (COD_TAS_FONDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_TAS_FONDOS
+  add constraint FK_PTFON_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_TAS_FONDOS
+  add constraint FK_PTFON_COD_ORI_FONDO foreign key (COD_ORI_FONDO)
+  references IT.PR_FONDOS (COD_ORI_FONDO);
+alter table IT.PR_TAS_FONDOS
+  add constraint AVCON_1179952783_COD_T_000
+  check (COD_TAS_FONDO BETWEEN 0 AND 999999999);
+

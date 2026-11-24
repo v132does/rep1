@@ -1,0 +1,41 @@
+create table IT.PR_CUO_MONTOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cuota        NUMBER(4) not null,
+  fec_solic        DATE not null,
+  mto_cuota        NUMBER(18,2) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CUO_MONTOS
+  is 'Cobro de cuotas por Monto, cantidad de cuotas en base al Monto.';
+comment on column IT.PR_CUO_MONTOS.nro_cuenta
+  is 'Numero de cuenta del prestamo.';
+comment on column IT.PR_CUO_MONTOS.nro_cuota
+  is 'Numero de cuota por monto.';
+comment on column IT.PR_CUO_MONTOS.fec_solic
+  is 'Fecha de solicitud de cuotas alcanzadas por monto.';
+comment on column IT.PR_CUO_MONTOS.mto_cuota
+  is 'Valor a Pagar por la cuota alcanzada por monto.';
+comment on column IT.PR_CUO_MONTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_CUO_MONTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_CUO_MONTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_CUO_MONTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

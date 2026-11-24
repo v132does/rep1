@@ -1,0 +1,121 @@
+create table IT.GE_INR_RETENCIONES
+(
+  cod_persona      NUMBER(10) not null,
+  fec_pago         DATE not null,
+  nro_factura      VARCHAR2(20),
+  mto_factura      NUMBER(18,2) not null,
+  cod_moneda       VARCHAR2(3),
+  cod_retencion    NUMBER(10),
+  mto_retencion    NUMBER(18,2) not null,
+  estado           VARCHAR2(1),
+  cotizacion       NUMBER(18,2),
+  mto_renta        NUMBER(18,2) not null,
+  mto_ret_renta    NUMBER(18,2),
+  tipo_ret         VARCHAR2(1),
+  nro_cuenta       VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_cupon        NUMBER not null,
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  nro_secuencia    NUMBER(3),
+  fec_retencion    DATE,
+  fec_vig_timbrado DATE,
+  nro_timbrado     VARCHAR2(20),
+  por_retencion    NUMBER(5,2),
+  det_error        VARCHAR2(400),
+  pro_error        VARCHAR2(120),
+  nro_ret_tesaka   NUMBER(12),
+  nro_cta_credito  VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_INR_RETENCIONES
+  is 'Registro de Retenciones Impuesto No Residentes Ley 6380-INR';
+comment on column IT.GE_INR_RETENCIONES.cod_persona
+  is 'Código de persona.';
+comment on column IT.GE_INR_RETENCIONES.fec_pago
+  is 'Fecha de pago / acreditación de intereses.';
+comment on column IT.GE_INR_RETENCIONES.nro_factura
+  is 'Número de Factura';
+comment on column IT.GE_INR_RETENCIONES.mto_factura
+  is 'Importe Factura';
+comment on column IT.GE_INR_RETENCIONES.cod_moneda
+  is 'Código de Moneda';
+comment on column IT.GE_INR_RETENCIONES.cod_retencion
+  is 'Número secuencial de retención';
+comment on column IT.GE_INR_RETENCIONES.mto_retencion
+  is 'Monto retención';
+comment on column IT.GE_INR_RETENCIONES.estado
+  is 'Estado (G-enerado / I-ngresado / I-mpreso)';
+comment on column IT.GE_INR_RETENCIONES.cotizacion
+  is 'Cotización';
+comment on column IT.GE_INR_RETENCIONES.mto_renta
+  is 'Monto Renta';
+comment on column IT.GE_INR_RETENCIONES.mto_ret_renta
+  is 'Monto Renta Neta';
+comment on column IT.GE_INR_RETENCIONES.tipo_ret
+  is 'Tipo Retención';
+comment on column IT.GE_INR_RETENCIONES.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_INR_RETENCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_INR_RETENCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_INR_RETENCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_INR_RETENCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_INR_RETENCIONES.nro_cupon
+  is 'Número de Cupon - Concatenación fecha de pago para Cuentas distintas a CDA';
+comment on column IT.GE_INR_RETENCIONES.fecha
+  is 'Fecha del movimiento Relacionado.';
+comment on column IT.GE_INR_RETENCIONES.hora
+  is 'Hora del movimiento Relacionado.';
+comment on column IT.GE_INR_RETENCIONES.cod_usuario
+  is 'Cod_usuario del movimiento Relacionado.';
+comment on column IT.GE_INR_RETENCIONES.nro_secuencia
+  is 'Numero de Secuencia del movimiento Relacionado.';
+comment on column IT.GE_INR_RETENCIONES.fec_retencion
+  is 'Fecha de la retención';
+comment on column IT.GE_INR_RETENCIONES.fec_vig_timbrado
+  is 'Fecha de validez del timbrao';
+comment on column IT.GE_INR_RETENCIONES.nro_timbrado
+  is 'Numero de Timbrado de la Factura.';
+comment on column IT.GE_INR_RETENCIONES.por_retencion
+  is 'Porcentaje Retencion';
+comment on column IT.GE_INR_RETENCIONES.det_error
+  is 'Detalle de Error';
+comment on column IT.GE_INR_RETENCIONES.pro_error
+  is 'Proceso donde fue detectado el error';
+comment on column IT.GE_INR_RETENCIONES.nro_ret_tesaka
+  is 'Numero de la Retención en sistema Tesaka.';
+comment on column IT.GE_INR_RETENCIONES.nro_cta_credito
+  is 'Número de cuenta en la cual se realiza el crédito de interes en el caso de CDA';
+alter table IT.GE_INR_RETENCIONES
+  add constraint PK_GE_INR_RETENCIONES primary key (NRO_CUENTA, NRO_CUPON)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

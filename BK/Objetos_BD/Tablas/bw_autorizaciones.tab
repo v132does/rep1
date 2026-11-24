@@ -1,0 +1,91 @@
+create table IT.BW_AUTORIZACIONES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_documento    NUMBER(15) not null,
+  fec_hora         DATE not null,
+  accion           VARCHAR2(1) not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_canal        NUMBER(3) default 999 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_AUTORIZACIONES
+  is 'Autorizaciones de Operaciones Pendientes del Homebanking.';
+comment on column IT.BW_AUTORIZACIONES.cod_persona
+  is 'Código de la Persona Autorizadora.';
+comment on column IT.BW_AUTORIZACIONES.nro_documento
+  is 'Número de la Operación Pendiente.';
+comment on column IT.BW_AUTORIZACIONES.fec_hora
+  is 'Fecha y Hora en que se realizó la Autorización.';
+comment on column IT.BW_AUTORIZACIONES.accion
+  is 'Acción realizada sobre la Operación. Autorización / Rechazo.';
+comment on column IT.BW_AUTORIZACIONES.observacion
+  is 'Observaciones.';
+comment on column IT.BW_AUTORIZACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_AUTORIZACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_AUTORIZACIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_AUTORIZACIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_AUTORIZACIONES.cod_canal
+  is 'Canal en el que se realizo la autorizacion/rechazo';
+create index IT.BBVA_BW_AUTO_COD_PER on IT.BW_AUTORIZACIONES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BW_AUT_NRO_DOCUMENTO on IT.BW_AUTORIZACIONES (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_AUTORIZACIONES
+  add constraint PK_BW_AUTORIZACIONES primary key (COD_PERSONA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_AUTORIZACIONES
+  add constraint FK_WAUTO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_AUTORIZACIONES
+  add constraint FK_WAUTO_NRO_DOCUMENTO foreign key (NRO_DOCUMENTO)
+  references IT.BW_MOV_PENDIENTES (NRO_DOCUMENTO) on delete cascade;
+

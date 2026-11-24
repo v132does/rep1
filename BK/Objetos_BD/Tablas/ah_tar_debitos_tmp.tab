@@ -1,0 +1,68 @@
+create table IT.AH_TAR_DEBITOS_TMP
+(
+  nro_cuenta       VARCHAR2(15),
+  embozado         VARCHAR2(26),
+  adherente        VARCHAR2(2),
+  fec_vencimiento  VARCHAR2(7),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_tarjeta      VARCHAR2(19),
+  nro_emision      VARCHAR2(2),
+  fec_alta         DATE,
+  cod_embozado     VARCHAR2(6),
+  fec_ult_mov_pos  DATE,
+  estado           VARCHAR2(1),
+  fec_ult_mov_atm  DATE,
+  fec_embozado     DATE,
+  est_pin          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEBITOS_TMP
+  is 'Temporal para recibir datos de embozado.';
+comment on column IT.AH_TAR_DEBITOS_TMP.nro_cuenta
+  is 'Nro. Cuenta.';
+comment on column IT.AH_TAR_DEBITOS_TMP.embozado
+  is 'Titular.';
+comment on column IT.AH_TAR_DEBITOS_TMP.adherente
+  is 'Adherente.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_vencimiento
+  is 'Vencimiento de la tarjeta.';
+comment on column IT.AH_TAR_DEBITOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_TAR_DEBITOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEBITOS_TMP.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.AH_TAR_DEBITOS_TMP.nro_emision
+  is 'Numero de Emisión.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_alta
+  is 'Fecha del Alta.';
+comment on column IT.AH_TAR_DEBITOS_TMP.cod_embozado
+  is 'Codigo Formato de Embozado.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_ult_mov_pos
+  is 'Fecha Ultimo Movimiento del POS.';
+comment on column IT.AH_TAR_DEBITOS_TMP.estado
+  is 'Estado. 1=Activo 0=Bloqueado.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_ult_mov_atm
+  is 'Fecha Ultimo Movimiento ATM.';
+comment on column IT.AH_TAR_DEBITOS_TMP.fec_embozado
+  is 'Fecha de Embozado.';
+comment on column IT.AH_TAR_DEBITOS_TMP.est_pin
+  is 'Estado del Pin. (A=Activo, G=Generado, N=No Generado).';
+

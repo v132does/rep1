@@ -1,0 +1,29 @@
+CREATE MATERIALIZED VIEW IT.PV_CAT_OPE_VENCIDAS
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT b.cod_persona,a.nro_cuenta,a.cod_modulo, a.cod_modalidad,
+       a.cod_moneda,
+       --NVL(a.sal_tot_batch,0) sal_cap_batch,
+       NVL(a.sal_total,0) sal_cap_batch,
+       NVL(a.dia_atraso,0) dia_atraso, a.estado,
+       a.cod_oficina,a.mto_origen mto_capital,
+       nvl(f.mto_computable,0)mto_computable,
+       nvl(ov.monto,0)mto_prevision,
+       nvl(ov.tot_pri_prevision,0)mto_tot_pri_prevision,
+       f.nro_cuenta nro_cta_garantia
+  FROM ge_cta_clientes b, ov_cta_vencidas a,
+       pv_cat_gar_operaciones f,
+       (SELECT(pr.monto),
+               pr.tot_pri_prevision,
+               pr.nro_cuenta
+          FROM ov_previsiones pr
+         WHERE pr.fecha = (SELECT MAX(pv.fecha)
+                             FROM ov_previsiones pv
+                            WHERE pr.nro_cuenta = pv.nro_cuenta))ov
+ WHERE a.nro_cuenta = b.nro_cuenta
+   AND f.nro_cuenta(+) = a.nro_cuenta
+   AND ov.nro_cuenta(+)=a.nro_cuenta
+   AND NVL(a.sal_total,0) > 0
+   AND a.estado NOT IN ('C','I')
+   AND b.relacion ='P'--y principales de cuenta;
+

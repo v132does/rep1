@@ -1,0 +1,22 @@
+create table IT.MI_SEQ_PARAMETROS
+(
+  secuencia     VARCHAR2(30) not null,
+  tabla         VARCHAR2(30),
+  ult_numero    NUMBER not null,
+  ult_nro_tabla NUMBER(20),
+  actualizar    VARCHAR2(1) default 'A'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MI_SEQ_PARAMETROS.actualizar
+  is 'Manual, Automatico';
+

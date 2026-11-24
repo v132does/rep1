@@ -1,0 +1,98 @@
+create table IT.TA_LIN_PRE_APROBADO
+(
+  cod_pre_aprobado     NUMBER not null,
+  cod_pla_pre_aprobado VARCHAR2(20),
+  fec_ini_oferta       DATE,
+  fec_fin_oferta       DATE,
+  cod_oficina          NUMBER(3),
+  cod_usu_oficial      VARCHAR2(10),
+  cod_persona          VARCHAR2(10) not null,
+  mon_lin_pre_aprobado NUMBER(18,2),
+  mon_lin_solicitada   NUMBER(18,2),
+  cod_modalidad        NUMBER(3),
+  cod_rub_economico    VARCHAR2(6),
+  cod_moneda           VARCHAR2(3),
+  nro_solicitud        NUMBER(15),
+  mot_estado           VARCHAR2(500),
+  can_visitas          NUMBER(7),
+  cod_canal            NUMBER(8),
+  estado               VARCHAR2(1) default 'C',
+  usu_insercion        VARCHAR2(10),
+  fec_insercion        DATE,
+  usu_modificacion     VARCHAR2(10),
+  fec_modificacion     DATE,
+  fec_ult_solicitud    DATE,
+  sol_activacion       VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LIN_PRE_APROBADO.cod_pre_aprobado
+  is 'Identificador de la tabla';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_pla_pre_aprobado
+  is 'Código asignado por BI a las Planillas';
+comment on column IT.TA_LIN_PRE_APROBADO.fec_ini_oferta
+  is 'Inicio de vigencia de la oferta';
+comment on column IT.TA_LIN_PRE_APROBADO.fec_fin_oferta
+  is 'Fin de vigencia de la oferta';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_oficina
+  is 'Código de oficina / sucursal.';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_usu_oficial
+  is 'Oficial del cliente';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_persona
+  is 'Código del cliente';
+comment on column IT.TA_LIN_PRE_APROBADO.mon_lin_pre_aprobado
+  is 'Monto de la línea de crédito pre aprobada';
+comment on column IT.TA_LIN_PRE_APROBADO.mon_lin_solicitada
+  is 'Monto de la línea de crédito solicitada';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_modalidad
+  is 'Código de la modalidad';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_rub_economico
+  is 'Código del rubro económico';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_moneda
+  is 'Código de moneda';
+comment on column IT.TA_LIN_PRE_APROBADO.nro_solicitud
+  is 'Número de la solicitud de tarjeta de crédito';
+comment on column IT.TA_LIN_PRE_APROBADO.mot_estado
+  is 'Motivo del estado';
+comment on column IT.TA_LIN_PRE_APROBADO.can_visitas
+  is 'Cantidad de visitas de la oferta';
+comment on column IT.TA_LIN_PRE_APROBADO.cod_canal
+  is 'Canal de la oferta';
+comment on column IT.TA_LIN_PRE_APROBADO.estado
+  is 'Estado de la oferta Estado de la Oferta C-Vigente, N-Cancelado, R-Rechazado, G-En proceso, V-Vencido, A-Aceptado.';
+comment on column IT.TA_LIN_PRE_APROBADO.usu_insercion
+  is 'Usuario que realizó la inserción.';
+comment on column IT.TA_LIN_PRE_APROBADO.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_LIN_PRE_APROBADO.usu_modificacion
+  is 'Usuario que realizó la modificación.';
+comment on column IT.TA_LIN_PRE_APROBADO.fec_modificacion
+  is 'Fecha en que se realizó la modificación.';
+comment on column IT.TA_LIN_PRE_APROBADO.fec_ult_solicitud
+  is 'Ultima fecha de solicitud de activación de tarjeta.';
+comment on column IT.TA_LIN_PRE_APROBADO.sol_activacion
+  is 'Indicador de solicitud de activación de la tarjeta. S(solicitada).';
+alter table IT.TA_LIN_PRE_APROBADO
+  add constraint PK_TA_LIN_PRE_APROBADO primary key (COD_PRE_APROBADO, COD_PERSONA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

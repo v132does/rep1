@@ -1,0 +1,58 @@
+create table IT.LC_RES_OPE_CLIENTES
+(
+  ano                 VARCHAR2(4) not null,
+  mes                 VARCHAR2(2) not null,
+  cod_persona         VARCHAR2(10) not null,
+  mto_vol_operaciones NUMBER(18,2),
+  por_participacion   NUMBER(10,5) default 0,
+  usu_insercion       VARCHAR2(10) default substr(user,1,10),
+  fec_insercion       DATE default sysdate,
+  usu_modificacion    VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion    DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_RES_OPE_CLIENTES
+  is 'Tabla que registra el volumen de operaciones de cambios realizadas por cada cliente.';
+comment on column IT.LC_RES_OPE_CLIENTES.ano
+  is 'Año.';
+comment on column IT.LC_RES_OPE_CLIENTES.mes
+  is 'Mes.';
+comment on column IT.LC_RES_OPE_CLIENTES.cod_persona
+  is 'Código de Persona.';
+comment on column IT.LC_RES_OPE_CLIENTES.mto_vol_operaciones
+  is 'Importe del Volumen de Operaciones realizados por el Cliente.';
+comment on column IT.LC_RES_OPE_CLIENTES.por_participacion
+  is 'Porcentaje de participación.';
+comment on column IT.LC_RES_OPE_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_RES_OPE_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_RES_OPE_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_RES_OPE_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_RES_OPE_CLIENTES
+  add constraint PK_LC_RES_OPE_CLIENTES primary key (ANO, MES, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

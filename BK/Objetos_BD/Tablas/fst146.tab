@@ -1,0 +1,60 @@
+create table IT.FST146
+(
+  ejcod  NUMBER(5),
+  pgcod  NUMBER(3),
+  ubcod1 CHAR(1),
+  ubcod2 NUMBER(1),
+  ubcod3 NUMBER(3),
+  ubniva NUMBER(2),
+  ubnivc NUMBER(2),
+  ubprop CHAR(1),
+  ubuser CHAR(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EJCOD on IT.FST146 (EJCOD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_OFICIALES on IT.FST146 (RTRIM(LTRIM(UBUSER)))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PGCOD on IT.FST146 (PGCOD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,58 @@
+create table IT.CB_PRV_GENERICAS
+(
+  tip_riesgo       VARCHAR2(1) not null,
+  sec_riesgo       VARCHAR2(2) not null,
+  sec_inversion    VARCHAR2(2) not null,
+  mto_inversion    NUMBER(18,2) default 0,
+  mto_prv_generica NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_PRV_GENERICAS
+  is 'Tabla que registra los datos para la generación del informe de previsiones genéricas.';
+comment on column IT.CB_PRV_GENERICAS.tip_riesgo
+  is 'Tipo de riesgo.';
+comment on column IT.CB_PRV_GENERICAS.sec_riesgo
+  is 'Sector comercial de acuerdo al tipo de riesgo.';
+comment on column IT.CB_PRV_GENERICAS.sec_inversion
+  is 'Sector de la inversión de acuerdo al sector de riesgo.';
+comment on column IT.CB_PRV_GENERICAS.mto_inversion
+  is 'Monto total correspondiente al sector de inversion.';
+comment on column IT.CB_PRV_GENERICAS.mto_prv_generica
+  is 'Monto de la previsión genérica.';
+comment on column IT.CB_PRV_GENERICAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CB_PRV_GENERICAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_PRV_GENERICAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CB_PRV_GENERICAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CB_PRV_GENERICAS
+  add constraint PK_CB_PRV_GENERICAS primary key (TIP_RIESGO, SEC_RIESGO, SEC_INVERSION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

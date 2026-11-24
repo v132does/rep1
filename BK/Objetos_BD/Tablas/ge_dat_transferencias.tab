@@ -1,0 +1,231 @@
+-- Create table
+create table IT.GE_DAT_TRANSFERENCIAS
+(
+  id_transfer              NUMBER(15) default it.s_cod_transferencia.nextval not null,
+  nro_referencia           NUMBER(15),
+  nro_ref_externa          VARCHAR2(33),
+  monto                    NUMBER(18,2),
+  cod_moneda               VARCHAR2(3),
+  cod_msj_swift            NUMBER(3),
+  cod_swi_pte_solicitante  VARCHAR2(20),
+  cod_tip_doc_solicitante  NUMBER(3),
+  nro_doc_solicitante      VARCHAR2(20),
+  nom_solicitante          VARCHAR2(120),
+  nro_cta_solicitante      VARCHAR2(35),
+  cod_swi_pte_beneficiario VARCHAR2(20),
+  cod_swi_suc_beneficiario VARCHAR2(20),
+  cod_tip_doc_beneficiario NUMBER(3),
+  nro_doc_beneficiario     VARCHAR2(20),
+  nom_beneficiario         VARCHAR2(120),
+  nro_cta_beneficiario     VARCHAR2(35),
+  ext_id                   VARCHAR2(20),
+  nro_doc_movimiento       NUMBER(15),
+  estado                   VARCHAR2(1),
+  mot_rechazo              VARCHAR2(100),
+  fec_operacion            DATE,
+  fec_insercion            DATE default sysdate not null,
+  usu_modificacion         VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion         DATE default sysdate not null,
+  usu_insercion            VARCHAR2(10) default substr(user,1,10) not null,
+  consumidor               VARCHAR2(35),
+  cod_per_solicitante      VARCHAR2(10),
+  cod_per_beneficiario     VARCHAR2(10),
+  cod_mon_solicitante      VARCHAR2(3),
+  cod_mon_beneficiario     VARCHAR2(3),
+  cod_pai_solicitante      VARCHAR2(3),
+  cod_pai_beneficiario     VARCHAR2(3),
+  email_solicitante        VARCHAR2(80),
+  email_beneficiario       VARCHAR2(80),
+  alias_solicitante        VARCHAR2(80),
+  alias_beneficiario       VARCHAR2(80),
+  tip_per_solicitante      VARCHAR2(10),
+  tip_per_beneficiario     VARCHAR2(10),
+  mot_transferencia        VARCHAR2(80),
+  inf_adi_consumidor       CLOB,
+  cotizacion               NUMBER(14,8),
+  metadata                 CLOB
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.GE_DAT_TRANSFERENCIAS.id_transfer
+  is 'Nro secuencial indicador de transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_referencia
+  is 'Nro de referencia de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_ref_externa
+  is 'Nro externa de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.monto
+  is 'Monto de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_moneda
+  is 'Moneda de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_msj_swift
+  is 'Codigo de mensaje de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_swi_pte_solicitante
+  is 'Swift del participante solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_tip_doc_solicitante
+  is 'Codigo de tipo de documento del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_doc_solicitante
+  is 'Nro de documento del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nom_solicitante
+  is 'Nombre del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_cta_solicitante
+  is 'Nro de cuenta del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_swi_pte_beneficiario
+  is 'Swift del participante beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_swi_suc_beneficiario
+  is 'Código SWIFT (BIC) de la Sucursal del Participante Beneficiario.';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_tip_doc_beneficiario
+  is 'Codigo de tipo de documento del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_doc_beneficiario
+  is 'Nro de documento del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nom_beneficiario
+  is 'Nombre del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_cta_beneficiario
+  is 'Nro de cuenta del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.ext_id
+  is 'Nro que identifica al emisor de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.nro_doc_movimiento
+  is 'Nro de documento del movimiento';
+comment on column IT.GE_DAT_TRANSFERENCIAS.estado
+  is 'Estado de la transferencia
+G-Se generó la transferencia
+A-Operación realizada con éxito
+R-Operación rechazada
+P-Operación realizada con éxito, transferencia programada
+S-Transferencia enviada al BCP';
+comment on column IT.GE_DAT_TRANSFERENCIAS.mot_rechazo
+  is 'Descripcion del motivo rechazo';
+comment on column IT.GE_DAT_TRANSFERENCIAS.fec_operacion
+  is 'Fecha operacion de la transferencia ';
+comment on column IT.GE_DAT_TRANSFERENCIAS.fec_insercion
+  is 'Fecha de insercion del registro';
+comment on column IT.GE_DAT_TRANSFERENCIAS.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_DAT_TRANSFERENCIAS.fec_modificacion
+  is 'Fecha de modificacion del registro';
+comment on column IT.GE_DAT_TRANSFERENCIAS.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.GE_DAT_TRANSFERENCIAS.consumidor
+  is 'Consumidor de la API';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_per_solicitante
+  is 'Codigo de persona del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_per_beneficiario
+  is 'Codigo de persona del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_mon_solicitante
+  is 'Codigo moneda del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_mon_beneficiario
+  is 'Codigo moneda del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_pai_solicitante
+  is 'Codigo pais del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cod_pai_beneficiario
+  is 'Codigo pais del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.email_solicitante
+  is 'Email del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.email_beneficiario
+  is 'Email del beneficiario.';
+comment on column IT.GE_DAT_TRANSFERENCIAS.alias_solicitante
+  is 'Alias del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.alias_beneficiario
+  is 'alias del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.tip_per_solicitante
+  is 'Tipo de persona del solicitante';
+comment on column IT.GE_DAT_TRANSFERENCIAS.tip_per_beneficiario
+  is 'tipo de persona del beneficiario';
+comment on column IT.GE_DAT_TRANSFERENCIAS.mot_transferencia
+  is 'Motivo de la transferencia';
+comment on column IT.GE_DAT_TRANSFERENCIAS.inf_adi_consumidor
+  is 'Informacion adicional enviada por los consumidores';
+comment on column IT.GE_DAT_TRANSFERENCIAS.cotizacion
+  is 'Cotizacion del movimiento';
+-- Create/Recreate indexes 
+create index IT.IND_GE_DAT_TR_DOC_BEN on IT.GE_DAT_TRANSFERENCIAS (NRO_DOC_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_DAT_TR_DOC_SOL on IT.GE_DAT_TRANSFERENCIAS (NRO_DOC_SOLICITANTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_DAT_TR_FECINS on IT.GE_DAT_TRANSFERENCIAS (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_DAT_TR_NREFEXT on IT.GE_DAT_TRANSFERENCIAS (NRO_REF_EXTERNA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+--TCE-1616 Index for optimize Swift Parser Queries
+create index IT.IN_GDTRA_NRO_REFERENCIA on IT.GE_DAT_TRANSFERENCIAS (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_DAT_TRANSFERENCIAS
+  add constraint PK_GE_DAT_TRANSFERENCIAS primary key (ID_TRANSFER)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate check constraints 
+alter table IT.GE_DAT_TRANSFERENCIAS
+  add constraint CHK_DAT_TRANSFERENCIAS_JSON
+  check (metadata is json);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_DAT_TRANSFERENCIAS to IT_TEMPORAL;

@@ -1,0 +1,104 @@
+create table IT.PR_MIG_TAS_VARIABLES_TMP
+(
+  nro_cuenta       VARCHAR2(20) not null,
+  cod_periodo      VARCHAR2(50),
+  fec_ren_inicial  DATE,
+  tas_piso         NUMBER(20,4),
+  spread           NUMBER(20,4),
+  mar_cuo_1        NUMBER(3),
+  mar_cuo_2        NUMBER(3),
+  mar_cuo_3        NUMBER(3),
+  mar_cuo_4        NUMBER(3),
+  mar_cuo_5        NUMBER(3),
+  mar_cuo_6        NUMBER(3),
+  mar_cuo_7        NUMBER(3),
+  mar_cuo_8        NUMBER(3),
+  mar_cuo_9        NUMBER(3),
+  mar_cuo_10       NUMBER(3),
+  mar_cuo_11       NUMBER(3),
+  mar_cuo_12       NUMBER(3),
+  mar_cuo_13       NUMBER(3),
+  mar_cuo_14       NUMBER(3),
+  mar_cuo_15       NUMBER(3),
+  mar_cuo_16       NUMBER(3),
+  mar_cuo_17       NUMBER(3),
+  mar_cuo_18       NUMBER(3),
+  mar_cuo_19       NUMBER(3),
+  mar_cuo_20       NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_MIG_TAS_VARIABLES_TMP
+  is 'Tabla temporal para Migracion';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.nro_cuenta
+  is 'Nro de Cuenta de Prestamos';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.cod_periodo
+  is 'Codigo de Periodo';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.fec_ren_inicial
+  is 'Fecha de Re-Negociacion inicial';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.tas_piso
+  is 'Tasa Piso';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.spread
+  is 'Spread';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_1
+  is 'Marcar Cuota 1';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_2
+  is 'Marcar Cuota 2';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_3
+  is 'Marcar Cuota 3';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_4
+  is 'Marcar Cuota 4';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_5
+  is 'Marcar Cuota 5';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_6
+  is 'Marcar Cuota 6';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_7
+  is 'Marcar Cuota 7';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_8
+  is 'Marcar Cuota 8';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_9
+  is 'Marcar Cuota 9';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_10
+  is 'Marcar Cuota 10';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_11
+  is 'Marcar Cuota 11';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_12
+  is 'Marcar Cuota 12';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_13
+  is 'Marcar Cuota 13';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_14
+  is 'Marcar Cuota 14 ';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_15
+  is 'Marcar Cuota 15';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_16
+  is 'Marcar Cuota 16';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_17
+  is 'Marcar Cuota 17';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_18
+  is 'Marcar Cuota 18';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_19
+  is 'Marcar Cuota 19';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.mar_cuo_20
+  is 'Marcar Cuota 20';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_MIG_TAS_VARIABLES_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

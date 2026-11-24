@@ -1,0 +1,18 @@
+create table IT.RAW_DISKB
+(
+  registro VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.RAW_DISKB.registro
+  is 'Cantidad de Registro';
+

@@ -1,0 +1,73 @@
+create table IT.PR_PAR_RRR_OPERACIONES
+(
+  codigo               NUMBER(3) not null,
+  for_pag_ope_original VARCHAR2(1),
+  dia_atr_hasta        NUMBER(5),
+  pag_capital          VARCHAR2(1),
+  for_pag_ope_renovada VARCHAR2(1),
+  tip_renovacion       VARCHAR2(1),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion     DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_PAR_RRR_OPERACIONES.codigo
+  is 'Código identificador de la operación.';
+comment on column IT.PR_PAR_RRR_OPERACIONES.for_pag_ope_original
+  is 'Forma de Pago de la operación original (C-Cuotas/V-Vista).';
+comment on column IT.PR_PAR_RRR_OPERACIONES.dia_atr_hasta
+  is 'Días de atraso de la operación original.';
+comment on column IT.PR_PAR_RRR_OPERACIONES.pag_capital
+  is 'Indica si la cuenta tiene capital amortizado (S/N).';
+comment on column IT.PR_PAR_RRR_OPERACIONES.for_pag_ope_renovada
+  is 'Forma de Pago de la nueva Operación (C-Cuotas/V-Vista).';
+comment on column IT.PR_PAR_RRR_OPERACIONES.tip_renovacion
+  is 'Tipo de Operación (R-Refinanciado/E-Reestructurado/N-Renovado/V-Renovación Vista).';
+comment on column IT.PR_PAR_RRR_OPERACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_PAR_RRR_OPERACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_PAR_RRR_OPERACIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_PAR_RRR_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.PR_PAR_RRR_OPERACIONES
+  add constraint PK_PR_PAR_RRR_OPERACIONES primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_PAR_RRR_OPERACIONES
+  add constraint UK_PPRRR_FOR_PAG_OPE_ORIGINAL unique (FOR_PAG_OPE_ORIGINAL, DIA_ATR_HASTA, PAG_CAPITAL, FOR_PAG_OPE_RENOVADA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,5 @@
+CREATE INDEX it.IN_GPDEP_TIPO ON it.GE_PROCESOS_DEP (TIPO)
+TABLESPACE IT_IND
+pctfree 10
+initrans 2
+maxtrans 255;

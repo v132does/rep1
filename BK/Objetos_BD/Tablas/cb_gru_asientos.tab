@@ -1,0 +1,49 @@
+create table IT.CB_GRU_ASIENTOS
+(
+  cod_gru_asiento  NUMBER(5) not null,
+  descripcion      VARCHAR2(60) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_GRU_ASIENTOS
+  is 'Grupos contables para generacion de asientos.';
+comment on column IT.CB_GRU_ASIENTOS.cod_gru_asiento
+  is 'Codigo de grupo de Asiento.';
+comment on column IT.CB_GRU_ASIENTOS.descripcion
+  is 'Descripcion del grupo.';
+comment on column IT.CB_GRU_ASIENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_GRU_ASIENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_GRU_ASIENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_GRU_ASIENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_GRU_ASIENTOS
+  add constraint PK_CB_GRU_ASIENTOS primary key (COD_GRU_ASIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

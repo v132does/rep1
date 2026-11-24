@@ -1,0 +1,103 @@
+create table IT.GE_REC_MOVIMIENTOS
+(
+  cod_ente         NUMBER(5) not null,
+  fec_operacion    DATE not null,
+  hora             VARCHAR2(8) not null,
+  depositante      NUMBER(18) not null,
+  nro_cta_credito  VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  tot_deposito     NUMBER(18,2),
+  mto_efectivo     NUMBER(18,2),
+  mto_che_cnb      NUMBER(18,2),
+  mto_che_cob      NUMBER(18,2),
+  estado           VARCHAR2(1),
+  ref_pago         VARCHAR2(60),
+  nro_operacion    NUMBER(15),
+  cod_oficina      NUMBER(5),
+  fec_insercion    DATE default sysdate,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REC_MOVIMIENTOS
+  is 'Datos correspondiente a Servicio de Recaudación por Ventanilla.';
+comment on column IT.GE_REC_MOVIMIENTOS.cod_ente
+  is 'Código del Ente.';
+comment on column IT.GE_REC_MOVIMIENTOS.fec_operacion
+  is 'Fecha en que se realizó el depósito.';
+comment on column IT.GE_REC_MOVIMIENTOS.hora
+  is 'Hora de la operación.';
+comment on column IT.GE_REC_MOVIMIENTOS.depositante
+  is 'Código de Depositante.';
+comment on column IT.GE_REC_MOVIMIENTOS.nro_cta_credito
+  is 'Número de Cuenta de Crédito.';
+comment on column IT.GE_REC_MOVIMIENTOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_REC_MOVIMIENTOS.tot_deposito
+  is 'Monto Total del Depósito.';
+comment on column IT.GE_REC_MOVIMIENTOS.mto_efectivo
+  is 'Monto en efectivo del Depósito.';
+comment on column IT.GE_REC_MOVIMIENTOS.mto_che_cnb
+  is 'Monto en cheques cargo nuestro banco.';
+comment on column IT.GE_REC_MOVIMIENTOS.mto_che_cob
+  is 'Monto en cheques cargo otros bancos.';
+comment on column IT.GE_REC_MOVIMIENTOS.estado
+  is 'Estado en el que se encuentra el movimiento (N=Normal, R=Reversado).';
+comment on column IT.GE_REC_MOVIMIENTOS.ref_pago
+  is 'Número de Referencia de Pago.';
+comment on column IT.GE_REC_MOVIMIENTOS.nro_operacion
+  is 'Nro de Operacion o Nro. de Boleta.';
+comment on column IT.GE_REC_MOVIMIENTOS.cod_oficina
+  is 'Código de Oficina';
+comment on column IT.GE_REC_MOVIMIENTOS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.GE_REC_MOVIMIENTOS.usu_insercion
+  is 'Usuario que inserta el registro.';
+comment on column IT.GE_REC_MOVIMIENTOS.fec_modificacion
+  is 'Fecha de actualización del registro.';
+comment on column IT.GE_REC_MOVIMIENTOS.usu_modificacion
+  is 'Usuario que actualiza el registro.';
+create index IT.IN_GE_REC_MOV_ENTE on IT.GE_REC_MOVIMIENTOS (COD_ENTE, FEC_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_REC_MOVIMIENTOS
+  add constraint PK_GE_REC_MOVIMIENTOS primary key (COD_ENTE, FEC_OPERACION, HORA, DEPOSITANTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_REC_MOVIMIENTOS
+  add constraint FK_GRECV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_REC_MOVIMIENTOS
+  add constraint FK_GRECV_ENT_DEP foreign key (COD_ENTE, DEPOSITANTE)
+  references IT.GE_REC_DEPOSITANTES (COD_ENTE, COD_DEPOSITANTE);
+

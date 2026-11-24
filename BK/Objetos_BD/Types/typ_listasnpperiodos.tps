@@ -1,0 +1,4 @@
+CREATE OR REPLACE TYPE IT."TYP_LISTASNPPERIODOS"
+ is table of typ_snpPeriodo;
+/
+

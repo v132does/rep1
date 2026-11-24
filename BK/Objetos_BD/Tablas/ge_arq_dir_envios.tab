@@ -1,0 +1,92 @@
+create table IT.GE_ARQ_DIR_ENVIOS
+(
+  cod_persona       VARCHAR2(10) not null,
+  dir_envio         VARCHAR2(50),
+  prim_observacion  VARCHAR2(50),
+  seg_observacion   VARCHAR2(50),
+  cod_pais          NUMBER(3),
+  cod_ciudad        NUMBER(3),
+  cod_barrio        NUMBER(4),
+  des_pais          VARCHAR2(35),
+  des_ciudad        VARCHAR2(35),
+  des_barrio        VARCHAR2(40),
+  tel_principal     VARCHAR2(21),
+  tel_alternativo   VARCHAR2(21),
+  nro_cuenta        VARCHAR2(15),
+  tip_envio         VARCHAR2(1) not null,
+  cod_direccion     NUMBER(3),
+  cod_dir_retencion NUMBER(3),
+  referencia        VARCHAR2(35),
+  piso              VARCHAR2(8),
+  departamento      VARCHAR2(8),
+  edificio          VARCHAR2(35),
+  principal         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARQ_DIR_ENVIOS
+  is 'Tabla almacena datos de gv_dir_envios y es utilizado en el proceso prg_gen_ext_clientes';
+comment on column IT.GE_ARQ_DIR_ENVIOS.cod_persona
+  is 'Código de persona';
+comment on column IT.GE_ARQ_DIR_ENVIOS.dir_envio
+  is 'Dirección de envío';
+comment on column IT.GE_ARQ_DIR_ENVIOS.prim_observacion
+  is 'Primera Observación';
+comment on column IT.GE_ARQ_DIR_ENVIOS.seg_observacion
+  is 'Segunda Observación';
+comment on column IT.GE_ARQ_DIR_ENVIOS.cod_pais
+  is 'Código de País';
+comment on column IT.GE_ARQ_DIR_ENVIOS.cod_ciudad
+  is 'Código de Ciudad';
+comment on column IT.GE_ARQ_DIR_ENVIOS.cod_barrio
+  is 'Código de Barrio';
+comment on column IT.GE_ARQ_DIR_ENVIOS.des_pais
+  is 'Descripción País';
+comment on column IT.GE_ARQ_DIR_ENVIOS.des_ciudad
+  is 'Descripción de Ciudad';
+comment on column IT.GE_ARQ_DIR_ENVIOS.des_barrio
+  is 'Descripción de Barrio';
+comment on column IT.GE_ARQ_DIR_ENVIOS.tel_principal
+  is 'Teléfono Principal';
+comment on column IT.GE_ARQ_DIR_ENVIOS.tel_alternativo
+  is 'Teléfono Alternativo';
+comment on column IT.GE_ARQ_DIR_ENVIOS.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.GE_ARQ_DIR_ENVIOS.tip_envio
+  is 'Tipo de envío';
+comment on column IT.GE_ARQ_DIR_ENVIOS.cod_direccion
+  is 'Código dirección';
+comment on column IT.GE_ARQ_DIR_ENVIOS.cod_dir_retencion
+  is 'Código dirección de retención';
+comment on column IT.GE_ARQ_DIR_ENVIOS.referencia
+  is 'Referencia';
+comment on column IT.GE_ARQ_DIR_ENVIOS.piso
+  is 'Piso';
+comment on column IT.GE_ARQ_DIR_ENVIOS.departamento
+  is 'Departamento';
+comment on column IT.GE_ARQ_DIR_ENVIOS.edificio
+  is 'Edificio';
+comment on column IT.GE_ARQ_DIR_ENVIOS.principal
+  is 'Principal';
+create index IT.IN_DIEN_COD_PERSONA on IT.GE_ARQ_DIR_ENVIOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

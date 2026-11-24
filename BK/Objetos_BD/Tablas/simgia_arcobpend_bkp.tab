@@ -1,0 +1,27 @@
+create table IT.SIMGIA_ARCOBPEND_BKP
+(
+  acpcliente VARCHAR2(10),
+  acptpcom   NUMBER,
+  acpstpcom  NUMBER,
+  acpsuc     VARCHAR2(2),
+  acpcta     NUMBER,
+  acpsub     VARCHAR2(6),
+  acpmonto   NUMBER,
+  acpfeope   VARCHAR2(8),
+  acphora    VARCHAR2(8),
+  acpbase    NUMBER,
+  acpfepag   NUMBER,
+  fecha_his  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

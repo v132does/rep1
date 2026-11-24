@@ -1,0 +1,97 @@
+create table IT.GE_SNP_MEN_ENVIADOS
+(
+  nro_referencia   VARCHAR2(20),
+  situacion        VARCHAR2(32) not null,
+  cod_msj_swift    NUMBER(3) not null,
+  fec_valor        DATE not null,
+  msj_swift        LONG not null,
+  fec_recepcion    DATE not null,
+  msj_resultado    VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nom_archivo      VARCHAR2(50),
+  nom_pro_inserta  VARCHAR2(100),
+  rev_automatico   VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_MEN_ENVIADOS
+  is 'Contiene los mensajes que se deben enviar al BCP vía SOCKET SIPAP.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.nro_referencia
+  is 'Nro. de Referencia del MT que se debe enviar Ej: 213804.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.situacion
+  is 'Estado del mensaje.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.cod_msj_swift
+  is 'Tipo de MT enviado de la Operación.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.fec_valor
+  is 'Fecha Valor del mensaje.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.msj_swift
+  is 'Mensaje SWIFT enviado a BCP.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.fec_recepcion
+  is 'Fecha de recepción del mensaje.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.msj_resultado
+  is 'Mensaje de respuesta del SOCKET';
+comment on column IT.GE_SNP_MEN_ENVIADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.nom_archivo
+  is 'Nombre del archivo generado enviado al BCP.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.nom_pro_inserta
+  is 'Nombre del programa desde cual se inserta en la tabla.';
+comment on column IT.GE_SNP_MEN_ENVIADOS.rev_automatico
+  is 'Indica si se debe reversar en forma automática si existe error en el Socket.';
+create index IT.IN_GMEN_ENV_ESTADO on IT.GE_SNP_MEN_ENVIADOS (SITUACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMEN_ENV_NRO_REF_EXTERNA on IT.GE_SNP_MEN_ENVIADOS (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SNP_MEN_ENVIADOS
+  add constraint UK_GMEN_ENV_NRO_REFERENCIA unique (NRO_REFERENCIA, COD_MSJ_SWIFT, FEC_VALOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

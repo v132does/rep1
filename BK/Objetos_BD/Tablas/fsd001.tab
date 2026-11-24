@@ -1,0 +1,88 @@
+create table IT.FSD001
+(
+  pepais     NUMBER(3),
+  petdoc     NUMBER(4),
+  pendoc     VARCHAR2(25),
+  petipo     VARCHAR2(1),
+  penom      VARCHAR2(70),
+  pedgi      VARCHAR2(14),
+  pefpdg     VARCHAR2(8),
+  pefvdg     VARCHAR2(8),
+  pebps      VARCHAR2(14),
+  pefpbp     VARCHAR2(8),
+  pefvbp     VARCHAR2(8),
+  pejui      VARCHAR2(1),
+  pefjui     VARCHAR2(8),
+  peemb      VARCHAR2(1),
+  pefemb     VARCHAR2(8),
+  pefalt     VARCHAR2(8),
+  pefbaj     VARCHAR2(8),
+  pepres     NUMBER(3),
+  peexento   VARCHAR2(1),
+  peresinsc  VARCHAR2(1),
+  peresnoins VARCHAR2(1),
+  penorespon VARCHAR2(1),
+  peconsfin  VARCHAR2(1),
+  pebceajinf VARCHAR2(1),
+  peingbruto VARCHAR2(1),
+  peimpinter VARCHAR2(1),
+  penrobruto NUMBER(10),
+  penrointer NUMBER(10),
+  perg3125   VARCHAR2(1),
+  perg3337   VARCHAR2(1),
+  perg2784   VARCHAR2(1),
+  petipoempr NUMBER(2),
+  pesn01     VARCHAR2(1),
+  pesn02     VARCHAR2(1),
+  pesn03     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.FSD001
+  is 'Tabla Clientes';
+create index IT.IN_DOCUMENTO on IT.FSD001 (PENDOC)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FSD_PAIS on IT.FSD001 (PEPAIS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TIP_DOCUMENTO on IT.FSD001 (PETDOC)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

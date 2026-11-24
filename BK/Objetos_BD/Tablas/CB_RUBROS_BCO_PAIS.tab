@@ -1,0 +1,33 @@
+-- =====================================================================
+-- TABLA: IT.CB_RUBROS_BCO_PAIS
+-- Descripción: Rubros para el anexo Banco País
+-- =====================================================================
+
+CREATE TABLE IT.CB_RUBROS_BCO_PAIS (
+    RUBRO                 VARCHAR2(40 BYTE),
+    DESCRIPCION           VARCHAR2(100 BYTE),
+    SECCION               VARCHAR2(100 BYTE),
+    FECHA_CREACION        TIMESTAMP(6)        DEFAULT SYSTIMESTAMP NOT NULL,
+    FECHA_ACTUALIZACION   TIMESTAMP(6)        DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.CB_RUBROS_BCO_PAIS IS 'Catalogo de rubros para el anexo de banco pais';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_PAIS.RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_PAIS.DESCRIPCION IS 'Descripcion del rubro';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_PAIS.SECCION IS 'Seccion del informe a la que pertenece el rubro';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_PAIS.FECHA_CREACION IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.CB_RUBROS_BCO_PAIS.FECHA_ACTUALIZACION IS 'Fecha de ultima actualizacion del registro';

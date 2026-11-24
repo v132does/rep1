@@ -1,0 +1,175 @@
+create table IT.GE_SPI_INFORMES
+(
+  nro_referencia         VARCHAR2(33) not null,
+  nro_ref_externa        VARCHAR2(33),
+  cod_msj_mx             VARCHAR2(8) not null,
+  fecha                  DATE,
+  hora                   VARCHAR2(8) not null,
+  tipo_limite            VARCHAR2(20),
+  tipo_informe           VARCHAR2(20),
+  nro_cta_solicitante    VARCHAR2(35) not null,
+  cod_swi_solicitante    VARCHAR2(20),
+  cod_moneda             VARCHAR2(3),
+  monto                  NUMBER(18,2) default 0,
+  msj_mx                 VARCHAR2(4000),
+  fec_recepcion          DATE,
+  situacion              VARCHAR2(1) default 'P',
+  estado                 VARCHAR2(1) default 'U',
+  error                  VARCHAR2(4000),
+  par_rec_consulta       VARCHAR2(20),
+  inf_suplementaria      VARCHAR2(200),
+  nro_ref_msj_original   VARCHAR2(33),
+  tip_msj_original       VARCHAR2(20),
+  fec_ins_msj_original   DATE,
+  hor_ins_msj_original   VARCHAR2(8),
+  cod_swi_sol_original   VARCHAR2(20),
+  fec_valor_msj_original DATE,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default sysdate not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SPI_INFORMES.nro_referencia
+  is 'Nro de referencia autonum rico.';
+comment on column IT.GE_SPI_INFORMES.nro_ref_externa
+  is 'Referencia de la solicitud.';
+comment on column IT.GE_SPI_INFORMES.cod_msj_mx
+  is 'Tipo de mensaje MX.';
+comment on column IT.GE_SPI_INFORMES.fecha
+  is 'Fecha de la solicitud.';
+comment on column IT.GE_SPI_INFORMES.hora
+  is 'Hora de la generaci n.';
+comment on column IT.GE_SPI_INFORMES.tipo_limite
+  is 'Tipo de L mite.';
+comment on column IT.GE_SPI_INFORMES.tipo_informe
+  is 'Tipo de Informe.';
+comment on column IT.GE_SPI_INFORMES.nro_cta_solicitante
+  is 'N mero de Cuenta del Participante Solicitante.';
+comment on column IT.GE_SPI_INFORMES.cod_swi_solicitante
+  is 'C digo SWIFT (BIC) del Participante Solicitante.';
+comment on column IT.GE_SPI_INFORMES.cod_moneda
+  is 'C digo de Moneda.';
+comment on column IT.GE_SPI_INFORMES.monto
+  is 'Monto de la solicitud.';
+comment on column IT.GE_SPI_INFORMES.msj_mx
+  is 'Mensaje original enviado.';
+comment on column IT.GE_SPI_INFORMES.fec_recepcion
+  is 'Fecha de recepci n del mensaje.';
+comment on column IT.GE_SPI_INFORMES.situacion
+  is 'Situaci n del Mensaje. V-Enviado al BCP, P-Pendiente de Env o al BCP, E- Error.';
+comment on column IT.GE_SPI_INFORMES.estado
+  is 'Estado del Mensaje.  A-Aprobado, C-Cancelado, E-Error, S-Solicitado, V-Verificado, B-Bloqueado';
+comment on column IT.GE_SPI_INFORMES.error
+  is 'Descripci n del Error generado al procesar el Mensaje.';
+comment on column IT.GE_SPI_INFORMES.par_rec_consulta
+  is 'Participante que recibe la consulta, BIC de SPI.';
+comment on column IT.GE_SPI_INFORMES.inf_suplementaria
+  is 'Almacena nro_ref_externa del cual se solicita informe.';
+comment on column IT.GE_SPI_INFORMES.nro_ref_msj_original
+  is 'Almacena fecha del mensaje original.';
+comment on column IT.GE_SPI_INFORMES.tip_msj_original
+  is 'Almacena tipo de mensaje del cual se solicita el informe.';
+comment on column IT.GE_SPI_INFORMES.fec_ins_msj_original
+  is 'Almacena fecha del mensaje original.';
+comment on column IT.GE_SPI_INFORMES.hor_ins_msj_original
+  is 'Almacena hora del mensaje original.';
+comment on column IT.GE_SPI_INFORMES.cod_swi_sol_original
+  is 'C digo swift del participante que envi  el mensaje original.';
+comment on column IT.GE_SPI_INFORMES.fec_valor_msj_original
+  is 'Fecha valor del mensaje original.';
+comment on column IT.GE_SPI_INFORMES.usu_insercion
+  is 'Usuario que realiz  la inserci n del registro.';
+comment on column IT.GE_SPI_INFORMES.fec_insercion
+  is 'Fecha en que se insert  el registro.';
+comment on column IT.GE_SPI_INFORMES.usu_modificacion
+  is 'Usuario que realiz  la ultima modificaci n en el registro.';
+comment on column IT.GE_SPI_INFORMES.fec_modificacion
+  is 'Fecha en que se realiz  la ultima modificaci n en el registro.';
+create index IT.IN_GSIN_EST_COD_MENSAJE on IT.GE_SPI_INFORMES (ESTADO, COD_MSJ_MX)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSIN_NRO_REFERENCIA on IT.GE_SPI_INFORMES (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSIN_NRO_REF_EXTERNA on IT.GE_SPI_INFORMES (NRO_REF_EXTERNA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSIN_NRO_REF_MSJ_ORIGINAL on IT.GE_SPI_INFORMES (NRO_REF_MSJ_ORIGINAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSIN_FECHA on IT.GE_SPI_INFORMES("FECHA") ONLINE
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  create index IT.IN_GSIN_COD_MSJ_MX on IT.GE_SPI_INFORMES("COD_MSJ_MX")
+ONLINE                                                                                   
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

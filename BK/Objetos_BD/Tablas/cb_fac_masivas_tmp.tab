@@ -1,0 +1,27 @@
+CREATE TABLE it.CB_FAC_MASIVAS_TMP (
+    codigo              NUMBER(6)       NOT NULL,
+    fecha               DATE,
+    tip_comprobante     VARCHAR2(1)     NOT NULL CHECK (tip_comprobante IN ('F', 'N')),
+    cod_moneda          VARCHAR2(3)     NOT NULL,
+    nro_documento       VARCHAR2(20)    NOT NULL,
+    tip_venta           VARCHAR2(2)     NOT NULL CHECK (tip_venta IN ('CO', 'CR')),
+    descripcion         VARCHAR2(120)   NOT NULL,
+    cantidad            NUMBER(5)       NOT NULL,
+    valor_unitario      NUMBER(18,2)    NOT NULL,
+    iva                 VARCHAR2(2)     NOT NULL CHECK (iva IN ('E', '5', '10')),
+    nro_fac_referencia  VARCHAR2(20),
+    estado              VARCHAR2(1)     DEFAULT 'P'
+) tablespace IT_DATA;
+
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.codigo             IS 'Código que identifica la factura o NC';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.fecha              IS 'Fecha de la factura';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.tip_comprobante    IS 'Tipo de Comprobante (F = Factura, N = Nota de crédito)';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.cod_moneda         IS 'Moneda de facturación';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.nro_documento      IS 'Nro de documento del cliente';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.tip_venta          IS 'Condición de venta: CO = Contado, CR = Crédito';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.descripcion        IS 'Descripción del movimiento';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.cantidad           IS 'Cantidad';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.valor_unitario     IS 'Valor unitario IVA incluido';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.iva                IS 'Tipo de IVA: E = Exento, 5 = 5%, 10 = 10%';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.estado             IS 'Estado: P = Procesar, E: Error, T: Terminado';
+COMMENT ON COLUMN IT.CB_FAC_MASIVAS_TMP.nro_fac_referencia IS 'Si es NC, la factura a la que hace referencia';

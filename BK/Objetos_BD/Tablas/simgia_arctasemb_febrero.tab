@@ -1,0 +1,30 @@
+create table IT.SIMGIA_ARCTASEMB_FEBRERO
+(
+  cenror     NUMBER,
+  cefechareg VARCHAR2(6),
+  cesuc      VARCHAR2(2),
+  cecta      NUMBER,
+  cesub      NUMBER(7),
+  ceindcda   NUMBER,
+  cetitular  VARCHAR2(40),
+  cemoneda   VARCHAR2(2),
+  cemonto    NUMBER(18,2),
+  cesaldo    NUMBER,
+  cecausa    VARCHAR2(60),
+  cefechacom VARCHAR2(6),
+  cefechacan NUMBER,
+  ceoperador VARCHAR2(10),
+  fecha_his  DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

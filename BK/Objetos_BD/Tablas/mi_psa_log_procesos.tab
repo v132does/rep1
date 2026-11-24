@@ -1,0 +1,21 @@
+create table IT.MI_PSA_LOG_PROCESOS
+(
+  orden NUMBER,
+  fecha DATE,
+  dato1 VARCHAR2(4000),
+  dato2 VARCHAR2(4000),
+  dato3 VARCHAR2(4000),
+  dato4 VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

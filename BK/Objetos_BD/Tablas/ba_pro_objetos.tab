@@ -1,0 +1,91 @@
+create table IT.BA_PRO_OBJETOS
+(
+  cod_programa     VARCHAR2(30) not null,
+  objeto           VARCHAR2(30) not null,
+  tip_objeto       VARCHAR2(20) default 'TABLE' not null,
+  inserta          VARCHAR2(1),
+  modifica         VARCHAR2(1),
+  elimina          VARCHAR2(1),
+  consulta         VARCHAR2(1),
+  ejecuta          VARCHAR2(1),
+  otro             VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  version          VARCHAR2(10) not null,
+  cod_cliente      VARCHAR2(3),
+  comentario       VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PRO_OBJETOS
+  is 'Contiene la relacion de los programas y los objetos asociados al mismo.';
+comment on column IT.BA_PRO_OBJETOS.cod_programa
+  is 'Codigo del Programa';
+comment on column IT.BA_PRO_OBJETOS.objeto
+  is 'Nombre del Objeto relacionado';
+comment on column IT.BA_PRO_OBJETOS.tip_objeto
+  is 'Tipo de Objeto relacionado: TAbla, VIsta, PRocedimiento, PaQuete, FUncion, SEcuencia, etc. (ba_cod_referencias)';
+comment on column IT.BA_PRO_OBJETOS.inserta
+  is 'Indica si realiza la operacion de insercion sobre el objeto: S/N';
+comment on column IT.BA_PRO_OBJETOS.modifica
+  is 'Indica si realiza la operacion de modificacion sobre el objeto: S/N';
+comment on column IT.BA_PRO_OBJETOS.elimina
+  is 'Indica si realiza la operacion de eliminacion sobre el objeto: S/N';
+comment on column IT.BA_PRO_OBJETOS.consulta
+  is 'Indica si realiza la operacion de consulta sobre el objeto: S/N';
+comment on column IT.BA_PRO_OBJETOS.ejecuta
+  is 'Indica si realiza la operacion de ejecucion sobre el objeto: S/N';
+comment on column IT.BA_PRO_OBJETOS.otro
+  is 'Describir la operacion que se realiza sobre el objeto.';
+comment on column IT.BA_PRO_OBJETOS.usu_insercion
+  is 'Usuario que ingreso el registro.';
+comment on column IT.BA_PRO_OBJETOS.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.BA_PRO_OBJETOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion al registro.';
+comment on column IT.BA_PRO_OBJETOS.fec_modificacion
+  is 'Fecha de la ultima modificacion al registro.';
+comment on column IT.BA_PRO_OBJETOS.version
+  is 'Versión del Programa 10 ó 6';
+comment on column IT.BA_PRO_OBJETOS.cod_cliente
+  is 'Código del Cliente.';
+comment on column IT.BA_PRO_OBJETOS.comentario
+  is 'Comentario particular del Objeto dentro del programa';
+create index IT.IN_BPOBJ_OBJETO on IT.BA_PRO_OBJETOS (OBJETO, COD_PROGRAMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PRO_OBJETOS
+  add constraint PK_BA_PRO_OBJETOS primary key (COD_PROGRAMA, OBJETO, VERSION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

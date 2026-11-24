@@ -1,0 +1,109 @@
+create table IT.GE_CUENTAS_NOV
+(
+  fecha           DATE not null,
+  hora            VARCHAR2(8) not null,
+  cod_usuario     VARCHAR2(10) not null,
+  nro_cuenta      VARCHAR2(15),
+  nro_detalle     NUMBER(3),
+  cod_modulo      NUMBER(3) not null,
+  cod_modalidad   NUMBER(3) not null,
+  est_anterior    VARCHAR2(1),
+  est_actual      VARCHAR2(1),
+  fec_cam_est_ant DATE,
+  fec_ult_mov_ant DATE,
+  hor_ult_mov_ant VARCHAR2(8),
+  fec_ult_cap_ant DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CUENTAS_NOV
+  is 'Novedades realizadas sobre cuentas y sus cuotas o cupones.';
+comment on column IT.GE_CUENTAS_NOV.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_CUENTAS_NOV.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_CUENTAS_NOV.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_CUENTAS_NOV.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_CUENTAS_NOV.nro_detalle
+  is 'Numero de cuota o cupon.';
+comment on column IT.GE_CUENTAS_NOV.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_CUENTAS_NOV.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_CUENTAS_NOV.est_anterior
+  is 'Estado Anterior de la cuenta o cuota.';
+comment on column IT.GE_CUENTAS_NOV.est_actual
+  is 'Estado al cual cambio.';
+comment on column IT.GE_CUENTAS_NOV.fec_cam_est_ant
+  is 'Fecha de cambio de estado anterior.';
+comment on column IT.GE_CUENTAS_NOV.fec_ult_mov_ant
+  is 'Fecha del ultimo movimiento anterior.';
+comment on column IT.GE_CUENTAS_NOV.hor_ult_mov_ant
+  is 'Hora del ultimo movimento anterior.';
+comment on column IT.GE_CUENTAS_NOV.fec_ult_cap_ant
+  is 'Fecha de la ultima capitalizacion anterior.';
+create index IT.IN_GCNOV_COD_MODALIDAD on IT.GE_CUENTAS_NOV (COD_MODALIDAD, COD_MODULO, EST_ACTUAL, EST_ANTERIOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCNOV_NRO_CUENTA on IT.GE_CUENTAS_NOV (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CUENTAS_NOV
+  add constraint UK_GE_CUENTAS_NOV unique (COD_USUARIO, FECHA, HORA, NRO_CUENTA, NRO_DETALLE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 14M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CUENTAS_NOV
+  add constraint FK_GCNOV_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_CUENTAS_NOV
+  add constraint FK_GCNOV_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_CUENTAS_NOV
+  add constraint FK_GCNOV_EST_ACTUAL foreign key (COD_MODULO, COD_MODALIDAD, EST_ACTUAL)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.GE_CUENTAS_NOV
+  add constraint FK_GCNOV_EST_ANTERIOR foreign key (COD_MODULO, COD_MODALIDAD, EST_ANTERIOR)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.GE_CUENTAS_NOV
+  add constraint FK_GCNOV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

@@ -1,0 +1,87 @@
+create table IT.GE_EQF_QUIEBRAS_RES
+(
+  nro_solicitud       NUMBER(10) not null,
+  cod_persona         VARCHAR2(10) not null,
+  nro_secuencia       NUMBER(5) not null,
+  fec_consulta        DATE,
+  hor_consulta        VARCHAR2(10),
+  nom_ser_webservice  VARCHAR2(100),
+  tip_persona         VARCHAR2(1),
+  can_total           NUMBER(10),
+  can_finiquitadas    NUMBER(10),
+  can_no_finiquitadas NUMBER(10),
+  may_fec_quiebra     VARCHAR2(100),
+  men_fec_quiebra     VARCHAR2(100),
+  msg_error           VARCHAR2(4000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_QUIEBRAS_RES.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_QUIEBRAS_RES.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_QUIEBRAS_RES.nro_secuencia
+  is 'Nro de secuencia por solicitud';
+comment on column IT.GE_EQF_QUIEBRAS_RES.fec_consulta
+  is 'Fecha de la consulta al servicio web';
+comment on column IT.GE_EQF_QUIEBRAS_RES.hor_consulta
+  is 'Hora de la consulta al servicio web';
+comment on column IT.GE_EQF_QUIEBRAS_RES.nom_ser_webservice
+  is 'Nombre del servicio web consultado';
+comment on column IT.GE_EQF_QUIEBRAS_RES.tip_persona
+  is 'Tipo de persona F= física, J= jurídica';
+comment on column IT.GE_EQF_QUIEBRAS_RES.can_total
+  is 'Cantidad total de quiebras';
+comment on column IT.GE_EQF_QUIEBRAS_RES.can_finiquitadas
+  is 'Cantidad quibras finiquitadas';
+comment on column IT.GE_EQF_QUIEBRAS_RES.can_no_finiquitadas
+  is 'Cantidad quibras no finiquitadas';
+comment on column IT.GE_EQF_QUIEBRAS_RES.may_fec_quiebra
+  is 'Mayor fecha de quiebra';
+comment on column IT.GE_EQF_QUIEBRAS_RES.men_fec_quiebra
+  is 'Menor fecha de quiebra';
+comment on column IT.GE_EQF_QUIEBRAS_RES.msg_error
+  is 'Mensaje de error del webservice si lo hubiere';
+create index IT.IN_QUIBR_PER_SOL_FEC on IT.GE_EQF_QUIEBRAS_RES (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_QUIEBRAS_RES
+  add constraint PK_GE_EQF_QUIEBRAS_RES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_QUIEBRAS_RES
+  add constraint FK_EQFQU_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_EQF_SOLICITUDES (NRO_SOLICITUD) on delete cascade;
+

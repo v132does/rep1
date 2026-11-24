@@ -1,0 +1,111 @@
+create table IT.GE_SEP_DEPOSITOS
+(
+  nro_orden            NUMBER(18),
+  cod_oficina          VARCHAR2(3),
+  fec_operacion        DATE,
+  nro_comprobante      VARCHAR2(15),
+  nom_completo         VARCHAR2(120),
+  nro_documento        VARCHAR2(15),
+  cod_moneda           VARCHAR2(3),
+  monto                NUMBER(18,2),
+  nro_cuenta           VARCHAR2(15),
+  tip_doc_depositante  VARCHAR2(3),
+  nro_doc_depositante  VARCHAR2(15),
+  nom_beneficiario     VARCHAR2(120),
+  tip_doc_beneficiario VARCHAR2(3),
+  cod_instrumento      VARCHAR2(30),
+  cotizacion           NUMBER(14,8),
+  sal_cuenta           NUMBER(18,2),
+  tip_persona          VARCHAR2(1),
+  cod_tra_padre        NUMBER(4) not null,
+  cod_mod_padre        NUMBER(3) not null,
+  cod_mad_padre        NUMBER(3) not null,
+  cod_transaccion      NUMBER(4),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  observacion          VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SEP_DEPOSITOS.nro_orden
+  is 'Nro_Orden.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_oficina
+  is 'Cod_Oficina.';
+comment on column IT.GE_SEP_DEPOSITOS.fec_operacion
+  is 'Fecha Operación.';
+comment on column IT.GE_SEP_DEPOSITOS.nro_comprobante
+  is 'Numbero Comprobante.';
+comment on column IT.GE_SEP_DEPOSITOS.nom_completo
+  is 'Nombre o Razon Social.';
+comment on column IT.GE_SEP_DEPOSITOS.nro_documento
+  is 'Numero Documento.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_moneda
+  is 'Moneda de la Operación.';
+comment on column IT.GE_SEP_DEPOSITOS.monto
+  is 'Monto.';
+comment on column IT.GE_SEP_DEPOSITOS.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.GE_SEP_DEPOSITOS.tip_doc_depositante
+  is 'Tipo Documento del Depositante.';
+comment on column IT.GE_SEP_DEPOSITOS.nro_doc_depositante
+  is 'Numero Documento del Depositante.';
+comment on column IT.GE_SEP_DEPOSITOS.nom_beneficiario
+  is 'Nombre del Beneficiario.';
+comment on column IT.GE_SEP_DEPOSITOS.tip_doc_beneficiario
+  is 'Tipo Documento del Beneficiario.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_instrumento
+  is 'Codigo de Instrumento.';
+comment on column IT.GE_SEP_DEPOSITOS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.GE_SEP_DEPOSITOS.sal_cuenta
+  is 'Saldo de La Cuenta.';
+comment on column IT.GE_SEP_DEPOSITOS.tip_persona
+  is 'Tipo de Persona';
+comment on column IT.GE_SEP_DEPOSITOS.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_SEP_DEPOSITOS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_SEP_DEPOSITOS.observacion
+  is 'Observación.';
+create index IT.IN_GSDEP_FEC_OPERACION on IT.GE_SEP_DEPOSITOS (FEC_OPERACION)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSDEP_NRO_COMPROBANTE on IT.GE_SEP_DEPOSITOS (NRO_COMPROBANTE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

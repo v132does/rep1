@@ -1,0 +1,41 @@
+create table IT.SB_CRC_VINCULOS
+(
+  nom_referencia VARCHAR2(10) not null,
+  fec_periodo    DATE not null,
+  cod_entidad    NUMBER(4),
+  tot_registro   NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_CRC_VINCULOS.nom_referencia
+  is 'Nombre del Archivo a generarse a la CRC (Archivo VINCULOS).';
+comment on column IT.SB_CRC_VINCULOS.fec_periodo
+  is 'Fecha de Periodo de envío del Archivo (Formato: AAAAMMDD)';
+comment on column IT.SB_CRC_VINCULOS.cod_entidad
+  is 'Código de identificación de la Entidad Financiera/Bancaria.';
+comment on column IT.SB_CRC_VINCULOS.tot_registro
+  is 'Total de registros contados del Archivo Vínculos. ';
+alter table IT.SB_CRC_VINCULOS
+  add constraint PK_SB_CRC_VINCULOS primary key (NOM_REFERENCIA, FEC_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

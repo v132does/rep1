@@ -1,0 +1,38 @@
+create table IT.GE_INF_GRU_ECONOMICOS
+(
+  nro_inf_credito   NUMBER not null,
+  cod_gru_economico NUMBER(5),
+  des_grupo         VARCHAR2(60)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_GRU_ECONOMICOS.nro_inf_credito
+  is 'Número del Informe de Crédito.';
+comment on column IT.GE_INF_GRU_ECONOMICOS.cod_gru_economico
+  is 'Código de Grupo Económico.';
+comment on column IT.GE_INF_GRU_ECONOMICOS.des_grupo
+  is 'Descripción del Grupo Económico.';
+alter table IT.GE_INF_GRU_ECONOMICOS
+  add constraint PK_GE_INF_GRU_ECONOMICOS primary key (NRO_INF_CREDITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

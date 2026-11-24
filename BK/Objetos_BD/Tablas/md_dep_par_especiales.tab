@@ -1,0 +1,56 @@
+create table IT.MD_DEP_PAR_ESPECIALES
+(
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  parametro        VARCHAR2(240) not null,
+  monto            NUMBER(18,2),
+  observacion      VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_DEP_PAR_ESPECIALES.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.MD_DEP_PAR_ESPECIALES.fecha
+  is 'Fecha';
+comment on column IT.MD_DEP_PAR_ESPECIALES.parametro
+  is 'Parametro';
+comment on column IT.MD_DEP_PAR_ESPECIALES.monto
+  is 'Monto';
+comment on column IT.MD_DEP_PAR_ESPECIALES.observacion
+  is 'Observacion';
+comment on column IT.MD_DEP_PAR_ESPECIALES.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.MD_DEP_PAR_ESPECIALES.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.MD_DEP_PAR_ESPECIALES.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.MD_DEP_PAR_ESPECIALES.fec_modificacion
+  is 'Fecha de Modificacion';
+alter table IT.MD_DEP_PAR_ESPECIALES
+  add constraint PK_MD_DEP_PAR_ESPECIALES primary key (COD_MONEDA, FECHA, PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

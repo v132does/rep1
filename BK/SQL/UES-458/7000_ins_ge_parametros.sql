@@ -1,0 +1,6 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo :=1; end;
+/
+insert into ge_parametros (PARAMETRO, DESCRIPCION, TAB_RELACION, REFERENCIA, OBSERVACION, PRO_VERIFICACION, PERMISO, MODIFICABLE, VAL_DEFECTO)
+values ('HAB_TAR_GP_BAN_EMP', 'HAB. TAR. GP. EN BANCA EMPRESA', 'GE_PAR_DINAMICOS', 'HAB. TAR. GP EN BANCA EMPRESA', 'HABILITA TARJETA GP EN BANCA EMPRESAS', null, null, 'S', null);
+
+commit;

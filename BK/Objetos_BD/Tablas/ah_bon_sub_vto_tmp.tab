@@ -1,0 +1,37 @@
+create table IT.AH_BON_SUB_VTO_TMP
+(
+  nro_cuota NUMBER(3) not null,
+  fecha     DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_BON_SUB_VTO_TMP
+  is 'Tabla temporal para importación de vencimientos de planilla enviada por la Casa de Bolsa.';
+comment on column IT.AH_BON_SUB_VTO_TMP.nro_cuota
+  is 'Nro de cuota vencimiento';
+comment on column IT.AH_BON_SUB_VTO_TMP.fecha
+  is 'Fecha de vencimiento';
+alter table IT.AH_BON_SUB_VTO_TMP
+  add constraint PK_AH_BON_SUB_VTO_TMP primary key (NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

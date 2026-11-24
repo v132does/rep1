@@ -1,0 +1,12 @@
+create global temporary table IT.SB_CRC_OPE_VTA_CARTERA_TMP
+(
+  fecha          DATE not null,
+  nro_operacion  VARCHAR2(60),
+  sal_capital    NUMBER(20,2),
+  cla_riesgo     VARCHAR2(2),
+  cla_riesgo_num NUMBER,
+  nro_documento  VARCHAR2(20),
+  cod_persona    VARCHAR2(10) not null
+)
+on commit delete rows;
+

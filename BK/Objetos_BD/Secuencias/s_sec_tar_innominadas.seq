@@ -1,0 +1,7 @@
+create sequence IT.S_SEC_TAR_INNOMINADAS
+minvalue 0
+maxvalue 99999999
+start with 581
+increment by 1
+cache 20;
+

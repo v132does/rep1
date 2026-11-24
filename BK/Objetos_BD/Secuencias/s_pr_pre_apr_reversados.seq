@@ -1,0 +1,7 @@
+create sequence IT.S_PR_PRE_APR_REVERSADOS
+minvalue 1
+maxvalue 9999
+start with 1866
+increment by 1
+nocache;
+

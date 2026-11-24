@@ -1,0 +1,68 @@
+create table IT.BW_CTA_ACCESOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_per_vinculo  VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  tip_acceso       VARCHAR2(1) not null,
+  ver_movimientos  VARCHAR2(1),
+  activo           VARCHAR2(1) default 'S',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CTA_ACCESOS
+  is 'Tabla donde se registran las cuentas a las cuales las personas vinculadas a la persona principal tienen el acceso prohibido o habilitado.';
+comment on column IT.BW_CTA_ACCESOS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.BW_CTA_ACCESOS.cod_per_vinculo
+  is 'Código de la Persona Vinculada.';
+comment on column IT.BW_CTA_ACCESOS.nro_cuenta
+  is 'Número de cuenta a la cual la persona vinculada tiene el acceso prohibido.';
+comment on column IT.BW_CTA_ACCESOS.tip_acceso
+  is 'Indica si el acceso a la cuenta es Prohibida (P) o Permitida (H).';
+comment on column IT.BW_CTA_ACCESOS.ver_movimientos
+  is 'Indica los movimientos que puede ver en caso de Tipo de Acceso Permitido, valores posibles T=Todos, N=Ningun Movimiento, S=Solo sus Movimientos.';
+comment on column IT.BW_CTA_ACCESOS.activo
+  is 'Indica si el registro esta activo(S) ó no.';
+comment on column IT.BW_CTA_ACCESOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_CTA_ACCESOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_CTA_ACCESOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_CTA_ACCESOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.BW_CTA_ACCESOS
+  add constraint PK_BW_CTA_ACCESOS primary key (COD_PERSONA, COD_PER_VINCULO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CTA_ACCESOS
+  add constraint CK_TIP_ACCESO
+  check (TIP_ACCESO IN ('P',
+'H'));
+alter table IT.BW_CTA_ACCESOS
+  add constraint CK_VER_MOVIMIENTOS
+  check (VER_MOVIMIENTOS IN ('T','S','N'));
+

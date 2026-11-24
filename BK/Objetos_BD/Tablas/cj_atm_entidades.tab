@@ -1,0 +1,64 @@
+create table IT.CJ_ATM_ENTIDADES
+(
+  cod_atm             NUMBER(5) not null,
+  descripcion         VARCHAR2(60) not null,
+  cod_persona         VARCHAR2(10) not null,
+  cod_bco_responsable NUMBER(3) not null,
+  estado              VARCHAR2(1) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_ATM_ENTIDADES
+  is 'Mantenimiento de ATM.';
+comment on column IT.CJ_ATM_ENTIDADES.cod_atm
+  is 'Codigo de ATM.';
+comment on column IT.CJ_ATM_ENTIDADES.descripcion
+  is 'Descripcion del ATM.';
+comment on column IT.CJ_ATM_ENTIDADES.cod_persona
+  is 'Entidad dueña de la Caja de ATM.';
+comment on column IT.CJ_ATM_ENTIDADES.cod_bco_responsable
+  is 'Codigo de banco responsable del ATM.';
+comment on column IT.CJ_ATM_ENTIDADES.estado
+  is 'Estado del ATM.';
+comment on column IT.CJ_ATM_ENTIDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_ATM_ENTIDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_ATM_ENTIDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_ATM_ENTIDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CJ_ATM_ENTIDADES
+  add constraint PK_CJ_ATM_ENTIDADES primary key (COD_ATM)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_ATM_ENTIDADES
+  add constraint FK_JAENT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CJ_ATM_ENTIDADES
+  add constraint AVCON_1221595425_ESTAD_000
+  check (ESTADO IN ('A', 'I'));
+

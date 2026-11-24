@@ -1,0 +1,37 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_RESULTADOS_TOT
+-- Descripción: Totales por categoría del proceso de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_RESULTADOS_TOT (
+    id_resultado          NUMBER,
+    fecha                 DATE,
+    categoria             VARCHAR2(255),
+    total                 NUMBER,
+    fuente_datos          VARCHAR2(100),
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.SB_SOL_RESULTADOS_TOT IS 'Totales por categoria del proceso de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.id_resultado IS 'Identificador unico del registro de totales';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.fecha IS 'Fecha de corte del calculo';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.categoria IS 'Categoria de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.total IS 'Total del balance para la categoria';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.fuente_datos IS 'Fuente de datos utilizada en el calculo';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS_TOT.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';

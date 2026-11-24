@@ -1,0 +1,36 @@
+create table IT.CB_CON_RUBROS
+(
+  cod_rubro VARCHAR2(15) not null,
+  estado    VARCHAR2(1) default 'I'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_CON_RUBROS.estado
+  is 'A Activo; I Inactivo';
+alter table IT.CB_CON_RUBROS
+  add constraint PK_CON_RUB_COD_RUBRO primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_CON_RUBROS
+  add constraint FK_CON_RUB_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

@@ -1,0 +1,103 @@
+create table IT.CC_CTA_GASTOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2),
+  fec_ingreso      DATE not null,
+  fec_ini_vigencia DATE,
+  fec_vencimiento  DATE,
+  cod_modulo       NUMBER(3) default 4,
+  cod_modalidad    NUMBER(3),
+  fec_ult_pago     DATE,
+  hor_ult_pago     VARCHAR2(8),
+  nro_solicitud    NUMBER(7),
+  referencia       VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CTA_GASTOS
+  is 'Contiene los gastos adicionales a cobrar por sobregiros.';
+comment on column IT.CC_CTA_GASTOS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CC_CTA_GASTOS.cod_transaccion
+  is 'Código de la Transacción.';
+comment on column IT.CC_CTA_GASTOS.cod_moneda
+  is 'Moneda.';
+comment on column IT.CC_CTA_GASTOS.monto
+  is 'Monto del Gasto.';
+comment on column IT.CC_CTA_GASTOS.fec_ingreso
+  is 'Fecha de Ingreso (del sistema).';
+comment on column IT.CC_CTA_GASTOS.fec_ini_vigencia
+  is 'Fecha Inicio Vigencia.';
+comment on column IT.CC_CTA_GASTOS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.CC_CTA_GASTOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.CC_CTA_GASTOS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.CC_CTA_GASTOS.fec_ult_pago
+  is 'Fecha de último pago.';
+comment on column IT.CC_CTA_GASTOS.hor_ult_pago
+  is 'Hora Último pago.';
+comment on column IT.CC_CTA_GASTOS.nro_solicitud
+  is 'Número de Propuesta.';
+comment on column IT.CC_CTA_GASTOS.referencia
+  is 'Referencia.';
+comment on column IT.CC_CTA_GASTOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CTA_GASTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CTA_GASTOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CTA_GASTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_CCGA_PAGOS on IT.CC_CTA_GASTOS (NRO_CUENTA, FEC_ULT_PAGO, FEC_INI_VIGENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_GASTOS
+  add constraint UK_CC_CTA_GASTOS unique (NRO_CUENTA, COD_TRANSACCION, FEC_INGRESO, NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_GASTOS
+  add constraint FK_CCGAS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CTA_GASTOS
+  add constraint FK_CCGAS_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CC_CTA_GASTOS
+  add constraint FK_CCGAS_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

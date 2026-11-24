@@ -1,0 +1,106 @@
+create table IT.SB_SNP_CAMPOS
+(
+  campo               VARCHAR2(3) not null,
+  cod_mensaje         VARCHAR2(35) not null,
+  orden               NUMBER default 0 not null,
+  descripcion         VARCHAR2(200) not null,
+  ind_requerido       VARCHAR2(1) default 'S' not null,
+  ind_detalle         VARCHAR2(1) default 'N' not null,
+  formato             VARCHAR2(60),
+  can_max_lineas      NUMBER default 1 not null,
+  det_sql_recibido    VARCHAR2(4000),
+  det_sql_enviado     VARCHAR2(4000),
+  det_sql_val_defecto VARCHAR2(4000),
+  det_sql_campo       VARCHAR2(4000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SNP_CAMPOS
+  is 'Contiene la Definición de los Campos (Tags) de los mensajes de SNP.';
+comment on column IT.SB_SNP_CAMPOS.campo
+  is 'Indentificador del Campo (tag) del MT.';
+comment on column IT.SB_SNP_CAMPOS.cod_mensaje
+  is 'Código de Mensaje SWIFT.';
+comment on column IT.SB_SNP_CAMPOS.orden
+  is 'Nro. de línea del Campo dentro del Mensaje.';
+comment on column IT.SB_SNP_CAMPOS.descripcion
+  is 'Descripción del Campo.';
+comment on column IT.SB_SNP_CAMPOS.ind_requerido
+  is 'Indicador de si el Campo es obligatorio o no (S/N).';
+comment on column IT.SB_SNP_CAMPOS.ind_detalle
+  is 'Indicador de detalle, si el campo se repite varias veces (batch). Ej. MT102. (S/N).';
+comment on column IT.SB_SNP_CAMPOS.formato
+  is 'Formato especificado para Validaciones del Contenido.';
+comment on column IT.SB_SNP_CAMPOS.can_max_lineas
+  is 'Cantidad máxima de lineas para el campo.';
+comment on column IT.SB_SNP_CAMPOS.det_sql_recibido
+  is 'Script de validación del dato para los MT Entrantes.';
+comment on column IT.SB_SNP_CAMPOS.det_sql_enviado
+  is 'Script de validación del dato para los MT Salientes.';
+comment on column IT.SB_SNP_CAMPOS.det_sql_val_defecto
+  is 'Script para obtener el Valor por Defecto del Campo.';
+comment on column IT.SB_SNP_CAMPOS.det_sql_campo
+  is 'Script para obtener el Valor del comodín para el Tag del campo (determinado por la letra ''a'').';
+comment on column IT.SB_SNP_CAMPOS.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.SB_SNP_CAMPOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_SNP_CAMPOS.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.SB_SNP_CAMPOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_SSCAM_FORMATO on IT.SB_SNP_CAMPOS (FORMATO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_SNP_CAMPOS
+  add constraint PK_SB_SNP_CAMPOS primary key (CAMPO, COD_MENSAJE, ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_SNP_CAMPOS
+  add constraint FK_SSCAM_COD_MENSAJE foreign key (COD_MENSAJE)
+  references IT.SB_SNP_TIP_MENSAJES (COD_MENSAJE);
+alter table IT.SB_SNP_CAMPOS
+  add constraint FK_SSCAM_FORMATO foreign key (FORMATO)
+  references IT.SB_SNP_FORMATOS (FORMATO);
+alter table IT.SB_SNP_CAMPOS
+  add constraint CK_SSCAM_CAN_MAX_LINEAS
+  check (CAN_MAX_LINEAS >= 1);
+alter table IT.SB_SNP_CAMPOS
+  add constraint CK_SSCAM_IND_DETALLE
+  check (IND_DETALLE IN ('S','N'));
+alter table IT.SB_SNP_CAMPOS
+  add constraint CK_SSCAM_IND_REQUERIDO
+  check (IND_REQUERIDO IN ('S','N'));
+

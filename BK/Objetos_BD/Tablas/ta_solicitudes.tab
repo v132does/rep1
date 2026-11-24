@@ -1,0 +1,284 @@
+create table IT.TA_SOLICITUDES
+(
+  nro_solicitud       NUMBER(15) not null,
+  cod_persona         VARCHAR2(10) not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_usu_promotor    VARCHAR2(10),
+  fec_solicitud       DATE not null,
+  cod_usu_oficial     VARCHAR2(10),
+  fec_aprobacion      DATE,
+  cod_causa           NUMBER(3),
+  deb_automatico      VARCHAR2(1) default 'N' not null,
+  nro_cta_debito      VARCHAR2(15),
+  tip_cobro           VARCHAR2(1) default 'M',
+  nom_embozado        VARCHAR2(26),
+  lin_sugerida        NUMBER(18,2),
+  monto               NUMBER(18,2) default 0,
+  puntaje             NUMBER(6),
+  cod_estado          VARCHAR2(3),
+  cod_est_sugerido    VARCHAR2(3),
+  tas_int_adelanto    NUMBER(20,4) default 0,
+  tas_financiacion    NUMBER(20,4) default 0,
+  tas_mora            NUMBER(20,4) default 0,
+  mto_min_pago        NUMBER(18,2) default 0,
+  por_pag_minimo      NUMBER(5,2) default 0,
+  tip_envio           VARCHAR2(1) default 'D',
+  referencia          VARCHAR2(35),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  nro_linea           NUMBER(7),
+  observacion         VARCHAR2(4000),
+  cod_moneda          VARCHAR2(3) not null,
+  cod_campana         NUMBER(3),
+  cod_canal           NUMBER(3),
+  mto_aprobado        NUMBER(18,2),
+  niv_aprobacion      VARCHAR2(3),
+  nro_acta            NUMBER(10),
+  nro_cuenta          VARCHAR2(15),
+  afinidad            VARCHAR2(10),
+  sub_afinidad        VARCHAR2(3),
+  pre_embozada        VARCHAR2(1),
+  ind_evaluacion      VARCHAR2(1) default 'S',
+  cod_tip_cierre      NUMBER(2) default 1 not null,
+  cod_rub_economico   VARCHAR2(6),
+  tip_plastico        VARCHAR2(1),
+  tas_int_corriente   NUMBER(18,2),
+  tas_int_compra      NUMBER(18,2),
+  por_vip             NUMBER(4),
+  mto_fij_pag_minimo  NUMBER(18,2),
+  mto_min_pag_minimo  NUMBER(18,2),
+  tas_int_mora        NUMBER(18,2),
+  cod_sub_modalidad   NUMBER(3),
+  nro_bin             NUMBER(10),
+  est_verificacion    VARCHAR2(1),
+  cod_tas_procard     NUMBER(3),
+  lin_especial        NUMBER(18,6),
+  env_email           VARCHAR2(1),
+  cod_ent_procesadora NUMBER(5) default 7,
+  tip_embozado        VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SOLICITUDES
+  is 'Contiene los datos de  la solicitud del titular ** No se borran los datos, es como el de propuesta de prestamo **';
+comment on column IT.TA_SOLICITUDES.nro_solicitud
+  is 'Numero de Solicitud.';
+comment on column IT.TA_SOLICITUDES.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.TA_SOLICITUDES.cod_oficina
+  is 'Oficina.';
+comment on column IT.TA_SOLICITUDES.cod_modulo
+  is 'Modulo.';
+comment on column IT.TA_SOLICITUDES.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.TA_SOLICITUDES.cod_usu_promotor
+  is 'Promotor.';
+comment on column IT.TA_SOLICITUDES.fec_solicitud
+  is 'Fecha de Ingreso.';
+comment on column IT.TA_SOLICITUDES.cod_usu_oficial
+  is 'Operador de Autorización.';
+comment on column IT.TA_SOLICITUDES.fec_aprobacion
+  is 'Fecha de Aprobación.';
+comment on column IT.TA_SOLICITUDES.cod_causa
+  is 'Causa de Rechazo.';
+comment on column IT.TA_SOLICITUDES.deb_automatico
+  is 'Indicador de Debito Automático.';
+comment on column IT.TA_SOLICITUDES.nro_cta_debito
+  is 'Nro. de Cuenta de Débito.';
+comment on column IT.TA_SOLICITUDES.tip_cobro
+  is 'Tipo de Cobro (Minimo o Total).';
+comment on column IT.TA_SOLICITUDES.nom_embozado
+  is 'Nombre a Embozar.';
+comment on column IT.TA_SOLICITUDES.lin_sugerida
+  is 'Linea Sugerida.';
+comment on column IT.TA_SOLICITUDES.monto
+  is 'Monto Solicitado.';
+comment on column IT.TA_SOLICITUDES.puntaje
+  is 'Porcentaje de Scoring.';
+comment on column IT.TA_SOLICITUDES.cod_estado
+  is 'Estado.';
+comment on column IT.TA_SOLICITUDES.cod_est_sugerido
+  is 'Estado Sugerido.';
+comment on column IT.TA_SOLICITUDES.tas_int_adelanto
+  is 'Tasa de Interes por Adelanto.';
+comment on column IT.TA_SOLICITUDES.tas_financiacion
+  is 'Tasa de Financiacion.';
+comment on column IT.TA_SOLICITUDES.tas_mora
+  is 'Tasa por Mora.';
+comment on column IT.TA_SOLICITUDES.mto_min_pago
+  is 'Monto Mínimo de Pago.';
+comment on column IT.TA_SOLICITUDES.por_pag_minimo
+  is 'Porcentaje de Pago Mínimo.';
+comment on column IT.TA_SOLICITUDES.tip_envio
+  is 'Tipo de Envio.';
+comment on column IT.TA_SOLICITUDES.referencia
+  is 'En base al tipo de envio esta columna tendra la dirección o sucursal de retención de los documentos.';
+comment on column IT.TA_SOLICITUDES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_SOLICITUDES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.TA_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.TA_SOLICITUDES.nro_linea
+  is 'Numero de Linea de Credito.';
+comment on column IT.TA_SOLICITUDES.observacion
+  is 'Observaciones.';
+comment on column IT.TA_SOLICITUDES.cod_moneda
+  is 'Moneda.';
+comment on column IT.TA_SOLICITUDES.cod_campana
+  is 'Campaña Asociada.';
+comment on column IT.TA_SOLICITUDES.cod_canal
+  is 'Canal Asociado.';
+comment on column IT.TA_SOLICITUDES.mto_aprobado
+  is 'Monto Aprobado.';
+comment on column IT.TA_SOLICITUDES.niv_aprobacion
+  is 'Niveles de Aprobación.';
+comment on column IT.TA_SOLICITUDES.nro_acta
+  is 'Nro. de Acta.';
+comment on column IT.TA_SOLICITUDES.nro_cuenta
+  is 'Nro. de Cuenta Generada.';
+comment on column IT.TA_SOLICITUDES.afinidad
+  is 'Codigo de Afinidad de la Tarjeta.';
+comment on column IT.TA_SOLICITUDES.sub_afinidad
+  is 'Codigo de Sub Afinidad de Tarjeta.';
+comment on column IT.TA_SOLICITUDES.pre_embozada
+  is 'Indicador de Solicitud de Tarjeta Pre Embozada.';
+comment on column IT.TA_SOLICITUDES.ind_evaluacion
+  is 'Indicador de Evaluación del Motor de Riesgos.';
+comment on column IT.TA_SOLICITUDES.cod_tip_cierre
+  is 'Código del Tipo de Cierre.';
+comment on column IT.TA_SOLICITUDES.cod_rub_economico
+  is 'Código de Rubro Económico.';
+comment on column IT.TA_SOLICITUDES.tip_plastico
+  is 'Indica si el plastico de la tarjeta posee o no Chip. N/Nulo=Normal, C=Chip.';
+comment on column IT.TA_SOLICITUDES.tas_int_corriente
+  is 'Tasa de Interés Corriente.';
+comment on column IT.TA_SOLICITUDES.tas_int_compra
+  is 'Tasa de Interés por Compras.';
+comment on column IT.TA_SOLICITUDES.por_vip
+  is 'Porcentaje Vip.';
+comment on column IT.TA_SOLICITUDES.mto_fij_pag_minimo
+  is 'Monto Fijo del Pago Mínimo.';
+comment on column IT.TA_SOLICITUDES.mto_min_pag_minimo
+  is 'Monto Mínimo del Pago Mínimo.';
+comment on column IT.TA_SOLICITUDES.tas_int_mora
+  is 'Tasa de Interés Moratorio.';
+comment on column IT.TA_SOLICITUDES.cod_sub_modalidad
+  is 'Codigo de Sub-Modalidad';
+comment on column IT.TA_SOLICITUDES.tip_embozado
+  is 'Tipo de embozado.
+S/N/D/MV/MF Si, No, Virtual(Digital).';
+create index IT.IN_TSOLI_COD_CAUSA on IT.TA_SOLICITUDES (COD_CAUSA, COD_MODALIDAD, COD_MODULO, COD_OFICINA, COD_RUB_ECONOMICO, COD_USU_OFICIAL, COD_USU_PROMOTOR, NRO_LINEA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TSOLI_COD_PERSONA on IT.TA_SOLICITUDES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TSOLI_NRO_CTA_DEBITO on IT.TA_SOLICITUDES (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SOLICITUDES
+  add constraint PK_TA_SOLICITUDES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_TIP_CIERRE foreign key (COD_TIP_CIERRE)
+  references IT.TA_TIP_CIERRES (COD_TIP_CIERRE);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_USU_AUTORIZA foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_SOLICITUDES
+  add constraint FK_TSOLI_NRO_LINEA foreign key (NRO_LINEA)
+  references IT.PR_LINEAS (NRO_LINEA);
+alter table IT.TA_SOLICITUDES
+  add constraint AVCON_1081353182_COD_C_004
+  check (COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.TA_SOLICITUDES
+  add constraint AVCON_1081353182_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.TA_SOLICITUDES
+  add constraint AVCON_1081353182_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.TA_SOLICITUDES
+  add constraint AVCON_1081353182_COD_O_001
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.TA_SOLICITUDES
+  add constraint AVCON_1081353182_TIP_E_000
+  check (TIP_ENVIO IN ('D', 'R', 'C', 'K'));
+alter table IT.TA_SOLICITUDES
+  add constraint CHECK_SOL_TAR_TIP_EMB
+  check (tip_embozado IN ('S', 'N', 'D','MF','MV'));
+

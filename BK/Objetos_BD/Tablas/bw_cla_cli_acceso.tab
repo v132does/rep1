@@ -1,0 +1,98 @@
+create table IT.BW_CLA_CLI_ACCESO
+(
+  id_dispositivo           VARCHAR2(50) not null,
+  cod_persona              VARCHAR2(15) not null,
+  cod_dispositivo          VARCHAR2(100) not null,
+  cla_privada              VARCHAR2(1800) not null,
+  cla_acceso               VARCHAR2(32) not null,
+  cla_verificador          VARCHAR2(7) not null,
+  can_acceso               NUMBER(4) default 0,
+  estado                   VARCHAR2(1) default 'P' not null,
+  marca                    VARCHAR2(50),
+  modelo                   VARCHAR2(100),
+  sistema                  VARCHAR2(50),
+  sis_version              VARCHAR2(50),
+  alias                    VARCHAR2(100),
+  fec_ult_acceso           DATE,
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  fec_ult_cla_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_CLA_CLI_ACCESO.cod_persona
+  is 'codigo persona';
+comment on column IT.BW_CLA_CLI_ACCESO.cod_dispositivo
+  is 'identificador del dispositivo del cliente';
+comment on column IT.BW_CLA_CLI_ACCESO.cla_privada
+  is 'clave privada RSA utilizada para desencriptar el token de sesion';
+comment on column IT.BW_CLA_CLI_ACCESO.cla_acceso
+  is 'clave de acceso utiliza para validar en el core bancario al cliente';
+comment on column IT.BW_CLA_CLI_ACCESO.cla_verificador
+  is 'clave aleatoria';
+comment on column IT.BW_CLA_CLI_ACCESO.can_acceso
+  is 'cantidad de acceso';
+comment on column IT.BW_CLA_CLI_ACCESO.estado
+  is 'estado de la clave: P:pendiente, A:activo, E:expirado, I:inactivo';
+comment on column IT.BW_CLA_CLI_ACCESO.marca
+  is 'Marca del fabricante del dispositivo';
+comment on column IT.BW_CLA_CLI_ACCESO.modelo
+  is 'Modelo del dispositivo';
+comment on column IT.BW_CLA_CLI_ACCESO.sistema
+  is 'Sistema operativo del dispositivo';
+comment on column IT.BW_CLA_CLI_ACCESO.sis_version
+  is 'Version del sistema operativo del dispositivo';
+comment on column IT.BW_CLA_CLI_ACCESO.alias
+  is 'Alias del dispositivo';
+comment on column IT.BW_CLA_CLI_ACCESO.fec_ult_acceso
+  is 'fecha de ultimo acceso por login biometrico';
+comment on column IT.BW_CLA_CLI_ACCESO.usu_insercion
+  is 'usuario que inserto el registro';
+comment on column IT.BW_CLA_CLI_ACCESO.fec_insercion
+  is 'fecha que se inserto el registro';
+comment on column IT.BW_CLA_CLI_ACCESO.usu_modificacion
+  is 'usuario que actualizo el registro';
+comment on column IT.BW_CLA_CLI_ACCESO.fec_modificacion
+  is 'fecha que se actualizo el registro';
+comment on column IT.BW_CLA_CLI_ACCESO.fec_ult_cla_modificacion
+  is 'fecha de ultima modificacion de clave';
+alter table IT.BW_CLA_CLI_ACCESO
+  add constraint PK_CLA_CLI_ACCESO primary key (ID_DISPOSITIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLA_CLI_ACCESO
+  add constraint UK_BWCLA_PERSONADISPOSITIVO unique (COD_PERSONA, COD_DISPOSITIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

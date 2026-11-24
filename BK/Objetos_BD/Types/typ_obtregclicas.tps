@@ -1,0 +1,25 @@
+CREATE OR REPLACE TYPE IT."TYP_OBTREGCLICAS"                                          force AS OBJECT
+(nro_referencia    VARCHAR2(33),
+cli_recordID    VARCHAR(33),
+tip_identificador   VARCHAR2(10),
+val_identificador   VARCHAR2(80),
+fec_vto_documento   DATE,
+residencia      VARCHAR2(1),
+nombre        VARCHAR2(80),
+apellido      VARCHAR2(60),
+apodo         VARCHAR2(30),
+genero        VARCHAR2(10),
+fec_nacimiento    DATE,
+lugar_nacimiento  VARCHAR2(80),
+direccion       VARCHAR2(80),
+pais        VARCHAR2(35),
+ciudad        VARCHAR2(35),
+departamento    VARCHAR2(35),
+inf_adicional     VARCHAR2(2000),
+det_adicional_pv  VARCHAR2(2000),
+est_cliente     VARCHAR2(20),
+est_solicitud     VARCHAR2(1),
+tip_accion        varchar2(1),
+CONSTRUCTOR FUNCTION TYP_OBTREGCLICAS RETURN SELF AS RESULT)
+/
+

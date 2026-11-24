@@ -1,0 +1,56 @@
+create table IT.BW_TOK_TAR_RESPUESTAS
+(
+  cod_respuesta    VARCHAR2(36) not null,
+  cod_consulta     VARCHAR2(36) not null,
+  cod_retorno      VARCHAR2(36),
+  descripcion      VARCHAR2(36),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_RESPUESTAS.cod_respuesta
+  is 'Codigo Autogenerado';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.cod_consulta
+  is 'Código de request';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.cod_retorno
+  is 'Código de retorno';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.descripcion
+  is 'Descripcion del resultado';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_RESPUESTAS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_RESPUESTAS
+  add constraint PK_BW_TOK_TAR_RESPUESTAS primary key (COD_RESPUESTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_RESPUESTAS
+  add constraint FK_BTTRESPUESTAS_COD_CONS foreign key (COD_CONSULTA)
+  references IT.BW_TOK_TAR_CONSULTAS (COD_CONSULTA);
+

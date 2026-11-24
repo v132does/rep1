@@ -1,0 +1,39 @@
+create table IT.TA_CLI_PREEMBOZADO_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  dir_correo       VARCHAR2(80),
+  cod_usu_oficial  VARCHAR2(10),
+  cod_usu_promotor VARCHAR2(10),
+  tipo             VARCHAR2(1),
+  direccion        VARCHAR2(80),
+  cod_ciudad       NUMBER(3),
+  cod_barrio       NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.cod_persona
+  is 'Código de Cliente.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.dir_correo
+  is 'Correo de la Persona.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.cod_usu_oficial
+  is 'Oficial del Cliente.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.cod_usu_promotor
+  is 'Promotor de la Tarjeta.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.tipo
+  is 'Tipo de Dirección Principal de la Persona: ''P''/Particular o ''L''/Laboral.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.direccion
+  is 'Direccion de la Persona.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.cod_ciudad
+  is 'Código de Ciudad.';
+comment on column IT.TA_CLI_PREEMBOZADO_TMP.cod_barrio
+  is 'Código de Barrio.';
+

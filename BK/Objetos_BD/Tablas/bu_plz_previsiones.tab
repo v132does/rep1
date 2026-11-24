@@ -1,0 +1,67 @@
+create table IT.BU_PLZ_PREVISIONES
+(
+  cod_plazo        NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  can_dias         NUMBER(4) not null,
+  por_prevision    NUMBER(10,4) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BU_PLZ_PREVISIONES.cod_plazo
+  is 'Codigo del Plazo.';
+comment on column IT.BU_PLZ_PREVISIONES.descripcion
+  is 'Nombre del plazo.';
+comment on column IT.BU_PLZ_PREVISIONES.can_dias
+  is 'Cantidad de dias del plazo.';
+comment on column IT.BU_PLZ_PREVISIONES.por_prevision
+  is 'Porcentaje de Prevision.';
+comment on column IT.BU_PLZ_PREVISIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BU_PLZ_PREVISIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BU_PLZ_PREVISIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BU_PLZ_PREVISIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BU_PLZ_PREVISIONES
+  add constraint PK_BU_PLZ_PREVISIONES primary key (COD_PLAZO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_PLZ_PREVISIONES
+  add constraint UK_UPLAPRE_CAN_DIAS unique (CAN_DIAS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

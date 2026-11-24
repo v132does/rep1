@@ -1,0 +1,57 @@
+create table IT.CR_PIZ_PLAZOS_TMP
+(
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  mto_desde          NUMBER(18,2) not null,
+  plz_desde          NUMBER(5) not null,
+  plz_hasta          NUMBER(5) not null,
+  tas_interes        NUMBER(20,4) not null,
+  tas_minima         NUMBER(20,4) not null,
+  tas_maxima         NUMBER(20,4) not null,
+  tip_capitalizacion NUMBER(2),
+  tas_efectiva       NUMBER(20,4),
+  cod_sub_modalidad  NUMBER(3),
+  ano                NUMBER(4),
+  mes                NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CR_PIZ_PLAZOS_TMP.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.mto_desde
+  is 'Monto desde.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.plz_desde
+  is 'Plazo en dias desde.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.plz_hasta
+  is 'Plazo en dias hasta.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.tas_interes
+  is 'Tasa de interes.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.tas_minima
+  is 'Tasa Minima de Interes.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.tas_maxima
+  is 'Tasa Maxima de Interes.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.tip_capitalizacion
+  is 'Tipo de Capitalización.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.tas_efectiva
+  is 'Tasa Anual Efectiva.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.cod_sub_modalidad
+  is 'Codigo de Sub Modalidad.';
+comment on column IT.CR_PIZ_PLAZOS_TMP.ano
+  is 'Año';
+comment on column IT.CR_PIZ_PLAZOS_TMP.mes
+  is 'Mes';
+

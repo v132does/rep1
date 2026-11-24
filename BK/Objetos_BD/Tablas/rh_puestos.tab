@@ -1,0 +1,94 @@
+create table IT.RH_PUESTOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  fec_desde        DATE not null,
+  fec_hasta        DATE,
+  cod_cat_empleado NUMBER(3) not null,
+  cod_cen_costo    NUMBER(3) not null,
+  cargo            VARCHAR2(40),
+  ind_interino     VARCHAR2(1) default 'N',
+  salario          NUMBER(14,2),
+  cod_moneda       VARCHAR2(3) not null,
+  cod_oficina      NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_PUESTOS
+  is 'Puestos de Empleados.';
+comment on column IT.RH_PUESTOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_PUESTOS.fec_desde
+  is 'Fecha de Inicio en ese Puesto.';
+comment on column IT.RH_PUESTOS.fec_hasta
+  is 'Fecha de Fin en ese Puesto.';
+comment on column IT.RH_PUESTOS.cod_cat_empleado
+  is 'Categoria del Empleado.';
+comment on column IT.RH_PUESTOS.cod_cen_costo
+  is 'Centro de Costo del Puesto.';
+comment on column IT.RH_PUESTOS.cargo
+  is 'Cargo ocupado por el Empleado.';
+comment on column IT.RH_PUESTOS.ind_interino
+  is 'Indica si esta interinando o no el puesto.';
+comment on column IT.RH_PUESTOS.salario
+  is 'Salario del Empleado en el Puesto.';
+comment on column IT.RH_PUESTOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_PUESTOS.cod_oficina
+  is 'Oficina del Empleado.';
+comment on column IT.RH_PUESTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_PUESTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_PUESTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_PUESTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_PUESTOS
+  add constraint PK_RH_PUESTOS primary key (COD_PERSONA, FEC_DESDE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_PUESTOS
+  add constraint FK_HPUES_COD_CAT_EMPEADO foreign key (COD_CAT_EMPLEADO)
+  references IT.RH_CAT_EMPLEADOS (COD_CAT_EMPLEADO);
+alter table IT.RH_PUESTOS
+  add constraint FK_HPUES_COD_CEN_COSTOS foreign key (COD_CEN_COSTO)
+  references IT.CB_CEN_COSTOS (COD_CEN_COSTO);
+alter table IT.RH_PUESTOS
+  add constraint FK_HPUES_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_PUESTOS
+  add constraint FK_HPUES_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.RH_PUESTOS
+  add constraint FK_HPUES_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_PUESTOS
+  add constraint AVCON_1191539693_IND_I_000
+  check (IND_INTERINO IN ('S', 'N'));
+alter table IT.RH_PUESTOS
+  add constraint CK_FEC_DESDE_PUESTO
+  check (( FEC_DESDE <= FEC_HASTA ) or ( FEC_HASTA is null ));
+

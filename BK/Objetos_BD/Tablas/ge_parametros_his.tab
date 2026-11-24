@@ -1,0 +1,73 @@
+create table IT.GE_PARAMETROS_HIS
+(
+  fecha            DATE default SYSDATE not null,
+  parametro        VARCHAR2(30) not null,
+  descripcion      VARCHAR2(35),
+  tab_relacion     VARCHAR2(30),
+  referencia       VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  observacion      VARCHAR2(4000),
+  pro_verificacion VARCHAR2(30),
+  permiso          VARCHAR2(2000),
+  modificable      VARCHAR2(1) default 'N',
+  val_defecto      VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PARAMETROS_HIS
+  is 'Define los parametros a utilizarse en el Sistema.';
+comment on column IT.GE_PARAMETROS_HIS.fecha
+  is 'Fecha del registro';
+comment on column IT.GE_PARAMETROS_HIS.parametro
+  is 'Nombre del parametro a ser utilizado.';
+comment on column IT.GE_PARAMETROS_HIS.descripcion
+  is 'Descripcion del parametro a ser utilizado.';
+comment on column IT.GE_PARAMETROS_HIS.tab_relacion
+  is 'Tabla en la cual se utiliza el parametro.';
+comment on column IT.GE_PARAMETROS_HIS.referencia
+  is 'Referencia para filtrar las diferentes listas de valores.';
+comment on column IT.GE_PARAMETROS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PARAMETROS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PARAMETROS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PARAMETROS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PARAMETROS_HIS.observacion
+  is 'Observacion sobre la utilidad y funcionalidad del parametro dentro del Sistema.';
+comment on column IT.GE_PARAMETROS_HIS.pro_verificacion
+  is 'Procedimiento de verificacion de datos cargados.';
+comment on column IT.GE_PARAMETROS_HIS.permiso
+  is 'Roles a quienes se da permiso.';
+comment on column IT.GE_PARAMETROS_HIS.modificable
+  is 'Indica si el usuario podrá modificar el valor S/N.';
+comment on column IT.GE_PARAMETROS_HIS.val_defecto
+  is 'Indica el valor inicial del parámetro';
+alter table IT.GE_PARAMETROS_HIS
+  add constraint PK_GE_PARAMETROS_HIS primary key (PARAMETRO, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

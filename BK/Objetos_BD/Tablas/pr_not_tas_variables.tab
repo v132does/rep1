@@ -1,0 +1,100 @@
+create table IT.PR_NOT_TAS_VARIABLES
+(
+  nro_solicitud     NUMBER(18) not null,
+  cod_persona       NUMBER(18) not null,
+  nro_cuota         NUMBER(18) not null,
+  cod_gestor        VARCHAR2(100),
+  fec_vencimiento   DATE,
+  fec_notificacion  DATE not null,
+  nro_not           NUMBER(10) not null,
+  texto             VARCHAR2(4000),
+  cod_superior      NUMBER(18),
+  dir_mail_ges      VARCHAR2(100),
+  dir_mail_sup      VARCHAR2(100),
+  asunto            VARCHAR2(200),
+  observacion       VARCHAR2(4000),
+  comentario        VARCHAR2(4000),
+  det_error         VARCHAR2(4000),
+  tas_ref_informada VARCHAR2(30),
+  spread_inicial    VARCHAR2(30),
+  spread_final      VARCHAR2(30),
+  hubo_error        VARCHAR2(10) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_NOT_TAS_VARIABLES
+  is 'Notificaciones al Gestor de Tasa Variable';
+comment on column IT.PR_NOT_TAS_VARIABLES.nro_solicitud
+  is 'Numero de Solicitud';
+comment on column IT.PR_NOT_TAS_VARIABLES.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.PR_NOT_TAS_VARIABLES.nro_cuota
+  is 'Numero de Cuota';
+comment on column IT.PR_NOT_TAS_VARIABLES.cod_gestor
+  is 'Codigo de Gestor';
+comment on column IT.PR_NOT_TAS_VARIABLES.fec_vencimiento
+  is 'Fecha de Vencimiento de Cuota';
+comment on column IT.PR_NOT_TAS_VARIABLES.fec_notificacion
+  is 'Fecha de Notificacion';
+comment on column IT.PR_NOT_TAS_VARIABLES.nro_not
+  is 'Numero de Notificacion (1/2)';
+comment on column IT.PR_NOT_TAS_VARIABLES.texto
+  is 'Texto Enviado';
+comment on column IT.PR_NOT_TAS_VARIABLES.cod_superior
+  is 'Codigo de Gerente u JGO';
+comment on column IT.PR_NOT_TAS_VARIABLES.dir_mail_ges
+  is 'Mail de Gestor';
+comment on column IT.PR_NOT_TAS_VARIABLES.dir_mail_sup
+  is 'Mail de Superior Notificado';
+comment on column IT.PR_NOT_TAS_VARIABLES.asunto
+  is 'Asunroi';
+comment on column IT.PR_NOT_TAS_VARIABLES.observacion
+  is 'Observacion';
+comment on column IT.PR_NOT_TAS_VARIABLES.comentario
+  is 'Comentario';
+comment on column IT.PR_NOT_TAS_VARIABLES.det_error
+  is 'Error en envio';
+comment on column IT.PR_NOT_TAS_VARIABLES.tas_ref_informada
+  is 'Tasa de Referencia Informada';
+comment on column IT.PR_NOT_TAS_VARIABLES.spread_inicial
+  is 'Spread Inicial';
+comment on column IT.PR_NOT_TAS_VARIABLES.spread_final
+  is 'Spread Inicial';
+comment on column IT.PR_NOT_TAS_VARIABLES.hubo_error
+  is 'Hubo Error(S/N)';
+comment on column IT.PR_NOT_TAS_VARIABLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_NOT_TAS_VARIABLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_NOT_TAS_VARIABLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_NOT_TAS_VARIABLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.PR_NOT_TAS_VARIABLES
+  add constraint PK_PR_NOT_TAS_VARIABLES primary key (NRO_SOLICITUD, COD_PERSONA, NRO_CUOTA, FEC_NOTIFICACION, NRO_NOT, HUBO_ERROR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

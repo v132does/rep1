@@ -1,0 +1,55 @@
+-- Create table
+create table IT.AH_CTA_ALIAS_VI
+(
+  nro_cta_alias    VARCHAR2(15) not null,
+  nro_cta_ueno     VARCHAR2(15) not null,
+  cod_estado       VARCHAR2(1),
+  observacion      VARCHAR2(50),
+  fec_insercion    DATE default SYSDATE,
+  fec_modificacion DATE default SYSDATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.AH_CTA_ALIAS_VI.nro_cta_alias
+  is 'Nro. de cuenta alias de Vision.';
+comment on column IT.AH_CTA_ALIAS_VI.nro_cta_ueno
+  is 'Nro. de cuenta Ueno.';
+comment on column IT.AH_CTA_ALIAS_VI.cod_estado
+  is 'Estado del alias.';
+comment on column IT.AH_CTA_ALIAS_VI.observacion
+  is 'Observacion';
+comment on column IT.AH_CTA_ALIAS_VI.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AH_CTA_ALIAS_VI.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.AH_CTA_ALIAS_VI.usu_insercion
+  is 'Usuario de Insercion.';
+comment on column IT.AH_CTA_ALIAS_VI.usu_modificacion
+  is 'Usuario de Modificacion.';
+-- Create/Recreate indexes 
+create index IT.IND_AHCTAALIAS_NRO_CTA on IT.AH_CTA_ALIAS_VI (NRO_CTA_ALIAS, NRO_CTA_UENO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.AH_CTA_ALIAS_VI to IT_TEMPORAL;

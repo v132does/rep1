@@ -1,0 +1,10 @@
+create global temporary table IT.SYB12_SYSINDEXES
+(
+  db_id      NUMBER(10),
+  table_id   NUMBER(10),
+  index_name VARCHAR2(256) not null,
+  index_desc VARCHAR2(1000),
+  index_keys VARCHAR2(1000)
+)
+on commit preserve rows;
+

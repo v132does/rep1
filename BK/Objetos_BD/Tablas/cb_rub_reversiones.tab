@@ -1,0 +1,55 @@
+create table IT.CB_RUB_REVERSIONES
+(
+  cod_rubro         VARCHAR2(15) not null,
+  cod_rub_reversion VARCHAR2(15) not null,
+  usu_insercion     VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_REVERSIONES
+  is 'Rubros para Reversiones de Ganancias/Perdidas.';
+comment on column IT.CB_RUB_REVERSIONES.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_RUB_REVERSIONES.cod_rub_reversion
+  is 'Codigo de la cuenta contable para Reversion.';
+comment on column IT.CB_RUB_REVERSIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_RUB_REVERSIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_RUB_REVERSIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_REVERSIONES.fec_modificacion
+  is 'Fecha de ultima modificacion en el registro.';
+alter table IT.CB_RUB_REVERSIONES
+  add constraint PK_CB_RUB_REVERSIONES primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_REVERSIONES
+  add constraint FK_CRURE_COD_RUB_REVERSION foreign key (COD_RUB_REVERSION)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_RUB_REVERSIONES
+  add constraint FK_CRURE_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

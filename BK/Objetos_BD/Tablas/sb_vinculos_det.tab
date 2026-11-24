@@ -1,0 +1,88 @@
+create table IT.SB_VINCULOS_DET
+(
+  nom_archivo      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  nro_registro     NUMBER(6) not null,
+  cod_per_codeudor VARCHAR2(10) not null,
+  cod_per_deudor   VARCHAR2(10) not null,
+  tip_formulario   VARCHAR2(2) not null,
+  tip_ide_codeudor VARCHAR2(3) not null,
+  nro_ide_codeudor VARCHAR2(15) not null,
+  tip_ide_deudor   VARCHAR2(3) not null,
+  nro_ide_deudor   VARCHAR2(15) not null,
+  tip_vinculo      NUMBER(2) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_VINCULOS_DET
+  is 'Detalle de vinculos.';
+comment on column IT.SB_VINCULOS_DET.nom_archivo
+  is 'nombre del archivo.';
+comment on column IT.SB_VINCULOS_DET.fecha
+  is 'Fecha.';
+comment on column IT.SB_VINCULOS_DET.nro_registro
+  is 'nro. de registro.';
+comment on column IT.SB_VINCULOS_DET.cod_per_codeudor
+  is 'Codigo del codeudor.';
+comment on column IT.SB_VINCULOS_DET.cod_per_deudor
+  is 'codigo del deudor.';
+comment on column IT.SB_VINCULOS_DET.tip_formulario
+  is 'Tipo de formulario.';
+comment on column IT.SB_VINCULOS_DET.tip_ide_codeudor
+  is 'Tipo de identificacion del codeudor.';
+comment on column IT.SB_VINCULOS_DET.nro_ide_codeudor
+  is 'Nro de identificacion del codeudor.';
+comment on column IT.SB_VINCULOS_DET.tip_ide_deudor
+  is 'Tipo de identificacion del deudor.';
+comment on column IT.SB_VINCULOS_DET.nro_ide_deudor
+  is 'Nro. de identificacion del deudor.';
+comment on column IT.SB_VINCULOS_DET.tip_vinculo
+  is 'Tipo de vinculo.';
+comment on column IT.SB_VINCULOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_VINCULOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_VINCULOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_VINCULOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_SVDET_COD_PERSONA on IT.SB_VINCULOS_DET (COD_PER_DEUDOR, COD_PER_CODEUDOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_VINCULOS_DET
+  add constraint SVDET_PK primary key (FECHA, NOM_ARCHIVO, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

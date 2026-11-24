@@ -1,0 +1,23 @@
+create table IT.SB_SOL_RUBROS_TMP (
+    REPORTE         VARCHAR2(50),       -- Tipo de reporte (Banco Pais / Banco Exterior / etc.)
+    CLASIFICACION   VARCHAR2(1),        -- Clasificacion (a/b/c/... segun planilla)
+    RUBRO           VARCHAR2(15),       -- Codigo de rubro contable BCP (15 digitos)
+    DESCRIPCION     VARCHAR2(100),      -- Descripcion del rubro
+    SECCION         VARCHAR2(50),       -- Seccion del informe
+    PAIS            VARCHAR2(20),       -- Pais (solo para rubros de Banco Exterior)
+    CIUDAD          VARCHAR2(20),       -- Ciudad (solo para rubros de Banco Exterior)
+    COD_MONEDA      VARCHAR2(3),        -- Codigo de moneda ISO 4217 (USD/EUR/BRL; null=todas)
+    PONDERACION     NUMBER(3),          -- Ponderacion en porcentaje (0/20/50/100)
+    ORDEN           NUMBER(3),          -- Orden de presentacion en el informe
+    CATEGORIA       NUMBER(1),          -- Categoria del rubro (1-4)
+    COD_RUBRO_RPT   VARCHAR2(15),       -- Codigo de rubro del reporte de referencia
+    ACTIVO          VARCHAR2(1),        -- S=activo; null=inactivo
+    ACCION          VARCHAR2(1) CONSTRAINT CK_CB_CONFIG_RUBROS_ACCION
+                            CHECK (ACCION IN ('I','U','D') OR ACCION IS NULL)        -- Accion de carga (reservado; actualmente sin uso)
+) TABLESPACE IT_DATA;
+
+COMMENT ON TABLE IT.SB_SOL_RUBROS_TMP IS 'Staging: catalogo unificado de rubros de solvencia (RUBROS_SOLVENCIA.XLSX). Transitoria: se purga tras cada carga por PRS_ACT_SOL_RUBROS.';
+
+CREATE PUBLIC SYNONYM SB_SOL_RUBROS_TMP FOR IT.SB_SOL_RUBROS_TMP;
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.SB_SOL_RUBROS_TMP TO IT_CONSULTAS;
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.SB_SOL_RUBROS_TMP TO IT_TEMPORAL;

@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_TRA_DEV
+minvalue 10000
+maxvalue 4999999999
+start with 10001
+increment by 1
+nocache;
+

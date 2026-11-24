@@ -1,0 +1,69 @@
+create table IT.GE_TRA_INSTRUMENTOS_DET
+(
+  cod_tra_instrumento VARCHAR2(10) not null,
+  cod_tra_padre       NUMBER(4) not null,
+  cod_mod_padre       NUMBER(3) not null,
+  cod_mad_padre       NUMBER(3) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default SYSDATE,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion    DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.cod_tra_instrumento
+  is 'Codigo del Instrumento que se relaciona a las transacciones.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.cod_tra_padre
+  is 'Codigo de la TransacciónPadre relacionada.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.cod_mod_padre
+  is 'Codigo del Modulo padre relacionado.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.cod_mad_padre
+  is 'Codigo de la Modalidad Padre relacionada.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_TRA_INSTRUMENTOS_DET.fec_modificacion
+  is 'Fecha de Modificación.';
+alter table IT.GE_TRA_INSTRUMENTOS_DET
+  add constraint PK_GE_TRA_INSTRUMENTOS_DET primary key (COD_TRA_INSTRUMENTO, COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.PK_GE_TRA_INSTRUMENTOS_DET nologging;
+alter table IT.GE_TRA_INSTRUMENTOS_DET
+  add constraint UK_GTIDE_TRANSACCION unique (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.UK_GTIDE_TRANSACCION nologging;
+

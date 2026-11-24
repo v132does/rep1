@@ -1,0 +1,12 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_PROCS
+(
+  index       NUMBER,
+  dbname      VARCHAR2(256),
+  name        VARCHAR2(256),
+  routinetype CHAR(9),
+  create_time VARCHAR2(64),
+  remarks     VARCHAR2(510),
+  text        CLOB
+)
+on commit preserve rows;
+

@@ -1,0 +1,79 @@
+create table IT.CR_PUNTAJES
+(
+  cod_puntaje       NUMBER(3) not null,
+  descripcion       VARCHAR2(60) not null,
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  es_general        VARCHAR2(1) default 'N' not null,
+  detalle           VARCHAR2(300),
+  nom_procedimiento VARCHAR2(30),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUNTAJES
+  is 'Tipos de Scoring.';
+comment on column IT.CR_PUNTAJES.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUNTAJES.descripcion
+  is 'Descripcion.';
+comment on column IT.CR_PUNTAJES.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.CR_PUNTAJES.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CR_PUNTAJES.es_general
+  is 'Indica si es general (S/N).';
+comment on column IT.CR_PUNTAJES.detalle
+  is 'Detalle.';
+comment on column IT.CR_PUNTAJES.nom_procedimiento
+  is 'Nombre del Procedimiento que permite calcular este scoring.';
+comment on column IT.CR_PUNTAJES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PUNTAJES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PUNTAJES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUNTAJES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_PUNTAJES
+  add constraint PK_CR_PUNTAJES primary key (COD_PUNTAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PUNTAJES
+  add constraint FK_RPUNT_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_PUNTAJES
+  add constraint AVCON_1080843837_ES_GE_000
+  check (ES_GENERAL IN ('S', 'N'));
+alter table IT.CR_PUNTAJES
+  add constraint AVCON_1087488140_COD_M_004
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CR_PUNTAJES
+  add constraint AVCON_1087488140_COD_M_005
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CR_PUNTAJES
+  add constraint AVCON_1087488140_COD_P_001
+  check (COD_PUNTAJE BETWEEN 0 AND 999);
+

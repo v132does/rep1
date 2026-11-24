@@ -1,0 +1,88 @@
+create table IT.GE_SMS_SERVICIOS
+(
+  cod_ser_sms       NUMBER(3) not null,
+  descripcion       VARCHAR2(40) not null,
+  tipo              VARCHAR2(1) not null,
+  etiqueta          VARCHAR2(40),
+  pro_verificacion  VARCHAR2(40),
+  val_referencia    VARCHAR2(40),
+  activo            VARCHAR2(1),
+  observacion       VARCHAR2(200),
+  etiqueta2         VARCHAR2(40),
+  pro_verificacion2 VARCHAR2(40),
+  val_referencia2   VARCHAR2(40),
+  etiqueta3         VARCHAR2(40),
+  pro_verificacion3 VARCHAR2(40),
+  val_referencia3   VARCHAR2(40),
+  fre_permitida     VARCHAR2(10),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SMS_SERVICIOS
+  is 'Tabla de servicios habilitados para mensajeria SMS';
+comment on column IT.GE_SMS_SERVICIOS.cod_ser_sms
+  is 'Codigo de Servicio';
+comment on column IT.GE_SMS_SERVICIOS.descripcion
+  is 'Descripcion del Servicio';
+comment on column IT.GE_SMS_SERVICIOS.tipo
+  is 'Tipo de Servicio (C=Consulta de clientes, A=Aviso a clientes)';
+comment on column IT.GE_SMS_SERVICIOS.etiqueta
+  is 'Etiqueta para el campo referencia';
+comment on column IT.GE_SMS_SERVICIOS.pro_verificacion
+  is 'Procedimiento para la verificacion del campo referencia';
+comment on column IT.GE_SMS_SERVICIOS.val_referencia
+  is 'Valor predeterminado para el campo referencia';
+comment on column IT.GE_SMS_SERVICIOS.activo
+  is 'Indica si el servicio esta activo (S/N)';
+comment on column IT.GE_SMS_SERVICIOS.observacion
+  is 'Observacion';
+comment on column IT.GE_SMS_SERVICIOS.etiqueta2
+  is 'Etiqueta para el campo referencia2';
+comment on column IT.GE_SMS_SERVICIOS.pro_verificacion2
+  is 'Procedimiento para la verificacion del campo referencia2';
+comment on column IT.GE_SMS_SERVICIOS.val_referencia2
+  is 'Valor predeterminado para el campo referencia2';
+comment on column IT.GE_SMS_SERVICIOS.etiqueta3
+  is 'Etiqueta para el campo referencia3';
+comment on column IT.GE_SMS_SERVICIOS.pro_verificacion3
+  is 'Procedimiento para la verificacion del campo referencia3';
+comment on column IT.GE_SMS_SERVICIOS.val_referencia3
+  is 'Valor predeterminado para el campo referencia3';
+comment on column IT.GE_SMS_SERVICIOS.fre_permitida
+  is 'Frecuencia Permitida';
+comment on column IT.GE_SMS_SERVICIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SMS_SERVICIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SMS_SERVICIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SMS_SERVICIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SMS_SERVICIOS
+  add constraint PK_GE_SMS_SERVICIOS primary key (COD_SER_SMS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,71 @@
+create table IT.TA_SOL_GESTIONES
+(
+  nro_solicitud    NUMBER(15) not null,
+  cod_estado       VARCHAR2(3) default 'S' not null,
+  fecha            DATE not null,
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observacion      VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SOL_GESTIONES
+  is 'Gestiones de Solicitudes de Tarjetas de Credito.';
+comment on column IT.TA_SOL_GESTIONES.nro_solicitud
+  is 'Numero de Solicitud.';
+comment on column IT.TA_SOL_GESTIONES.cod_estado
+  is 'Codigo de estado.';
+comment on column IT.TA_SOL_GESTIONES.fecha
+  is 'Fecha en que se realizo la gestion.';
+comment on column IT.TA_SOL_GESTIONES.cod_usuario
+  is 'Usuario que realizo la gestion.';
+comment on column IT.TA_SOL_GESTIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_SOL_GESTIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_SOL_GESTIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_SOL_GESTIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_SOL_GESTIONES.observacion
+  is 'Observacion sobre la gestion.';
+create index IT.IN_TSGES_COD_USUARIO on IT.TA_SOL_GESTIONES (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TSGES_NRO_SOLICITUD on IT.TA_SOL_GESTIONES (NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SOL_GESTIONES
+  add constraint FK_TSGES_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

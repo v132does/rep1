@@ -1,0 +1,65 @@
+create table IT.SB_DEP_OFICINAS
+(
+  fecha                DATE,
+  cod_moneda           VARCHAR2(3),
+  cod_oficina          NUMBER(3),
+  val_cotizacion       NUMBER(14,8),
+  can_cta_per_sup      NUMBER(7),
+  can_cta_per_otr      NUMBER(7),
+  can_cta_clientes     NUMBER(7),
+  mto_cta_corrientes   NUMBER(18,2) default 0,
+  mto_cta_vistas       NUMBER(18,2) default 0,
+  mto_cta_plazos       NUMBER(18,2) default 0,
+  mto_cta_certificados NUMBER(18,2) default 0,
+  mto_cta_titulos      NUMBER(18,2) default 0,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_DEP_OFICINAS
+  is 'Depositos por Oficina.';
+comment on column IT.SB_DEP_OFICINAS.fecha
+  is 'Fecha del informe.';
+comment on column IT.SB_DEP_OFICINAS.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_DEP_OFICINAS.cod_oficina
+  is 'Oficina.';
+comment on column IT.SB_DEP_OFICINAS.val_cotizacion
+  is 'Cotizacion de la fecha.';
+comment on column IT.SB_DEP_OFICINAS.can_cta_per_sup
+  is 'Cantidad de cta de personal superior.';
+comment on column IT.SB_DEP_OFICINAS.can_cta_per_otr
+  is 'Cantidad de cta de personal otros.';
+comment on column IT.SB_DEP_OFICINAS.can_cta_clientes
+  is 'Cantidad de cta de clientes.';
+comment on column IT.SB_DEP_OFICINAS.mto_cta_corrientes
+  is 'Monto de cta Corrientes.';
+comment on column IT.SB_DEP_OFICINAS.mto_cta_vistas
+  is 'Monto de cta Vistas.';
+comment on column IT.SB_DEP_OFICINAS.mto_cta_plazos
+  is 'Monto de cta Plazos.';
+comment on column IT.SB_DEP_OFICINAS.mto_cta_certificados
+  is 'Monto de cta Certificados.';
+comment on column IT.SB_DEP_OFICINAS.mto_cta_titulos
+  is 'Monto de cta Titulos.';
+comment on column IT.SB_DEP_OFICINAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_DEP_OFICINAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_DEP_OFICINAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_DEP_OFICINAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

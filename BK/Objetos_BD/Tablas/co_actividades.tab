@@ -1,0 +1,122 @@
+create table IT.CO_ACTIVIDADES
+(
+  cod_campana         NUMBER(3) not null,
+  cod_agenda          NUMBER(10),
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_moneda          VARCHAR2(3),
+  cod_usu_responsable VARCHAR2(10),
+  dia_atraso          NUMBER(5) default 0,
+  usu_insercion       VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_persona         VARCHAR2(10) not null,
+  nro_cuota           NUMBER(3) not null,
+  fec_vencimiento     DATE,
+  mto_atraso          NUMBER(18,2) default 0,
+  fec_ini_asignacion  DATE,
+  cod_est_agenda      NUMBER(2),
+  fec_ult_realizacion DATE,
+  fec_ult_cobro       DATE,
+  dia_atr_ult_cobro   NUMBER(5) default 0,
+  mto_acu_cobrado     NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_ACTIVIDADES
+  is 'Detalle de actividades de cobranzas ingresadas en la agenda.';
+comment on column IT.CO_ACTIVIDADES.cod_campana
+  is 'Codigo de campaña.';
+comment on column IT.CO_ACTIVIDADES.cod_agenda
+  is 'Codigo de agenda generada.';
+comment on column IT.CO_ACTIVIDADES.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CO_ACTIVIDADES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CO_ACTIVIDADES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.CO_ACTIVIDADES.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CO_ACTIVIDADES.cod_usu_responsable
+  is 'Responsable de la actividad.';
+comment on column IT.CO_ACTIVIDADES.dia_atraso
+  is 'Dias de atraso de la operacion.';
+comment on column IT.CO_ACTIVIDADES.usu_insercion
+  is 'Insertado por.';
+comment on column IT.CO_ACTIVIDADES.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.CO_ACTIVIDADES.usu_modificacion
+  is 'Ultimo usuario que modifico el registro.';
+comment on column IT.CO_ACTIVIDADES.fec_modificacion
+  is 'Fecha de ultima modificacion del registro.';
+comment on column IT.CO_ACTIVIDADES.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.CO_ACTIVIDADES.nro_cuota
+  is 'Numero de cuota.';
+comment on column IT.CO_ACTIVIDADES.fec_vencimiento
+  is 'Fecha de vencimiento de la cuota.';
+comment on column IT.CO_ACTIVIDADES.mto_atraso
+  is 'Monto de Atraso de la operacion.';
+comment on column IT.CO_ACTIVIDADES.fec_ini_asignacion
+  is 'Fecha inicial de asignacion de la actividad.';
+comment on column IT.CO_ACTIVIDADES.cod_est_agenda
+  is 'Codigo de estado de la Agenda.';
+comment on column IT.CO_ACTIVIDADES.fec_ult_realizacion
+  is 'Fecha de ultima realizacion de la actividad.';
+comment on column IT.CO_ACTIVIDADES.fec_ult_cobro
+  is 'Fecha de ultimo cobro de la operacion.';
+comment on column IT.CO_ACTIVIDADES.dia_atr_ult_cobro
+  is 'Dias de atraso del ultimo cobro.';
+comment on column IT.CO_ACTIVIDADES.mto_acu_cobrado
+  is 'Monto total cobrado por la operacion.';
+create index IT.IN_OACTI_NRO_CUOTA on IT.CO_ACTIVIDADES (COD_CAMPANA, COD_PERSONA, NRO_CUENTA, NRO_CUOTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_OACTI_NRO_CUOTA_001 on IT.CO_ACTIVIDADES (NRO_CUENTA, NRO_CUOTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_ACTIVIDADES
+  add constraint AVCON_1134500608_COD_A_000
+  check (COD_AGENDA BETWEEN 0 AND 999999999);
+alter table IT.CO_ACTIVIDADES
+  add constraint AVCON_1134500608_COD_C_000
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.CO_ACTIVIDADES
+  add constraint AVCON_1134500608_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CO_ACTIVIDADES
+  add constraint AVCON_1134500608_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CO_ACTIVIDADES
+  add constraint AVCON_1134500608_NRO_C_000
+  check (NRO_CUOTA BETWEEN 0 AND 999);
+

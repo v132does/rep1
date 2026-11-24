@@ -1,0 +1,20 @@
+create table IT.SB_CRC_CTA_MIGRADA
+(
+  nro_cta_itgf     VARCHAR2(20),
+  tip_operacion    NUMBER(3),
+  cod_oficina      NUMBER(4),
+  nro_cta_bantotal VARCHAR2(100),
+  nro_ope_saldos   VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

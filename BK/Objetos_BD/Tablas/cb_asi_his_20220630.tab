@@ -1,0 +1,35 @@
+create table IT.CB_ASI_HIS_20220630
+(
+  fecha              DATE not null,
+  cod_oficina        NUMBER(3) not null,
+  nro_asiento        NUMBER(6) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  tot_control        NUMBER(18,2) not null,
+  actualizado        VARCHAR2(1) not null,
+  reversado          VARCHAR2(1) not null,
+  ofi_integrada      VARCHAR2(1) not null,
+  confirmado         VARCHAR2(1) not null,
+  cod_ofi_origen     NUMBER(3),
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) not null,
+  fec_modificacion   DATE not null,
+  fec_valor          DATE,
+  nro_asi_automatico NUMBER(6),
+  nro_asi_futuro     NUMBER(6),
+  cod_cargo          NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

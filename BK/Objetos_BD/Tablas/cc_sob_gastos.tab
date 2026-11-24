@@ -1,0 +1,82 @@
+create table IT.CC_SOB_GASTOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  fecha            DATE not null,
+  cod_tra_padre    NUMBER(4) not null,
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  fec_cobro        DATE,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_SOB_GASTOS
+  is 'Gastos de sobregiro.';
+comment on column IT.CC_SOB_GASTOS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CC_SOB_GASTOS.fecha
+  is 'Fecha de proceso.';
+comment on column IT.CC_SOB_GASTOS.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.CC_SOB_GASTOS.cod_mod_padre
+  is 'Codigo de Modulo Padre.';
+comment on column IT.CC_SOB_GASTOS.cod_mad_padre
+  is 'Codigo de Modalidad Padre.';
+comment on column IT.CC_SOB_GASTOS.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.CC_SOB_GASTOS.cod_modulo
+  is 'Codigo de Modulo hijo.';
+comment on column IT.CC_SOB_GASTOS.cod_modalidad
+  is 'Codigo de Modalidad hijo.';
+comment on column IT.CC_SOB_GASTOS.monto
+  is 'Importe.';
+comment on column IT.CC_SOB_GASTOS.fec_cobro
+  is 'Fecha de cobro.';
+comment on column IT.CC_SOB_GASTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_SOB_GASTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_SOB_GASTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SOB_GASTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CC_SOB_GASTOS
+  add constraint PK_CC_SOB_GASTOS primary key (NRO_CUENTA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOB_GASTOS
+  add constraint FK_CSGAS_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CC_SOB_GASTOS
+  add constraint FK_CSGAS_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CC_SOB_GASTOS
+  add constraint FK_CSGAS_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

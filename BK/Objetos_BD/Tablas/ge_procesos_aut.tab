@@ -1,0 +1,100 @@
+create table IT.GE_PROCESOS_AUT
+(
+  cod_pro_aut       NUMBER(4) not null,
+  cod_proceso       NUMBER(3) not null,
+  descripcion       VARCHAR2(60),
+  frecuencia        VARCHAR2(1) default 'D' not null,
+  hor_ejecucion     VARCHAR2(5) not null,
+  dia_ejecucion     VARCHAR2(1),
+  estado            VARCHAR2(1) default 'H' not null,
+  prox_ejecucion    DATE,
+  ult_ejecucion     DATE,
+  est_ult_eje       VARCHAR2(2),
+  hash_dato         NUMBER not null,
+  hash_proc         NUMBER,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  hor_fin_ejecucion VARCHAR2(5),
+  recurrencia       NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PROCESOS_AUT
+  is 'Ejecucion automatica de Procesos.';
+comment on column IT.GE_PROCESOS_AUT.cod_pro_aut
+  is 'PK';
+comment on column IT.GE_PROCESOS_AUT.cod_proceso
+  is 'FK GE_PROCESOS';
+comment on column IT.GE_PROCESOS_AUT.descripcion
+  is 'Descripcion informativa del proceso.';
+comment on column IT.GE_PROCESOS_AUT.frecuencia
+  is '''D'' Diaria y ''M'' Mensual';
+comment on column IT.GE_PROCESOS_AUT.hor_ejecucion
+  is 'Formato ''HH:MM''';
+comment on column IT.GE_PROCESOS_AUT.dia_ejecucion
+  is 'Solo para frecuencia mensual: ''P'' (Primer Dia Habil), ''Q'' Dia Habil en la Quincena, ''U'' Ultimo Dia Habil.';
+comment on column IT.GE_PROCESOS_AUT.estado
+  is '''H'' Habilitado, ''D'' Deshabilitado';
+comment on column IT.GE_PROCESOS_AUT.prox_ejecucion
+  is 'Indica cuando se ejecutara el proceso, una vez calendarizado.';
+comment on column IT.GE_PROCESOS_AUT.ult_ejecucion
+  is 'Indica la ultima ejecucion realizada d manera automatica del proceso.';
+comment on column IT.GE_PROCESOS_AUT.est_ult_eje
+  is 'El estado de la ultima ejecucion. ''F'' Fallo, ''E'' Exito.';
+comment on column IT.GE_PROCESOS_AUT.hash_dato
+  is 'Hash que permitira saber si algun dato se modifico desde la ultima vez que se calendarizo el proceso.';
+comment on column IT.GE_PROCESOS_AUT.hash_proc
+  is 'Hash utilizado al momento de calendarizar el proceso.';
+comment on column IT.GE_PROCESOS_AUT.usu_insercion
+  is 'Usuario creacion.';
+comment on column IT.GE_PROCESOS_AUT.fec_insercion
+  is 'Fecha creacion.';
+comment on column IT.GE_PROCESOS_AUT.usu_modificacion
+  is 'Usuario modificacion.';
+comment on column IT.GE_PROCESOS_AUT.fec_modificacion
+  is 'Fecha modificacion';
+comment on column IT.GE_PROCESOS_AUT.hor_fin_ejecucion
+  is 'Solo si tiene una recurrencia configurada, toma en cuenta el hor_ejecucion y lo ejecuta hasta la hora configurada en este campo';
+comment on column IT.GE_PROCESOS_AUT.recurrencia
+  is 'Recurrencia de ejecución en minutos';
+alter table IT.GE_PROCESOS_AUT
+  add constraint PK_GE_PROC_AUT primary key (COD_PRO_AUT)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PROCESOS_AUT
+  add constraint FK_GE_PROCESOS foreign key (COD_PROCESO)
+  references IT.GE_PROCESOS (COD_PROCESO);
+alter table IT.GE_PROCESOS_AUT
+  add constraint CHECK_GE_PROC_AUT_DIA_EJE
+  check (DIA_EJECUCION IN('P','Q','U'));
+alter table IT.GE_PROCESOS_AUT
+  add constraint CHECK_GE_PROC_AUT_ESTADO
+  check (ESTADO IN('H', 'D'));
+alter table IT.GE_PROCESOS_AUT
+  add constraint CHECK_GE_PROC_AUT_FREC
+  check (FRECUENCIA IN('D', 'M', 'R'));
+alter table IT.GE_PROCESOS_AUT
+  add constraint CHECK_GE_PROC_AUT_ULT_EJE
+  check (EST_ULT_EJE IN('E','F'));
+

@@ -1,0 +1,65 @@
+create table IT.GE_DEC_JURADAS
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_mod_padre    NUMBER(3) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_documento    VARCHAR2(20),
+  monto            NUMBER(22,2),
+  impresion        VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_dec_jurada   NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEC_JURADAS
+  is 'Declaraciones Juradas';
+comment on column IT.GE_DEC_JURADAS.fecha
+  is 'Fecha de los movimientos';
+comment on column IT.GE_DEC_JURADAS.hora
+  is 'Hora de los movimientos';
+comment on column IT.GE_DEC_JURADAS.cod_mod_padre
+  is 'Codigo del modulo padre';
+comment on column IT.GE_DEC_JURADAS.cod_persona
+  is 'Codigo de la persona';
+comment on column IT.GE_DEC_JURADAS.nro_documento
+  is 'Nro de documento de la persona';
+comment on column IT.GE_DEC_JURADAS.monto
+  is 'Monto de las transacciones';
+comment on column IT.GE_DEC_JURADAS.impresion
+  is 'Declaracion jurada';
+comment on column IT.GE_DEC_JURADAS.usu_insercion
+  is 'Usuario que inserto';
+comment on column IT.GE_DEC_JURADAS.fec_insercion
+  is 'Fecha de insercion del registro';
+comment on column IT.GE_DEC_JURADAS.usu_modificacion
+  is 'Ultimo usuario que modifico';
+comment on column IT.GE_DEC_JURADAS.fec_modificacion
+  is 'Fecha de ultima modificacion';
+alter table IT.GE_DEC_JURADAS
+  add constraint PK_GE_DEC_JURADAS primary key (FECHA, USU_INSERCION, COD_MOD_PADRE, COD_PERSONA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

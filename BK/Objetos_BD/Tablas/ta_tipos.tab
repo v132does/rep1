@@ -1,0 +1,192 @@
+create table IT.TA_TIPOS
+(
+  cod_modalidad        NUMBER(3) not null,
+  cod_modulo           NUMBER(3) not null,
+  cod_tip_tarjeta      VARCHAR2(2),
+  descripcion          VARCHAR2(80),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  nro_bin              NUMBER(10) not null,
+  cod_ent_procesadora  NUMBER(5) not null,
+  afinidad             VARCHAR2(10),
+  cod_tip_cierre       NUMBER(2) default 1 not null,
+  tip_cobro            VARCHAR2(1),
+  tip_tas_financiacion VARCHAR2(1) not null,
+  tip_com_emision      VARCHAR2(1),
+  tip_gas_financiero   VARCHAR2(1),
+  tip_generacion       VARCHAR2(1),
+  tip_cuenta           VARCHAR2(1),
+  cta_vip              VARCHAR2(1) default 'N',
+  cta_personalizada    VARCHAR2(1) default 'N',
+  plz_dur_tarjeta      NUMBER(5),
+  franqueo             VARCHAR2(1) not null,
+  cod_campana          NUMBER(3),
+  cod_oficina          NUMBER(3),
+  sig_nro_cuenta       NUMBER(15),
+  tip_alcance          VARCHAR2(1),
+  ref_externa          NUMBER(6),
+  sub_afinidad         VARCHAR2(3),
+  min_linea            NUMBER(18,2),
+  max_linea            NUMBER(18,2),
+  exo_paquete          VARCHAR2(1) default 'N',
+  afe_empleado         VARCHAR2(1) default 'N',
+  mto_cuo_anual        NUMBER,
+  can_cuo_anual        NUMBER,
+  por_exo_cuo_anual    NUMBER(3),
+  tas_personalizada    VARCHAR2(1) default 'N',
+  tip_cierre           VARCHAR2(1),
+  ind_lin_especial     VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TIPOS
+  is 'Tabla de Tipos de Tarjetas.';
+comment on column IT.TA_TIPOS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.TA_TIPOS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.TA_TIPOS.cod_tip_tarjeta
+  is 'Tipo de Tarjeta.';
+comment on column IT.TA_TIPOS.descripcion
+  is 'Descripcion.';
+comment on column IT.TA_TIPOS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.TA_TIPOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_TIPOS.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.TA_TIPOS.fec_modificacion
+  is 'Ultima fecha en que se modifico el registro.';
+comment on column IT.TA_TIPOS.nro_bin
+  is 'Numero de Bin de la Tarjeta.';
+comment on column IT.TA_TIPOS.cod_ent_procesadora
+  is 'Codigo de ente de la Procesadora de la tarjeta.';
+comment on column IT.TA_TIPOS.afinidad
+  is 'Afinidad de la tarjeta.';
+comment on column IT.TA_TIPOS.cod_tip_cierre
+  is 'Código del Tipo de Cierre.';
+comment on column IT.TA_TIPOS.tip_cobro
+  is 'Tipo de Cobro (Minimo o Total).';
+comment on column IT.TA_TIPOS.tip_tas_financiacion
+  is 'Tipo de Tasa de Financiacion.';
+comment on column IT.TA_TIPOS.tip_com_emision
+  is 'Tipo de Comision de Emision.';
+comment on column IT.TA_TIPOS.tip_gas_financiero
+  is 'Tipo de Gasto Financiero.';
+comment on column IT.TA_TIPOS.tip_generacion
+  is 'Tipo de Generacion (A-Activada o C-Desactivada).';
+comment on column IT.TA_TIPOS.tip_cuenta
+  is 'Tipo de Cuenta (Personal o Empresarial).';
+comment on column IT.TA_TIPOS.cta_vip
+  is 'Cuenta Vip.';
+comment on column IT.TA_TIPOS.cta_personalizada
+  is 'Cuenta Personalizada (S/N).';
+comment on column IT.TA_TIPOS.plz_dur_tarjeta
+  is 'Plazo de Duracion de la Tarjeta.';
+comment on column IT.TA_TIPOS.franqueo
+  is 'Franqueo (S/N).';
+comment on column IT.TA_TIPOS.cod_campana
+  is 'Código de campaña.';
+comment on column IT.TA_TIPOS.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.TA_TIPOS.sig_nro_cuenta
+  is 'Siguiente Numero de cuenta.';
+comment on column IT.TA_TIPOS.tip_alcance
+  is 'Indica el alcance geografico de la Tarjeta, ''L''ocal, ''I''nternacional, ''M''ercosur, etc.';
+comment on column IT.TA_TIPOS.ref_externa
+  is 'Campo de Referencia para Cod_Afinidad BANCARD';
+comment on column IT.TA_TIPOS.sub_afinidad
+  is 'Sub Afinidad. ';
+comment on column IT.TA_TIPOS.min_linea
+  is 'Monto Mínimo de Límite de Crédito para la Tarjeta.';
+comment on column IT.TA_TIPOS.max_linea
+  is 'Monto Máximo de Límite de Crédito para la Tarjeta.';
+comment on column IT.TA_TIPOS.exo_paquete
+  is 'Indica si está exonerado de la asociación a un paquete (S/N).';
+comment on column IT.TA_TIPOS.afe_empleado
+  is 'Indica si la sub-afinidad es utilizada por los Funcionarios de la Entidad (S/N).';
+comment on column IT.TA_TIPOS.mto_cuo_anual
+  is 'Monto de la Cuota Anual.';
+comment on column IT.TA_TIPOS.can_cuo_anual
+  is 'Cantidad a fraccionar la Cuota Anual.';
+comment on column IT.TA_TIPOS.por_exo_cuo_anual
+  is 'Porcentaje de Exoneración Cuota Anual.';
+comment on column IT.TA_TIPOS.tas_personalizada
+  is 'Indica si puede Personalizar la Tasa.';
+comment on column IT.TA_TIPOS.ind_lin_especial
+  is 'Indica si admite o no la linea especial.';
+create index IT.IN_TTIPO_NRO_BIN on IT.TA_TIPOS (NRO_BIN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_TIPOS
+  add constraint UK_TA_TIPOS unique (COD_MODALIDAD, COD_MODULO, NRO_BIN, AFINIDAD, SUB_AFINIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_TIPOS
+  add constraint UK_TTIPO_COD_ENT_PROCESADORA unique (COD_ENT_PROCESADORA, NRO_BIN, SUB_AFINIDAD, AFINIDAD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_TIPOS
+  add constraint UK_TTIPO_NRO_BIN unique (COD_ENT_PROCESADORA, NRO_BIN, SUB_AFINIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_TIPOS
+  add constraint FK_TTIPO_COD_ENTE foreign key (COD_ENT_PROCESADORA)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.TA_TIPOS
+  add constraint FK_TTIPO_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.TA_TIPOS
+  add constraint FK_TTIPO_COD_TIP_CIERRE foreign key (COD_TIP_CIERRE)
+  references IT.TA_TIP_CIERRES (COD_TIP_CIERRE);
+

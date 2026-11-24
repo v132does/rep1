@@ -1,0 +1,77 @@
+create table IT.SB_DEP_INS_CAPTACION
+(
+  fecha                DATE not null,
+  cod_moneda           VARCHAR2(3) not null,
+  cod_oficina          NUMBER(3),
+  tip_persona          VARCHAR2(1) not null,
+  can_cta_corrientes   NUMBER(7) not null,
+  mto_cta_corrientes   NUMBER(18,2) default 0 not null,
+  can_ah_vistas        NUMBER(7) not null,
+  mto_ah_vistas        NUMBER(18,2) default 0 not null,
+  can_plz_fijo1        NUMBER(7) not null,
+  mto_pla_fijo1        NUMBER(18,2) default 0 not null,
+  can_plz_fijo2        NUMBER(7) not null,
+  mto_plz_fijo2        NUMBER(18,2) default 0 not null,
+  can_ah_certificados1 NUMBER(7) not null,
+  mto_ah_certificados1 NUMBER(18,2) default 0 not null,
+  can_ah_certificados2 NUMBER(7) not null,
+  mto_ah_certificados2 NUMBER(18,2) default 0 not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_DEP_INS_CAPTACION
+  is 'Depositos.';
+comment on column IT.SB_DEP_INS_CAPTACION.fecha
+  is 'Fecha del Informe.';
+comment on column IT.SB_DEP_INS_CAPTACION.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.SB_DEP_INS_CAPTACION.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.SB_DEP_INS_CAPTACION.tip_persona
+  is 'Tipo de persona ( F = Fisica o J = Juridica).';
+comment on column IT.SB_DEP_INS_CAPTACION.can_cta_corrientes
+  is 'Numero de personas.';
+comment on column IT.SB_DEP_INS_CAPTACION.mto_cta_corrientes
+  is 'Monto Cuenta Corriete.';
+comment on column IT.SB_DEP_INS_CAPTACION.can_ah_vistas
+  is 'Numero de personas.';
+comment on column IT.SB_DEP_INS_CAPTACION.mto_ah_vistas
+  is 'Monto Ahorros a la Vista.';
+comment on column IT.SB_DEP_INS_CAPTACION.can_plz_fijo1
+  is 'Numero de personas.';
+comment on column IT.SB_DEP_INS_CAPTACION.mto_pla_fijo1
+  is 'Monto Depositos a Plazo Fijo <= 90 dias.';
+comment on column IT.SB_DEP_INS_CAPTACION.can_plz_fijo2
+  is 'Numero de personas.';
+comment on column IT.SB_DEP_INS_CAPTACION.mto_plz_fijo2
+  is 'Monto Depositos a Plazo Fijo > 90 dias.';
+comment on column IT.SB_DEP_INS_CAPTACION.can_ah_certificados1
+  is 'Numero de personas.';
+comment on column IT.SB_DEP_INS_CAPTACION.mto_ah_certificados1
+  is 'Monto CDA < = 360 dias.';
+comment on column IT.SB_DEP_INS_CAPTACION.can_ah_certificados2
+  is 'Numero de personas.';
+comment on column IT.SB_DEP_INS_CAPTACION.mto_ah_certificados2
+  is 'Monto CDA > 360 dias.';
+comment on column IT.SB_DEP_INS_CAPTACION.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_DEP_INS_CAPTACION.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_DEP_INS_CAPTACION.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_DEP_INS_CAPTACION.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

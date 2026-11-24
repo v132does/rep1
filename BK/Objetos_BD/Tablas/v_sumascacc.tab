@@ -1,0 +1,45 @@
+create table IT.V_SUMASCACC
+(
+  n1       VARCHAR2(30),
+  n2       VARCHAR2(30),
+  n3       VARCHAR2(30),
+  n4       VARCHAR2(30),
+  n5       VARCHAR2(30),
+  n6       VARCHAR2(30),
+  n7       VARCHAR2(30),
+  n8       VARCHAR2(30),
+  n9       VARCHAR2(30),
+  n10      VARCHAR2(30),
+  n11      VARCHAR2(30),
+  n12      VARCHAR2(30),
+  n13      VARCHAR2(30),
+  n14      VARCHAR2(30),
+  n15      VARCHAR2(30),
+  n16      VARCHAR2(30),
+  n17      VARCHAR2(30),
+  n18      VARCHAR2(30),
+  n19      VARCHAR2(30),
+  n20      VARCHAR2(30),
+  n21      VARCHAR2(30),
+  n22      VARCHAR2(30),
+  n23      VARCHAR2(30),
+  casuma19 NUMBER(18,2),
+  casuma20 NUMBER(18,2),
+  cbsuma9  NUMBER(18,2),
+  cbsuma10 NUMBER(18,2),
+  casumar  NUMBER(18,2),
+  ca19     VARCHAR2(30),
+  ca20     VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+

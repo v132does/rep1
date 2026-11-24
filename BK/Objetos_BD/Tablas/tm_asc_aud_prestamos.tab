@@ -1,0 +1,43 @@
+create table IT.TM_ASC_AUD_PRESTAMOS
+(
+  nro_cuenta VARCHAR2(15) not null,
+  tan        NUMBER(10,4),
+  tae        NUMBER(10,4),
+  rubro      VARCHAR2(30)
+)
+tablespace IT_AUD
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_ASC_AUD_PRESTAMOS
+  is 'Control de Tasas de Prestamos.';
+comment on column IT.TM_ASC_AUD_PRESTAMOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.TM_ASC_AUD_PRESTAMOS.tan
+  is 'Tasa Nominal.';
+comment on column IT.TM_ASC_AUD_PRESTAMOS.tae
+  is 'Tasa Efectiva.';
+comment on column IT.TM_ASC_AUD_PRESTAMOS.rubro
+  is 'Rubro.';
+alter table IT.TM_ASC_AUD_PRESTAMOS
+  add constraint PK_TM_ASC_AUD_PRESTAMOS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

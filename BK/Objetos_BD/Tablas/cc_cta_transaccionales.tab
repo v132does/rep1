@@ -1,0 +1,64 @@
+create table IT.CC_CTA_TRANSACCIONALES
+(
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  nro_cuenta            VARCHAR2(20) not null,
+  tip_cta_transaccional VARCHAR2(3),
+  activo                VARCHAR2(1),
+  fec_activacion        DATE,
+  fec_inactivacion      DATE,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CTA_TRANSACCIONALES
+  is 'Cuentas transaccionales.';
+comment on column IT.CC_CTA_TRANSACCIONALES.cod_modulo
+  is 'Codigo de módulo.';
+comment on column IT.CC_CTA_TRANSACCIONALES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.CC_CTA_TRANSACCIONALES.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.CC_CTA_TRANSACCIONALES.tip_cta_transaccional
+  is 'Tipo de Cuenta Transaccional.';
+comment on column IT.CC_CTA_TRANSACCIONALES.activo
+  is 'Activo: S/N.';
+comment on column IT.CC_CTA_TRANSACCIONALES.fec_activacion
+  is 'Fecha Activacion.';
+comment on column IT.CC_CTA_TRANSACCIONALES.fec_inactivacion
+  is 'Fecha Inactivacion.';
+comment on column IT.CC_CTA_TRANSACCIONALES.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.CC_CTA_TRANSACCIONALES.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.CC_CTA_TRANSACCIONALES.usu_modificacion
+  is 'Usuario de Modificacion.';
+comment on column IT.CC_CTA_TRANSACCIONALES.fec_modificacion
+  is 'Fecha de Modificacion.';
+alter table IT.CC_CTA_TRANSACCIONALES
+  add constraint PK_CC_CTA_TRANSACCIONALES primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

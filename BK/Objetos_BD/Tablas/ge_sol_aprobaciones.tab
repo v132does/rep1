@@ -1,0 +1,61 @@
+create table IT.GE_SOL_APROBACIONES
+(
+  nro_solicitud    NUMBER(7) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  mto_limite       NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_APROBACIONES
+  is 'Aprobaciones de las solicitudes.';
+comment on column IT.GE_SOL_APROBACIONES.nro_solicitud
+  is 'Numero de solicitud.';
+comment on column IT.GE_SOL_APROBACIONES.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.GE_SOL_APROBACIONES.fecha
+  is 'Fecha de la aprobacion.';
+comment on column IT.GE_SOL_APROBACIONES.mto_limite
+  is 'Monto limite del usuario en el momento de la aprobacion.';
+comment on column IT.GE_SOL_APROBACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_APROBACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_APROBACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_APROBACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SOL_APROBACIONES
+  add constraint PK_GE_SOL_APROBACIONES primary key (NRO_SOLICITUD, COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_APROBACIONES
+  add constraint FK_GSAPR_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_SOL_APROBACIONES
+  add constraint FK_GSAPR_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOLICITUDES (NRO_SOLICITUD);
+

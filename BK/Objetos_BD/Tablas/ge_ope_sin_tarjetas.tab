@@ -1,0 +1,53 @@
+create table IT.GE_OPE_SIN_TARJETAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_telefono     VARCHAR2(16) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  fec_alta         DATE,
+  estado           VARCHAR2(1),
+  observacion      VARCHAR2(4000),
+  est_envio        VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_OPE_SIN_TARJETAS
+  is 'Es la tabla para registros de clientes para operaciones sin tarjetas Bancard';
+comment on column IT.GE_OPE_SIN_TARJETAS.cod_persona
+  is 'Codigo de persona del cliente';
+comment on column IT.GE_OPE_SIN_TARJETAS.nro_telefono
+  is 'Nro de telefono del cliente';
+comment on column IT.GE_OPE_SIN_TARJETAS.nro_cuenta
+  is 'Nro de cuenta del cliente';
+comment on column IT.GE_OPE_SIN_TARJETAS.cod_moneda
+  is 'Codigo de la moneda de la cuenta';
+comment on column IT.GE_OPE_SIN_TARJETAS.fec_alta
+  is 'Fecha de alta a operaciones sin tarjetas';
+comment on column IT.GE_OPE_SIN_TARJETAS.estado
+  is 'Estado de suscripcion a operaciones sin tarjetas';
+comment on column IT.GE_OPE_SIN_TARJETAS.observacion
+  is 'Observacion';
+comment on column IT.GE_OPE_SIN_TARJETAS.est_envio
+  is 'Estado de envio a Bancard';
+comment on column IT.GE_OPE_SIN_TARJETAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_OPE_SIN_TARJETAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_OPE_SIN_TARJETAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_OPE_SIN_TARJETAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

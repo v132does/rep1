@@ -1,0 +1,18 @@
+create table IT.MI_PR_CTA_PRESTAMOS_TASAS
+(
+  sfi_cuenta VARCHAR2(15) not null,
+  nro_cuenta VARCHAR2(15) not null,
+  tae        NUMBER(20,4) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

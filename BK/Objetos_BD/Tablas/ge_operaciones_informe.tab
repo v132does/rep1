@@ -1,0 +1,27 @@
+create table IT.GE_OPERACIONES_INFORME
+(
+  tip_persona VARCHAR2(1),
+  residente   VARCHAR2(1),
+  cantidad    NUMBER,
+  porcentaje  FLOAT,
+  efectivo_e  FLOAT,
+  efectivo_s  FLOAT,
+  transf_e    FLOAT,
+  transf_s    FLOAT,
+  cod_rango   NUMBER,
+  cod_moneda  VARCHAR2(3),
+  mes         VARCHAR2(3),
+  anho        VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

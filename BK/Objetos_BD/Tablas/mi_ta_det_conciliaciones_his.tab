@@ -1,0 +1,25 @@
+create table IT.MI_TA_DET_CONCILIACIONES_HIS
+(
+  nro_mov_bancard  NUMBER(15) not null,
+  cod_gru_servicio NUMBER(3),
+  cod_transaccion  NUMBER(3),
+  fec_valor        DATE,
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  fec_transaccion  DATE,
+  hor_transaccion  VARCHAR2(8),
+  cod_ent_credito  NUMBER(5),
+  cod_ent_debito   NUMBER(5),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  fec_conciliacion DATE,
+  nro_conciliacion NUMBER(20),
+  tip_conciliacion VARCHAR2(1)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

@@ -1,0 +1,139 @@
+create table IT.CS_CONTRATOS
+(
+  nro_contrato        VARCHAR2(10) not null,
+  cod_caj_seguridad   VARCHAR2(5) not null,
+  cod_oficina         NUMBER(3) not null,
+  fec_apertura        DATE,
+  fec_vencimiento     DATE,
+  mto_pactado         NUMBER(18,2),
+  mto_real            NUMBER(18,2),
+  lla_entregadas      NUMBER(2),
+  lla_devueltas       NUMBER(2),
+  estado              VARCHAR2(1),
+  tip_pago            VARCHAR2(1),
+  nro_cta_debito      VARCHAR2(15),
+  cod_usu_autorizador VARCHAR2(10),
+  per_pago            NUMBER(3),
+  fec_ult_pago        DATE,
+  fec_sig_pago        DATE,
+  mto_adeudado        NUMBER(18,2),
+  reajuste            NUMBER(18,2),
+  per_reajuste        NUMBER(3),
+  fec_cancelacion     DATE,
+  fec_reajuste        DATE,
+  tip_reajuste        VARCHAR2(1),
+  cod_moneda          VARCHAR2(3),
+  mto_cuota           NUMBER(18,2),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observaciones       VARCHAR2(200),
+  dia_atraso          NUMBER(5),
+  max_atraso          NUMBER(5),
+  cod_reg_acceso      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_CONTRATOS
+  is 'Contratos de alquiler de las Cajas.';
+comment on column IT.CS_CONTRATOS.nro_contrato
+  is 'Código del Contrato.';
+comment on column IT.CS_CONTRATOS.cod_caj_seguridad
+  is 'Código de la Caja de Seguridad.';
+comment on column IT.CS_CONTRATOS.cod_oficina
+  is 'Código de la Oficina.';
+comment on column IT.CS_CONTRATOS.fec_apertura
+  is 'Fecha de Inicio del Contrato.';
+comment on column IT.CS_CONTRATOS.fec_vencimiento
+  is 'Fecha de Vencimiento del Contrato.';
+comment on column IT.CS_CONTRATOS.mto_pactado
+  is 'Monto pactado con el usuario.';
+comment on column IT.CS_CONTRATOS.mto_real
+  is 'Monto real de la caja.';
+comment on column IT.CS_CONTRATOS.lla_entregadas
+  is 'Cantidad de llaves entregadas.';
+comment on column IT.CS_CONTRATOS.lla_devueltas
+  is 'Cantidad de llaves devueltas.';
+comment on column IT.CS_CONTRATOS.estado
+  is 'Estado del Contrato: (A)ctivo, (C)ancelado, (M)oroso, (R)eservado.';
+comment on column IT.CS_CONTRATOS.tip_pago
+  is 'Tipo de Pago: (D)ebito Automatico, (C)Cheque, (E)fectivo.';
+comment on column IT.CS_CONTRATOS.nro_cta_debito
+  is 'Código de la cuenta en que se debitara si es cobro automatico.';
+comment on column IT.CS_CONTRATOS.cod_usu_autorizador
+  is 'Código del Usuario Autorizador.';
+comment on column IT.CS_CONTRATOS.per_pago
+  is 'Periodo de pago: 1=Anual 6=Semestral 3=Trimestral 12=Mensual.';
+comment on column IT.CS_CONTRATOS.fec_ult_pago
+  is 'Fecha del Ultimo Pago.';
+comment on column IT.CS_CONTRATOS.fec_sig_pago
+  is 'Fecha del Próximo Pago.';
+comment on column IT.CS_CONTRATOS.mto_adeudado
+  is 'Monto adeudado hasta la fecha.';
+comment on column IT.CS_CONTRATOS.reajuste
+  is 'El porcentaje o monto de reajuste.';
+comment on column IT.CS_CONTRATOS.per_reajuste
+  is 'Periodo de reajuste.';
+comment on column IT.CS_CONTRATOS.fec_cancelacion
+  is 'Fecha de cancelacion del contrato.';
+comment on column IT.CS_CONTRATOS.fec_reajuste
+  is 'Fecha desde el cual correra el reajuste en el cobro.';
+comment on column IT.CS_CONTRATOS.tip_reajuste
+  is 'Tipo de Reajuste: (P)orcentaje, (M)onto.';
+comment on column IT.CS_CONTRATOS.cod_moneda
+  is 'Moneda del Contrato.';
+comment on column IT.CS_CONTRATOS.mto_cuota
+  is 'Monto del Pago del Contrato.';
+comment on column IT.CS_CONTRATOS.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.CS_CONTRATOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CS_CONTRATOS.usu_modificacion
+  is 'Usuario que realizó la última modificación del registro.';
+comment on column IT.CS_CONTRATOS.fec_modificacion
+  is 'Usuario que realizó la última modificación del registro.';
+comment on column IT.CS_CONTRATOS.observaciones
+  is 'Observaciones.';
+comment on column IT.CS_CONTRATOS.dia_atraso
+  is 'Dias de atraso';
+comment on column IT.CS_CONTRATOS.max_atraso
+  is 'Maximo atraso en el pago del contrato';
+comment on column IT.CS_CONTRATOS.cod_reg_acceso
+  is 'Código de Régimen de acceso a personas autorizadas a la caja de seguridad Dominio "TIP_FIR_AUTORIZADOS"';
+alter table IT.CS_CONTRATOS
+  add constraint PK_CS_CONTRATOS primary key (NRO_CONTRATO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CS_CONTRATOS
+  add constraint FK_CCONT_COD_CAJ_SEGURIDAD foreign key (COD_CAJ_SEGURIDAD, COD_OFICINA)
+  references IT.CS_CAJ_SEGURIDAD (COD_CAJ_SEGURIDAD, COD_OFICINA);
+alter table IT.CS_CONTRATOS
+  add constraint FK_CCONT_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CS_CONTRATOS
+  add constraint FK_CCONT_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CS_CONTRATOS
+  add constraint FK_CCONT_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

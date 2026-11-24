@@ -1,0 +1,82 @@
+create table IT.CR_ACT_ESPERADAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  can_tra_debito   NUMBER(10) not null,
+  can_tra_credito  NUMBER(10) not null,
+  mto_pro_debito   NUMBER(18,2) not null,
+  mto_pro_credito  NUMBER(18,2) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  fecha            DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_ACT_ESPERADAS
+  is 'Actividades esperadas de Clientes.';
+comment on column IT.CR_ACT_ESPERADAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.CR_ACT_ESPERADAS.cod_moneda
+  is 'Codigo de la Moneda que opera.';
+comment on column IT.CR_ACT_ESPERADAS.can_tra_debito
+  is 'Numero de transacciones de Debito esperado.';
+comment on column IT.CR_ACT_ESPERADAS.can_tra_credito
+  is 'Numero de transacciones de Credito esperado.';
+comment on column IT.CR_ACT_ESPERADAS.mto_pro_debito
+  is 'Monto promedio Debito esperado.';
+comment on column IT.CR_ACT_ESPERADAS.mto_pro_credito
+  is 'Monto promedio Credito esperado.';
+comment on column IT.CR_ACT_ESPERADAS.usu_insercion
+  is 'Usuario que inserto el Registro.';
+comment on column IT.CR_ACT_ESPERADAS.fec_insercion
+  is 'Fecha de insercion del Registro.';
+comment on column IT.CR_ACT_ESPERADAS.usu_modificacion
+  is 'Usuario que modifico el Registro.';
+comment on column IT.CR_ACT_ESPERADAS.fec_modificacion
+  is 'Fecha de modificacion del Registro.';
+comment on column IT.CR_ACT_ESPERADAS.fecha
+  is 'Fecha de Ingreso de la Actividad.';
+create index IT.IN_BBVA_CR_ACT_PER on IT.CR_ACT_ESPERADAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_ACT_ESPERADAS
+  add constraint PK_CR_ACT_ESPERADAS primary key (COD_PERSONA, FECHA, COD_MONEDA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_ACT_ESPERADAS
+  add constraint FK_EMONE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_ACT_ESPERADAS
+  add constraint FK_RAESP_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

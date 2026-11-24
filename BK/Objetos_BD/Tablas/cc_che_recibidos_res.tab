@@ -1,0 +1,70 @@
+create table IT.CC_CHE_RECIBIDOS_RES
+(
+  cod_oficina      NUMBER(3) not null,
+  cod_banco        NUMBER(3) not null,
+  tot_cheques      NUMBER(18,2) default 0 not null,
+  can_cheques      NUMBER(7) default 0 not null,
+  cod_moneda       VARCHAR2(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  com_directa      VARCHAR2(1) default 'N' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_RECIBIDOS_RES
+  is 'Resumen de Cheques Recibidos.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.cod_oficina
+  is 'Codigo de oficina (Agencia o Sucursal) en que se han recibido los cheques.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.cod_banco
+  is 'Codigo de banco del que se ha recibido los cheques.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.tot_cheques
+  is 'Sumatoria de los cheques recibidos de este Banco.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.can_cheques
+  is 'Cantidad de cheques recibidos de este Banco.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_RECIBIDOS_RES.com_directa
+  is 'Compensacion directa S/N.';
+alter table IT.CC_CHE_RECIBIDOS_RES
+  add constraint PK_CC_CHE_RECIBIDOS_RES primary key (COD_OFICINA, COD_MONEDA, COD_BANCO, COM_DIRECTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_RECIBIDOS_RES
+  add constraint FK_CRCRE_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_RECIBIDOS_RES
+  add constraint FK_CRCRE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CHE_RECIBIDOS_RES
+  add constraint FK_CRCRE_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

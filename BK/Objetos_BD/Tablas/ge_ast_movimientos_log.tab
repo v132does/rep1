@@ -1,0 +1,37 @@
+create table IT.GE_AST_MOVIMIENTOS_LOG
+(
+  fecha               DATE,
+  hora                VARCHAR2(8),
+  cod_ast_transaccion NUMBER(8),
+  monto               NUMBER(18,3),
+  tipo_movimiento     VARCHAR2(1),
+  tipo_proceso        VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_AST_MOVIMIENTOS_LOG.tipo_movimiento
+  is 'se indica si el movimiento es CRÉDITO = C O DÉBITO = D';
+comment on column IT.GE_AST_MOVIMIENTOS_LOG.tipo_proceso
+  is 'se indica si el proceso fue NORMAL o REPROCESADO';
+create index IT.IN_GAMOL_FECHA on IT.GE_AST_MOVIMIENTOS_LOG (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

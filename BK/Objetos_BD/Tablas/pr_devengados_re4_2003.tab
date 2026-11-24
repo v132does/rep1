@@ -1,0 +1,51 @@
+create table IT.PR_DEVENGADOS_RE4_2003
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fec_inicio        DATE not null,
+  val_tasa          NUMBER(20,4) not null,
+  mto_dev_anterior  NUMBER(18,2),
+  mto_dev_actual    NUMBER(18,2) not null,
+  capital           NUMBER(18,2) not null,
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null,
+  nro_cuota         NUMBER(3) not null,
+  tipo              VARCHAR2(1) not null,
+  fecha             DATE not null,
+  fec_ult_devengado DATE,
+  cod_moneda        VARCHAR2(3) not null,
+  estado            VARCHAR2(1) not null,
+  categoria         NUMBER(3,2) not null,
+  can_dia_interes   NUMBER(6) not null,
+  can_dia_anterior  NUMBER(6),
+  mto_ajuste        NUMBER(18,2),
+  mto_dev_acumulado NUMBER(18,2) not null,
+  nro_registro      NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_DEVENGADOS_RE4_2003
+  add constraint PK_PR_DEVEN_2003 primary key (NRO_CUENTA, NRO_CUOTA, TIPO, COD_MONEDA, ESTADO, CATEGORIA, CAPITAL, VAL_TASA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,56 @@
+create table IT.GE_LOG_INF_COB_BATCH
+(
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  nro_transaccion  NUMBER(15),
+  nro_cuenta       VARCHAR2(15),
+  mto_facturador   NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  det_error        VARCHAR2(1000),
+  ind_mov_comision VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_INF_COB_BATCH
+  is 'Tabla de Log de Operaciones en Batch de Infonet Cobranza.';
+comment on column IT.GE_LOG_INF_COB_BATCH.fecha
+  is 'Fecha del Movimiento.';
+comment on column IT.GE_LOG_INF_COB_BATCH.hora
+  is 'Hora del Movimiento.';
+comment on column IT.GE_LOG_INF_COB_BATCH.cod_usuario
+  is 'Código del Usuario que realizó la Operación.';
+comment on column IT.GE_LOG_INF_COB_BATCH.nro_transaccion
+  is 'Nro de Transacción.';
+comment on column IT.GE_LOG_INF_COB_BATCH.nro_cuenta
+  is 'Nro de Cuenta.';
+comment on column IT.GE_LOG_INF_COB_BATCH.mto_facturador
+  is 'Monto Facturador.';
+comment on column IT.GE_LOG_INF_COB_BATCH.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_LOG_INF_COB_BATCH.det_error
+  is 'Detalle del Error.';
+comment on column IT.GE_LOG_INF_COB_BATCH.ind_mov_comision
+  is 'Indicador Movimiento comision.';
+comment on column IT.GE_LOG_INF_COB_BATCH.usu_insercion
+  is 'Usuario que realizó la insercion del registro.';
+comment on column IT.GE_LOG_INF_COB_BATCH.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_LOG_INF_COB_BATCH.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_LOG_INF_COB_BATCH.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

@@ -1,0 +1,88 @@
+create table IT.IG_OFI_METAS
+(
+  cod_oficial      VARCHAR2(10) not null,
+  cod_concepto     NUMBER(3) not null,
+  cod_sub_concepto NUMBER(4),
+  cod_periodo      NUMBER(3) not null,
+  por_meta         NUMBER(5,2) not null,
+  mto_meta         NUMBER(18,2) not null,
+  liquidado        VARCHAR2(1) default 'N' not null,
+  cod_unidad       NUMBER(3) not null,
+  logro            NUMBER(20,4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_OFI_METAS
+  is 'Metas por Oficial.';
+comment on column IT.IG_OFI_METAS.cod_oficial
+  is 'Codigo de oficial.';
+comment on column IT.IG_OFI_METAS.cod_concepto
+  is 'Codigo de concepto.';
+comment on column IT.IG_OFI_METAS.cod_sub_concepto
+  is 'Codigo del sub-concepto.';
+comment on column IT.IG_OFI_METAS.cod_periodo
+  is 'Periodo fijado para la meta.';
+comment on column IT.IG_OFI_METAS.por_meta
+  is 'Meta en Porcentaje que se debe alcanzar o no superar.';
+comment on column IT.IG_OFI_METAS.mto_meta
+  is 'Meta en Monto que se debe alcanzar o no superar en la moneda de consolidacion.';
+comment on column IT.IG_OFI_METAS.liquidado
+  is 'Indica si el periodo ya fue liquidado. S/N.';
+comment on column IT.IG_OFI_METAS.cod_unidad
+  is 'Unidad de negocios en la que se encuentra el oficial.';
+comment on column IT.IG_OFI_METAS.logro
+  is 'Logro realizado por el oficial.';
+comment on column IT.IG_OFI_METAS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.IG_OFI_METAS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.IG_OFI_METAS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.IG_OFI_METAS.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.IG_OFI_METAS
+  add constraint UK_IG_OFI_METAS unique (COD_OFICIAL, COD_CONCEPTO, COD_SUB_CONCEPTO, COD_PERIODO, COD_UNIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_OFI_METAS
+  add constraint FK_IOMET_COD_OFICIAL foreign key (COD_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.IG_OFI_METAS
+  add constraint FK_IOMET_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_OFI_METAS
+  add constraint FK_IOMET_COD_UNIDAD foreign key (COD_UNIDAD, COD_CONCEPTO, COD_SUB_CONCEPTO, COD_PERIODO)
+  references IT.IG_UNI_NEG_METAS (COD_UNIDAD, COD_CONCEPTO, COD_SUB_CONCEPTO, COD_PERIODO);
+alter table IT.IG_OFI_METAS
+  add constraint AVCON_1180382030_COD_C_003
+  check (COD_CONCEPTO BETWEEN 0 AND 999);
+alter table IT.IG_OFI_METAS
+  add constraint AVCON_1180382030_COD_U_001
+  check (COD_UNIDAD BETWEEN 0 AND 999);
+alter table IT.IG_OFI_METAS
+  add constraint AVCON_1180382030_LIQUI_000
+  check (LIQUIDADO IN ('S', 'N'));
+

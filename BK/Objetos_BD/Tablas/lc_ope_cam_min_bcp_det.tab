@@ -1,0 +1,161 @@
+create table IT.LC_OPE_CAM_MIN_BCP_DET
+(
+  fecha              DATE,
+  fec_registro       DATE,
+  tip_documento      VARCHAR2(3),
+  nro_documento      VARCHAR2(20),
+  nom_cliente        VARCHAR2(150),
+  fec_ven_forward    DATE,
+  mercado            NUMBER(2),
+  ciudad             NUMBER(6),
+  tip_operacion      NUMBER(2),
+  tip_canje          NUMBER(2),
+  com_moneda         VARCHAR2(3),
+  com_monto          NUMBER(18,2) default 0 not null,
+  com_precio         NUMBER(18,2) default 0 not null,
+  com_mto_usd        NUMBER(18,2) default 0 not null,
+  vta_moneda         VARCHAR2(3),
+  vta_monto          NUMBER(18,2) default 0 not null,
+  vta_precio         NUMBER(18,2) default 0 not null,
+  vta_mto_usd        NUMBER(18,2) default 0 not null,
+  tip_interno        VARCHAR2(30),
+  nro_doc_ope        NUMBER(15),
+  cod_ofi_cambio     NUMBER(3),
+  tot_equ_compra     NUMBER(18,2),
+  tot_equ_venta      NUMBER(18,2),
+  cod_persona        VARCHAR2(10),
+  nro_cuenta         VARCHAR2(15),
+  nro_cta_contra     VARCHAR2(15),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  hora               VARCHAR2(8),
+  cod_usuario        VARCHAR2(10),
+  cod_tip_operacion  VARCHAR2(3),
+  cod_tip_ope_contra VARCHAR2(3),
+  afe_posicion       VARCHAR2(1),
+  seg_operacion      VARCHAR2(20),
+  env_bcp            VARCHAR2(1),
+  inc_posicion       VARCHAR2(1),
+  des_tip_operacion  VARCHAR2(70),
+  des_tip_ope_contra VARCHAR2(70),
+  cod_mad_padre      NUMBER(3),
+  ref_canje          VARCHAR2(20),
+  nro_secuencia      NUMBER(3),
+  nro_registro       NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_OPE_CAM_MIN_BCP_DET
+  is 'Historico de Movimientos Diarios. Contiene los datos historicos de los movimientos generados por Cambios.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.fec_registro
+  is 'Fecha de registro. Para el caso de Forward la fecha que ingreso la operacion';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.tip_documento
+  is 'Tipo de Documento';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nro_documento
+  is 'Numero de documento.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nom_cliente
+  is 'Nombre del Cliente';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.fec_ven_forward
+  is 'Fecha de vencimiento del Forward';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.mercado
+  is 'Mercado (Codificacion segun resolucion 107 / 2019)';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.ciudad
+  is 'Ciudad donde se realizo la operacion con codigos de la RFC de BCP';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.tip_operacion
+  is 'Tipo de operacion (Codificacion segun resolucion 107 / 2019)';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.tip_canje
+  is 'Tipo de cance (Codificacion segun resolucion 107 / 2019)';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.com_moneda
+  is 'Moneda de la compra';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.com_monto
+  is 'Monto de la compra';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.com_precio
+  is 'Precio o cotizacion de la compra';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.com_mto_usd
+  is 'Monto de la compra en USD';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.vta_moneda
+  is 'Moneda de la venta';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.vta_monto
+  is 'Monto de la venta';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.vta_precio
+  is 'Precio o cotizacion de la venta';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.vta_mto_usd
+  is 'Monto de la venta en USD';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.tip_interno
+  is 'Tipo interno de operacion para identificar pon que canal indreso';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nro_doc_ope
+  is 'Nro de documento o comprobante de la operacion';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.cod_ofi_cambio
+  is 'Codigo de oficina de cambios';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.tot_equ_compra
+  is 'Total equivalente de la compra';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.tot_equ_venta
+  is 'Total equivalente de la venta';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.cod_persona
+  is 'Codigo de persona asociada al movimiento.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nro_cta_contra
+  is 'Nro de cuenta contrapartida del movimiento principal';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.hora
+  is 'Hora del movimiento.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.cod_tip_operacion
+  is 'Codigo de Tipo de Operacion de Cambios';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.cod_tip_ope_contra
+  is 'Codigo de Tipo de Operacion de Cambios contra p/ iopereciones que tienen mas de una linea de ME';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.afe_posicion
+  is 'Afecta la posicion de cambios';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.seg_operacion
+  is 'Segmento de la operacion (Mayores o Menores a USD 10.000)';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.env_bcp
+  is 'Operacion debe ser enviada a BCP (S indica envio, N indica no envio)';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.inc_posicion
+  is 'Indica si esta incluido o no en la posicion de cambios';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.des_tip_operacion
+  is 'Descipcion del tipo de operacion de cambios';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.des_tip_ope_contra
+  is 'Descipcion del tipo de operacion de cambios de la operacion de contrapartida';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.ref_canje
+  is 'Referencia de canje asociado al agrupamiento';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nro_secuencia
+  is 'Numero de Secuencia del movimiento';
+comment on column IT.LC_OPE_CAM_MIN_BCP_DET.nro_registro
+  is 'Numero de registro para envio - Para identificar los erroes indicados por BCP';
+create index IT.IN_OPE_BCP_MIN_FECHA on IT.LC_OPE_CAM_MIN_BCP_DET (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

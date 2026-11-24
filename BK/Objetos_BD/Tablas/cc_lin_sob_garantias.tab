@@ -1,0 +1,94 @@
+create table IT.CC_LIN_SOB_GARANTIAS
+(
+  mto_aplicado         NUMBER(18,2) default 0 not null,
+  nro_garantia         NUMBER(7),
+  nro_secuencia        NUMBER(7) not null,
+  cod_garantia         NUMBER(3) not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  mto_apl_computable   NUMBER(18,2),
+  mto_con_computable   NUMBER(18,2),
+  mto_con_nocomputable NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_LIN_SOB_GARANTIAS
+  is 'Garantias de Lineas de Sobregiro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.mto_aplicado
+  is 'Monto aplicado.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.nro_garantia
+  is 'Numero de Garantia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.nro_secuencia
+  is 'Nro. de secuencia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.cod_garantia
+  is 'Codigo de garantia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.mto_apl_computable
+  is 'Monto computable de la garantia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.mto_con_computable
+  is 'Monto contable computable.';
+comment on column IT.CC_LIN_SOB_GARANTIAS.mto_con_nocomputable
+  is 'Monto contable no computable.';
+create index IT.IN_BBVA_COD_GARANTIA on IT.CC_LIN_SOB_GARANTIAS (COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CCLINGAR on IT.CC_LIN_SOB_GARANTIAS (NRO_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_LIN_SOB_GARANTIAS
+  add constraint UK_CC_LIN_SOB_GARANTIAS unique (NRO_SECUENCIA, COD_GARANTIA, NRO_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_LIN_SOB_GARANTIAS
+  add constraint FK_CLSGA_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+alter table IT.CC_LIN_SOB_GARANTIAS
+  add constraint FK_CLSGA_NRO_SECUENCIA foreign key (NRO_SECUENCIA)
+  references IT.CC_LIN_SOBREGIROS (NRO_SECUENCIA);
+

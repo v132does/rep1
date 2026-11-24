@@ -1,0 +1,179 @@
+create table IT.TA_DET_EXTRACTO_TMP
+(
+  fec_cierre         DATE not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  sec_detalle        NUMBER(4),
+  nro_tarjeta        VARCHAR2(19),
+  cup_usuario        NUMBER(15),
+  mov_usuario        NUMBER(15),
+  tip_saldo          NUMBER(3),
+  tip_cargo          NUMBER(3),
+  agr_tip_cargo      NUMBER(3),
+  fec_operacion      DATE,
+  fec_proceso        DATE,
+  nro_cupon          NUMBER(15),
+  des_operacion      VARCHAR2(40),
+  mto_liq_detalle    NUMBER(18,2),
+  cod_moneda         NUMBER(3),
+  cod_plan           VARCHAR2(2),
+  nro_cuota          NUMBER(2),
+  can_cuotas         NUMBER(2),
+  mto_int_cuota      NUMBER(18,2),
+  est_cuota          VARCHAR2(1),
+  des_est_cuota      VARCHAR2(15),
+  for_cal_iva        VARCHAR2(1),
+  des_for_cal_iva    VARCHAR2(30),
+  imp_movimiento     NUMBER(3),
+  mto_impuesto       NUMBER(18,2),
+  por_impuesto       NUMBER(8,5),
+  ori_transaccion    VARCHAR2(15),
+  mto_origen         NUMBER(18,2),
+  cod_mon_origen     NUMBER(3),
+  cod_pai_origen     NUMBER(3),
+  loc_comercio       VARCHAR2(40),
+  fin_pag_minimo     VARCHAR2(2),
+  tip_movimiento     VARCHAR2(15),
+  cod_entidad        NUMBER(3),
+  marca              VARCHAR2(3),
+  pro_marca          VARCHAR2(3),
+  afinidad           NUMBER(6),
+  num_cal_int_compra NUMBER(15),
+  can_tra_atm        NUMBER(5),
+  fec_ult_act        VARCHAR2(26),
+  mom_generacion     VARCHAR2(15),
+  tip_cierre         VARCHAR2(2),
+  afe_detalle        VARCHAR2(2),
+  imp_tip_cargo      NUMBER(3),
+  mot_no_afe_detalle VARCHAR2(15),
+  rubro              NUMBER(2),
+  agr_extracto       NUMBER(3),
+  ord_agr_extracto   NUMBER(3),
+  tip_tarjeta        VARCHAR2(15),
+  ref_archivo        VARCHAR2(30) default 'TA_DET_EXTRACTO' not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_DET_EXTRACTO_TMP
+  is 'Datos enviados por Bancard - Detalle de Extracto (PBEXTDET).';
+comment on column IT.TA_DET_EXTRACTO_TMP.fec_cierre
+  is 'Fecha de Cierre.';
+comment on column IT.TA_DET_EXTRACTO_TMP.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_DET_EXTRACTO_TMP.sec_detalle
+  is 'Secuencia Detalle. De 1 a N, identifica al registro de detalle';
+comment on column IT.TA_DET_EXTRACTO_TMP.nro_tarjeta
+  is 'Nro. Tarjeta';
+comment on column IT.TA_DET_EXTRACTO_TMP.cup_usuario
+  is 'Id. Cupón Usuario. Si el detalle es de una transacción o, si el movimiento está relacionado a una transacción';
+comment on column IT.TA_DET_EXTRACTO_TMP.mov_usuario
+  is 'Id. Movimiento Usuario. Si el detalle es un pago o movimiento del periodo';
+comment on column IT.TA_DET_EXTRACTO_TMP.tip_saldo
+  is 'Id. Tipo Saldo';
+comment on column IT.TA_DET_EXTRACTO_TMP.tip_cargo
+  is 'Id. Tipo Cargo';
+comment on column IT.TA_DET_EXTRACTO_TMP.agr_tip_cargo
+  is 'Id. Agrupador Tipo Cargo';
+comment on column IT.TA_DET_EXTRACTO_TMP.fec_operacion
+  is 'Fecha de Operación';
+comment on column IT.TA_DET_EXTRACTO_TMP.fec_proceso
+  is 'Fecha de Proceso';
+comment on column IT.TA_DET_EXTRACTO_TMP.nro_cupon
+  is 'Número Cupón/Boleta';
+comment on column IT.TA_DET_EXTRACTO_TMP.des_operacion
+  is 'Descripción Operación';
+comment on column IT.TA_DET_EXTRACTO_TMP.mto_liq_detalle
+  is 'Importe Liquidación Detalle';
+comment on column IT.TA_DET_EXTRACTO_TMP.cod_moneda
+  is 'Cód. Moneda Importe Detalle';
+comment on column IT.TA_DET_EXTRACTO_TMP.cod_plan
+  is 'Código Planes';
+comment on column IT.TA_DET_EXTRACTO_TMP.nro_cuota
+  is 'Número Cuota';
+comment on column IT.TA_DET_EXTRACTO_TMP.can_cuotas
+  is 'Cantidad Cuotas';
+comment on column IT.TA_DET_EXTRACTO_TMP.mto_int_cuota
+  is 'Monto Interés Cuota.';
+comment on column IT.TA_DET_EXTRACTO_TMP.est_cuota
+  is 'Estado Cuota';
+comment on column IT.TA_DET_EXTRACTO_TMP.des_est_cuota
+  is 'Descripción Estado Cuota';
+comment on column IT.TA_DET_EXTRACTO_TMP.for_cal_iva
+  is 'Forma Cálculo Iva';
+comment on column IT.TA_DET_EXTRACTO_TMP.des_for_cal_iva
+  is 'Descripción Forma Cálculo Iva';
+comment on column IT.TA_DET_EXTRACTO_TMP.imp_movimiento
+  is 'Id. Impuesto Movimiento';
+comment on column IT.TA_DET_EXTRACTO_TMP.mto_impuesto
+  is 'Importe Impuesto';
+comment on column IT.TA_DET_EXTRACTO_TMP.por_impuesto
+  is 'Porcentaje Impuesto';
+comment on column IT.TA_DET_EXTRACTO_TMP.ori_transaccion
+  is 'Origen de transacción';
+comment on column IT.TA_DET_EXTRACTO_TMP.mto_origen
+  is 'Importe Origen';
+comment on column IT.TA_DET_EXTRACTO_TMP.cod_mon_origen
+  is 'Cód. Moneda Importe Origen. Código ISO numérico de Moneda';
+comment on column IT.TA_DET_EXTRACTO_TMP.cod_pai_origen
+  is 'Cód. País Transacción Origen. Código ISO numérico de País';
+comment on column IT.TA_DET_EXTRACTO_TMP.loc_comercio
+  is 'Localidad Comercio';
+comment on column IT.TA_DET_EXTRACTO_TMP.fin_pag_minimo
+  is 'Financiar en Pago Mínimo. "SI"; "NO"';
+comment on column IT.TA_DET_EXTRACTO_TMP.tip_movimiento
+  is 'Tipificación Movimiento';
+comment on column IT.TA_DET_EXTRACTO_TMP.cod_entidad
+  is 'Cód. Entidad.';
+comment on column IT.TA_DET_EXTRACTO_TMP.marca
+  is 'Cód. Marca.';
+comment on column IT.TA_DET_EXTRACTO_TMP.pro_marca
+  is 'Cód. Producto Marca.';
+comment on column IT.TA_DET_EXTRACTO_TMP.afinidad
+  is 'Id. Afinidad.';
+comment on column IT.TA_DET_EXTRACTO_TMP.num_cal_int_compra
+  is 'Numeral para cálc. Int/Compra';
+comment on column IT.TA_DET_EXTRACTO_TMP.can_tra_atm
+  is 'Cantidad Transacciones ATM';
+comment on column IT.TA_DET_EXTRACTO_TMP.fec_ult_act
+  is 'FH Ultima Actualización';
+comment on column IT.TA_DET_EXTRACTO_TMP.mom_generacion
+  is 'Momento Generación. “CIERRE”; “PERIODO”';
+comment on column IT.TA_DET_EXTRACTO_TMP.tip_cierre
+  is 'Id. Tipo Cierre.';
+comment on column IT.TA_DET_EXTRACTO_TMP.afe_detalle
+  is 'Afectación en Detalle. “SI”; “NO”';
+comment on column IT.TA_DET_EXTRACTO_TMP.imp_tip_cargo
+  is 'Id. Impuesto Tipo Cargo';
+comment on column IT.TA_DET_EXTRACTO_TMP.mot_no_afe_detalle
+  is 'Motivo No Afectación en Detalle';
+comment on column IT.TA_DET_EXTRACTO_TMP.rubro
+  is 'Id. Rubro';
+comment on column IT.TA_DET_EXTRACTO_TMP.agr_extracto
+  is 'Cód. Agrupación Extracto';
+comment on column IT.TA_DET_EXTRACTO_TMP.ord_agr_extracto
+  is 'Orden Agrupación Extracto';
+comment on column IT.TA_DET_EXTRACTO_TMP.tip_tarjeta
+  is 'Tipo Tarjeta. "PRINCIPAL"; "ADICIONAL"';
+comment on column IT.TA_DET_EXTRACTO_TMP.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_DET_EXTRACTO_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_DET_EXTRACTO_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_DET_EXTRACTO_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_DET_EXTRACTO_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+

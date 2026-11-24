@@ -1,0 +1,94 @@
+create table IT.CR_CAM_INNOMINADAS
+(
+  cod_campana       NUMBER(3) not null,
+  nro_identificador NUMBER(8) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  afinidad          VARCHAR2(10) not null,
+  sub_afinidad      VARCHAR2(3),
+  lin_credito       NUMBER(18,2) default 0 not null,
+  cod_tip_cierre    NUMBER(2) default 1 not null,
+  tip_plastico      VARCHAR2(1),
+  cantidad          NUMBER(4) not null,
+  cod_canal         NUMBER(3),
+  fec_vencimiento   DATE not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_CAM_INNOMINADAS
+  is 'Afinidades de Tarjetas Innominadas por campana.';
+comment on column IT.CR_CAM_INNOMINADAS.cod_campana
+  is 'Codigo de campana.';
+comment on column IT.CR_CAM_INNOMINADAS.nro_identificador
+  is 'Número de Indentificador.';
+comment on column IT.CR_CAM_INNOMINADAS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CR_CAM_INNOMINADAS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CR_CAM_INNOMINADAS.afinidad
+  is 'Codigo de Afinidad de la Tarjeta.';
+comment on column IT.CR_CAM_INNOMINADAS.sub_afinidad
+  is 'Codigo de Sub Afinidad de la Tarjerta.';
+comment on column IT.CR_CAM_INNOMINADAS.lin_credito
+  is 'Linea de Credito.';
+comment on column IT.CR_CAM_INNOMINADAS.cod_tip_cierre
+  is 'Codigo del Tipo de Cierre.';
+comment on column IT.CR_CAM_INNOMINADAS.tip_plastico
+  is 'Indica si el plastico de la tarjeta posee o no Chip. N/Nulo=Normal, C=Chip.';
+comment on column IT.CR_CAM_INNOMINADAS.cantidad
+  is 'Cantidad de plastico a generar por campaña.';
+comment on column IT.CR_CAM_INNOMINADAS.cod_canal
+  is 'Canal Asociado.';
+comment on column IT.CR_CAM_INNOMINADAS.fec_vencimiento
+  is 'Fecha de Vencimiento de los plásticos a generar.';
+comment on column IT.CR_CAM_INNOMINADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_CAM_INNOMINADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_CAM_INNOMINADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_CAM_INNOMINADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_CAM_INNOMINADAS
+  add constraint PR_CR_CAM_INNOMINADAS primary key (COD_CAMPANA, NRO_IDENTIFICADOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CAM_INNOMINADAS
+  add constraint FK_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.CR_CAM_INNOMINADAS
+  add constraint FK_RCTAR_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.CR_CAM_INNOMINADAS
+  add constraint FK_RCTAR_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_CAM_INNOMINADAS
+  add constraint FK_RCTAR_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.CR_CAM_INNOMINADAS
+  add constraint FK_RCTAR_TIP_CIERRE foreign key (COD_TIP_CIERRE)
+  references IT.TA_TIP_CIERRES (COD_TIP_CIERRE);
+

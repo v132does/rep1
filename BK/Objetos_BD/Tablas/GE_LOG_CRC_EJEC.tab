@@ -1,0 +1,156 @@
+--------------------------------------------------------------------------------
+-- Tabla: IT.GE_LOG_CRC_EJEC
+-- Descripción: Log de ejecución del orquestador CRC desacoplado.
+--------------------------------------------------------------------------------
+
+CREATE TABLE IT.GE_LOG_CRC_EJEC (
+    ID_LOG            NUMBER(18)      NOT NULL,
+    ID_EJECUCION      NUMBER(18)      NOT NULL,
+    FECHA_PROCESO     DATE            NULL,
+
+    NOMBRE_PROCESO    VARCHAR2(50)    DEFAULT 'CRC_DIARIO_DESACOPLE' NOT NULL,
+    PASO_ORDEN        NUMBER(3)       NOT NULL,
+    SUBPASO_ORDEN     NUMBER(3)       NULL, -- 1..N (subpasos / procesos CRC)
+
+    PASO_COD          VARCHAR2(50)    NOT NULL,
+    PASO_DESC         VARCHAR2(200)   NULL,
+
+    ESTADO            VARCHAR2(10)    NOT NULL, -- INICIO|OK|WARNING|ERROR
+    RETCODE           NUMBER(1)       NULL,     -- 0/1
+    RETDESC           VARCHAR2(4000)  NULL,
+
+    FH_INICIO         TIMESTAMP       NOT NULL,
+    FH_FIN            TIMESTAMP       NULL,
+    DURACION          VARCHAR2(8)     NULL,     -- HH24:MI:SS (duración del paso)
+
+    DB_UNIQUE_NAME    VARCHAR2(30)    NULL,
+    DB_ALLOW_PARAM    VARCHAR2(30)    NULL,
+    DB_PROD_PARAM     VARCHAR2(30)    NULL,
+
+    MODO_EJECUCION    VARCHAR2(10)    NULL,     -- AUTO|MANUAL
+    USUARIO_EJECUCION VARCHAR2(30)    NULL,
+
+    ERR_CODE          VARCHAR2(50)    NULL,
+    ERR_MSG           VARCHAR2(4000)  NULL,
+    ERR_STACK         CLOB            NULL,
+
+    USU_INSERCION     VARCHAR2(10)    NOT NULL,
+    FEC_INSERCION     DATE            NOT NULL,
+    USU_MODIFICACION  VARCHAR2(10)    NOT NULL,
+    FEC_MODIFICACION  DATE            NOT NULL,
+
+    CONSTRAINT PK_GE_LOG_CRC_EJEC
+        PRIMARY KEY (ID_LOG),
+
+    CONSTRAINT CK_GE_LOG_CRC_EJEC_EST
+        CHECK (ESTADO IN ('INICIO', 'OK', 'WARNING', 'ERROR')),
+
+    CONSTRAINT CK_GE_LOG_CRC_EJEC_RC
+        CHECK (RETCODE IN (0, 1))
+)
+TABLESPACE IT_DATA;
+
+--------------------------------------------------------------------------------
+-- Comentarios
+--------------------------------------------------------------------------------
+
+COMMENT ON TABLE IT.GE_LOG_CRC_EJEC IS
+'Log de ejecución del orquestador CRC desacoplado. Registra inicio/fin, estado, retorno, entorno y errores por paso/subpaso.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.ID_LOG IS
+'Identificador único del registro de log (PK).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.ID_EJECUCION IS
+'Identificador único de la ejecución del orquestador (correlaciona todos los pasos de una corrida).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.FECHA_PROCESO IS
+'Fecha de proceso FinDía asociada a la ejecución (truncada).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.NOMBRE_PROCESO IS
+'Nombre lógico del proceso/orquestador que registra el log.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.PASO_ORDEN IS
+'Orden del paso del orquestador según la configuración (GE_CRC_PASOS_ORQ).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.SUBPASO_ORDEN IS
+'Orden del subpaso dentro del paso (por ejemplo, orden de procesos CRC ejecutados).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.PASO_COD IS
+'Código del paso o subpaso (ej: VALIDAR_ENTORNO, EJECUTAR_CRC, COD_PROC).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.PASO_DESC IS
+'Descripción funcional del paso o subpaso.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.ESTADO IS
+'Estado del paso/subpaso: INICIO, OK, WARNING, ERROR.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.RETCODE IS
+'Código de retorno (0=OK/WARNING, 1=ERROR).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.RETDESC IS
+'Descripción del resultado del paso/subpaso (detalle funcional del retorno).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.FH_INICIO IS
+'Fecha y hora de inicio del paso/subpaso (timestamp).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.FH_FIN IS
+'Fecha y hora de finalización del paso/subpaso (timestamp).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.DURACION IS
+'Duración del paso/subpaso en formato HH24:MI:SS (calculada como fin - inicio).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.DB_UNIQUE_NAME IS
+'Nombre único de la base de datos (SYS_CONTEXT(USERENV, DB_UNIQUE_NAME)) donde se ejecutó.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.DB_ALLOW_PARAM IS
+'Valor del parámetro dinámico de base permitida (allow) usado para validación del entorno.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.DB_PROD_PARAM IS
+'Valor del parámetro dinámico de base productiva (prod) usado para bloqueo de ejecución.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.MODO_EJECUCION IS
+'Modo de ejecución solicitado: AUTO o MANUAL (u otros definidos por el orquestador).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.USUARIO_EJECUCION IS
+'Usuario lógico informado para la ejecución (si no se informa, se utiliza USER).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.ERR_CODE IS
+'Código de error (SQLCODE u otro código interno) asociado al fallo del paso/subpaso.';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.ERR_MSG IS
+'Mensaje de error asociado al fallo del paso/subpaso (SQLERRM u otro mensaje interno).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.ERR_STACK IS
+'Backtrace/stack del error (por ejemplo, DBMS_UTILITY.FORMAT_ERROR_BACKTRACE).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.USU_INSERCION IS
+'Usuario de inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.FEC_INSERCION IS
+'Fecha de inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.USU_MODIFICACION IS
+'Usuario de última modificación del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_LOG_CRC_EJEC.FEC_MODIFICACION IS
+'Fecha de última modificación del registro (auditoría).';
+
+--------------------------------------------------------------------------------
+-- Índices
+--------------------------------------------------------------------------------
+
+CREATE INDEX IT.IDX_LOG_CRC_EJEC_01
+    ON IT.GE_LOG_CRC_EJEC (ID_EJECUCION, PASO_ORDEN, SUBPASO_ORDEN)
+TABLESPACE IT_IND;
+
+CREATE INDEX IT.IDX_LOG_CRC_EJEC_02
+    ON IT.GE_LOG_CRC_EJEC (FECHA_PROCESO, ESTADO, FH_INICIO)
+TABLESPACE IT_IND;
+
+--------------------------------------------------------------------------------
+-- Sinónimos y grants
+--------------------------------------------------------------------------------
+
+CREATE PUBLIC SYNONYM GE_LOG_CRC_EJEC FOR IT.GE_LOG_CRC_EJEC;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.GE_LOG_CRC_EJEC TO IT_TEMPORAL;

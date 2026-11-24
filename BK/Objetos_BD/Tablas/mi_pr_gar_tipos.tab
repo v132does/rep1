@@ -1,0 +1,33 @@
+create table IT.MI_PR_GAR_TIPOS
+(
+  cod_garantia        NUMBER(3) not null,
+  descripcion         VARCHAR2(35) not null,
+  por_bco_central     NUMBER(5,2),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_transaccion1    NUMBER(4),
+  cod_transaccion2    NUMBER(4),
+  computable          VARCHAR2(1) not null,
+  plz_vencimiento     NUMBER(8),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  pri_aplicacion      NUMBER(2) not null,
+  activo              VARCHAR2(1),
+  nom_tab_anexa       VARCHAR2(60),
+  cod_ref_bco_central NUMBER(2),
+  pre_especial        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,127 @@
+create table IT.GE_ARCHIVOS
+(
+  referencia       VARCHAR2(30) not null,
+  archivo          VARCHAR2(30) not null,
+  nro_secuencia    VARCHAR2(3) not null,
+  for_fecha        VARCHAR2(8),
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  lin_inicial      NUMBER(3),
+  lin_final        NUMBER(3),
+  separador        VARCHAR2(1),
+  uti_loader       VARCHAR2(1),
+  pos_proceso      VARCHAR2(30),
+  pre_proceso      VARCHAR2(30),
+  charset_archivo  VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARCHIVOS
+  is 'Definicion de archivos para lectura de ascii.';
+comment on column IT.GE_ARCHIVOS.referencia
+  is 'Nombre de Referencia que le identificara a un grupo de archivos que seran cargados en un mismo proceso (Ej. BANCARD, SUELDOS, etc...).';
+comment on column IT.GE_ARCHIVOS.archivo
+  is 'Archivo que sera cargado (Si tiene $ sera reemplazado por la fecha en el formato que se especifique en FOR_FECHA).';
+comment on column IT.GE_ARCHIVOS.nro_secuencia
+  is 'Secuencia en que sera cargado.';
+comment on column IT.GE_ARCHIVOS.for_fecha
+  is 'Formato de fecha en caso de que el archivo tenga dentro del nombre.';
+comment on column IT.GE_ARCHIVOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_ARCHIVOS.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_ARCHIVOS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_ARCHIVOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ARCHIVOS.lin_inicial
+  is 'Linea inicial de lectura del archivo.';
+comment on column IT.GE_ARCHIVOS.lin_final
+  is 'Linea final de lectura del archivo.';
+comment on column IT.GE_ARCHIVOS.separador
+  is 'Separador de Campos: :,;.';
+comment on column IT.GE_ARCHIVOS.uti_loader
+  is 'Utilizar el loader S o N.';
+comment on column IT.GE_ARCHIVOS.pos_proceso
+  is 'Proceso que se ejecuta despues de leer el archivo.';
+comment on column IT.GE_ARCHIVOS.pre_proceso
+  is 'Proceso que se ejecuta antes de leer el archivo.';
+comment on column IT.GE_ARCHIVOS.charset_archivo
+  is 'Charset del archivo de entrada para sqlldr (ej: WE8MSWIN1252). Null = sin especificar (usa NLS_LANG del cliente).';
+create index IT.IN_BBVA_POS_PROCESO on IT.GE_ARCHIVOS (POS_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_PRE_PROCESO on IT.GE_ARCHIVOS (PRE_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GARCH_POS_PROCESO on IT.GE_ARCHIVOS (POS_PROCESO, PRE_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARCHIVOS
+  add constraint PK_GE_ARCHIVOS primary key (REFERENCIA, NRO_SECUENCIA, ARCHIVO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARCHIVOS
+  add constraint FK_EARCH_COD_PROGRAMA_POS foreign key (POS_PROCESO)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.GE_ARCHIVOS
+  add constraint FK_EARCH_COD_PROGRAMA_PRE foreign key (PRE_PROCESO)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.GE_ARCHIVOS
+  add constraint AVCON_1109959874_LIN_F_000
+  check (LIN_FINAL BETWEEN 0 AND 999);
+alter table IT.GE_ARCHIVOS
+  add constraint AVCON_1109959874_LIN_I_000
+  check (LIN_INICIAL BETWEEN 0 AND 999);
+alter table IT.GE_ARCHIVOS
+  add constraint AVCON_1184793525_UTI_L_000
+  check (UTI_LOADER IN ('S', 'N'));
+

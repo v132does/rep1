@@ -1,0 +1,108 @@
+create table IT.GE_CLIENTES_BCP
+(
+  cod_resultado       VARCHAR2(3),
+  resultado           VARCHAR2(25),
+  periodo             VARCHAR2(6),
+  tip_documento       VARCHAR2(32),
+  nro_documento       VARCHAR2(15),
+  nro_gpv             VARCHAR2(40),
+  nombres             VARCHAR2(255),
+  apellidos           VARCHAR2(60),
+  fec_nacimiento      VARCHAR2(8),
+  tip_vinculo         VARCHAR2(100),
+  tip_operacion       VARCHAR2(3),
+  desc_operacion      VARCHAR2(100),
+  cod_cta_sal_capital VARCHAR2(18),
+  cod_activ_destino   VARCHAR2(6),
+  region              VARCHAR2(100),
+  cod_moneda          VARCHAR2(3),
+  dias_atraso         VARCHAR2(5),
+  deuda_activa        VARCHAR2(18),
+  deuda_vendida       VARCHAR2(18),
+  deuda_incobrable    VARCHAR2(18),
+  deuda_fideicomiso   VARCHAR2(18),
+  monto_contingencia  VARCHAR2(18),
+  monto_prevision     VARCHAR2(18),
+  clasif_sistema      VARCHAR2(2),
+  dat_respuesta       CLOB,
+  fec_proceso         DATE not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLIENTES_BCP
+  is 'Tabla para resultado de proceso de importacion de datos de Clientes del BCP.';
+comment on column IT.GE_CLIENTES_BCP.cod_resultado
+  is 'Codigo de resultado 01: Datos encontrados/02:Datos no encontrados ';
+comment on column IT.GE_CLIENTES_BCP.resultado
+  is 'Resultado al consultar datos en BCP (mensaje)';
+comment on column IT.GE_CLIENTES_BCP.periodo
+  is 'Periodo de consulta de la deuda';
+comment on column IT.GE_CLIENTES_BCP.tip_documento
+  is 'Tipo de documento de identidad del cliente ';
+comment on column IT.GE_CLIENTES_BCP.nro_documento
+  is 'Numero de documento de identidad del cliente';
+comment on column IT.GE_CLIENTES_BCP.nro_gpv
+  is 'Grupo Economico Vinculado al que pertenece el
+cliente';
+comment on column IT.GE_CLIENTES_BCP.nombres
+  is 'Nombres del Cliente ';
+comment on column IT.GE_CLIENTES_BCP.apellidos
+  is 'Apellidos del Cliente';
+comment on column IT.GE_CLIENTES_BCP.fec_nacimiento
+  is 'Fecha de Nacimiento del Cliente ';
+comment on column IT.GE_CLIENTES_BCP.tip_vinculo
+  is 'Tipo de Vinculo con la deuda expuesta';
+comment on column IT.GE_CLIENTES_BCP.tip_operacion
+  is 'Tipo de Operacion ';
+comment on column IT.GE_CLIENTES_BCP.desc_operacion
+  is 'Descripción de la Operación';
+comment on column IT.GE_CLIENTES_BCP.cod_cta_sal_capital
+  is 'Codigo de la Cuenta Contable que afecta el saldo';
+comment on column IT.GE_CLIENTES_BCP.cod_activ_destino
+  is 'Codigo de Actividad de Destino';
+comment on column IT.GE_CLIENTES_BCP.region
+  is 'Region de Destino';
+comment on column IT.GE_CLIENTES_BCP.cod_moneda
+  is 'Codigo de la Moneda';
+comment on column IT.GE_CLIENTES_BCP.dias_atraso
+  is 'Promedio de dias de atraso';
+comment on column IT.GE_CLIENTES_BCP.deuda_activa
+  is 'Deuda Activa ';
+comment on column IT.GE_CLIENTES_BCP.deuda_vendida
+  is 'Deuda Vendida';
+comment on column IT.GE_CLIENTES_BCP.deuda_incobrable
+  is 'Deuda Incobrable ';
+comment on column IT.GE_CLIENTES_BCP.deuda_fideicomiso
+  is 'Deuda Fideicomiso';
+comment on column IT.GE_CLIENTES_BCP.monto_contingencia
+  is 'Monto Contingencia';
+comment on column IT.GE_CLIENTES_BCP.monto_prevision
+  is 'Monto Prevision ';
+comment on column IT.GE_CLIENTES_BCP.clasif_sistema
+  is 'Calificacion de Riesgo del Sistema';
+comment on column IT.GE_CLIENTES_BCP.dat_respuesta
+  is 'Datos de respuesta';
+comment on column IT.GE_CLIENTES_BCP.fec_proceso
+  is 'Fecha de proceso';
+comment on column IT.GE_CLIENTES_BCP.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.GE_CLIENTES_BCP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CLIENTES_BCP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CLIENTES_BCP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

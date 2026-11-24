@@ -1,0 +1,25 @@
+create table IT.BA_PER_IMA_DOC_ESTADOS
+(
+  cod_persona      VARCHAR2(20),
+  cod_circuito     NUMBER,
+  res_wf           VARCHAR2(1),
+  pro_crear        VARCHAR2(1) default 'N',
+  observacion      VARCHAR2(4000),
+  cod_id_crear     VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,113 @@
+create table IT.CB_COR_ASIENTOS_DET_TMP
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  tip_movimiento   VARCHAR2(1) not null,
+  mto_mon_rubro    NUMBER(18,2),
+  mto_mon_local    NUMBER(18,2),
+  descripcion      VARCHAR2(60),
+  referencia       VARCHAR2(11),
+  protegido        VARCHAR2(1),
+  actualizado      VARCHAR2(1),
+  val_cotizacion   NUMBER(14,8),
+  distribuido      VARCHAR2(1),
+  ref_movimiento   NUMBER(7),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  fec_valor        DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_COR_ASIENTOS_DET_TMP
+  is 'Detalle De Los Asientos Contables Historico de Rubros de Conciliacion de rango de fecha a conciliar.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.fecha
+  is 'Fecha del asiento.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.cod_oficina
+  is 'Codigo de la oficina del asiento.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.nro_linea
+  is 'Numero de lmnea del asiento.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.tip_movimiento
+  is 'Tipo de movimiento: D=Debito C=Credito.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.mto_mon_rubro
+  is 'Importe del movimiento en moneda extranjera.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.mto_mon_local
+  is 'Importe del movimiento en moneda local.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.descripcion
+  is 'Descripcion del asiento.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.referencia
+  is 'Referencia.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.protegido
+  is 'IND_PROTEGIDO? S=Registro IND_PROTEGIDO, no puede ser eliminado. N=Registro no IND_PROTEGIDO, puede ser eliminado.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.actualizado
+  is 'Registro actualizado en saldo de cuentas? S=Registro actualizado en saldo de cuentas N=Registro no actualizado en saldo de cuentas.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.val_cotizacion
+  is 'Valor de la tasa de cambio usada para generar asientos de cuentas en moneda extranjera.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.distribuido
+  is 'Tiene cuenta de distribucion: S=Tiene cuenta de distribucion. N=No tiene cuenta de distribucion.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.ref_movimiento
+  is 'Numero de Referencia.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_COR_ASIENTOS_DET_TMP.fec_valor
+  is 'Fecha valor del asiento.';
+create index IT.IN_COR_ADET_FECHA on IT.CB_COR_ASIENTOS_DET_TMP (FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_ADET_REFMOV on IT.CB_COR_ASIENTOS_DET_TMP (REF_MOVIMIENTO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_ADET_RUBRO on IT.CB_COR_ASIENTOS_DET_TMP (COD_RUBRO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

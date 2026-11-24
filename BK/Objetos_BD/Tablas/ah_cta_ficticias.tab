@@ -1,0 +1,73 @@
+create table IT.AH_CTA_FICTICIAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CTA_FICTICIAS
+  is 'Cuenta Ficticia Utilizada en Infonet.';
+comment on column IT.AH_CTA_FICTICIAS.nro_cuenta
+  is 'Numero de Cuenta Ficticia.';
+comment on column IT.AH_CTA_FICTICIAS.cod_transaccion
+  is 'Transaccion Hija Relacionada.';
+comment on column IT.AH_CTA_FICTICIAS.cod_modulo
+  is 'Modulo relacionado.';
+comment on column IT.AH_CTA_FICTICIAS.cod_modalidad
+  is 'Modalidad relacionada.';
+comment on column IT.AH_CTA_FICTICIAS.descripcion
+  is 'Descripcion.';
+comment on column IT.AH_CTA_FICTICIAS.cod_rubro
+  is 'Cuenta Contable.';
+comment on column IT.AH_CTA_FICTICIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CTA_FICTICIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CTA_FICTICIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_FICTICIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AH_CTA_FICTICIAS
+  add constraint PK_AH_CTA_FICTICIAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_FICTICIAS
+  add constraint FK_ACFIC_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AH_CTA_FICTICIAS
+  add constraint FK_ACFIC_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CTA_FICTICIAS
+  add constraint AVCON_1080844426_COD_M_002
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.AH_CTA_FICTICIAS
+  add constraint AVCON_1080844426_COD_M_003
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+

@@ -1,0 +1,45 @@
+create table IT.FST010
+(
+  ejci     VARCHAR2(25),
+  ejcod    NUMBER(5),
+  ejfching VARCHAR2(8) not null,
+  ejnom    VARCHAR2(30),
+  pgcod    NUMBER(3),
+  rpcod    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EJ_COD on IT.FST010 (EJCOD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PG_COD on IT.FST010 (PGCOD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,71 @@
+create table IT.BW_LOT_TRA_CONTACTOS
+(
+  cod_persona          VARCHAR2(10) not null,
+  nom_contacto         VARCHAR2(30),
+  nro_contacto         VARCHAR2(15),
+  cta_contacto         VARCHAR2(20) not null,
+  ori_contacto         VARCHAR2(1),
+  ban_contacto         VARCHAR2(30),
+  cod_swift            VARCHAR2(20),
+  nro_documento        VARCHAR2(15),
+  tip_documento        VARCHAR2(2),
+  cod_moneda           VARCHAR2(3),
+  cod_estado           VARCHAR2(1),
+  tip_cuenta           VARCHAR2(35),
+  mail                 VARCHAR2(99),
+  cod_persona_contacto VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion     DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_LOT_TRA_CONTACTOS
+  is 'Tabla para persistir lista de contactos para transferencias multiples';
+comment on column IT.BW_LOT_TRA_CONTACTOS.cod_persona
+  is 'Codigo de Persona propietaria de la lista';
+comment on column IT.BW_LOT_TRA_CONTACTOS.nom_contacto
+  is 'Nombre del contacto';
+comment on column IT.BW_LOT_TRA_CONTACTOS.nro_contacto
+  is 'Numero de telefono del contacto';
+comment on column IT.BW_LOT_TRA_CONTACTOS.cta_contacto
+  is 'Numero de cuenta del contacto';
+comment on column IT.BW_LOT_TRA_CONTACTOS.ori_contacto
+  is 'Origen del contacto. W = agenda web, C = agenda del celular';
+comment on column IT.BW_LOT_TRA_CONTACTOS.ban_contacto
+  is 'Banco de la cuenta del contacto en caso que sea sipap';
+comment on column IT.BW_LOT_TRA_CONTACTOS.cod_swift
+  is 'Codigo swift del contacto en caso que sea sipap';
+comment on column IT.BW_LOT_TRA_CONTACTOS.nro_documento
+  is 'Numero de documento del contacto';
+comment on column IT.BW_LOT_TRA_CONTACTOS.tip_documento
+  is 'Tipo de documento del contacto';
+comment on column IT.BW_LOT_TRA_CONTACTOS.cod_moneda
+  is 'Codigo de la moneda de la cuenta';
+comment on column IT.BW_LOT_TRA_CONTACTOS.cod_estado
+  is 'Estado del contacto en la lista. A = Activo, I = Inactivo';
+alter table IT.BW_LOT_TRA_CONTACTOS
+  add constraint PK_BW_LOT_TRA_CONTACTOS primary key (COD_PERSONA, CTA_CONTACTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

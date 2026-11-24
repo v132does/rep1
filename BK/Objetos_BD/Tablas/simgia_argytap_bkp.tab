@@ -1,0 +1,56 @@
+create table IT.SIMGIA_ARGYTAP_BKP
+(
+  rgtnro     NUMBER(10),
+  rgtrefc    VARCHAR2(4000),
+  rgtfval    VARCHAR2(6),
+  rgtmone    VARCHAR2(3),
+  rgtmonto   NUMBER(18,2),
+  rgtmoneori CHAR(1),
+  rgtmontori NUMBER,
+  rgtsuc     NUMBER,
+  rgtclien   VARCHAR2(10),
+  rgtnombre  VARCHAR2(4000),
+  rgtcta     VARCHAR2(4000),
+  rgtccor    NUMBER,
+  rgtorden1  VARCHAR2(4000),
+  rgtorden2  VARCHAR2(4000),
+  rgtorden3  VARCHAR2(4000),
+  rgtorden4  VARCHAR2(4000),
+  rgtbanco   VARCHAR2(4000),
+  rgtpais    VARCHAR2(255),
+  rgtbenef1  VARCHAR2(4000),
+  rgtbenef2  VARCHAR2(4000),
+  rgtbenef3  VARCHAR2(4000),
+  rgtbenef4  VARCHAR2(4000),
+  rgtrefer1  VARCHAR2(4000),
+  rgtrefer2  VARCHAR2(4000),
+  rgtrefer3  VARCHAR2(4000),
+  rgtrefer4  VARCHAR2(4000),
+  rgtregpor  VARCHAR2(10),
+  rgtfreg    VARCHAR2(6),
+  rgtestado  VARCHAR2(1),
+  rgtpsuc    NUMBER,
+  rgtpcta    NUMBER,
+  rgtpsub    NUMBER,
+  rgtfpag    NUMBER,
+  rgtliqpag  NUMBER,
+  rgtpagpor  CHAR(1),
+  rgtorigen  VARCHAR2(1),
+  rgtmotivo  VARCHAR2(1),
+  rgtfinanc  VARCHAR2(1),
+  rgtfcob    NUMBER,
+  rgtoprcob  VARCHAR2(10),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_REF_TTR_GNB
+minvalue 5000000000
+maxvalue 9999999999
+start with 5000000377
+increment by 1
+nocache;
+

@@ -1,0 +1,6 @@
+﻿BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:= 1; END;
+/
+insert into GE_PARAMETROS (PARAMETRO, DESCRIPCION, TAB_RELACION, REFERENCIA, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, OBSERVACION, PRO_VERIFICACION, PERMISO, MODIFICABLE, VAL_DEFECTO)
+values ('COD_MAD_MER_SECUNDARIO', 'MODALIDAD DE MER SECUNDARIO', 'GE_PAR_DINAMICOS', null, 'ACASCO', to_date('20-11-2024 18:48:05', 'dd-mm-yyyy hh24:mi:ss'), 'ACASCO', to_date('20-11-2024 18:48:05', 'dd-mm-yyyy hh24:mi:ss'), 'Parametro utilizado para Identificar las Modalidades de Mercado Secundario ', null, null, 'N', null);
+
+commit;

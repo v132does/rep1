@@ -1,0 +1,130 @@
+create table IT.BA_PER_ELIMINADAS
+(
+  cod_persona         VARCHAR2(10) not null,
+  nom_completo        VARCHAR2(120),
+  tipo                VARCHAR2(1) not null,
+  cod_usu_promotor    VARCHAR2(10),
+  cod_tip_documento   NUMBER(3) not null,
+  nro_documento       VARCHAR2(20) not null,
+  cod_pais            NUMBER(3) not null,
+  dir_correo          VARCHAR2(80),
+  cod_actividad       NUMBER(3),
+  ref_bancaria        NUMBER(1),
+  ref_comercial       NUMBER(1),
+  ref_laboral         NUMBER(1),
+  ref_tarjeta         NUMBER(1),
+  tot_ingresos        NUMBER(18,2) default 0,
+  ing_presuntos       NUMBER(18,2) default 0,
+  egr_presuntos       NUMBER(18,2) default 0,
+  est_verificacion    VARCHAR2(1) default 'N',
+  cod_usu_verificador VARCHAR2(10),
+  nom_per_informo     VARCHAR2(120),
+  obs_verificacion    VARCHAR2(1000),
+  fec_verificacion    DATE,
+  tip_relacion        VARCHAR2(1),
+  fec_vto_documento   DATE,
+  obs_eliminacion     VARCHAR2(1000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tip_iva             VARCHAR2(2),
+  tas_personalizada   VARCHAR2(1) default 'N',
+  recibe_sms          VARCHAR2(1) default 'S',
+  cod_rub_economico   VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_ELIMINADAS
+  is 'Personas Eliminadas (replica de BA_PERSONAS).';
+comment on column IT.BA_PER_ELIMINADAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BA_PER_ELIMINADAS.nom_completo
+  is 'Nombre Completo (Se calcula).';
+comment on column IT.BA_PER_ELIMINADAS.tipo
+  is 'Tipo de Persona (F=Fisica, J=Juridica).';
+comment on column IT.BA_PER_ELIMINADAS.cod_usu_promotor
+  is 'Codigo del Promotor.';
+comment on column IT.BA_PER_ELIMINADAS.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.BA_PER_ELIMINADAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.BA_PER_ELIMINADAS.cod_pais
+  is 'Pais de Origen.';
+comment on column IT.BA_PER_ELIMINADAS.dir_correo
+  is 'Direccion de Mail.';
+comment on column IT.BA_PER_ELIMINADAS.cod_actividad
+  is 'Codigo de Actividad.';
+comment on column IT.BA_PER_ELIMINADAS.ref_bancaria
+  is 'Referencia Bancaria.';
+comment on column IT.BA_PER_ELIMINADAS.ref_comercial
+  is 'Referencia Comercial.';
+comment on column IT.BA_PER_ELIMINADAS.ref_laboral
+  is 'Referencia laboral.';
+comment on column IT.BA_PER_ELIMINADAS.ref_tarjeta
+  is 'Referencia Tarjeta.';
+comment on column IT.BA_PER_ELIMINADAS.tot_ingresos
+  is 'Total de Ingresos.';
+comment on column IT.BA_PER_ELIMINADAS.ing_presuntos
+  is 'Ingresos Presuntos.';
+comment on column IT.BA_PER_ELIMINADAS.egr_presuntos
+  is 'Egresos Presuntos.';
+comment on column IT.BA_PER_ELIMINADAS.est_verificacion
+  is 'Estado de la verificacion.';
+comment on column IT.BA_PER_ELIMINADAS.cod_usu_verificador
+  is 'Codigo de usuario verificador.';
+comment on column IT.BA_PER_ELIMINADAS.nom_per_informo
+  is 'Nombre de la persona que proporciono los datos.';
+comment on column IT.BA_PER_ELIMINADAS.obs_verificacion
+  is 'Observacion de la verificacion.';
+comment on column IT.BA_PER_ELIMINADAS.fec_verificacion
+  is 'Fecha de la verificacion.';
+comment on column IT.BA_PER_ELIMINADAS.tip_relacion
+  is 'Tipo de Relacion de la persona que da la informacion.';
+comment on column IT.BA_PER_ELIMINADAS.fec_vto_documento
+  is 'Vencimiento del Documento.';
+comment on column IT.BA_PER_ELIMINADAS.obs_eliminacion
+  is 'Observacion de la eliminacion.';
+comment on column IT.BA_PER_ELIMINADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PER_ELIMINADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PER_ELIMINADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_ELIMINADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_ELIMINADAS.tip_iva
+  is 'Tipo de IVA o Responsabilidad ante el Fisco.';
+comment on column IT.BA_PER_ELIMINADAS.tas_personalizada
+  is 'Tiene tasa personalizada (S/N).';
+comment on column IT.BA_PER_ELIMINADAS.recibe_sms
+  is 'Indica si la persona desea recibir mensajes SMS en su telefono movil.';
+comment on column IT.BA_PER_ELIMINADAS.cod_rub_economico
+  is 'Código de Rubro Económico.';
+alter table IT.BA_PER_ELIMINADAS
+  add constraint PK_BA_PER_ELIMINADAS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_ELIMINADAS
+  add constraint FK_BPELI_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.GE_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+

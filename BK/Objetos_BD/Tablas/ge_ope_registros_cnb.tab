@@ -1,0 +1,45 @@
+create table IT.GE_OPE_REGISTROS_CNB
+(
+  id_acceso        INTEGER not null,
+  ref_operacion    VARCHAR2(15) not null,
+  nro_cuotas       VARCHAR2(10) not null,
+  fec_operacion    DATE not null,
+  estado           VARCHAR2(10) not null,
+  empresa          VARCHAR2(50) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_OPE_REGISTROS_CNB.id_acceso
+  is 'Id_acceso';
+comment on column IT.GE_OPE_REGISTROS_CNB.ref_operacion
+  is 'Ref_operacion';
+comment on column IT.GE_OPE_REGISTROS_CNB.nro_cuotas
+  is 'Nro_cuotas';
+comment on column IT.GE_OPE_REGISTROS_CNB.fec_operacion
+  is 'Fec_operacion';
+comment on column IT.GE_OPE_REGISTROS_CNB.estado
+  is 'Estado';
+comment on column IT.GE_OPE_REGISTROS_CNB.empresa
+  is 'Empresa';
+comment on column IT.GE_OPE_REGISTROS_CNB.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_OPE_REGISTROS_CNB.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_OPE_REGISTROS_CNB.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_OPE_REGISTROS_CNB.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

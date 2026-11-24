@@ -1,0 +1,74 @@
+create table IT.CB_AJUSTES
+(
+  cod_sector       VARCHAR2(1) not null,
+  cod_capitulo     VARCHAR2(1) not null,
+  cod_grupo        VARCHAR2(1) not null,
+  cod_subcuenta    VARCHAR2(2) not null,
+  cod_rub_utilidad VARCHAR2(15) not null,
+  cod_rub_perdida  VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_cuenta       VARCHAR2(3),
+  mod_interno      VARCHAR2(3),
+  cod_mon_numerico VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_AJUSTES
+  is 'Contiene los datos correspondientes a las Condiciones Generales para Realizar Asientos de Utilidad o Perdida por ajustes de Cambios.';
+comment on column IT.CB_AJUSTES.cod_sector
+  is 'Codigo del sector.';
+comment on column IT.CB_AJUSTES.cod_capitulo
+  is 'Codigo del capitulo.';
+comment on column IT.CB_AJUSTES.cod_grupo
+  is 'Codigo del grupo.';
+comment on column IT.CB_AJUSTES.cod_subcuenta
+  is 'Codigo de subcuenta.';
+comment on column IT.CB_AJUSTES.cod_rub_utilidad
+  is 'Cuenta de utilidad de cambios.';
+comment on column IT.CB_AJUSTES.cod_rub_perdida
+  is 'Cuenta de perdida de cambios.';
+comment on column IT.CB_AJUSTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_AJUSTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_AJUSTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_AJUSTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_AJUSTES.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.CB_AJUSTES.mod_interno
+  is 'Modulo interno.';
+comment on column IT.CB_AJUSTES.cod_mon_numerico
+  is 'Código equivalente numérico.';
+create unique index IT.UK_CB_AJUSTES on IT.CB_AJUSTES (COD_SECTOR, COD_CAPITULO, COD_GRUPO, NRO_CUENTA, COD_SUBCUENTA, MOD_INTERNO, COD_MON_NUMERICO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_AJUSTES
+  add constraint FK_BAJUS_COD_RUB_PERDIDA foreign key (COD_RUB_PERDIDA)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_AJUSTES
+  add constraint FK_BAJUS_COD_RUB_UTILIDAD foreign key (COD_RUB_UTILIDAD)
+  references IT.CB_RUBROS (COD_RUBRO);
+

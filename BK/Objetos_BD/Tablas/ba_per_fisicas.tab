@@ -1,0 +1,146 @@
+create table IT.BA_PER_FISICAS
+(
+  cod_persona          VARCHAR2(10) not null,
+  pri_nombre           VARCHAR2(30) not null,
+  pri_apellido         VARCHAR2(30) not null,
+  est_civil            VARCHAR2(1) default 'S' not null,
+  cod_sexo             VARCHAR2(1) default 'M' not null,
+  cod_niv_estudio      NUMBER(3),
+  cod_tip_vivienda     NUMBER(3),
+  cod_pai_nacionalidad NUMBER(3),
+  seg_nombre           VARCHAR2(30),
+  seg_apellido         VARCHAR2(30),
+  fec_nacimiento       DATE,
+  can_hijos            NUMBER(2),
+  cod_profesion        NUMBER(3),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_titulo           NUMBER(3),
+  can_personas         NUMBER(2),
+  patrimonio           NUMBER(18,2),
+  cod_actividad        NUMBER(3),
+  cod_ciu_nacimiento   NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_FISICAS
+  is 'Datos Personas Fisicas.';
+comment on column IT.BA_PER_FISICAS.cod_persona
+  is 'Codigo de la persona fisica.';
+comment on column IT.BA_PER_FISICAS.pri_nombre
+  is 'Primer nombre.';
+comment on column IT.BA_PER_FISICAS.pri_apellido
+  is 'Primer apellido.';
+comment on column IT.BA_PER_FISICAS.est_civil
+  is 'Estado civil.';
+comment on column IT.BA_PER_FISICAS.cod_sexo
+  is 'Codigo del sexo (M=Masculino / F=Femenino).';
+comment on column IT.BA_PER_FISICAS.cod_niv_estudio
+  is 'Nivel de estudios.';
+comment on column IT.BA_PER_FISICAS.cod_tip_vivienda
+  is 'Tipo de vivienda.';
+comment on column IT.BA_PER_FISICAS.cod_pai_nacionalidad
+  is 'Codigo de nacionalidad.';
+comment on column IT.BA_PER_FISICAS.seg_nombre
+  is 'Segundo nombre.';
+comment on column IT.BA_PER_FISICAS.seg_apellido
+  is 'Segundo apellido.';
+comment on column IT.BA_PER_FISICAS.fec_nacimiento
+  is 'Fecha de nacimiento.';
+comment on column IT.BA_PER_FISICAS.can_hijos
+  is 'Numero de hijos.';
+comment on column IT.BA_PER_FISICAS.cod_profesion
+  is 'Codigo de profesion.';
+comment on column IT.BA_PER_FISICAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PER_FISICAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PER_FISICAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_FISICAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_FISICAS.cod_titulo
+  is 'Título Universitario Obtenido.';
+comment on column IT.BA_PER_FISICAS.can_personas
+  is 'Cantidad de Personas a Cargo';
+comment on column IT.BA_PER_FISICAS.patrimonio
+  is 'Si el valor comercial de propiedades + valor comercial de vehículos > 0, entonces Patrimonio > 0';
+comment on column IT.BA_PER_FISICAS.cod_actividad
+  is 'Actividad de la persona.';
+create index IT.IN_EPFIS_PRI_APELLIDO on IT.BA_PER_FISICAS (PRI_APELLIDO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EPFIS_PRI_NOMBRE on IT.BA_PER_FISICAS (PRI_NOMBRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_FISICAS
+  add constraint PK_BA_PER_FISICAS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_FISICAS
+  add constraint FK_EPFIS_COD_NIV_ESTUDIO foreign key (COD_NIV_ESTUDIO)
+  references IT.BA_NIV_ESTUDIOS (COD_NIV_ESTUDIO);
+alter table IT.BA_PER_FISICAS
+  add constraint FK_EPFIS_COD_PAI_NACIONALIDAD foreign key (COD_PAI_NACIONALIDAD)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.BA_PER_FISICAS
+  add constraint FK_EPFIS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BA_PER_FISICAS
+  add constraint FK_EPFIS_COD_PROFESION foreign key (COD_PROFESION)
+  references IT.BA_PROFESIONES (COD_PROFESION);
+alter table IT.BA_PER_FISICAS
+  add constraint FK_EPFIS_COD_TIP_VIVIENDAS foreign key (COD_TIP_VIVIENDA)
+  references IT.BA_TIP_VIVIENDAS (COD_TIP_VIVIENDA);
+alter table IT.BA_PER_FISICAS
+  add constraint AVCON_1081779659_COD_N_001
+  check (COD_NIV_ESTUDIO BETWEEN 0 AND 999);
+alter table IT.BA_PER_FISICAS
+  add constraint AVCON_1081779659_COD_P_001
+  check (COD_PAI_NACIONALIDAD BETWEEN 0 AND 999);
+alter table IT.BA_PER_FISICAS
+  add constraint AVCON_1081779659_COD_P_002
+  check (COD_PROFESION BETWEEN 0 AND 999);
+alter table IT.BA_PER_FISICAS
+  add constraint AVCON_1081779659_COD_T_000
+  check (COD_TIP_VIVIENDA BETWEEN 0 AND 999);
+

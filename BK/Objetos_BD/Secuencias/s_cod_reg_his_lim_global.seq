@@ -1,0 +1,7 @@
+create sequence IT.S_COD_REG_HIS_LIM_GLOBAL
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 73
+increment by 1
+nocache;
+

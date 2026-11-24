@@ -1,0 +1,103 @@
+create table IT.CR_EXP_CUENTAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  ano_mes          DATE not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  tip_cuenta       VARCHAR2(4) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  sal_promedio     NUMBER(18,2) default 0 not null,
+  sal_cierre       NUMBER(18,2) default 0 not null,
+  int_cobrados     NUMBER(18,2) default 0 not null,
+  int_pagados      NUMBER(18,2) default 0 not null,
+  com_cobradas     NUMBER(18,2) default 0 not null,
+  tas_interes      NUMBER(20,4) not null,
+  can_debitos      NUMBER(8) not null,
+  can_creditos     NUMBER(8) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_EXP_CUENTAS
+  is 'Expedientes por Cuenta.';
+comment on column IT.CR_EXP_CUENTAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.CR_EXP_CUENTAS.ano_mes
+  is 'Año y mes del expediente.';
+comment on column IT.CR_EXP_CUENTAS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CR_EXP_CUENTAS.tip_cuenta
+  is 'Tipo de Cuenta (AV, CC, PR, TJ).';
+comment on column IT.CR_EXP_CUENTAS.cod_moneda
+  is 'Moneda.';
+comment on column IT.CR_EXP_CUENTAS.sal_promedio
+  is 'Saldo Promedio.';
+comment on column IT.CR_EXP_CUENTAS.sal_cierre
+  is 'Saldo de Cierre.';
+comment on column IT.CR_EXP_CUENTAS.int_cobrados
+  is 'Intereses cobrados.';
+comment on column IT.CR_EXP_CUENTAS.int_pagados
+  is 'Intereses pagados.';
+comment on column IT.CR_EXP_CUENTAS.com_cobradas
+  is 'Comisiones cobradas.';
+comment on column IT.CR_EXP_CUENTAS.tas_interes
+  is 'Tasa de interes.';
+comment on column IT.CR_EXP_CUENTAS.can_debitos
+  is 'Cantidad de movimientos de debito.';
+comment on column IT.CR_EXP_CUENTAS.can_creditos
+  is 'Cantidad de movimientos de credito.';
+comment on column IT.CR_EXP_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_EXP_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_EXP_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_EXP_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_REXCT_NRO_CUENTA on IT.CR_EXP_CUENTAS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_EXP_CUENTAS
+  add constraint PK_CR_EXP_CUENTAS primary key (COD_PERSONA, ANO_MES, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_EXP_CUENTAS
+  add constraint FK_REXCT_ANO_MES foreign key (COD_PERSONA, ANO_MES)
+  references IT.CR_EXP_CLIENTES (COD_PERSONA, ANO_MES);
+alter table IT.CR_EXP_CUENTAS
+  add constraint FK_REXCT_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_EXP_CUENTAS
+  add constraint AVCON_1080843837_TIP_C_001
+  check (TIP_CUENTA IN ('AV', 'CC', 'PR', 'TJ'));
+

@@ -1,0 +1,38 @@
+create table IT.CB_COR_RUB_PROCESOS
+(
+  cod_rubro   VARCHAR2(15) not null,
+  cod_proceso VARCHAR2(50) not null,
+  orden       NUMBER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_COR_RUB_PROCESOS
+  add constraint PK_COR_RUB_PROC primary key (COD_RUBRO, COD_PROCESO, ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_COR_RUB_PROCESOS
+  add constraint FK_COR_RUB_PROC_COD_PROC foreign key (COD_PROCESO)
+  references IT.CB_COR_PROCESOS (COD_PROCESO);
+alter table IT.CB_COR_RUB_PROCESOS
+  add constraint FK_COR_RUB_PROC_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_COR_RUBROS (COD_RUBRO);
+

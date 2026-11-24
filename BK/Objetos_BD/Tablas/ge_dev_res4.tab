@@ -1,0 +1,152 @@
+create table IT.GE_DEV_RES4
+(
+  nro_cuenta          VARCHAR2(30) not null,
+  nro_orden           NUMBER(20) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_sub_modalidad   NUMBER(3),
+  cod_oficina         NUMBER(3) not null,
+  mto_capital         NUMBER(18,2) default 0,
+  mto_interes         NUMBER(18,2) default 0,
+  cod_moneda          VARCHAR2(10),
+  mto_dev_actual      NUMBER(18,2) default 0,
+  mto_dev_acumulado   NUMBER(18,2) default 0,
+  mto_dev_cancelacion NUMBER(18,2) default 0,
+  fec_cancelacion     DATE,
+  hor_cancelacion     VARCHAR2(12),
+  fec_dev_inicio      DATE,
+  fec_dev_fin         DATE,
+  fec_ult_devengado   DATE,
+  devengar            VARCHAR2(1) default 'S',
+  descripcion         VARCHAR2(200),
+  categoria           VARCHAR2(10),
+  estado              VARCHAR2(1) not null,
+  cod_sec_credito     NUMBER(3),
+  tipo                VARCHAR2(1) default 'A' not null,
+  tip_interes         VARCHAR2(1) default 'V',
+  tip_renovacion      VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEV_RES4
+  is 'Contiene los datos de Devenggados RE4.';
+comment on column IT.GE_DEV_RES4.nro_cuenta
+  is 'Número de Préstamo.';
+comment on column IT.GE_DEV_RES4.nro_orden
+  is 'Numero de Orden de Insercion';
+comment on column IT.GE_DEV_RES4.cod_modulo
+  is 'Código de Módulo del Préstamo.';
+comment on column IT.GE_DEV_RES4.cod_modalidad
+  is 'Código de Modalidad del Préstamo.';
+comment on column IT.GE_DEV_RES4.cod_sub_modalidad
+  is 'Código de Sub-Modalidad.';
+comment on column IT.GE_DEV_RES4.cod_oficina
+  is 'Código de Oficina del Préstamo.';
+comment on column IT.GE_DEV_RES4.mto_capital
+  is 'Monto Capital.';
+comment on column IT.GE_DEV_RES4.mto_interes
+  is 'Monto Interes.';
+comment on column IT.GE_DEV_RES4.cod_moneda
+  is 'Moneda.';
+comment on column IT.GE_DEV_RES4.mto_dev_actual
+  is 'Monto total devengado actual';
+comment on column IT.GE_DEV_RES4.mto_dev_acumulado
+  is 'Monto total devengado acumulado';
+comment on column IT.GE_DEV_RES4.mto_dev_cancelacion
+  is 'Monto Total Devengado en la Cancelacion';
+comment on column IT.GE_DEV_RES4.fec_cancelacion
+  is 'Fecha de Cancelacion de Cuotas';
+comment on column IT.GE_DEV_RES4.fec_dev_inicio
+  is 'Fecha de Inicio de Devengamiento';
+comment on column IT.GE_DEV_RES4.fec_dev_fin
+  is 'Fecha de Fin de Devengamiento';
+comment on column IT.GE_DEV_RES4.fec_ult_devengado
+  is 'Fecha de Ultimo Devengado';
+comment on column IT.GE_DEV_RES4.devengar
+  is 'Seguir Devengando (S/N)';
+comment on column IT.GE_DEV_RES4.descripcion
+  is 'Descripción del Préstamo.';
+comment on column IT.GE_DEV_RES4.categoria
+  is 'Categoria';
+comment on column IT.GE_DEV_RES4.estado
+  is 'Estado de Cuenta on line (C=Vigente, V=Vencido, G=En Gestion, M=Moroso, I=Irrecuperable, N=Cancelado).';
+comment on column IT.GE_DEV_RES4.cod_sec_credito
+  is 'Código de Sector de Crédito';
+comment on column IT.GE_DEV_RES4.tipo
+  is 'Tipo de Préstamo (Amortizable, Plazo Fijo, Descto. de Documentos).';
+comment on column IT.GE_DEV_RES4.tip_interes
+  is 'Tipo de Interés (A=Adelantado / V=Vencido).';
+comment on column IT.GE_DEV_RES4.tip_renovacion
+  is 'Tipo de Renovación: Refinanciado, rEstructurado, reNovado.';
+comment on column IT.GE_DEV_RES4.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DEV_RES4.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DEV_RES4.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_DEV_RES4.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_FK_GEDEV_COD_MODALIDAD_RE4 on IT.GE_DEV_RES4 (COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FK_GEDEV_COD_MONEDA_RE4 on IT.GE_DEV_RES4 (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FK_GEDEV_COD_OFICINA_RE4 on IT.GE_DEV_RES4 (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DEV_RES4
+  add constraint PK_GE_DEV_RES4 primary key (NRO_CUENTA, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

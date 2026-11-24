@@ -1,0 +1,32 @@
+create table IT.BW_NOT_SMS_MAS_TMP
+(
+  cod_mensaje NUMBER default 0 not null,
+  cod_persona VARCHAR2(10) not null,
+  mensaje     VARCHAR2(200) not null,
+  tel_celular VARCHAR2(20),
+  destino     VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_NOT_SMS_MAS_TMP
+  is 'Mensajes masivos SMS para Jubilados de IPS';
+comment on column IT.BW_NOT_SMS_MAS_TMP.cod_mensaje
+  is 'Identificador de los mensaje';
+comment on column IT.BW_NOT_SMS_MAS_TMP.cod_persona
+  is 'Codigo de la persona';
+comment on column IT.BW_NOT_SMS_MAS_TMP.mensaje
+  is 'Mensaje a ser enviado';
+comment on column IT.BW_NOT_SMS_MAS_TMP.tel_celular
+  is 'Telefono Celular';
+comment on column IT.BW_NOT_SMS_MAS_TMP.destino
+  is 'Destino';
+

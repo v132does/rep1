@@ -1,0 +1,37 @@
+create table IT.APE_CB_SAL_OFICINAS_HIS
+(
+  cod_oficina            NUMBER(3) not null,
+  cod_rubro              VARCHAR2(15) not null,
+  ano                    NUMBER(4) not null,
+  mes                    NUMBER(2) not null,
+  sal_mon_loc_ant        NUMBER(18,2),
+  deb_mon_local          NUMBER(18,2),
+  cre_mon_local          NUMBER(18,2),
+  sal_ini_mes_mon_local  NUMBER(18,2),
+  sal_mon_rub_ant        NUMBER(18,2),
+  deb_mon_rubro          NUMBER(18,2),
+  cre_mon_rubro          NUMBER(18,2),
+  sal_ini_mes_mon_rubro  NUMBER(18,2),
+  sal_ini_mes_mon_fuerte NUMBER(18,2),
+  protegido              VARCHAR2(1),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  sal_equ_loc_ant        NUMBER(18,2),
+  deb_equ_local          NUMBER(18,2),
+  cre_equ_local          NUMBER(18,2),
+  sal_ini_mes_equ_local  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

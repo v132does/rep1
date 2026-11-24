@@ -1,0 +1,106 @@
+-- Create table
+create table IT.TA_EXT_CLI_DET_MOV_GP
+(
+  nro_cuenta    VARCHAR2(20),
+  fec_cierre    DATE,
+  fec_operacion DATE,
+  fec_proceso   DATE,
+  nro_cupon     VARCHAR2(20),
+  detalle       VARCHAR2(200),
+  nro_cuota     VARCHAR2(10),
+  financiable   VARCHAR2(1),
+  mto_iva       NUMBER(22,2),
+  cot_dolar     NUMBER(22,2),
+  monto         NUMBER(22,2),
+  localidad     VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TA_EXT_CLI_DET_MOV_GP
+  is 'informacion_movimientos Extracto GP';
+-- Add comments to the columns 
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.nro_cuenta
+  is 'Numero de Cuenta
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.fec_cierre
+  is 'Fecha de cierre
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.fec_operacion
+  is 'ddmmaa
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.fec_proceso
+  is 'ddmmaa
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.nro_cupon
+  is 'N° de cupon
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.detalle
+  is 'Descripcion del Detalle
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.nro_cuota
+  is 'N° de cuota actual y total de cuotas
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.financiable
+  is 'Si o no al financiamiento
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.mto_iva
+  is ' cuota del IVA
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.cot_dolar
+  is 'Cotizacion del dolar en el dia de compra
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.monto
+  is 'Monto de la operacion
+';
+comment on column IT.TA_EXT_CLI_DET_MOV_GP.localidad
+  is 'Localidad donde se realizo la compra
+';
+-- Create/Recreate indexes 
+create index IT.IN_EXTMOV_CIERRE on IT.TA_EXT_CLI_DET_MOV_GP (NRO_CUENTA, FEC_CIERRE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EXTMOV_CUENTA on IT.TA_EXT_CLI_DET_MOV_GP (NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EXTMOV_FECHA on IT.TA_EXT_CLI_DET_MOV_GP (FEC_CIERRE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.TA_EXT_CLI_DET_MOV_GP to IT_TEMPORAL;

@@ -1,0 +1,139 @@
+create table IT.TA_COB_AJUSTES_TMP
+(
+  tip_registro       NUMBER(1),
+  tip_operacion      NUMBER(1),
+  ent_emisora        NUMBER(5),
+  suc_ent_emisora    NUMBER(5),
+  ent_cobradora      NUMBER(5),
+  suc_ent_cobradora  NUMBER(5),
+  cod_moneda         NUMBER(2),
+  nro_comprobante    NUMBER(10),
+  fec_movimiento     DATE,
+  nro_cuenta         NUMBER(10),
+  importe            NUMBER(15),
+  concepto           NUMBER(5),
+  tip_movimiento     NUMBER(1),
+  fec_presentacion   DATE,
+  fec_aplicacion     DATE,
+  fec_cierre_cta_cte DATE,
+  ori_cob_ajuste     NUMBER(5),
+  nro_envio          NUMBER(12),
+  gru_cta_cte_socio  NUMBER(5),
+  cod_error          NUMBER(3),
+  desc_error         VARCHAR2(100),
+  cod_producto       NUMBER(3),
+  nro_caja           NUMBER(6),
+  usuario            VARCHAR2(20),
+  filler             VARCHAR2(49)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_COB_AJUSTES_TMP
+  is 'Tabla para migracion de archivo T3022D Cobranzas y ajustes confirmados';
+comment on column IT.TA_COB_AJUSTES_TMP.tip_registro
+  is '2 - Detalle
+';
+comment on column IT.TA_COB_AJUSTES_TMP.tip_operacion
+  is 'Tipo de Operación. 1=Cobranza, 2=Ajuste
+';
+comment on column IT.TA_COB_AJUSTES_TMP.ent_emisora
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_COB_AJUSTES_TMP.suc_ent_emisora
+  is 'Código asignado a la Sucursal del socio
+';
+comment on column IT.TA_COB_AJUSTES_TMP.ent_cobradora
+  is 'Código asignado a la entidad cobradora
+';
+comment on column IT.TA_COB_AJUSTES_TMP.suc_ent_cobradora
+  is 'Código asignado a la Sucursal de cobro
+';
+comment on column IT.TA_COB_AJUSTES_TMP.cod_moneda
+  is 'Pesos = 1, Dolares = 2
+';
+comment on column IT.TA_COB_AJUSTES_TMP.nro_comprobante
+  is 'Número de comprobante asignado por la entidad o por la procesadora. Si fue informado en la interfase de entrada, entonces será ese número
+';
+comment on column IT.TA_COB_AJUSTES_TMP.fec_movimiento
+  is 'Fecha de Movimiento
+';
+comment on column IT.TA_COB_AJUSTES_TMP.nro_cuenta
+  is 'Número de cuenta del socio
+';
+comment on column IT.TA_COB_AJUSTES_TMP.importe
+  is 'Importe de la cobranza/ajuste
+';
+comment on column IT.TA_COB_AJUSTES_TMP.concepto
+  is 'Código de Concepto del ajuste
+';
+comment on column IT.TA_COB_AJUSTES_TMP.tip_movimiento
+  is '0- Debito / 1 - Credito
+';
+comment on column IT.TA_COB_AJUSTES_TMP.fec_presentacion
+  is 'Fecha de presentacion de la cobranza/ajuste (fecha en que Infinitus recibió la cobranza/ajuste para procesar)
+';
+comment on column IT.TA_COB_AJUSTES_TMP.fec_aplicacion
+  is 'Fecha de apliación de la cobranza/ajuste por Infinitus
+';
+comment on column IT.TA_COB_AJUSTES_TMP.fec_cierre_cta_cte
+  is 'Fecha de cierre de cta cta a la cual aplicó la cobranza/ajuste
+';
+comment on column IT.TA_COB_AJUSTES_TMP.ori_cob_ajuste
+  is 'Origen de la Operación
+0=Manual Entidad
+1=Medio Magnético Entidad
+2=Convenio con Empresas
+3=ATM
+4=POS
+5=GP
+6=C2C
+7=PagoMisCuentas
+8=WS Carga Prepaga
+9=Moneysend
+10=Acred Haberes
+11=Credial sistema cajas
+12=Campañas
+13 Alta de Cobranza-Web Services
+14 Carga IMPULSA';
+comment on column IT.TA_COB_AJUSTES_TMP.nro_envio
+  is 'El texto deberia ser: Numero del envio generado por la entidad
+';
+comment on column IT.TA_COB_AJUSTES_TMP.gru_cta_cte_socio
+  is 'Grupo de cuenta corriente del Socio
+';
+comment on column IT.TA_COB_AJUSTES_TMP.cod_error
+  is 'Codigo de error';
+comment on column IT.TA_COB_AJUSTES_TMP.desc_error
+  is 'Descrupcion de error';
+comment on column IT.TA_COB_AJUSTES_TMP.cod_producto
+  is 'Código de producto de la cuenta
+';
+comment on column IT.TA_COB_AJUSTES_TMP.nro_caja
+  is 'Numero de caja';
+comment on column IT.TA_COB_AJUSTES_TMP.usuario
+  is 'Usuario que realizo la carga/cobranza
+';
+comment on column IT.TA_COB_AJUSTES_TMP.filler
+  is 'Espacios';
+create index IT.IN_TA_COB_AJUSTE_TMP on IT.TA_COB_AJUSTES_TMP (FEC_MOVIMIENTO, NRO_CUENTA, NRO_COMPROBANTE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,59 @@
+create table IT.SIMGIA_ARCHCERTI_BKP
+(
+  csuc      NUMBER(3) not null,
+  ccta      VARCHAR2(6),
+  csub      VARCHAR2(6),
+  cnro      NUMBER,
+  cimporte  NUMBER,
+  cfepago   VARCHAR2(6),
+  cfemisi   VARCHAR2(6),
+  fecha_his DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_ARCHCERTI_CTA on IT.SIMGIA_ARCHCERTI_BKP (CCTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_ARCHCERTI_NRO on IT.SIMGIA_ARCHCERTI_BKP (CNRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_SMG_ARCHCERTI_SUB on IT.SIMGIA_ARCHCERTI_BKP (CSUB)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

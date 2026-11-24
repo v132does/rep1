@@ -1,0 +1,60 @@
+create table IT.GE_COB_SEGUROS
+(
+  nro_seguro       NUMBER(18) not null,
+  nro_cuota        NUMBER(5) not null,
+  monto            NUMBER(18) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  fec_vencimiento  DATE,
+  estado           VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_COB_SEGUROS.nro_seguro
+  is 'Numero del seguro';
+comment on column IT.GE_COB_SEGUROS.nro_cuota
+  is 'Numero de la cuota';
+comment on column IT.GE_COB_SEGUROS.monto
+  is 'Monto de la cuota';
+comment on column IT.GE_COB_SEGUROS.fecha
+  is 'Fecha de cobro del seguro';
+comment on column IT.GE_COB_SEGUROS.hora
+  is 'Hora de cobro del seguro';
+comment on column IT.GE_COB_SEGUROS.estado
+  is 'Estado Cobro. P-Pagado / V-Vigente / N-No Pagado';
+comment on column IT.GE_COB_SEGUROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.GE_COB_SEGUROS.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.GE_COB_SEGUROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.GE_COB_SEGUROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+alter table IT.GE_COB_SEGUROS
+  add constraint PK_GE_COB_SEGUROS primary key (NRO_SEGURO, NRO_CUOTA, FECHA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

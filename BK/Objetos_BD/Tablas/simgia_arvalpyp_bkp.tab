@@ -1,0 +1,46 @@
+create table IT.SIMGIA_ARVALPYP_BKP
+(
+  tipo          VARCHAR2(28),
+  estado        VARCHAR2(1),
+  sit_contable  VARCHAR2(20),
+  rvsuc         NUMBER,
+  rvcuenta      VARCHAR2(4000),
+  rb_rvcuenta   VARCHAR2(4000),
+  rvctaiad      VARCHAR2(4000),
+  rb_rvctaiad   VARCHAR2(4000),
+  rvctares      VARCHAR2(15),
+  rb_rvctares   VARCHAR2(4000),
+  rvnrodoc      VARCHAR2(4000),
+  rvncuota      NUMBER,
+  rvfchreg      VARCHAR2(8),
+  rvfchvto      VARCHAR2(8),
+  rvplazo       NUMBER,
+  rvmoneda      VARCHAR2(2),
+  rvalact       NUMBER,
+  rvtasa        NUMBER,
+  rvfinidv      VARCHAR2(8),
+  rvaldev       NUMBER,
+  rvfultdv      VARCHAR2(8),
+  rvtipo        NUMBER,
+  cod_modalidad NUMBER(3),
+  rvdescri      VARCHAR2(4000),
+  rvestado      VARCHAR2(1),
+  rvfchpro      VARCHAR2(6),
+  rvriesgo      VARCHAR2(10),
+  rvalnomi      NUMBER,
+  rvctacan      NUMBER(3),
+  nro_cuenta    VARCHAR2(15),
+  fecha_his     DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,97 @@
+create table IT.GE_DNA_ORD_TRANSFERENCIAS_DET
+(
+  nro_ord_transferencia VARCHAR2(50) not null,
+  nro_item              NUMBER(18) not null,
+  nro_cta_beneficiario  VARCHAR2(35),
+  denominacion          VARCHAR2(1000),
+  cod_banco             NUMBER(10),
+  monto                 NUMBER(18,2) default 0 not null,
+  estado                VARCHAR2(1),
+  nro_referencia        NUMBER(15),
+  cod_retorno           NUMBER(5),
+  nro_cta_extracto      VARCHAR2(50),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default sysdate not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DNA_ORD_TRANSFERENCIAS_DET
+  is 'Contiene el detalle de las Ordenes de Transferencias.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.nro_ord_transferencia
+  is 'Número de Orden Transferencia.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.nro_item
+  is 'Número de Item.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.nro_cta_beneficiario
+  is 'Número de Cuenta Beneficiario.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.denominacion
+  is 'Denominación.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.cod_banco
+  is 'Código de banco.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.monto
+  is 'Monto.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.estado
+  is 'Estado.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.nro_referencia
+  is 'Número Referencia.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.cod_retorno
+  is 'Código de Retorno.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.nro_cta_extracto
+  is 'Numero Cuenta Extracto.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS_DET.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+create index IT.IN_GOTRA_NRO_CTA_BENEFICIARIO on IT.GE_DNA_ORD_TRANSFERENCIAS_DET (NRO_CTA_BENEFICIARIO, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GOTRA_NRO_REFERENCIA on IT.GE_DNA_ORD_TRANSFERENCIAS_DET (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DNA_ORD_TRANSFERENCIAS_DET
+  add constraint PK_GE_SNP_ORD_TRAN_DET primary key (NRO_ORD_TRANSFERENCIA, NRO_ITEM)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

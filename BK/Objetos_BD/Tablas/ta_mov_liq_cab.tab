@@ -1,0 +1,58 @@
+create table IT.TA_MOV_LIQ_CAB
+(
+  nro_mov_liq     NUMBER(18),
+  tip_registro    NUMBER(1),
+  cod_marca       VARCHAR2(5),
+  cod_ent_emisora VARCHAR2(5),
+  gru_cierre      VARCHAR2(5),
+  fec_cierre      DATE,
+  fec_proceso     DATE,
+  hor_proceso     VARCHAR2(8),
+  archivo         VARCHAR2(8),
+  des_archivo     VARCHAR2(30),
+  filler          VARCHAR2(422)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_LIQ_CAB
+  is 'Cabecera para importacion de archivo T2010S de GP.';
+comment on column IT.TA_MOV_LIQ_CAB.nro_mov_liq
+  is 'Nro. de proceso';
+comment on column IT.TA_MOV_LIQ_CAB.tip_registro
+  is '1 - Header';
+comment on column IT.TA_MOV_LIQ_CAB.cod_marca
+  is 'Código asignado a la Marca';
+comment on column IT.TA_MOV_LIQ_CAB.cod_ent_emisora
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_MOV_LIQ_CAB.gru_cierre
+  is 'Código de grupo de cierre liquidado
+';
+comment on column IT.TA_MOV_LIQ_CAB.fec_cierre
+  is 'Fecha de cierre de liquidación procesada
+';
+comment on column IT.TA_MOV_LIQ_CAB.fec_proceso
+  is 'Fecha de Procesamiento del Archivo
+';
+comment on column IT.TA_MOV_LIQ_CAB.hor_proceso
+  is 'Hora de Procesamiento del Archivo
+';
+comment on column IT.TA_MOV_LIQ_CAB.archivo
+  is 'T2010S
+';
+comment on column IT.TA_MOV_LIQ_CAB.des_archivo
+  is 'TRANSACCIONES LIQUIDADAS
+';
+comment on column IT.TA_MOV_LIQ_CAB.filler
+  is 'Dato no Validable
+';
+

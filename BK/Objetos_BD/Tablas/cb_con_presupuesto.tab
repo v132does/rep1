@@ -1,0 +1,61 @@
+create table IT.CB_CON_PRESUPUESTO
+(
+  ano                 NUMBER(4) not null,
+  mes                 NUMBER(2) not null,
+  cod_rubro           VARCHAR2(15) not null,
+  mto_presupuesto     NUMBER(18,2),
+  mto_pre_acumulado   NUMBER(18,2),
+  mto_acu_mov_del_mes NUMBER(18,2),
+  por_cum_mov_del_mes NUMBER(12,2),
+  mto_acu_mov_total   NUMBER(18,2),
+  mto_dif_presupuesto NUMBER(18,2),
+  por_eje_presupuesto NUMBER(12,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_CON_PRESUPUESTO
+  is 'Control Presupuestario.';
+comment on column IT.CB_CON_PRESUPUESTO.ano
+  is 'Año.';
+comment on column IT.CB_CON_PRESUPUESTO.mes
+  is 'Mes.';
+comment on column IT.CB_CON_PRESUPUESTO.cod_rubro
+  is 'Rubro Contable.';
+comment on column IT.CB_CON_PRESUPUESTO.mto_presupuesto
+  is 'Monto Presupuestado.';
+comment on column IT.CB_CON_PRESUPUESTO.mto_pre_acumulado
+  is 'Monto Presupuestado Acumulado.';
+comment on column IT.CB_CON_PRESUPUESTO.mto_acu_mov_del_mes
+  is 'Monto Acumulado de Movimientos del Mes.';
+comment on column IT.CB_CON_PRESUPUESTO.por_cum_mov_del_mes
+  is 'Porcentaje de Cumplimiento de Movimentos del Mes.';
+comment on column IT.CB_CON_PRESUPUESTO.mto_acu_mov_total
+  is 'Monto Acumulado Movimiento Total.';
+comment on column IT.CB_CON_PRESUPUESTO.mto_dif_presupuesto
+  is 'Monto Diferencia Presupuesto.';
+comment on column IT.CB_CON_PRESUPUESTO.por_eje_presupuesto
+  is 'Porcentaje de Ejecucion del Presupuesto.';
+alter table IT.CB_CON_PRESUPUESTO
+  add constraint PK_CB_CONT_PRESUPUESTO primary key (ANO, MES, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

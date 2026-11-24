@@ -1,0 +1,29 @@
+create table IT.SB_SOL_INV_TMP (
+    FECHA             DATE,       -- Fecha del inventario (formato MM/DD/YYYY del XLSX)
+    TIP_DEUDOR        VARCHAR2(128),      -- Tipo de deudor
+    NRO_CUENTA        NUMBER(10),         -- Numero de cuenta
+    COD_PERSONA       NUMBER(10),         -- Codigo de persona en el sistema
+    NRO_DOCUMENTO     VARCHAR2(20),       -- Numero de documento de identidad
+    NOMBRE            VARCHAR2(100),      -- Nombre del cliente
+    COD_MODULO        NUMBER(5),          -- Codigo del modulo contable
+    COD_MODALIDAD     NUMBER(5),          -- Codigo de modalidad del credito
+    MODAL             VARCHAR2(50),       -- Descripcion de la modalidad
+    COD_OFICINA       NUMBER(5),          -- Codigo de oficina
+    DESC_OFI          VARCHAR2(50),       -- Descripcion de la oficina
+    COD_MONEDA        VARCHAR2(5),        -- Codigo de moneda (GS/USD)
+    TIP_SALDO         VARCHAR2(5),        -- Tipo de saldo
+    SITUACION         VARCHAR2(20),       -- Situacion del credito
+    ESTADO            VARCHAR2(20),       -- Estado del credito
+    FEC_APERTURA      VARCHAR2(20),       -- Fecha de apertura (formato MM/DD/YYYY del XLSX)
+    FEC_VENCIMIENTO   VARCHAR2(20),       -- Fecha de vencimiento (formato MM/DD/YYYY del XLSX)
+    VAL_TASA          VARCHAR2(20),       -- Valor de la tasa de interes
+    COD_RUBRO         VARCHAR2(15),       -- Codigo del rubro contable BCP (15 digitos)
+    DES_RUBRO         VARCHAR2(100),      -- Descripcion del rubro contable
+    SAL_ACTUAL        NUMBER(20)          -- Saldo actual de la operacion
+) TABLESPACE IT_DATA;
+
+COMMENT ON TABLE IT.SB_SOL_INV_TMP IS 'Staging: inventario de colocaciones para solvencia (INVENTARIO_COLOCACIONES.XLSX). Transitoria: se purga tras cada carga por PRS_ACT_SOL_INV.';
+
+CREATE PUBLIC SYNONYM SB_SOL_INV_TMP FOR IT.SB_SOL_INV_TMP;
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.SB_SOL_INV_TMP TO IT_CONSULTAS;
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.SB_SOL_INV_TMP TO IT_TEMPORAL;

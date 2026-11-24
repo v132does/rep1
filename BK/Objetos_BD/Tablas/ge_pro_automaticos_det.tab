@@ -1,0 +1,75 @@
+create table IT.GE_PRO_AUTOMATICOS_DET
+(
+  cod_programa     VARCHAR2(200) not null,
+  cod_sub_programa VARCHAR2(200) not null,
+  nro_orden        NUMBER(4) not null,
+  fecha            DATE not null,
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  nro_referencia   VARCHAR2(20),
+  des_referencia   VARCHAR2(200),
+  observacion      VARCHAR2(4000),
+  error            VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_cuenta       VARCHAR2(15),
+  des_operacion    VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PRO_AUTOMATICOS_DET.cod_programa
+  is 'Codigo de Programa';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.cod_sub_programa
+  is 'Codigo de Sub-Programa interno o paralelo de devengado';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.nro_orden
+  is 'Nro de Orden del programa';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.fecha
+  is 'Fecha de Proceso';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.hor_inicio
+  is 'Hora de Inicio del Proceso';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.hor_fin
+  is 'Hora de Fin del Proceso';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.nro_referencia
+  is 'Nro de Referencia';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.des_referencia
+  is 'Descripcion de la Referencia';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.observacion
+  is 'Observacion';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.error
+  is 'Descripcion del error';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.fec_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.nro_cuenta
+  is 'Nro. de Cuenta';
+comment on column IT.GE_PRO_AUTOMATICOS_DET.des_operacion
+  is 'Descripcion de la Operacion';
+create index IT.IN_MRAUT_FECHA on IT.GE_PRO_AUTOMATICOS_DET (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

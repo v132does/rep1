@@ -1,0 +1,50 @@
+create table IT.CB_LOG_PROCESOS
+(
+  fecha            DATE not null,
+  nom_paquete      VARCHAR2(60) not null,
+  nom_pro_interno  VARCHAR2(60),
+  cod_rubro        VARCHAR2(60),
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  det_sql          CLOB,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_LOG_PROCESOS
+  is 'Tabla para registrar eventos de procesamientos de contabilidad.';
+comment on column IT.CB_LOG_PROCESOS.fecha
+  is 'Fecha de ejecución de proceso que genera el log';
+comment on column IT.CB_LOG_PROCESOS.nom_paquete
+  is 'Nombre del paquete o proceso que genera el log';
+comment on column IT.CB_LOG_PROCESOS.nom_pro_interno
+  is 'Nombre del proceso interno o porción de código que genera el log';
+comment on column IT.CB_LOG_PROCESOS.cod_rubro
+  is 'Código de Rubro ';
+comment on column IT.CB_LOG_PROCESOS.hor_inicio
+  is 'Hora de inicio del proceso capturado en el log';
+comment on column IT.CB_LOG_PROCESOS.hor_fin
+  is 'Hora de fin del proceso capturado en el log';
+comment on column IT.CB_LOG_PROCESOS.det_sql
+  is 'Detalle del sql ejecutado ';
+comment on column IT.CB_LOG_PROCESOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_LOG_PROCESOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_LOG_PROCESOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LOG_PROCESOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

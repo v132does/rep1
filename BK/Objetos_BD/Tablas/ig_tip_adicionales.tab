@@ -1,0 +1,52 @@
+create table IT.IG_TIP_ADICIONALES
+(
+  cod_adicional    NUMBER(3) not null,
+  descripcion      VARCHAR2(100) not null,
+  tipo             VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_TIP_ADICIONALES
+  is 'Tipos de Adicionales a Imputar o Gratificar.';
+comment on column IT.IG_TIP_ADICIONALES.cod_adicional
+  is 'Codigo del tipo de adicional.';
+comment on column IT.IG_TIP_ADICIONALES.descripcion
+  is 'Descripcion.';
+comment on column IT.IG_TIP_ADICIONALES.tipo
+  is 'Tipo del adicional Debito / Credito. Ya que puede ser descuento o premio.';
+comment on column IT.IG_TIP_ADICIONALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_TIP_ADICIONALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_TIP_ADICIONALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_TIP_ADICIONALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_TIP_ADICIONALES
+  add constraint PK_IG_TIP_ADICIONAL primary key (COD_ADICIONAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

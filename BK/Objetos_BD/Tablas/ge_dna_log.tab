@@ -1,0 +1,112 @@
+create table IT.GE_DNA_LOG
+(
+  id                 NUMBER(10) not null,
+  iddeposito         VARCHAR2(20),
+  iddepositodna      VARCHAR2(20),
+  cotizacion         NUMBER(18),
+  idbroker           VARCHAR2(11),
+  brokername         VARCHAR2(150),
+  idtrader           VARCHAR2(150),
+  tradername         VARCHAR2(150),
+  monto              NUMBER(18),
+  tipo               VARCHAR2(3),
+  fechaoperacion     DATE,
+  status             VARCHAR2(10),
+  codigoerror        VARCHAR2(2),
+  msgerror           VARCHAR2(150),
+  ip                 VARCHAR2(15),
+  fechainserccion    DATE,
+  fechaactualizacion DATE,
+  request            VARCHAR2(4000),
+  response           VARCHAR2(4000),
+  usuario            VARCHAR2(40),
+  estado             VARCHAR2(1),
+  idcajero           VARCHAR2(3),
+  iddepositobanco    VARCHAR2(19),
+  tipooperacion      VARCHAR2(1),
+  idticket           VARCHAR2(16),
+  requestcheckamount NUMBER(18,2),
+  requestcashamount  NUMBER(18,2),
+  checkdef           VARCHAR2(2000),
+  nro_cuenta         VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DNA_LOG.id
+  is 'IDENTIFICADOR DE LA TABLA';
+comment on column IT.GE_DNA_LOG.iddeposito
+  is 'NRO. DE DEPOSITO';
+comment on column IT.GE_DNA_LOG.cotizacion
+  is 'COTIZACION';
+comment on column IT.GE_DNA_LOG.idbroker
+  is 'RUC IMPORTADOR';
+comment on column IT.GE_DNA_LOG.idtrader
+  is 'RUC DESPACHANTE';
+comment on column IT.GE_DNA_LOG.monto
+  is 'MONTO DE LA OPERACION';
+comment on column IT.GE_DNA_LOG.tipo
+  is 'TDA.TCA,TID';
+comment on column IT.GE_DNA_LOG.fechaoperacion
+  is 'FECHA DE LA OPERACION';
+comment on column IT.GE_DNA_LOG.status
+  is 'INDICADOR DE ACEPTACION(S/N)';
+comment on column IT.GE_DNA_LOG.codigoerror
+  is 'EJ.:01,99.ETC...';
+comment on column IT.GE_DNA_LOG.fechainserccion
+  is 'FECHA DE INSERCCION PARA EL REQUEST';
+comment on column IT.GE_DNA_LOG.fechaactualizacion
+  is 'FECHA DE ACTUALIZACION PARA EL RESPONSE';
+comment on column IT.GE_DNA_LOG.request
+  is 'STRING DEFINIDO POR LA DNA';
+comment on column IT.GE_DNA_LOG.response
+  is 'STRING DEFINIDO POR LA DNA';
+comment on column IT.GE_DNA_LOG.usuario
+  is 'USUARIO QUE REGISTRO LA OPERACION';
+comment on column IT.GE_DNA_LOG.tipooperacion
+  is 'TIPO DE OPERACION PARA PROCESO INTERNO';
+comment on column IT.GE_DNA_LOG.idticket
+  is 'NUMERO DE BOLETA DE DEPOSITO DE CANON INFORMATICO ';
+comment on column IT.GE_DNA_LOG.requestcheckamount
+  is 'MONTO EN CHEQUES DE LA BOLETA DE DEPOSITO DE CANON';
+comment on column IT.GE_DNA_LOG.requestcashamount
+  is 'MONTO EN EFECTIVO DE LA BOLETA DE DEPOSITO DE CANON';
+comment on column IT.GE_DNA_LOG.checkdef
+  is 'DETALLE DE CHEQUES';
+comment on column IT.GE_DNA_LOG.nro_cuenta
+  is 'NRO DE CUENTA PARA EXTRACTOS';
+create index IT.IDX_GE_DNA_LOG_ESTADOTIPO on IT.GE_DNA_LOG (ESTADO, TIPOOPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DNA_LOG
+  add constraint PK_GE_DNA_LOG primary key (ID)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,64 @@
+create table IT.CB_AUX_VALIDACIONES
+(
+  fecha            DATE not null,
+  nro_asiento      NUMBER(10) not null,
+  nro_linea        NUMBER(20) not null,
+  error            VARCHAR2(140) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_oficina      NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_AUX_VALIDACIONES
+  is 'Corrección de asientos automáticos';
+comment on column IT.CB_AUX_VALIDACIONES.fecha
+  is 'Fecha de validacion';
+comment on column IT.CB_AUX_VALIDACIONES.nro_asiento
+  is 'Numero de asiento';
+comment on column IT.CB_AUX_VALIDACIONES.nro_linea
+  is 'Numero de linea de asiento';
+comment on column IT.CB_AUX_VALIDACIONES.error
+  is 'Error';
+comment on column IT.CB_AUX_VALIDACIONES.cod_modulo
+  is 'Codigo de modulo';
+comment on column IT.CB_AUX_VALIDACIONES.cod_modalidad
+  is 'Codigo de modalidad';
+comment on column IT.CB_AUX_VALIDACIONES.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.CB_AUX_VALIDACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro';
+comment on column IT.CB_AUX_VALIDACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro';
+comment on column IT.CB_AUX_VALIDACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro';
+comment on column IT.CB_AUX_VALIDACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion del registro';
+alter table IT.CB_AUX_VALIDACIONES
+  add constraint PK_CB_AUX_VALIDACIONES primary key (FECHA, NRO_ASIENTO, NRO_LINEA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

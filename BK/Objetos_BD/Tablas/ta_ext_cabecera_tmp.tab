@@ -1,0 +1,335 @@
+create table IT.TA_EXT_CABECERA_TMP
+(
+  fec_cierre              DATE,
+  id_cuenta               NUMBER(15),
+  cod_moneda              NUMBER(5),
+  nom_cuenta              VARCHAR2(60),
+  cod_entidad             NUMBER(5),
+  id_afinidad             NUMBER(10),
+  cod_marca               VARCHAR2(5),
+  cod_pro_marca           VARCHAR2(10),
+  tip_cuenta              VARCHAR2(20),
+  cod_emp_adherida        NUMBER(8),
+  nom_emp_adherida        VARCHAR2(40),
+  id_persona              NUMBER(9),
+  tip_persona             VARCHAR2(20),
+  nom_per_fisica          VARCHAR2(40),
+  ape_per_fisica          VARCHAR2(40),
+  tip_doc_persona         VARCHAR2(3),
+  nro_doc_persona         VARCHAR2(20),
+  tip_cli_persona         VARCHAR2(20),
+  ruc_extracto            VARCHAR2(20),
+  raz_social              VARCHAR2(30),
+  ruc_per_juridica        VARCHAR2(20),
+  pri_direccion           VARCHAR2(100),
+  seg_direccion           VARCHAR2(100),
+  ter_direccion           VARCHAR2(100),
+  cod_pais                NUMBER(5),
+  cod_departamento        NUMBER(5),
+  cod_ciudad              NUMBER(8),
+  nom_ciudad              VARCHAR2(50),
+  cod_zon_entidad         VARCHAR2(15),
+  nom_zona_entidad        VARCHAR2(60),
+  nro_telefono            VARCHAR2(20),
+  nro_celular             VARCHAR2(20),
+  email                   VARCHAR2(70),
+  cod_suc_entidad         NUMBER(5),
+  nom_suc_entidad         VARCHAR2(60),
+  id_ofi_cuenta           NUMBER(10),
+  nom_ofi_cuenta          VARCHAR2(60),
+  vip                     VARCHAR2(2),
+  ret_extracto            VARCHAR2(2),
+  id_mot_no_extracto      NUMBER(5),
+  sec_sep_extracto        NUMBER(8),
+  id_tip_cierre           VARCHAR2(4),
+  cla_bcp                 VARCHAR2(4),
+  cod_cli_entidad         VARCHAR2(20),
+  sit_cuenta              VARCHAR2(20),
+  dia_mora                NUMBER(8),
+  con_car_suspendido      VARCHAR2(2),
+  id_tip_doc_cuenta       VARCHAR2(5),
+  nro_doc_cuenta          VARCHAR2(20),
+  ruc                     VARCHAR2(20),
+  mod_pago                VARCHAR2(1),
+  des_modo_pago           VARCHAR2(50),
+  tip_cta_bancaria        VARCHAR2(1),
+  des_tip_cta_bancaria    VARCHAR2(40),
+  cta_bancaria            NUMBER(20),
+  tip_pago                VARCHAR2(1),
+  cgf_aplicar             VARCHAR2(1),
+  des_cgf_aplicar         VARCHAR2(50),
+  cgf_apl_dia_mora        VARCHAR2(1),
+  desc_cgf_apl_dia_mora   VARCHAR2(40),
+  ttf_aplicar             VARCHAR2(1),
+  per_tti                 VARCHAR2(2),
+  per_pag_minimo          VARCHAR2(2),
+  por_pag_minimo          NUMBER(8,2),
+  imp_min_pag_min         NUMBER(18,2),
+  imp_fij_pag_min         NUMBER(18,2),
+  fac_mul_vip             NUMBER(8,2),
+  sal_ult_resumen         NUMBER(18,2),
+  num_com_per_anterior    NUMBER(20),
+  can_extractos           NUMBER(8),
+  dia_mor_inicial         NUMBER(8),
+  num_com_per_actual      NUMBER(20),
+  tas_alt_cierre          VARCHAR2(2),
+  fec_ult_actualizacion   DATE,
+  des_tip_tas_interes     VARCHAR2(20),
+  cta_excedida            VARCHAR2(2),
+  imp_mora                NUMBER(18,2),
+  imp_exceso              NUMBER(18,2),
+  imp_com_no_financiable  NUMBER(18,2),
+  imp_gas_financiero      NUMBER(18,2),
+  imp_por_com_financiable NUMBER(18,2),
+  imp_aju_com_financiable NUMBER(18,2),
+  imp_pag_minimo          NUMBER(18,2),
+  tas_aplicada            NUMBER(8,2),
+  tas_anu_aplicada        NUMBER(10,3),
+  con_extracto            VARCHAR2(20),
+  nom_formulario          VARCHAR2(15),
+  num_control             NUMBER(9),
+  num_factura             NUMBER(13),
+  timbrado                NUMBER(11),
+  vto_pag_minimo          DATE,
+  deu_total               NUMBER(18,2),
+  res_est_meses           NUMBER(8),
+  res_est_total           NUMBER(18,2),
+  pun_anteriores          NUMBER(18,2),
+  pun_generados           NUMBER(18,2),
+  pun_canjeados           NUMBER(18,2),
+  pun_vencidos            NUMBER(18,2),
+  pun_baja                NUMBER(18,2),
+  sal_puntos              NUMBER(18,2),
+  id_pro_lealtad          NUMBER(15),
+  nom_puntos              VARCHAR2(60),
+  des_tip_pago            VARCHAR2(25),
+  car_sus_acumulado       NUMBER(18,2),
+  pro_int_anteriores      NUMBER(18,2),
+  pro_int_periodo         NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_EXT_CABECERA_TMP
+  is 'Tabla para consumir el archivo PBEXTCAB (Cabecera de extractos mensuales) de Bancard.';
+comment on column IT.TA_EXT_CABECERA_TMP.fec_cierre
+  is 'Fecha de cierre';
+comment on column IT.TA_EXT_CABECERA_TMP.id_cuenta
+  is 'Identificador de la cuenta en bancard';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_moneda
+  is 'Codigo ISO de la moneda';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_cuenta
+  is 'Denominacion de la cuenta';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_entidad
+  is 'Codigo de la entidad en Bancard';
+comment on column IT.TA_EXT_CABECERA_TMP.id_afinidad
+  is 'Id de la afinidad de cuenta';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_marca
+  is 'Codigo de marca de tarjeta';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_pro_marca
+  is 'Codigo de producto/marca de tarjeta';
+comment on column IT.TA_EXT_CABECERA_TMP.tip_cuenta
+  is 'Tipo de cuenta. Personal/Empresarial';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_emp_adherida
+  is 'Codigo definido por la entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_emp_adherida
+  is 'Nombre empresa adherida';
+comment on column IT.TA_EXT_CABECERA_TMP.id_persona
+  is 'Id de la persona en Bancard';
+comment on column IT.TA_EXT_CABECERA_TMP.tip_persona
+  is 'Tipo persona. Fisica/Jiridica';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_per_fisica
+  is 'Nombre de la persona fisica';
+comment on column IT.TA_EXT_CABECERA_TMP.ape_per_fisica
+  is 'Apellido de la persona fisica';
+comment on column IT.TA_EXT_CABECERA_TMP.tip_doc_persona
+  is 'Tipo documento de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.nro_doc_persona
+  is 'Nro. documento de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.tip_cli_persona
+  is 'Tipo cliente/persona. Interclass/Otros';
+comment on column IT.TA_EXT_CABECERA_TMP.ruc_extracto
+  is 'Ruc a mostrar en el extracto';
+comment on column IT.TA_EXT_CABECERA_TMP.raz_social
+  is 'Razon social de la persona juridica';
+comment on column IT.TA_EXT_CABECERA_TMP.ruc_per_juridica
+  is 'Ruc de la persona juridica';
+comment on column IT.TA_EXT_CABECERA_TMP.pri_direccion
+  is 'Primera direccion de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.seg_direccion
+  is 'Segunda direccion de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.ter_direccion
+  is 'Tercera direccion de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_pais
+  is 'Codigo ISO del pais donde reside la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_departamento
+  is 'Codigo del departamento donde reside la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_ciudad
+  is 'Codigo de la ciudad donde reside la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_ciudad
+  is 'Nombre de la ciudad';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_zon_entidad
+  is 'Codigo de zona definido por la entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_zona_entidad
+  is 'Nombre zona entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.nro_telefono
+  is 'Nro. telefono de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.nro_celular
+  is 'Nro. celular de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.email
+  is 'Email de la persona';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_suc_entidad
+  is 'Codigo de sucursal definido por la entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_suc_entidad
+  is 'Nombre sucursal definido por la entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.id_ofi_cuenta
+  is 'Id del oficial definido por la entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_ofi_cuenta
+  is 'Nombre oficial de cuenta';
+comment on column IT.TA_EXT_CABECERA_TMP.vip
+  is 'Es cuenta VIP?. Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.ret_extracto
+  is 'Retener extracto?. Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.id_mot_no_extracto
+  is 'Motivo de no listar extracto';
+comment on column IT.TA_EXT_CABECERA_TMP.sec_sep_extracto
+  is 'Secuencia separacion extracto';
+comment on column IT.TA_EXT_CABECERA_TMP.id_tip_cierre
+  is 'Id tipo de cierre';
+comment on column IT.TA_EXT_CABECERA_TMP.cla_bcp
+  is 'Clasificacion BCP';
+comment on column IT.TA_EXT_CABECERA_TMP.cod_cli_entidad
+  is 'Codigo de cliente definido por la entidad';
+comment on column IT.TA_EXT_CABECERA_TMP.sit_cuenta
+  is 'Situacion de la cuenta. Activo/Inactivo/Baja';
+comment on column IT.TA_EXT_CABECERA_TMP.dia_mora
+  is 'Dias de mora';
+comment on column IT.TA_EXT_CABECERA_TMP.con_car_suspendido
+  is 'Con cargo suspendido?. Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.id_tip_doc_cuenta
+  is 'Id tipo documento cuenta';
+comment on column IT.TA_EXT_CABECERA_TMP.nro_doc_cuenta
+  is 'Numero documento cuenta';
+comment on column IT.TA_EXT_CABECERA_TMP.ruc
+  is 'Ruc';
+comment on column IT.TA_EXT_CABECERA_TMP.mod_pago
+  is 'Modo de pago. D/V';
+comment on column IT.TA_EXT_CABECERA_TMP.des_modo_pago
+  is 'Descripcion modo de pago. Debito automatico/Ventanilla';
+comment on column IT.TA_EXT_CABECERA_TMP.tip_cta_bancaria
+  is 'Tipo cuenta bancaria.1/2';
+comment on column IT.TA_EXT_CABECERA_TMP.des_tip_cta_bancaria
+  is 'Descripcion tipo cta bancaria. CC/CA';
+comment on column IT.TA_EXT_CABECERA_TMP.cta_bancaria
+  is 'Numero de la cuenta bancaria';
+comment on column IT.TA_EXT_CABECERA_TMP.tip_pago
+  is 'Tipo de pago. T/M';
+comment on column IT.TA_EXT_CABECERA_TMP.cgf_aplicar
+  is 'CGF a aplicar';
+comment on column IT.TA_EXT_CABECERA_TMP.des_cgf_aplicar
+  is 'Descripcion CGF a aplicar';
+comment on column IT.TA_EXT_CABECERA_TMP.cgf_apl_dia_mora
+  is 'CGF a aplicar por dias de mora';
+comment on column IT.TA_EXT_CABECERA_TMP.desc_cgf_apl_dia_mora
+  is 'Descripcion CGF a aplicar por dias de mora';
+comment on column IT.TA_EXT_CABECERA_TMP.ttf_aplicar
+  is 'Codigo tipo tasa interes. N/P';
+comment on column IT.TA_EXT_CABECERA_TMP.per_tti
+  is 'Personalizar tipo tasa interes?.Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.per_pag_minimo
+  is 'Personalizar pago minimo?.Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.por_pag_minimo
+  is 'Porcentaje de pago minimo';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_min_pag_min
+  is 'Importe minimo PM';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_fij_pag_min
+  is 'Importe fijo pago minimo';
+comment on column IT.TA_EXT_CABECERA_TMP.fac_mul_vip
+  is 'Factor multiplicador VIP';
+comment on column IT.TA_EXT_CABECERA_TMP.sal_ult_resumen
+  is 'Saldo ultimo resumen';
+comment on column IT.TA_EXT_CABECERA_TMP.num_com_per_anterior
+  is 'Numeral compras periodo anterior';
+comment on column IT.TA_EXT_CABECERA_TMP.can_extractos
+  is 'Cantidad extractos';
+comment on column IT.TA_EXT_CABECERA_TMP.dia_mor_inicial
+  is 'Dias mora inicial';
+comment on column IT.TA_EXT_CABECERA_TMP.num_com_per_actual
+  is 'Numeral compras periodo actual ';
+comment on column IT.TA_EXT_CABECERA_TMP.tas_alt_cierre
+  is 'Tasa alterada en cierre. Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.fec_ult_actualizacion
+  is 'Fecha/Hora ultima actualizacion';
+comment on column IT.TA_EXT_CABECERA_TMP.des_tip_tas_interes
+  is 'Descripcion tipo tasa interes.Normal/Preferente';
+comment on column IT.TA_EXT_CABECERA_TMP.cta_excedida
+  is 'Cuenta excedida?. Si/No';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_mora
+  is 'Importe en mora';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_exceso
+  is 'Importe en exceso';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_com_no_financiable
+  is 'Importe compra no financiable';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_gas_financiero
+  is 'Importe gasto financiero';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_por_com_financiable
+  is 'Importe porcentaje compra financiable';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_aju_com_financiable
+  is 'Importe ajuste porcentaje compra financiable';
+comment on column IT.TA_EXT_CABECERA_TMP.imp_pag_minimo
+  is 'Importe de pago minimo';
+comment on column IT.TA_EXT_CABECERA_TMP.tas_aplicada
+  is 'Tasa aplicada';
+comment on column IT.TA_EXT_CABECERA_TMP.tas_anu_aplicada
+  is 'Tasa anual efectiva aplicada';
+comment on column IT.TA_EXT_CABECERA_TMP.con_extracto
+  is 'Condicion de extracto. Imprimir/No imprimir/No extractar/No generar';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_formulario
+  is 'Nombre formulario relacionado al tipo de papel a utilizar en la impresion';
+comment on column IT.TA_EXT_CABECERA_TMP.num_control
+  is 'Numero de control';
+comment on column IT.TA_EXT_CABECERA_TMP.num_factura
+  is 'Numero de factura';
+comment on column IT.TA_EXT_CABECERA_TMP.timbrado
+  is 'Timbrado';
+comment on column IT.TA_EXT_CABECERA_TMP.vto_pag_minimo
+  is 'Vencimiento pago minimo actual';
+comment on column IT.TA_EXT_CABECERA_TMP.deu_total
+  is 'Deuda total';
+comment on column IT.TA_EXT_CABECERA_TMP.res_est_meses
+  is 'Resolucion 3, estimacion meses';
+comment on column IT.TA_EXT_CABECERA_TMP.res_est_total
+  is 'Resolucion 3, estimacion total';
+comment on column IT.TA_EXT_CABECERA_TMP.pun_anteriores
+  is 'Puntos anteriores, datos del sistema lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.pun_generados
+  is 'Puntos generados, datos del sistema lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.pun_canjeados
+  is 'Puntos canjeados , datos del sistema lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.pun_vencidos
+  is 'Puntos vencidos , datos del sistema lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.pun_baja
+  is 'Puntos de baja , datos del sistema lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.sal_puntos
+  is 'Saldo de puntos, datos del sistema lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.id_pro_lealtad
+  is 'Id del programa lealtad';
+comment on column IT.TA_EXT_CABECERA_TMP.nom_puntos
+  is 'Respuesta a la peticion';
+comment on column IT.TA_EXT_CABECERA_TMP.des_tip_pago
+  is 'Descripcion del tipo de pago. Minimo/Total';
+comment on column IT.TA_EXT_CABECERA_TMP.car_sus_acumulado
+  is 'Cargos suspendidos acumulados';
+comment on column IT.TA_EXT_CABECERA_TMP.pro_int_anteriores
+  is 'Productiva intereses anteriores';
+comment on column IT.TA_EXT_CABECERA_TMP.pro_int_periodo
+  is 'Productiva interes periodo';
+

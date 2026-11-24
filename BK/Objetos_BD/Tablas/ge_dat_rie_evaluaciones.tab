@@ -1,0 +1,108 @@
+create table IT.GE_DAT_RIE_EVALUACIONES
+(
+  nro_solicitud       NUMBER(7) not null,
+  nro_intento         NUMBER(3) not null,
+  cod_flujo           VARCHAR2(10),
+  reservado           VARCHAR2(2),
+  nivel               VARCHAR2(1),
+  dic_per_final       VARCHAR2(1),
+  dic_final           VARCHAR2(1),
+  dic_bur_final       VARCHAR2(1),
+  mto_reconducido     NUMBER(18,2),
+  cod_moneda          VARCHAR2(3),
+  lim_max_operacion   NUMBER(18,2),
+  plazo               NUMBER(4),
+  tas_mto_reconducido NUMBER(5,2),
+  cod_persona         VARCHAR2(10),
+  cod_modulo          NUMBER(3) not null,
+  ver_flujo           VARCHAR2(4),
+  estado              VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default SYSDATE,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion    DATE default SYSDATE,
+  cod_modalidad       NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DAT_RIE_EVALUACIONES.nro_solicitud
+  is 'Número de Solicitud Evaluada.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.nro_intento
+  is 'Número de Simulación de Evaluación.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.cod_flujo
+  is 'Identificador del Flujo que ha evaluado la Solicitud Actual.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.reservado
+  is 'Campo reservado que se informa siempre con un mismo valor.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.nivel
+  is 'Campo numérico que indica el número de Niveles de Multiplicidad del Flujo de Decisión.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.dic_per_final
+  is 'Dictamen de Perfil Final.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.dic_final
+  is 'Dictamen Final.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.dic_bur_final
+  is 'Dictamen de Buró Final. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.mto_reconducido
+  is 'Monto Máximo que se le puede otorgar para el Préstamo.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.cod_moneda
+  is 'Moneda del monto reconducido.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.lim_max_operacion
+  is 'Límite Máximo de la Operación. ';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.plazo
+  is 'Plazo para Préstamo.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.tas_mto_reconducido
+  is 'Valor de Tasa para Préstamo.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.cod_persona
+  is 'Código de Persona Solicitante.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.ver_flujo
+  is 'Versión del Flujo que debe evaluar la Solicitud Actual.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.estado
+  is 'Estado de la Evaluación.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.usu_modificacion
+  is 'Usuario que realizó la modificación del registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+comment on column IT.GE_DAT_RIE_EVALUACIONES.cod_modalidad
+  is 'Código de Modalidad.';
+alter table IT.GE_DAT_RIE_EVALUACIONES
+  add constraint PK_GE_DAT_RIE_EVALUACIONES primary key (NRO_SOLICITUD, NRO_INTENTO, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.PK_GE_DAT_RIE_EVALUACIONES nologging;
+alter table IT.GE_DAT_RIE_EVALUACIONES
+  add constraint FK_GDEVA_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.GE_DAT_RIE_EVALUACIONES
+  add constraint FK_GDEVA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_DAT_RIE_EVALUACIONES
+  add constraint FK_GDEVA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_DAT_RIE_EVALUACIONES
+  add constraint FK_GDREV_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+

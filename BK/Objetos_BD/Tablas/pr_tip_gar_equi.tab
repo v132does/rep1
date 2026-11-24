@@ -1,0 +1,17 @@
+create table IT.PR_TIP_GAR_EQUI
+(
+  cod_gar_bankitti NUMBER(3) not null,
+  cod_gar_ueno     NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

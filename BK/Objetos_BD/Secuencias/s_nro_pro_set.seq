@@ -1,0 +1,9 @@
+create sequence IT.S_NRO_PRO_SET
+minvalue 0
+maxvalue 99999999999
+start with 647
+increment by 1
+nocache
+cycle
+order;
+

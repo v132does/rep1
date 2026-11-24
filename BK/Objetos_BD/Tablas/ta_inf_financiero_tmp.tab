@@ -1,0 +1,59 @@
+create table IT.TA_INF_FINANCIERO_TMP
+(
+  ref_archivo      VARCHAR2(30) not null,
+  clase            VARCHAR2(2) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  mto_movimiento   NUMBER(18,2),
+  mto_com_entidad  NUMBER(18,2),
+  mto_iva_ventas   NUMBER(18,2),
+  fec_valor        DATE,
+  fec_proceso      DATE,
+  tip_movimiento   VARCHAR2(1),
+  tip_debito       VARCHAR2(2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_INF_FINANCIERO_TMP
+  is 'Datos enviados por Bancard sobre Informe Financieros.';
+comment on column IT.TA_INF_FINANCIERO_TMP.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_INF_FINANCIERO_TMP.clase
+  is 'Clase de Tarjeta.';
+comment on column IT.TA_INF_FINANCIERO_TMP.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_INF_FINANCIERO_TMP.mto_movimiento
+  is 'Monto del Movimiento.';
+comment on column IT.TA_INF_FINANCIERO_TMP.mto_com_entidad
+  is 'Monto de la Comisión p/ Entidad.';
+comment on column IT.TA_INF_FINANCIERO_TMP.mto_iva_ventas
+  is 'Monto del Iva s/Venta/Cargos.';
+comment on column IT.TA_INF_FINANCIERO_TMP.fec_valor
+  is 'Fecha Valor.';
+comment on column IT.TA_INF_FINANCIERO_TMP.fec_proceso
+  is 'Fecha Proceso.';
+comment on column IT.TA_INF_FINANCIERO_TMP.tip_movimiento
+  is 'Tipo de Movimiento. (V-Ventas, P-Pagos, D-Cargos/Débito, C-Cargos/Créditos, A-Adelantos POS, T-Adelantos ATM, Q-Comisión Adel., I-Iva).';
+comment on column IT.TA_INF_FINANCIERO_TMP.tip_debito
+  is 'Tipo de Débito.';
+comment on column IT.TA_INF_FINANCIERO_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_INF_FINANCIERO_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_INF_FINANCIERO_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_INF_FINANCIERO_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+

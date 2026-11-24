@@ -1,0 +1,69 @@
+create table IT.SIMGIA_DEBCRECONT
+(
+  itsuc     NUMBER(2),
+  itcta     NUMBER(12),
+  itmonto   NUMBER(15,2),
+  itmontome NUMBER(15,2),
+  ittipo    VARCHAR2(1),
+  itref     VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_DEBCRECONT_COMP on IT.SIMGIA_DEBCRECONT (ITSUC, ITCTA, ITTIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_DEBCRECONT_CTA on IT.SIMGIA_DEBCRECONT (ITCTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_DEBCRECONT_SUC on IT.SIMGIA_DEBCRECONT (ITSUC)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INX_DEBCRECONT_TIPO on IT.SIMGIA_DEBCRECONT (ITTIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

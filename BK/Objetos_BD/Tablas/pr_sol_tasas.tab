@@ -1,0 +1,64 @@
+create table IT.PR_SOL_TASAS
+(
+  nro_solicitud    NUMBER(7) not null,
+  fec_vigencia     DATE not null,
+  val_tasa         NUMBER(20,4) default 0 not null,
+  tip_cobro        VARCHAR2(1) default 'A',
+  per_vencimiento  NUMBER(4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SOL_TASAS
+  is 'Contiene datos de las Tasa de las Solicitudes de Prestamos.';
+comment on column IT.PR_SOL_TASAS.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_SOL_TASAS.fec_vigencia
+  is 'Fecha vigencia.';
+comment on column IT.PR_SOL_TASAS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.PR_SOL_TASAS.tip_cobro
+  is 'Tipo de cobro.';
+comment on column IT.PR_SOL_TASAS.per_vencimiento
+  is 'Periodo de vencimiento.';
+comment on column IT.PR_SOL_TASAS.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.PR_SOL_TASAS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.PR_SOL_TASAS.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.PR_SOL_TASAS.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.PR_SOL_TASAS
+  add constraint PK_SOL_TASAS primary key (NRO_SOLICITUD, FEC_VIGENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 640K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOL_TASAS
+  add constraint FK_PSTAS_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.PR_SOLICITUDES (NRO_SOLICITUD);
+alter table IT.PR_SOL_TASAS
+  add constraint AVCON_1080845005_TIP_C_000
+  check (TIP_COBRO IN ('A', 'V'));
+

@@ -1,0 +1,135 @@
+-- Create table
+create table IT.AH_TITULOS
+(
+  serie            VARCHAR2(5) not null,
+  nro_titulo       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  capital          NUMBER(18,2) default 0 not null,
+  estado           VARCHAR2(1) not null,
+  beneficiario     VARCHAR2(200),
+  fec_apertura     DATE,
+  fec_vencimiento  DATE,
+  ser_origen       VARCHAR2(5),
+  nro_tit_origen   VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_per_endosado VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.AH_TITULOS
+  is 'Contiene datos de Títulos Representativos.';
+-- Add comments to the columns 
+comment on column IT.AH_TITULOS.serie
+  is 'Serie del Título.';
+comment on column IT.AH_TITULOS.nro_titulo
+  is 'Número del Título Representativo.';
+comment on column IT.AH_TITULOS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.AH_TITULOS.capital
+  is 'Importe del Capital del Título.';
+comment on column IT.AH_TITULOS.estado
+  is 'Estado del Título (B=bloqueado/N=normal/T=totalmente pagado/V=vencido/R=transferido).';
+comment on column IT.AH_TITULOS.beneficiario
+  is 'Nombre y Apellido del Beneficiario.';
+comment on column IT.AH_TITULOS.fec_apertura
+  is 'Fecha de Apertura del Título.';
+comment on column IT.AH_TITULOS.fec_vencimiento
+  is 'Fecha de Vencimiento del Título.';
+comment on column IT.AH_TITULOS.ser_origen
+  is 'Serie Origen de Transferencia.';
+comment on column IT.AH_TITULOS.nro_tit_origen
+  is 'Número del Titulo Origen de Transferencia.';
+comment on column IT.AH_TITULOS.cod_moneda
+  is 'Código de la Moneda de la Cuenta.';
+comment on column IT.AH_TITULOS.usu_insercion
+  is 'Usuario que realizó la inserción del Registro.';
+comment on column IT.AH_TITULOS.fec_insercion
+  is 'Fecha en que se insertó el Registro.';
+comment on column IT.AH_TITULOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el Registro.';
+comment on column IT.AH_TITULOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el Registro.';
+comment on column IT.AH_TITULOS.cod_per_endosado
+  is 'Código de la Persona Endosado.';
+-- Create/Recreate indexes 
+create index IT.IN_ATITU_COD_MONEDA on IT.AH_TITULOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ATITU_COD_PER_ENDOSADO on IT.AH_TITULOS (COD_PER_ENDOSADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_AH_TITULOS on IT.AH_TITULOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.AH_TITULOS
+  add constraint PK_AH_TITULOS primary key (SERIE, NRO_TITULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 640K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_TITULOS
+  add constraint FK_ATITU_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_TITULOS
+  add constraint FK_ATITU_COD_PER_ENDOSADO foreign key (COD_PER_ENDOSADO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.AH_TITULOS
+  add constraint FK_ATITU_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+-- Create/Recreate check constraints 
+alter table IT.AH_TITULOS
+  add constraint AVCON_1080844426_ESTAD_001
+  check (ESTADO IN ('B','N','T','V','R'));
+alter table IT.AH_TITULOS
+  add constraint AVCON_1080844426_ESTAD_002
+  check (cod_persona <> cod_per_endosado);

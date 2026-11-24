@@ -1,0 +1,110 @@
+create table IT.BA_USUARIOS_CRM
+(
+  cod_usuario          VARCHAR2(10) not null,
+  nombre               VARCHAR2(60),
+  cod_oficina          NUMBER(3),
+  cod_area             NUMBER(3),
+  categoria            VARCHAR2(2),
+  oficial              VARCHAR2(1),
+  ver_cta_empleados    VARCHAR2(1),
+  promotor             VARCHAR2(1),
+  atn_publico          VARCHAR2(1),
+  cod_persona          VARCHAR2(10),
+  fec_ingreso          DATE,
+  cargo                VARCHAR2(60),
+  telefono             VARCHAR2(35),
+  nro_interno          NUMBER(5),
+  dir_correo           VARCHAR2(60),
+  gru_agenda           VARCHAR2(5),
+  fec_exp_clave        DATE,
+  cod_banca            NUMBER(3),
+  estado               VARCHAR2(1),
+  cod_usu_supervisor   VARCHAR2(10),
+  ver_cli_confidencial VARCHAR2(1),
+  cod_unidad           NUMBER(3),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     TIMESTAMP(6) default current_timestamp not null,
+  tip_accion           VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_USUARIOS_CRM
+  is 'Usuarios.';
+comment on column IT.BA_USUARIOS_CRM.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.BA_USUARIOS_CRM.nombre
+  is 'Nombre del usuario.';
+comment on column IT.BA_USUARIOS_CRM.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.BA_USUARIOS_CRM.cod_area
+  is 'Codigo de Area al que pertenece.';
+comment on column IT.BA_USUARIOS_CRM.categoria
+  is 'Categoria que puede tener el usuario.';
+comment on column IT.BA_USUARIOS_CRM.oficial
+  is 'Indica si es Oficial o no.';
+comment on column IT.BA_USUARIOS_CRM.ver_cta_empleados
+  is 'Si puede ver cuenta de empleados. (S = SI / N = NO).';
+comment on column IT.BA_USUARIOS_CRM.promotor
+  is 'Indica si es promotor o no (S = SI / N= NO).';
+comment on column IT.BA_USUARIOS_CRM.atn_publico
+  is 'Indica si atiende al publico.';
+comment on column IT.BA_USUARIOS_CRM.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.BA_USUARIOS_CRM.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.BA_USUARIOS_CRM.cargo
+  is 'Cargo del usuario.';
+comment on column IT.BA_USUARIOS_CRM.telefono
+  is 'Numero de Telefono.';
+comment on column IT.BA_USUARIOS_CRM.nro_interno
+  is 'Interno.';
+comment on column IT.BA_USUARIOS_CRM.dir_correo
+  is 'Direccion de Mail.';
+comment on column IT.BA_USUARIOS_CRM.gru_agenda
+  is 'Grupo de Agenda a la cual pertenece.';
+comment on column IT.BA_USUARIOS_CRM.fec_exp_clave
+  is 'Fecha de Expiracion de Clave.';
+comment on column IT.BA_USUARIOS_CRM.cod_banca
+  is 'Codigo de Banca.';
+comment on column IT.BA_USUARIOS_CRM.estado
+  is 'Estado del usuario.';
+comment on column IT.BA_USUARIOS_CRM.cod_usu_supervisor
+  is 'Usuario supervisor.';
+comment on column IT.BA_USUARIOS_CRM.ver_cli_confidencial
+  is 'Si puede ver cuenta de cliente confidencial. (S = SI / N = NO).';
+comment on column IT.BA_USUARIOS_CRM.cod_unidad
+  is 'Unidad de Negocios a la que pertenece el usuario.';
+comment on column IT.BA_USUARIOS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_USUARIOS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_USUARIOS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_USUARIOS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_USUARIOS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.IN_CRM_COD_USUARIO on IT.BA_USUARIOS_CRM (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

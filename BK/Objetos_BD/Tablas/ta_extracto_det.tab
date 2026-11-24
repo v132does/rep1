@@ -1,0 +1,64 @@
+create table IT.TA_EXTRACTO_DET
+(
+  clase            NUMBER(2) not null,
+  afinidad         VARCHAR2(2) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_tarjeta      VARCHAR2(19) not null,
+  tot_puntos       NUMBER(11,2) not null,
+  fec_cierre       DATE not null,
+  tip_cierre       VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_EXTRACTO_DET
+  is 'Archivo EXTDETA';
+comment on column IT.TA_EXTRACTO_DET.clase
+  is 'Clase de Tarjeta.';
+comment on column IT.TA_EXTRACTO_DET.afinidad
+  is 'Código Afinidad.';
+comment on column IT.TA_EXTRACTO_DET.nro_cuenta
+  is 'Cuenta.';
+comment on column IT.TA_EXTRACTO_DET.nro_tarjeta
+  is 'Tarjeta.';
+comment on column IT.TA_EXTRACTO_DET.tot_puntos
+  is 'Monto.';
+comment on column IT.TA_EXTRACTO_DET.fec_cierre
+  is 'Fecha de Cierre (AAAAMMDD).';
+comment on column IT.TA_EXTRACTO_DET.tip_cierre
+  is 'Tipo de Cierre.';
+comment on column IT.TA_EXTRACTO_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_EXTRACTO_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_EXTRACTO_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_EXTRACTO_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.TA_EXTRACTO_DET
+  add constraint PK_TA_EXTRACTO_DET primary key (NRO_CUENTA, FEC_CIERRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_REF_MENSAJE
+minvalue 500001
+maxvalue 999999
+start with 711458
+increment by 1
+nocache
+cycle;
+

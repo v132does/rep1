@@ -1,0 +1,41 @@
+create table IT.BA_LOG_PER_GEN_OFE
+(
+  cod_registro     NUMBER,
+  cod_persona      VARCHAR2(10),
+  cod_error        NUMBER,
+  msj_error        VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_LOG_PER_GEN_OFE
+  is 'Tabla para guardar LOG de errores que ocurren al generar una posible oferta al cliente.';
+comment on column IT.BA_LOG_PER_GEN_OFE.cod_registro
+  is 'Cod. Secuencia de registro';
+comment on column IT.BA_LOG_PER_GEN_OFE.cod_persona
+  is 'Cod. de Persona (Cod. Cliente)';
+comment on column IT.BA_LOG_PER_GEN_OFE.cod_error
+  is 'Cod. Error.';
+comment on column IT.BA_LOG_PER_GEN_OFE.msj_error
+  is 'Mensaje del Error registrado.';
+comment on column IT.BA_LOG_PER_GEN_OFE.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_LOG_PER_GEN_OFE.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_LOG_PER_GEN_OFE.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_LOG_PER_GEN_OFE.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

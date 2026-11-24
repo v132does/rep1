@@ -1,0 +1,20 @@
+create table IT.AH_DEVENGADOS_HIS_REPETIDOS
+(
+  nro_cuenta  VARCHAR2(15) not null,
+  ano         NUMBER(4) not null,
+  mes         NUMBER(2) not null,
+  cantidad    NUMBER,
+  mto_interes NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,109 @@
+create table IT.CC_CTA_GARANTIAS
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  nro_garantia         NUMBER(7),
+  cod_garantia         NUMBER(3) not null,
+  mto_aplicado         NUMBER(18,2) default 0 not null,
+  mto_apl_computable   NUMBER(18,2),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_persona          VARCHAR2(10),
+  mto_riesgo           NUMBER(18,2),
+  mto_con_computable   NUMBER(18,2),
+  mto_con_nocomputable NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CTA_GARANTIAS
+  is 'Contiene los datos de las garantias por tarjeta.';
+comment on column IT.CC_CTA_GARANTIAS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CTA_GARANTIAS.nro_garantia
+  is 'Numero de la garantia asociada o Numero de cliente(codeudor).';
+comment on column IT.CC_CTA_GARANTIAS.cod_garantia
+  is 'Tipo de Garantia.';
+comment on column IT.CC_CTA_GARANTIAS.mto_aplicado
+  is 'Monto de garantia que cubre a la operacion.';
+comment on column IT.CC_CTA_GARANTIAS.mto_apl_computable
+  is 'Monto aplicado de la garantia computable.';
+comment on column IT.CC_CTA_GARANTIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CTA_GARANTIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CTA_GARANTIAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CTA_GARANTIAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CC_CTA_GARANTIAS.cod_persona
+  is 'Código del cliente.';
+comment on column IT.CC_CTA_GARANTIAS.mto_riesgo
+  is 'Monto de riesgo del cliente.';
+comment on column IT.CC_CTA_GARANTIAS.mto_con_computable
+  is 'Monto contable computable.';
+comment on column IT.CC_CTA_GARANTIAS.mto_con_nocomputable
+  is 'Monto contable no computable.';
+create index IT.BBVA_INX_PER_GARA on IT.CC_CTA_GARANTIAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CCGAR_COD_GARANTIA on IT.CC_CTA_GARANTIAS (COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CCGAR_NRO_GARANTIA on IT.CC_CTA_GARANTIAS (NRO_GARANTIA, COD_GARANTIA)
+  tablespace IT_IND
+  pctfree 40
+  initrans 4
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_GARANTIAS
+  add constraint UK_CC_CTA_GARANTIAS unique (NRO_CUENTA, NRO_GARANTIA, COD_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_GARANTIAS
+  add constraint FK_CCGAR_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.CC_CTA_CORRIENTES (NRO_CUENTA);
+

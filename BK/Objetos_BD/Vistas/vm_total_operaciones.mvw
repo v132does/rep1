@@ -1,0 +1,150 @@
+create materialized view IT.VM_TOTAL_OPERACIONES
+refresh force on demand
+as
+select  cod_persona,
+        SUM(nvl(ww_ttdeuda, 0)) ww_ttdeuda,
+        SUM(nvl(ww_ttdeuco, 0)) ww_ttdeuco,
+        SUM(nvl(ww_capital, 0) )ww_capital,
+        SUM(nvl(ww_mtorigen, 0)) ww_mtorigen,
+        SUM(nvl(ww_ttprevi, 0)) ww_ttprevi,
+        SUM(nvl(ww_garan, 0)) ww_garan
+from ( SELECT cod_persona,
+        SUM(nvl(tot_deu_real, 0)) ww_ttdeuda,
+        SUM(nvl(tot_deu_contingente, 0)) ww_ttdeuco,
+        SUM(nvl(tot_deu_real, 0) + nvl(tot_deu_contingente, 0)) ww_capital,
+        SUM(nvl(mto_original, 0) + nvl(tot_deu_contingente, 0)) ww_mtorigen,
+        SUM(nvl(tot_prevision, 0)) ww_ttprevi,
+        SUM(nvl(tot_gar_computables, 0)) ww_garan
+   FROM ge_cla_operaciones s
+  WHERE ((EXISTS (SELECT 1
+                     FROM ge_par_dinamicos p
+                    WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                      AND p.cod_modalidad = s.cod_modalidad
+                      AND p.cod_modulo = s.cod_modulo
+                      AND nvl(p.val_parametro, 'N') = 'S') AND NOT EXISTS
+           (SELECT 1 -- todos los miembros tienen solo ope de ME.
+              FROM ge_cla_operaciones ss
+             WHERE ss.cod_persona = s.cod_persona
+               AND NOT EXISTS (SELECT 1
+                      FROM ge_par_dinamicos p
+                     WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                       AND p.cod_modalidad = ss.cod_modalidad
+                       AND p.cod_modulo = ss.cod_modulo
+                       AND nvl(p.val_parametro, 'N') = 'S'))) OR --no es de medida transitoria
+           --2
+           (NOT EXISTS (SELECT 1
+                         FROM ge_par_dinamicos p
+                        WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                          AND p.cod_modalidad = s.cod_modalidad
+                          AND p.cod_modulo = s.cod_modulo
+                          AND nvl(p.val_parametro, 'N') = 'S')
+                 AND NOT EXISTS (SELECT 1
+                                   FROM ge_cta_dat_adicionales a 
+                                  WHERE a.parametro IN ('PRE_RRR_CTA_MBT','PRE_RRR_CTA_MBT1','PRE_RRR_CTA_MBT2')
+                                    AND a.nro_cuenta = s.nro_cuenta)) OR 
+           --3
+           (NOT EXISTS (SELECT 1
+                         FROM ge_par_dinamicos p
+                        WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                          AND p.cod_modalidad = s.cod_modalidad
+                          AND p.cod_modulo = s.cod_modulo
+                          AND nvl(p.val_parametro, 'N') = 'S') 
+                       AND EXISTS (select 1
+                                 from ge_cta_dat_adicionales a 
+                                where a.parametro in ('PRE_RRR_CTA_MBT','PRE_RRR_CTA_MBT1','PRE_RRR_CTA_MBT2')
+                                  and a.nro_cuenta = s.nro_cuenta)
+                       AND NOT EXISTS (SELECT 1 -- todos los miembros tienen solo ope de ME.
+                               FROM ge_cla_operaciones xx
+                              WHERE xx.cod_persona = s.cod_persona
+                                 AND xx.nro_cuenta <> s.nro_cuenta
+                                 AND 'N' = (SELECT nvl(max(pp.val_parametro), 'N')
+                                            FROM ge_par_dinamicos pp
+                                           WHERE pp.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                                             AND pp.cod_modalidad = xx.cod_modalidad
+                                             AND pp.cod_modulo = xx.cod_modulo))) 
+            )
+  and not exists (select 1 from ba_cod_referencias where dominio = 'COD_MAD_FIDEICOMISO' and val_minimo = s.cod_modalidad)
+  GROUP BY cod_persona
+HAVING SUM(nvl(tot_deu_real, 0) + nvl(tot_deu_contingente, 0)) > 0
+union
+ SELECT cod_persona,
+        SUM(nvl(tot_deu_real, 0)) ww_ttdeuda,
+        SUM(nvl(tot_deu_contingente, 0)) ww_ttdeuco,
+        SUM(nvl(tot_deu_real, 0) + nvl(tot_deu_contingente, 0)) ww_capital,
+        SUM(nvl(mto_original, 0) + nvl(tot_deu_contingente, 0)) ww_mtorigen,
+        SUM(nvl(tot_prevision, 0)) ww_ttprevi,
+        SUM(nvl(tot_gar_computables, 0)) ww_garan
+   FROM ge_cla_operaciones s
+  WHERE ((EXISTS (SELECT 1
+                     FROM ge_par_dinamicos p
+                    WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                      AND p.cod_modalidad = s.cod_modalidad
+                      AND p.cod_modulo = s.cod_modulo
+                      AND nvl(p.val_parametro, 'N') = 'S') AND NOT EXISTS
+           (SELECT 1 -- todos los miembros tienen solo ope de ME.
+              FROM ge_cla_operaciones ss
+             WHERE ss.cod_persona = s.cod_persona
+               AND NOT EXISTS (SELECT 1
+                      FROM ge_par_dinamicos p
+                     WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                       AND p.cod_modalidad = ss.cod_modalidad
+                       AND p.cod_modulo = ss.cod_modulo
+                       AND nvl(p.val_parametro, 'N') = 'S'))) OR --no es de medida transitoria
+           --2
+           (NOT EXISTS (SELECT 1
+                         FROM ge_par_dinamicos p
+                        WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                          AND p.cod_modalidad = s.cod_modalidad
+                          AND p.cod_modulo = s.cod_modulo
+                          AND nvl(p.val_parametro, 'N') = 'S')
+                 AND NOT EXISTS (SELECT 1
+                                   FROM ge_cta_dat_adicionales a 
+                                  WHERE a.parametro IN ('PRE_RRR_CTA_MBT','PRE_RRR_CTA_MBT1','PRE_RRR_CTA_MBT2')
+                                    AND a.nro_cuenta = s.nro_cuenta)) OR 
+           --3
+           (NOT EXISTS (SELECT 1
+                         FROM ge_par_dinamicos p
+                        WHERE p.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                          AND p.cod_modalidad = s.cod_modalidad
+                          AND p.cod_modulo = s.cod_modulo
+                          AND nvl(p.val_parametro, 'N') = 'S') 
+                       AND EXISTS (select 1
+                                 from ge_cta_dat_adicionales a 
+                                where a.parametro in ('PRE_RRR_CTA_MBT','PRE_RRR_CTA_MBT1','PRE_RRR_CTA_MBT2')
+                                  and a.nro_cuenta = s.nro_cuenta)
+                       AND NOT EXISTS (SELECT 1 -- todos los miembros tienen solo ope de ME.
+                               FROM ge_cla_operaciones xx
+                              WHERE xx.cod_persona = s.cod_persona
+                                 AND xx.nro_cuenta <> s.nro_cuenta
+                                 AND 'N' = (SELECT nvl(max(pp.val_parametro), 'N')
+                                            FROM ge_par_dinamicos pp
+                                           WHERE pp.parametro IN ('PRE_MAD_EXC_PYMES', 'PRE_MAD_EXCEPCION')
+                                             AND pp.cod_modalidad = xx.cod_modalidad
+                                             AND pp.cod_modulo = xx.cod_modulo))) 
+            )
+    and s.cod_estado = 'N'
+    and not exists (select 1 from ba_cod_referencias where dominio = 'COD_MAD_FIDEICOMISO' and val_minimo = s.cod_modalidad)--FIELDESK-19388
+    and nvl(tot_deu_real, 0) = 0
+  GROUP BY cod_persona
+ union
+ SELECT cod_persona,
+        SUM(nvl(tot_deu_real, 0)) ww_ttdeuda,
+        SUM(nvl(tot_deu_contingente, 0)) ww_ttdeuco,
+        SUM(nvl(tot_deu_real, 0) + nvl(tot_deu_contingente, 0)) ww_capital,
+        SUM(nvl(mto_original, 0) + nvl(tot_deu_contingente, 0)) ww_mtorigen,
+        SUM(nvl(tot_prevision, 0)) ww_ttprevi,
+        SUM(nvl(tot_gar_computables, 0)) ww_garan
+   FROM ge_cla_operaciones s
+  WHERE exists ( select 1
+                   from ba_cod_referencias
+                  where dominio = 'COD_MAD_FIDEICOMISO'
+                    and val_minimo = s.cod_modalidad)
+    and not exists (SELECT 1
+                      FROM ge_cla_operaciones c
+                     where c.cod_persona = s.cod_persona
+                       and not exists (select 1
+                                         from ba_cod_referencias r
+                                        where dominio = 'COD_MAD_FIDEICOMISO'
+                                          and r.val_minimo = c.cod_modalidad))
+    group by cod_persona)
+  group by cod_persona;

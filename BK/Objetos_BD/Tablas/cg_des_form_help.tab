@@ -1,0 +1,24 @@
+create table IT.CG_DES_FORM_HELP
+(
+  hlp_appln       VARCHAR2(30) not null,
+  hlp_index       VARCHAR2(100) not null,
+  hlp_modtab_name VARCHAR2(30),
+  hlp_generated   VARCHAR2(1),
+  hlp_seq         NUMBER(5) not null,
+  hlp_text        VARCHAR2(70),
+  hlp_type        VARCHAR2(1) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CG_DES_FORM_HELP
+  is '- Retrofitted.';
+

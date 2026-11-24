@@ -1,0 +1,85 @@
+create table IT.SB_CRC_MOVIMIENTOS_DET
+(
+  fecha           DATE not null,
+  nom_referencia  VARCHAR2(10) not null,
+  nro_formulario  VARCHAR2(3),
+  cod_oficina     NUMBER(4),
+  tip_operacion   NUMBER(3),
+  nro_operacion   VARCHAR2(60),
+  cod_mon_iso     VARCHAR2(3),
+  fec_operacion   DATE,
+  cta_con_capital VARCHAR2(18),
+  mto_capital     NUMBER(20,2) default 0,
+  mto_lin_credito NUMBER(20,2) default 0,
+  cta_con_interes VARCHAR2(18),
+  mto_interes     NUMBER(20,2) default 0,
+  tas_nominal     NUMBER(5,2) default 0,
+  dia_plazo       NUMBER(5),
+  tip_movimiento  VARCHAR2(2),
+  nro_registro    NUMBER(9) not null,
+  cod_modulo      NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_MOVIMIENTOS_DET
+  is 'Detalle de Datos del archivo de Movimientos para envío a CRC.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.fecha
+  is 'Fecha de Periodo de envío del Archivo (Formato: AAAAMMDD).';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.nom_referencia
+  is 'Nombre del Archivo a Generarse a la CRC (Archivo Movimiento).';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.nro_formulario
+  is 'Nro. de Formulario correspondiente al Archivo de Movimientos. Este nro. es fijo para identificar el Archivo.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.tip_operacion
+  is 'Tipo de Operación.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.nro_operacion
+  is 'Número de Operación.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.cod_mon_iso
+  is 'Código ISO de la Moneda de la operación.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.fec_operacion
+  is 'Fecha de Operación.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.cta_con_capital
+  is 'Cuenta Contable de la operación que registra el movimiento.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.mto_capital
+  is 'Monto del movimiento infomado.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.mto_lin_credito
+  is 'Monto de Linea de Crédito utilizada en la operación para los casos de renovaciones y/o actualizaciones.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.cta_con_interes
+  is 'Cuenta Contable de los intereses de la operación que registra el movimiento.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.mto_interes
+  is 'Monto Interés del movimiento informado.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.tas_nominal
+  is 'Tasa Nominal pactada del movimiento informado de la operación.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.dia_plazo
+  is 'Plazo en días de la renovación y/o actualización del movimiento.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.tip_movimiento
+  is 'Tipo de movimiento de la operación. DB-Débito, CR-Crédito, RN-Renovación, SG-Sobregiros, CC-Cancelación.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.nro_registro
+  is 'Número correlativo de registros.';
+comment on column IT.SB_CRC_MOVIMIENTOS_DET.cod_modulo
+  is 'codigo del modulo. ';
+alter table IT.SB_CRC_MOVIMIENTOS_DET
+  add constraint PK_SB_CRC_MOVIMIENTOS_DET primary key (FECHA, NOM_REFERENCIA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

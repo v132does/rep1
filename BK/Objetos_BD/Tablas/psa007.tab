@@ -1,0 +1,181 @@
+create table IT.PSA007
+(
+  psa007a1 VARCHAR2(35),
+  psa007a2 VARCHAR2(35),
+  psa007ac NUMBER(18,2),
+  psa007ae NUMBER(9),
+  psa007ap TIMESTAMP(6),
+  psa007ca VARCHAR2(61),
+  psa007ce VARCHAR2(61),
+  psa007cp VARCHAR2(30),
+  psa007cr VARCHAR2(20),
+  psa007ct VARCHAR2(20),
+  psa007dc VARCHAR2(145),
+  psa007de NUMBER(9),
+  psa007di VARCHAR2(145),
+  psa007dl VARCHAR2(145),
+  psa007dn VARCHAR2(70),
+  psa007do VARCHAR2(25) not null,
+  psa007dp VARCHAR2(145),
+  psa007dt NUMBER(9) not null,
+  psa007eg NUMBER(18,2),
+  psa007em VARCHAR2(1),
+  psa007es VARCHAR2(1),
+  psa007fa VARCHAR2(8),
+  psa007fp VARCHAR2(8),
+  psa007fr VARCHAR2(8),
+  psa007ge VARCHAR2(1),
+  psa007im NUMBER(18,2),
+  psa007in TIMESTAMP(6),
+  psa007ip VARCHAR2(8),
+  psa007n2 VARCHAR2(25),
+  psa007na NUMBER(9),
+  psa007nc VARCHAR2(8),
+  psa007oc NUMBER(9),
+  psa007of VARCHAR2(100),
+  psa007os NUMBER(4),
+  psa007pa NUMBER(9) not null,
+  psa007pe VARCHAR2(1),
+  psa007pf NUMBER(9),
+  psa007pn NUMBER(9),
+  psa007pr NUMBER(9),
+  psa007pt VARCHAR2(1),
+  psa007pv NUMBER(18,1),
+  psa007re NUMBER(9),
+  psa007ri NUMBER(9),
+  psa007rs VARCHAR2(70),
+  psa007sl VARCHAR2(1),
+  psa007ta VARCHAR2(20),
+  psa007te NUMBER(9),
+  psa007tp VARCHAR2(20),
+  psa007vd VARCHAR2(8),
+  psa007br CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA007
+  is 'Tabla Clientes';
+comment on column IT.PSA007.psa007a1
+  is 'Primer apellido';
+comment on column IT.PSA007.psa007a2
+  is 'Segundo apellido';
+comment on column IT.PSA007.psa007ac
+  is 'Total de activo';
+comment on column IT.PSA007.psa007ae
+  is 'Actividad economica';
+comment on column IT.PSA007.psa007ap
+  is 'Fecha actualiacion en el sistema';
+comment on column IT.PSA007.psa007ca
+  is 'Correo electronico adicional';
+comment on column IT.PSA007.psa007ce
+  is 'Correo electronico principal';
+comment on column IT.PSA007.psa007cp
+  is 'Cargo PEP';
+comment on column IT.PSA007.psa007cr
+  is 'Ciudad de residencia';
+comment on column IT.PSA007.psa007ct
+  is 'Ciudad laboral';
+comment on column IT.PSA007.psa007dc
+  is 'Direccion ocacional';
+comment on column IT.PSA007.psa007de
+  is 'Departamento';
+comment on column IT.PSA007.psa007di
+  is 'Direccion particular';
+comment on column IT.PSA007.psa007dl
+  is 'Direccion laboral';
+comment on column IT.PSA007.psa007dn
+  is 'Denominacion/Primer Nombre';
+comment on column IT.PSA007.psa007do
+  is 'Documento';
+comment on column IT.PSA007.psa007dp
+  is 'Direccion principal';
+comment on column IT.PSA007.psa007dt
+  is 'Tipo doc';
+comment on column IT.PSA007.psa007eg
+  is 'Egreso mensual';
+comment on column IT.PSA007.psa007em
+  is 'Empleado';
+comment on column IT.PSA007.psa007es
+  is 'Estado civil';
+comment on column IT.PSA007.psa007fa
+  is 'Fecha de actualizacion de datos';
+comment on column IT.PSA007.psa007fp
+  is 'Fecha fin PEP';
+comment on column IT.PSA007.psa007fr
+  is 'Fecha alta';
+comment on column IT.PSA007.psa007ge
+  is 'Sexo';
+comment on column IT.PSA007.psa007im
+  is 'Salario mensual';
+comment on column IT.PSA007.psa007in
+  is 'Fecha de ingreso en sistema';
+comment on column IT.PSA007.psa007ip
+  is 'Fecha inicio PEP';
+comment on column IT.PSA007.psa007n2
+  is 'Segundo nombre';
+comment on column IT.PSA007.psa007na
+  is 'Nacionalidad';
+comment on column IT.PSA007.psa007nc
+  is 'Fecha de constitucion/Nacimiento';
+comment on column IT.PSA007.psa007oc
+  is 'Ocupacion';
+comment on column IT.PSA007.psa007of
+  is 'Origen de los fondos';
+comment on column IT.PSA007.psa007os
+  is 'ROS';
+comment on column IT.PSA007.psa007pa
+  is 'Pais';
+comment on column IT.PSA007.psa007pe
+  is 'PEP';
+comment on column IT.PSA007.psa007pf
+  is 'Profesion';
+comment on column IT.PSA007.psa007pn
+  is 'Pais de Nacimiento';
+comment on column IT.PSA007.psa007pr
+  is 'Pais de la residencia';
+comment on column IT.PSA007.psa007pt
+  is 'Tipo cliente';
+comment on column IT.PSA007.psa007pv
+  is 'Total de pasivo';
+comment on column IT.PSA007.psa007re
+  is 'Region';
+comment on column IT.PSA007.psa007ri
+  is 'Riesgo';
+comment on column IT.PSA007.psa007rs
+  is 'Nombre de la empresa';
+comment on column IT.PSA007.psa007sl
+  is 'OSL';
+comment on column IT.PSA007.psa007ta
+  is 'Telefonos Adicionales';
+comment on column IT.PSA007.psa007te
+  is 'Tipo de actividad economica';
+comment on column IT.PSA007.psa007tp
+  is 'Telefono principal';
+comment on column IT.PSA007.psa007vd
+  is 'Vencimiento del documento';
+comment on column IT.PSA007.psa007br
+  is 'Banco Remitente';
+alter table IT.PSA007
+  add constraint PK_PSA007 primary key (PSA007DO, PSA007DT, PSA007PA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

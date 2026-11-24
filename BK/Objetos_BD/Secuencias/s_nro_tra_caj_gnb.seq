@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_TRA_CAJ_GNB
+minvalue 1
+maxvalue 4999999999
+start with 3260
+increment by 1
+nocache;
+

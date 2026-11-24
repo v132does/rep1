@@ -1,0 +1,19 @@
+create table IT.MI_CB_GRU_RUBROS_DET
+(
+  cod_gru_rubro NUMBER(5) not null,
+  cod_rubro     VARCHAR2(15) not null,
+  cod_moneda    VARCHAR2(3) not null,
+  imputable     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

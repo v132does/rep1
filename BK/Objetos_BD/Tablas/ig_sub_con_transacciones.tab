@@ -1,0 +1,88 @@
+create table IT.IG_SUB_CON_TRANSACCIONES
+(
+  cod_concepto     NUMBER(3) not null,
+  cod_sub_concepto NUMBER(4) not null,
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_tra_padre    NUMBER(4) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_transaccion  NUMBER(4) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_SUB_CON_TRANSACCIONES
+  is 'Transacciones Incluidas por Sub Conceptos.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_concepto
+  is 'Codigo del Concepto.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_sub_concepto
+  is 'Codigo del Sub Concepto.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_mod_padre
+  is 'Modulo Padre.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_mad_padre
+  is 'Modalidad Padre .';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_tra_padre
+  is 'Transaccion padre.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_modulo
+  is 'Modulo hijo.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_modalidad
+  is 'Modalidad hija.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.cod_transaccion
+  is 'Transaccion hija.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_SUB_CON_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_ISCT_COD_TRA_PADRE on IT.IG_SUB_CON_TRANSACCIONES (COD_TRA_PADRE, COD_TRANSACCION, COD_MOD_PADRE, COD_MODULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_SUB_CON_TRANSACCIONES
+  add constraint UK_IG_SUB_CON_TRANSACCIONES unique (COD_CONCEPTO, COD_SUB_CONCEPTO, COD_MOD_PADRE, COD_MAD_PADRE, COD_TRA_PADRE, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_SUB_CON_TRANSACCIONES
+  add constraint FK_ISCTR_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_SUB_CON_TRANSACCIONES
+  add constraint FK_ISCTR_COD_TRANSACCION foreign key (COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.IG_SUB_CON_TRANSACCIONES
+  add constraint FK_ISCTR_COD_TRA_PADRE foreign key (COD_MOD_PADRE, COD_MAD_PADRE, COD_TRA_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

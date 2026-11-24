@@ -1,0 +1,124 @@
+create table IT.GE_MOV_INF_COBRANZAS
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  nro_documento      NUMBER(15) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  monto              NUMBER(18,2) default 0,
+  nro_cta_debito     VARCHAR2(15),
+  nro_cta_credito    VARCHAR2(15),
+  referencia         VARCHAR2(50),
+  reversado          VARCHAR2(1) default 'N' not null,
+  liberado           VARCHAR2(1) default 'N',
+  observacion        VARCHAR2(200),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  nro_tarjeta        VARCHAR2(25),
+  fec_pro_extorno    DATE,
+  cod_tra_padre      NUMBER(4),
+  mto_comision       NUMBER(18,2),
+  hor_referencia     VARCHAR2(8),
+  hor_rev_referencia VARCHAR2(8),
+  fec_referencia     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_INF_COBRANZAS
+  is 'Movimientos generados por Infonet Cobranzas';
+comment on column IT.GE_MOV_INF_COBRANZAS.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_MOV_INF_COBRANZAS.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_INF_COBRANZAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.GE_MOV_INF_COBRANZAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_MOV_INF_COBRANZAS.monto
+  is 'Importe de la transaccion.';
+comment on column IT.GE_MOV_INF_COBRANZAS.nro_cta_debito
+  is 'Numero de cuenta de debito';
+comment on column IT.GE_MOV_INF_COBRANZAS.nro_cta_credito
+  is 'Numero de cuenta de credito';
+comment on column IT.GE_MOV_INF_COBRANZAS.referencia
+  is 'Otros datos de la operacion (campo NOMPOS de Infonet)';
+comment on column IT.GE_MOV_INF_COBRANZAS.reversado
+  is 'Reversado. (N=NO / S=SI).';
+comment on column IT.GE_MOV_INF_COBRANZAS.liberado
+  is 'Si el movimiento fue o no liberado. (N=NO / S=SI).';
+comment on column IT.GE_MOV_INF_COBRANZAS.observacion
+  is 'Mensaje de error si existe';
+comment on column IT.GE_MOV_INF_COBRANZAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MOV_INF_COBRANZAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MOV_INF_COBRANZAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_INF_COBRANZAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_INF_COBRANZAS.nro_tarjeta
+  is 'Nro de tarjeta pagada';
+comment on column IT.GE_MOV_INF_COBRANZAS.fec_pro_extorno
+  is 'Fecha de proceso de Extorno';
+comment on column IT.GE_MOV_INF_COBRANZAS.cod_tra_padre
+  is 'Código de Transacción Padre para registrar Pago de Extracto/Servicios.';
+comment on column IT.GE_MOV_INF_COBRANZAS.mto_comision
+  is 'Monto Comisión';
+comment on column IT.GE_MOV_INF_COBRANZAS.hor_referencia
+  is 'Hora de Reversión Referencia.';
+comment on column IT.GE_MOV_INF_COBRANZAS.hor_rev_referencia
+  is 'Hora de Referencia de Bancard.';
+comment on column IT.GE_MOV_INF_COBRANZAS.fec_referencia
+  is 'Fecha de Referencia de Bancard.';
+create index IT.IN_GMICO_NRO_CUENTA on IT.GE_MOV_INF_COBRANZAS (NRO_CTA_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMICO_NRO_DOCUMENTO on IT.GE_MOV_INF_COBRANZAS (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_INF_COBRANZAS
+  add constraint PK_GE_MOV_INF_COBRANZAS primary key (FECHA, HORA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_INF_COBRANZAS
+  add constraint FK_GMICO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

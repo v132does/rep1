@@ -1,0 +1,46 @@
+create table IT.CG_REF_CODES
+(
+  rv_domain       VARCHAR2(100) not null,
+  rv_low_value    VARCHAR2(240) not null,
+  rv_high_value   VARCHAR2(240),
+  rv_abbreviation VARCHAR2(240),
+  rv_meaning      VARCHAR2(240)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CG_REF_CODES
+  is 'Descripcion de codigos de referencia generales.';
+comment on column IT.CG_REF_CODES.rv_domain
+  is 'Dominio.';
+comment on column IT.CG_REF_CODES.rv_low_value
+  is 'Valor minimo.';
+comment on column IT.CG_REF_CODES.rv_high_value
+  is 'Valor maximo.';
+comment on column IT.CG_REF_CODES.rv_abbreviation
+  is 'Abreviatura.';
+comment on column IT.CG_REF_CODES.rv_meaning
+  is 'Descripcion.';
+create index IT.X_CG_REF_CODES_1 on IT.CG_REF_CODES (RV_DOMAIN, RV_LOW_VALUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CG_REF_CODES
+  add constraint PK_CG_REF_CODES primary key (RV_DOMAIN, RV_LOW_VALUE);
+

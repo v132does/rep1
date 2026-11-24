@@ -1,0 +1,12 @@
+BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO := 1; END;
+/
+insert into BA_PAR_CONSULTAS (COD_CONSULTA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO, PER_FIL_RANGO)
+values ('CD_BLMAYOR', 'FECHA', 'A', 'select ''Igual_a ''||chr(39)||to_char(pag_cal.fu_obt_fec_actual(2),''dd/mm/yyyy'')||chr(39) from dual', 'F', 1, 'S', 'S', 'S', null);
+
+insert into BA_PAR_CONSULTAS (COD_CONSULTA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO, PER_FIL_RANGO)
+values ('CD_BLMAYOR', 'COD_RUBRO', 'D', null, 'F', 2, 'V', 'S', 'N', null);
+
+insert into BA_PAR_CONSULTAS (COD_CONSULTA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO, PER_FIL_RANGO)
+values ('CD_BLMAYOR', 'COD_MONEDA', 'R', null, 'F', 3, 'V', 'S', 'N', null);
+
+commit;

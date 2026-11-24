@@ -1,0 +1,88 @@
+create table IT.GE_EQU_RESPUESTAS_TMP
+(
+  tip_documento                  VARCHAR2(5),
+  pai_documento                  VARCHAR2(5),
+  nro_documento                  VARCHAR2(15),
+  apellidos                      VARCHAR2(200),
+  nombres                        VARCHAR2(200),
+  accion                         VARCHAR2(100),
+  g_cant_entidades_m_1           VARCHAR2(20),
+  g_cant_entidades_m_2           VARCHAR2(20),
+  g_cant_entidades_m_3           VARCHAR2(20),
+  g_compromiso_total_m_1         VARCHAR2(20),
+  g_compromiso_total_m_2         VARCHAR2(20),
+  g_compromiso_total_m_3         VARCHAR2(20),
+  g_limite_m_1                   VARCHAR2(20),
+  g_limite_m_2                   VARCHAR2(20),
+  g_limite_m_3                   VARCHAR2(20),
+  g_max_dias_atraso_a_1          VARCHAR2(20),
+  g_max_dias_atraso_a_2          VARCHAR2(20),
+  g_max_dias_atraso_m_1          VARCHAR2(20),
+  g_max_dias_atraso_m_2          VARCHAR2(20),
+  g_max_dias_atraso_m_3          VARCHAR2(20),
+  g_s_vencido_total_m_1          VARCHAR2(20),
+  g_s_vencido_total_m_2          VARCHAR2(20),
+  g_s_vencido_total_m_3          VARCHAR2(20),
+  g_saldo_total_m_1              VARCHAR2(20),
+  g_saldo_total_m_2              VARCHAR2(20),
+  g_saldo_total_m_3              VARCHAR2(20),
+  p_cliente                      VARCHAR2(20),
+  p_ent                          VARCHAR2(20),
+  p_exigible_propio_ult_act      VARCHAR2(20),
+  p_exigible_ult_act             VARCHAR2(20),
+  p_hit                          VARCHAR2(20),
+  p_max_dias_atraso_u3m          VARCHAR2(20),
+  p_max_dias_atraso_u3m_propio   VARCHAR2(20),
+  p_saldo_propio_ult_act         VARCHAR2(20),
+  p_saldo_ult_act                VARCHAR2(20),
+  p_saldo_vencido_propio_ult_act VARCHAR2(20),
+  p_saldo_vencido_ult_act        VARCHAR2(20),
+  tc_cliente                     VARCHAR2(20),
+  tc_compras_mes_propio_ult_act  VARCHAR2(20),
+  tc_compras_mes_ult_act         VARCHAR2(20),
+  tc_ent                         VARCHAR2(20),
+  tc_exigible_propio_ult_act     VARCHAR2(20),
+  tc_exigible_ult_act            VARCHAR2(20),
+  tc_hit                         VARCHAR2(20),
+  tc_limite_credito_prop_ult_act VARCHAR2(20),
+  tc_limite_credito_ult_act      VARCHAR2(20),
+  tc_max_dias_atraso_u3m         VARCHAR2(20),
+  tc_max_dias_atraso_u3m_propio  VARCHAR2(20),
+  tc_max_lim_cred                VARCHAR2(20),
+  tc_max_lim_cred_propio         VARCHAR2(20),
+  tc_saldo_cuotas_prop_ult_act   VARCHAR2(20),
+  tc_saldo_cuotas_ult_act        VARCHAR2(20),
+  tc_saldo_total_prop_ult_act    VARCHAR2(20),
+  tc_saldo_total_ult_act         VARCHAR2(20),
+  tc_saldo_vencido_prop_ult_act  VARCHAR2(20),
+  tc_saldo_vencido_ult_act       VARCHAR2(20),
+  s_max_dias_atraso_u3m          VARCHAR2(20),
+  s_max_dias_atraso_u3m_propio   VARCHAR2(20),
+  s_ent                          VARCHAR2(20),
+  s_cliente                      VARCHAR2(20),
+  s_exigible_ult_act             VARCHAR2(20),
+  s_exigible_propio_ult_act      VARCHAR2(20),
+  s_saldo_ult_act                VARCHAR2(20),
+  s_saldo_propio_ult_act         VARCHAR2(20),
+  s_deuda_vencida_ult_act        VARCHAR2(20),
+  s_deuda_vencida_propio_ult_act VARCHAR2(20),
+  s_hit                          VARCHAR2(20),
+  usu_insercion                  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion                  DATE default SYSDATE not null,
+  usu_modificacion               VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion               DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EQU_RESPUESTAS_TMP
+  is 'Tabla temporal de importación de respuestas realizadas a Equifax';
+

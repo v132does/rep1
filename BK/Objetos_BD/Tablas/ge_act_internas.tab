@@ -1,0 +1,53 @@
+create table IT.GE_ACT_INTERNAS
+(
+  cod_act_interna   VARCHAR2(15) not null,
+  descripcion       VARCHAR2(60) not null,
+  cod_act_int_padre VARCHAR2(15),
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_ACT_INTERNAS.cod_act_interna
+  is 'Código de la Actividad Interna.';
+comment on column IT.GE_ACT_INTERNAS.descripcion
+  is 'Descripción de la Actividad Interna.';
+comment on column IT.GE_ACT_INTERNAS.cod_act_int_padre
+  is 'Código Padre de la Actividad Interna.';
+comment on column IT.GE_ACT_INTERNAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_ACT_INTERNAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_ACT_INTERNAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_ACT_INTERNAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_ACT_INTERNAS
+  add constraint PK_GE_ACT_INTERNAS primary key (COD_ACT_INTERNA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ACT_INTERNAS
+  add constraint FK_GAINT_COD_ACT_INT_PADRE foreign key (COD_ACT_INT_PADRE)
+  references IT.GE_ACT_INTERNAS (COD_ACT_INTERNA);
+

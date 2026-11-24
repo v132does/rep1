@@ -1,0 +1,61 @@
+create table IT.GE_ARC_TABLAS
+(
+  referencia       VARCHAR2(30) not null,
+  nom_tabla        VARCHAR2(40) not null,
+  archivo          VARCHAR2(30) not null,
+  nro_secuencia    NUMBER(4) not null,
+  borrar           VARCHAR2(1) default 'N',
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARC_TABLAS
+  is 'Definicion de tablas de archivos ascii.';
+comment on column IT.GE_ARC_TABLAS.referencia
+  is 'Nombre de Referencia que le identificara a un grupo de archivos que seran cargados en un mismo proceso (Ej. BANCARD, SUELDOS, etc...).';
+comment on column IT.GE_ARC_TABLAS.nom_tabla
+  is 'Nombre de la tabla que va a alimentar.';
+comment on column IT.GE_ARC_TABLAS.archivo
+  is 'Nombre del archivo con la extension.';
+comment on column IT.GE_ARC_TABLAS.nro_secuencia
+  is 'Secuencia en que sera cargado.';
+comment on column IT.GE_ARC_TABLAS.borrar
+  is 'Indica si el archivo se borra o no.';
+comment on column IT.GE_ARC_TABLAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_ARC_TABLAS.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_ARC_TABLAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_ARC_TABLAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+alter table IT.GE_ARC_TABLAS
+  add constraint PK_GE_ARC_TABLAS primary key (REFERENCIA, ARCHIVO, NOM_TABLA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARC_TABLAS
+  add constraint AVCON_1108065715_BORRA_000
+  check (BORRAR IN ('S', 'N'));
+

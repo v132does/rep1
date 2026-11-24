@@ -1,0 +1,62 @@
+create table IT.GE_DAT_RIE_EVA_INTENTOS
+(
+  nro_solicitud    NUMBER(7) not null,
+  can_intentos     NUMBER(3),
+  cod_rol          VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DAT_RIE_EVA_INTENTOS
+  is 'Cantidad de intentos de Evaluación de Riesgos por Rol.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.nro_solicitud
+  is 'Número de solicitud.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.can_intentos
+  is 'Cantidad de intentos.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.cod_rol
+  is 'Rol al que corresponde el intento.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.usu_insercion
+  is 'Usuario que realizó la insercion del registro.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.GE_DAT_RIE_EVA_INTENTOS.cod_modalidad
+  is 'Código de Modalidad.';
+alter table IT.GE_DAT_RIE_EVA_INTENTOS
+  add constraint PK_GE_DAT_RIE_EVA_INTENTOS primary key (NRO_SOLICITUD, COD_ROL, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.PK_GE_DAT_RIE_EVA_INTENTOS nologging;
+alter table IT.GE_DAT_RIE_EVA_INTENTOS
+  add constraint FK_GDREI_COD_MODULO foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+

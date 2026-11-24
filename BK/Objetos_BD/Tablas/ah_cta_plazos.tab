@@ -1,0 +1,299 @@
+﻿-- Create table
+create table IT.AH_CTA_PLAZOS
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1) default 0,
+  cod_modulo             NUMBER(3) not null,
+  cod_modalidad          NUMBER(3) not null,
+  cod_oficina            NUMBER(3) not null,
+  cod_moneda             VARCHAR2(3) not null,
+  denominacion           VARCHAR2(65) not null,
+  can_fir_registradas    NUMBER(2),
+  can_fir_requeridas     NUMBER(2),
+  fec_apertura           DATE,
+  fec_vencimiento        DATE,
+  capital                NUMBER(18,2) default 0 not null,
+  tas_personalizada      VARCHAR2(1) default 'N' not null,
+  cod_tasa               NUMBER(3),
+  tip_capitalizacion     NUMBER(2) not null,
+  ren_automatica         VARCHAR2(1) default 'N' not null,
+  nro_cta_capitalizacion VARCHAR2(15),
+  cod_usu_promotor       VARCHAR2(10),
+  est_batch              VARCHAR2(1) not null,
+  estado                 VARCHAR2(1) not null,
+  fec_ult_movimiento     DATE,
+  hor_ult_movimiento     VARCHAR2(8),
+  fec_cam_estado         DATE,
+  fec_ult_capitalizacion DATE,
+  aut_pendiente          VARCHAR2(1) default 'N' not null,
+  sal_blo_batch          NUMBER(18,2) default 0,
+  sal_bloqueado          NUMBER(18,2) default 0,
+  sal_ret_batch          NUMBER(18,2) default 0,
+  sal_retenido           NUMBER(18,2) default 0,
+  sal_tot_batch          NUMBER(18,2) default 0,
+  sal_total              NUMBER(18,2) default 0,
+  tra_prohibida          VARCHAR2(1) default 'N' not null,
+  nro_cta_renovada       VARCHAR2(15),
+  cod_canal              NUMBER(3),
+  cod_campana            NUMBER(3),
+  reg_firma              VARCHAR2(200),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  fec_pago               DATE,
+  cod_cau_cancelacion    NUMBER(3),
+  val_tasa               NUMBER(20,4) not null,
+  per_debito             NUMBER(3),
+  fec_ult_provision      DATE,
+  fec_ult_extracto       DATE,
+  nro_folio              NUMBER(7),
+  fre_extracto           VARCHAR2(1) default 'M',
+  sal_ult_extracto       NUMBER(18,2),
+  tot_interes            NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.AH_CTA_PLAZOS
+  is 'Contiene datos de los Ahorros a Plazo Fijo.';
+-- Add comments to the columns 
+comment on column IT.AH_CTA_PLAZOS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.AH_CTA_PLAZOS.dig_verificador
+  is 'Dígito verificador.';
+comment on column IT.AH_CTA_PLAZOS.cod_modulo
+  is 'Código de módulo.';
+comment on column IT.AH_CTA_PLAZOS.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.AH_CTA_PLAZOS.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.AH_CTA_PLAZOS.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.AH_CTA_PLAZOS.denominacion
+  is 'Nombre de la cuenta.';
+comment on column IT.AH_CTA_PLAZOS.can_fir_registradas
+  is 'Cantidad de firmas registradas.';
+comment on column IT.AH_CTA_PLAZOS.can_fir_requeridas
+  is 'Cantidad de firmas requeridas.';
+comment on column IT.AH_CTA_PLAZOS.fec_apertura
+  is 'Fecha de apertura.';
+comment on column IT.AH_CTA_PLAZOS.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.AH_CTA_PLAZOS.capital
+  is 'Importe del Capital.';
+comment on column IT.AH_CTA_PLAZOS.tas_personalizada
+  is 'Tiene tasa personalizada(S/N).';
+comment on column IT.AH_CTA_PLAZOS.cod_tasa
+  is 'Código de tasa asignado.';
+comment on column IT.AH_CTA_PLAZOS.tip_capitalizacion
+  is 'Tipo de capitalización(1/2/3).';
+comment on column IT.AH_CTA_PLAZOS.ren_automatica
+  is 'Renovación automática. (N=NO / S=SI).';
+comment on column IT.AH_CTA_PLAZOS.nro_cta_capitalizacion
+  is 'Cuenta de capitalización.';
+comment on column IT.AH_CTA_PLAZOS.cod_usu_promotor
+  is 'Código de promotor.';
+comment on column IT.AH_CTA_PLAZOS.est_batch
+  is 'Estado de cuenta batch.';
+comment on column IT.AH_CTA_PLAZOS.estado
+  is 'Estado de cuenta on line (C=Cancelado, N=Normal, S=Bloqueo de Saldo, T=Totalmente Bloqueado, V=Vencido).';
+comment on column IT.AH_CTA_PLAZOS.fec_ult_movimiento
+  is 'Fecha del último movimiento.';
+comment on column IT.AH_CTA_PLAZOS.hor_ult_movimiento
+  is 'Hora del último movimiento.';
+comment on column IT.AH_CTA_PLAZOS.fec_cam_estado
+  is 'Fecha de cambio de estado.';
+comment on column IT.AH_CTA_PLAZOS.fec_ult_capitalizacion
+  is 'Fecha de última capitalización.';
+comment on column IT.AH_CTA_PLAZOS.aut_pendiente
+  is 'Tiene autorización pendiente. (N=NO / S=SI).';
+comment on column IT.AH_CTA_PLAZOS.sal_blo_batch
+  is 'Saldo bloqueado batch.';
+comment on column IT.AH_CTA_PLAZOS.sal_bloqueado
+  is 'Saldo bloqueado on line.';
+comment on column IT.AH_CTA_PLAZOS.sal_ret_batch
+  is 'Saldo retenido batch.';
+comment on column IT.AH_CTA_PLAZOS.sal_retenido
+  is 'Saldo retenido on line.';
+comment on column IT.AH_CTA_PLAZOS.sal_tot_batch
+  is 'Saldo total batch.';
+comment on column IT.AH_CTA_PLAZOS.sal_total
+  is 'Saldo total on line.';
+comment on column IT.AH_CTA_PLAZOS.tra_prohibida
+  is 'Tiene transacción prohibida. (N=NO / S=SI).';
+comment on column IT.AH_CTA_PLAZOS.nro_cta_renovada
+  is 'Cuenta que fue renovada (En el nuevo).';
+comment on column IT.AH_CTA_PLAZOS.cod_canal
+  is 'Código de canal.';
+comment on column IT.AH_CTA_PLAZOS.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.AH_CTA_PLAZOS.reg_firma
+  is 'Regimen de Firma.';
+comment on column IT.AH_CTA_PLAZOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.AH_CTA_PLAZOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.AH_CTA_PLAZOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.AH_CTA_PLAZOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.AH_CTA_PLAZOS.fec_pago
+  is 'Fecha de pago.';
+comment on column IT.AH_CTA_PLAZOS.cod_cau_cancelacion
+  is 'Motivo de Cancelación.';
+comment on column IT.AH_CTA_PLAZOS.val_tasa
+  is 'Valor de la Tasa de Interés.';
+comment on column IT.AH_CTA_PLAZOS.per_debito
+  is 'Periodo de débito AP';
+comment on column IT.AH_CTA_PLAZOS.fec_ult_provision
+  is 'Fecha de última provisión.';
+comment on column IT.AH_CTA_PLAZOS.fec_ult_extracto
+  is 'Fecha de Ultimo Extracto.';
+comment on column IT.AH_CTA_PLAZOS.nro_folio
+  is 'Ultimo Número de Folio del extracto impreso.';
+comment on column IT.AH_CTA_PLAZOS.fre_extracto
+  is 'Frecuencia de Extracto (D=Diaria /S=Semanal/Q=Quincenal/M=Mensual).';
+comment on column IT.AH_CTA_PLAZOS.sal_ult_extracto
+  is 'Saldo de Ultimo Extracto.';
+comment on column IT.AH_CTA_PLAZOS.tot_interes
+  is 'Total de Interes Plazo Fijo.';
+-- Create/Recreate indexes 
+create index IT.IN_APLFI_NRO_CTA_CAPITALIZA on IT.AH_CTA_PLAZOS (NRO_CTA_CAPITALIZACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_APLFI_NRO_CTA_RENOVADA on IT.AH_CTA_PLAZOS (NRO_CTA_RENOVADA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_CAMPAHP on IT.AH_CTA_PLAZOS (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.AH_CTA_PLAZOS
+  add constraint PK_AH_CTA_PLAZOS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_CAU_CANCELACION foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_EST_BATCH foreign key (COD_MODULO, COD_MODALIDAD, EST_BATCH)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_NRO_CTA_CAPITALIZA foreign key (NRO_CTA_CAPITALIZACION)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CTA_PLAZOS
+  add constraint FK_APLFI_NRO_CTA_RENOVADA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+-- Create/Recreate check constraints 
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1080844426_AUT_P_002
+  check (AUT_PENDIENTE IN ('S', 'N'));
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1080844426_REN_A_000
+  check (REN_AUTOMATICA IN ('S', 'N'));
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1080844426_TAS_P_002
+  check (TAS_PERSONALIZADA IN ('S', 'N'));
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1080844426_TRA_P_002
+  check (TRA_PROHIBIDA IN ('S', 'N'));
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1082657936_COD_C_002
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1082657936_COD_C_005
+  check (COD_CAU_CANCELACION BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1082657936_COD_M_006
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1082657936_COD_M_007
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1082657936_COD_O_004
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1082657936_COD_T_002
+  check (COD_TASA BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1085403970_TIP_C_002
+  check (TIP_CAPITALIZACION IN (1, 2, 3, 4, 6, 12, 99));
+alter table IT.AH_CTA_PLAZOS
+  add constraint AVCON_1085580883_COD_C_004
+  check (COD_CANAL BETWEEN 0 AND 999);
+alter table IT.AH_CTA_PLAZOS
+  add constraint CK_APLFI_SAL_TOTAL
+  check (nvl(sal_total,0) >= 0);
+alter table IT.AH_CTA_PLAZOS
+  add constraint CK_TOT_INTERES_MAYOR_IGUAL_0
+  check (nvl(tot_interes,0) >= 0);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.AH_CTA_PLAZOS to IT_TEMPORAL;

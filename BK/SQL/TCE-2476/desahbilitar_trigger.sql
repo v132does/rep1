@@ -1,0 +1,2 @@
+-- Deshabilitar el trigger
+ALTER TRIGGER IT.TA_GE_SNP_CTA_ENTES DISABLE;

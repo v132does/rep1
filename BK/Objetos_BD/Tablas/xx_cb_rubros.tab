@@ -1,0 +1,36 @@
+create table IT.XX_CB_RUBROS
+(
+  cod_rubro         VARCHAR2(15) not null,
+  descripcion       VARCHAR2(300) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cod_rub_padre     VARCHAR2(15),
+  abreviatura       VARCHAR2(15),
+  tipo              VARCHAR2(1) not null,
+  nivel             NUMBER(2) not null,
+  naturaleza        VARCHAR2(1) not null,
+  deducible         VARCHAR2(1) not null,
+  imputable         VARCHAR2(1) not null,
+  ajustable         VARCHAR2(1) not null,
+  ult_nro_mayor     NUMBER(5),
+  usu_insercion     VARCHAR2(10),
+  fec_insercion     DATE,
+  usu_modificacion  VARCHAR2(10),
+  fec_modificacion  DATE,
+  fec_inicio        DATE,
+  fec_fin           DATE,
+  cod_rub_externo   VARCHAR2(20),
+  cod_consolidacion VARCHAR2(20),
+  cod_gestion       VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

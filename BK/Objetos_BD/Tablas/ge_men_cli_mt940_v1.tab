@@ -1,0 +1,85 @@
+-- create table
+create table it.ge_men_cli_mt940_v1
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  fec_extracto     DATE not null,
+  nro_extracto     NUMBER(5) not null,
+  nro_secuencia    NUMBER(5) not null,
+  extracto         CLOB,
+  estado           VARCHAR2(1) default 'G' not null,
+  tip_generacion   VARCHAR2(1) default 'D' not null,
+  periodicidad     VARCHAR2(1) default 'D' not null,
+  fec_desde        DATE not null,
+  fec_hasta        DATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_swift_dest   VARCHAR2(20)
+)
+tablespace it_data
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64k
+    next 1m
+    minextents 1
+    maxextents unlimited
+  );
+-- add comments to the columns 
+comment on column it.ge_men_cli_mt940_v1.cod_persona
+  is 'Codigo de la Persona Principal de la cuenta';
+comment on column it.ge_men_cli_mt940_v1.nro_cuenta
+  is 'Nro de Cta reportada en el MT940';
+comment on column it.ge_men_cli_mt940_v1.fec_extracto
+  is 'Fecha del Extracto generado';
+comment on column it.ge_men_cli_mt940_v1.nro_extracto
+  is 'Nro de extracto para los que utilizan la numeracion';
+comment on column it.ge_men_cli_mt940_v1.nro_secuencia
+  is 'Nro de Secuencia en caso que tenga mas de un extracto';
+comment on column it.ge_men_cli_mt940_v1.extracto
+  is 'El extracto a enviar en si';
+comment on column it.ge_men_cli_mt940_v1.estado
+  is 'Estado del extracto, G: Generado, E:Error, P:Procesado.';
+comment on column it.ge_men_cli_mt940_v1.tip_generacion
+  is 'Si se genera D-Detallado A-Agrupado';
+comment on column it.ge_men_cli_mt940_v1.periodicidad
+  is 'Si se genera D-Diariamente, M-Mensualmente.';
+comment on column it.ge_men_cli_mt940_v1.fec_desde
+  is 'Fecha desde';
+comment on column it.ge_men_cli_mt940_v1.fec_hasta
+  is 'Fecha hasta';
+comment on column it.ge_men_cli_mt940_v1.usu_insercion
+  is 'Usuario que genero el extracto';
+comment on column it.ge_men_cli_mt940_v1.fec_insercion
+  is 'Fecha de Generacion del Extracto.';
+comment on column IT.ge_men_cli_mt940_v1.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.ge_men_cli_mt940_v1.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column it.ge_men_cli_mt940_v1.cod_swift_dest
+  is 'Codifo Swift del banco destino';
+-- create/recreate primary, unique and foreign key constraints 
+alter table it.ge_men_cli_mt940_v1
+  add constraint pk_ge_men_cli_mt940_v1 primary key (cod_persona, nro_cuenta, nro_extracto, tip_generacion, fec_desde, fec_hasta)
+  using index 
+  tablespace it_ind
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2m
+    next 1m
+    minextents 1
+    maxextents unlimited
+  );
+alter table it.ge_men_cli_mt940_v1
+  add constraint fk_gmcmv_cod_persona foreign key (cod_persona)
+  references it.ge_clientes (cod_persona);
+alter table it.ge_men_cli_mt940_v1
+  add constraint fk_gmcmv_nro_cuenta foreign key (nro_cuenta)
+  references it.ge_cuentas (nro_cuenta);

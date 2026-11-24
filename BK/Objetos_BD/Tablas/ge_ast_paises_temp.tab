@@ -1,0 +1,27 @@
+create table IT.GE_AST_PAISES_TEMP
+(
+  cod_ast_pais        VARCHAR2(5) not null,
+  descripcion         VARCHAR2(60),
+  cod_pais            NUMBER(3),
+  risk_level_iso      VARCHAR2(3),
+  risk_level_assigned VARCHAR2(3),
+  cod_rie_pais        NUMBER(8),
+  cod_rie_int_pais    NUMBER(8),
+  usu_insercion       VARCHAR2(10),
+  fec_insercion       DATE,
+  usu_modificacion    VARCHAR2(10),
+  fec_modificacion    DATE,
+  fec_envio           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

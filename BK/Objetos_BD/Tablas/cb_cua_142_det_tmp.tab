@@ -1,0 +1,63 @@
+create table IT.CB_CUA_142_DET_TMP
+(
+  fecha           DATE,
+  cod_usuario     VARCHAR2(10),
+  hora            VARCHAR2(8),
+  nro_secuencia   NUMBER(3),
+  nro_cuenta      VARCHAR2(15),
+  monto           NUMBER(18,2),
+  cod_moneda      VARCHAR2(3),
+  mto_equ_local   NUMBER(18,2),
+  cotizacion      NUMBER,
+  cod_oficina     NUMBER(3),
+  cod_ofi_origen  NUMBER(3),
+  cod_banco       NUMBER(3),
+  concepto        VARCHAR2(100),
+  nro_documento   NUMBER(15),
+  cod_transaccion NUMBER(4),
+  cod_modulo      NUMBER(3),
+  cod_modalidad   NUMBER(3),
+  nro_documento4  NUMBER(15),
+  cod_retencion   NUMBER(3),
+  nro_asiento     NUMBER(6) not null,
+  nro_linea       NUMBER(9) not null,
+  descripcion     VARCHAR2(60),
+  tip_mov         VARCHAR2(1),
+  mov_cuadre      NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_CUA_142 on IT.CB_CUA_142_DET_TMP (FECHA, COD_USUARIO, HORA, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_CUA_142_FEC on IT.CB_CUA_142_DET_TMP (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,101 @@
+create table IT.SB_SNP_FLI
+(
+  nro_referencia   VARCHAR2(20),
+  nro_documento    VARCHAR2(35),
+  cod_msj_swift    NUMBER(3),
+  fecha            DATE,
+  msj_swift        VARCHAR2(4000),
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  error            VARCHAR2(4000),
+  situacion        VARCHAR2(1),
+  fec_recepcion    DATE,
+  msj_swi_original CLOB,
+  nro_ref_externa  VARCHAR2(20),
+  nro_cuenta       VARCHAR2(15),
+  mto_letra        NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SNP_FLI
+  is 'Contiene las Respuestas de los Mensajes SWIFT procesados en el BCP.';
+comment on column IT.SB_SNP_FLI.nro_referencia
+  is 'Nro. de Referencia del MT sobre el cual se está registrando una RESPUESTA. Ej: 213804.';
+comment on column IT.SB_SNP_FLI.nro_documento
+  is 'Número de Documento del Título o Bono.';
+comment on column IT.SB_SNP_FLI.cod_msj_swift
+  is 'Tipo de MT recibido de la Operación.';
+comment on column IT.SB_SNP_FLI.fecha
+  is 'Fecha para cada operación del Participante.';
+comment on column IT.SB_SNP_FLI.msj_swift
+  is 'Mensaje SWIFT enviado por BCP.';
+comment on column IT.SB_SNP_FLI.cod_moneda
+  is 'Código de la Moneda para cada operación del Participante.';
+comment on column IT.SB_SNP_FLI.monto
+  is 'Monto para cada operación del Participante.';
+comment on column IT.SB_SNP_FLI.error
+  is 'Descripción del Error generado al procesar el Mensaje.';
+comment on column IT.SB_SNP_FLI.situacion
+  is 'Situación del Mensaje. V-Enviado al BCP, P-Pendiente de Envío al BCP, R-Recibido, L-Operacion Liquidada.';
+comment on column IT.SB_SNP_FLI.fec_recepcion
+  is 'Fecha de recepción del mensaje.';
+comment on column IT.SB_SNP_FLI.msj_swi_original
+  is 'Mensaje SWIFT enviado por BCP si no está esquematizado.';
+comment on column IT.SB_SNP_FLI.nro_ref_externa
+  is 'Nro. de Referencia Externa del MT.';
+comment on column IT.SB_SNP_FLI.nro_cuenta
+  is 'Nro. de Cuenta - Mesa de Dinero';
+comment on column IT.SB_SNP_FLI.mto_letra
+  is 'Monto por Letra para cada operación del Participante.';
+comment on column IT.SB_SNP_FLI.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_SNP_FLI.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_SNP_FLI.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.SB_SNP_FLI.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+
+create index IT.IN_SSMEN_DOC_SITUACION on IT.SB_SNP_FLI (NRO_DOCUMENTO, SITUACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+alter table IT.SB_SNP_FLI
+  add constraint UK_SSMEN_NRO_REFERENCIA unique (NRO_REFERENCIA, NRO_CUENTA, NRO_REF_EXTERNA, NRO_DOCUMENTO, COD_MSJ_SWIFT, FECHA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_SNP_FLI
+  add constraint FK_SSMEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);

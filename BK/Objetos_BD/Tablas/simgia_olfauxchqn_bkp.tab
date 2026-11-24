@@ -1,0 +1,26 @@
+create table IT.SIMGIA_OLFAUXCHQN_BKP
+(
+  chqsuc     VARCHAR2(2),
+  chqcta     VARCHAR2(40),
+  chqsub     VARCHAR2(6),
+  chqserie   NUMBER,
+  chqdesde   NUMBER,
+  chqhasta   VARCHAR2(40),
+  chqfecha   NUMBER,
+  nro_cuenta VARCHAR2(15),
+  vcta       VARCHAR2(2),
+  cod_moneda VARCHAR2(3),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,112 @@
+create table IT.GE_AUT_SOLICITUDES
+(
+  nro_pedido          NUMBER(10) not null,
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3) not null,
+  cod_persona         VARCHAR2(10),
+  cod_usu_autorizador VARCHAR2(10),
+  estado              VARCHAR2(1) not null,
+  observacion         VARCHAR2(1000),
+  nro_solicitud       NUMBER(7),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AUT_SOLICITUDES
+  is 'Autorizaciones de pedidos del Sistema. Contiene todas las autorizaciones de pedidos ON-LINE o previas realizadas en el Sistema.';
+comment on column IT.GE_AUT_SOLICITUDES.nro_pedido
+  is 'Número de Pedido de Autorización.';
+comment on column IT.GE_AUT_SOLICITUDES.fecha
+  is 'Fecha.';
+comment on column IT.GE_AUT_SOLICITUDES.hora
+  is 'Hora.';
+comment on column IT.GE_AUT_SOLICITUDES.cod_usuario
+  is 'Código de operador.';
+comment on column IT.GE_AUT_SOLICITUDES.cod_modulo
+  is 'Código de modulo.';
+comment on column IT.GE_AUT_SOLICITUDES.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.GE_AUT_SOLICITUDES.cod_persona
+  is 'Código del Titular Principal de la Cuenta.';
+comment on column IT.GE_AUT_SOLICITUDES.cod_usu_autorizador
+  is 'Código de autorizador.';
+comment on column IT.GE_AUT_SOLICITUDES.estado
+  is 'Estado del pedido (S=Solicitado, A=Aprobado, C=Cancelado, U=Utilizado, M=Solicitud de Clientes con Mora).';
+comment on column IT.GE_AUT_SOLICITUDES.observacion
+  is 'Observación.';
+comment on column IT.GE_AUT_SOLICITUDES.nro_solicitud
+  is 'Nro de Solicitud';
+comment on column IT.GE_AUT_SOLICITUDES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_AUT_SOLICITUDES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_AUT_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_AUT_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.GE_AUT_SOL_COD_AUTO on IT.GE_AUT_SOLICITUDES (COD_USU_AUTORIZADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.GE_AUT_SOL_COD_PER on IT.GE_AUT_SOLICITUDES (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AUT_SOLICITUDES
+  add constraint PK_GE_AUT_SOLICITUDES primary key (NRO_PEDIDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AUT_SOLICITUDES
+  add constraint FK_GEAUT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_AUT_SOLICITUDES
+  add constraint FK_GEAUT_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_AUT_SOLICITUDES
+  add constraint FK_GEAUT_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_AUT_SOLICITUDES
+  add constraint CHK_GEAUT_ESTADO
+  check (ESTADO IN ('S', 'C', 'A','U','M'));
+

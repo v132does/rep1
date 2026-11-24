@@ -1,0 +1,44 @@
+create table IT.BW_TRA_CTA_CONFIGURADO
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15),
+  estado           VARCHAR2(1) default 'A',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_TRA_CTA_CONFIGURADO
+  is 'Tabla para persistir numeros de cuentas configurado para transferencias multiples';
+comment on column IT.BW_TRA_CTA_CONFIGURADO.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.BW_TRA_CTA_CONFIGURADO.nro_cuenta
+  is 'Nombre de cuenta';
+comment on column IT.BW_TRA_CTA_CONFIGURADO.estado
+  is 'A = Aceptado, N = Sin subscripcion, I = Inactivo';
+alter table IT.BW_TRA_CTA_CONFIGURADO
+  add constraint PK_BW_TRA_CTA_CONFIGURADO primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

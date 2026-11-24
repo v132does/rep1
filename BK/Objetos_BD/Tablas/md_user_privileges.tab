@@ -1,0 +1,51 @@
+create table IT.MD_USER_PRIVILEGES
+(
+  id                NUMBER not null,
+  user_id_fk        NUMBER not null,
+  privilege_id_fk   NUMBER,
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_udpated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_USER_PRIVILEGES
+  is 'This table stores privileges granted to individual users';
+comment on column IT.MD_USER_PRIVILEGES.id
+  is 'Primary Key';
+comment on column IT.MD_USER_PRIVILEGES.user_id_fk
+  is 'User';
+comment on column IT.MD_USER_PRIVILEGES.privilege_id_fk
+  is 'Privilege';
+alter table IT.MD_USER_PRIVILEGES
+  add constraint MD_USER_PRIVILEGES_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_USER_PRIVILEGES
+  add constraint MD_USER_PRIVILEGES_MD_PRI_FK1 foreign key (PRIVILEGE_ID_FK)
+  references IT.MD_PRIVILEGES (ID) on delete cascade;
+alter table IT.MD_USER_PRIVILEGES
+  add constraint MD_USER_PRIVILEGES_MD_USE_FK1 foreign key (USER_ID_FK)
+  references IT.MD_USERS (ID) on delete cascade;
+

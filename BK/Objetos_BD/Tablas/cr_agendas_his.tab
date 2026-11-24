@@ -1,0 +1,98 @@
+create table IT.CR_AGENDAS_HIS
+(
+  cod_agenda           NUMBER(10) not null,
+  cod_persona          VARCHAR2(10) not null,
+  cod_usu_encargado    VARCHAR2(10) not null,
+  cod_actividad        NUMBER(3) not null,
+  cod_estado           NUMBER(2) not null,
+  cod_mot_actividad    VARCHAR2(5) not null,
+  fec_actividad        DATE not null,
+  can_reprogramaciones NUMBER(2),
+  det_actividad        VARCHAR2(2000) not null,
+  fec_realizacion      DATE,
+  fec_vencimiento      DATE,
+  revisado             VARCHAR2(1) not null,
+  det_respuesta        VARCHAR2(1000),
+  automatico           VARCHAR2(1),
+  cod_campana          NUMBER(3),
+  cod_age_anterior     NUMBER(10),
+  nro_referencia       VARCHAR2(20),
+  usu_insercion        VARCHAR2(10) not null,
+  fec_insercion        DATE not null,
+  usu_modificacion     VARCHAR2(10) not null,
+  fec_modificacion     DATE not null,
+  cod_canal            NUMBER(3),
+  nro_orden            NUMBER(10),
+  cod_respuesta        NUMBER(2),
+  dia_atraso           NUMBER(5),
+  mto_mora             NUMBER(18,2),
+  fec_ini_asignacion   DATE
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AGENDAS_HIS
+  is 'Historico de Agenda.';
+comment on column IT.CR_AGENDAS_HIS.cod_agenda
+  is 'Numero de secuencia unico.';
+comment on column IT.CR_AGENDAS_HIS.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.CR_AGENDAS_HIS.cod_usu_encargado
+  is 'Encargado de la actividad.';
+comment on column IT.CR_AGENDAS_HIS.cod_actividad
+  is 'Codigo de actividad.';
+comment on column IT.CR_AGENDAS_HIS.cod_estado
+  is 'Estado actual de la actividad.';
+comment on column IT.CR_AGENDAS_HIS.cod_mot_actividad
+  is 'Codigo de motivo de actividad.';
+comment on column IT.CR_AGENDAS_HIS.fec_actividad
+  is 'Fecha de actividad.';
+comment on column IT.CR_AGENDAS_HIS.can_reprogramaciones
+  is 'Numero de reprogramaciones. Por defecto 0.';
+comment on column IT.CR_AGENDAS_HIS.det_actividad
+  is 'Detalle de la actividad.';
+comment on column IT.CR_AGENDAS_HIS.fec_realizacion
+  is 'Fecha de realizacion. Contiene la hora.';
+comment on column IT.CR_AGENDAS_HIS.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.CR_AGENDAS_HIS.revisado
+  is 'Indicador de revisado (S/N).';
+comment on column IT.CR_AGENDAS_HIS.det_respuesta
+  is 'Detalle de la Respuesta.';
+comment on column IT.CR_AGENDAS_HIS.automatico
+  is 'Indicador de si la actividad fue generada en forma automatica (s/N).';
+comment on column IT.CR_AGENDAS_HIS.cod_campana
+  is 'Codigo de campaña asociada.';
+comment on column IT.CR_AGENDAS_HIS.cod_age_anterior
+  is 'Numero de la actividad predecesora, en los casos de reprogramaciones o reasignaciones.';
+comment on column IT.CR_AGENDAS_HIS.nro_referencia
+  is 'Numero de Referencia Externa.';
+comment on column IT.CR_AGENDAS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AGENDAS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AGENDAS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGENDAS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGENDAS_HIS.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.CR_AGENDAS_HIS.nro_orden
+  is 'Nro de orden de las actividades generadas en forma automatica.';
+comment on column IT.CR_AGENDAS_HIS.cod_respuesta
+  is 'Codigo de respuesta.';
+comment on column IT.CR_AGENDAS_HIS.dia_atraso
+  is 'Maxima cantidad de dias de atraso.';
+comment on column IT.CR_AGENDAS_HIS.mto_mora
+  is 'Total de monto en mora.';
+comment on column IT.CR_AGENDAS_HIS.fec_ini_asignacion
+  is 'Fecha inicial de asignacion de la actividad.';
+

@@ -1,0 +1,7 @@
+create sequence IT.S_EQF_NRO_SOLICITUD
+minvalue 1
+maxvalue 99999999999999999999999
+start with 209164
+increment by 1
+cache 20;
+

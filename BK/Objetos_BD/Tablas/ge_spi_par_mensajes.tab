@@ -1,0 +1,73 @@
+create table IT.GE_SPI_PAR_MENSAJES
+(
+  cod_mx           VARCHAR2(10) not null,
+  cod_tipo         VARCHAR2(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_tra_emitido  NUMBER(4),
+  cod_tra_recibido NUMBER(4),
+  cod_tra_padre    NUMBER(4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_PAR_MENSAJES
+  is 'Parámetros de Mensajes SPI.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_mx
+  is 'Código del Mensaje SPI.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_tipo
+  is 'Código de Tipo Rechazo/Aprobación.';
+comment on column IT.GE_SPI_PAR_MENSAJES.descripcion
+  is 'Descripción del parámetro.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_modulo
+  is 'Módulo de la Transacción Emitido/Recibido.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_modalidad
+  is 'Modalidad de la Transacción Emitido/Recibido.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_tra_emitido
+  is 'Transacción para Mensajes Emitidos.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_tra_recibido
+  is 'Transacción para Mensajes Recibidos.';
+comment on column IT.GE_SPI_PAR_MENSAJES.cod_tra_padre
+  is 'Código del Transacción Padre para mostrar distinto en el extracto';
+comment on column IT.GE_SPI_PAR_MENSAJES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_PAR_MENSAJES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SPI_PAR_MENSAJES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_PAR_MENSAJES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_SPI_PAR_MENSAJES
+  add constraint UK_GE_SPI_PAR_MENSAJES unique (COD_MX, COD_TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SPI_PAR_MENSAJES
+  add constraint FK_GSPI_COD_TRA_EMITIDO foreign key (COD_TRA_EMITIDO, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SPI_PAR_MENSAJES
+  add constraint FK_GSPI_COD_TRA_RECIBIDO foreign key (COD_TRA_RECIBIDO, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

@@ -1,0 +1,53 @@
+create table IT.MD_AMORTIZACION
+(
+  nro_cuota          NUMBER(3) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  fec_vencimiento    DATE not null,
+  estado             VARCHAR2(1) not null,
+  sal_cap_prestamo   NUMBER(18,2),
+  sal_int_prestamo   NUMBER(18,2),
+  sal_cap_cuota      NUMBER(18,2),
+  sal_int_cuota      NUMBER(18,2),
+  fec_ult_pago       DATE,
+  dia_mora           NUMBER(5),
+  mto_capital        NUMBER(18,2),
+  mto_interes        NUMBER(18,2),
+  mto_int_iva        NUMBER(18,2),
+  mto_int_descontado NUMBER(18,2),
+  nro_documento      NUMBER(15),
+  usu_insercion      VARCHAR2(10),
+  usu_modificacion   VARCHAR2(10),
+  fec_insercion      DATE,
+  fec_modificacion   DATE,
+  fec_ult_devengado  DATE,
+  dev_no_cobrado     NUMBER(18,2),
+  dev_acumulado      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_AMORTIZACION
+  add constraint MAMOR_PK primary key (HORA, FECHA, NRO_CUENTA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

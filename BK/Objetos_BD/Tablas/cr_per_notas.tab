@@ -1,0 +1,106 @@
+create table IT.CR_PER_NOTAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(5) not null,
+  tipo             VARCHAR2(1) not null,
+  fecha            DATE not null,
+  descripcion      VARCHAR2(80) not null,
+  detalle          VARCHAR2(1000) not null,
+  automatico       VARCHAR2(1) default 'N' not null,
+  estado           VARCHAR2(1) not null,
+  cod_campana      NUMBER(3),
+  medio            VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_NOTAS
+  is 'Notas por persona.';
+comment on column IT.CR_PER_NOTAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_NOTAS.nro_secuencia
+  is 'Secuencia.';
+comment on column IT.CR_PER_NOTAS.tipo
+  is 'Tipo de Nota (A=Alerta, C=Comercial, M=Mensaje).';
+comment on column IT.CR_PER_NOTAS.fecha
+  is 'Fecha de la nota.';
+comment on column IT.CR_PER_NOTAS.descripcion
+  is 'Descripcion.';
+comment on column IT.CR_PER_NOTAS.detalle
+  is 'Detalle de la nota.';
+comment on column IT.CR_PER_NOTAS.automatico
+  is 'Indica si es automatico o no (S/N).';
+comment on column IT.CR_PER_NOTAS.estado
+  is 'Estado (P=Pendiente, R=Realizada).';
+comment on column IT.CR_PER_NOTAS.cod_campana
+  is 'Codigo de campaña si esta asociado a una.';
+comment on column IT.CR_PER_NOTAS.medio
+  is 'Medio de la nota(G=General, A=Atm, C=Caja,T=Celular, S=Autoservicios, I=Internet, etc).';
+comment on column IT.CR_PER_NOTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_NOTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_NOTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_NOTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_RPNOT_COD_CAMPANA on IT.CR_PER_NOTAS (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_NOTAS
+  add constraint PK_CR_PER_NOTAS primary key (COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_NOTAS
+  add constraint FK_RPNOT_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.CR_PER_NOTAS
+  add constraint FK_RPNOT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PER_NOTAS
+  add constraint AVCON_1080843837_AUTOM_000
+  check (AUTOMATICO IN ('S', 'N'));
+alter table IT.CR_PER_NOTAS
+  add constraint AVCON_1080843837_ESTAD_000
+  check (ESTADO IN ('P', 'R'));
+alter table IT.CR_PER_NOTAS
+  add constraint AVCON_1080843837_MEDIO_000
+  check (MEDIO IN ('G', 'A', 'C', 'T', 'S', 'I', 'O'));
+alter table IT.CR_PER_NOTAS
+  add constraint AVCON_1080843837_TIPO_001
+  check (TIPO IN ('A', 'C', 'M','O'));
+alter table IT.CR_PER_NOTAS
+  add constraint AVCON_1118869086_COD_C_000
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+

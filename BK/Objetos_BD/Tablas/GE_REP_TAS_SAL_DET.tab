@@ -1,0 +1,74 @@
+-- =====================================================================================
+-- Tabla de detalle para el reporte de Tasas Saldos Contables
+-- =====================================================================================
+CREATE TABLE IT.GE_REP_TAS_SAL_DET (
+    ID_EJECUCION        NUMBER(18)       NOT NULL,
+    FECHA               DATE             NOT NULL,
+    CORCOD              NUMBER(6)        NOT NULL,
+    ENTCOD              NUMBER(4),
+
+    -- Datos de origen desde CB_SAL_INV_FINMES
+    NRO_CUENTA          VARCHAR2(15 BYTE) NOT NULL,
+    COD_MODULO          NUMBER(3,0),
+    COD_MODALIDAD       NUMBER(3,0),
+    COD_RUBRO           VARCHAR2(15 BYTE),
+    TIP_SALDO           VARCHAR2(1 BYTE),
+    COD_MONEDA          VARCHAR2(3 BYTE),
+    FEC_APERTURA        DATE,
+    FEC_VENCIMIENTO     DATE,
+    SAL_ACTUAL          NUMBER(18,2),
+
+    -- Conversión y moneda BCP
+    MONCOD              NUMBER(4),
+    COTIZACION_USADA    NUMBER(18,6),
+    SAL_EN_GS           NUMBER(18,2),
+
+    -- Datos de ACOD y cálculo
+    ACOD                NUMBER(4),
+    CODCTA_CALC         VARCHAR2(20 BYTE),
+    PLAZO_CALC          NUMBER(8),
+    TIP_DESTINO_ESP     NUMBER,
+    SIGNIFICADO         VARCHAR2(100 BYTE),
+    OBSERVACION         VARCHAR2(400 BYTE)
+) TABLESPACE IT_DATA;
+
+-- Comentarios descriptivos
+COMMENT ON TABLE  IT.GE_REP_TAS_SAL_DET                  IS 'Detalle de Tasas Saldos Contables por cuenta, incluyendo conversión a GS y ACOD';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.ID_EJECUCION     IS 'ID de ejecución del proceso TSC';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.FECHA            IS 'Fecha del saldo (CB_SAL_INV_FINMES.FECHA)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.CORCOD           IS 'Código de período de reporte (YYYYMM de la fecha de corte)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.ENTCOD           IS 'Código de entidad BCP (PAG_GEN.FU_OBT_COD_ENTIDAD)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.NRO_CUENTA       IS 'Número de cuenta';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.COD_MODULO       IS 'Código de módulo';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.COD_MODALIDAD    IS 'Código de modalidad';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.COD_RUBRO        IS 'Código de rubro (fuente CB_SAL_INV_FINMES.COD_RUBRO)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.TIP_SALDO        IS 'Tipo de saldo (C/Q/F)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.COD_MONEDA       IS 'Código de moneda (USD/GS)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.FEC_APERTURA     IS 'Fecha de apertura de la operación';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.FEC_VENCIMIENTO  IS 'Fecha de vencimiento de la operación';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.SAL_ACTUAL       IS 'Saldo actual de la operación';
+
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.MONCOD           IS 'Código de moneda BCP (6200=USD, 6900=GS)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.COTIZACION_USADA IS 'Cotización utilizada para convertir a GS';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.SAL_EN_GS        IS 'Saldo expresado en guaraníes';
+
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.ACOD             IS 'ACOD final utilizado en el reporte (desde maestro o calculado)';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.CODCTA_CALC      IS 'Código contable calculado a partir del COD_RUBRO';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.PLAZO_CALC       IS 'Plazo calculado mediante PAG_TAS.FN_CALC_PLAZO';
+COMMENT ON COLUMN IT.GE_REP_TAS_SAL_DET.OBSERVACION      IS 'Observaciones (origen del ACOD, mensajes de cálculo, etc.)';
+
+-- Índices para filtrado por ejecución y fecha
+CREATE INDEX IT.IDX_TSC_DET_EJEC_FEC
+    ON IT.GE_REP_TAS_SAL_DET (ID_EJECUCION, FECHA)
+TABLESPACE IT_IND;
+
+-- Índice para agrupado del reporte
+CREATE INDEX IT.IDX_TSC_DET_REP_GRP
+    ON IT.GE_REP_TAS_SAL_DET (CORCOD, ENTCOD, ACOD, MONCOD)
+TABLESPACE IT_IND;
+
+-- Sinónimo y permisos
+CREATE PUBLIC SYNONYM GE_REP_TAS_SAL_DET FOR IT.GE_REP_TAS_SAL_DET;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+  ON IT.GE_REP_TAS_SAL_DET TO IT_TEMPORAL;

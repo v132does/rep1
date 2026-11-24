@@ -1,0 +1,50 @@
+create table IT.TM_LOG_CONTROLES_HIS
+(
+  fecha         DATE not null,
+  tip_control   VARCHAR2(50) not null,
+  clave         VARCHAR2(40) not null,
+  cod_modalidad NUMBER(3),
+  observacion   VARCHAR2(150),
+  usu_insercion VARCHAR2(10) default substr(user,1,10),
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_LOG_CONTROLES_HIS
+  is 'Archivo de log para control de consistencia de datos.';
+comment on column IT.TM_LOG_CONTROLES_HIS.fecha
+  is 'Fecha.';
+comment on column IT.TM_LOG_CONTROLES_HIS.tip_control
+  is 'Tipo de Control.';
+comment on column IT.TM_LOG_CONTROLES_HIS.clave
+  is 'Clave.';
+comment on column IT.TM_LOG_CONTROLES_HIS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.TM_LOG_CONTROLES_HIS.observacion
+  is 'Observacion.';
+comment on column IT.TM_LOG_CONTROLES_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TM_LOG_CONTROLES_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+create index IT.IN_LOGC_FECHA_HIS on IT.TM_LOG_CONTROLES_HIS (FECHA, TIP_CONTROL, CLAVE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

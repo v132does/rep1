@@ -1,0 +1,45 @@
+create table IT.SIMGIA_OLFAUXANL_BKP
+(
+  suc        NUMBER,
+  cta        NUMBER,
+  subcta     NUMBER,
+  filler     CHAR(1),
+  contianl   NUMBER,
+  ninic1     NUMBER,
+  nfinal1    NUMBER,
+  nfechanl1  NUMBER,
+  estadoanl1 NUMBER,
+  ninic2     NUMBER,
+  nfinal2    NUMBER,
+  nfechanl2  NUMBER,
+  estadoanl2 NUMBER,
+  ninic3     NUMBER,
+  nfinal3    NUMBER,
+  nfechanl3  NUMBER,
+  estadoanl3 NUMBER,
+  ninic4     NUMBER,
+  nfinal4    NUMBER,
+  nfechanl4  NUMBER,
+  estadoanl4 NUMBER,
+  ninic5     NUMBER,
+  nfinal5    NUMBER,
+  nfechanl5  NUMBER,
+  estadoanl5 NUMBER,
+  ninic6     NUMBER,
+  nfinal6    NUMBER,
+  nfechanl6  NUMBER,
+  estadoanl6 NUMBER,
+  fecha_his  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

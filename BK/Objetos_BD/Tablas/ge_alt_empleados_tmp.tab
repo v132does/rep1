@@ -1,0 +1,56 @@
+create table IT.GE_ALT_EMPLEADOS_TMP
+(
+  cod_ente         NUMBER(5) not null,
+  nro_lote         NUMBER(10) not null,
+  nro_documento    VARCHAR2(20) not null,
+  tip_documento    VARCHAR2(3) not null,
+  sobregiro        VARCHAR2(1),
+  fec_insercion    DATE not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  usu_modificacion VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_ALT_EMPLEADOS_TMP.cod_ente
+  is 'Código del ente.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.nro_lote
+  is 'Número de lote de la operación.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.nro_documento
+  is 'Número del documento.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.tip_documento
+  is 'Tipo de Documento.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.sobregiro
+  is 'Puede tener o no sobregiro S/N';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.GE_ALT_EMPLEADOS_TMP.usu_modificacion
+  is 'Usuario de modificacion.';
+alter table IT.GE_ALT_EMPLEADOS_TMP
+  add constraint PK_GE_ALT_EMPLEADOS_TMP primary key (COD_ENTE, NRO_LOTE, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

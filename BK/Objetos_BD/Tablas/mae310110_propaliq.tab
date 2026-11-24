@@ -1,0 +1,74 @@
+create table IT.MAE310110_PROPALIQ
+(
+  palsuc     NUMBER(2),
+  palpropnro NUMBER(6),
+  palcliente NUMBER(8),
+  palfecha   NUMBER(6),
+  paloper    NUMBER(3),
+  palrenova  NUMBER(1),
+  palsecteco NUMBER(2),
+  palgrubcp  NUMBER(2),
+  paldestcre NUMBER(1),
+  palrubrocr NUMBER(2),
+  palmoneda  NUMBER(2),
+  palcapital NUMBER(14,2),
+  palplazo   NUMBER(6),
+  paltasa    NUMBER(5,2),
+  palperiodo NUMBER(2),
+  palaov     VARCHAR2(1),
+  palnumcuo  NUMBER(3),
+  palvencuo  VARCHAR2(1),
+  palmodliq  VARCHAR2(1),
+  palsucabo  NUMBER(2),
+  palctaabo  NUMBER(12),
+  paldebauto VARCHAR2(2),
+  palsucdaut NUMBER(2),
+  palctadaut NUMBER(12),
+  paltpgar1  NUMBER(2),
+  palmon1    NUMBER(2),
+  palmntgar1 NUMBER(14,2),
+  paltpgar2  NUMBER(2),
+  palmon2    NUMBER(2),
+  palmntgar2 NUMBER(14,2),
+  palaval1   NUMBER(8),
+  palaval2   NUMBER(8),
+  palaval3   NUMBER(8),
+  palaval4   NUMBER(8),
+  palaval5   NUMBER(8),
+  palcomdsmb NUMBER(9),
+  palcomaplc NUMBER(4,2),
+  palcomnglc NUMBER(4,2),
+  palcostolc NUMBER(4,2),
+  palcomotr  NUMBER(9),
+  palsegv    VARCHAR2(2),
+  palplzsegv NUMBER(4),
+  palciasegv NUMBER(2),
+  palsegi    VARCHAR2(2),
+  palplzsegi NUMBER(3),
+  palciasegi NUMBER(2),
+  palsega    VARCHAR2(2),
+  palplzsega NUMBER(3),
+  palciasega NUMBER(2),
+  palsego    VARCHAR2(2),
+  palplzsego NUMBER(3),
+  palciasego NUMBER(2),
+  palcoment  VARCHAR2(640),
+  paldestino VARCHAR2(200),
+  palfuenter VARCHAR2(200),
+  palestado  VARCHAR2(1),
+  palfeliq   NUMBER(6),
+  palclicc   NUMBER(8),
+  palclasetr NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

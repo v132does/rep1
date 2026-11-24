@@ -1,0 +1,32 @@
+create table IT.CB_INF_CTR_IVA_TMP
+(
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  reversado        VARCHAR2(1),
+  tip_movimiento   CHAR(7),
+  iva              VARCHAR2(3),
+  cod_mod_padre    NUMBER,
+  cod_mad_padre    NUMBER,
+  descripcion      VARCHAR2(73),
+  tipo             VARCHAR2(14),
+  mto_asiento      NUMBER,
+  mto_factura      NUMBER,
+  diferencia       NUMBER,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

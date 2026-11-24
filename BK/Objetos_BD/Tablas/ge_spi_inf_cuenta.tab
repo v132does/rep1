@@ -1,0 +1,68 @@
+create table IT.GE_SPI_INF_CUENTA
+(
+  nro_referencia     VARCHAR2(33),
+  fec_informe        DATE,
+  nro_ref_externa    VARCHAR2(33),
+  nro_cta_informe    VARCHAR2(35),
+  imp_saldo_cta      NUMBER(18,2),
+  cant_tot_op_sesion VARCHAR2(20),
+  mon_tot_op_sesion  NUMBER(18,2),
+  mon_res_deb_cre    NUMBER(18,2),
+  cant_liq_credito   VARCHAR2(10),
+  mon_liq_credito    NUMBER(18,2),
+  cant_liq_debito    VARCHAR2(10),
+  mon_liq_debito     NUMBER(18,2),
+  id_sesion          VARCHAR2(10),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default sysdate not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_INF_CUENTA
+  is 'Tabla para almacenar los datos de recibidos dentro del Informe de Cuenta';
+comment on column IT.GE_SPI_INF_CUENTA.nro_referencia
+  is 'Numero de referencia unica del registro.';
+comment on column IT.GE_SPI_INF_CUENTA.fec_informe
+  is 'Fecha y hora de creación del informe.';
+comment on column IT.GE_SPI_INF_CUENTA.nro_ref_externa
+  is 'Numero de referencia Identificador del mensaje.';
+comment on column IT.GE_SPI_INF_CUENTA.nro_cta_informe
+  is 'Codigo de cuenta del participante solicitante.';
+comment on column IT.GE_SPI_INF_CUENTA.imp_saldo_cta
+  is 'Saldo actual de la cuenta de reserva.';
+comment on column IT.GE_SPI_INF_CUENTA.cant_tot_op_sesion
+  is 'Cantidad total de operaciones dentro de la sesion.';
+comment on column IT.GE_SPI_INF_CUENTA.mon_tot_op_sesion
+  is 'Monto total de operaciones dentro de la sesion.';
+comment on column IT.GE_SPI_INF_CUENTA.mon_res_deb_cre
+  is 'Monto total resultante de la diferencia debito - credito.';
+comment on column IT.GE_SPI_INF_CUENTA.cant_liq_credito
+  is 'Cantidad de entradas de credito.';
+comment on column IT.GE_SPI_INF_CUENTA.mon_liq_credito
+  is 'Monto liquidado por el credito.';
+comment on column IT.GE_SPI_INF_CUENTA.cant_liq_debito
+  is 'Cantidad de entradas de debito.';
+comment on column IT.GE_SPI_INF_CUENTA.mon_liq_debito
+  is 'Monto liquidado por el debito.';
+comment on column IT.GE_SPI_INF_CUENTA.id_sesion
+  is 'Numero de Id de sesion.';
+comment on column IT.GE_SPI_INF_CUENTA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SPI_INF_CUENTA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SPI_INF_CUENTA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SPI_INF_CUENTA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

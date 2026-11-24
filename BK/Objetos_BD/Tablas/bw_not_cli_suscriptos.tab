@@ -1,0 +1,69 @@
+create table IT.BW_NOT_CLI_SUSCRIPTOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  fec_suscripcion  DATE default sysdate,
+  activo           VARCHAR2(1) default 'S',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_origen       VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_CLI_SUSCRIPTOS.cod_persona
+  is 'Codigo del cliente';
+comment on column IT.BW_NOT_CLI_SUSCRIPTOS.fec_suscripcion
+  is 'Fecha de suscripcion';
+comment on column IT.BW_NOT_CLI_SUSCRIPTOS.activo
+  is 'S el usuario esta suscripto al servicio';
+comment on column IT.BW_NOT_CLI_SUSCRIPTOS.cod_origen
+  is 'WEB, ITGF.MOVI,COMP';
+create index IT.IN_NCLSU_ACTIVO on IT.BW_NOT_CLI_SUSCRIPTOS (ACTIVO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_NCLSU_COD_PER_ACTIVO on IT.BW_NOT_CLI_SUSCRIPTOS (COD_PERSONA, ACTIVO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_NOT_CLI_SUSCRIPTOS
+  add constraint PK_NOT_CLI_SUSCRIPTOS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,58 @@
+create table IT.TA_SOL_GARANTIAS
+(
+  nro_solicitud    NUMBER(7) not null,
+  nro_garantia     NUMBER(7),
+  cod_garantia     NUMBER(3) not null,
+  mto_aplicado     NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SOL_GARANTIAS
+  is 'Contiene los datos de las garantias por solicitud.';
+comment on column IT.TA_SOL_GARANTIAS.nro_solicitud
+  is 'Numero de propuesta.';
+comment on column IT.TA_SOL_GARANTIAS.nro_garantia
+  is 'Numero de la garantia asociada o Numero de cliente(codeudor).';
+comment on column IT.TA_SOL_GARANTIAS.cod_garantia
+  is 'Tipo de Garantia.';
+comment on column IT.TA_SOL_GARANTIAS.mto_aplicado
+  is 'Monto de garantia que cubre a la operacion.';
+comment on column IT.TA_SOL_GARANTIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_SOL_GARANTIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_SOL_GARANTIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_SOL_GARANTIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.TA_SOL_GARANTIAS
+  add constraint UK_TA_SOL_GARANTIAS unique (NRO_SOLICITUD, NRO_GARANTIA, COD_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SOL_GARANTIAS
+  add constraint FK_TSGAR_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+

@@ -1,0 +1,52 @@
+create table IT.AH_EST_SOL_TAR_DEB
+(
+  cod_est_solicitud NUMBER(3) not null,
+  descripcion       VARCHAR2(35) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_EST_SOL_TAR_DEB
+  is 'Estados de la Solicitud de Tarjetas de Debito.';
+comment on column IT.AH_EST_SOL_TAR_DEB.cod_est_solicitud
+  is 'Codigo del Estado de la Solicitud de Tarjetas de Debito.';
+comment on column IT.AH_EST_SOL_TAR_DEB.descripcion
+  is 'Descripcion del Estado de la Solicitud de Tarjetas de Debito.';
+comment on column IT.AH_EST_SOL_TAR_DEB.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_EST_SOL_TAR_DEB.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_EST_SOL_TAR_DEB.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_EST_SOL_TAR_DEB.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AH_EST_SOL_TAR_DEB
+  add constraint PK_AH_EST_SOL_TAR_DEB primary key (COD_EST_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_EST_SOL_TAR_DEB
+  add constraint AVCON_1080844426_COD_E_000
+  check (COD_EST_SOLICITUD BETWEEN 1 AND 999);
+

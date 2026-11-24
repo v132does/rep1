@@ -1,0 +1,142 @@
+create table IT.GE_TRANSACCIONES
+(
+  cod_transaccion       NUMBER(4) not null,
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  descripcion           VARCHAR2(60) not null,
+  ve_cliente            VARCHAR2(1) default 'N' not null,
+  tipo                  VARCHAR2(1) not null,
+  abreviatura           VARCHAR2(6) not null,
+  rutina1               VARCHAR2(30),
+  rutina2               VARCHAR2(30),
+  rutina3               VARCHAR2(30),
+  cod_tip_asiento       NUMBER(6),
+  cod_tasa              NUMBER(3),
+  batch                 VARCHAR2(1) default 'O',
+  cod_retencion         NUMBER(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  interno               VARCHAR2(1) default 'N' not null,
+  afecta                VARCHAR2(1),
+  cod_tip_asiento2      NUMBER(6),
+  detallado             VARCHAR2(1) default 'N',
+  cod_tip_asi_resultado NUMBER(6),
+  tip_despliegue        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRANSACCIONES
+  is 'Transacciones Padres.';
+comment on column IT.GE_TRANSACCIONES.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_TRANSACCIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_TRANSACCIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_TRANSACCIONES.descripcion
+  is 'Nombre de la transaccion.';
+comment on column IT.GE_TRANSACCIONES.ve_cliente
+  is 'Es una transaccion utilizada para la consulta de movimientos del cliente?.';
+comment on column IT.GE_TRANSACCIONES.tipo
+  is 'Tipo de transaccion. Define en que forma afecta en la operacion.';
+comment on column IT.GE_TRANSACCIONES.abreviatura
+  is 'Descripcion abreviada.';
+comment on column IT.GE_TRANSACCIONES.rutina1
+  is 'Nombre de rutina.';
+comment on column IT.GE_TRANSACCIONES.rutina2
+  is 'Nombre de rutina.';
+comment on column IT.GE_TRANSACCIONES.rutina3
+  is 'Nombre de rutina.';
+comment on column IT.GE_TRANSACCIONES.cod_tip_asiento
+  is 'Tipo de asiento.';
+comment on column IT.GE_TRANSACCIONES.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.GE_TRANSACCIONES.batch
+  is 'On line / Batch.';
+comment on column IT.GE_TRANSACCIONES.cod_retencion
+  is 'Codigo de retencion.';
+comment on column IT.GE_TRANSACCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRANSACCIONES.interno
+  is 'Indica si el movimiento es interno o no.';
+comment on column IT.GE_TRANSACCIONES.afecta
+  is 'Detalle. (D=Debito, C=Credito, S=Cabecera).';
+comment on column IT.GE_TRANSACCIONES.cod_tip_asiento2
+  is 'Codigo de asiento 2.';
+comment on column IT.GE_TRANSACCIONES.detallado
+  is 'Indica si el asiento se genera o no detallado(S) o agrupado por transacciones (N)';
+comment on column IT.GE_TRANSACCIONES.cod_tip_asi_resultado
+  is 'Tipo de asiento definido para el traslado a Resultado de los Cargos cobrados diferidos.';
+comment on column IT.GE_TRANSACCIONES.tip_despliegue
+  is 'Para mostrar en el Extracto (D/NULL = Descripción de la Transacción, C = Concepto del Movimiento, A =  Abreviatura y Concepto.';
+create index IT.IN_GTRAN_COD_RETENCION on IT.GE_TRANSACCIONES (COD_RETENCION, COD_TASA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRANSACCIONES
+  add constraint PK_GE_TRANSACCIONES primary key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRANSACCIONES
+  add constraint FK_GTRAN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_TRANSACCIONES
+  add constraint FK_GTRAN_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.GE_TRANSACCIONES
+  add constraint FK_GTRAN_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.GE_TRANSACCIONES
+  add constraint AVCON_1080843414_VE_CL_000
+  check (VE_CLIENTE IN ('S', 'N'));
+alter table IT.GE_TRANSACCIONES
+  add constraint AVCON_1083264899_INTER_000
+  check (INTERNO IN ('S', 'N'));
+alter table IT.GE_TRANSACCIONES
+  add constraint AVCON_1083267990_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_TRANSACCIONES
+  add constraint AVCON_1083267990_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_TRANSACCIONES
+  add constraint AVCON_1087047098_BATCH_000
+  check (BATCH IN ('O', 'B'));
+alter table IT.GE_TRANSACCIONES
+  add constraint AVCON_1090864485_TIPO_000
+  check (TIPO IN ('D', 'C', 'P', 'E'));
+

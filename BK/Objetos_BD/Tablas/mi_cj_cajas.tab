@@ -1,0 +1,28 @@
+create table IT.MI_CJ_CAJAS
+(
+  nro_caja            NUMBER(3) not null,
+  estado              VARCHAR2(1) default 'A' not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  descripcion         VARCHAR2(50) not null,
+  cod_usu_responsable VARCHAR2(10),
+  cod_usu_autorizador VARCHAR2(10),
+  tipo                VARCHAR2(1) default 'H' not null,
+  fec_hor_cierre      DATE default SYSDATE,
+  mto_asegurado       NUMBER(18,2),
+  presente            VARCHAR2(1) default 'N',
+  impresora           VARCHAR2(200) default 'LPT1',
+  fec_cierre          DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

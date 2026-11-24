@@ -1,0 +1,64 @@
+create table IT.CO_INF_CTL_CARTERA
+(
+  cod_cliente      VARCHAR2(10) not null,
+  controlado       VARCHAR2(1) default 'N' not null,
+  fec_ult_ingreso  DATE,
+  fec_ult_salida   DATE,
+  error            VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_INF_CTL_CARTERA
+  is 'Informconf-Control de Cartera.';
+comment on column IT.CO_INF_CTL_CARTERA.cod_cliente
+  is 'Codigo de cliente.';
+comment on column IT.CO_INF_CTL_CARTERA.controlado
+  is 'Indica que el cliente se encuentra controlado por Informconf.';
+comment on column IT.CO_INF_CTL_CARTERA.fec_ult_ingreso
+  is 'Fecha de ultimo ingreso al control de Informconf.';
+comment on column IT.CO_INF_CTL_CARTERA.fec_ult_salida
+  is 'Fecha de ultima salida del control de Informconf.';
+comment on column IT.CO_INF_CTL_CARTERA.error
+  is 'Indica que se produjo un error en el ultimo envio de los datos del cliente a Informconf.';
+comment on column IT.CO_INF_CTL_CARTERA.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CO_INF_CTL_CARTERA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CO_INF_CTL_CARTERA.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.CO_INF_CTL_CARTERA.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+alter table IT.CO_INF_CTL_CARTERA
+  add constraint PK_CO_INF_CTL_CARTERA primary key (COD_CLIENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_INF_CTL_CARTERA
+  add constraint AVCON_1129231997_CONTR_000
+  check (CONTROLADO IN ('S', 'N'));
+alter table IT.CO_INF_CTL_CARTERA
+  add constraint AVCON_1129231997_ERROR_000
+  check (ERROR IN ('S', 'N'));
+

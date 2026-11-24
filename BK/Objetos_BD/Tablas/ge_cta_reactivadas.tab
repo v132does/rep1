@@ -1,0 +1,110 @@
+create table IT.GE_CTA_REACTIVADAS
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0,
+  est_cuenta       VARCHAR2(1),
+  est_batch        VARCHAR2(1),
+  cod_ofi_origen   NUMBER(3),
+  cod_usu_oficial  VARCHAR2(10),
+  cod_persona      VARCHAR2(10),
+  est_mov          VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CTA_REACTIVADAS.fecha
+  is 'Fecha de la reactivación.';
+comment on column IT.GE_CTA_REACTIVADAS.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_usuario
+  is 'Usuario que realizo el movimiento.';
+comment on column IT.GE_CTA_REACTIVADAS.nro_cuenta
+  is 'Cuenta del Cliente.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_tra_padre
+  is 'Transacción Padre.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_mod_padre
+  is 'Modulo de la transacción padre.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_mad_padre
+  is 'Modalidad de la transacción padre.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_transaccion
+  is 'Transacción utilizada para la reactivación de la cuenta.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_moneda
+  is 'Moneda';
+comment on column IT.GE_CTA_REACTIVADAS.monto
+  is 'Importe del movimiento.';
+comment on column IT.GE_CTA_REACTIVADAS.est_cuenta
+  is 'Estado de la cuenta del cliente.';
+comment on column IT.GE_CTA_REACTIVADAS.est_batch
+  is 'Estado Batch de la cuenta del cliente.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_ofi_origen
+  is 'Oficina origen del movimiento.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_usu_oficial
+  is 'Gestor.';
+comment on column IT.GE_CTA_REACTIVADAS.cod_persona
+  is 'Código de Cliente.';
+comment on column IT.GE_CTA_REACTIVADAS.est_mov
+  is 'Estado del movimiento.';
+comment on column IT.GE_CTA_REACTIVADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CTA_REACTIVADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CTA_REACTIVADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_REACTIVADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CTA_REACTIVADAS
+  add constraint PK_GE_CTA_REACTIVADAS primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CTA_REACTIVADAS
+  add constraint FK_GREAC_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_CTA_REACTIVADAS
+  add constraint FK_GREAC_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_CTA_REACTIVADAS
+  add constraint FK_GREAC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_CTA_REACTIVADAS
+  add constraint FK_GREAC_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_CTA_REACTIVADAS
+  add constraint FK_GREAC_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

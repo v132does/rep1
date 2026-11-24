@@ -1,0 +1,37 @@
+create table IT.PR_COB_AMO_PARCIAL
+(
+  fecha         DATE not null,
+  hora          VARCHAR2(8) not null,
+  cod_usuario   VARCHAR2(10) not null,
+  nro_cuenta    VARCHAR2(15) not null,
+  nro_cuota     NUMBER(3) not null,
+  dev_acumulado NUMBER(18,2) not null,
+  reversado     VARCHAR2(1) default 'N' not null,
+  fec_insercion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COB_AMO_PARCIAL
+  add constraint PK_PA_AMO_PARCIALES primary key (FECHA, HORA, COD_USUARIO, NRO_CUENTA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

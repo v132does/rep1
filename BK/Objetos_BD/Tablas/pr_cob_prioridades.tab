@@ -1,0 +1,84 @@
+create table IT.PR_COB_PRIORIDADES
+(
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  secuencia        NUMBER(5) not null,
+  concepto         VARCHAR2(2) not null,
+  fun_calculo      VARCHAR2(200) not null,
+  etiqueta         VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_COB_PRIORIDADES
+  is 'Registra las prioridades de cobro segun los conceptos definidos por entidad.';
+comment on column IT.PR_COB_PRIORIDADES.cod_modulo
+  is 'Código del módulo.';
+comment on column IT.PR_COB_PRIORIDADES.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.PR_COB_PRIORIDADES.secuencia
+  is 'Número de secuencia.';
+comment on column IT.PR_COB_PRIORIDADES.concepto
+  is 'Concepto de cobro asignado a esa prioridad.';
+comment on column IT.PR_COB_PRIORIDADES.fun_calculo
+  is 'Función que devuelve el valor del concepto.';
+comment on column IT.PR_COB_PRIORIDADES.etiqueta
+  is 'Etiqueta.';
+comment on column IT.PR_COB_PRIORIDADES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_COB_PRIORIDADES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_COB_PRIORIDADES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_COB_PRIORIDADES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.PR_COB_PRIORIDADES
+  add constraint UK_PCPRI_SECUENCIA unique (COD_MODULO, COD_MODALIDAD, SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COB_PRIORIDADES
+  add constraint UK_PR_COB_PRIORIDADES unique (COD_MODULO, COD_MODALIDAD, CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COB_PRIORIDADES
+  add constraint FK_PCPRI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_COB_PRIORIDADES
+  add constraint AVCON_1103028335_COD_M_003
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_COB_PRIORIDADES
+  add constraint AVCON_1103028335_COD_M_004
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+

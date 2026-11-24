@@ -1,0 +1,38 @@
+create table IT.XX_VER_COMISIONES_REV
+(
+  fecha             DATE,
+  moneda            VARCHAR2(3),
+  tra_padre         NUMBER(4),
+  des_tra_padre     VARCHAR2(60),
+  tra_hijo          NUMBER(4),
+  des_transaccion   VARCHAR2(60),
+  modal             NUMBER(3),
+  sub_modal         NUMBER(3),
+  sector            VARCHAR2(1) not null,
+  residente         VARCHAR2(1) not null,
+  estado            VARCHAR2(1),
+  reversado         VARCHAR2(1),
+  hora              VARCHAR2(8),
+  nro_cuenta        VARCHAR2(15),
+  nombre            VARCHAR2(4000),
+  tas_personalizada VARCHAR2(1) not null,
+  ent_pag_sueldo    NUMBER,
+  mto_comision      NUMBER(18,2),
+  sal_promedio      NUMBER,
+  cod_oficina       NUMBER(3),
+  cod_ofi_origen    NUMBER(3),
+  val_tasa          NUMBER(20,4),
+  cod_tasa          NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

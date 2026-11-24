@@ -1,0 +1,25 @@
+create table IT.GE_TASAS_RENOMBRAR
+(
+  cod_tasa         NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  tip_valor        VARCHAR2(1) not null,
+  tipo             VARCHAR2(1) not null,
+  aplicar          VARCHAR2(2) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  cod_mon_base     VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

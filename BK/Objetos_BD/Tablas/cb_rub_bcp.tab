@@ -1,0 +1,184 @@
+create table IT.CB_RUB_BCP
+(
+  cod_rub_bcp            VARCHAR2(11) not null,
+  descripcion            VARCHAR2(110) not null,
+  nro_orden              NUMBER(6),
+  ajustable              VARCHAR2(1) default 'N' not null,
+  mon_nacional           VARCHAR2(1) default 'N' not null,
+  mon_extranjera         VARCHAR2(1) default 'N' not null,
+  equ_mon_nacional       VARCHAR2(1) default 'N' not null,
+  sum_mon_nacional       VARCHAR2(1) default 'N' not null,
+  pro_mon_nacional       VARCHAR2(1) default 'N' not null,
+  pro_mon_usd            VARCHAR2(1) default 'N' not null,
+  pro_mon_equ_extranjera VARCHAR2(1) default 'N' not null,
+  sum_pro_mon_nacional   VARCHAR2(1) default 'N' not null,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_BCP
+  is 'Datos de las cuentas contables definidas segun B.C.P.';
+comment on column IT.CB_RUB_BCP.cod_rub_bcp
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_RUB_BCP.descripcion
+  is 'Descripcion de la cuenta.';
+comment on column IT.CB_RUB_BCP.nro_orden
+  is 'Numero de orden.';
+comment on column IT.CB_RUB_BCP.ajustable
+  is 'Ajustable. (S=SI / N=NO).';
+comment on column IT.CB_RUB_BCP.mon_nacional
+  is 'Acepta Moneda Nacional.';
+comment on column IT.CB_RUB_BCP.mon_extranjera
+  is 'Acepta Moneda Extranjera arbitrada en USD.';
+comment on column IT.CB_RUB_BCP.equ_mon_nacional
+  is 'Acepta equivalente Moneda Nacional.';
+comment on column IT.CB_RUB_BCP.sum_mon_nacional
+  is 'Acepta suma en Moneda Nacional.';
+comment on column IT.CB_RUB_BCP.pro_mon_nacional
+  is 'Acepta promedio en Moneda Nacional.';
+comment on column IT.CB_RUB_BCP.pro_mon_usd
+  is 'Acepta promedio en USD.';
+comment on column IT.CB_RUB_BCP.pro_mon_equ_extranjera
+  is 'Acepta promedio equivalente en Moneda Extranjera.';
+comment on column IT.CB_RUB_BCP.sum_pro_mon_nacional
+  is 'Acepta suma del promedio en Moneda Local.';
+comment on column IT.CB_RUB_BCP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_RUB_BCP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_RUB_BCP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_BCP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_BRBCP_COD_RUB_BCP on IT.CB_RUB_BCP (SUBSTR(COD_RUB_BCP,1,2)||SUBSTR(COD_RUB_BCP,4,5)||SUBSTR(COD_RUB_BCP,10,2))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BRBCP_COD_RUB_BCP_01 on IT.CB_RUB_BCP (SUBSTR(COD_RUB_BCP,1,5), SUBSTR(COD_RUB_BCP,6,6))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_BCP
+  add constraint PK_CB_RUB_BCP primary key (COD_RUB_BCP)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 704K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_AJUST_001
+  check (AJUSTABLE IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_EQU_M_000
+  check (EQU_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_MON_E_000
+  check (MON_EXTRANJERA IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_MON_N_000
+  check (MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_PRO_M_000
+  check (PRO_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_PRO_M_001
+  check (PRO_MON_USD IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_PRO_M_002
+  check (PRO_MON_EQU_EXTRANJERA IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_SUM_M_000
+  check (SUM_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1082384743_SUM_P_000
+  check (SUM_PRO_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_AJUST_001
+  check (AJUSTABLE IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_EQU_M_000
+  check (EQU_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_MON_E_000
+  check (MON_EXTRANJERA IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_MON_N_000
+  check (MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_PRO_M_000
+  check (PRO_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_PRO_M_001
+  check (PRO_MON_USD IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_PRO_M_002
+  check (PRO_MON_EQU_EXTRANJERA IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_SUM_M_000
+  check (SUM_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1085418068_SUM_P_000
+  check (SUM_PRO_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_AJUST_001
+  check (AJUSTABLE IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_EQU_M_000
+  check (EQU_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_MON_E_000
+  check (MON_EXTRANJERA IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_MON_N_000
+  check (MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_PRO_M_000
+  check (PRO_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_PRO_M_001
+  check (PRO_MON_USD IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_PRO_M_002
+  check (PRO_MON_EQU_EXTRANJERA IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_SUM_M_000
+  check (SUM_MON_NACIONAL IN ('S', 'N'));
+alter table IT.CB_RUB_BCP
+  add constraint AVCON_1086033593_SUM_P_000
+  check (SUM_PRO_MON_NACIONAL IN ('S', 'N'));
+

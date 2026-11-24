@@ -1,0 +1,46 @@
+create table IT.TA_PUNTOS_DIA_TMP
+(
+  fila           VARCHAR2(4000),
+  cod_banco      NUMBER(2),
+  cla_tarjeta    NUMBER(2),
+  afinidad       VARCHAR2(2),
+  cuenta         NUMBER(9),
+  fec_movimiento VARCHAR2(8),
+  tip_movimiento VARCHAR2(1),
+  puntos         NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PUNTOS_DIA_TMP
+  is 'Archivo CBR48PF';
+comment on column IT.TA_PUNTOS_DIA_TMP.fila
+  is 'Registro completo del Archivo CBR48PF.';
+comment on column IT.TA_PUNTOS_DIA_TMP.cod_banco
+  is 'Código de Banco.';
+comment on column IT.TA_PUNTOS_DIA_TMP.cla_tarjeta
+  is 'Clase de Tarjeta.';
+comment on column IT.TA_PUNTOS_DIA_TMP.afinidad
+  is 'Afinidad.';
+comment on column IT.TA_PUNTOS_DIA_TMP.cuenta
+  is 'Cuenta.';
+comment on column IT.TA_PUNTOS_DIA_TMP.fec_movimiento
+  is 'Fecha de Movimiento.';
+comment on column IT.TA_PUNTOS_DIA_TMP.tip_movimiento
+  is 'Tipo de Moviento. S= Generado por sistema,
+M= Manual,
+E= Especial,
+B= Baja,
+C= Canje,
+V= Vencido.';
+comment on column IT.TA_PUNTOS_DIA_TMP.puntos
+  is 'Puntos.';
+

@@ -1,0 +1,109 @@
+create table IT.GE_RET_COM_INTERESES_DET
+(
+  nro_devolucion    NUMBER(7) not null,
+  nro_linea         NUMBER(3) not null,
+  ejercicio         VARCHAR2(1) not null,
+  cod_transaccion   NUMBER(4) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  monto             NUMBER(18,2) default 0 not null,
+  iva               NUMBER(18,2) default 0 not null,
+  total             NUMBER(18,2) default 0 not null,
+  nro_cta_operacion VARCHAR2(15) not null,
+  mto_operacion     NUMBER(18,2) default 0 not null,
+  fec_cobro         DATE,
+  fec_factura       DATE,
+  nro_factura       VARCHAR2(20),
+  nro_timbrado      VARCHAR2(20),
+  cotizacion        NUMBER(14,8) default 0,
+  mto_mon_local     NUMBER(18,2) default 0 not null,
+  iva_mon_local     NUMBER(18,2) default 0 not null,
+  tot_mon_local     NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RET_COM_INTERESES_DET
+  is 'Detalle de Retrocesiones de Comisiones e Intereses';
+comment on column IT.GE_RET_COM_INTERESES_DET.nro_devolucion
+  is 'Número de Solicitud de la Retrocesión.';
+comment on column IT.GE_RET_COM_INTERESES_DET.nro_linea
+  is 'Numero de Linea del Detalle.';
+comment on column IT.GE_RET_COM_INTERESES_DET.ejercicio
+  is 'A/Actual, N/Anterior.';
+comment on column IT.GE_RET_COM_INTERESES_DET.cod_transaccion
+  is 'Código de Transacción específica de devolución.';
+comment on column IT.GE_RET_COM_INTERESES_DET.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_RET_COM_INTERESES_DET.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.GE_RET_COM_INTERESES_DET.monto
+  is 'Indica importe a devolver en la moneda seleccionada.';
+comment on column IT.GE_RET_COM_INTERESES_DET.iva
+  is 'IVA del importe ingresado.';
+comment on column IT.GE_RET_COM_INTERESES_DET.total
+  is 'Importe + IVA.';
+comment on column IT.GE_RET_COM_INTERESES_DET.nro_cta_operacion
+  is 'Número de Cuenta de la Operación Original.';
+comment on column IT.GE_RET_COM_INTERESES_DET.mto_operacion
+  is 'Importe de la Operación Original.';
+comment on column IT.GE_RET_COM_INTERESES_DET.fec_cobro
+  is 'Fecha de Cobro.';
+comment on column IT.GE_RET_COM_INTERESES_DET.fec_factura
+  is 'Fecha de la Factura.';
+comment on column IT.GE_RET_COM_INTERESES_DET.nro_factura
+  is 'Número de Factura.';
+comment on column IT.GE_RET_COM_INTERESES_DET.nro_timbrado
+  is 'Número de Timbrado de la Factura.';
+comment on column IT.GE_RET_COM_INTERESES_DET.cotizacion
+  is 'Cotización a la Fecha de Cobro.';
+comment on column IT.GE_RET_COM_INTERESES_DET.mto_mon_local
+  is 'Monto en Moneda Local.';
+comment on column IT.GE_RET_COM_INTERESES_DET.iva_mon_local
+  is 'IVA en Moneda Local.';
+comment on column IT.GE_RET_COM_INTERESES_DET.tot_mon_local
+  is 'Total en Moneda Local.';
+comment on column IT.GE_RET_COM_INTERESES_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_RET_COM_INTERESES_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_RET_COM_INTERESES_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_RET_COM_INTERESES_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_RET_COM_INTERESES_DET
+  add constraint PK_GE_RET_COM_INTERESES_DET primary key (NRO_DEVOLUCION, NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RET_COM_INTERESES_DET
+  add constraint FK_GRCID_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_RET_COM_INTERESES_DET
+  add constraint FK_GRCID_NRO_CUENTA foreign key (NRO_CTA_OPERACION)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_RET_COM_INTERESES_DET
+  add constraint FK_GRCID_NRO_DEVOLUCION foreign key (NRO_DEVOLUCION)
+  references IT.GE_RET_COM_INTERESES (NRO_DEVOLUCION);
+

@@ -1,0 +1,61 @@
+create table IT.CB_SAL_PROMEDIOS_DET
+(
+  cod_oficina            NUMBER(3) not null,
+  cod_rubro              VARCHAR2(15) not null,
+  fecha                  DATE not null,
+  sal_mon_loc_ant        NUMBER(18,2),
+  deb_mon_local          NUMBER(18,2),
+  cre_mon_local          NUMBER(18,2),
+  sal_ini_mes_mon_local  NUMBER(18,2),
+  sal_mon_rub_ant        NUMBER(18,2),
+  deb_mon_rubro          NUMBER(18,2),
+  cre_mon_rubro          NUMBER(18,2),
+  sal_ini_mes_mon_rubro  NUMBER(18,2),
+  sal_ini_mes_mon_fuerte NUMBER(18,2),
+  protegido              VARCHAR2(1),
+  usu_insercion          VARCHAR2(10),
+  fec_insercion          DATE,
+  usu_modificacion       VARCHAR2(10),
+  fec_modificacion       DATE,
+  sal_equ_loc_ant        NUMBER(18,2),
+  deb_equ_local          NUMBER(18,2),
+  cre_equ_local          NUMBER(18,2),
+  sal_ini_mes_equ_local  NUMBER(18,2),
+  val_cot_mon_fuerte     NUMBER(14,8),
+  sal_mon_loc_actual     NUMBER(18,2),
+  sal_mon_fue_actual     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_SAL_PROMEDIOS_DET.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_SAL_PROMEDIOS_DET.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_SAL_PROMEDIOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_PROMEDIOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+alter table IT.CB_SAL_PROMEDIOS_DET
+  add constraint PK_CB_SAL_OFI_CAL_COSTO primary key (FECHA, COD_OFICINA, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

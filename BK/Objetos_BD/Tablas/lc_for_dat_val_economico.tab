@@ -1,0 +1,137 @@
+create table IT.LC_FOR_DAT_VAL_ECONOMICO
+(
+  fecha                DATE not null,
+  nro_cuenta           VARCHAR2(15) not null,
+  nro_operacion        NUMBER(7) not null,
+  cod_moneda           VARCHAR2(3),
+  monto                NUMBER(18,2),
+  val_cot_contrato     NUMBER(20,4),
+  can_dia_plz_residual NUMBER(6),
+  val_cur_forward      NUMBER(20,4),
+  val_cur_cupon        NUMBER(20,4),
+  val_fac_descuento    NUMBER(20,9),
+  val_economico        NUMBER(18,2),
+  mto_gan_per_ml       NUMBER(18,2),
+  val_cot_vencimiento  NUMBER(20,4),
+  mto_ope_calculo      NUMBER(18,2),
+  fec_operacion        DATE,
+  fec_vencimiento      DATE,
+  can_dia_plz_total    NUMBER(6),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  fec_calculo          DATE not null,
+  cod_persona          VARCHAR2(10),
+  cod_mad_transaccion  NUMBER(3),
+  cod_tip_ope_bcp      VARCHAR2(6),
+  tip_liquidacion      VARCHAR2(3),
+  mto_deb_perdida      NUMBER(18,2),
+  mto_deb_activo       NUMBER(18,2),
+  mto_deb_pasivo       NUMBER(18,2),
+  mto_cre_ganancia     NUMBER(18,2),
+  mto_cre_activo       NUMBER(18,2),
+  mto_cre_pasivo       NUMBER(18,2),
+  moc_deb_perdida      NUMBER(18,2),
+  moc_cre_activo       NUMBER(18,2),
+  moc_cre_ganancia     NUMBER(18,2),
+  moc_deb_pasivo       NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.fecha
+  is 'Fecha del sistema';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.nro_operacion
+  is 'Nro de Operacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.monto
+  is 'Monto de la operacion futura';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.val_cot_contrato
+  is 'Valor de la cotizacion spot de la fecha del contrato';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.can_dia_plz_residual
+  is 'Cantidad de dias de plazo residual';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.val_cur_forward
+  is 'Valor de la curva forward (Proveida por BCP)';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.val_cur_cupon
+  is 'Valor de la curva cupones (Proveida por BCP)';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.val_fac_descuento
+  is 'Valor del factor de descuento';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.val_economico
+  is 'Valor Economico';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_gan_per_ml
+  is 'Monto de Ganancia o Perdida';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.val_cot_vencimiento
+  is 'Valor de la cotizacion negociada al vencimiento del contrato';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_ope_calculo
+  is 'Monto de la operacion tomada para el calculo (compra es neg y venta es neg)';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.fec_operacion
+  is 'Fecha de Operacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.fec_vencimiento
+  is 'Fecha de Vencimiento del Forward';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.can_dia_plz_total
+  is 'Cantidad de dias de plazo total';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.fec_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.fec_calculo
+  is 'Fecha de Calculo (Consecutivos)';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.cod_persona
+  is 'Codigo de la Persona';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.cod_mad_transaccion
+  is 'Codigo de Modalidad de la transaccion (71-com, 72-vta)';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.cod_tip_ope_bcp
+  is 'Codigo de Tipo de Operacion de BCP';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.tip_liquidacion
+  is 'Tipo de Liquidacion del Forward (NDF-Non Delivery Forward / FDF-Full Delivery Forward)';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_deb_perdida
+  is 'Monto Debito de Perdida';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_deb_activo
+  is 'Monto Debito del Activo';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_deb_pasivo
+  is 'Monto Debito del Pasivo';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_cre_ganancia
+  is 'Monto Credito de Ganancia';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_cre_activo
+  is 'Monto Credito del Activo';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.mto_cre_pasivo
+  is 'Monto Credito del Pasivo';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.moc_deb_perdida
+  is 'Mto Debito Perdida Cancelacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.moc_cre_activo
+  is 'Mto Credito Activo Cancelacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.moc_cre_ganancia
+  is 'Mto Credito Ganancia Cancelacion';
+comment on column IT.LC_FOR_DAT_VAL_ECONOMICO.moc_deb_pasivo
+  is 'Mto Debito Pasivo Cancelacion';
+alter table IT.LC_FOR_DAT_VAL_ECONOMICO
+  add constraint PK_LC_FOR_DAT_VAL_ECONOMICO primary key (NRO_CUENTA, NRO_OPERACION, FECHA, FEC_CALCULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

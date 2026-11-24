@@ -1,0 +1,52 @@
+create table IT.BA_NIV_ESTUDIOS
+(
+  cod_niv_estudio  NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_NIV_ESTUDIOS
+  is 'Niveles de estudio de la persona.';
+comment on column IT.BA_NIV_ESTUDIOS.cod_niv_estudio
+  is 'Codigo del nivel de estudio.';
+comment on column IT.BA_NIV_ESTUDIOS.descripcion
+  is 'Descripcion del nivel de estudio.';
+comment on column IT.BA_NIV_ESTUDIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_NIV_ESTUDIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_NIV_ESTUDIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_NIV_ESTUDIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_NIV_ESTUDIOS
+  add constraint PK_BA_NIV_ESTUDIOS primary key (COD_NIV_ESTUDIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_NIV_ESTUDIOS
+  add constraint AVCON_1080842839_COD_N_000
+  check (COD_NIV_ESTUDIO BETWEEN 1 AND 999);
+

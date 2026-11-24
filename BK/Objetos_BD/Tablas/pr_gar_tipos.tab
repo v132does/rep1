@@ -1,0 +1,129 @@
+create table IT.PR_GAR_TIPOS
+(
+  cod_garantia        NUMBER(3) not null,
+  descripcion         VARCHAR2(35) not null,
+  por_bco_central     NUMBER(5,2),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_transaccion1    NUMBER(4),
+  cod_transaccion2    NUMBER(4),
+  computable          VARCHAR2(1) default 'N' not null,
+  plz_vencimiento     NUMBER(8),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  pri_aplicacion      NUMBER(2) not null,
+  activo              VARCHAR2(1) default 'S',
+  nom_tab_anexa       VARCHAR2(60),
+  cod_ref_bco_central NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_GAR_TIPOS
+  is 'Tipo de Garantia.';
+comment on column IT.PR_GAR_TIPOS.cod_garantia
+  is 'Código de Garantía.';
+comment on column IT.PR_GAR_TIPOS.descripcion
+  is 'Descripción de Garantía.';
+comment on column IT.PR_GAR_TIPOS.por_bco_central
+  is 'Porcentaje del BCP.';
+comment on column IT.PR_GAR_TIPOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.PR_GAR_TIPOS.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.PR_GAR_TIPOS.cod_transaccion1
+  is 'Código de Transacción para Garantías Computables.';
+comment on column IT.PR_GAR_TIPOS.cod_transaccion2
+  is 'Código de Transacción para Garantías que dejaron de ser computables por algún motivo.';
+comment on column IT.PR_GAR_TIPOS.computable
+  is 'Computable S/N.';
+comment on column IT.PR_GAR_TIPOS.plz_vencimiento
+  is 'Plazo de Vencimiento en días.';
+comment on column IT.PR_GAR_TIPOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GAR_TIPOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GAR_TIPOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_TIPOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_TIPOS.pri_aplicacion
+  is 'Prioridad de Aplicación.';
+comment on column IT.PR_GAR_TIPOS.activo
+  is 'Indica si el Tipo de Garantía está activo o no en la Entidad.';
+comment on column IT.PR_GAR_TIPOS.nom_tab_anexa
+  is 'Nombre de la tabla donde se realizará la inserción de los registros de ese Tipo de Garantía.';
+comment on column IT.PR_GAR_TIPOS.cod_ref_bco_central
+  is 'Código de Referencia de Banco Central (Dominio REF_GAR_BCO_CENTRAL).';
+create index IT.IN_PGTIP_COD_MODALIDAD on IT.PR_GAR_TIPOS (COD_MODALIDAD, COD_MODULO, COD_TRANSACCION1, COD_TRANSACCION2)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_TIPOS
+  add constraint PK_PR_GAR_TIPOS primary key (COD_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_TIPOS
+  add constraint UK_PGTIP_PRI_APLICACION unique (PRI_APLICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_TIPOS
+  add constraint FK_PGTIP_COD_TRANSACCION1 foreign key (COD_TRANSACCION1, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_GAR_TIPOS
+  add constraint FK_PGTIP_COD_TRANSACCION2 foreign key (COD_TRANSACCION2, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_GAR_TIPOS
+  add constraint AVCON_1080845005_COMPU_000
+  check (COMPUTABLE IN ('S', 'N'));
+alter table IT.PR_GAR_TIPOS
+  add constraint AVCON_1083269964_COD_G_000
+  check (COD_GARANTIA BETWEEN 0 AND 999);
+alter table IT.PR_GAR_TIPOS
+  add constraint AVCON_1083269964_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_GAR_TIPOS
+  add constraint AVCON_1083269964_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.PR_GAR_TIPOS
+  add constraint CK_PGTIP_REF_BCO_CENTRAL
+  check (COD_REF_BCO_CENTRAL between 1 and 16);
+

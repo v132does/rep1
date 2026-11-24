@@ -1,0 +1,7 @@
+create sequence IT.S_MI_IT_BA_PERSONAS
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 3752512
+increment by 1
+nocache;
+

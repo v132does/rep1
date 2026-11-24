@@ -1,0 +1,451 @@
+-- Create table
+create table IT.GE_SNP_TRANSFERENCIAS
+(
+  nro_referencia               NUMBER(15) not null,
+  nro_lote                     VARCHAR2(35),
+  nro_sec_lote                 VARCHAR2(20),
+  cod_modulo                   NUMBER(3) not null,
+  cod_modalidad                NUMBER(3) not null,
+  cod_oficina                  NUMBER(3) not null,
+  cod_msj_swift                NUMBER(3) not null,
+  cod_tip_operacion            VARCHAR2(3) not null,
+  cod_sub_tip_operacion        VARCHAR2(3),
+  msj_swift                    VARCHAR2(4000),
+  fec_valor                    DATE,
+  fec_ingreso                  DATE not null,
+  fec_recepcion                DATE,
+  fecha                        DATE,
+  hora                         VARCHAR2(8),
+  cod_usuario                  VARCHAR2(10),
+  cod_moneda                   VARCHAR2(3) not null,
+  monto                        NUMBER(18,2) default 0 not null,
+  cod_per_solicitante          VARCHAR2(10),
+  nom_solicitante              VARCHAR2(120),
+  dir_solicitante              VARCHAR2(100),
+  cod_tip_doc_solicitante      NUMBER(3),
+  nro_doc_solicitante          VARCHAR2(20),
+  nro_cta_solicitante          VARCHAR2(35),
+  cod_swi_pte_solicitante      VARCHAR2(20),
+  cod_swi_suc_solicitante      VARCHAR2(20),
+  nro_cta_pte_solicitante      VARCHAR2(35),
+  cod_per_beneficiario         VARCHAR2(10),
+  nom_beneficiario             VARCHAR2(120),
+  dir_beneficiario             VARCHAR2(100),
+  cod_tip_doc_beneficiario     NUMBER(3),
+  nro_doc_beneficiario         VARCHAR2(20),
+  nro_cta_beneficiario         VARCHAR2(35),
+  nro_cta_pte_beneficiario     VARCHAR2(35),
+  cod_swi_pte_beneficiario     VARCHAR2(20),
+  cod_swi_suc_beneficiario     VARCHAR2(20),
+  plazo                        NUMBER(3),
+  concepto                     VARCHAR2(140),
+  observacion                  VARCHAR2(1000),
+  nro_ref_externa              VARCHAR2(33),
+  tip_cargo                    VARCHAR2(3),
+  ind_valor                    VARCHAR2(1) default 'N' not null,
+  situacion                    VARCHAR2(1) default 'P',
+  estado                       VARCHAR2(1) default 'S',
+  tip_rechazo                  VARCHAR2(8),
+  mto_cargo                    NUMBER(18,2),
+  prioridad                    NUMBER(3) default 20,
+  nro_operacion                NUMBER(15),
+  tip_mensaje                  VARCHAR2(4),
+  error                        VARCHAR2(4000),
+  cod_usu_transaccion          VARCHAR2(4),
+  usu_insercion                VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion                DATE default sysdate not null,
+  usu_modificacion             VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion             DATE default sysdate not null,
+  imp_inf_hacienda             VARCHAR2(400),
+  origen                       VARCHAR2(1),
+  plataforma                   VARCHAR2(1),
+  indemnizado                  VARCHAR2(1) default 'N' not null,
+  ref_oid                      VARCHAR2(1000),
+  cod_per_intermediario        VARCHAR2(10),
+  nom_intermediario            VARCHAR2(120),
+  cod_swi_pte_intermediario    VARCHAR2(20),
+  dir_intermediario            VARCHAR2(100),
+  nro_cta_pte_intermediario    VARCHAR2(35),
+  cod_bco_corresponsal         NUMBER(3),
+  nom_corresponsal             VARCHAR2(120),
+  cod_swi_pte_corresponsal     VARCHAR2(20),
+  nro_cta_pte_corresponsal     VARCHAR2(35),
+  nro_cta_suc_pte_solicitante  VARCHAR2(35),
+  nro_cta_suc_pte_beneficiario VARCHAR2(35),
+  cod_servicio                 NUMBER(3),
+  ben_dir_correo               VARCHAR2(80),
+  cod_tra_padre                NUMBER(4),
+  nro_cta_ben_recibido         VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_SNP_TRANSFERENCIAS
+  is 'Contiene los datos de Transferencias Interbancarias.';
+-- Add comments to the columns 
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_referencia
+  is 'Numero de Referencia de la Transferencia. Ej: 213804.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_lote
+  is 'Valor utilizado para identificar los registros insertados en un lote de procesamiento. Ej: 213804/001, 213804/002, etc.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_sec_lote
+  is 'N mero Item. Hace referencia al detalle de un MT102.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_modulo
+  is 'C digo del modulo de la transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_modalidad
+  is 'C digo de la Modalidad de la Transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_oficina
+  is 'C digo de la Oficina de la Transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_msj_swift
+  is 'C digo de Mensaje para Env o/Recepci n del SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_tip_operacion
+  is 'Tipo de Operaci n. Ej: 001-Transferencias Comunes.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_sub_tip_operacion
+  is 'Sub-Tipo de Operaci n.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.msj_swift
+  is 'Mensaje original recibido / enviado del / al SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.fec_valor
+  is 'Fecha estimada de Pago.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.fec_ingreso
+  is 'Fecha de Ingreso (carga) del Mensaje al Sistema.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.fec_recepcion
+  is 'Fecha de Recepci n de la Transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.fecha
+  is 'Fecha de la Operaci n.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.hora
+  is 'Hora del Movimiento relacionado al SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_usuario
+  is 'Usuario del Movimiento relacionado al SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_moneda
+  is 'C digo de Moneda.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.monto
+  is 'Monto de la Transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_per_solicitante
+  is 'C digo del Cliente Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nom_solicitante
+  is 'Nombre y Apellido del Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.dir_solicitante
+  is 'Direcci n del Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_tip_doc_solicitante
+  is 'Tipo de Documento del Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_doc_solicitante
+  is 'N mero de Documento de Identidad del Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_solicitante
+  is 'Cuenta de Referencia de la Transferencia (puede ser de la Entidad si es Emitida o Externa si es Recibida).';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_swi_pte_solicitante
+  is 'C digo SWIFT (BIC) del Participante Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_swi_suc_solicitante
+  is 'C digo SWIFT (BIC) de la Sucursal del Participante Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_pte_solicitante
+  is 'N mero de Cuenta del Participante Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_per_beneficiario
+  is 'C digo del Cliente Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nom_beneficiario
+  is 'Nombre y Apellido del Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.dir_beneficiario
+  is 'Direcci n del Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_tip_doc_beneficiario
+  is 'Tipo de Documento del Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_doc_beneficiario
+  is 'N mero de Documento de Identidad del Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_beneficiario
+  is 'Cuenta de Referencia de la Transferencia (puede ser de la Entidad si es Emitida o Externa si es Recibida).';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_pte_beneficiario
+  is 'N mero de Cuenta del Participante Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_swi_pte_beneficiario
+  is 'C digo SWIFT (BIC) del Participante Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_swi_suc_beneficiario
+  is 'C digo SWIFT (BIC) de la Sucursal del Participante Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.plazo
+  is 'Plazo en D as.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.concepto
+  is 'Concepto de la Operaci n.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.observacion
+  is 'Observaci n sobre la Transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_ref_externa
+  is 'N mero de Referencia Externa que identifica a la Transferencia en el SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.tip_cargo
+  is 'Tipo de Cargo generado en el SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.ind_valor
+  is 'Indica si la Transferencia es S=Alto Valor, N=Bajo Valor.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.situacion
+  is 'Situaci n del Mensaje. C- Cancelado, D-En Demora,E-Error,L-Operaci n Liquidada,O-Pre-Proceso OK,P-Pendiente de Env o al BCP,R-Recibido,S-Pre-Proceso Pendiente,T-Reversion Automatica,V-Enviado al BCP.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.estado
+  is 'Estado del Mensaje SWIFT, A-Aprobado, C-Cancelado, E-Error, S-Solicitado, V-Verificado.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.tip_rechazo
+  is 'C digo de Rechazado para operaciones de Reversi n.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.mto_cargo
+  is 'Monto del Cargo de la Transferencia.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.prioridad
+  is 'Prioridad del Mensaje SWIFT.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_operacion
+  is 'N mero de Documento del Movimiento.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.tip_mensaje
+  is 'Tipo de Mensaje en el SWIFT. CRED, SPRI.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.error
+  is 'Descripci n del Error generado al procesar el Mensaje.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_usu_transaccion
+  is 'Transacci n ingresada por el Usuario para generar los movimientos y la contabilizaci n del mismo.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.usu_insercion
+  is 'Usuario que realiz  la inserci n del registro.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.fec_insercion
+  is 'Fecha en que se insert  el registro.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.usu_modificacion
+  is 'Usuario que realiz  la ultima modificaci n en el registro.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.fec_modificacion
+  is 'Fecha en que se realiz  la ultima modificaci n en el registro.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.imp_inf_hacienda
+  is 'Impuestos informados de los MT correspondientes a Ministerio de Hacienda.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.origen
+  is 'Origen de la Transacci n I = ITGF, H = Homebanking.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.plataforma
+  is 'Plataforma de la Transacci n X = X-Adapter, G = GUI.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.indemnizado
+  is 'Indica si las Transferencias fuera de hora deben tener un pago por Indemnizaci n (S/N).';
+comment on column IT.GE_SNP_TRANSFERENCIAS.ref_oid
+  is 'Referencia OID, este campo /OID/ es utilizado al momento de generar retornos de operaciones.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_per_intermediario
+  is 'C digo de Persona del Participante Intermediario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nom_intermediario
+  is 'Nombre del Participante Intermediario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_swi_pte_intermediario
+  is 'C digo Swift del Participante Intermediario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.dir_intermediario
+  is 'Direcci n del Participante Intermediario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_pte_intermediario
+  is 'N mero de Cuenta del Participante Intermediario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_bco_corresponsal
+  is 'C digo del Banco Corresponsal.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nom_corresponsal
+  is 'Nombre del Corresponsal.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_swi_pte_corresponsal
+  is 'C digo Swift del Participante Corresponsal.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_pte_corresponsal
+  is 'N mero de Cuenta del Participante Corresponsal.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_suc_pte_solicitante
+  is 'N mero de Cuenta de la Sucursal del Participante Solicitante.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_suc_pte_beneficiario
+  is 'N mero de Cuenta de la Sucursal del Participante Beneficiario.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.cod_servicio
+  is 'Indica si la Transferencia registrada corresponde a la recaudaci n de alg n Cobro de Servicio.';
+comment on column IT.GE_SNP_TRANSFERENCIAS.nro_cta_ben_recibido
+  is 'Nro. de cuenta del beneficiario en el formato enviado por la entidad solicitante';
+-- Create/Recreate indexes 
+create index IT.IN_GSTRA_COD_MODALIDAD on IT.GE_SNP_TRANSFERENCIAS (COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_PER_BENEFICIARIO, COD_PER_SOLICITANTE, COD_SERVICIO, COD_TIP_DOC_BENEFICIARIO, COD_TIP_DOC_SOLICITANTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_COD_MONEDA on IT.GE_SNP_TRANSFERENCIAS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_ESTADO on IT.GE_SNP_TRANSFERENCIAS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_NRO_CTA_BENEF_FECHA on IT.GE_SNP_TRANSFERENCIAS (NRO_CTA_BENEFICIARIO, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_NRO_CTA_BENEFICIARIO on IT.GE_SNP_TRANSFERENCIAS (NRO_CTA_SOLICITANTE, NRO_CTA_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_NRO_REFERENCIA on IT.GE_SNP_TRANSFERENCIAS (NRO_REFERENCIA, NRO_LOTE, FEC_VALOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_NRO_REF_EXTERNA on IT.GE_SNP_TRANSFERENCIAS (NRO_REF_EXTERNA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_SWI_PTE_BENEFICIARIO on IT.GE_SNP_TRANSFERENCIAS (COD_SWI_PTE_SOLICITANTE, COD_SWI_PTE_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint PK_GE_SNP_TRANSFERENCIAS primary key (NRO_REFERENCIA);
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint UK_GSTRA_FECHA unique (FECHA, HORA, COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSTRA_COD_PER_BENEFICIARIO ON IT.GE_SNP_TRANSFERENCIAS (CASE WHEN fec_recepcion IS NULL THEN cod_per_solicitante ELSE cod_per_beneficiario END) ONLINE
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  LOCAL 
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  
+ create index IT.IN_GSTRA_NRO_DOC_BENEFICIARIO on IT.GE_SNP_TRANSFERENCIAS (NRO_DOC_BENEFICIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  
+  create index IT.IN_GSTRA_NRO_DOC_SOLICITANTE on IT.GE_SNP_TRANSFERENCIAS (NRO_DOC_SOLICITANTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  ); 
+  
+  create index IT.IN_GSTRA_NRO_DOC_SOL_PTE on IT.GE_SNP_TRANSFERENCIAS (NRO_DOC_SOLICITANTE, COD_SWI_PTE_SOLICITANTE, FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );  
+  
+  
+  create index IT.IN_GSTRA_NRO_DOC_BEN_PTE on IT.GE_SNP_TRANSFERENCIAS (NRO_DOC_BENEFICIARIO, COD_SWI_PTE_BENEFICIARIO, FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );      
+  
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint FK_GSTRA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint FK_GSTRA_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint FK_GSTRA_COD_SERVICIO foreign key (COD_SERVICIO)
+  references IT.GE_COB_SER_PARAMETROS (COD_SERVICIO);
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint FK_GSTRA_COD_TIP_DOC_BENEF foreign key (COD_TIP_DOC_BENEFICIARIO)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint FK_GSTRA_COD_TIP_DOC_SOLIC foreign key (COD_TIP_DOC_SOLICITANTE)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint FK_GSTRA_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+-- Create/Recreate check constraints 
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint CK_GSTRA_INDENMIZACION
+  check ((FEC_RECEPCION is null and INDEMNIZADO = 'N')  or
+(FEC_RECEPCION is not null and INDEMNIZADO in ( 'N', 'S' )));
+alter table IT.GE_SNP_TRANSFERENCIAS
+  add constraint CK_GSTRA_RANGO_PRIORIDAD
+  check (PRIORIDAD BETWEEN 0 AND 100);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_SNP_TRANSFERENCIAS to IT_TEMPORAL;

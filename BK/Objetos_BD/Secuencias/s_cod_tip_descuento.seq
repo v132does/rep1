@@ -1,0 +1,7 @@
+create sequence IT.S_COD_TIP_DESCUENTO
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 36
+increment by 1
+nocache;
+

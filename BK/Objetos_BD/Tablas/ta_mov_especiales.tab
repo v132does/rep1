@@ -1,0 +1,188 @@
+create table IT.TA_MOV_ESPECIALES
+(
+  nro_cuenta         VARCHAR2(15),
+  nro_tarjeta        VARCHAR2(16),
+  dig_verificador    NUMBER(1),
+  fec_movimiento     DATE,
+  des_movimiento     VARCHAR2(20),
+  mto_operacion      NUMBER(18,2),
+  tip_afectacion     VARCHAR2(2),
+  tip_movimiento     VARCHAR2(2),
+  financia           VARCHAR2(1),
+  fec_proceso        DATE,
+  cod_usuario        VARCHAR2(10),
+  cod_origen         NUMBER(1),
+  ref_proceso        VARCHAR2(50),
+  ref_archivo        VARCHAR2(30) not null,
+  fecha              DATE not null,
+  procesado          VARCHAR2(1) default 'N' not null,
+  cod_usu_proceso    VARCHAR2(10) not null,
+  error              VARCHAR2(4000),
+  mto_impuesto       NUMBER(18,2),
+  mto_int_corriente  NUMBER(18,2),
+  mto_int_mora       NUMBER(18,2),
+  mto_int_punitorio  NUMBER(18,2),
+  mto_int_cuota      NUMBER(18,2),
+  mto_iva_cuo_5      NUMBER(18,2),
+  mto_iva_afe_per_10 NUMBER(18,2),
+  mto_iva_afe_per_5  NUMBER(18,2),
+  mto_iva_afe_cie_10 NUMBER(18,2),
+  mto_iva_afe_cie_5  NUMBER(18,2),
+  clase              VARCHAR2(2),
+  cod_rubro          VARCHAR2(15),
+  ind_reproceso      VARCHAR2(1) default 'N',
+  nro_cta_debito     VARCHAR2(15),
+  mto_amortizacion   NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion      DATE default SYSDATE,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion   DATE default SYSDATE,
+  for_pago           VARCHAR2(1),
+  afinidad           VARCHAR2(10),
+  cod_tip_cargo      VARCHAR2(5),
+  est_cuota          VARCHAR2(1),
+  cod_plan           VARCHAR2(2),
+  cod_ofi_origen     NUMBER(3),
+  cod_ori_pago       VARCHAR2(1),
+  can_cuotas         NUMBER(2),
+  mto_comision       NUMBER(18,2),
+  mto_seg_entidad    NUMBER(18,2),
+  mto_seg_usuario    NUMBER(18,2),
+  tip_cierre         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_ESPECIALES
+  is 'Datos enviados por Bancard sobre Movimientos Especiales de las tarjetas de crédito.';
+comment on column IT.TA_MOV_ESPECIALES.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES.nro_tarjeta
+  is 'Número de tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES.dig_verificador
+  is 'Dígito verificador de la tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES.fec_movimiento
+  is 'Fecha de Movimiento.';
+comment on column IT.TA_MOV_ESPECIALES.des_movimiento
+  is 'Descripción del Movimiento.';
+comment on column IT.TA_MOV_ESPECIALES.mto_operacion
+  is 'Importe del movimiento.';
+comment on column IT.TA_MOV_ESPECIALES.tip_afectacion
+  is 'Tipo de Afectación. ';
+comment on column IT.TA_MOV_ESPECIALES.tip_movimiento
+  is 'Tipo de Movimiento.';
+comment on column IT.TA_MOV_ESPECIALES.financia
+  is 'Financia?. S= Si, N=No.';
+comment on column IT.TA_MOV_ESPECIALES.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.TA_MOV_ESPECIALES.cod_usuario
+  is 'Usuario.';
+comment on column IT.TA_MOV_ESPECIALES.cod_origen
+  is 'Código de Origen. 1= Digitado, 2=Transmisión';
+comment on column IT.TA_MOV_ESPECIALES.ref_proceso
+  is 'Observaciones de procesos realizados';
+comment on column IT.TA_MOV_ESPECIALES.ref_archivo
+  is 'Referencia del Archivo origen del movimiento.';
+comment on column IT.TA_MOV_ESPECIALES.fecha
+  is 'Fecha de Grabación de los datos.';
+comment on column IT.TA_MOV_ESPECIALES.procesado
+  is 'Indicador de registro procesado. (S/N).';
+comment on column IT.TA_MOV_ESPECIALES.cod_usu_proceso
+  is 'Usuario que ejecutó el proceso.';
+comment on column IT.TA_MOV_ESPECIALES.error
+  is 'Detalle del error.';
+comment on column IT.TA_MOV_ESPECIALES.mto_impuesto
+  is 'Importe del Impuesto.';
+comment on column IT.TA_MOV_ESPECIALES.mto_int_corriente
+  is 'Monto del Interés Corriente.';
+comment on column IT.TA_MOV_ESPECIALES.mto_int_mora
+  is 'Monto de Interés Moratorio.';
+comment on column IT.TA_MOV_ESPECIALES.mto_int_punitorio
+  is 'Monto de Interés Punitorio.';
+comment on column IT.TA_MOV_ESPECIALES.mto_int_cuota
+  is 'Monto Interés Cuota.';
+comment on column IT.TA_MOV_ESPECIALES.mto_iva_cuo_5
+  is 'Monto del Iva 5% Cuotas.';
+comment on column IT.TA_MOV_ESPECIALES.mto_iva_afe_per_10
+  is 'Monto del Iva 10% afectado en el Periodo.';
+comment on column IT.TA_MOV_ESPECIALES.mto_iva_afe_per_5
+  is 'Monto del Iva 5% afectado en el Periodo.';
+comment on column IT.TA_MOV_ESPECIALES.mto_iva_afe_cie_10
+  is 'Monto del Iva 10% afecta en el Cierre.';
+comment on column IT.TA_MOV_ESPECIALES.mto_iva_afe_cie_5
+  is 'Monto del Iva 5% afecta en el Cierre.';
+comment on column IT.TA_MOV_ESPECIALES.clase
+  is 'Clase de Tarjeta.';
+comment on column IT.TA_MOV_ESPECIALES.cod_rubro
+  is 'Código de Rubro.';
+comment on column IT.TA_MOV_ESPECIALES.ind_reproceso
+  is 'Indicador de Reproceso.';
+comment on column IT.TA_MOV_ESPECIALES.nro_cta_debito
+  is 'Número de Cuenta de Débito.';
+comment on column IT.TA_MOV_ESPECIALES.mto_amortizacion
+  is 'Monto de Amortización.';
+comment on column IT.TA_MOV_ESPECIALES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_MOV_ESPECIALES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_MOV_ESPECIALES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.TA_MOV_ESPECIALES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.TA_MOV_ESPECIALES.for_pago
+  is 'Forma de Pago.( D= Digitado, T=Transmisi?n, S= Sistema/Proceso, I= Infonet Cobranza, O=Otros Pagos).';
+comment on column IT.TA_MOV_ESPECIALES.afinidad
+  is 'Afinidad.';
+comment on column IT.TA_MOV_ESPECIALES.cod_tip_cargo
+  is 'C?digo Tipo de Cargo de Movimientos ( Ej. 1= Costo Emisi?n, 2= Costo Renovaci?n, etc. (Ver definici?n Tabla de Valores de Tipo Cargo) ).';
+comment on column IT.TA_MOV_ESPECIALES.est_cuota
+  is 'Estado de las Cuotas en caso de Plan en Cuotas: P=Pendiente, A=Activo, C=Cancelado, F=Forzado, R=Reversado.';
+comment on column IT.TA_MOV_ESPECIALES.cod_plan
+  is '(Ej,00= Compra Normal Contado, 01= Plan 1, etc. Ver Tabla de Valores Cod. Plan).';
+comment on column IT.TA_MOV_ESPECIALES.cod_ofi_origen
+  is 'Oficina Origen del Movimiento.';
+comment on column IT.TA_MOV_ESPECIALES.cod_ori_pago
+  is 'Origen del Pago.(Ej. C= Comercio, A= ATM, E= Entidad, B= Bancard, etc.).';
+comment on column IT.TA_MOV_ESPECIALES.can_cuotas
+  is 'Cantidad Cuotas.';
+comment on column IT.TA_MOV_ESPECIALES.mto_comision
+  is 'Importe Comisi?n Entidad.';
+comment on column IT.TA_MOV_ESPECIALES.mto_seg_entidad
+  is 'Seguro p/Entidad.';
+comment on column IT.TA_MOV_ESPECIALES.mto_seg_usuario
+  is 'Seguro p/Usuario.';
+comment on column IT.TA_MOV_ESPECIALES.tip_cierre
+  is 'Tipo de Cierre.';
+create index IT.IN_BBVA_TA_MOV_ESP on IT.TA_MOV_ESPECIALES (REF_ARCHIVO, FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TMOV_REF_USUFEC on IT.TA_MOV_ESPECIALES (REF_ARCHIVO, COD_USU_PROCESO, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

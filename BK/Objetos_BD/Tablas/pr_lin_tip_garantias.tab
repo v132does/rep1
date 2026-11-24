@@ -1,0 +1,64 @@
+create table IT.PR_LIN_TIP_GARANTIAS
+(
+  nro_linea        NUMBER(7) not null,
+  cod_garantia     NUMBER(3) not null,
+  mto_limite       NUMBER(18,2) default 0 not null,
+  mto_aplicado     NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  rel_garantia     NUMBER(4,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LIN_TIP_GARANTIAS
+  is 'Tipos de Garantía por Límite.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.nro_linea
+  is 'Número de línea.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.cod_garantia
+  is 'Código de garantía.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.mto_limite
+  is 'Monto del límite.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.mto_aplicado
+  is 'Monto Aplicado.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_LIN_TIP_GARANTIAS.rel_garantia
+  is 'Relación Garantía.';
+alter table IT.PR_LIN_TIP_GARANTIAS
+  add constraint PK_PR_LIN_TIP_GARANTIA primary key (NRO_LINEA, COD_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LIN_TIP_GARANTIAS
+  add constraint FK_PLTGA_COD_GARANTIA foreign key (COD_GARANTIA)
+  references IT.PR_GAR_TIPOS (COD_GARANTIA);
+alter table IT.PR_LIN_TIP_GARANTIAS
+  add constraint FK_PLTGA_NRO_LINEA foreign key (NRO_LINEA)
+  references IT.PR_LINEAS (NRO_LINEA);
+

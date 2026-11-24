@@ -1,0 +1,113 @@
+create table IT.BW_SOL_FIR_CUENTAS
+(
+  cod_persona      VARCHAR2(10),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  nro_cedula       VARCHAR2(20),
+  nro_telefono     VARCHAR2(15),
+  dir_correo       VARCHAR2(80),
+  cod_tip_vinculo  VARCHAR2(2),
+  relacion         VARCHAR2(1),
+  est_cuenta       VARCHAR2(1),
+  fec_aprobacion   DATE,
+  cod_per_fir      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  fec_habil        DATE,
+  est_firmante     VARCHAR2(1),
+  observacion      VARCHAR2(2000),
+  referencia       NUMBER(18),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_SOL_FIR_CUENTAS
+  is 'Solicitud de Firmantes de Cuentas.';
+comment on column IT.BW_SOL_FIR_CUENTAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BW_SOL_FIR_CUENTAS.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.BW_SOL_FIR_CUENTAS.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.BW_SOL_FIR_CUENTAS.nro_cedula
+  is 'Nro. de Cedula.';
+comment on column IT.BW_SOL_FIR_CUENTAS.nro_telefono
+  is 'Nro. de Telefono';
+comment on column IT.BW_SOL_FIR_CUENTAS.dir_correo
+  is 'Direccion Correo.';
+comment on column IT.BW_SOL_FIR_CUENTAS.cod_tip_vinculo
+  is 'Tipo de Vinculo.';
+comment on column IT.BW_SOL_FIR_CUENTAS.relacion
+  is 'Relacion.';
+comment on column IT.BW_SOL_FIR_CUENTAS.est_cuenta
+  is 'Estado. P:Pendiente, A: Con Cuenta, C:Cancelado';
+comment on column IT.BW_SOL_FIR_CUENTAS.fec_aprobacion
+  is 'Fecha de Aprobacion';
+comment on column IT.BW_SOL_FIR_CUENTAS.cod_per_fir
+  is 'Cod. Persona Firmante';
+comment on column IT.BW_SOL_FIR_CUENTAS.nro_cuenta
+  is 'Nro. Cuenta';
+comment on column IT.BW_SOL_FIR_CUENTAS.fec_habil
+  is 'Fecha de Calendario Habil';
+comment on column IT.BW_SOL_FIR_CUENTAS.est_firmante
+  is 'Estado Firmante.P:Pendiente,  C: Cancelado, A: Aprobado, R:Rechazado';
+comment on column IT.BW_SOL_FIR_CUENTAS.observacion
+  is 'Observacion.';
+comment on column IT.BW_SOL_FIR_CUENTAS.referencia
+  is 'Referencia.';
+comment on column IT.BW_SOL_FIR_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_SOL_FIR_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_SOL_FIR_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_SOL_FIR_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GSOFI_FIRMANTE on IT.BW_SOL_FIR_CUENTAS (COD_MODULO, COD_MODALIDAD, COD_PERSONA, COD_PER_FIR, NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSOFI_PERSONA on IT.BW_SOL_FIR_CUENTAS (COD_MODULO, COD_MODALIDAD, COD_PERSONA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSOFI_SOLICITUD on IT.BW_SOL_FIR_CUENTAS (FEC_HABIL, EST_FIRMANTE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

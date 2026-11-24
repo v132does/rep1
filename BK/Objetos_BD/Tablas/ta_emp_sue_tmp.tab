@@ -1,0 +1,21 @@
+create table IT.TA_EMP_SUE_TMP
+(
+  cod_empresa NUMBER(5),
+  ruc         VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_EMP_SUE_TMP.cod_empresa
+  is 'Código de la Empresa';
+comment on column IT.TA_EMP_SUE_TMP.ruc
+  is 'Ruc de la Empresa';
+

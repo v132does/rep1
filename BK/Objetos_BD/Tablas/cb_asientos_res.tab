@@ -1,0 +1,77 @@
+create table IT.CB_ASIENTOS_RES
+(
+  fecha              DATE not null,
+  cod_oficina        NUMBER(3) not null,
+  nro_asiento        NUMBER(6) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  tot_control        NUMBER(18,2) default 0 not null,
+  actualizado        VARCHAR2(1) default 'N' not null,
+  reversado          VARCHAR2(1) default 'N' not null,
+  ofi_integrada      VARCHAR2(1) not null,
+  confirmado         VARCHAR2(1) default 'N' not null,
+  cod_ofi_origen     NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  fec_valor          DATE,
+  nro_asi_automatico NUMBER(6),
+  nro_asi_futuro     NUMBER(6),
+  cod_cargo          NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_ASIENTOS_RES
+  is 'Contiene la copia de los datos correspondientes a la cabecera de los asientos contables.';
+comment on column IT.CB_ASIENTOS_RES.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.CB_ASIENTOS_RES.cod_oficina
+  is 'Codigo de oficina del asiento.';
+comment on column IT.CB_ASIENTOS_RES.nro_asiento
+  is 'Numero del asiento.';
+comment on column IT.CB_ASIENTOS_RES.cod_usuario
+  is 'Codigo del usuario que genero el asiento.';
+comment on column IT.CB_ASIENTOS_RES.cod_modulo
+  is 'Codigo de modulo del asiento.';
+comment on column IT.CB_ASIENTOS_RES.cod_modalidad
+  is 'Codigo de modalidad del asiento.';
+comment on column IT.CB_ASIENTOS_RES.tot_control
+  is 'Suma de debitos mas creditos para control.';
+comment on column IT.CB_ASIENTOS_RES.actualizado
+  is 'Asiento actualizado ? ( S=El asiento ya actualizo el saldo de la cuenta, N=El asiento no actualizo el saldo de la cuenta ).';
+comment on column IT.CB_ASIENTOS_RES.reversado
+  is 'Es reversion de un asiento ? ( S=Es un asiento reversado, N=No es un asiento reversado ).';
+comment on column IT.CB_ASIENTOS_RES.ofi_integrada
+  is 'Oficina integrada ? ( S=Es un asiento cruzado entre oficinas, N=No es un asiento cruzado entre oficinas ).';
+comment on column IT.CB_ASIENTOS_RES.confirmado
+  is 'Asiento confirmado ? ( S=El asiento esta Ok - Actualizara saldos, N=El asiento no esta Ok - No actualizara saldos ).';
+comment on column IT.CB_ASIENTOS_RES.cod_ofi_origen
+  is 'Codigo de la oficina que origino el asiento.';
+comment on column IT.CB_ASIENTOS_RES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASIENTOS_RES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASIENTOS_RES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_RES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_RES.fec_valor
+  is 'Fecha valor del movimiento.';
+comment on column IT.CB_ASIENTOS_RES.nro_asi_automatico
+  is 'Número de Asiento Automático que generó el asiento definitivo en caso que el origen se de por esta vía.';
+comment on column IT.CB_ASIENTOS_RES.nro_asi_futuro
+  is 'Número de Asiento Futuro que generó el asiento definitivo en caso que el origen se de por esta vía.';
+comment on column IT.CB_ASIENTOS_RES.cod_cargo
+  is 'Código de Cargo en caso que el asiento tenga origen en un asiento futuro.';
+

@@ -1,0 +1,331 @@
+create table IT.CX_CTA_IMPORTACIONES
+(
+  nro_cuenta               VARCHAR2(15) not null,
+  cod_modulo               NUMBER(3) not null,
+  cod_modalidad            NUMBER(3) not null,
+  cod_oficina              NUMBER(3) not null,
+  denominacion             VARCHAR2(60) not null,
+  fec_solicitud            DATE not null,
+  fec_aprobacion           DATE,
+  fec_vencimiento          DATE,
+  fec_cancelacion          DATE,
+  cod_moneda               VARCHAR2(3) not null,
+  tip_monto                VARCHAR2(1) default 'A' not null,
+  monto                    NUMBER(18,2) default 0 not null,
+  mto_equ_local            NUMBER(18,2) default 0,
+  saldo                    NUMBER(18,2) default 0,
+  sal_batch                NUMBER(18,2) default 0,
+  mto_prepago              NUMBER(18,2) default 0,
+  cod_bco_corresponsal     NUMBER(3),
+  cod_bco_negociador       NUMBER(3),
+  beneficiario             VARCHAR2(100),
+  direccion                VARCHAR2(60),
+  cod_pais                 NUMBER(3),
+  cod_ciudad               NUMBER(3),
+  telefono                 VARCHAR2(80),
+  tip_cobro                VARCHAR2(1) default 'V' not null,
+  fec_vto_plazo            DATE,
+  nro_referencia           VARCHAR2(20),
+  estado                   VARCHAR2(1) default 'S' not null,
+  est_batch                VARCHAR2(1),
+  mercaderia               VARCHAR2(250),
+  confirmado               VARCHAR2(1) default 'N' not null,
+  por_var_monto            NUMBER(6,2),
+  mto_original             NUMBER(18,2) default 0 not null,
+  nro_linea                NUMBER(7),
+  revocable                VARCHAR2(1) default 'N' not null,
+  cod_cau_cancelacion      NUMBER(3),
+  con_venta                VARCHAR2(3) not null,
+  recibido                 VARCHAR2(1) default 'N' not null,
+  nro_sol_prestamo         NUMBER(7),
+  observacion              VARCHAR2(4000),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  fec_utilizacion          DATE,
+  nom_bco_negociador       VARCHAR2(100),
+  cod_uid                  VARCHAR2(20),
+  nvo_monto                NUMBER(18,2),
+  fec_cam_estado           DATE,
+  nvo_confirmado           VARCHAR2(1) default 'N' not null,
+  fec_vto_embarque         DATE,
+  con_aladi                VARCHAR2(1) default 'N',
+  mto_utilizado            NUMBER(18,2) default 0,
+  tip_utilizacion          VARCHAR2(1) default 'P',
+  discrepado               VARCHAR2(1) default 'N',
+  cod_sit_contable         NUMBER(20),
+  stand_by                 VARCHAR2(1) default 'N',
+  con_aladi_ant            VARCHAR2(1),
+  stand_by_ant             VARCHAR2(1),
+  cod_bco_corresponsal_ant NUMBER(3),
+  ubi_bco_negociador_ant   VARCHAR2(1),
+  nro_cta_credito          VARCHAR2(15),
+  cod_rub_economico        VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CX_CTA_IMPORTACIONES
+  is 'Cartas de Credito de Importacion.';
+comment on column IT.CX_CTA_IMPORTACIONES.nro_cuenta
+  is 'Nro de cuenta interno para la operacion.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_modulo
+  is 'Codigo del modulo. Siempre es 8.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_modalidad
+  is 'Codigo de modalidad. 81-Carta de Importacion.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CX_CTA_IMPORTACIONES.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_solicitud
+  is 'Fecha de solicitud de la carta de credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_aprobacion
+  is 'Fecha de aprobacion de la carta de credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_vencimiento
+  is 'Fecha de vencimiento de la carta de credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_cancelacion
+  is 'Fecha de cancelacion de la carta de credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.CX_CTA_IMPORTACIONES.tip_monto
+  is 'Tipo de Monto: E-exacto (Flat) o A-Aproximado (About).';
+comment on column IT.CX_CTA_IMPORTACIONES.monto
+  is 'Monto actual de la carta de credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.mto_equ_local
+  is 'Equivalente en moneda local.';
+comment on column IT.CX_CTA_IMPORTACIONES.saldo
+  is 'Saldo actual de la carta.';
+comment on column IT.CX_CTA_IMPORTACIONES.sal_batch
+  is 'Saldo batch de la carta.';
+comment on column IT.CX_CTA_IMPORTACIONES.mto_prepago
+  is 'Monto prepagado.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_bco_corresponsal
+  is 'Codigo del Banco corresponsal, puede ser el propio banco.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_bco_negociador
+  is 'Codigo del banco negociador.';
+comment on column IT.CX_CTA_IMPORTACIONES.beneficiario
+  is 'Beneficiario.';
+comment on column IT.CX_CTA_IMPORTACIONES.direccion
+  is 'Direccion del beneficiario.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_pais
+  is 'Codigo del pais de la contraparte.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_ciudad
+  is 'Codigo de la ciudad de la contraparte.';
+comment on column IT.CX_CTA_IMPORTACIONES.telefono
+  is 'Telefono del beneficiario.';
+comment on column IT.CX_CTA_IMPORTACIONES.tip_cobro
+  is 'Tipo de cobro: V-Vista o P-Plazo.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_vto_plazo
+  is 'Fecha de vencimiento del plazo, si la cci es a plazo.';
+comment on column IT.CX_CTA_IMPORTACIONES.nro_referencia
+  is 'Nro. De referencia del Corresponsal.';
+comment on column IT.CX_CTA_IMPORTACIONES.estado
+  is 'Estado actual de la carta: S-Solicitada,A-Aprobada/C-Cancelada/-U-Utilizada/P-Pendiente/G-Pagada.';
+comment on column IT.CX_CTA_IMPORTACIONES.est_batch
+  is 'Estado batch de la carta: S-Solicitada,A-Aprobada/C-Cancelada/-U-Utilizada/P-Pendiente/G-Pagada.';
+comment on column IT.CX_CTA_IMPORTACIONES.mercaderia
+  is 'Descripcion de la mercaderia.';
+comment on column IT.CX_CTA_IMPORTACIONES.confirmado
+  is 'S/N- Indica si la operacion es confirmada o no.';
+comment on column IT.CX_CTA_IMPORTACIONES.por_var_monto
+  is 'Porcentaje de variacion del monto original.';
+comment on column IT.CX_CTA_IMPORTACIONES.mto_original
+  is 'Monto original.';
+comment on column IT.CX_CTA_IMPORTACIONES.nro_linea
+  is 'Nro de linea de credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.revocable
+  is 'Indica si la cci se puede anular (S/N).';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_cau_cancelacion
+  is 'Codigo de motivo de cancelacion.';
+comment on column IT.CX_CTA_IMPORTACIONES.con_venta
+  is 'Condicion de Venta.';
+comment on column IT.CX_CTA_IMPORTACIONES.recibido
+  is 'Indica si fue recibido (S/N).';
+comment on column IT.CX_CTA_IMPORTACIONES.nro_sol_prestamo
+  is 'Nro. de solicitud de prestamos.';
+comment on column IT.CX_CTA_IMPORTACIONES.observacion
+  is 'Observaciones de la cci.';
+comment on column IT.CX_CTA_IMPORTACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CX_CTA_IMPORTACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_utilizacion
+  is 'Fecha en que se utiliza efectivamente la CCI.';
+comment on column IT.CX_CTA_IMPORTACIONES.nom_bco_negociador
+  is 'Nombre del Banco negociador en caso de que no exista en la base.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_uid
+  is 'Codigo internacional del banco negociador.';
+comment on column IT.CX_CTA_IMPORTACIONES.nvo_monto
+  is 'Monto nuevo o modificado de la cci.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_cam_estado
+  is 'Fecha del ultimo cambio de estado.';
+comment on column IT.CX_CTA_IMPORTACIONES.nvo_confirmado
+  is 'Confirmado nuevo o modificado de la cci.';
+comment on column IT.CX_CTA_IMPORTACIONES.fec_vto_embarque
+  is 'Fecha de vencimiento del embarque.';
+comment on column IT.CX_CTA_IMPORTACIONES.con_aladi
+  is 'Indica si la carta tiene Convenio ALADI.';
+comment on column IT.CX_CTA_IMPORTACIONES.mto_utilizado
+  is 'Monto utilizado, si tiene utilizaciones parciales, embarques parciales.';
+comment on column IT.CX_CTA_IMPORTACIONES.tip_utilizacion
+  is 'Tipo de utilizacion: T-total o P-parcial.';
+comment on column IT.CX_CTA_IMPORTACIONES.discrepado
+  is 'Indica si la carta esta en discrepancia S/N.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_sit_contable
+  is 'Indica la Situacion Contable actual de la Operacion. ';
+comment on column IT.CX_CTA_IMPORTACIONES.stand_by
+  is 'Indica si la Carta es con Stand By o No (S/N).';
+comment on column IT.CX_CTA_IMPORTACIONES.con_aladi_ant
+  is 'Indica si la carta tiene Convenio ALADI. Valor anterior.';
+comment on column IT.CX_CTA_IMPORTACIONES.stand_by_ant
+  is 'Indica si la Carta es con Stand By o No (S/N). Valor anterior.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_bco_corresponsal_ant
+  is 'Codigo del corresponsal. Valor anterior.';
+comment on column IT.CX_CTA_IMPORTACIONES.ubi_bco_negociador_ant
+  is 'Ubicacion del banco negociador. Valor anterior.';
+comment on column IT.CX_CTA_IMPORTACIONES.nro_cta_credito
+  is 'Numero de Cuenta Credito.';
+comment on column IT.CX_CTA_IMPORTACIONES.cod_rub_economico
+  is 'Código de Rubro Económico.';
+create index IT.BBVA_IN_CX_COD_RUB_ECO on IT.CX_CTA_IMPORTACIONES (COD_RUB_ECONOMICO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.BBVA_IN_CX_CTA_IMP on IT.CX_CTA_IMPORTACIONES (NRO_SOL_PRESTAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint PK_CX_CTA_IMPORTACIONES primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_BCO_CORRESPONSAL foreign key (COD_BCO_CORRESPONSAL)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_CAU_CANCELACION foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_CXCCI_NRO_SOLICITUD foreign key (NRO_SOL_PRESTAMO)
+  references IT.PR_SOLICITUDES (NRO_SOLICITUD);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint FK_XCIMP_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_B_000
+  check (COD_BCO_CORRESPONSAL BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_B_001
+  check (COD_BCO_NEGOCIADOR BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_C_000
+  check (COD_CIUDAD BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_C_001
+  check (COD_CAU_CANCELACION BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_COD_P_000
+  check (COD_PAIS BETWEEN 0 AND 999);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_CONFI_000
+  check (CONFIRMADO IN ('S', 'N'));
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_RECIB_000
+  check (RECIBIDO IN ('S', 'N'));
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_REVOC_000
+  check (REVOCABLE IN ('S', 'N'));
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_TIP_C_000
+  check (TIP_COBRO IN ('V', 'P'));
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint AVCON_1173791835_TIP_M_000
+  check (TIP_MONTO IN ('E', 'A', 'H'));
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_MONTO
+  check (NVL(MONTO,0) > 0);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_MTO_ORIGINAL
+  check (NVL(MTO_ORIGINAL,0) > 0);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_MTO_PREPAGO
+  check (NVL(MTO_PREPAGO,0) >= 0);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_MTO_UTILIZA
+  check (NVL(MTO_UTILIZADO,0) <= NVL(MONTO,0));
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_MTO_UTILIZADO
+  check (NVL(MTO_UTILIZADO,0) >= 0);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_NVO_MONTO
+  check (NVL(NVO_MONTO,0) > 0);
+alter table IT.CX_CTA_IMPORTACIONES
+  add constraint CK_XCIMP_SALDO
+  check (NVL(SALDO,0) >= 0);
+

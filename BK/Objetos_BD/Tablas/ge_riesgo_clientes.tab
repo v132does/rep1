@@ -1,0 +1,63 @@
+create table IT.GE_RIESGO_CLIENTES
+(
+  activo        NUMBER(32,2) default 0,
+  porcent_act   NUMBER(5,2) default 0,
+  pasivo        NUMBER(32,2) default 0,
+  porcent_pas   NUMBER(5,2) default 0,
+  total         NUMBER(32,2) default 0,
+  porcent_tot   NUMBER(5,2) default 0,
+  cantidad      NUMBER(30) default 0,
+  porcent_can   NUMBER(5,2) default 0,
+  tipo          VARCHAR2(1) default '1' not null,
+  usu_insercion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RIESGO_CLIENTES
+  is 'Tabla donde se almacenan el riesgo total de todos los clientes separados por segmentos';
+comment on column IT.GE_RIESGO_CLIENTES.activo
+  is 'Activo de todos los clientes';
+comment on column IT.GE_RIESGO_CLIENTES.porcent_act
+  is 'Porcentaje de los activos';
+comment on column IT.GE_RIESGO_CLIENTES.pasivo
+  is 'Pasivo de todos los clientes';
+comment on column IT.GE_RIESGO_CLIENTES.porcent_pas
+  is 'Porcentaje de los pasivos';
+comment on column IT.GE_RIESGO_CLIENTES.total
+  is 'Suma del Activo y Pasivo';
+comment on column IT.GE_RIESGO_CLIENTES.porcent_tot
+  is 'Porcentaje de los totales';
+comment on column IT.GE_RIESGO_CLIENTES.cantidad
+  is 'Cantidad de clientes';
+comment on column IT.GE_RIESGO_CLIENTES.porcent_can
+  is 'Porcentaje de los clientes';
+comment on column IT.GE_RIESGO_CLIENTES.tipo
+  is 'Tipo de segmento "ge_tip_seg_clientes"';
+alter table IT.GE_RIESGO_CLIENTES
+  add constraint PK_GE_RIESGO_CLIENTES primary key (TIPO, FEC_INSERCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RIESGO_CLIENTES
+  add constraint FK_GE_TIP_SEG_CLIENTES foreign key (TIPO)
+  references IT.GE_TIP_SEG_CLIENTES (TIPO);
+

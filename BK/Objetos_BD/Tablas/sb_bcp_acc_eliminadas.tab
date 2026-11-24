@@ -1,0 +1,35 @@
+create table IT.SB_BCP_ACC_ELIMINADAS
+(
+  fecha       DATE not null,
+  cod_persona VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_BCP_ACC_ELIMINADAS
+  is 'Datos de Personas que fueron eliminadas de la tabla ba_acc_portador.';
+comment on column IT.SB_BCP_ACC_ELIMINADAS.cod_persona
+  is 'Código de la persona';
+alter table IT.SB_BCP_ACC_ELIMINADAS
+  add constraint PK_SB_BCP_ACC_ELI primary key (FECHA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

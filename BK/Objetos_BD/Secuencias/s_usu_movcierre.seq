@@ -1,0 +1,10 @@
+﻿create sequence IT.S_USU_MOVCIERRE
+minvalue 1
+maxvalue 999999999
+start with 1
+increment by 1
+nocache
+cycle;
+
+CREATE PUBLIC SYNONYM S_USU_MOVCIERRE FOR IT.S_USU_MOVCIERRE;
+GRANT ALL ON S_USU_MOVCIERRE TO IT_TEMPORAL;

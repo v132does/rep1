@@ -1,0 +1,7 @@
+create sequence IT.S_COD_TIP_SEGUIMIENTO
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 2
+increment by 1
+nocache;
+

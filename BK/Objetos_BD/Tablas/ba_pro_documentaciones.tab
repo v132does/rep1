@@ -1,0 +1,34 @@
+create table IT.BA_PRO_DOCUMENTACIONES
+(
+  cod_programa      VARCHAR2(30) not null,
+  ubi_documentacion VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PRO_DOCUMENTACIONES
+  add constraint PK_BA_PRO_DOCUMENTACIONES primary key (COD_PROGRAMA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PRO_DOCUMENTACIONES
+  add constraint FK_BPROG_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+

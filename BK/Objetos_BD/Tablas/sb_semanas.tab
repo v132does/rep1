@@ -1,0 +1,43 @@
+create table IT.SB_SEMANAS
+(
+  semana      VARCHAR2(8) not null,
+  desde       DATE not null,
+  hasta       DATE not null,
+  descripcion VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SEMANAS
+  is 'Catalogo de Semanas a Informar al Banco Central.';
+comment on column IT.SB_SEMANAS.semana
+  is 'Semana.';
+comment on column IT.SB_SEMANAS.desde
+  is 'Fecha Inicial de la Semana.';
+comment on column IT.SB_SEMANAS.hasta
+  is 'Fecha Final de la Semana.';
+comment on column IT.SB_SEMANAS.descripcion
+  is 'Descripcion.';
+alter table IT.SB_SEMANAS
+  add constraint PK_SB_SEMANAS primary key (SEMANA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

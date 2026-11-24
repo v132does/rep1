@@ -1,0 +1,49 @@
+create table IT.CB_PRODUCTOS
+(
+  cod_producto     VARCHAR2(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_PRODUCTOS
+  is 'Productos del Plan de Cuentas.';
+comment on column IT.CB_PRODUCTOS.cod_producto
+  is 'Codigo del producto.';
+comment on column IT.CB_PRODUCTOS.descripcion
+  is 'Descripcion del producto.';
+comment on column IT.CB_PRODUCTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_PRODUCTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_PRODUCTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_PRODUCTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_PRODUCTOS
+  add constraint PK_CB_PRODUCTOS primary key (COD_PRODUCTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

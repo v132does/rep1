@@ -1,0 +1,43 @@
+create table IT.MD_PROJECTS
+(
+  id                NUMBER not null,
+  project_name      VARCHAR2(4000) not null,
+  comments          VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_PROJECTS
+  is 'This is a top level container for a set of connections.';
+comment on column IT.MD_PROJECTS.id
+  is 'Primary key';
+comment on column IT.MD_PROJECTS.project_name
+  is 'Name of the project //OBJECTNAME';
+alter table IT.MD_PROJECTS
+  add constraint MD_PROJECTS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

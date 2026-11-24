@@ -1,0 +1,56 @@
+create table IT.AH_CER_TITULARES
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  cod_per_anterior     VARCHAR2(10) not null,
+  cod_per_actual       VARCHAR2(10) not null,
+  fec_cambio           DATE not null,
+  cod_usu_pro_anterior VARCHAR2(10) not null,
+  cod_usu_pro_actual   VARCHAR2(10) not null,
+  cod_usu_ofi_anterior NUMBER(3) not null,
+  cod_usu_ofi_actual   NUMBER(3) not null,
+  monto                NUMBER(18,2) not null,
+  usu_insercion        VARCHAR2(10) not null,
+  fec_insercion        DATE not null,
+  usu_modificacion     VARCHAR2(10) not null,
+  fec_modificacion     DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CER_TITULARES
+  is 'Tabla Histórica de Cambios de Titularidad de CDAs';
+comment on column IT.AH_CER_TITULARES.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.AH_CER_TITULARES.cod_per_anterior
+  is 'Código de Cliente Anterior';
+comment on column IT.AH_CER_TITULARES.cod_per_actual
+  is 'Código de Cliente Actual';
+comment on column IT.AH_CER_TITULARES.fec_cambio
+  is 'Fecha del Cambio de Titularidad';
+comment on column IT.AH_CER_TITULARES.cod_usu_pro_anterior
+  is 'Código de Promotor Anterior';
+comment on column IT.AH_CER_TITULARES.cod_usu_pro_actual
+  is 'Código de Promotor Actual';
+comment on column IT.AH_CER_TITULARES.cod_usu_ofi_anterior
+  is 'Código de Oficina del Promotor Anterior';
+comment on column IT.AH_CER_TITULARES.cod_usu_ofi_actual
+  is 'Código de Oficina del Promotor Actual';
+comment on column IT.AH_CER_TITULARES.monto
+  is 'Saldo Online del Certificado';
+comment on column IT.AH_CER_TITULARES.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.AH_CER_TITULARES.fec_insercion
+  is 'Fecha en que se insertó el registro ';
+comment on column IT.AH_CER_TITULARES.usu_modificacion
+  is 'Usuario quien realizó la última modificación del registro';
+comment on column IT.AH_CER_TITULARES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación del registro';
+

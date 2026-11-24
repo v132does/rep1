@@ -1,0 +1,48 @@
+create table IT.CV_VAL_CUSTODIAS_TMP
+(
+  cod_val_custodia NUMBER(15) not null,
+  tip_valor        VARCHAR2(2) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  estado           VARCHAR2(1) not null,
+  fec_ingreso      DATE,
+  fec_vencimiento  DATE,
+  observacion      VARCHAR2(1000),
+  monto            NUMBER(18,2),
+  cod_persona      VARCHAR2(10),
+  nom_persona      VARCHAR2(200),
+  nro_operacion    VARCHAR2(15),
+  nro_cuota        NUMBER,
+  fec_cam_estado   DATE,
+  cod_banco        NUMBER(3),
+  nro_valor        NUMBER(15),
+  cta_libradora    VARCHAR2(20),
+  cod_ofi_origen   NUMBER(3),
+  cod_usu_origen   VARCHAR2(10),
+  ubicacion        VARCHAR2(25),
+  est_etiqueta     VARCHAR2(2),
+  fec_est_etiqueta DATE,
+  librador         VARCHAR2(35),
+  cod_area         NUMBER(3),
+  cod_sector       NUMBER(5),
+  cod_nivel        NUMBER(5),
+  cod_hilera       NUMBER(5),
+  cod_seccion      NUMBER(5),
+  cod_orden        NUMBER(3),
+  fec_salida       DATE,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

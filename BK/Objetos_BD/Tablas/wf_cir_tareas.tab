@@ -1,0 +1,112 @@
+create table IT.WF_CIR_TAREAS
+(
+  cod_circuito        NUMBER(15) not null,
+  cod_tarea           NUMBER(15) not null,
+  cod_tip_circuito    NUMBER(3) not null,
+  cod_tip_tarea       NUMBER(3) not null,
+  descripcion         VARCHAR2(60) not null,
+  comentario          VARCHAR2(1000),
+  documento           BLOB,
+  ind_anexo           VARCHAR2(1),
+  estado              VARCHAR2(1) default 'A' not null,
+  fec_asignacion      DATE not null,
+  fec_finalizacion    DATE,
+  cod_usuario         VARCHAR2(10),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_gru_responsable VARCHAR2(5) not null,
+  cod_causa           NUMBER(3),
+  cod_usu_responsable VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_CIR_TAREAS
+  is 'Tareas definidas del circuito';
+comment on column IT.WF_CIR_TAREAS.cod_circuito
+  is 'Nro. secuencial que identifica el circuito actual';
+comment on column IT.WF_CIR_TAREAS.cod_tarea
+  is 'Nro. secuencial interno que identifica la tarea';
+comment on column IT.WF_CIR_TAREAS.cod_tip_circuito
+  is 'Codigo del tipo de circuito';
+comment on column IT.WF_CIR_TAREAS.cod_tip_tarea
+  is 'Codigo de la tarea definida';
+comment on column IT.WF_CIR_TAREAS.descripcion
+  is 'Descripcion de la tarea';
+comment on column IT.WF_CIR_TAREAS.comentario
+  is 'comentario del usuario';
+comment on column IT.WF_CIR_TAREAS.documento
+  is 'Documento anexo';
+comment on column IT.WF_CIR_TAREAS.ind_anexo
+  is 'Indica si la tarea tiene o no anexo. Es solo para acceso mas rapido.';
+comment on column IT.WF_CIR_TAREAS.estado
+  is 'Estado de la tarea: P-Pendiente - A-Aprobada, R-Rechazada';
+comment on column IT.WF_CIR_TAREAS.fec_asignacion
+  is 'Fecha de asignacion de la tarea';
+comment on column IT.WF_CIR_TAREAS.fec_finalizacion
+  is 'Fecha de finalizacion de la tarea';
+comment on column IT.WF_CIR_TAREAS.cod_usuario
+  is 'Codigo del usuario que realizo la tarea';
+comment on column IT.WF_CIR_TAREAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_CIR_TAREAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_CIR_TAREAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_CIR_TAREAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.WF_CIR_TAREAS.cod_gru_responsable
+  is 'Grupo responsable de la tarea';
+comment on column IT.WF_CIR_TAREAS.cod_causa
+  is 'C¿digo de causa';
+comment on column IT.WF_CIR_TAREAS.cod_usu_responsable
+  is 'C¿digo de Usuario al cual se asign¿ la tarea.';
+create index IT.IN_WCTAR_COD_CIRCUITO on IT.WF_CIR_TAREAS (COD_CIRCUITO, ESTADO, USU_MODIFICACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WF_CIR_TAREAS on IT.WF_CIR_TAREAS (COD_CIRCUITO, COD_TIP_TAREA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.WF_CIR_TAREAS
+  add constraint PK_WF_CIR_TAREAS primary key (COD_CIRCUITO, COD_TAREA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

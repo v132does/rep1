@@ -1,0 +1,70 @@
+create table IT.LC_REV_BOL_PAGO
+(
+  id_operacion     VARCHAR2(20) not null,
+  fecha_env        DATE not null,
+  hora_env         VARCHAR2(8) not null,
+  tip_documento    VARCHAR2(3),
+  nro_documento    VARCHAR2(16),
+  estado           VARCHAR2(50),
+  mensaje          VARCHAR2(3000),
+  respuesta        LONG,
+  observacion      VARCHAR2(3000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_REV_BOL_PAGO
+  is 'Reversion de Boleta de Pago DNA';
+comment on column IT.LC_REV_BOL_PAGO.id_operacion
+  is 'Numero de Opreacion DNA';
+comment on column IT.LC_REV_BOL_PAGO.fecha_env
+  is 'Fecha de envio de mensaje';
+comment on column IT.LC_REV_BOL_PAGO.hora_env
+  is 'Hora de envio de mensaje';
+comment on column IT.LC_REV_BOL_PAGO.tip_documento
+  is 'Tipo de Documento(CI/RUC/CRC/CRP)';
+comment on column IT.LC_REV_BOL_PAGO.nro_documento
+  is 'Numero de documento';
+comment on column IT.LC_REV_BOL_PAGO.estado
+  is 'Estado';
+comment on column IT.LC_REV_BOL_PAGO.mensaje
+  is 'Mensaje enviado';
+comment on column IT.LC_REV_BOL_PAGO.respuesta
+  is 'Respuesta recibida';
+comment on column IT.LC_REV_BOL_PAGO.observacion
+  is 'Observacion';
+comment on column IT.LC_REV_BOL_PAGO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_REV_BOL_PAGO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_REV_BOL_PAGO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_REV_BOL_PAGO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_REV_BOL_PAGO
+  add constraint PK_LC_REV_BOL_PAGO primary key (ID_OPERACION, FECHA_ENV, HORA_ENV)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

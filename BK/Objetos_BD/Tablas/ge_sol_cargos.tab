@@ -1,0 +1,106 @@
+create table IT.GE_SOL_CARGOS
+(
+  cod_canal        NUMBER(3),
+  cod_campana      NUMBER(3),
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_ent_seguro   NUMBER(5),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_tip_canal    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_CARGOS
+  is 'Cargos de Solicitudes.';
+comment on column IT.GE_SOL_CARGOS.cod_canal
+  is 'Canal.';
+comment on column IT.GE_SOL_CARGOS.cod_campana
+  is 'Campaña.';
+comment on column IT.GE_SOL_CARGOS.cod_modulo
+  is 'Modulo.';
+comment on column IT.GE_SOL_CARGOS.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.GE_SOL_CARGOS.cod_transaccion
+  is 'Transaccion del Cargo.';
+comment on column IT.GE_SOL_CARGOS.cod_ent_seguro
+  is 'Codigo de Ente del Seguro.';
+comment on column IT.GE_SOL_CARGOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_CARGOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_CARGOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_CARGOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_CARGOS.cod_tip_canal
+  is 'Tipo de canal.';
+create index IT.IN_BBVA_SOL_CAMP on IT.GE_SOL_CARGOS (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_CARGOS
+  add constraint UK_GE_SOL_CARGOS unique (COD_CANAL, COD_CAMPANA, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION, COD_ENT_SEGURO, COD_TIP_CANAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_CARGOS
+  add constraint FK_GSCAR_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.GE_SOL_CARGOS
+  add constraint FK_GSCAR_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.GE_SOL_CARGOS
+  add constraint FK_GSCAR_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.GE_SOL_CARGOS
+  add constraint FK_GSCAR_COD_TIP_CANAL foreign key (COD_TIP_CANAL)
+  references IT.GE_TIP_CANALES (COD_TIP_CANAL);
+alter table IT.GE_SOL_CARGOS
+  add constraint FK_GSCAR_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SOL_CARGOS
+  add constraint AVCON_1087047098_COD_C_000
+  check (COD_CANAL BETWEEN 0 AND 999);
+alter table IT.GE_SOL_CARGOS
+  add constraint AVCON_1087047098_COD_C_001
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.GE_SOL_CARGOS
+  add constraint AVCON_1087047098_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_SOL_CARGOS
+  add constraint AVCON_1087047098_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_SOL_CARGOS
+  add constraint AVCON_1090245718_COD_T_001
+  check (COD_TIP_CANAL BETWEEN 0 AND 999);
+

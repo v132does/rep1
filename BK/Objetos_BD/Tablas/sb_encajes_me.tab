@@ -1,0 +1,74 @@
+create table IT.SB_ENCAJES_ME
+(
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  val_cotizacion   NUMBER(14,8) not null,
+  sujeto_a         NUMBER(18,2) default 0,
+  sujeto_b         NUMBER(18,2) default 0,
+  sujeto_c         NUMBER(18,2) default 0,
+  sujeto_d         NUMBER(18,2) default 0,
+  encaje_a         NUMBER(18,2) default 0,
+  encaje_b         NUMBER(18,2) default 0,
+  encaje_c         NUMBER(18,2) default 0,
+  encaje_d         NUMBER(18,2) default 0,
+  tot_exigido      NUMBER(18,2) default 0,
+  mto_remunerar    NUMBER(18,2) default 0,
+  bcp_depositado   NUMBER(18,2) default 0,
+  pos_observada    NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ENCAJES_ME
+  is 'Planilla de Encaje Legal Moneda Extranjera.';
+comment on column IT.SB_ENCAJES_ME.fecha
+  is 'Fecha del encaje.';
+comment on column IT.SB_ENCAJES_ME.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_ENCAJES_ME.val_cotizacion
+  is 'Cotizacion de la fecha.';
+comment on column IT.SB_ENCAJES_ME.sujeto_a
+  is 'Sujeto al 26.5%.';
+comment on column IT.SB_ENCAJES_ME.sujeto_b
+  is 'Sujeto al 16.5%.';
+comment on column IT.SB_ENCAJES_ME.sujeto_c
+  is 'Sujeto al 6.5%.';
+comment on column IT.SB_ENCAJES_ME.sujeto_d
+  is 'Sujeto al 1.5%.';
+comment on column IT.SB_ENCAJES_ME.encaje_a
+  is 'Encaje al 26.5%.';
+comment on column IT.SB_ENCAJES_ME.encaje_b
+  is 'Encaje al 16.5%.';
+comment on column IT.SB_ENCAJES_ME.encaje_c
+  is 'Encaje al 6.5%.';
+comment on column IT.SB_ENCAJES_ME.encaje_d
+  is 'Encaje al 1.5%.';
+comment on column IT.SB_ENCAJES_ME.tot_exigido
+  is 'Total Exigido.';
+comment on column IT.SB_ENCAJES_ME.mto_remunerar
+  is 'Monto a Remunerar.';
+comment on column IT.SB_ENCAJES_ME.bcp_depositado
+  is 'Depositado en BCP.';
+comment on column IT.SB_ENCAJES_ME.pos_observada
+  is 'Posicion Observada.';
+comment on column IT.SB_ENCAJES_ME.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_ENCAJES_ME.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_ENCAJES_ME.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_ENCAJES_ME.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

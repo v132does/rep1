@@ -1,0 +1,7 @@
+create sequence IT.S_COD_DIR_RETENCION
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 54
+increment by 1
+nocache;
+

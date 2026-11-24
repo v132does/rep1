@@ -1,0 +1,44 @@
+create table IT.CC_LIN_SOB_GARANTIAS_HIS
+(
+  mto_aplicado       NUMBER(18,2) default 0,
+  nro_garantia       NUMBER(7),
+  nro_secuencia      NUMBER(7),
+  cod_garantia       NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion      DATE default SYSDATE,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion   DATE default SYSDATE,
+  mto_apl_computable NUMBER(18,2)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_LIN_SOB_GARANTIAS_HIS
+  is 'Historico de Garantias de lineas de Sobregiro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.mto_aplicado
+  is 'Monto aplicado.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.nro_garantia
+  is 'Numero de Garantia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.nro_secuencia
+  is 'Nro. de secuencia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.cod_garantia
+  is 'Codigo de garantia.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOB_GARANTIAS_HIS.mto_apl_computable
+  is 'Monto aplicado de la garantia computable.';
+

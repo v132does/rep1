@@ -1,0 +1,73 @@
+create table IT.LC_PAR_LIM_POS_CAMBIOS
+(
+  codigo             NUMBER(10) not null,
+  mto_lim_sob_compra NUMBER(18,2) not null,
+  mto_lim_sob_venta  NUMBER(18,2) not null,
+  fec_ini_vigencia   DATE not null,
+  fec_fin_vigencia   DATE not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  mto_pat_efectivo   NUMBER(18,2),
+  por_sob_compra     NUMBER(5,2),
+  por_sob_venta      NUMBER(5,2),
+  lim_sob_com_diario NUMBER(18,2),
+  lim_sob_vta_diario NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_PAR_LIM_POS_CAMBIOS
+  is 'Contiene los parámetros del Límite de Posición de Cambios';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.codigo
+  is 'Código o identificador de registro. Secuencia S_COD_PAR_LPC';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.mto_lim_sob_compra
+  is 'Monto Límite de Sobre Compra para determinar si se excedió el límite de Compras cuando el Total de Operaciones de Compras de Divisas sean superiores al de las Operaciones de Ventas de Divisas.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.mto_lim_sob_venta
+  is 'Monto Límite de Sobre Venta para determinar si se excedió el límite de Ventas cuando el Total de Operaciones de Ventas de Divisas sean superiores al de las Operaciones de Compras de Divisas.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.fec_ini_vigencia
+  is 'Fecha de Inicio de Vigencia del Valor de los Montos Límites de Sobre Compra y Sobre Venta.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.fec_fin_vigencia
+  is 'Fecha de Finalización de Vigencia del Valor de los Montos Límites de Sobre Compra y Sobre Venta.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.mto_pat_efectivo
+  is 'Monto del  Patrimonio Efectivo.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.por_sob_compra
+  is 'Porcentaje de Sobre Compra sobre el Patrimonio Efectivo.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.por_sob_venta
+  is 'Porcentaje de Sobre Venta sobre el Patrimonio Efectivo.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.lim_sob_com_diario
+  is 'Límites de Sobre Compra Diario en Dólares.';
+comment on column IT.LC_PAR_LIM_POS_CAMBIOS.lim_sob_vta_diario
+  is 'Límites de Sobre Venta Diario en Dólares.';
+alter table IT.LC_PAR_LIM_POS_CAMBIOS
+  add constraint PK_LC_PAR_LIM_POS_CAMBIOS primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

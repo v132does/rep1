@@ -1,0 +1,47 @@
+create table IT.GE_SET_IMPUESTOS
+(
+  cod_impuesto     VARCHAR2(5) not null,
+  obligacion       VARCHAR2(100) not null,
+  sigla            VARCHAR2(50),
+  cod_cuenta       VARCHAR2(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SET_IMPUESTOS
+  is 'Almacena los codigos de impuestos de la SET';
+comment on column IT.GE_SET_IMPUESTOS.cod_impuesto
+  is 'Codigo del Impuesto. (211, 111, etc.)';
+comment on column IT.GE_SET_IMPUESTOS.obligacion
+  is 'Descripcion de la obligacion';
+comment on column IT.GE_SET_IMPUESTOS.sigla
+  is 'Sigla de la obligacion';
+comment on column IT.GE_SET_IMPUESTOS.cod_cuenta
+  is '460: Tributos determinativos o resolutivos, 432: Instrumentos de control, 450: Penalidades aplicadas a la entidad';
+alter table IT.GE_SET_IMPUESTOS
+  add constraint PK_GE_SET_IMPUESTOS primary key (COD_IMPUESTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,29 @@
+create table IT.GE_SAL_ACT_VTA_CARTERA_TMP
+(
+  nro_cuenta   VARCHAR2(15) not null,
+  fec_venta    DATE not null,
+  can_dia_mora NUMBER(5),
+  saldo        NUMBER(20,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SAL_ACT_VTA_CARTERA_TMP
+  is 'Saldo Actualizado de Venta de Cartera.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA_TMP.fec_venta
+  is 'Fecha de venta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA_TMP.can_dia_mora
+  is 'Días de Mora de la Cuenta.';
+comment on column IT.GE_SAL_ACT_VTA_CARTERA_TMP.saldo
+  is 'Saldo de la cuenta.';
+

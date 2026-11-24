@@ -1,0 +1,95 @@
+BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO := 1; END; 
+/
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN8', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN7', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN6', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN5', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN4', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN3', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN2', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN1', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHIN9', 'Usuario TCASHIN', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT8', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT7', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT6', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT5', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT4', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT3', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT2', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT1', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCASHOUT9', 'Usuario TCASHOUT', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI8', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI7', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI6', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI5', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI4', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI3', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI2', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI1', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+insert into ba_usuarios (COD_USUARIO, NOMBRE, COD_OFICINA, COD_AREA, CATEGORIA, OFICIAL, VER_CTA_EMPLEADOS, PROMOTOR, ATN_PUBLICO, COD_PERSONA, FEC_INGRESO, CARGO, TELEFONO, NRO_INTERNO, DIR_CORREO, GRU_AGENDA, FEC_EXP_CLAVE, COD_BANCA, ESTADO, COD_USU_SUPERVISOR, VER_CLI_CONFIDENCIAL, COD_UNIDAD)
+values ('TCOMPMI9', 'Usuario TCOMPMI', 61, 1, 'US', 'S', 'N', 'N', 'N', null, to_date(sysdate, 'dd-mm-yyyy'), null, null, null, null, null, null, null, 'A', null, 'N', null);
+
+
+commit;

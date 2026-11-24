@@ -1,0 +1,62 @@
+create table IT.GE_INF_SEMESTRAL_DET
+(
+  semestre           VARCHAR2(1) not null,
+  ano                VARCHAR2(4) not null,
+  cod_persona        VARCHAR2(10) not null,
+  nro_item           NUMBER(18) not null,
+  cantidad           NUMBER(10),
+  descripcion        VARCHAR2(100),
+  precio             NUMBER(18,2),
+  mto_exento         NUMBER(18,2),
+  mto_gra_5          NUMBER(18,2),
+  mto_gra_10         NUMBER(18,2),
+  nro_factura        VARCHAR2(20),
+  nro_timbrado       VARCHAR2(20),
+  nro_documento      NUMBER(15),
+  nro_cuenta         VARCHAR2(15),
+  fecha              DATE,
+  tip_comprobante    VARCHAR2(1),
+  nro_fac_referencia VARCHAR2(50),
+  cod_transaccion    VARCHAR2(4),
+  cod_modulo         VARCHAR2(3),
+  cod_modalidad      VARCHAR2(3),
+  ind_interes        VARCHAR2(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GINFD_COD_PERSONA on IT.GE_INF_SEMESTRAL_DET (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_INF_SEMESTRAL_DET
+  add constraint PK_GE_INF_SEMESTRAL_DET primary key (SEMESTRE, ANO, COD_PERSONA, NRO_ITEM)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

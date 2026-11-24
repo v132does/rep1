@@ -1,0 +1,91 @@
+create table IT.MD_APPLICATIONFILES
+(
+  id                 NUMBER not null,
+  applications_id_fk NUMBER not null,
+  name               VARCHAR2(200) not null,
+  uri                VARCHAR2(4000) not null,
+  type               VARCHAR2(100) not null,
+  state              VARCHAR2(100) not null,
+  language           VARCHAR2(100),
+  loc                NUMBER,
+  security_group_id  NUMBER default 0 not null,
+  created_on         DATE default sysdate not null,
+  created_by         VARCHAR2(4000),
+  updated_on         DATE,
+  updated_by         VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_APPLICATIONFILES
+  is 'Holds a tuple for each file that is being processed whether it is changed or not.';
+comment on column IT.MD_APPLICATIONFILES.name
+  is 'file name  //OBJECTNAME';
+comment on column IT.MD_APPLICATIONFILES.uri
+  is 'The uri is the part of the file url after the base dir has been removed.  See MD_APPLICATION for base dir';
+comment on column IT.MD_APPLICATIONFILES.type
+  is 'This will denote the type of file we have, including DIR, FILE (text), BINARY, IGNORE (where we choose to ignore files)';
+comment on column IT.MD_APPLICATIONFILES.state
+  is 'State will be how this file is operated on.  For example. it will be OPEN, NEW, FIXED, IGNORED, REVIEWED, COMPLETE';
+comment on column IT.MD_APPLICATIONFILES.language
+  is 'Language of the file that has been processed.';
+comment on column IT.MD_APPLICATIONFILES.security_group_id
+  is 'APEX';
+comment on column IT.MD_APPLICATIONFILES.created_on
+  is 'APEX';
+comment on column IT.MD_APPLICATIONFILES.created_by
+  is 'APEX';
+comment on column IT.MD_APPLICATIONFILES.updated_on
+  is 'APEX';
+comment on column IT.MD_APPLICATIONFILES.updated_by
+  is 'APEX';
+create index IT.MD_APP_FILE_TYPE_IDX on IT.MD_APPLICATIONFILES (TYPE, ID)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MD_STATE_TYPE__ID on IT.MD_APPLICATIONFILES (STATE, TYPE, ID)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_APPLICATIONFILES
+  add constraint MD_APPLICATIONFILES_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_APPLICATIONFILES
+  add constraint MD_FILE_APP_FK foreign key (APPLICATIONS_ID_FK)
+  references IT.MD_APPLICATIONS (ID) on delete cascade;
+

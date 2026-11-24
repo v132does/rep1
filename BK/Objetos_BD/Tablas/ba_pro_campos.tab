@@ -1,0 +1,73 @@
+create table IT.BA_PRO_CAMPOS
+(
+  cod_programa     VARCHAR2(30) not null,
+  cod_campo        VARCHAR2(100) not null,
+  referencia       VARCHAR2(100),
+  val_defecto      VARCHAR2(1000) not null,
+  observacion      VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PRO_CAMPOS
+  is 'Valores por Defecto de Campos por Programas.';
+comment on column IT.BA_PRO_CAMPOS.cod_programa
+  is 'Codigo del Programa.';
+comment on column IT.BA_PRO_CAMPOS.cod_campo
+  is 'Codigo o Nombre del Campo en el Programa. Se arma: nombre de bloque.campo.';
+comment on column IT.BA_PRO_CAMPOS.referencia
+  is 'Referencia o Condicion.';
+comment on column IT.BA_PRO_CAMPOS.val_defecto
+  is 'Valor por defecto del Campo. Si es funcion o procedimiento indicar tambien los parametros.';
+comment on column IT.BA_PRO_CAMPOS.observacion
+  is 'Observacion.';
+comment on column IT.BA_PRO_CAMPOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.BA_PRO_CAMPOS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.BA_PRO_CAMPOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.BA_PRO_CAMPOS.fec_modificacion
+  is 'Fecha de Modificacion.';
+create index IT.IN_EPCAM_COD_CAMPO on IT.BA_PRO_CAMPOS (COD_CAMPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PRO_CAMPOS
+  add constraint PK_BA_PRO_CAMPOS primary key (COD_PROGRAMA, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PRO_CAMPOS
+  add constraint FK_EPCAM_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+

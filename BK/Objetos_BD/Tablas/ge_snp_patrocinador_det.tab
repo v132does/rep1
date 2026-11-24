@@ -1,0 +1,43 @@
+create table IT.GE_SNP_PATROCINADOR_DET
+(
+  cod_swift_padre  VARCHAR2(20) not null,
+  cod_persona      VARCHAR2(10) not null,
+  subparticipante  VARCHAR2(40) not null,
+  cod_swift_sub    VARCHAR2(20) not null,
+  cta_interna_sub  VARCHAR2(20) not null,
+  estado           VARCHAR2(1) default 'S' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_PATROCINADOR_DET
+  is 'Tabla Detalle de Subparticipantes - SIPAP';
+comment on column IT.GE_SNP_PATROCINADOR_DET.cod_swift_padre
+  is 'Bic del Patrocinador(Participante Directo - PD)';
+comment on column IT.GE_SNP_PATROCINADOR_DET.cod_persona
+  is 'Codigo de ba_personas del subparticipante';
+comment on column IT.GE_SNP_PATROCINADOR_DET.subparticipante
+  is 'Nombre del subparticipante';
+comment on column IT.GE_SNP_PATROCINADOR_DET.cod_swift_sub
+  is 'Bic del subparticipante(Subparticipante - SP)';
+comment on column IT.GE_SNP_PATROCINADOR_DET.usu_insercion
+  is 'Usuario que inserta el registro';
+comment on column IT.GE_SNP_PATROCINADOR_DET.fec_insercion
+  is 'Fecha que se inserto el registro';
+comment on column IT.GE_SNP_PATROCINADOR_DET.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_SNP_PATROCINADOR_DET.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+

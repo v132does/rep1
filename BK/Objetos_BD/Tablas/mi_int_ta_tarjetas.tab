@@ -1,0 +1,41 @@
+create table IT.MI_INT_TA_TARJETAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_tarjeta      VARCHAR2(25) not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_estado       NUMBER(2) not null,
+  fec_vencimiento  DATE not null,
+  cod_causa        NUMBER(3),
+  nom_embozar      VARCHAR2(26),
+  nom_enviar       VARCHAR2(26),
+  vigente          VARCHAR2(1) not null,
+  fec_emision      DATE not null,
+  fec_solicitud    DATE,
+  tip_envio        VARCHAR2(1),
+  referencia       VARCHAR2(35),
+  nro_planilla     NUMBER(8),
+  tip_planilla     NUMBER(2),
+  nro_pla_anterior NUMBER(8),
+  fec_entrega      DATE,
+  fec_activacion   DATE,
+  observacion      VARCHAR2(200),
+  pre_embozada     VARCHAR2(1),
+  rel_tarjeta      NUMBER(1),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  fec_proceso      DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

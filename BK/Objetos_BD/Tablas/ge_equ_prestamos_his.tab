@@ -1,0 +1,130 @@
+create table IT.GE_EQU_PRESTAMOS_HIS
+(
+  fecha              DATE,
+  nro_secuencia      NUMBER,
+  cod_modulo         VARCHAR2(3),
+  cod_modalidad      VARCHAR2(3),
+  nro_cuenta         VARCHAR2(15),
+  tip_prestamo       VARCHAR2(3),
+  cod_moneda         VARCHAR2(3),
+  mto_capital        VARCHAR2(16),
+  tot_cuotas         VARCHAR2(9),
+  per_pago           VARCHAR2(1),
+  fec_otorgado       VARCHAR2(8),
+  ide_prestamo       VARCHAR2(20),
+  comp_mes           VARCHAR2(16),
+  sal_total          VARCHAR2(16),
+  refuerzos          VARCHAR2(16),
+  can_cuo_pendientes VARCHAR2(9),
+  cuo_mes            VARCHAR2(16),
+  sal_vencido        VARCHAR2(16),
+  cam_auxiliar_1     VARCHAR2(16),
+  cam_auxiliar_2     VARCHAR2(16),
+  cam_auxiliar_3     VARCHAR2(16),
+  cam_auxiliar_4     VARCHAR2(16),
+  cam_auxiliar_5     VARCHAR2(16),
+  cam_auxiliar_6     VARCHAR2(16),
+  cam_auxiliar_7     VARCHAR2(16),
+  cam_auxiliar_8     VARCHAR2(16),
+  cam_auxiliar_9     VARCHAR2(16),
+  cam_auxiliar_10    VARCHAR2(16),
+  cam_auxiliar_11    VARCHAR2(16),
+  cam_auxiliar_12    VARCHAR2(16),
+  fec_cancelacion    DATE,
+  fec_inicio         DATE,
+  tip_proceso        VARCHAR2(1),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EQU_PRESTAMOS_HIS
+  is 'Es la tabla donde se generan los datos de los productos de las Altas de Personas Físicas a enviar a Equifax Mensualmente.';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.fecha
+  is 'Fecha en que es ejecutado el proceso.';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.nro_secuencia
+  is 'Identificador único de cada registro generado';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cod_modulo
+  is 'Módulo del Producto';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cod_modalidad
+  is 'Modalidad del Producto';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.nro_cuenta
+  is 'Número del Producto';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.tip_prestamo
+  is 'Indica el tipo de préstamo otorgado';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cod_moneda
+  is 'Moneda del Producto';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.mto_capital
+  is 'Capital original del préstamo. Capital solicitado.';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.tot_cuotas
+  is 'Total de cuotas en que se pactó el préstamo';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.per_pago
+  is 'Periodicidad de pago de cuotas del préstamo';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.fec_otorgado
+  is 'Fecha en que fue otorgado el préstamo';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.ide_prestamo
+  is 'Identificador del préstamo';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.comp_mes
+  is 'Monto de la cuota del mes + todo lo vencido';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.sal_total
+  is 'Es el saldo total de deuda a la fecha de la información. Lo vencido e impago + lo que resta por pagar';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.refuerzos
+  is 'Monto de refuerzo (pago adicional al compromiso del mes) realizado en el mes reportado.';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.can_cuo_pendientes
+  is 'Indica la cantidad de cuotas pendientes (atrasadas + a devengar). Si una cuota no está totalmente pagada, se considera como pendiente';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cuo_mes
+  is 'Monto de la cuota mensual';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.sal_vencido
+  is 'Es el monto vencido e impago, a la fecha de la información';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_1
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_2
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_3
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_4
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_5
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_6
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_7
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_8
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_9
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_10
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_11
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.cam_auxiliar_12
+  is 'Se pone para unificar la cantidad de campos de detalle con la tabla de Tarjetas. Posiblemenete sea utilizado en el futuro';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.fec_cancelacion
+  is 'Fecha de Cancelación de la Cuenta';
+comment on column IT.GE_EQU_PRESTAMOS_HIS.tip_proceso
+  is 'Tipo de Proceso (M-Manual / A-Automático)';
+create index IT.IN_EQUIFH_PP_SECUENCIA on IT.GE_EQU_PRESTAMOS_HIS (FECHA, NRO_SECUENCIA, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

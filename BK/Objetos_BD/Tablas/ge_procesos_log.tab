@@ -1,0 +1,68 @@
+create table IT.GE_PROCESOS_LOG
+(
+  fecha            DATE not null,
+  cod_proceso      NUMBER(3) not null,
+  nro_orden        NUMBER(3) not null,
+  hor_inicio       VARCHAR2(8),
+  hor_error        VARCHAR2(8),
+  error            VARCHAR2(1000),
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PROCESOS_LOG
+  is 'Log de Ejecucion de Procesos Detalles de Error.';
+comment on column IT.GE_PROCESOS_LOG.fecha
+  is 'Fecha de Ejecucion del Proceso.';
+comment on column IT.GE_PROCESOS_LOG.cod_proceso
+  is 'Codigo del proceso padre.';
+comment on column IT.GE_PROCESOS_LOG.nro_orden
+  is 'Numero de orden.';
+comment on column IT.GE_PROCESOS_LOG.hor_inicio
+  is 'Hora de inicio de ejecucion.';
+comment on column IT.GE_PROCESOS_LOG.hor_error
+  is 'Hora en que se produjo el error de ejecucion.';
+comment on column IT.GE_PROCESOS_LOG.error
+  is 'Descripcion del error que genero el proceso.';
+comment on column IT.GE_PROCESOS_LOG.cod_usuario
+  is 'Codigo  de usuario que ejecuto el proceso.';
+comment on column IT.GE_PROCESOS_LOG.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PROCESOS_LOG.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PROCESOS_LOG.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PROCESOS_LOG.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GPLOG_COD_PROCESO on IT.GE_PROCESOS_LOG (FECHA, COD_PROCESO, NRO_ORDEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PROCESOS_LOG
+  add constraint FK_GPLOG_COD_PROCESO foreign key (COD_PROCESO)
+  references IT.GE_PROCESOS (COD_PROCESO);
+alter table IT.GE_PROCESOS_LOG
+  add constraint FK_GPLOG_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

@@ -1,0 +1,378 @@
+﻿-- Create table
+create table IT.CB_DOC_ELEC_CAB
+(
+  id_documento     NUMBER(8) not null,
+  dinfoemi         VARCHAR2(2),
+  dinfofisc        VARCHAR2(3000),
+  itide            NUMBER(2),
+  ddestide         VARCHAR2(40),
+  dnumtim          NUMBER(8),
+  dest             VARCHAR2(3),
+  dpunexp          VARCHAR2(3),
+  dnumdoc          VARCHAR2(7),
+  dserienum        VARCHAR2(2),
+  dfeinit          DATE,
+  dfeemide         DATE,
+  itiptra          NUMBER(2),
+  ddestiptra       VARCHAR2(36),
+  itimp            NUMBER(1),
+  ddestimp         VARCHAR2(11),
+  cmoneope         VARCHAR2(3),
+  ddesmoneope      VARCHAR2(20),
+  dcondticam       NUMBER(1),
+  dticam           NUMBER(8,2),
+  icondant         NUMBER(1),
+  ddescondant      NUMBER(17),
+  inatrec          NUMBER(1),
+  itiope           NUMBER(1),
+  cpaisrec         VARCHAR2(3),
+  ddespaisre       VARCHAR2(20),
+  iticontrec       NUMBER(1),
+  drucrec          VARCHAR2(8),
+  ddvrec           NUMBER(1),
+  itipidrec        NUMBER(1),
+  ddtipidrec       VARCHAR2(41),
+  dnumidrec        VARCHAR2(20),
+  dnomrec          VARCHAR2(255),
+  dnomfanrec       VARCHAR2(255),
+  ddirrec          VARCHAR2(255),
+  dnumcasrec       NUMBER(6),
+  cdeprec          NUMBER(2),
+  ddesdeprec       VARCHAR2(16),
+  cdisrec          NUMBER(4),
+  ddesdisrec       VARCHAR2(30),
+  cciurec          NUMBER(6),
+  ddesciurec       VARCHAR2(30),
+  dtelrec          VARCHAR2(15),
+  dcelrec          VARCHAR2(20),
+  demailrec        VARCHAR2(100),
+  dcodcliente      VARCHAR2(15),
+  iindpres         NUMBER(8),
+  ddesindpres      VARCHAR2(50),
+  dfecemnr         DATE,
+  dmodcont         VARCHAR2(50),
+  dentcont         NUMBER(5),
+  danocont         NUMBER(2),
+  dseccont         NUMBER(7),
+  dfecodcont       DATE,
+  imotemi          NUMBER(2),
+  ddesmotemi       VARCHAR2(60),
+  dkmr             NUMBER(5),
+  dfecem           DATE,
+  icondope         NUMBER(2),
+  ddcondope        VARCHAR2(20),
+  icondcred        NUMBER(2),
+  ddcondcred       VARCHAR2(20),
+  dplazocre        VARCHAR2(50),
+  dcuotas          NUMBER(3),
+  dmonent          NUMBER(15,4),
+  dciclo           NUMBER(8),
+  dfecinic         DATE,
+  dfecfinc         DATE,
+  dvencpag         DATE,
+  dcontrato        NUMBER(10),
+  dsalant          NUMBER(14),
+  dsubexe          NUMBER(14,2),
+  dsubexo          NUMBER(14,2),
+  dsub5            NUMBER(14,2),
+  dsub10           NUMBER(14,2),
+  dtotope          NUMBER(14,2),
+  dtotdesc         NUMBER(14,2) default 0,
+  dtotdescglotem   NUMBER(14,2) default 0,
+  dtotantitem      NUMBER(14) default 0,
+  dtotant          NUMBER(14) default 0,
+  dporcdesctotal   NUMBER(14,2) default 0,
+  ddesctotal       NUMBER(14) default 0,
+  danticipo        NUMBER(14) default 0,
+  dredon           NUMBER(14) default 0,
+  dcomi            NUMBER(22,8),
+  dtotgralope      NUMBER(14,2),
+  diva5            NUMBER(14),
+  diva10           NUMBER(22,8),
+  dliqtotiva5      NUMBER(22,8),
+  dliqtotiva10     NUMBER(22,8),
+  divacomi         NUMBER(22,8),
+  dtotiva          NUMBER(22,8),
+  dbasegrav5       NUMBER(22,8),
+  dbasegrav10      NUMBER(22,8),
+  dtbasgraiva      NUMBER(22,8),
+  dtotalgs         NUMBER(20,4),
+  dcarqr           VARCHAR2(600),
+  dinfadic         VARCHAR2(3000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  est_fac          VARCHAR2(10),
+  cod_control      VARCHAR2(44),
+  sfn_observaciones VARCHAR2(4000),
+  coblafe     NUMBER(3),
+  ddesoblafe  VARCHAR2(65)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_DOC_ELEC_CAB
+  is 'Cabecera de la facturacion electronica.';
+-- Add comments to the columns 
+comment on column IT.CB_DOC_ELEC_CAB.id_documento
+  is 'ID';
+comment on column IT.CB_DOC_ELEC_CAB.dinfoemi
+  is 'Información de interés del emisor respecto al DE';
+comment on column IT.CB_DOC_ELEC_CAB.dinfofisc
+  is 'Información de interés del Fisco respecto al DE. ej nota de remision.';
+comment on column IT.CB_DOC_ELEC_CAB.itide
+  is 'Tipo de Documento Electrónico. 1= Factura Electronica segun M.T.';
+comment on column IT.CB_DOC_ELEC_CAB.ddestide
+  is 'Descripción del tipo de documento electrónico';
+comment on column IT.CB_DOC_ELEC_CAB.dnumtim
+  is 'Número del timbrado';
+comment on column IT.CB_DOC_ELEC_CAB.dest
+  is 'Establecimiento';
+comment on column IT.CB_DOC_ELEC_CAB.dpunexp
+  is 'Punto de expedición';
+comment on column IT.CB_DOC_ELEC_CAB.dnumdoc
+  is 'Número del documento';
+comment on column IT.CB_DOC_ELEC_CAB.dserienum
+  is '10 Serie del número de timbrado';
+comment on column IT.CB_DOC_ELEC_CAB.dfeinit
+  is 'Fecha inicio de vigencia del timbrado';
+comment on column IT.CB_DOC_ELEC_CAB.dfeemide
+  is 'Fecha y hora de emisión del DE';
+comment on column IT.CB_DOC_ELEC_CAB.itiptra
+  is 'Tipo de transacción';
+comment on column IT.CB_DOC_ELEC_CAB.ddestiptra
+  is 'Descripción del tipo de transacción';
+comment on column IT.CB_DOC_ELEC_CAB.itimp
+  is 'Tipo de impuesto afectado';
+comment on column IT.CB_DOC_ELEC_CAB.ddestimp
+  is 'Descripción del tipo de impuesto afectado';
+comment on column IT.CB_DOC_ELEC_CAB.cmoneope
+  is 'Moneda de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.ddesmoneope
+  is 'Descripción de la moneda de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.dcondticam
+  is 'Condición del tipo de cambio';
+comment on column IT.CB_DOC_ELEC_CAB.dticam
+  is '20 Tipo de cambio de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.icondant
+  is 'Condición del Anticipo';
+comment on column IT.CB_DOC_ELEC_CAB.ddescondant
+  is 'Descripción de la condición del Anticipo';
+comment on column IT.CB_DOC_ELEC_CAB.inatrec
+  is 'Naturaleza del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.itiope
+  is 'Tipo de operación';
+comment on column IT.CB_DOC_ELEC_CAB.cpaisrec
+  is 'Código de país del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.ddespaisre
+  is 'Descripción del país receptor';
+comment on column IT.CB_DOC_ELEC_CAB.iticontrec
+  is 'Tipo de contribuyente receptor';
+comment on column IT.CB_DOC_ELEC_CAB.drucrec
+  is 'RUC del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.ddvrec
+  is 'Dígito verificador del RUC del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.itipidrec
+  is '30 Tipo de documento de identidad del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.ddtipidrec
+  is 'Descripción del tipo de documento de identidad';
+comment on column IT.CB_DOC_ELEC_CAB.dnumidrec
+  is 'Número de documento de identidad';
+comment on column IT.CB_DOC_ELEC_CAB.dnomrec
+  is 'Nombre o razón social del receptor del DE';
+comment on column IT.CB_DOC_ELEC_CAB.dnomfanrec
+  is 'Nombre de fantasía';
+comment on column IT.CB_DOC_ELEC_CAB.ddirrec
+  is 'Dirección del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.dnumcasrec
+  is 'Número de casa del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.cdeprec
+  is 'Código del departamento del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.ddesdeprec
+  is 'Descripción del departamento del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.cdisrec
+  is 'Código del distrito del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.ddesdisrec
+  is '40 Descripción del distrito del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.cciurec
+  is 'Código de la ciudad del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.ddesciurec
+  is 'Descripción de la ciudad del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.dtelrec
+  is 'Número de teléfono del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.dcelrec
+  is 'Número de celular del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.demailrec
+  is 'Correo electrónico del receptor';
+comment on column IT.CB_DOC_ELEC_CAB.dcodcliente
+  is 'Código del cliente';
+comment on column IT.CB_DOC_ELEC_CAB.iindpres
+  is 'Indicador de presencia';
+comment on column IT.CB_DOC_ELEC_CAB.ddesindpres
+  is 'Descripción del indicador de presencia';
+comment on column IT.CB_DOC_ELEC_CAB.dfecemnr
+  is 'Fecha futura del traslado de mercadería';
+comment on column IT.CB_DOC_ELEC_CAB.dmodcont
+  is '50 Modalidad - Código emitido por la DNCP';
+comment on column IT.CB_DOC_ELEC_CAB.dentcont
+  is 'Entidad - Código emitido por la DNCP';
+comment on column IT.CB_DOC_ELEC_CAB.danocont
+  is 'Año - Código emitido por la DNCP';
+comment on column IT.CB_DOC_ELEC_CAB.dseccont
+  is 'Secuencia - emitido por la DNCP';
+comment on column IT.CB_DOC_ELEC_CAB.dfecodcont
+  is 'Fecha de emisión del código de contratación por la DNCP';
+comment on column IT.CB_DOC_ELEC_CAB.imotemi
+  is 'Motivo de emisión';
+comment on column IT.CB_DOC_ELEC_CAB.ddesmotemi
+  is 'Descripción del motivo de emisión';
+comment on column IT.CB_DOC_ELEC_CAB.dkmr
+  is 'Kilómetros estimados de recorrido';
+comment on column IT.CB_DOC_ELEC_CAB.dfecem
+  is 'Fecha futura de emisión de la factura';
+comment on column IT.CB_DOC_ELEC_CAB.icondope
+  is 'Condición de la operación 1= Contado 2= Crédito';
+comment on column IT.CB_DOC_ELEC_CAB.ddcondope
+  is '60 Descripción de la condición de operación';
+comment on column IT.CB_DOC_ELEC_CAB.icondcred
+  is 'Condición de la operación a crédito';
+comment on column IT.CB_DOC_ELEC_CAB.ddcondcred
+  is 'Descripción de la condición de la operación a crédito';
+comment on column IT.CB_DOC_ELEC_CAB.dplazocre
+  is 'Plazo del crédito';
+comment on column IT.CB_DOC_ELEC_CAB.dcuotas
+  is 'Cantidad de cuotas';
+comment on column IT.CB_DOC_ELEC_CAB.dmonent
+  is 'Monto de la entrega inicial';
+comment on column IT.CB_DOC_ELEC_CAB.dciclo
+  is 'Ciclo';
+comment on column IT.CB_DOC_ELEC_CAB.dfecinic
+  is 'Fecha de inicio de ciclo';
+comment on column IT.CB_DOC_ELEC_CAB.dfecfinc
+  is 'Fecha de fin de ciclo';
+comment on column IT.CB_DOC_ELEC_CAB.dvencpag
+  is 'Fecha de vencimiento para el pago';
+comment on column IT.CB_DOC_ELEC_CAB.dcontrato
+  is '70 Número de contrato';
+comment on column IT.CB_DOC_ELEC_CAB.dsalant
+  is 'Saldo anterior';
+comment on column IT.CB_DOC_ELEC_CAB.dsubexe
+  is 'Subtotal de la operación exenta';
+comment on column IT.CB_DOC_ELEC_CAB.dsubexo
+  is 'Subtotal de la operación exonerada';
+comment on column IT.CB_DOC_ELEC_CAB.dsub5
+  is 'Subtotal de la operación con IVA incluido a la tasa 5%(es total del iva 5)';
+comment on column IT.CB_DOC_ELEC_CAB.dsub10
+  is 'Subtotal de la operación con IVA incluido a la tasa 10% (es total del iva 10)';
+comment on column IT.CB_DOC_ELEC_CAB.dtotope
+  is 'Total Bruto de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.dtotdesc
+  is 'Total descuento particular por ítem';
+comment on column IT.CB_DOC_ELEC_CAB.dtotdescglotem
+  is 'Total descuento global por ítem';
+comment on column IT.CB_DOC_ELEC_CAB.dtotantitem
+  is 'Total Anticipo por ítem';
+comment on column IT.CB_DOC_ELEC_CAB.dtotant
+  is '80 Total Anticipo global por ítem';
+comment on column IT.CB_DOC_ELEC_CAB.dporcdesctotal
+  is 'Porcentaje de descuento global sobre total de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.ddesctotal
+  is 'Total Descuentos de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.danticipo
+  is 'Total Anticipos de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.dredon
+  is 'Redondeo de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.dcomi
+  is 'Comisión de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.dtotgralope
+  is 'Total Neto de la operación';
+comment on column IT.CB_DOC_ELEC_CAB.diva5
+  is 'Liquidación del IVA a la tasa del 5%';
+comment on column IT.CB_DOC_ELEC_CAB.diva10
+  is 'Liquidación del IVA a la tasa del 10%';
+comment on column IT.CB_DOC_ELEC_CAB.dliqtotiva5
+  is 'Liquidación total del IVA por redondeo a la tasa del 5%';
+comment on column IT.CB_DOC_ELEC_CAB.dliqtotiva10
+  is '90 Liquidación total del IVA por redondeo a la tasa del 10%';
+comment on column IT.CB_DOC_ELEC_CAB.divacomi
+  is 'Liquidación total del IVA de la comisión';
+comment on column IT.CB_DOC_ELEC_CAB.dtotiva
+  is 'Liquidación total del IVA';
+comment on column IT.CB_DOC_ELEC_CAB.dbasegrav5
+  is 'Total base gravada al 5%';
+comment on column IT.CB_DOC_ELEC_CAB.dbasegrav10
+  is 'Total base gravada al 10%';
+comment on column IT.CB_DOC_ELEC_CAB.dtbasgraiva
+  is 'Total de la base gravada de IVA';
+comment on column IT.CB_DOC_ELEC_CAB.dtotalgs
+  is 'Total general de la operación en Guaraníes';
+comment on column IT.CB_DOC_ELEC_CAB.dcarqr
+  is 'Caracteres correspondientes al código QR';
+comment on column IT.CB_DOC_ELEC_CAB.dinfadic
+  is 'Información adicional de interés para el emisor';
+comment on column IT.CB_DOC_ELEC_CAB.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_DOC_ELEC_CAB.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_DOC_ELEC_CAB.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_DOC_ELEC_CAB.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_DOC_ELEC_CAB.cod_control
+  is 'Código de Control de la Factura. Este campo se actualiza cuando el documento es aprobado por SIFEN.';
+comment on column IT.CB_DOC_ELEC_CAB.sfn_observaciones
+  is 'Código y descripción del rechazo de SIFEN. Este campo se actualiza cuando el documento es rechazado por SIFEN.';
+comment on column IT.CB_DOC_ELEC_CAB.coblafe
+  is 'Tipo de obligaciones.';
+comment on column IT.CB_DOC_ELEC_CAB.ddesoblafe
+  is 'Descripción de la obligación afectada.';
+-- Create/Recreate indexes 
+create index IT.IN_CBDCAB_DEST on IT.CB_DOC_ELEC_CAB (DEST||'-'||DPUNEXP||'-'||DNUMDOC, ITIDE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CBDCAB_DEST2 on IT.CB_DOC_ELEC_CAB (DEST||'-'||DPUNEXP||'-'||DNUMDOC, EST_FAC, ITIDE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_DOC_ELEC_CAB
+  add constraint PK_CB_DOC_ELEC_CAB primary key (ID_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

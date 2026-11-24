@@ -1,0 +1,86 @@
+create table IT.TA_SEG_VIDA_TMP
+(
+  cod_entidad         VARCHAR2(5),
+  fec_cierre          DATE,
+  tip_cierre          VARCHAR2(1),
+  clase               VARCHAR2(2),
+  afinidad            VARCHAR2(10),
+  nro_cuenta          VARCHAR2(15),
+  nro_tarjeta         VARCHAR2(16),
+  nom_usuario         VARCHAR2(120),
+  mes_ano_vencimiento VARCHAR2(6),
+  mes_ano_nacimiento  VARCHAR2(8),
+  edad                VARCHAR2(3),
+  saldo               NUMBER(18,2),
+  mto_seg_cliente     NUMBER(18,2),
+  mto_seg_entidad     NUMBER(18,2),
+  nro_documento       VARCHAR2(20),
+  mto_iva_seg_cliente NUMBER(18,2),
+  cod_moneda          NUMBER(3),
+  afecta              VARCHAR2(2),
+  motivo              VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SEG_VIDA_TMP
+  is 'Tabla Temporal de Movimientoes Seguros Cargos de Vida(Cierre).';
+comment on column IT.TA_SEG_VIDA_TMP.cod_entidad
+  is 'C�digo de Entidad. ';
+comment on column IT.TA_SEG_VIDA_TMP.fec_cierre
+  is 'Fecha de Cierre.';
+comment on column IT.TA_SEG_VIDA_TMP.tip_cierre
+  is 'Tipo de Cierre.';
+comment on column IT.TA_SEG_VIDA_TMP.clase
+  is 'C�digo de Clase.';
+comment on column IT.TA_SEG_VIDA_TMP.afinidad
+  is 'C�digo Afinidad.';
+comment on column IT.TA_SEG_VIDA_TMP.nro_cuenta
+  is 'N�mero de Cuenta.';
+comment on column IT.TA_SEG_VIDA_TMP.nro_tarjeta
+  is 'N�mero de Tarjeta.';
+comment on column IT.TA_SEG_VIDA_TMP.nom_usuario
+  is 'Nombre Usuario.';
+comment on column IT.TA_SEG_VIDA_TMP.mes_ano_vencimiento
+  is 'Vencimiento de Tarjeta.';
+comment on column IT.TA_SEG_VIDA_TMP.mes_ano_nacimiento
+  is 'Fecha de Nacimiento.';
+comment on column IT.TA_SEG_VIDA_TMP.edad
+  is 'Edad.';
+comment on column IT.TA_SEG_VIDA_TMP.saldo
+  is 'Saldo Cuenta.';
+comment on column IT.TA_SEG_VIDA_TMP.mto_seg_cliente
+  is 'Seguro para Usuario.';
+comment on column IT.TA_SEG_VIDA_TMP.mto_seg_entidad
+  is 'Seguro para Entidad.';
+comment on column IT.TA_SEG_VIDA_TMP.nro_documento
+  is 'N�mero de Documento.';
+comment on column IT.TA_SEG_VIDA_TMP.mto_iva_seg_cliente
+  is 'I.V.A para Usuario.';
+comment on column IT.TA_SEG_VIDA_TMP.cod_moneda
+  is 'C�digo de Moneda.';
+comment on column IT.TA_SEG_VIDA_TMP.afecta
+  is 'Se le realiza Si/No el cobro del seguro de vida. ';
+comment on column IT.TA_SEG_VIDA_TMP.motivo
+  is 'Motivo de la No afectaci�n del detalle.';
+create index IT.IN_TSEG_FEC_CIERRE on IT.TA_SEG_VIDA_TMP (FEC_CIERRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

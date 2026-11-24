@@ -1,0 +1,179 @@
+create table IT.RH_EMPLEADOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_per_empresa  VARCHAR2(10) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_cen_costo    NUMBER(3) not null,
+  tipo             VARCHAR2(1) default 'M' not null,
+  cargo            VARCHAR2(40),
+  titulo           VARCHAR2(40),
+  nro_baja         VARCHAR2(20),
+  nro_ips          NUMBER(11),
+  ind_jub_ips      VARCHAR2(1) default 'N' not null,
+  nro_caja         VARCHAR2(6),
+  sal_base         NUMBER(14,2) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cod_turno        NUMBER(3),
+  cod_cat_empleado NUMBER(3) not null,
+  cod_sal_minimo   NUMBER(3),
+  nro_cta_asociada VARCHAR2(15) not null,
+  nro_tarjeta      VARCHAR2(20),
+  fre_liquidacion  VARCHAR2(1) default 'M' not null,
+  fec_ingreso      DATE not null,
+  fec_egreso       DATE,
+  fec_fin_contrato DATE,
+  gru_sanguineo    VARCHAR2(4),
+  ind_seg_privado  VARCHAR2(1) default 'N',
+  cod_ent_seguro   NUMBER(5),
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_EMPLEADOS
+  is 'Empleados de la Empresa.';
+comment on column IT.RH_EMPLEADOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_EMPLEADOS.cod_per_empresa
+  is 'Codigo de la Empresa del Empleado.';
+comment on column IT.RH_EMPLEADOS.cod_oficina
+  is 'Codigo de la Oficina del Empleado.';
+comment on column IT.RH_EMPLEADOS.cod_cen_costo
+  is 'Codigo del Centro de Costo del Empleado.';
+comment on column IT.RH_EMPLEADOS.tipo
+  is 'Tipo de Empleado.';
+comment on column IT.RH_EMPLEADOS.cargo
+  is 'Cargo que ocupa dentro de la Empresa.';
+comment on column IT.RH_EMPLEADOS.titulo
+  is 'Titulo del Empleado.';
+comment on column IT.RH_EMPLEADOS.nro_baja
+  is 'Nro. de Baja.';
+comment on column IT.RH_EMPLEADOS.nro_ips
+  is 'Nro. de Patronal de IPS.';
+comment on column IT.RH_EMPLEADOS.ind_jub_ips
+  is 'Indica si el Empleado es jubilado de IPS o no.';
+comment on column IT.RH_EMPLEADOS.nro_caja
+  is 'Nro. de Padron en la Caja.';
+comment on column IT.RH_EMPLEADOS.sal_base
+  is 'Salario Base.';
+comment on column IT.RH_EMPLEADOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.RH_EMPLEADOS.cod_turno
+  is 'Codigo del Turno.';
+comment on column IT.RH_EMPLEADOS.cod_cat_empleado
+  is 'Codigo de Categoria del Empleado.';
+comment on column IT.RH_EMPLEADOS.cod_sal_minimo
+  is 'Codigo de Tipo de Salario Minimo.';
+comment on column IT.RH_EMPLEADOS.nro_cta_asociada
+  is 'Nro. de cuenta en la que se deposita el salario.';
+comment on column IT.RH_EMPLEADOS.nro_tarjeta
+  is 'Nro. de Tarjeta magnetica de entrada/salida.';
+comment on column IT.RH_EMPLEADOS.fre_liquidacion
+  is 'Frecuencia de Liquidacion.';
+comment on column IT.RH_EMPLEADOS.fec_ingreso
+  is 'Fecha de Ingreso a la Empresa.';
+comment on column IT.RH_EMPLEADOS.fec_egreso
+  is 'Fecha de Egreso de la Empresa.';
+comment on column IT.RH_EMPLEADOS.fec_fin_contrato
+  is 'Fecha fin del contrato en caso de que el contrato del Empleado sea por plazo.';
+comment on column IT.RH_EMPLEADOS.gru_sanguineo
+  is 'Grupo Sanguineo.';
+comment on column IT.RH_EMPLEADOS.ind_seg_privado
+  is 'Indica si posee Seguro Privado o no.';
+comment on column IT.RH_EMPLEADOS.cod_ent_seguro
+  is 'Codigo de Entidad del Seguro Medico.';
+comment on column IT.RH_EMPLEADOS.observacion
+  is 'Observacion.';
+comment on column IT.RH_EMPLEADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_EMPLEADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_EMPLEADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_EMPLEADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_EMPLEADOS
+  add constraint PK_RH_EMPLEADOS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_EMPLEADOS
+  add constraint UK_HEMPL_NRO_TARJETA unique (NRO_TARJETA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_CAT_EMPLEADO foreign key (COD_CAT_EMPLEADO)
+  references IT.RH_CAT_EMPLEADOS (COD_CAT_EMPLEADO);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_CEN_COSTO foreign key (COD_CEN_COSTO)
+  references IT.CB_CEN_COSTOS (COD_CEN_COSTO);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_PER_EMPRESA foreign key (COD_PER_EMPRESA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_SAL_MINIMO foreign key (COD_SAL_MINIMO)
+  references IT.RH_SAL_MINIMOS (COD_SAL_MINIMO);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_COD_TURNO foreign key (COD_TURNO)
+  references IT.RH_TURNOS (COD_TURNO);
+alter table IT.RH_EMPLEADOS
+  add constraint FK_HEMPL_NRO_CTA_ASOCIADA foreign key (NRO_CTA_ASOCIADA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.RH_EMPLEADOS
+  add constraint AVCON_1191539412_FRE_L_000
+  check (FRE_LIQUIDACION IN ('M', 'S', 'Q'));
+alter table IT.RH_EMPLEADOS
+  add constraint AVCON_1191539412_IND_J_000
+  check (IND_JUB_IPS IN ('S', 'N'));
+alter table IT.RH_EMPLEADOS
+  add constraint AVCON_1191539412_IND_S_000
+  check (IND_SEG_PRIVADO IN ('S', 'N'));
+alter table IT.RH_EMPLEADOS
+  add constraint AVCON_1191539412_TIPO_000
+  check (TIPO IN ('C', 'D', 'M', 'J', 'T'));
+alter table IT.RH_EMPLEADOS
+  add constraint CK_SEG_MEDICO
+  check (( IND_SEG_PRIVADO = 'S'
+AND COD_ENT_SEGURO IS NOT NULL) OR ( IND_SEG_PRIVADO = 'N'
+AND COD_ENT_SEGURO IS NULL));
+

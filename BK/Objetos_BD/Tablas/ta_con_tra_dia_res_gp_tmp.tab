@@ -1,0 +1,24 @@
+﻿-- Create table
+create table it.ta_con_tra_dia_res_gp_tmp
+(
+  tip_registro NUMBER(1),
+  fec_archivo  VARCHAR2(8),
+  can_sol_anu  NUMBER(20),
+  can_sol_apr  NUMBER(20),
+  can_sol_rec  NUMBER(20),
+  can_registro NUMBER(20),
+  filter       VARCHAR2(1855)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.TA_CON_TRA_DIA_RES_GP_TMP to IT_TEMPORAL;

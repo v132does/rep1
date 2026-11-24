@@ -1,0 +1,61 @@
+create table IT.CC_LIQ_SOBREGIROS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  fecha            DATE not null,
+  saldo            NUMBER(18,2) default 0 not null,
+  fec_liquidacion  DATE not null,
+  usu_insercion    VARCHAR2(15) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(15) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  can_dias         NUMBER(5) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_LIQ_SOBREGIROS
+  is 'Liquidacion de Sobregiros por Cuenta.';
+comment on column IT.CC_LIQ_SOBREGIROS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CC_LIQ_SOBREGIROS.fecha
+  is 'Fecha Inicial en que se produjo el sobregiro.';
+comment on column IT.CC_LIQ_SOBREGIROS.saldo
+  is 'Saldo de la cuenta en el momento del sobregiro.';
+comment on column IT.CC_LIQ_SOBREGIROS.fec_liquidacion
+  is 'Fecha de Liquidacion del Sobregiro.';
+comment on column IT.CC_LIQ_SOBREGIROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_LIQ_SOBREGIROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_LIQ_SOBREGIROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIQ_SOBREGIROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIQ_SOBREGIROS.can_dias
+  is 'Cantidad de Sobregiros.';
+alter table IT.CC_LIQ_SOBREGIROS
+  add constraint PK_CC_LIQ_SOBREGIROS primary key (NRO_CUENTA, FEC_LIQUIDACION, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_LIQ_SOBREGIROS
+  add constraint FK_GLSOB_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

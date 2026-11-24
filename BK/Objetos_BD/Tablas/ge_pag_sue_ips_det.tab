@@ -1,0 +1,125 @@
+create table IT.GE_PAG_SUE_IPS_DET
+(
+  nro_orden         NUMBER(10) not null,
+  nro_lote          NUMBER(10) not null,
+  nro_comprobante   NUMBER(15) not null,
+  nro_cta_jubilado  VARCHAR2(15) not null,
+  nro_doc_jubilado  VARCHAR2(20) not null,
+  nom_jubilado      VARCHAR2(120) not null,
+  importe           NUMBER(18,2) not null,
+  fe_vida           VARCHAR2(1) default 'N' not null,
+  estado            VARCHAR2(1) default 'I' not null,
+  comentarios       VARCHAR2(1000),
+  fec_acreditacion  DATE,
+  nro_com_duplicado VARCHAR2(1) default 'N' not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR (USER,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR (USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_SUE_IPS_DET.nro_orden
+  is 'Nro de orden del pago en el lote';
+comment on column IT.GE_PAG_SUE_IPS_DET.nro_lote
+  is 'FK del campo NRO_LOTE de la tabla GE_PAG_SUE_IPS';
+comment on column IT.GE_PAG_SUE_IPS_DET.nro_comprobante
+  is 'Nro. de comprobante de IPS asociado al pago de haberes al jubilado.';
+comment on column IT.GE_PAG_SUE_IPS_DET.nro_cta_jubilado
+  is 'Nro. de cuenta del jubilado.';
+comment on column IT.GE_PAG_SUE_IPS_DET.nro_doc_jubilado
+  is 'Nro. de Documento del jubilado.';
+comment on column IT.GE_PAG_SUE_IPS_DET.nom_jubilado
+  is 'Nombre del Jubilado.';
+comment on column IT.GE_PAG_SUE_IPS_DET.importe
+  is 'Importe del monto a acreditar al jubilado';
+comment on column IT.GE_PAG_SUE_IPS_DET.fe_vida
+  is 'S= Fe de Vida actualizada, se puede acreditar, N= Fe de vida no actualizada, no se puede acreditar.';
+comment on column IT.GE_PAG_SUE_IPS_DET.estado
+  is 'I=Insertado, P=Pendiente de Acreditación, A=Acreditado, E=Registro con error';
+comment on column IT.GE_PAG_SUE_IPS_DET.comentarios
+  is 'Comentarios sobre el registro de pagos.';
+comment on column IT.GE_PAG_SUE_IPS_DET.fec_acreditacion
+  is 'Fecha de Acreditacion de haberes al jubilado.';
+comment on column IT.GE_PAG_SUE_IPS_DET.nro_com_duplicado
+  is 'S=Comprobante duplicado, N=No es comprobante duplicado';
+comment on column IT.GE_PAG_SUE_IPS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAG_SUE_IPS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PAG_SUE_IPS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAG_SUE_IPS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+create index IT.IND_GE_PAG_SUE_IPS_DET_NRO_COM on IT.GE_PAG_SUE_IPS_DET (NRO_COMPROBANTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_PAG_SUE_IPS_DET_NRO_CTA on IT.GE_PAG_SUE_IPS_DET (NRO_CTA_JUBILADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_PAG_SUE_IPS_DET_NRO_DOC on IT.GE_PAG_SUE_IPS_DET (NRO_DOC_JUBILADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_SUE_IPS_DET
+  add constraint PK_GE_PAG_SUE_IPS_DET primary key (NRO_ORDEN, NRO_LOTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_SUE_IPS_DET
+  add constraint FK_GPSIPS_COD_GE_PAG_SUE_IPS foreign key (NRO_LOTE)
+  references IT.GE_PAG_SUE_IPS (NRO_LOTE);
+alter table IT.GE_PAG_SUE_IPS_DET
+  add constraint CK_NRO_COMPROB_DUPLICADO
+  check (NRO_COM_DUPLICADO IN ('S','N'));
+alter table IT.GE_PAG_SUE_IPS_DET
+  add constraint CK_VALIDAR_ESTADO_PAG_IPS
+  check (ESTADO IN ('I','P','A','E'));
+alter table IT.GE_PAG_SUE_IPS_DET
+  add constraint CK_VALIDAR_FE_VIDA
+  check (FE_VIDA IN ('S','N'));
+

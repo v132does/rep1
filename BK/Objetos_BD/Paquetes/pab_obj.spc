@@ -1,0 +1,67 @@
+CREATE OR REPLACE PACKAGE IT.PAB_OBJ AS
+    /**
+     * Inserta un nuevo registro en la bitácora de objetos.
+     */
+    PROCEDURE P_INSERTAR (
+        P_NRO_JIRA           IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_JIRA%TYPE,
+        P_NRO_ITEM           IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_ITEM%TYPE,
+        P_NOM_OBJETO         IN IT.BA_LOG_OBJ_MODIFICADOS.NOM_OBJETO%TYPE,
+        P_USU_IMPLEMENTACION IN IT.BA_LOG_OBJ_MODIFICADOS.USU_IMPLEMENTACION%TYPE,
+        P_FEC_IMPLEMENTACION IN IT.BA_LOG_OBJ_MODIFICADOS.FEC_IMPLEMENTACION%TYPE,
+        P_HOR_IMPLEMENTACION IN IT.BA_LOG_OBJ_MODIFICADOS.HOR_IMPLEMENTACION%TYPE
+    );
+    /**
+     * Actualiza un registro existente, identificado por su llave primaria (JIRA + ITEM).
+     */
+    PROCEDURE P_ACTUALIZAR (
+        P_NRO_JIRA           IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_JIRA%TYPE,
+        P_NRO_ITEM           IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_ITEM%TYPE,
+        P_NOM_OBJETO         IN IT.BA_LOG_OBJ_MODIFICADOS.NOM_OBJETO%TYPE,
+        P_USU_IMPLEMENTACION IN IT.BA_LOG_OBJ_MODIFICADOS.USU_IMPLEMENTACION%TYPE,
+        P_FEC_IMPLEMENTACION IN IT.BA_LOG_OBJ_MODIFICADOS.FEC_IMPLEMENTACION%TYPE,
+        P_HOR_IMPLEMENTACION IN IT.BA_LOG_OBJ_MODIFICADOS.HOR_IMPLEMENTACION%TYPE
+    );
+    /**
+     * Elimina un registro de la bitácora, identificado por su llave primaria (JIRA + ITEM).
+     */
+    PROCEDURE P_ELIMINAR (
+        P_NRO_JIRA           IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_JIRA%TYPE,
+        P_NRO_ITEM           IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_ITEM%TYPE
+    );
+    /**
+     * Consulta (SELECT) que devuelve todos los objetos asociados a un número de JIRA.
+     */
+    PROCEDURE P_CONSULTAR_POR_JIRA (
+        P_NRO_JIRA        IN IT.BA_LOG_OBJ_MODIFICADOS.NRO_JIRA%TYPE,
+        P_RESULTADOS_RC   OUT SYS_REFCURSOR
+    );
+    
+    /**
+     * Consulta (SELECT) que devuelve un único registro basado en su llave primaria (JIRA + ITEM).
+     */
+    PROCEDURE P_CONSULTAR_POR_PK (
+        P_NRO_JIRA           IN  IT.BA_LOG_OBJ_MODIFICADOS.NRO_JIRA%TYPE,
+        P_NRO_ITEM           IN  IT.BA_LOG_OBJ_MODIFICADOS.NRO_ITEM%TYPE,
+        P_NOM_OBJETO         OUT IT.BA_LOG_OBJ_MODIFICADOS.NOM_OBJETO%TYPE,
+        P_USU_IMPLEMENTACION OUT IT.BA_LOG_OBJ_MODIFICADOS.USU_IMPLEMENTACION%TYPE,
+        P_FEC_IMPLEMENTACION OUT IT.BA_LOG_OBJ_MODIFICADOS.FEC_IMPLEMENTACION%TYPE,
+        P_HOR_IMPLEMENTACION OUT IT.BA_LOG_OBJ_MODIFICADOS.HOR_IMPLEMENTACION%TYPE
+    );
+
+    /**
+     * (NUEVO) Consulta (SELECT) dinámica que devuelve registros basados en un criterio.
+     * P_TIPO_CONSULTA: 'JIRA', 'OBJETO', 'USUARIO' o 'PK'.
+     * P_VALOR_BUSQUEDA: El valor a buscar.
+     * - Si TIPO = 'PK', P_VALOR_BUSQUEDA debe tener el formato "NRO_JIRA,NRO_ITEM".
+     * P_RESULTADO_RC: Cursor de referencia (set de resultados).
+     */
+    PROCEDURE P_CONSULTAR_POR_PARAMETRO (
+        P_TIPO_CONSULTA   IN VARCHAR2,
+        P_VALOR_BUSQUEDA  IN VARCHAR2,
+        P_RESULTADO_RC    OUT SYS_REFCURSOR
+    );
+
+END PAB_OBJ;
+
+
+

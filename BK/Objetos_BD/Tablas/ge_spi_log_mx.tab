@@ -1,0 +1,52 @@
+create table IT.GE_SPI_LOG_MX
+(
+  id_log         NUMBER not null,
+  cod_programa   VARCHAR2(50),
+  parametros     VARCHAR2(400),
+  valor          VARCHAR2(4000),
+  tipo           VARCHAR2(1),
+  cam_referencia VARCHAR2(20),
+  nro_referencia VARCHAR2(60),
+  usu_insercion  VARCHAR2(20) default USER,
+  fec_insercion  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SPI_LOG_MX.id_log
+  is 'Id generado automaricamente';
+comment on column IT.GE_SPI_LOG_MX.cod_programa
+  is 'Programa que invoca ';
+comment on column IT.GE_SPI_LOG_MX.parametros
+  is 'Parametros concatenados entre ;';
+comment on column IT.GE_SPI_LOG_MX.valor
+  is 'Valores de los parametros concatenados';
+comment on column IT.GE_SPI_LOG_MX.tipo
+  is 'I(Entrada) O(Salida)';
+comment on column IT.GE_SPI_LOG_MX.cam_referencia
+  is 'Campo de referencia';
+comment on column IT.GE_SPI_LOG_MX.nro_referencia
+  is 'Valor del campo de referencia';
+alter table IT.GE_SPI_LOG_MX
+  add constraint PK_GE_SPI_LOG_MX primary key (ID_LOG)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

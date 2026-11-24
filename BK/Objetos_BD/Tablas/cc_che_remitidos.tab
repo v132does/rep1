@@ -1,0 +1,117 @@
+-- Create table
+create table IT.CC_CHE_REMITIDOS
+(
+  fecha              DATE not null,
+  cod_oficina        NUMBER(3) not null,
+  nro_caja           NUMBER(3),
+  nro_lote           NUMBER(4),
+  tip_dato           NUMBER(3),
+  cod_banco          NUMBER(3),
+  nro_cuenta         VARCHAR2(15),
+  nro_cheque         NUMBER(15) not null,
+  monto              NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  cod_cau_devolucion NUMBER(3),
+  cod_ofi_origen     NUMBER(3),
+  dev_com_directa    VARCHAR2(1),
+  fec_giro           DATE,
+  nro_lectora        NUMBER(5),
+  usu_captura        VARCHAR2(10),
+  cod_bandacm7       VARCHAR2(30),
+  retencion          VARCHAR2(2) default '24' not null,
+  nro_registro       NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CC_CHE_REMITIDOS
+  is 'Datos de los Cheques Remitidos.';
+-- Add comments to the columns 
+comment on column IT.CC_CHE_REMITIDOS.fecha
+  is 'Fecha.';
+comment on column IT.CC_CHE_REMITIDOS.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CC_CHE_REMITIDOS.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CC_CHE_REMITIDOS.nro_lote
+  is 'Numero de Lote.';
+comment on column IT.CC_CHE_REMITIDOS.tip_dato
+  is 'Tipo de Dato.';
+comment on column IT.CC_CHE_REMITIDOS.cod_banco
+  is 'Codigo de Banco.';
+comment on column IT.CC_CHE_REMITIDOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CHE_REMITIDOS.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_REMITIDOS.monto
+  is 'Valor del Cheque.';
+comment on column IT.CC_CHE_REMITIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_REMITIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_REMITIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_REMITIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_REMITIDOS.cod_cau_devolucion
+  is 'Codigo de Causa de Devolucion.';
+comment on column IT.CC_CHE_REMITIDOS.cod_ofi_origen
+  is 'Oficina Origen del Cheque.';
+comment on column IT.CC_CHE_REMITIDOS.dev_com_directa
+  is 'Devuelto por Compensacion Directa.';
+comment on column IT.CC_CHE_REMITIDOS.fec_giro
+  is 'Fecha de Giro.';
+comment on column IT.CC_CHE_REMITIDOS.nro_lectora
+  is 'Numero de Lectora(Panini).';
+comment on column IT.CC_CHE_REMITIDOS.usu_captura
+  is 'Usuario de Captura.';
+comment on column IT.CC_CHE_REMITIDOS.cod_bandacm7
+  is 'BANDA CMC7.';
+comment on column IT.CC_CHE_REMITIDOS.retencion
+  is 'Retencion(00, 24, 48).';
+comment on column IT.CC_CHE_REMITIDOS.nro_registro
+  is 'Nro. Registro.';
+-- Create/Recreate indexes 
+create index IT.IN_BCO_CHEQUE on IT.CC_CHE_REMITIDOS (FECHA, COD_OFICINA, COD_BANCO, NRO_CHEQUE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_NRO_CHEQUE on IT.CC_CHE_REMITIDOS (NRO_CHEQUE, COD_BANCO, MONTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CC_CHE_REMITIDOS
+  add constraint FK_CCREM_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CHE_REMITIDOS
+  add constraint FK_CCREM_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);

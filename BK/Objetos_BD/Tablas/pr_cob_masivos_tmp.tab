@@ -1,0 +1,29 @@
+create table IT.PR_COB_MASIVOS_TMP
+(
+  nro_cuenta  VARCHAR2(20) not null,
+  nro_cuota   NUMBER(3),
+  mto_interes NUMBER(18,2),
+  mto_capital NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_COB_MASIVOS_TMP
+  is 'Tabla temporal para ingresar pagos y descuentos masivos';
+comment on column IT.PR_COB_MASIVOS_TMP.nro_cuenta
+  is 'Número o cuenta de préstamo';
+comment on column IT.PR_COB_MASIVOS_TMP.nro_cuota
+  is 'Número de cuota del préstamo';
+comment on column IT.PR_COB_MASIVOS_TMP.mto_interes
+  is 'Monto del interés';
+comment on column IT.PR_COB_MASIVOS_TMP.mto_capital
+  is 'Monto del capital';
+

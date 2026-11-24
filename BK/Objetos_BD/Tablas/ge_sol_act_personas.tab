@@ -1,0 +1,118 @@
+create table IT.GE_SOL_ACT_PERSONAS
+(
+  nro_solicitud     NUMBER(15) not null,
+  cod_persona       VARCHAR2(10) not null,
+  tipo              VARCHAR2(1) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nro_documento     VARCHAR2(20) not null,
+  fec_vto_documento DATE,
+  cod_pai_documento NUMBER(3),
+  dir_correo        VARCHAR2(80),
+  pri_nombre        VARCHAR2(30),
+  pri_apellido      VARCHAR2(30),
+  seg_nombre        VARCHAR2(30),
+  seg_apellido      VARCHAR2(30),
+  fec_nacimiento    DATE,
+  raz_social        VARCHAR2(120),
+  nom_comercial     VARCHAR2(65),
+  fec_apertura      DATE,
+  naturaleza        VARCHAR2(20),
+  tip_modificacion  VARCHAR2(1) default 'N' not null,
+  det_modificacion  CLOB,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  est_civil         VARCHAR2(1) default 'S'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_ACT_PERSONAS
+  is 'Solicitud de actualización de datos Personales. ';
+comment on column IT.GE_SOL_ACT_PERSONAS.nro_solicitud
+  is 'Número de Solicitud';
+comment on column IT.GE_SOL_ACT_PERSONAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_SOL_ACT_PERSONAS.tipo
+  is 'Tipo de Persona (F=Fisica, J=Juridica).';
+comment on column IT.GE_SOL_ACT_PERSONAS.cod_tip_documento
+  is 'Tipo de Documento';
+comment on column IT.GE_SOL_ACT_PERSONAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.GE_SOL_ACT_PERSONAS.fec_vto_documento
+  is 'Vencimiento del Documento.';
+comment on column IT.GE_SOL_ACT_PERSONAS.cod_pai_documento
+  is 'Código de País del Documento. - PF';
+comment on column IT.GE_SOL_ACT_PERSONAS.dir_correo
+  is 'Direccion de Mail.';
+comment on column IT.GE_SOL_ACT_PERSONAS.pri_nombre
+  is 'Primer Nombre - PF';
+comment on column IT.GE_SOL_ACT_PERSONAS.pri_apellido
+  is 'Primer Apellido - PF';
+comment on column IT.GE_SOL_ACT_PERSONAS.seg_nombre
+  is 'Segundo Nombre - PF';
+comment on column IT.GE_SOL_ACT_PERSONAS.seg_apellido
+  is 'Segundo Apellido - PF';
+comment on column IT.GE_SOL_ACT_PERSONAS.fec_nacimiento
+  is 'Fecha de Nacimiento de la Persona- PF';
+comment on column IT.GE_SOL_ACT_PERSONAS.raz_social
+  is 'Razon Social - PJ';
+comment on column IT.GE_SOL_ACT_PERSONAS.nom_comercial
+  is 'Nombre Comercial - PJ';
+comment on column IT.GE_SOL_ACT_PERSONAS.fec_apertura
+  is 'Fecha de Apertura de la Empresa o Negocio - PJ';
+comment on column IT.GE_SOL_ACT_PERSONAS.naturaleza
+  is 'Tipo de Sociedad - PJ';
+comment on column IT.GE_SOL_ACT_PERSONAS.tip_modificacion
+  is 'I=Insercion; M=Modificacion; E; Eliminacion; N=iNsercion iNicial';
+comment on column IT.GE_SOL_ACT_PERSONAS.det_modificacion
+  is 'Detalle del cambio realizado';
+comment on column IT.GE_SOL_ACT_PERSONAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_ACT_PERSONAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_ACT_PERSONAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ACT_PERSONAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ACT_PERSONAS.est_civil
+  is 'Estado Civil.';
+create index IT.IND_GSAP_PERSONAS on IT.GE_SOL_ACT_PERSONAS (TO_NUMBER(COD_PERSONA))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ACT_PERSONAS
+  add constraint PK_GE_SOL_ACT_PERSONAS primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_ACT_PERSONAS
+  add constraint FK_GSAP_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOL_ACT_DATOS (NRO_SOLICITUD);
+

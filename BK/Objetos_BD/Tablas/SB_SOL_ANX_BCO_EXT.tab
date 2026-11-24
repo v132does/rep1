@@ -1,0 +1,52 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_ANX_BCO_EXT
+-- Descripción: Resultados del anexo Banco del Exterior
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_ANX_BCO_EXT (
+    ID                    NUMBER,
+    FECHA                 DATE,
+    COD_RUBRO             VARCHAR2(40 BYTE),
+    DESCRIPCION           VARCHAR2(100 BYTE),
+    COD_MONEDA            VARCHAR2(30 BYTE),
+    COTIZACION            NUMBER,
+    PAIS                  VARCHAR2(100 BYTE),
+    CIUDAD                VARCHAR2(100 BYTE),
+    MONTO_ORIGINAL        NUMBER,
+    EQUIVALENTE           NUMBER,
+    TOTAL_GUARANIES       NUMBER,
+    FUENTE_DATOS          VARCHAR2(100 BYTE),
+    FECHA_CREACION        TIMESTAMP(6)        DEFAULT SYSTIMESTAMP NOT NULL,
+    FECHA_ACTUALIZACION   TIMESTAMP(6)        DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.SB_SOL_ANX_BCO_EXT IS 'Resultados del anexo de bancos del exterior para el informe de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.ID IS 'Identificador unico del registro';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.FECHA IS 'Fecha de corte del calculo';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.COD_RUBRO IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.DESCRIPCION IS 'Descripcion del rubro';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.COD_MONEDA IS 'Codigo de moneda (ISO 4217)';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.COTIZACION IS 'Cotizacion de la moneda en guaranies';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.PAIS IS 'Pais del banco exterior';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.CIUDAD IS 'Ciudad del banco exterior';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.MONTO_ORIGINAL IS 'Monto en la moneda original';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.EQUIVALENTE IS 'Equivalente en dolares americanos';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.TOTAL_GUARANIES IS 'Total convertido en guaranies';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.FUENTE_DATOS IS 'Fuente de datos utilizada';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.FECHA_CREACION IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_SOL_ANX_BCO_EXT.FECHA_ACTUALIZACION IS 'Fecha de ultima actualizacion del registro';
+

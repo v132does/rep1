@@ -1,0 +1,3 @@
+CREATE OR REPLACE TYPE IT."TYP_LISTASEGUROSCUOTAS"                                          AS TABLE OF TYP_SEGUROCUOTAS
+/
+

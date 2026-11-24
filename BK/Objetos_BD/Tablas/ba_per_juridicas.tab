@@ -1,0 +1,109 @@
+create table IT.BA_PER_JURIDICAS
+(
+  cod_persona           VARCHAR2(10) not null,
+  raz_social            VARCHAR2(120) not null,
+  nom_comercial         VARCHAR2(65) not null,
+  naturaleza            VARCHAR2(20),
+  fec_apertura          DATE,
+  cod_ramo              NUMBER(3),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  gar_tercero           VARCHAR2(1),
+  cap_operativo         NUMBER(18,2),
+  cod_area              VARCHAR2(5),
+  fec_vto_sociedad      DATE,
+  age_retencion         VARCHAR2(1) default 'N',
+  can_sucursales        NUMBER(4),
+  can_socios            NUMBER(5),
+  can_empleados         NUMBER(5),
+  tip_act_internacional VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_JURIDICAS
+  is 'Datos Personas Juridicas.';
+comment on column IT.BA_PER_JURIDICAS.cod_persona
+  is 'Codigo de Persona Juridica.';
+comment on column IT.BA_PER_JURIDICAS.raz_social
+  is 'Razon Social.';
+comment on column IT.BA_PER_JURIDICAS.nom_comercial
+  is 'Nombre Comercial.';
+comment on column IT.BA_PER_JURIDICAS.naturaleza
+  is 'Naturaleza.';
+comment on column IT.BA_PER_JURIDICAS.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.BA_PER_JURIDICAS.cod_ramo
+  is 'Codigo de Ramo.';
+comment on column IT.BA_PER_JURIDICAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PER_JURIDICAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PER_JURIDICAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_JURIDICAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_JURIDICAS.gar_tercero
+  is 'Indica si puede ser Garantia (Codeudor) de un Tercero.';
+comment on column IT.BA_PER_JURIDICAS.cap_operativo
+  is 'Capital operativo de la empresa.';
+comment on column IT.BA_PER_JURIDICAS.cod_area
+  is 'Codigo de area geografica.';
+comment on column IT.BA_PER_JURIDICAS.fec_vto_sociedad
+  is 'Fecha de Vencimiento de la Sociedad.';
+comment on column IT.BA_PER_JURIDICAS.age_retencion
+  is 'Indica si es Agente de Retención (S/N).';
+comment on column IT.BA_PER_JURIDICAS.can_sucursales
+  is 'Cantidad de Sucursales.';
+comment on column IT.BA_PER_JURIDICAS.can_socios
+  is 'Cantidad de Socios.';
+comment on column IT.BA_PER_JURIDICAS.can_empleados
+  is 'Cantidad de Empleados.';
+comment on column IT.BA_PER_JURIDICAS.tip_act_internacional
+  is 'Tipo de Actividad Internacional.';
+create index IT.IN_EPJUR_COD_RAMO on IT.BA_PER_JURIDICAS (COD_RAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_JURIDICAS
+  add constraint PK_BA_PER_JURIDICAS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PER_JURIDICAS
+  add constraint FK_EPJUR_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BA_PER_JURIDICAS
+  add constraint FK_EPJUR_COD_RAMO foreign key (COD_RAMO)
+  references IT.BA_RAMOS (COD_RAMO);
+alter table IT.BA_PER_JURIDICAS
+  add constraint CK_AGE_RETENCION
+  check (age_retencion in ('S','N'));
+

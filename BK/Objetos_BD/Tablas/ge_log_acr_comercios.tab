@@ -1,0 +1,41 @@
+create table IT.GE_LOG_ACR_COMERCIOS
+(
+  mensaje       VARCHAR2(4000),
+  respuesta     VARCHAR2(200),
+  datos         VARCHAR2(4000),
+  cod_ente      NUMBER(5),
+  fec_inicio    DATE not null,
+  error         VARCHAR2(4000),
+  usu_insercion VARCHAR2(10) default user not null,
+  fec_insercion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_ACR_COMERCIOS
+  is 'Log de Envios y Respuestas de Servicio de Acreditacion a Comercios OnLine';
+comment on column IT.GE_LOG_ACR_COMERCIOS.mensaje
+  is 'Peticion de Acreditacion a Comercios';
+comment on column IT.GE_LOG_ACR_COMERCIOS.respuesta
+  is 'Respuesta a la Peticion';
+comment on column IT.GE_LOG_ACR_COMERCIOS.datos
+  is 'Datos del Proceso';
+comment on column IT.GE_LOG_ACR_COMERCIOS.cod_ente
+  is 'Codigo de Ente';
+comment on column IT.GE_LOG_ACR_COMERCIOS.fec_inicio
+  is 'Fecha/Hora Inicio de la Operacion';
+comment on column IT.GE_LOG_ACR_COMERCIOS.error
+  is 'Mensaje de Error en caso de error en el proceso de la Peticion';
+comment on column IT.GE_LOG_ACR_COMERCIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_LOG_ACR_COMERCIOS.fec_insercion
+  is 'Fecha/Hora en que se inserto el registro.';
+

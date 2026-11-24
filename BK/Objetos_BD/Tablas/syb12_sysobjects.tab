@@ -1,0 +1,27 @@
+create global temporary table IT.SYB12_SYSOBJECTS
+(
+  db_id       NUMBER(10),
+  name        VARCHAR2(256),
+  id          NUMBER(10) not null,
+  db_uid      NUMBER(10),
+  db_type     VARCHAR2(256),
+  userstat    NUMBER(10),
+  sysstat     NUMBER(10),
+  indexdel    NUMBER(10),
+  schematacnt NUMBER(10),
+  sysstat2    NUMBER(10),
+  crdate      VARCHAR2(255),
+  expdate     VARCHAR2(255),
+  deltrig     NUMBER(10),
+  instrig     NUMBER(10),
+  updtrig     NUMBER(10),
+  seltrig     NUMBER(10),
+  ckfirst     NUMBER(10),
+  db_cache    NUMBER(10),
+  audflags    NUMBER(10),
+  objspare    NUMBER(10),
+  versionts   RAW(255),
+  loginname   VARCHAR2(255)
+)
+on commit preserve rows;
+

@@ -1,0 +1,26 @@
+create table IT.PR_GASTOS_COB_LOG
+(
+  cod_persona     VARCHAR2(10),
+  cod_oficina     NUMBER(3),
+  nro_cuenta      VARCHAR2(15),
+  nro_cuota       NUMBER(3),
+  cod_tra_cargo   NUMBER(4),
+  fec_vencimiento DATE,
+  monto           NUMBER(18,2),
+  cod_empr_cob    NUMBER,
+  usu_insercion   VARCHAR2(10) default substr(user,1,10),
+  fec_insercion   DATE default sysdate,
+  error           VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

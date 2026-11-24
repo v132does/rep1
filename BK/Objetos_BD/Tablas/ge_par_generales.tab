@@ -1,0 +1,91 @@
+create table IT.GE_PAR_GENERALES
+(
+  cod_entidad        NUMBER(4) not null,
+  cod_ofi_matriz     NUMBER(3) not null,
+  nom_entidad        VARCHAR2(60) not null,
+  cod_mon_local      VARCHAR2(3) not null,
+  cod_mon_fuerte     VARCHAR2(3) not null,
+  cod_persona        VARCHAR2(10) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  tip_implementacion NUMBER(2),
+  dir_correo         VARCHAR2(60),
+  ema_servidor       VARCHAR2(30),
+  ema_puerto         VARCHAR2(5) default 25,
+  sis_bloqueado      VARCHAR2(1),
+  cod_pais           NUMBER(3),
+  tip_entidad        VARCHAR2(1) default 'B' not null,
+  dir_pag_web        VARCHAR2(60),
+  fec_his_desde      DATE,
+  nom_bas_produccion VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAR_GENERALES
+  is 'Parametros.';
+comment on column IT.GE_PAR_GENERALES.cod_entidad
+  is 'Codigo de Entidad.';
+comment on column IT.GE_PAR_GENERALES.cod_ofi_matriz
+  is 'Codigo de Casa Matriz.';
+comment on column IT.GE_PAR_GENERALES.nom_entidad
+  is 'Nombre de la Entidad.';
+comment on column IT.GE_PAR_GENERALES.cod_mon_local
+  is 'Codigo de moneda Local.';
+comment on column IT.GE_PAR_GENERALES.cod_mon_fuerte
+  is 'Codigo de Moneda Fuerte.';
+comment on column IT.GE_PAR_GENERALES.cod_persona
+  is 'Codigo de la Persona correspondiente a la Entidad.';
+comment on column IT.GE_PAR_GENERALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PAR_GENERALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAR_GENERALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAR_GENERALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAR_GENERALES.tip_implementacion
+  is 'Tipo de implementacion.';
+comment on column IT.GE_PAR_GENERALES.dir_correo
+  is 'Direccion de correo para los envios desde el Sistema.';
+comment on column IT.GE_PAR_GENERALES.ema_servidor
+  is 'Direccion del servidor de correo SMTP.';
+comment on column IT.GE_PAR_GENERALES.ema_puerto
+  is 'Puerto de conexion al servidor de correo SMTP.';
+comment on column IT.GE_PAR_GENERALES.sis_bloqueado
+  is 'Indica si el sistema ha sido o no bloqueado para su utilizacion (S-Bloqueado N-No bloqueo).';
+comment on column IT.GE_PAR_GENERALES.cod_pais
+  is 'Codigo de pais de la Entidad.';
+comment on column IT.GE_PAR_GENERALES.dir_pag_web
+  is 'Página Web de la Entidad.';
+comment on column IT.GE_PAR_GENERALES.fec_his_desde
+  is 'Fecha desde el cual se puede consultar al GV_MOVIMIENTOS. Este campo será actualizado al Iniciar y Finalizar el proceso 11 - Cierre Operativo';
+alter table IT.GE_PAR_GENERALES
+  add constraint FK_GPGEN_COD_MON_FUERTE foreign key (COD_MON_FUERTE)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_PAR_GENERALES
+  add constraint FK_GPGEN_COD_MON_LOCAL foreign key (COD_MON_LOCAL)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_PAR_GENERALES
+  add constraint FK_GPGEN_COD_OFI_MATRIZ foreign key (COD_OFI_MATRIZ)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_PAR_GENERALES
+  add constraint FK_GPGEN_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.GE_PAR_GENERALES
+  add constraint FK_GPGEN_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_PAR_GENERALES
+  add constraint AVCON_1085329119_COD_O_002
+  check (COD_OFI_MATRIZ BETWEEN 0 AND 999);
+

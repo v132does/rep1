@@ -1,0 +1,120 @@
+create table IT.GE_ACR_COMERCIOS
+(
+  nro_referencia   NUMBER(15) not null,
+  cod_ente         NUMBER(5) not null,
+  nro_boleta       NUMBER(15) not null,
+  fec_movimiento   DATE not null,
+  hor_movimiento   VARCHAR2(8) not null,
+  fec_transaccion  DATE not null,
+  hor_transaccion  VARCHAR2(8) not null,
+  tip_transaccion  VARCHAR2(2) not null,
+  tip_operacion    VARCHAR2(2) not null,
+  cta_debito       VARCHAR2(15) not null,
+  bco_debito       NUMBER(3) not null,
+  cta_credito      VARCHAR2(15) not null,
+  bco_credito      NUMBER(3) not null,
+  monto            NUMBER(18,2) not null,
+  moneda           VARCHAR2(2) not null,
+  beneficiario     VARCHAR2(40) not null,
+  tip_tarjeta      VARCHAR2(2) not null,
+  nro_lote         NUMBER(15) not null,
+  procesado        VARCHAR2(1) default 'N' not null,
+  extornado        VARCHAR2(1) default 'N' not null,
+  nro_bol_extorno  NUMBER(15) default 0 not null,
+  usu_insercion    VARCHAR2(10) default user not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default user not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ACR_COMERCIOS
+  is 'Datos de Peticiones de Acreditaciones a Comercios Recibidas.';
+comment on column IT.GE_ACR_COMERCIOS.nro_referencia
+  is 'Número de Referencia Interno generado de la Operacion. YYYYMMDD||SEQ';
+comment on column IT.GE_ACR_COMERCIOS.cod_ente
+  is 'Código de Ente';
+comment on column IT.GE_ACR_COMERCIOS.nro_boleta
+  is 'Número de Boleta o ticket de la Transaccion. Número Único.';
+comment on column IT.GE_ACR_COMERCIOS.fec_movimiento
+  is 'Fecha del movimiento generado.';
+comment on column IT.GE_ACR_COMERCIOS.hor_movimiento
+  is 'Hora del movimiento generado.';
+comment on column IT.GE_ACR_COMERCIOS.fec_transaccion
+  is 'Fecha de la Transaccion por la cual se solicita la acreditación al Comercio.';
+comment on column IT.GE_ACR_COMERCIOS.hor_transaccion
+  is 'Hora de la Transaccion por la cual se solicita la acreditación al Comercio.';
+comment on column IT.GE_ACR_COMERCIOS.tip_transaccion
+  is 'Tipo de de Transaccion u Operacion. 00 = COMPRA';
+comment on column IT.GE_ACR_COMERCIOS.tip_operacion
+  is 'Indicador de Transacción o Extorno de operación. 00 = TRANSACCION, 99 = EXTORNO.';
+comment on column IT.GE_ACR_COMERCIOS.cta_debito
+  is 'Número de Cuenta de Débito.';
+comment on column IT.GE_ACR_COMERCIOS.bco_debito
+  is 'Código de Banco de Débito.';
+comment on column IT.GE_ACR_COMERCIOS.cta_credito
+  is 'Número de Cuenta de Crédito.';
+comment on column IT.GE_ACR_COMERCIOS.bco_credito
+  is 'Código de Banco de Crédito';
+comment on column IT.GE_ACR_COMERCIOS.monto
+  is 'Importe de la transacción.';
+comment on column IT.GE_ACR_COMERCIOS.moneda
+  is 'Moneda de la Transacción.';
+comment on column IT.GE_ACR_COMERCIOS.beneficiario
+  is 'Nombre del Comercio o Negocio.';
+comment on column IT.GE_ACR_COMERCIOS.tip_tarjeta
+  is 'Tipo de Tarjeta utilizada en la Operación.';
+comment on column IT.GE_ACR_COMERCIOS.nro_lote
+  is 'Número de Lote para compensación';
+comment on column IT.GE_ACR_COMERCIOS.procesado
+  is 'Indicador de incluido en el proceso de compensacion. S=Si, N= No';
+comment on column IT.GE_ACR_COMERCIOS.extornado
+  is 'Indicador de Transacción extornada/reversada. S=Si, N= No';
+comment on column IT.GE_ACR_COMERCIOS.nro_bol_extorno
+  is 'Número de Boleta o Referencia de Transacción a extornar/reversar.';
+comment on column IT.GE_ACR_COMERCIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ACR_COMERCIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ACR_COMERCIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ACR_COMERCIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro. ';
+alter table IT.GE_ACR_COMERCIOS
+  add constraint PK_GE_ACR_COMERCIOS primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ACR_COMERCIOS
+  add constraint UK_GE_ACR_COMERCIOS unique (COD_ENTE, NRO_BOLETA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

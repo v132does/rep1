@@ -1,0 +1,107 @@
+create table IT.CC_LIN_SOBREGIROS_CRM
+(
+  cod_usu_autoriza  VARCHAR2(10),
+  nro_cuenta        VARCHAR2(15),
+  fec_vencimiento   DATE,
+  cod_tasa          NUMBER(3),
+  val_tas_interes   NUMBER(20,4),
+  dia_tasa          NUMBER(3),
+  tas_preferencial  NUMBER(8,2),
+  dia_sin_costo     NUMBER(3),
+  nro_linea         NUMBER(7),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  TIMESTAMP(6) default current_timestamp not null,
+  fec_inicio        DATE,
+  nro_secuencia     NUMBER(7) not null,
+  monto             NUMBER(18,2),
+  tipo              VARCHAR2(1),
+  cod_persona       VARCHAR2(10),
+  cod_moneda        VARCHAR2(3),
+  estado            VARCHAR2(1),
+  nro_sec_padre     NUMBER(7),
+  observacion       VARCHAR2(1000),
+  niv_aprobacion    VARCHAR2(3),
+  cotizacion        NUMBER(14,8),
+  observacion_his   VARCHAR2(4000),
+  fec_cam_estado    DATE,
+  cod_rub_economico VARCHAR2(6),
+  cod_canal         NUMBER(3),
+  cod_campana       NUMBER(3),
+  tip_accion        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_LIN_SOBREGIROS_CRM
+  is 'Lineas de Sobregiro por Cuenta.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_usu_autoriza
+  is 'Codigo del autorizador de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.nro_cuenta
+  is 'Numero de la cuenta a la que le corresponde el acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.fec_vencimiento
+  is 'Fecha de vencimiento del acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_tasa
+  is 'Codigo de la tasa de interes que se aplicara en la liquidacion del sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.val_tas_interes
+  is 'Valor de la tasa de interes que se aplicara en la liquidacion del sobregiro acordado..';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.dia_tasa
+  is 'Dias de tasa preferencial.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.tas_preferencial
+  is 'Tasa de tasa preferencial.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.dia_sin_costo
+  is 'Dias sin costo por utilizacion de linea.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.nro_linea
+  is 'Linea de credito asociada.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.fec_inicio
+  is 'Fecha en que se realiza el acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.nro_secuencia
+  is 'Nuero del acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.monto
+  is 'Valor del acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.tipo
+  is 'Tipo de acuerdo, T= Temporal, P= Permanente.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_persona
+  is 'Codigo del cliente asociado a la linea.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_moneda
+  is 'Moneda de la Linea.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.estado
+  is 'Estado.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.nro_sec_padre
+  is 'Nro. de la secuencia padre (donde el cliente esta cargado).';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.observacion
+  is 'Observaciones.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.niv_aprobacion
+  is 'Niveles de aprobacion.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cotizacion
+  is 'Cotizacion.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.observacion_his
+  is 'Guarda las observaciones que superaron los 1000 caracteres.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.fec_cam_estado
+  is 'Fecha de cambio de estado.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_rub_economico
+  is 'Codigo de Rubro Economico.';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_canal
+  is 'Codigo Canal';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.cod_campana
+  is 'Codgio Campaña';
+comment on column IT.CC_LIN_SOBREGIROS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+

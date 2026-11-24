@@ -1,0 +1,182 @@
+create table IT.SB_REG_ARC_CAT_CODEUDOR
+(
+  cod_entidad          NUMBER(4),
+  fecha                VARCHAR2(8),
+  tip_documento        VARCHAR2(3),
+  nro_documento        VARCHAR2(30),
+  sal_capital_ml       NUMBER(18,2),
+  sal_int_devengado_ml NUMBER(18,2),
+  tot_riesgo_ml        NUMBER(18,2),
+  dia_atraso           NUMBER(5),
+  cat_operacion        VARCHAR2(2),
+  cod_empresa_bt       NUMBER(3),
+  cod_sucursal_bt      NUMBER(5),
+  cod_moneda_bt        NUMBER(4),
+  nro_cuenta_bt        NUMBER(9),
+  operacion_bt         NUMBER(9),
+  sub_operacion_bt     NUMBER(5),
+  cod_modulo_bt        NUMBER(5),
+  tip_operacion_bt     NUMBER(3),
+  origen               VARCHAR2(20),
+  cod_vinculo          NUMBER(3),
+  tip_vinculo          VARCHAR2(60),
+  cod_persona          VARCHAR2(10),
+  cod_sucursal         VARCHAR2(4),
+  tip_operacion        NUMBER(3),
+  nro_operacion        VARCHAR2(60),
+  cod_moneda           VARCHAR2(3),
+  auxiliar1            VARCHAR2(30),
+  auxiliar2            VARCHAR2(30),
+  auxiliar3            NUMBER(18,2),
+  auxiliar4            NUMBER(18,2),
+  auxiliar5            NUMBER(18,2),
+  auxiliar6            DATE,
+  auxiliar7            VARCHAR2(30),
+  auxiliar8            VARCHAR2(30),
+  fec_archivo          DATE,
+  dia_atr_cuenta       NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_REG_ARC_CAT_CODEUDOR
+  is 'Registro de Archivo de categorizacion de codeudores.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_entidad
+  is 'Código de entidad.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.fecha
+  is 'Fecha.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.tip_documento
+  is 'Tipo de Documento.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.nro_documento
+  is 'Número de Documento.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.sal_capital_ml
+  is 'Saldo Capital Moneda Local.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.sal_int_devengado_ml
+  is 'Interes Devengado Moneda Local.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.tot_riesgo_ml
+  is 'Total Riesgo Moneda Local.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.dia_atraso
+  is 'Dias Atraso.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cat_operacion
+  is 'Categoría de Operacion.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_empresa_bt
+  is 'Código de empresa.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_sucursal_bt
+  is 'Código de sucursal.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_moneda_bt
+  is 'Código de Moneda.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.nro_cuenta_bt
+  is 'Número de Cuenta BT.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.operacion_bt
+  is 'Operación BT.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.sub_operacion_bt
+  is 'Sub Operacion BT.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_modulo_bt
+  is 'Código de Módulo BT.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.tip_operacion_bt
+  is 'Tipo de Operación BT.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.origen
+  is 'Origen.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_vinculo
+  is 'Código Vínculo.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.tip_vinculo
+  is 'Tipo de Vinculo.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_persona
+  is 'Código de Persona.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_sucursal
+  is 'Código de Sucursal.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.tip_operacion
+  is 'Tipo de Operación.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.nro_operacion
+  is 'Número de Operación.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar1
+  is 'Auxiliar1.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar2
+  is 'Auxiliar2.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar3
+  is 'Auxiliar3.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar4
+  is 'Auxiliar4.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar5
+  is 'Auxiliar5.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar6
+  is 'Auxiliar6.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar7
+  is 'Auxiliar7.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.auxiliar8
+  is 'Auxiliar8.';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.fec_archivo
+  is 'Fecha Archivo';
+comment on column IT.SB_REG_ARC_CAT_CODEUDOR.dia_atr_cuenta
+  is 'Dia Atraso Cuenta';
+create index IT.IN_CACO_COD_PERSONA on IT.SB_REG_ARC_CAT_CODEUDOR (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CACO_DOCUMENTO on IT.SB_REG_ARC_CAT_CODEUDOR (TIP_DOCUMENTO, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CACO_FEC_ARCHIVO on IT.SB_REG_ARC_CAT_CODEUDOR (FEC_ARCHIVO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CACO_FECHA on IT.SB_REG_ARC_CAT_CODEUDOR (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CACO_NRO_OPERACION on IT.SB_REG_ARC_CAT_CODEUDOR (NRO_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

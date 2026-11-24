@@ -1,0 +1,52 @@
+create table IT.CB_CLA_RUBROS
+(
+  cod_clasificacion VARCHAR2(8) not null,
+  descripcion       VARCHAR2(35) not null,
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  tipo              VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_CLA_RUBROS
+  is 'Tabla de clasificación de rubros contables para facilitar verificaciones de cuadres.';
+comment on column IT.CB_CLA_RUBROS.cod_clasificacion
+  is 'Código de clasificación del rubro contable.';
+comment on column IT.CB_CLA_RUBROS.descripcion
+  is 'Descripción de la Clasificación.';
+comment on column IT.CB_CLA_RUBROS.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.CB_CLA_RUBROS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_CLA_RUBROS.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.CB_CLA_RUBROS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+comment on column IT.CB_CLA_RUBROS.tipo
+  is 'Tipo de Clasificación';
+alter table IT.CB_CLA_RUBROS
+  add constraint PK_CB_CLA_RUBROS primary key (COD_CLASIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

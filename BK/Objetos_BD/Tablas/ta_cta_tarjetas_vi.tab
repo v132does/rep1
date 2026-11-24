@@ -1,0 +1,37 @@
+-- Create table
+create table IT.TA_CTA_TARJETAS_VI
+(
+  nro_documento    VARCHAR2(15) not null,
+  tip_documento    VARCHAR2(15) not null,
+  cod_persona_vi   VARCHAR2(15) not null,
+  cod_producto     VARCHAR2(15),
+  des_cod_producto VARCHAR2(100),
+  cod_estado       VARCHAR2(10),
+  des_cod_estado   VARCHAR2(50),
+  limite           NUMBER,
+  fec_ult_compra   DATE,
+  cod_afinidad     VARCHAR2(15),
+  obs              VARCHAR2(4000),
+  nro_tarjeta      VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default sysdate,
+  mar_bloqueo      VARCHAR2(1),
+  des_bloqueo      VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+create public synonym ta_cta_tarjetas_vi for it.ta_cta_tarjetas_vi;
+grant all on ta_cta_tarjetas_vi to it_temporal;
+grant all on ta_cta_tarjetas_vi to public;

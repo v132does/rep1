@@ -1,0 +1,100 @@
+﻿-- Create table
+create table IT.CB_PAR_COMPROBANTES
+(
+  cod_oficina      NUMBER(3) not null,
+  tipo             VARCHAR2(1) default 'F' not null,
+  fec_vencimiento  DATE not null,
+  nro_timbrado     VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default USER not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default USER not null,
+  fec_modificacion DATE default SYSDATE not null,
+  ult_nro_emitido  NUMBER(7),
+  nro_desde        NUMBER(7) not null,
+  cantidad         NUMBER(7) not null,
+  fec_ini_timbrado DATE,
+  nro_aut_timbrado VARCHAR2(20),
+  tip_facturacion  VARCHAR2(1),
+  serie            VARCHAR2(2),
+  fec_autorizacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_PAR_COMPROBANTES
+  is 'Parametros para Comprobantes';
+-- Add comments to the columns 
+comment on column IT.CB_PAR_COMPROBANTES.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_PAR_COMPROBANTES.tipo
+  is 'Tipo de comprobante';
+comment on column IT.CB_PAR_COMPROBANTES.fec_vencimiento
+  is 'Fecha de Vencimiento del timbrado.';
+comment on column IT.CB_PAR_COMPROBANTES.nro_timbrado
+  is 'Numero de timbrado.';
+comment on column IT.CB_PAR_COMPROBANTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_PAR_COMPROBANTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_PAR_COMPROBANTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_PAR_COMPROBANTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_PAR_COMPROBANTES.ult_nro_emitido
+  is 'Ultimo numero emitido o utilizado en la generacion de comprobantes.';
+comment on column IT.CB_PAR_COMPROBANTES.nro_desde
+  is 'Numero desde el cual puede emitirse comprobantes.';
+comment on column IT.CB_PAR_COMPROBANTES.cantidad
+  is 'Cantidad de comprobantes que pueden emitirse.';
+comment on column IT.CB_PAR_COMPROBANTES.fec_ini_timbrado
+  is 'Fecha de inicio de vigencia del timbrado';
+comment on column IT.CB_PAR_COMPROBANTES.nro_aut_timbrado
+  is 'Número de autorización del timbrado';
+comment on column IT.CB_PAR_COMPROBANTES.tip_facturacion
+  is 'Campo para identificar si la factura es de tipo electrónica o normal E/N.';
+comment on column IT.CB_PAR_COMPROBANTES.serie
+  is 'Campo para definir la serie actual en la cual se encuentra la facturación, valor inicial AA.';
+comment on column IT.CB_PAR_COMPROBANTES.fec_autorizacion
+  is 'Fecha de autorizacion del Timbrado en la SET.';
+-- Create/Recreate indexes 
+create index IT.IN_CB_TIM_OFI_TIP on IT.CB_PAR_COMPROBANTES (NRO_TIMBRADO, COD_OFICINA, TIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_PAR_COMPROBANTES
+  add constraint PK_CB_PAR_COMPROBANTES primary key (COD_OFICINA, TIPO, FEC_VENCIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_PAR_COMPROBANTES
+  add constraint FK_BPCOM_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CB_PAR_COMPROBANTES to IT_TEMPORAL;

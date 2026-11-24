@@ -1,0 +1,48 @@
+create table IT.SB_LOGS
+(
+  nom_proceso      VARCHAR2(50),
+  fec_hor_inicio   DATE,
+  fec_hor_fin      DATE,
+  nro_registro     NUMBER(10),
+  nro_error        NUMBER(5),
+  msj_error        VARCHAR2(500),
+  comentario       VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_LOGS.nom_proceso
+  is 'Nombre del proceso que provocó el suceso.';
+comment on column IT.SB_LOGS.fec_hor_inicio
+  is 'Fecha y hora de inicio del proceso.';
+comment on column IT.SB_LOGS.fec_hor_fin
+  is 'Fecha y hora de finalización del proceso.';
+comment on column IT.SB_LOGS.nro_registro
+  is 'Número de Registro para identificar el registro con error.';
+comment on column IT.SB_LOGS.nro_error
+  is 'Código de Error.';
+comment on column IT.SB_LOGS.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.SB_LOGS.comentario
+  is 'Comentario adicional.';
+comment on column IT.SB_LOGS.usu_insercion
+  is 'Usuario que Realiza la Inserción del Registro.';
+comment on column IT.SB_LOGS.fec_insercion
+  is 'Fecha de Inserción del Registro.';
+comment on column IT.SB_LOGS.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.SB_LOGS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

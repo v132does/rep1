@@ -1,0 +1,36 @@
+create table IT.GE_CAUSALES_EQI
+(
+  cod_causa        NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  tipo             VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CAUSALES_EQI
+  add constraint PK_COD_CAUSA primary key (COD_CAUSA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

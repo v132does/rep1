@@ -1,0 +1,79 @@
+create table IT.LC_CHE_VIAJEROS_DET
+(
+  nro_cta_bancaria VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  serie            VARCHAR2(5) not null,
+  nro_inicial      NUMBER(15) not null,
+  valor            VARCHAR2(60) not null,
+  fec_recepcion    DATE not null,
+  can_compra       NUMBER(10) default 0 not null,
+  can_venta        NUMBER(10) default 0 not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_usu_emisor   VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_CHE_VIAJEROS_DET
+  is 'Datos de los Detalles de Cheques de Viajeros.';
+comment on column IT.LC_CHE_VIAJEROS_DET.nro_cta_bancaria
+  is 'Numero de la cuenta bancaria a que pertenece el cheque.';
+comment on column IT.LC_CHE_VIAJEROS_DET.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.LC_CHE_VIAJEROS_DET.serie
+  is 'Numero de serie del cheque.';
+comment on column IT.LC_CHE_VIAJEROS_DET.nro_inicial
+  is 'Numero de cheque inicial.';
+comment on column IT.LC_CHE_VIAJEROS_DET.valor
+  is 'Denominacion o valor del cheque.';
+comment on column IT.LC_CHE_VIAJEROS_DET.fec_recepcion
+  is 'Fecha de recepcion del cheque.';
+comment on column IT.LC_CHE_VIAJEROS_DET.can_compra
+  is 'Cantidad de cheques comprados.';
+comment on column IT.LC_CHE_VIAJEROS_DET.can_venta
+  is 'Cantidad de cheques vendidos.';
+comment on column IT.LC_CHE_VIAJEROS_DET.cod_oficina
+  is 'Codigo de la oficina.';
+comment on column IT.LC_CHE_VIAJEROS_DET.cod_usu_emisor
+  is 'Usuario emisor de los cheques.';
+comment on column IT.LC_CHE_VIAJEROS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_CHE_VIAJEROS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_CHE_VIAJEROS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CHE_VIAJEROS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_CHE_VIAJEROS_DET
+  add constraint PK_LC_CHE_VIAJEROS_DET primary key (NRO_CTA_BANCARIA, COD_MONEDA, SERIE, NRO_INICIAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_CHE_VIAJEROS_DET
+  add constraint FK_LCHVD_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_CHE_VIAJEROS_DET
+  add constraint FK_LCHVD_COD_USU_EMISOR foreign key (COD_USU_EMISOR, COD_MONEDA)
+  references IT.LC_CHE_VIA_EMISORES (COD_USU_EMISOR, COD_MONEDA);
+

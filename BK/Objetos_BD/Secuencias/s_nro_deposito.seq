@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_DEPOSITO
+minvalue 0
+maxvalue 999999999
+start with 769
+increment by 1
+cache 20;
+

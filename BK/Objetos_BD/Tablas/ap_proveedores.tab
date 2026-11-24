@@ -1,0 +1,124 @@
+create table IT.AP_PROVEEDORES
+(
+  cod_proveedor    NUMBER(10) not null,
+  nombre           VARCHAR2(60) not null,
+  ruc              VARCHAR2(35) not null,
+  direccion        VARCHAR2(250) not null,
+  cod_ramo         NUMBER(3) not null,
+  cod_pais         NUMBER(3) not null,
+  cod_ciudad       NUMBER(3) not null,
+  abreviatura      VARCHAR2(35),
+  telefono         VARCHAR2(35),
+  dir_correo       VARCHAR2(60),
+  nro_fax          VARCHAR2(35),
+  pag_web          VARCHAR2(60),
+  contactos        VARCHAR2(250),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_PROVEEDORES
+  is 'Proveedores.';
+comment on column IT.AP_PROVEEDORES.cod_proveedor
+  is 'Identificador del proveedor.';
+comment on column IT.AP_PROVEEDORES.nombre
+  is 'Nombre completo del proveedor.';
+comment on column IT.AP_PROVEEDORES.ruc
+  is 'Registro Unico del Contribuyente.';
+comment on column IT.AP_PROVEEDORES.direccion
+  is 'Direccion.';
+comment on column IT.AP_PROVEEDORES.cod_ramo
+  is 'Codigo del Ramo.';
+comment on column IT.AP_PROVEEDORES.cod_pais
+  is 'Codigo de pais.';
+comment on column IT.AP_PROVEEDORES.cod_ciudad
+  is 'Codigo de ciudad.';
+comment on column IT.AP_PROVEEDORES.abreviatura
+  is 'Razon Social del Proveedor.';
+comment on column IT.AP_PROVEEDORES.telefono
+  is 'Telefonos varios.';
+comment on column IT.AP_PROVEEDORES.dir_correo
+  is 'Direccion de correo electronico.';
+comment on column IT.AP_PROVEEDORES.nro_fax
+  is 'Telefono fax.';
+comment on column IT.AP_PROVEEDORES.pag_web
+  is 'Direccion de la Pagina Web del Proveedor.';
+comment on column IT.AP_PROVEEDORES.contactos
+  is 'Contactos.';
+comment on column IT.AP_PROVEEDORES.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_PROVEEDORES.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_PROVEEDORES.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_PROVEEDORES.fec_modificacion
+  is 'Fecha de Modificacion.';
+create index IT.IN_YPROV_COD_CIUDAD on IT.AP_PROVEEDORES (COD_CIUDAD, COD_PAIS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YPROV_COD_RAMO on IT.AP_PROVEEDORES (COD_RAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_PROVEEDORES
+  add constraint PK_AP_PROVEEDORES primary key (COD_PROVEEDOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_PROVEEDORES
+  add constraint FK_YPROV_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.AP_PROVEEDORES
+  add constraint FK_YPROV_COD_RAMO foreign key (COD_RAMO)
+  references IT.AP_RAMOS (COD_RAMO);
+alter table IT.AP_PROVEEDORES
+  add constraint AVCON_1081349332_COD_C_000
+  check (COD_CIUDAD BETWEEN 1 AND 999);
+alter table IT.AP_PROVEEDORES
+  add constraint AVCON_1081349332_COD_P_000
+  check (COD_PROVEEDOR BETWEEN 1 AND 999999999);
+alter table IT.AP_PROVEEDORES
+  add constraint AVCON_1081349332_COD_P_001
+  check (COD_PAIS BETWEEN 1 AND 999);
+alter table IT.AP_PROVEEDORES
+  add constraint AVCON_1081349332_COD_R_000
+  check (COD_RAMO BETWEEN 1 AND 999);
+

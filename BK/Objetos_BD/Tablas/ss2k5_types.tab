@@ -1,0 +1,12 @@
+create global temporary table IT.SS2K5_TYPES
+(
+  db_id          NUMBER(10),
+  name           VARCHAR2(256) not null,
+  user_type_id   NUMBER(10) not null,
+  system_type_id NUMBER(3) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_TYPES_DB_ID on IT.SS2K5_TYPES (DB_ID);
+create index IT.SS2K5_TYPES_SYSTEM_TYPE_ID on IT.SS2K5_TYPES (SYSTEM_TYPE_ID);
+create index IT.SS2K5_TYPES_USER_TYPE_ID on IT.SS2K5_TYPES (USER_TYPE_ID);
+

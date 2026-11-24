@@ -1,0 +1,143 @@
+create table IT.GE_CUENTAS_CRM
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  dig_verificador     NUMBER(1),
+  denominacion        VARCHAR2(100),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_oficina         NUMBER(3),
+  estado              VARCHAR2(1),
+  fec_cam_estado      DATE,
+  sal_contable        NUMBER(18,2),
+  cod_moneda          VARCHAR2(3),
+  fec_apertura        DATE,
+  fec_vencimiento     DATE,
+  cod_cau_cancelacion NUMBER(3),
+  cod_tasa            NUMBER(3),
+  fre_extracto        VARCHAR2(1),
+  tas_personalizada   VARCHAR2(1),
+  tra_prohibida       VARCHAR2(1),
+  ret_personalizada   VARCHAR2(1),
+  dia_atraso          NUMBER(5),
+  max_atraso          NUMBER(5),
+  pro_atraso          NUMBER(5),
+  sal_promedio        NUMBER(18,2),
+  mto_mora            NUMBER(18,2),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    TIMESTAMP(6) default current_timestamp not null,
+  val_tasa            NUMBER(20,4),
+  cod_usu_verificador VARCHAR2(10),
+  fec_verificacion    DATE,
+  obs_verificacion    VARCHAR2(1000),
+  est_verificacion    VARCHAR2(1),
+  cod_ent_juicio      NUMBER(5),
+  fec_juicio          DATE,
+  en_juicio           VARCHAR2(1),
+  cod_sit_contable    NUMBER(20),
+  cod_sub_modalidad   NUMBER(3),
+  tip_accion          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CUENTAS_CRM
+  is 'Consolidado de Cuentas ( Datos Generales de las Cuentas ).';
+comment on column IT.GE_CUENTAS_CRM.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_CUENTAS_CRM.dig_verificador
+  is 'Digito verificador.';
+comment on column IT.GE_CUENTAS_CRM.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.GE_CUENTAS_CRM.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_CUENTAS_CRM.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_CUENTAS_CRM.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.GE_CUENTAS_CRM.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.GE_CUENTAS_CRM.fec_cam_estado
+  is 'Fecha de Cambio de estado.';
+comment on column IT.GE_CUENTAS_CRM.sal_contable
+  is 'Saldo Contable.';
+comment on column IT.GE_CUENTAS_CRM.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_CUENTAS_CRM.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.GE_CUENTAS_CRM.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_CUENTAS_CRM.cod_cau_cancelacion
+  is 'Motivo de Cancelacion.';
+comment on column IT.GE_CUENTAS_CRM.cod_tasa
+  is 'Codigo de Tasa de Interes.';
+comment on column IT.GE_CUENTAS_CRM.fre_extracto
+  is 'Frecuencia de Extracto (D, S, M).';
+comment on column IT.GE_CUENTAS_CRM.tas_personalizada
+  is 'Indica si tiene tasa personalizada (S/N).';
+comment on column IT.GE_CUENTAS_CRM.tra_prohibida
+  is 'Indica si tiene transaccion prohibida (S/N).';
+comment on column IT.GE_CUENTAS_CRM.ret_personalizada
+  is 'Retencion personalizada (S/N).';
+comment on column IT.GE_CUENTAS_CRM.dia_atraso
+  is 'Dias de Atraso.';
+comment on column IT.GE_CUENTAS_CRM.max_atraso
+  is 'Maximo dias de Atraso.';
+comment on column IT.GE_CUENTAS_CRM.pro_atraso
+  is 'Promedio de dias de Atraso.';
+comment on column IT.GE_CUENTAS_CRM.sal_promedio
+  is 'Saldo Promedio Actual.';
+comment on column IT.GE_CUENTAS_CRM.mto_mora
+  is 'Monto de mora.';
+comment on column IT.GE_CUENTAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CUENTAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CUENTAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CUENTAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CUENTAS_CRM.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.GE_CUENTAS_CRM.cod_usu_verificador
+  is 'Usuario que realizo la verificacion.';
+comment on column IT.GE_CUENTAS_CRM.fec_verificacion
+  is 'Fecha de la Verificacion.';
+comment on column IT.GE_CUENTAS_CRM.obs_verificacion
+  is 'Observacion de la verificacion.';
+comment on column IT.GE_CUENTAS_CRM.est_verificacion
+  is 'Estado de la Verificacion.';
+comment on column IT.GE_CUENTAS_CRM.cod_ent_juicio
+  is 'Ente al cual se derivo el juicio.';
+comment on column IT.GE_CUENTAS_CRM.fec_juicio
+  is 'Fecha en la cual paso a juicio.';
+comment on column IT.GE_CUENTAS_CRM.en_juicio
+  is 'Indica si la cuenta se encuentra en estado judicial.';
+comment on column IT.GE_CUENTAS_CRM.cod_sit_contable
+  is 'Indica la situacion contable actual de la operacion. ';
+comment on column IT.GE_CUENTAS_CRM.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+comment on column IT.GE_CUENTAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.IN_CRM_CUE_EST_MOD_MAD on IT.GE_CUENTAS_CRM (NRO_CUENTA, ESTADO, COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

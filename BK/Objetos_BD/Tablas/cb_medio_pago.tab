@@ -1,0 +1,83 @@
+create table IT.CB_MEDIO_PAGO
+(
+  de_id            NUMBER(8) not null,
+  itipago          NUMBER(2),
+  ddestipag        VARCHAR2(30),
+  dmontipag        NUMBER(18,4),
+  cmonetipag       VARCHAR2(3),
+  ddmonetipag      VARCHAR2(20),
+  dticamtipag      NUMBER(10,4),
+  identarj         NUMBER(2),
+  ddesdentarj      VARCHAR2(20),
+  drsprotar        VARCHAR2(60),
+  drucprotar       VARCHAR2(8),
+  ddvprotar        NUMBER(1),
+  iforpropa        NUMBER(1),
+  dcodauope        NUMBER(10),
+  dnomtit          VARCHAR2(30),
+  dnumtarj         NUMBER(4),
+  dnumcheq         VARCHAR2(8),
+  dbcoemi          VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_MEDIO_PAGO
+  is 'Detalla la forma de pago de las facturas emitidas.';
+comment on column IT.CB_MEDIO_PAGO.de_id
+  is 'ID';
+comment on column IT.CB_MEDIO_PAGO.itipago
+  is 'Tipo de pago';
+comment on column IT.CB_MEDIO_PAGO.ddestipag
+  is 'Descripción del tipo de pago';
+comment on column IT.CB_MEDIO_PAGO.dmontipag
+  is 'Monto por tipo de pago';
+comment on column IT.CB_MEDIO_PAGO.cmonetipag
+  is 'Moneda por tipo de pago';
+comment on column IT.CB_MEDIO_PAGO.ddmonetipag
+  is 'Descripción de la moneda por tipo de pago';
+comment on column IT.CB_MEDIO_PAGO.dticamtipag
+  is 'Tipo de cambio por tipo de pago';
+comment on column IT.CB_MEDIO_PAGO.identarj
+  is 'Denominación de la tarjeta';
+comment on column IT.CB_MEDIO_PAGO.ddesdentarj
+  is 'Descripción de denominación de la tarjeta';
+comment on column IT.CB_MEDIO_PAGO.drsprotar
+  is 'Razón social de la procesadora de tarjeta';
+comment on column IT.CB_MEDIO_PAGO.drucprotar
+  is 'RUC de la procesadora de tarjeta';
+comment on column IT.CB_MEDIO_PAGO.ddvprotar
+  is 'Dígito verificador del RUC de la procesadora de tarjeta';
+comment on column IT.CB_MEDIO_PAGO.iforpropa
+  is 'Forma de procesamiento de pago';
+comment on column IT.CB_MEDIO_PAGO.dcodauope
+  is 'Código de autorización de la operación';
+comment on column IT.CB_MEDIO_PAGO.dnomtit
+  is 'Nombre del titular de la tarjeta';
+comment on column IT.CB_MEDIO_PAGO.dnumtarj
+  is 'Número de la tarjeta';
+comment on column IT.CB_MEDIO_PAGO.dnumcheq
+  is 'Número de cheque';
+comment on column IT.CB_MEDIO_PAGO.dbcoemi
+  is 'Banco emisor';
+comment on column IT.CB_MEDIO_PAGO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_MEDIO_PAGO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_MEDIO_PAGO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_MEDIO_PAGO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

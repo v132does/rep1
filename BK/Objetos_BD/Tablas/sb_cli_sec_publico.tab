@@ -1,0 +1,35 @@
+create table IT.SB_CLI_SEC_PUBLICO
+(
+  orden            NUMBER,
+  cod_sec_contable VARCHAR2(1),
+  grupo            VARCHAR2(60),
+  sub_grupo        VARCHAR2(60),
+  cod_persona      VARCHAR2(10),
+  nombre           VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CLI_SEC_PUBLICO
+  is 'Clientes del Sector Publico.';
+comment on column IT.SB_CLI_SEC_PUBLICO.orden
+  is 'Orden.';
+comment on column IT.SB_CLI_SEC_PUBLICO.cod_sec_contable
+  is 'Codigo Sector Contable.';
+comment on column IT.SB_CLI_SEC_PUBLICO.grupo
+  is 'Grupo.';
+comment on column IT.SB_CLI_SEC_PUBLICO.sub_grupo
+  is 'Sub Grupo.';
+comment on column IT.SB_CLI_SEC_PUBLICO.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.SB_CLI_SEC_PUBLICO.nombre
+  is 'Nombre.';
+

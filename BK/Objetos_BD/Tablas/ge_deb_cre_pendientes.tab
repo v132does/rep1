@@ -1,0 +1,97 @@
+create table IT.GE_DEB_CRE_PENDIENTES
+(
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  nro_cuenta        VARCHAR2(15) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cod_mod_padre     NUMBER(3) not null,
+  cod_mad_padre     NUMBER(3) not null,
+  cod_tra_padre     NUMBER(4) not null,
+  cod_tra_cargo     NUMBER(4) not null,
+  mto_cargo         NUMBER(18,2) not null,
+  cod_tas_cargo     NUMBER(3) not null,
+  val_tas_cargo     NUMBER(20,4) not null,
+  cod_tra_impuesto  NUMBER(4),
+  mto_impuesto      NUMBER(18,2),
+  cod_tas_impuesto  NUMBER(3),
+  val_tas_impuesto  NUMBER(20,4),
+  cod_deb_cre_batch NUMBER(3) not null,
+  concepto          VARCHAR2(100),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEB_CRE_PENDIENTES
+  is 'Debitos / Creditos Batch pendientes...';
+comment on column IT.GE_DEB_CRE_PENDIENTES.fecha
+  is 'Fecha en que se intento cobrar.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.hora
+  is 'Hora en que se intento cobrar.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_usuario
+  is 'Usuario que intento cobrar.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_moneda
+  is 'Codigo de la moneda de la cuenta.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_mod_padre
+  is 'Modulo Padre.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_mad_padre
+  is 'Modalidad Padre.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_tra_padre
+  is 'Transaccion Padre.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_tra_cargo
+  is 'Transaccion del Cargo.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.mto_cargo
+  is 'Monto del Cargo.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_tas_cargo
+  is 'Codigo de Tasa del Cargo.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.val_tas_cargo
+  is 'Valor de la Tasa del Cargo.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_tra_impuesto
+  is 'Transaccion del Impuesto.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.mto_impuesto
+  is 'Monto del Impuesto.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_tas_impuesto
+  is 'Codigo de Tasa del Impuesto.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.val_tas_impuesto
+  is 'Valor de Tasa del Impuesto.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.cod_deb_cre_batch
+  is 'Codigo de la operacion de Debito / Credito Batch.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.concepto
+  is 'Concepto.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro';
+comment on column IT.GE_DEB_CRE_PENDIENTES.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_DEB_CRE_PENDIENTES.fec_modificacion
+  is 'Fecha de ultima modificacion del registro.';
+alter table IT.GE_DEB_CRE_PENDIENTES
+  add constraint PK_GE_DEB_CRE_PENDIENTES primary key (FECHA, HORA, COD_USUARIO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

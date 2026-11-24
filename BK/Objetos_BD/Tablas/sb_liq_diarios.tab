@@ -1,0 +1,50 @@
+create table IT.SB_LIQ_DIARIOS
+(
+  fecha            DATE,
+  cod_moneda       NUMBER(4),
+  cod_cuenta       NUMBER(11),
+  plazo            NUMBER(2),
+  importe          NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tipo             VARCHAR2(1),
+  imp_ajustado     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_LIQ_DIARIOS
+  is 'Tabla de datos de Liquidez diarios Activos y Pasivos - Circular 200/2011.';
+comment on column IT.SB_LIQ_DIARIOS.fecha
+  is 'Fecha.';
+comment on column IT.SB_LIQ_DIARIOS.cod_moneda
+  is 'Codigo de la Moneda p/BCP Gs=6900,Usd=6100.';
+comment on column IT.SB_LIQ_DIARIOS.cod_cuenta
+  is 'Cuenta Contable.';
+comment on column IT.SB_LIQ_DIARIOS.plazo
+  is 'Valor del Plazo.';
+comment on column IT.SB_LIQ_DIARIOS.importe
+  is 'Monto.';
+comment on column IT.SB_LIQ_DIARIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_LIQ_DIARIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_LIQ_DIARIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_LIQ_DIARIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.SB_LIQ_DIARIOS.tipo
+  is 'Tipo de registro I= Inventario C=Contabilidad';
+comment on column IT.SB_LIQ_DIARIOS.imp_ajustado
+  is 'Importe ajustado de acuerdo al saldo Contable. ';
+

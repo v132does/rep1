@@ -1,0 +1,71 @@
+create table IT.CB_SAL_INVENTARIOS_ANT
+(
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_oficina      NUMBER(3),
+  cod_sec_contable VARCHAR2(1),
+  cod_tip_deudor   NUMBER(2),
+  residente        VARCHAR2(1),
+  cod_moneda       VARCHAR2(3),
+  situacion        VARCHAR2(1),
+  tip_saldo        VARCHAR2(1),
+  cod_plazo        VARCHAR2(1),
+  tip_operacion    VARCHAR2(1),
+  tip_interes      VARCHAR2(1),
+  cod_rubro        VARCHAR2(15),
+  sal_total        NUMBER(22,2),
+  nro_referencia   NUMBER(7) not null,
+  tip_renovacion   VARCHAR2(1),
+  cat_automatica   VARCHAR2(1),
+  cod_sit_contable VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INVENTARIOS_ANT
+  is 'Saldos de Inventarios (Anterior).';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_sec_contable
+  is 'Sector Contable.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_tip_deudor
+  is 'Tipo de Deudor.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.residente
+  is 'Residente (s/n).';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.situacion
+  is 'Situacion Contable.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.tip_saldo
+  is 'Tipo de Saldo.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_plazo
+  is 'Codigo de Plazo Contable.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.tip_operacion
+  is 'Tipo de Operacion (Prestamos).';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.tip_interes
+  is 'Tipo de Interes (Prestamos).';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_rubro
+  is 'Rubro Contable.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.sal_total
+  is 'Saldo segun el Inventario Fisico.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.nro_referencia
+  is 'Numero de Secuencia Interno para el Registro.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.tip_renovacion
+  is 'Tipo de Renovacion.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cat_automatica
+  is 'Categoria del Cliente.';
+comment on column IT.CB_SAL_INVENTARIOS_ANT.cod_sit_contable
+  is 'Situacion contable';
+

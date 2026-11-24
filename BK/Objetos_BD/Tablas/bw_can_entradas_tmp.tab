@@ -1,0 +1,44 @@
+create table IT.BW_CAN_ENTRADAS_TMP
+(
+  cod_entrada      VARCHAR2(100) not null,
+  estado           VARCHAR2(1) default 'N',
+  nro_canje        NUMBER(12),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_tip_entrada  NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CAN_ENTRADAS_TMP
+  is 'Tabla de entradas de Cinemark';
+comment on column IT.BW_CAN_ENTRADAS_TMP.cod_entrada
+  is 'Codigo de entrada de cine usada en el canje de puntos';
+comment on column IT.BW_CAN_ENTRADAS_TMP.estado
+  is 'Estado entrada de cine (L= Liquidado , N= Nuevo)';
+comment on column IT.BW_CAN_ENTRADAS_TMP.nro_canje
+  is 'Número identificador del canje asociado.';
+comment on column IT.BW_CAN_ENTRADAS_TMP.usu_insercion
+  is 'Usuario que realiza la insercion del registro';
+comment on column IT.BW_CAN_ENTRADAS_TMP.fec_insercion
+  is 'Fecha y hora del sistema en que se inserta el registro';
+comment on column IT.BW_CAN_ENTRADAS_TMP.usu_modificacion
+  is 'Usuario que realiza la ultima modificacion en el registro';
+comment on column IT.BW_CAN_ENTRADAS_TMP.fec_modificacion
+  is 'Fecha y hora del sistema en que se realiza la ultima modificacion en el registro';
+comment on column IT.BW_CAN_ENTRADAS_TMP.cod_tip_entrada
+  is 'Codigo del tipo de entrada ';
+alter table IT.BW_CAN_ENTRADAS_TMP
+  add constraint CK_GCANJETMP_ESTADO
+  check (ESTADO IN ('N', 'L'));
+

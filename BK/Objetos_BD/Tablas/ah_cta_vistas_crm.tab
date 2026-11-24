@@ -1,0 +1,174 @@
+create table IT.AH_CTA_VISTAS_CRM
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1),
+  cod_modulo             NUMBER(3),
+  cod_modalidad          NUMBER(3),
+  cod_oficina            NUMBER(3),
+  cod_moneda             VARCHAR2(3),
+  denominacion           VARCHAR2(65),
+  fre_extracto           VARCHAR2(1),
+  can_fir_requeridas     NUMBER(2),
+  can_fir_registradas    NUMBER(2),
+  fec_apertura           DATE,
+  tip_capitalizacion     NUMBER(2),
+  tas_personalizada      VARCHAR2(1),
+  cod_tasa               NUMBER(3),
+  ret_personalizada      VARCHAR2(1),
+  sal_minimo             NUMBER(18,2),
+  cod_usu_promotor       VARCHAR2(10),
+  est_batch              VARCHAR2(1),
+  estado                 VARCHAR2(1),
+  nro_folio              NUMBER(7),
+  fec_ult_extracto       DATE,
+  sal_ult_extracto       NUMBER(18,2),
+  fec_cam_estado         DATE,
+  fec_ult_movimiento     DATE,
+  hor_ult_movimiento     VARCHAR2(8),
+  fec_ult_capitalizacion DATE,
+  sal_ult_capitalizacion NUMBER(18,2),
+  sal_ret_batch          NUMBER(18,2),
+  sal_retenido           NUMBER(18,2),
+  sal_blo_batch          NUMBER(18,2),
+  sal_bloqueado          NUMBER(18,2),
+  sal_tot_batch          NUMBER(18,2),
+  sal_total              NUMBER(18,2),
+  tra_prohibida          VARCHAR2(1),
+  cta_combinada          VARCHAR2(1),
+  aut_pendiente          VARCHAR2(1),
+  mto_deb_pendientes     NUMBER(18,2),
+  mto_cre_pendientes     NUMBER(18,2),
+  mto_cre_a_confirmar    NUMBER(18,2),
+  cod_ente               NUMBER(5),
+  mto_apertura           NUMBER(18,2),
+  cod_canal              NUMBER(3),
+  cod_campana            NUMBER(3),
+  reg_firma              VARCHAR2(600),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       TIMESTAMP(6) default current_timestamp not null,
+  cod_cau_cancelacion    NUMBER(3),
+  nro_ref_externo        VARCHAR2(20),
+  cod_banco              NUMBER(3),
+  cod_sub_modalidad      NUMBER(3),
+  tip_accion             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CTA_VISTAS_CRM
+  is 'Contiene datos de los Ahorros a la Vista.';
+comment on column IT.AH_CTA_VISTAS_CRM.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_CTA_VISTAS_CRM.dig_verificador
+  is 'Digito Verificador.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.AH_CTA_VISTAS_CRM.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.AH_CTA_VISTAS_CRM.fre_extracto
+  is 'Frecuencia de Extracto (D=Diaria /S=Semanal/Q=Quincenal/M=Mensual).';
+comment on column IT.AH_CTA_VISTAS_CRM.can_fir_requeridas
+  is 'Cantidad de Firmas requeridas.';
+comment on column IT.AH_CTA_VISTAS_CRM.can_fir_registradas
+  is 'Cantidad de Firmas registradas.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.AH_CTA_VISTAS_CRM.tip_capitalizacion
+  is 'Tipo de Capitalizacion. (1/2/3).';
+comment on column IT.AH_CTA_VISTAS_CRM.tas_personalizada
+  is 'Tiene Tasa Personalizada(S/N).';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_tasa
+  is 'Codigo de Tasa Asignado.';
+comment on column IT.AH_CTA_VISTAS_CRM.ret_personalizada
+  is 'Tiene Retencion Personalizada (N=NO / S=SI).';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_minimo
+  is 'Saldo Minimo pactado.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_usu_promotor
+  is 'Codigo de Promotor.';
+comment on column IT.AH_CTA_VISTAS_CRM.est_batch
+  is 'Estado de Cuenta Batch.';
+comment on column IT.AH_CTA_VISTAS_CRM.estado
+  is 'Estado de Cuenta On line.';
+comment on column IT.AH_CTA_VISTAS_CRM.nro_folio
+  is 'Ultimo Numero de Folio del extracto impreso.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_ult_extracto
+  is 'Fecha de Ultimo Extracto.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_ult_extracto
+  is 'Saldo de Ultimo Extracto.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_cam_estado
+  is 'Fecha de Cambio de Estado.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_ult_movimiento
+  is 'Fecha de Ultimo Movimiento.';
+comment on column IT.AH_CTA_VISTAS_CRM.hor_ult_movimiento
+  is 'Hora de Ultimo Movimiento.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_ult_capitalizacion
+  is 'Fecha de Ultima Capitalizacion.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_ult_capitalizacion
+  is 'Saldo de Ultima Capitalizacion.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_ret_batch
+  is 'Saldo Retenido Batch.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_retenido
+  is 'Saldo Retenido On line.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_blo_batch
+  is 'Saldo Bloqueado Batch.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_bloqueado
+  is 'Saldo Bloqueado On line.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_tot_batch
+  is 'Saldo Total Batch.';
+comment on column IT.AH_CTA_VISTAS_CRM.sal_total
+  is 'Saldo Total On line.';
+comment on column IT.AH_CTA_VISTAS_CRM.tra_prohibida
+  is 'Tiene Transaccion Prohibida. (N=NO / S=SI).';
+comment on column IT.AH_CTA_VISTAS_CRM.cta_combinada
+  is 'Tiene Cuenta Combinada (S/N).';
+comment on column IT.AH_CTA_VISTAS_CRM.aut_pendiente
+  is 'Posee Autorizacion Pendiente (S/N).';
+comment on column IT.AH_CTA_VISTAS_CRM.mto_deb_pendientes
+  is 'Importe de Debitos en ATM.';
+comment on column IT.AH_CTA_VISTAS_CRM.mto_cre_pendientes
+  is 'Importe de Creditos en ATM.';
+comment on column IT.AH_CTA_VISTAS_CRM.mto_cre_a_confirmar
+  is 'Importe de Creditos Confirmados en ATM.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_ente
+  is 'Codigo de Empresa de Pago de Sueldo asociado.';
+comment on column IT.AH_CTA_VISTAS_CRM.mto_apertura
+  is 'Monto de Apertura Pactado con el cliente.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.AH_CTA_VISTAS_CRM.reg_firma
+  is 'Regimen de Firmas.';
+comment on column IT.AH_CTA_VISTAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CTA_VISTAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_VISTAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_cau_cancelacion
+  is 'Motivo de Cancelacion.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_banco
+  is 'Codigo del Banco - Operaciones Swift.';
+comment on column IT.AH_CTA_VISTAS_CRM.cod_sub_modalidad
+  is 'Codigo de Sub Modalidad';
+comment on column IT.AH_CTA_VISTAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+

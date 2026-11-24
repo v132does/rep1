@@ -1,0 +1,54 @@
+create table IT.BA_PRO_TRANSACCIONES
+(
+  cod_programa     VARCHAR2(30) not null,
+  cod_cliente      VARCHAR2(3),
+  version          VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_transaccion  NUMBER(4) not null,
+  tip_relacion     VARCHAR2(1),
+  comentario       VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PRO_TRANSACCIONES
+  is 'Contiene la relacion de los programas y las transacciones que genera';
+comment on column IT.BA_PRO_TRANSACCIONES.cod_programa
+  is 'Codigo del Programa';
+comment on column IT.BA_PRO_TRANSACCIONES.cod_cliente
+  is 'Código del Cliente.';
+comment on column IT.BA_PRO_TRANSACCIONES.version
+  is 'Versión del Programa 10 ó 6';
+comment on column IT.BA_PRO_TRANSACCIONES.cod_modulo
+  is 'Codigo del Módulo de la transaccion';
+comment on column IT.BA_PRO_TRANSACCIONES.cod_modalidad
+  is 'Código de la modalidad de la transacción asociada';
+comment on column IT.BA_PRO_TRANSACCIONES.cod_transaccion
+  is 'Código de la transacción asociada';
+comment on column IT.BA_PRO_TRANSACCIONES.tip_relacion
+  is 'Tipo de relación con el programa: P-Transaccion padre,
+D-Transaccion hijo Debito C-Transaccion hijo Credito  ';
+comment on column IT.BA_PRO_TRANSACCIONES.comentario
+  is 'Comentario particular del Objeto dentro del programa';
+comment on column IT.BA_PRO_TRANSACCIONES.usu_insercion
+  is 'Usuario que ingreso el registro.';
+comment on column IT.BA_PRO_TRANSACCIONES.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.BA_PRO_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion al registro.';
+comment on column IT.BA_PRO_TRANSACCIONES.fec_modificacion
+  is 'Fecha de la ultima modificacion al registro.';
+

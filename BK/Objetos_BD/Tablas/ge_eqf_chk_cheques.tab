@@ -1,0 +1,111 @@
+create table IT.GE_EQF_CHK_CHEQUES
+(
+  nro_solicitud      NUMBER(10) not null,
+  nro_secuencia      NUMBER(5) not null,
+  cod_persona        VARCHAR2(10) not null,
+  fec_consulta       DATE,
+  hor_consulta       VARCHAR2(10),
+  nom_ser_webservice VARCHAR2(50),
+  tip_cheque         VARCHAR2(100) not null,
+  nom_banco          VARCHAR2(100),
+  cod_banco          VARCHAR2(100),
+  nro_cta_cte        VARCHAR2(100),
+  nro_cheque         VARCHAR2(100),
+  fec_rechazo        VARCHAR2(100),
+  monto              VARCHAR2(100),
+  moneda             VARCHAR2(100),
+  mot_rechazo        VARCHAR2(100),
+  cod_mot_rechazo    VARCHAR2(100),
+  mot_anulacion      VARCHAR2(100),
+  cod_mot_anulacion  VARCHAR2(100),
+  estado             VARCHAR2(100),
+  ind_historico      VARCHAR2(3),
+  msg_error          VARCHAR2(4000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_CHK_CHEQUES.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_CHK_CHEQUES.nro_secuencia
+  is 'Nro de secuencia por solicitud';
+comment on column IT.GE_EQF_CHK_CHEQUES.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_CHK_CHEQUES.fec_consulta
+  is 'Fecha de la consulta al servicio web';
+comment on column IT.GE_EQF_CHK_CHEQUES.hor_consulta
+  is 'Hora de la consulta al servicio web';
+comment on column IT.GE_EQF_CHK_CHEQUES.nom_ser_webservice
+  is 'Nombre del servicio web consultado';
+comment on column IT.GE_EQF_CHK_CHEQUES.tip_cheque
+  is 'Tipo de cheque (RECHAZADO, RECHAZADO_HISTORICO, ANULADO)';
+comment on column IT.GE_EQF_CHK_CHEQUES.nom_banco
+  is 'Nombre del Banco';
+comment on column IT.GE_EQF_CHK_CHEQUES.cod_banco
+  is 'Código del Banco';
+comment on column IT.GE_EQF_CHK_CHEQUES.nro_cta_cte
+  is 'Nro cta cte';
+comment on column IT.GE_EQF_CHK_CHEQUES.nro_cheque
+  is 'Nro del cheque';
+comment on column IT.GE_EQF_CHK_CHEQUES.fec_rechazo
+  is 'Fecha de rechazo';
+comment on column IT.GE_EQF_CHK_CHEQUES.monto
+  is 'Monto del cheque';
+comment on column IT.GE_EQF_CHK_CHEQUES.moneda
+  is 'Moneda';
+comment on column IT.GE_EQF_CHK_CHEQUES.mot_rechazo
+  is 'Motivo de rechazo';
+comment on column IT.GE_EQF_CHK_CHEQUES.cod_mot_rechazo
+  is 'Cod motivo de rechazo';
+comment on column IT.GE_EQF_CHK_CHEQUES.mot_anulacion
+  is 'Motivo de anulación';
+comment on column IT.GE_EQF_CHK_CHEQUES.cod_mot_anulacion
+  is 'Cod motivo anulación';
+comment on column IT.GE_EQF_CHK_CHEQUES.estado
+  is 'Estado';
+comment on column IT.GE_EQF_CHK_CHEQUES.ind_historico
+  is 'Indica si es histórico (S= SI, N= NO)';
+comment on column IT.GE_EQF_CHK_CHEQUES.msg_error
+  is 'Mensaje de error del webservice si lo hubiere';
+create index IT.IN_CHKCHEQ_PER_SOL_FEC on IT.GE_EQF_CHK_CHEQUES (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_CHK_CHEQUES
+  add constraint PK_GE_EQF_CHK_CHEQUES primary key (NRO_SOLICITUD, TIP_CHEQUE, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_CHK_CHEQUES
+  add constraint FK_CHKCH_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_EQF_SOLICITUDES (NRO_SOLICITUD) on delete cascade;
+

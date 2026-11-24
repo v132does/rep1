@@ -1,0 +1,86 @@
+create table IT.CC_CHE_RECIBIDOS_TMP
+(
+  nro_cheque         NUMBER(15),
+  fec_proceso        DATE,
+  nro_cuenta         VARCHAR2(15),
+  monto              NUMBER(18,2),
+  cod_bco_receptor   NUMBER(3),
+  cod_cau_devolucion NUMBER(3),
+  cod_ofi_camara     NUMBER(3),
+  est_cheque         VARCHAR2(1),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  nro_linea          NUMBER(6),
+  cod_usuario        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  alerta_uv          VARCHAR2(1),
+  datamatrix         VARCHAR2(1),
+  tip_importe        NUMBER(1) default 0,
+  banda_cmc7         VARCHAR2(25),
+  cod_moneda         VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_RECIBIDOS_TMP
+  is 'Cheques recibidos.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.nro_cheque
+  is 'Numero de cheque.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.monto
+  is 'Importe.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.cod_bco_receptor
+  is 'Banco receptor.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.cod_cau_devolucion
+  is 'Codigo de Devolucion de Cheque.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.cod_ofi_camara
+  is 'Oficina de Camara.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.est_cheque
+  is 'Estado del Cheque(R=Rechazado, P=Procesado).';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.nro_linea
+  is 'Numero de Linea.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.cod_usuario
+  is 'Codigo de usuario que realiza la operacion.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.alerta_uv
+  is 'Alerta UV(0=Sin Alerta; 1=Con Alerta; 2=Sin Alerta UV con Alerta Receptor; 3=Con Alerta UV y Alerta Receptor; " "=Control UV no ejecutado).';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.datamatrix
+  is 'DataMatrix(0=Ok ; 1=Alerta ; " "=Control no ejecutado).';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.tip_importe
+  is 'Tipo Importe(0=Bajo Valor,1=Alto Valor).';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.banda_cmc7
+  is 'Banda CMC7.';
+comment on column IT.CC_CHE_RECIBIDOS_TMP.cod_moneda
+  is 'Codigo de Moneda';
+create index IT.IN_COD_USUARIO on IT.CC_CHE_RECIBIDOS_TMP (COD_USUARIO, NRO_LINEA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

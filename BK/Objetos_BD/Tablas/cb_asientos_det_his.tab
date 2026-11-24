@@ -1,0 +1,435 @@
+﻿-- Create table
+create table IT.CB_ASIENTOS_DET_HIS
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  tip_movimiento   VARCHAR2(1) not null,
+  mto_mon_rubro    NUMBER(18,2) default 0,
+  mto_mon_local    NUMBER(18,2) default 0,
+  descripcion      VARCHAR2(60),
+  referencia       VARCHAR2(11),
+  protegido        VARCHAR2(1) default 'N',
+  actualizado      VARCHAR2(1) default 'N',
+  val_cotizacion   NUMBER(14,8) default 0,
+  distribuido      VARCHAR2(1) default 'N',
+  ref_movimiento   NUMBER(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_valor        DATE,
+  cod_area         NUMBER(3),
+  cod_persona      VARCHAR2(10)
+)
+partition by range (FECHA)
+(
+  partition P2020 values less than (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25814 values less than (TO_DATE(' 2023-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25817 values less than (TO_DATE(' 2023-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25838 values less than (TO_DATE(' 2024-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25807 values less than (TO_DATE(' 2024-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25812 values less than (TO_DATE(' 2024-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25808 values less than (TO_DATE(' 2024-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25805 values less than (TO_DATE(' 2024-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25811 values less than (TO_DATE(' 2024-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25813 values less than (TO_DATE(' 2024-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25816 values less than (TO_DATE(' 2024-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25815 values less than (TO_DATE(' 2024-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25809 values less than (TO_DATE(' 2024-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25810 values less than (TO_DATE(' 2024-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25806 values less than (TO_DATE(' 2024-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P25918 values less than (TO_DATE(' 2025-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P28078 values less than (TO_DATE(' 2025-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P29862 values less than (TO_DATE(' 2025-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P31602 values less than (TO_DATE(' 2025-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P33194 values less than (TO_DATE(' 2025-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P35554 values less than (TO_DATE(' 2025-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P37334 values less than (TO_DATE(' 2025-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P39115 values less than (TO_DATE(' 2025-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P40779 values less than (TO_DATE(' 2025-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition SYS_P42479 values less than (TO_DATE(' 2025-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace IT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    )
+);
+-- Add comments to the table 
+comment on table IT.CB_ASIENTOS_DET_HIS
+  is 'Detalle De Los Asientos Contables - Historico ** Se borra a medida que los asientos del a?o en curso se superpongan a los del a?o anterior **';
+-- Add comments to the columns 
+comment on column IT.CB_ASIENTOS_DET_HIS.fecha
+  is 'Fecha del asiento.';
+comment on column IT.CB_ASIENTOS_DET_HIS.cod_oficina
+  is 'Codigo de la oficina del asiento.';
+comment on column IT.CB_ASIENTOS_DET_HIS.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_ASIENTOS_DET_HIS.nro_linea
+  is 'Numero de lmnea del asiento.';
+comment on column IT.CB_ASIENTOS_DET_HIS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_ASIENTOS_DET_HIS.tip_movimiento
+  is 'Tipo de movimiento: D=Debito C=Credito.';
+comment on column IT.CB_ASIENTOS_DET_HIS.mto_mon_rubro
+  is 'Importe del movimiento en moneda extranjera.';
+comment on column IT.CB_ASIENTOS_DET_HIS.mto_mon_local
+  is 'Importe del movimiento en moneda local.';
+comment on column IT.CB_ASIENTOS_DET_HIS.descripcion
+  is 'Descripcion del asiento.';
+comment on column IT.CB_ASIENTOS_DET_HIS.referencia
+  is 'Referencia.';
+comment on column IT.CB_ASIENTOS_DET_HIS.protegido
+  is 'IND_PROTEGIDO? S=Registro IND_PROTEGIDO, no puede ser eliminado. N=Registro no IND_PROTEGIDO, puede ser eliminado.';
+comment on column IT.CB_ASIENTOS_DET_HIS.actualizado
+  is 'Registro actualizado en saldo de cuentas? S=Registro actualizado en saldo de cuentas N=Registro no actualizado en saldo de cuentas.';
+comment on column IT.CB_ASIENTOS_DET_HIS.val_cotizacion
+  is 'Valor de la tasa de cambio usada para generar asientos de cuentas en moneda extranjera.';
+comment on column IT.CB_ASIENTOS_DET_HIS.distribuido
+  is 'Tiene cuenta de distribucion: S=Tiene cuenta de distribucion. N=No tiene cuenta de distribucion.';
+comment on column IT.CB_ASIENTOS_DET_HIS.ref_movimiento
+  is 'Numero de Referencia.';
+comment on column IT.CB_ASIENTOS_DET_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASIENTOS_DET_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASIENTOS_DET_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_DET_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_DET_HIS.fec_valor
+  is 'Fecha valor del asiento.';
+comment on column IT.CB_ASIENTOS_DET_HIS.cod_area
+  is 'Codigo del Area.';
+comment on column IT.CB_ASIENTOS_DET_HIS.cod_persona
+  is 'Codigo de Persona.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint PK_CB_ASIENTOS_DET_HIS primary key (FECHA, COD_OFICINA, NRO_ASIENTO, NRO_LINEA)
+  using index 
+  local;
+alter index IT.PK_CB_ASIENTOS_DET_HIS nologging;
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint FK_BADHI_NRO_ASIENTO foreign key (FECHA, COD_OFICINA, NRO_ASIENTO)
+  references IT.CB_ASIENTOS_HIS (FECHA, COD_OFICINA, NRO_ASIENTO)
+  deferrable initially deferred;
+-- Create/Recreate check constraints 
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1082384743_ACTUA_001
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1082384743_COD_O_003
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1082384743_DISTR_000
+  check (DISTRIBUIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1082384743_PROTE_003
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1082384743_TIP_M_000
+  check (TIP_MOVIMIENTO IN ('D', 'C'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1085418068_ACTUA_002
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1085418068_COD_O_005
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1085418068_DISTR_000
+  check (DISTRIBUIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1085418068_PROTE_003
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1085418068_TIP_M_000
+  check (TIP_MOVIMIENTO IN ('D', 'C'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1086033593_ACTUA_001
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1086033593_COD_O_003
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1086033593_DISTR_000
+  check (DISTRIBUIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1086033593_PROTE_002
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_DET_HIS
+  add constraint AVCON_1086033593_TIP_M_000
+  check (TIP_MOVIMIENTO IN ('D', 'C'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CB_ASIENTOS_DET_HIS to IT_TEMPORAL;

@@ -1,0 +1,14 @@
+
+
+ALTER TABLE IT.GE_DIF_CTA_DIARIAS ADD (
+    modalidad   VARCHAR2(50),
+    tip_saldo   VARCHAR2(30)
+);
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.modalidad IS 'Tipo de producto o modalidad de la cuenta';
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.tip_saldo IS 'Tipo de saldo';
+    
+ALTER TABLE IT.ge_cta_dif_sal_diario DROP CONSTRAINT PK_GE_CTA_DIF_SAL_DIARIO;
+
+ALTER TABLE IT.ge_cta_dif_sal_diario ADD CONSTRAINT PK_GE_CTA_DIF_SAL_DIARIO 
+PRIMARY KEY (FECHA, NRO_CUENTA, TIP_SALDO);

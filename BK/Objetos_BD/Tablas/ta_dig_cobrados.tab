@@ -1,0 +1,54 @@
+create table IT.TA_DIG_COBRADOS
+(
+  cod_persona      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  nro_documento    VARCHAR2(20),
+  fec_proceso      DATE,
+  des_servicio     VARCHAR2(300),
+  cod_moneda       VARCHAR2(3),
+  importe          NUMBER(18,2),
+  mto_impuesto     NUMBER(18,2),
+  referencia       VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default (SUBSTR(USER,1,10)),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default (SUBSTR(USER,1,10)),
+  fec_modificacion VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_DIG_COBRADOS.cod_persona
+  is 'Codigo de persona';
+comment on column IT.TA_DIG_COBRADOS.nro_cuenta
+  is 'Numero de cuenta';
+comment on column IT.TA_DIG_COBRADOS.nro_documento
+  is 'Numero de documento';
+comment on column IT.TA_DIG_COBRADOS.fec_proceso
+  is 'Fecha de registro';
+comment on column IT.TA_DIG_COBRADOS.des_servicio
+  is 'Descripcion del tipo de servicio';
+comment on column IT.TA_DIG_COBRADOS.cod_moneda
+  is 'Codigo de moneda';
+comment on column IT.TA_DIG_COBRADOS.importe
+  is 'Importe del movimiento';
+comment on column IT.TA_DIG_COBRADOS.mto_impuesto
+  is 'Monto del impuesto';
+comment on column IT.TA_DIG_COBRADOS.referencia
+  is 'Referencia';
+comment on column IT.TA_DIG_COBRADOS.usu_insercion
+  is 'Usuario de insercion';
+comment on column IT.TA_DIG_COBRADOS.fec_insercion
+  is 'Usuario de modificacion';
+comment on column IT.TA_DIG_COBRADOS.usu_modificacion
+  is 'Usuario de modificacion';
+comment on column IT.TA_DIG_COBRADOS.fec_modificacion
+  is 'Fecha de modificacion';
+

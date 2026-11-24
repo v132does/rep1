@@ -1,0 +1,113 @@
+create table IT.GE_SPI_CON_CAS
+(
+  nro_referencia          VARCHAR2(33) not null,
+  tip_identificador       VARCHAR2(10) not null,
+  val_identificador       VARCHAR2(80) not null,
+  cod_persona             VARCHAR2(10),
+  tip_consulta            VARCHAR2(20),
+  fecha                   DATE not null,
+  hora                    VARCHAR2(8) not null,
+  est_solicitud           VARCHAR2(1),
+  cod_swi_pte_solicitante VARCHAR2(20) not null,
+  usu_insercion           VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion           DATE default sysdate not null,
+  usu_modificacion        VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion        DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_CON_CAS
+  is 'Registro de las órdenes de Consulta de datos en CAS.';
+comment on column IT.GE_SPI_CON_CAS.nro_referencia
+  is 'Nro de referencia.';
+comment on column IT.GE_SPI_CON_CAS.tip_identificador
+  is 'Tipo de identificador.';
+comment on column IT.GE_SPI_CON_CAS.val_identificador
+  is 'Valor del Identificador.';
+comment on column IT.GE_SPI_CON_CAS.cod_persona
+  is 'Código del cliente solicitante.';
+comment on column IT.GE_SPI_CON_CAS.tip_consulta
+  is 'Tipo de consulta Valores:
+      CON_CLIENTE [Consulta por cliente]
+      CON_CUENTA [Consulta por cuenta]
+      CON_ALIAS [Consulta por alias].';
+comment on column IT.GE_SPI_CON_CAS.fecha
+  is 'Fecha de la solicitud.';
+comment on column IT.GE_SPI_CON_CAS.hora
+  is 'Hora de generación.';
+comment on column IT.GE_SPI_CON_CAS.est_solicitud
+  is 'Estado de la solicitud:
+      U [Solicitud autorizada] - Solicitud autorizada y pendiente de envio al módulo CAS
+      W [Autorizado y Pendiente de Respuesta] -  Pendiente de respuesta en el modulo CAS
+      A [Aprobada en el modulo CAS] - Solicitud exitosa en el modulo CAS
+      E [Solicitud con respuesta de error] - Solicitud enviada con respuesta de error';
+comment on column IT.GE_SPI_CON_CAS.cod_swi_pte_solicitante
+  is 'Codigo swift , codigo electronico del banco.';
+comment on column IT.GE_SPI_CON_CAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_CON_CAS.fec_insercion
+  is 'Fecha en que se inserta el registro.';
+comment on column IT.GE_SPI_CON_CAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_SPI_CON_CAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_GSPI_CON_CAS on IT.GE_SPI_CON_CAS (TIP_IDENTIFICADOR, VAL_IDENTIFICADOR)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSPI_CONS_COD_PERSONA on IT.GE_SPI_CON_CAS (COD_PERSONA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSPI_CONS_FEC_HORA on IT.GE_SPI_CON_CAS (FECHA, HORA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SPI_CON_CAS
+  add constraint PK_NRO_CONS_CAS primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

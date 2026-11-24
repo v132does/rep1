@@ -1,0 +1,204 @@
+create table IT.GE_CON_ESP_CIDESA
+(
+  ref_origen                VARCHAR2(20),
+  fecha                     DATE,
+  nro_cuenta                VARCHAR2(15),
+  cod_modulo                NUMBER(3),
+  cod_modalidad             NUMBER(3),
+  cod_moneda                VARCHAR2(3),
+  cod_banco                 NUMBER(3),
+  cod_ente                  NUMBER(5),
+  cod_rubro                 VARCHAR2(15),
+  cod_bco_central           NUMBER(4),
+  cod_rub_sobregiro         VARCHAR2(15),
+  tipo                      VARCHAR2(1),
+  cod_oficina               NUMBER(3),
+  nro_asiento               NUMBER(6),
+  cod_usuario               VARCHAR2(10),
+  tot_control               NUMBER(18,2),
+  actualizado               VARCHAR2(1),
+  reversado                 VARCHAR2(1),
+  ofi_integrada             VARCHAR2(1),
+  confirmado                VARCHAR2(1),
+  cod_ofi_origen            NUMBER(3),
+  usu_insercion             VARCHAR2(10),
+  fec_insercion             DATE,
+  usu_modificacion          VARCHAR2(10),
+  fec_modificacion          DATE,
+  fec_valor                 DATE,
+  nro_asi_automatico        NUMBER(6),
+  nro_asi_futuro            NUMBER(6),
+  cod_cargo                 NUMBER(10),
+  nro_linea                 NUMBER(9),
+  tip_movimiento            VARCHAR2(1),
+  mto_mon_rubro             NUMBER(18,2),
+  mto_mon_local             NUMBER(18,2),
+  descripcion               VARCHAR2(60),
+  protegido                 VARCHAR2(1),
+  val_cotizacion            NUMBER(14,8),
+  distribuido               VARCHAR2(1),
+  ref_movimiento            NUMBER(7),
+  referencia                VARCHAR2(20),
+  cod_autorizacion          NUMBER(10),
+  cod_causa                 NUMBER(3),
+  cod_error                 VARCHAR2(10),
+  cod_mad_padre             NUMBER(3),
+  cod_mod_padre             NUMBER(3),
+  cod_persona               VARCHAR2(10),
+  cod_ref_cambio            VARCHAR2(3),
+  cod_sit_contable          NUMBER(20),
+  cod_tasa                  NUMBER(3),
+  cod_tip_ope_cambio        VARCHAR2(3),
+  cod_tra_padre             NUMBER(4),
+  cod_transaccion           NUMBER(4),
+  cod_usu_autorizador       VARCHAR2(10),
+  cod_usu_reversion         VARCHAR2(10),
+  concepto                  VARCHAR2(100),
+  cotizacion                NUMBER(14,8),
+  emi_aviso                 VARCHAR2(1),
+  hor_reversion             VARCHAR2(8),
+  hora                      VARCHAR2(8),
+  monto                     NUMBER(18,2),
+  mto_equ_local             NUMBER(18,2),
+  nro_caja                  NUMBER(3),
+  nro_conciliacion          NUMBER(20),
+  nro_documento             NUMBER(15),
+  nro_documento2            NUMBER(15),
+  nro_documento3            NUMBER(15),
+  nro_documento4            NUMBER(15),
+  nro_secuencia             NUMBER(3),
+  tip_mov_rubro             VARCHAR2(1),
+  val_tasa                  NUMBER(20,4),
+  estado                    VARCHAR2(1),
+  est_cuenta                VARCHAR2(1),
+  fec_fin_retencion         DATE,
+  cod_retencion             NUMBER(3),
+  ben_dir_correo            VARCHAR2(80),
+  cod_bco_corresponsal      NUMBER(3),
+  cod_msj_swift             NUMBER(3),
+  cod_per_beneficiario      VARCHAR2(10),
+  cod_per_intermediario     VARCHAR2(10),
+  cod_per_solicitante       VARCHAR2(10),
+  cod_sub_tip_operacion     VARCHAR2(3),
+  cod_swi_pte_beneficiario  VARCHAR2(20),
+  cod_swi_pte_corresponsal  VARCHAR2(20),
+  cod_swi_pte_intermediario VARCHAR2(20),
+  cod_swi_pte_solicitante   VARCHAR2(20),
+  cod_swi_suc_beneficiario  VARCHAR2(20),
+  cod_swi_suc_solicitante   VARCHAR2(20),
+  cod_tip_doc_beneficiario  NUMBER(3),
+  cod_tip_doc_solicitante   NUMBER(3),
+  cod_tip_operacion         VARCHAR2(3),
+  cod_usu_transaccion       VARCHAR2(4),
+  dir_beneficiario          VARCHAR2(100),
+  dir_intermediario         VARCHAR2(100),
+  dir_solicitante           VARCHAR2(100),
+  error                     VARCHAR2(4000),
+  fec_ingreso               DATE,
+  fec_recepcion             DATE,
+  imp_inf_hacienda          VARCHAR2(400),
+  ind_valor                 VARCHAR2(1),
+  indemnizado               VARCHAR2(1),
+  msj_swift                 VARCHAR2(4000),
+  mto_cargo                 NUMBER(18,2),
+  nom_beneficiario          VARCHAR2(120),
+  nom_corresponsal          VARCHAR2(120),
+  nom_intermediario         VARCHAR2(120),
+  nom_solicitante           VARCHAR2(120),
+  nro_cta_beneficiario      VARCHAR2(35),
+  nro_cta_pte_beneficiario  VARCHAR2(35),
+  nro_cta_pte_corresponsal  VARCHAR2(35),
+  nro_cta_pte_intermediario VARCHAR2(35),
+  nro_cta_pte_solicitante   VARCHAR2(35),
+  nro_cta_solicitante       VARCHAR2(35),
+  nro_doc_beneficiario      VARCHAR2(20),
+  nro_doc_solicitante       VARCHAR2(20),
+  nro_lote                  VARCHAR2(20),
+  nro_operacion             NUMBER(15),
+  nro_ref_externa           VARCHAR2(20),
+  nro_referencia            NUMBER(15),
+  nro_sec_lote              VARCHAR2(20),
+  observacion               VARCHAR2(1000),
+  origen                    VARCHAR2(1),
+  plataforma                VARCHAR2(1),
+  plazo                     NUMBER(3),
+  prioridad                 NUMBER(3),
+  ref_oid                   VARCHAR2(100),
+  situacion                 VARCHAR2(1),
+  tip_cargo                 VARCHAR2(3),
+  tip_mensaje               VARCHAR2(4),
+  tip_rechazo               VARCHAR2(3),
+  sal_mon_loc_ant           NUMBER(18,2),
+  deb_mon_local             NUMBER(18,2),
+  cre_mon_local             NUMBER(18,2),
+  sal_ini_mes_mon_local     NUMBER(18,2),
+  sal_mon_rub_ant           NUMBER(18,2),
+  deb_mon_rubro             NUMBER(18,2),
+  cre_mon_rubro             NUMBER(18,2),
+  sal_ini_mes_mon_rubro     NUMBER(18,2),
+  sal_ini_mes_mon_fuerte    NUMBER(18,2),
+  sal_equ_loc_ant           NUMBER(18,2),
+  deb_equ_local             NUMBER(18,2),
+  cre_equ_local             NUMBER(18,2),
+  sal_ini_mes_equ_local     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COESP_NRO_DOC on IT.GE_CON_ESP_CIDESA (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COESP_NRO_DOC4 on IT.GE_CON_ESP_CIDESA (NRO_DOCUMENTO4)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COESP_NRO_REF on IT.GE_CON_ESP_CIDESA (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COESP_REF_MOV on IT.GE_CON_ESP_CIDESA (REF_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

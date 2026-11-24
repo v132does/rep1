@@ -1,0 +1,106 @@
+create table IT.GE_TRA_INTERNAS
+(
+  cod_transferencia    NUMBER(10) not null,
+  fecha                DATE not null,
+  cod_ofi_origen       NUMBER(3) not null,
+  cod_ofi_destino      NUMBER(3) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  monto                NUMBER(18,2) not null,
+  mto_comision         NUMBER(18,2) not null,
+  mto_impuesto         NUMBER(18,2) not null,
+  for_pago             VARCHAR2(1) not null,
+  cod_per_remitente    VARCHAR2(10) not null,
+  cod_per_beneficiario VARCHAR2(10) not null,
+  estado               VARCHAR2(1) not null,
+  nro_cuenta           VARCHAR2(15),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion     DATE default SYSDATE,
+  tip_fondo            VARCHAR2(2) not null,
+  tip_motivo           VARCHAR2(2) not null,
+  tip_financiacion     VARCHAR2(2) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRA_INTERNAS
+  is 'Tabla en la que se registran todos los pedidos de Transferencias Internas de Dinero.';
+comment on column IT.GE_TRA_INTERNAS.cod_transferencia
+  is 'Código de transferencia.';
+comment on column IT.GE_TRA_INTERNAS.fecha
+  is 'Fecha de la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.cod_ofi_origen
+  is 'Código de la oficina donde se realiza la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.cod_ofi_destino
+  is 'Código de la oficina donde se pagará la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.cod_moneda
+  is 'Código de la moneda.';
+comment on column IT.GE_TRA_INTERNAS.monto
+  is 'Monto de la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.mto_comision
+  is 'Monto de la comisión cobrada.';
+comment on column IT.GE_TRA_INTERNAS.mto_impuesto
+  is 'Monto del impuesto.';
+comment on column IT.GE_TRA_INTERNAS.for_pago
+  is 'Forma de pago.';
+comment on column IT.GE_TRA_INTERNAS.cod_per_remitente
+  is 'Código de la persona que solicita la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.cod_per_beneficiario
+  is 'Código de la persona beneficiario de la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.estado
+  is 'Estado de la transferencia.';
+comment on column IT.GE_TRA_INTERNAS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_TRA_INTERNAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_TRA_INTERNAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_TRA_INTERNAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_TRA_INTERNAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_TRA_INTERNAS.tip_fondo
+  is 'Naturaleza de los Fondos.';
+comment on column IT.GE_TRA_INTERNAS.tip_motivo
+  is 'Motivo de la Transacción.';
+comment on column IT.GE_TRA_INTERNAS.tip_financiacion
+  is 'Financiamiento de la Transacción.';
+alter table IT.GE_TRA_INTERNAS
+  add constraint PK_GE_TRA_INTERNAS primary key (COD_TRANSFERENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRA_INTERNAS
+  add constraint FK_GTINT_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_TRA_INTERNAS
+  add constraint FK_GTINT_COD_OFI_DESTINO foreign key (COD_OFI_DESTINO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_TRA_INTERNAS
+  add constraint FK_GTINT_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_TRA_INTERNAS
+  add constraint FK_GTINT_COD_PER_BENEFICIARIO foreign key (COD_PER_BENEFICIARIO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_TRA_INTERNAS
+  add constraint FK_GTINT_COD_PER_REMITENTE foreign key (COD_PER_REMITENTE)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

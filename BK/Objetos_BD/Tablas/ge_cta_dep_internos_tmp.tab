@@ -1,0 +1,32 @@
+create table IT.GE_CTA_DEP_INTERNOS_TMP
+(
+  tipo              CHAR(1),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  nro_cuenta        VARCHAR2(15),
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  estado            VARCHAR2(1),
+  pla_original      NUMBER,
+  pla_transcurrido  NUMBER,
+  monto             NUMBER,
+  cod_ori_fondo     NUMBER,
+  cod_sub_modalidad NUMBER,
+  cod_tasa          NUMBER,
+  val_tasa          NUMBER(20,4),
+  fec_apertura      DATE,
+  fec_vencimiento   DATE,
+  mon_original      NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

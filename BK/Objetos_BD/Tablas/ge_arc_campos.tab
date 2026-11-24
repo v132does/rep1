@@ -1,0 +1,82 @@
+create table IT.GE_ARC_CAMPOS
+(
+  referencia       VARCHAR2(30) not null,
+  nom_tabla        VARCHAR2(30) not null,
+  archivo          VARCHAR2(30) not null,
+  nro_secuencia    NUMBER(4) not null,
+  descripcion      VARCHAR2(200) not null,
+  tip_dato         VARCHAR2(10) not null,
+  formato          VARCHAR2(20),
+  pos_inicial      NUMBER(4),
+  longitud         NUMBER(4) not null,
+  pos_decimal      NUMBER(3),
+  campo            VARCHAR2(30) not null,
+  funcion          VARCHAR2(300),
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  saltar           VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARC_CAMPOS
+  is 'Definicion de campos de archivos ascii.';
+comment on column IT.GE_ARC_CAMPOS.referencia
+  is 'Nombre de Referencia que le identificara a un grupo de archivos que seran cargados en un mismo proceso (Ej. BANCARD, SUELDOS, etc...).';
+comment on column IT.GE_ARC_CAMPOS.nom_tabla
+  is 'Nombre de la tabla que alimentara.';
+comment on column IT.GE_ARC_CAMPOS.archivo
+  is 'Nombre del archivo que va a cargar.';
+comment on column IT.GE_ARC_CAMPOS.nro_secuencia
+  is 'Secuencia en que sera cargado.';
+comment on column IT.GE_ARC_CAMPOS.descripcion
+  is 'Descripcion del campo.';
+comment on column IT.GE_ARC_CAMPOS.tip_dato
+  is 'Tipo de Dato.';
+comment on column IT.GE_ARC_CAMPOS.formato
+  is 'Formato del dato.';
+comment on column IT.GE_ARC_CAMPOS.pos_inicial
+  is 'Posicion Inicial.';
+comment on column IT.GE_ARC_CAMPOS.longitud
+  is 'Longitud del campo.';
+comment on column IT.GE_ARC_CAMPOS.pos_decimal
+  is 'Posiciones decimales.';
+comment on column IT.GE_ARC_CAMPOS.campo
+  is 'Nombre del Campo de la Tabla.';
+comment on column IT.GE_ARC_CAMPOS.funcion
+  is 'Funcion que sera utilizado en el momento de la carga ($ sera reemplazado por el valor del campo cargado).';
+comment on column IT.GE_ARC_CAMPOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_ARC_CAMPOS.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.GE_ARC_CAMPOS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_ARC_CAMPOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ARC_CAMPOS.saltar
+  is 'Saltar el campo(No carga este dato).';
+alter table IT.GE_ARC_CAMPOS
+  add constraint PK_GE_ARC_CAMPOS primary key (REFERENCIA, ARCHIVO, NOM_TABLA, CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

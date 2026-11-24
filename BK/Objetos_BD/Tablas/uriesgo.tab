@@ -1,0 +1,17 @@
+create table IT.URIESGO
+(
+  id     VARCHAR2(255),
+  riesgo VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

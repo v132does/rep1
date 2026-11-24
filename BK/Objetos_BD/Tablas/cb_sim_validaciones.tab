@@ -1,0 +1,64 @@
+create table IT.CB_SIM_VALIDACIONES
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_asiento      NUMBER(6) not null,
+  nro_linea        NUMBER(9) not null,
+  error            VARCHAR2(140) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SIM_VALIDACIONES
+  is 'Validaciones De Asientos.';
+comment on column IT.CB_SIM_VALIDACIONES.fecha
+  is 'Fecha de la Validacion.';
+comment on column IT.CB_SIM_VALIDACIONES.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CB_SIM_VALIDACIONES.nro_asiento
+  is 'Numero de asiento.';
+comment on column IT.CB_SIM_VALIDACIONES.nro_linea
+  is 'Numero de linea del asiento.';
+comment on column IT.CB_SIM_VALIDACIONES.error
+  is 'Error.';
+comment on column IT.CB_SIM_VALIDACIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CB_SIM_VALIDACIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.CB_SIM_VALIDACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SIM_VALIDACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SIM_VALIDACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SIM_VALIDACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_SIM_VALIDACIONES
+  add constraint PK_CB_SIM_VALIDACIONES primary key (FECHA, COD_OFICINA, NRO_ASIENTO, NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

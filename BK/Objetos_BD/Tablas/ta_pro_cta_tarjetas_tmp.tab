@@ -1,0 +1,38 @@
+create table IT.TA_PRO_CTA_TARJETAS_TMP
+(
+  cod_entidad       NUMBER(3),
+  cod_persona       NUMBER(7),
+  fec_ingreso       DATE,
+  usu_actualizacion VARCHAR2(10),
+  fec_actualizacion DATE,
+  oficial           CHAR(1),
+  promotor          CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PRO_CTA_TARJETAS_TMP
+  is 'Tabla de Proceso de Cuentas de Tarjetas';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.cod_entidad
+  is 'Código de Entidad';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.cod_persona
+  is 'Código de Persona.';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.usu_actualizacion
+  is 'Usuario  que realizo la ultima actualización.';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.fec_actualizacion
+  is 'Fecha en que se realizo la última actualización.';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.oficial
+  is 'Oficial';
+comment on column IT.TA_PRO_CTA_TARJETAS_TMP.promotor
+  is 'Promotor';
+

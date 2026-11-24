@@ -1,0 +1,45 @@
+create table IT.GE_CTA_ENTES
+(
+  cod_ente             NUMBER(5) not null,
+  nro_cuenta           VARCHAR2(15) not null,
+  cta_ent_estado       VARCHAR2(1),
+  fec_ult_acreditacion DATE,
+  usu_insercion        VARCHAR2(10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10),
+  fec_modificacion     DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CTA_ENTES.cod_ente
+  is 'CODIGO DEL ENTE DE PAGO DE SALARIO';
+comment on column IT.GE_CTA_ENTES.nro_cuenta
+  is 'NRO DE CUENTA DEL SALARIO';
+comment on column IT.GE_CTA_ENTES.cta_ent_estado
+  is 'ESTADO(Activo)/Inactivo) DE LA CUENTA PARA EL ENTE';
+comment on column IT.GE_CTA_ENTES.fec_ult_acreditacion
+  is 'ULTIMA FECHA DE ACREDITACION DE SALARIO';
+alter table IT.GE_CTA_ENTES
+  add constraint PK_GE_CTA_ENTES primary key (COD_ENTE, NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

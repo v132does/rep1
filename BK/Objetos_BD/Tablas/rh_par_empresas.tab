@@ -1,0 +1,463 @@
+create table IT.RH_PAR_EMPRESAS
+(
+  cod_empresa                  VARCHAR2(10) not null,
+  cod_per_responsable          VARCHAR2(10),
+  ind_apo_ips_caja             VARCHAR2(1) default 'N',
+  pat_ips_01                   NUMBER(15),
+  pat_ips_02                   NUMBER(15),
+  por_ips_emp                  NUMBER(5,3),
+  por_ips_pat                  NUMBER(5,3),
+  cod_ban_caja                 VARCHAR2(10),
+  por_caj_emp                  NUMBER(5,3),
+  por_caj_pat                  NUMBER(5,3),
+  por_caj_emp_act              NUMBER(5,3),
+  por_caj_pat_act              NUMBER(5,3),
+  por_caj_ret_snpp             NUMBER(5,3),
+  ano_actual                   NUMBER(4),
+  mes_actual                   NUMBER(2),
+  qui_actual                   NUMBER(1),
+  por_descuentos               NUMBER(10),
+  por_bonificacion             NUMBER(8,2),
+  fec_ult_cierre               DATE,
+  min_tolerancia               NUMBER(5) default 0,
+  nro_mjt                      NUMBER(15),
+  cod_tip_des_ips              NUMBER(3),
+  cod_tip_des_caja             NUMBER(3),
+  cod_tip_des_fondo            NUMBER(3),
+  cod_tip_ing_vacacion         NUMBER(3),
+  cod_tip_ing_vac_proporcional NUMBER(3),
+  cod_tip_ing_sueldo           NUMBER(3),
+  cod_tip_ing_bonificacion     NUMBER(3),
+  cod_tip_ing_preaviso         NUMBER(3),
+  cod_tip_ing_indemnizacion    NUMBER(3),
+  cod_tip_ing_normal           NUMBER(3),
+  cod_tip_ing_extras           NUMBER(3),
+  cod_tip_ing_30               NUMBER(3),
+  cod_tip_ing_50               NUMBER(3),
+  cod_tip_ing_100              NUMBER(3),
+  cod_tip_ing_130              NUMBER(3),
+  cod_tip_ing_aguinaldo        NUMBER(3),
+  cod_tip_ing_comision         NUMBER(3),
+  cod_tip_ing_destajo          NUMBER(3),
+  cod_tip_prov_vacacion        VARCHAR2(3),
+  cod_tip_prov_aguinaldo       VARCHAR2(3),
+  cod_tur_administrativo       NUMBER(3),
+  cod_tip_des_pri_sueldo       NUMBER(3),
+  cod_tip_des_aumento          NUMBER(3),
+  cod_tip_ing_titulo           NUMBER(3),
+  cod_tip_ing_antiguedad       NUMBER(3),
+  cod_tip_ing_cargo            NUMBER(3),
+  cod_tip_ing_representacion   NUMBER(3),
+  cod_tip_ing_gratificacion    NUMBER(3),
+  fec_insercion                DATE default SYSDATE not null,
+  usu_modificacion             VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion             DATE default SYSDATE not null,
+  usu_insercion                VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  cod_tip_des_renuncia         NUMBER(3),
+  cod_tip_ing_aumento          NUMBER(3),
+  cod_tip_des_pat_ips          NUMBER(3),
+  cod_tip_des_pat_caja         NUMBER(3),
+  cod_tip_des_pat_fondo        NUMBER(3),
+  cod_tip_des_pat_snpp         NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_PAR_EMPRESAS
+  is 'Parametros del Modulo de RRHH para las Empresas.';
+comment on column IT.RH_PAR_EMPRESAS.cod_empresa
+  is 'Codigo de la Empresa.';
+comment on column IT.RH_PAR_EMPRESAS.cod_per_responsable
+  is 'Responsable por la Empresa.';
+comment on column IT.RH_PAR_EMPRESAS.ind_apo_ips_caja
+  is 'Indica si se aporta a IPS o a la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.pat_ips_01
+  is 'Nro. Patronal IPS (Principal).';
+comment on column IT.RH_PAR_EMPRESAS.pat_ips_02
+  is 'Nro. Patronal IPS (Secundario).';
+comment on column IT.RH_PAR_EMPRESAS.por_ips_emp
+  is 'Porcentaje que abona al IPS el Empleado.';
+comment on column IT.RH_PAR_EMPRESAS.por_ips_pat
+  is 'Porcentaje que aporte al IPS la Patronal.';
+comment on column IT.RH_PAR_EMPRESAS.cod_ban_caja
+  is 'Codigo del Banco en la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.por_caj_emp
+  is 'Porcentaje que aporta el Empleado a la caja.';
+comment on column IT.RH_PAR_EMPRESAS.por_caj_pat
+  is 'Porcentaje que aporta la Patronal a la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.por_caj_emp_act
+  is 'Porcentaje que aporta el Empleado para el fondo de Actualizacion de la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.por_caj_pat_act
+  is 'Porcentaje que aporta la Patronal para el fondo de Actualizacion de la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.por_caj_ret_snpp
+  is 'Porcentaje de Retencion para el SNPP.';
+comment on column IT.RH_PAR_EMPRESAS.ano_actual
+  is 'Año Actual.';
+comment on column IT.RH_PAR_EMPRESAS.mes_actual
+  is 'Mes Actual.';
+comment on column IT.RH_PAR_EMPRESAS.qui_actual
+  is 'Quincena Actual.';
+comment on column IT.RH_PAR_EMPRESAS.por_descuentos
+  is 'Porcentaje de Descuento Judicial.';
+comment on column IT.RH_PAR_EMPRESAS.por_bonificacion
+  is 'Porcentaje Bonificacion Familiar.';
+comment on column IT.RH_PAR_EMPRESAS.fec_ult_cierre
+  is 'Fecha en que ser realizo el ultimo proceso de cierre.';
+comment on column IT.RH_PAR_EMPRESAS.min_tolerancia
+  is 'Minutos de Tolerancia por llegada tardia.';
+comment on column IT.RH_PAR_EMPRESAS.nro_mjt
+  is 'Numero de la Empresa en el Ministerio de Justicia y Trabajo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_ips
+  is 'Codigo del Tipo Descuento para IPS.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_caja
+  is 'Codigo del Tipo Descuento para la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_fondo
+  is 'Codigo del Tipo Descuento para el fondo de inversion de la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_vacacion
+  is 'Tipo de Ingreso por Vacaciones.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_vac_proporcional
+  is 'Tipo de Ingreso para las Vacaciones Proporcionales.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_sueldo
+  is 'Tipo de Ingreso por Sueldo Basico.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_bonificacion
+  is 'Tipo de Ingreso por Bonificacion Familiar.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_preaviso
+  is 'Tipo de Ingreso por Preaviso.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_indemnizacion
+  is 'Tipo de Ingreso por Indemnizacion.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_normal
+  is 'Tipo de Ingreso por Horas Normales.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_extras
+  is 'Tipo de Ingreso por Horas Extras normales.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_30
+  is 'Tipo de Ingreso por Horas Extras 30%.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_50
+  is 'Tipo de Ingreso por Horas Extras 50%.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_100
+  is 'Tipo de Ingreso por Horas Extras 100%.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_130
+  is 'Tipo de Ingreso por Horas Extras 130%.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_aguinaldo
+  is 'Tipo de Ingreso por Aguinaldo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_comision
+  is 'Tipo de Ingreso para las Comisiones.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_destajo
+  is 'Tipo de Ingreso por Destajo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_prov_vacacion
+  is 'Tipo de Ingreso para la Provision de Vacaciones.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_prov_aguinaldo
+  is 'Tipo de Ingreso para la Provision de Aguinaldo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tur_administrativo
+  is 'Codigo del Turno Administrativo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_pri_sueldo
+  is 'Tipo de Descuento para la Caja por el primer sueldo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_aumento
+  is 'Tipo de Descuento para la Caja por aumento.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_titulo
+  is 'Tipo de Ingreso adicional por Titulo Universitario.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_antiguedad
+  is 'Tipo de Ingreso adicional por Antiguedad.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_cargo
+  is 'Tipo de Ingreso adicional para la Caja por cargo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_representacion
+  is 'Tipo de Ingreso adicional para la Caja por Gastos de Representacion.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_gratificacion
+  is 'Tipo de Ingreso adicional para la Caja por Gratificacion.';
+comment on column IT.RH_PAR_EMPRESAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_PAR_EMPRESAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_PAR_EMPRESAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.RH_PAR_EMPRESAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_renuncia
+  is 'Tipo de Descuento para la Renuncia';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_ing_aumento
+  is 'Tipo de Ingreso para Aumento de Salario.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_pat_ips
+  is 'Tipo de Descuento de la Patronal para el IPS.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_pat_caja
+  is 'Tipo de Descuento de la Patronal para la Caja.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_pat_fondo
+  is 'Tipo de Descuento de la Patronal para el Fondo.';
+comment on column IT.RH_PAR_EMPRESAS.cod_tip_des_pat_snpp
+  is 'Tipo de Descuento para Retencion al SNPP.';
+create index IT.IN_HPEMP_COD_TIP_DES_IPS on IT.RH_PAR_EMPRESAS (COD_TIP_DES_IPS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_BONIFICAC on IT.RH_PAR_EMPRESAS (COD_TIP_ING_BONIFICACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_EXTRAS on IT.RH_PAR_EMPRESAS (COD_TIP_ING_EXTRAS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_INDEMNIZA on IT.RH_PAR_EMPRESAS (COD_TIP_ING_INDEMNIZACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_PREAVISO on IT.RH_PAR_EMPRESAS (COD_TIP_ING_PREAVISO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_SUELDO on IT.RH_PAR_EMPRESAS (COD_TIP_ING_SUELDO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_VACACION on IT.RH_PAR_EMPRESAS (COD_TIP_ING_VACACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_100 on IT.RH_PAR_EMPRESAS (COD_TIP_ING_100)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_130 on IT.RH_PAR_EMPRESAS (COD_TIP_ING_130)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_30 on IT.RH_PAR_EMPRESAS (COD_TIP_ING_30)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_COD_TIP_ING_50 on IT.RH_PAR_EMPRESAS (COD_TIP_ING_50)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HPEMP_TIP_ING_AGUINALDO on IT.RH_PAR_EMPRESAS (COD_TIP_ING_AGUINALDO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_PAR_EMPRESAS
+  add constraint PK_RH_PAR_EMPRESAS primary key (COD_EMPRESA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_EMPRESA foreign key (COD_EMPRESA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_PER_RESPONSABLE foreign key (COD_PER_RESPONSABLE)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_AUMENTO foreign key (COD_TIP_DES_AUMENTO)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_CAJA foreign key (COD_TIP_DES_CAJA)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_FONDO foreign key (COD_TIP_DES_FONDO)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_IPS foreign key (COD_TIP_DES_IPS)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_PAT_CAJA foreign key (COD_TIP_DES_PAT_CAJA)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_PAT_FONDO foreign key (COD_TIP_DES_PAT_FONDO)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_PAT_IPS foreign key (COD_TIP_DES_PAT_IPS)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_PAT_SNPP foreign key (COD_TIP_DES_PAT_SNPP)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_DES_PRI_SUELD foreign key (COD_TIP_DES_PRI_SUELDO)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_AGUINALDO foreign key (COD_TIP_ING_AGUINALDO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_ANTIGUEDA foreign key (COD_TIP_ING_ANTIGUEDAD)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_BONIFICAC foreign key (COD_TIP_ING_BONIFICACION)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_CARGO foreign key (COD_TIP_ING_CARGO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_COMISION foreign key (COD_TIP_ING_COMISION)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_DESTAJO foreign key (COD_TIP_ING_DESTAJO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_EXTRAS foreign key (COD_TIP_ING_EXTRAS)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_GRATIFICA foreign key (COD_TIP_ING_GRATIFICACION)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_INDEMNIZA foreign key (COD_TIP_ING_INDEMNIZACION)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_NORMAL foreign key (COD_TIP_ING_NORMAL)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_PREAVISO foreign key (COD_TIP_ING_PREAVISO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_REPRESENT foreign key (COD_TIP_ING_REPRESENTACION)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_SUELDO foreign key (COD_TIP_ING_SUELDO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_TITULO foreign key (COD_TIP_ING_TITULO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_VACACION foreign key (COD_TIP_ING_VACACION)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_VAC_PROPO foreign key (COD_TIP_ING_VAC_PROPORCIONAL)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_100 foreign key (COD_TIP_ING_100)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_130 foreign key (COD_TIP_ING_130)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_30 foreign key (COD_TIP_ING_30)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_ING_50 foreign key (COD_TIP_ING_50)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TIP_PROV_AGUINALD foreign key (COD_TIP_PROV_AGUINALDO)
+  references IT.RH_TIP_PROVISIONES (COD_TIP_PROVISION);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_COD_TUR_ADMINISTRATIV foreign key (COD_TUR_ADMINISTRATIVO)
+  references IT.RH_TURNOS (COD_TURNO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPEMP_TDES_RENUNCIA foreign key (COD_TIP_DES_RENUNCIA)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPREP_COD_TIP_ING_AUMENTO foreign key (COD_TIP_ING_AUMENTO)
+  references IT.RH_TIP_INGRESOS (COD_TIP_INGRESO);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint FK_HPREP_COD_TIP_PROV_VACACION foreign key (COD_TIP_PROV_VACACION)
+  references IT.RH_TIP_PROVISIONES (COD_TIP_PROVISION);
+alter table IT.RH_PAR_EMPRESAS
+  add constraint AVCON_1191946586_IND_A_000
+  check (IND_APO_IPS_CAJA IN ('C', 'I', 'A','N'));
+

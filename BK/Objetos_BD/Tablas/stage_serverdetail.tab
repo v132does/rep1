@@ -1,0 +1,12 @@
+create global temporary table IT.STAGE_SERVERDETAIL
+(
+  svrid        NUMBER,
+  dburl        VARCHAR2(4000),
+  db_name      VARCHAR2(4000),
+  username     VARCHAR2(255),
+  project_id   NUMBER,
+  project_name VARCHAR2(255),
+  comments     VARCHAR2(4000)
+)
+on commit preserve rows;
+

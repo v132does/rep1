@@ -1,0 +1,84 @@
+create table IT.GE_MSJ_MT940_TMP
+(
+  fecha                    DATE,
+  tip_movimiento           VARCHAR2(1),
+  monto                    NUMBER(18,2),
+  nro_referencia           VARCHAR2(100),
+  nro_ref_externa          VARCHAR2(100),
+  nro_identificador        VARCHAR2(100),
+  nom_beneficiario         VARCHAR2(4000),
+  nom_solicitante          VARCHAR2(4000),
+  cod_swi_pte_solicitante  VARCHAR2(20),
+  cod_swi_pte_beneficiario VARCHAR2(20),
+  cod_moneda               VARCHAR2(10),
+  existe                   VARCHAR2(1),
+  nro_ref_transferencia    VARCHAR2(100),
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion            DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MSJ_MT940_TMP
+  is 'Tabla para CIDESA MT940';
+comment on column IT.GE_MSJ_MT940_TMP.fecha
+  is 'Fecha del Movimiento';
+comment on column IT.GE_MSJ_MT940_TMP.tip_movimiento
+  is 'Tipo de Movimiento / C-Credito , D-Debito';
+comment on column IT.GE_MSJ_MT940_TMP.monto
+  is 'Monto del movimiento';
+comment on column IT.GE_MSJ_MT940_TMP.nro_referencia
+  is 'Nro. de Referencia';
+comment on column IT.GE_MSJ_MT940_TMP.nro_ref_externa
+  is 'Nro. de Referencia Externa';
+comment on column IT.GE_MSJ_MT940_TMP.nro_identificador
+  is 'Nro. Identificador';
+comment on column IT.GE_MSJ_MT940_TMP.nom_beneficiario
+  is 'Nombre Beneficiario';
+comment on column IT.GE_MSJ_MT940_TMP.nom_solicitante
+  is 'Nombre Solicitante';
+comment on column IT.GE_MSJ_MT940_TMP.cod_swi_pte_solicitante
+  is 'Código SWIFT (BIC) del Participante Solicitante.';
+comment on column IT.GE_MSJ_MT940_TMP.cod_swi_pte_beneficiario
+  is 'Código SWIFT (BIC) del Participante Beneficiario.';
+comment on column IT.GE_MSJ_MT940_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_MSJ_MT940_TMP.existe
+  is 'Existe en ge_snp_transferencias';
+comment on column IT.GE_MSJ_MT940_TMP.nro_ref_transferencia
+  is 'Nro. de Referencia de Transferencia';
+create index IT.IN_COD_MENSAJE1 on IT.GE_MSJ_MT940_TMP (NRO_IDENTIFICADOR, NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FECHA1 on IT.GE_MSJ_MT940_TMP (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

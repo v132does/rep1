@@ -1,0 +1,53 @@
+create table IT.ge_pro_act_ext_maestras
+(
+  id_proceso       NUMBER,
+  fec_inicio       DATE,
+  fec_fin          DATE,
+  estado           VARCHAR2(50),
+  cant_cuen_actualizadas NUMBER,
+  observacion      VARCHAR2(400)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.ge_pro_act_ext_maestras
+  is 'Tabla de registro de proceso de actualizacion de tablas maestras con extractos generados';
+comment on column IT.ge_pro_act_ext_maestras.id_proceso
+  is 'Identificador de la ejecucion';
+comment on column IT.ge_pro_act_ext_maestras.fec_inicio
+  is 'Fecha inicio de la ejecucion';
+comment on column IT.ge_pro_act_ext_maestras.fec_fin
+  is 'Fecha fin de la ejecucion';
+comment on column IT.ge_pro_act_ext_maestras.estado
+  is 'Estado de la ejecucion';
+comment on column IT.ge_pro_act_ext_maestras.cant_cuen_actualizadas
+  is 'Cantidad de cuentas actualizadas';
+comment on column IT.ge_pro_act_ext_maestras.observacion
+  is 'Observaciones adicionales al estado';
+
+alter table IT.ge_pro_act_ext_maestras
+  add constraint pk_ge_proc_act_maestras primary key (id_proceso)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+CREATE PUBLIC SYNONYM ge_pro_act_ext_maestras FOR IT.ge_pro_act_ext_maestras;
+
+grant ALTER, DELETE, INDEX, INSERT, UPDATE, SELECT, REFERENCES on "IT"."GE_PRO_ACT_EXT_MAESTRAS" to "IT_TEMPORAL" ;

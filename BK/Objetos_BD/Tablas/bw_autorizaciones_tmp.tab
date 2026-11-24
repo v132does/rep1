@@ -1,0 +1,25 @@
+create table IT.BW_AUTORIZACIONES_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_documento    NUMBER(15) not null,
+  fec_hora         DATE not null,
+  accion           VARCHAR2(1) not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  cod_canal        NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

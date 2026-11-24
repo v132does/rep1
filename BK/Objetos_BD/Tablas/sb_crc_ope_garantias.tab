@@ -1,0 +1,41 @@
+create table IT.SB_CRC_OPE_GARANTIAS
+(
+  nom_referencia VARCHAR2(10) not null,
+  fec_periodo    DATE not null,
+  cod_entidad    NUMBER(4),
+  tot_registro   NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_CRC_OPE_GARANTIAS.nom_referencia
+  is 'Nombre del Archivo a generarse a la CRC (Archivo: OPEGARAN).';
+comment on column IT.SB_CRC_OPE_GARANTIAS.fec_periodo
+  is 'Fecha de Periodo de envío del Archivo.';
+comment on column IT.SB_CRC_OPE_GARANTIAS.cod_entidad
+  is 'Código de Identificación de la Entidad Financiera / Bancaria. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS.tot_registro
+  is 'Total de registros del Archivo.';
+alter table IT.SB_CRC_OPE_GARANTIAS
+  add constraint PK_SB_CRC_OPE_GARANTIAS primary key (NOM_REFERENCIA, FEC_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

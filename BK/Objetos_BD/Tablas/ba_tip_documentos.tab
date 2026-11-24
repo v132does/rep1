@@ -1,0 +1,88 @@
+create table IT.BA_TIP_DOCUMENTOS
+(
+  cod_tip_documento NUMBER(3) not null,
+  descripcion       VARCHAR2(35) not null,
+  abreviatura       VARCHAR2(4) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  tip_persona       VARCHAR2(1) not null,
+  lon_maxima        NUMBER(2),
+  lon_minima        NUMBER(2),
+  formato           VARCHAR2(20),
+  vto_obligatorio   VARCHAR2(1) default 'N' not null,
+  estado            VARCHAR2(1),
+  aut_expedidora    VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_TIP_DOCUMENTOS
+  is 'Tipos de Documentos.';
+comment on column IT.BA_TIP_DOCUMENTOS.cod_tip_documento
+  is 'Codigo de tipo de documento.';
+comment on column IT.BA_TIP_DOCUMENTOS.descripcion
+  is 'Descripcion de tipo de documento.';
+comment on column IT.BA_TIP_DOCUMENTOS.abreviatura
+  is 'Descripcion breve.';
+comment on column IT.BA_TIP_DOCUMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_TIP_DOCUMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_TIP_DOCUMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TIP_DOCUMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TIP_DOCUMENTOS.tip_persona
+  is '(F) Fisica, (J) Juridica o (A) Ambas.';
+comment on column IT.BA_TIP_DOCUMENTOS.lon_maxima
+  is 'Longitud maxima del Documento.';
+comment on column IT.BA_TIP_DOCUMENTOS.lon_minima
+  is 'Longitud minima del Documento.';
+comment on column IT.BA_TIP_DOCUMENTOS.formato
+  is 'Formato del documento utilizado para validar: A (Alfanumerico) - 9 (numero del 0 al 9) otro caracter es obligatorio en la posicion.';
+comment on column IT.BA_TIP_DOCUMENTOS.vto_obligatorio
+  is 'Es obligatorio el vencimiento? (S/N).';
+comment on column IT.BA_TIP_DOCUMENTOS.estado
+  is 'Estado del Documento (Activo o Inactivo).';
+comment on column IT.BA_TIP_DOCUMENTOS.aut_expedidora
+  is 'Autoridad que expide el documento.';
+create index IT.INDIDNJJ on IT.BA_TIP_DOCUMENTOS (ABREVIATURA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_TIP_DOCUMENTOS
+  add constraint PK_BA_TIP_DOCUMENTOS primary key (COD_TIP_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_TIP_DOCUMENTOS
+  add constraint AVCON_1184949083_COD_T_001
+  check (COD_TIP_DOCUMENTO BETWEEN 0 AND 999);
+

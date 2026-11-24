@@ -1,0 +1,19 @@
+create table IT.TMP_POS_CAMBIO
+(
+  nro_linea  NUMBER,
+  fecha      DATE,
+  texto      VARCHAR2(1000),
+  nro_bloque NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

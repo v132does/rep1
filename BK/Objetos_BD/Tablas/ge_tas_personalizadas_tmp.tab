@@ -1,0 +1,25 @@
+create table IT.GE_TAS_PERSONALIZADAS_TMP
+(
+  cod_ente        NUMBER(5) not null,
+  nro_cuenta      VARCHAR2(15) not null,
+  cod_tasa        NUMBER(3) not null,
+  fec_vigencia    DATE,
+  val_minimo      NUMBER(18,2),
+  val_maximo      NUMBER(18,2),
+  val_tasa        NUMBER(20,4),
+  val_extension   NUMBER(20,4),
+  fec_vencimiento DATE,
+  observacion     VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

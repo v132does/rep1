@@ -1,0 +1,62 @@
+create table IT.GE_MEN_CLI_MT940
+(
+  cod_persona   VARCHAR2(10) not null,
+  nro_cuenta    VARCHAR2(15) not null,
+  fec_extracto  DATE not null,
+  nro_extracto  NUMBER(5) not null,
+  nro_secuencia NUMBER(5) not null,
+  extracto      VARCHAR2(3000),
+  estado        VARCHAR2(1) default 'G' not null,
+  usu_insercion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_MEN_CLI_MT940.cod_persona
+  is 'Codigo de la Persona Principal de la cuenta';
+comment on column IT.GE_MEN_CLI_MT940.nro_cuenta
+  is 'Nro de Cta reportada en el MT940';
+comment on column IT.GE_MEN_CLI_MT940.fec_extracto
+  is 'Fecha del Extracto generado';
+comment on column IT.GE_MEN_CLI_MT940.nro_extracto
+  is 'Nro de extracto para los que utilizan la numeración';
+comment on column IT.GE_MEN_CLI_MT940.nro_secuencia
+  is 'Nro de Secuencia en caso que tenga más de un extracto';
+comment on column IT.GE_MEN_CLI_MT940.extracto
+  is 'El extracto a enviar en si, debe tener un maximo de 2000 caracteres';
+comment on column IT.GE_MEN_CLI_MT940.estado
+  is 'Estado del extracto, G: Generado, E:Error, P:Procesado.';
+comment on column IT.GE_MEN_CLI_MT940.usu_insercion
+  is 'Usuario que genero el extracto';
+comment on column IT.GE_MEN_CLI_MT940.fec_insercion
+  is 'Fecha de Generación del Extracto.';
+alter table IT.GE_MEN_CLI_MT940
+  add constraint PK_GE_MEN_CLI_MT940 primary key (COD_PERSONA, NRO_CUENTA, FEC_EXTRACTO, NRO_EXTRACTO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MEN_CLI_MT940
+  add constraint FK_GMT940_COD_PER foreign key (COD_PERSONA)
+  references IT.GE_CLIENTES (COD_PERSONA);
+alter table IT.GE_MEN_CLI_MT940
+  add constraint FK_GMT940_NRO_CTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

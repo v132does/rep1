@@ -1,0 +1,7 @@
+create sequence IT.S_COD_OPE_XML_CAM
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 87606
+increment by 1
+nocache;
+

@@ -1,0 +1,74 @@
+create table IT.GE_ARC_CON_BANCARD
+(
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  nro_documento    NUMBER(15),
+  nro_documento3   NUMBER(15),
+  nro_lote         NUMBER(18) not null,
+  nro_registro     NUMBER(18) not null,
+  enviado          VARCHAR2(1) default 'N',
+  registro         VARCHAR2(3000),
+  concepto         VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_ARC_CON_BANCARD.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_ARC_CON_BANCARD.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_ARC_CON_BANCARD.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_ARC_CON_BANCARD.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_ARC_CON_BANCARD.nro_documento
+  is 'Numero de documento IT';
+comment on column IT.GE_ARC_CON_BANCARD.nro_documento3
+  is 'Numero de documento Bancard';
+comment on column IT.GE_ARC_CON_BANCARD.nro_lote
+  is 'Nro de Lote enviado';
+comment on column IT.GE_ARC_CON_BANCARD.nro_registro
+  is 'Nro de Registro';
+comment on column IT.GE_ARC_CON_BANCARD.enviado
+  is 'Enviado(S/N)';
+comment on column IT.GE_ARC_CON_BANCARD.registro
+  is 'Detalle Informado';
+comment on column IT.GE_ARC_CON_BANCARD.concepto
+  is 'Concepto de la Transaccion';
+comment on column IT.GE_ARC_CON_BANCARD.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ARC_CON_BANCARD.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ARC_CON_BANCARD.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ARC_CON_BANCARD.usu_modificacion
+  is 'Usuario que realizo la insercion del registro.';
+alter table IT.GE_ARC_CON_BANCARD
+  add constraint PK_GE_ARC_CON_BANCARD primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA, NRO_LOTE, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

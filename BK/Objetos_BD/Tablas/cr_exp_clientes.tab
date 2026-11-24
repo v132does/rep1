@@ -1,0 +1,88 @@
+create table IT.CR_EXP_CLIENTES
+(
+  cod_persona      VARCHAR2(10) not null,
+  ano_mes          DATE not null,
+  cod_usu_oficial  VARCHAR2(10) not null,
+  tot_pasivo       NUMBER(18,2) default 0 not null,
+  tot_activo       NUMBER(18,2) default 0 not null,
+  rentabilidad     NUMBER(18,2) default 0 not null,
+  can_productos    NUMBER(5) not null,
+  can_cta_pasivos  NUMBER(5) not null,
+  can_cta_activos  NUMBER(5) not null,
+  por_cruzamiento  NUMBER(8,2) not null,
+  int_cobrados     NUMBER(18,2) default 0 not null,
+  int_pagados      NUMBER(18,2) default 0 not null,
+  mto_comision     NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_EXP_CLIENTES
+  is 'Expediente por Cliente.';
+comment on column IT.CR_EXP_CLIENTES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.CR_EXP_CLIENTES.ano_mes
+  is 'Año y mes del expediente.';
+comment on column IT.CR_EXP_CLIENTES.cod_usu_oficial
+  is 'Codigo del Oficial.';
+comment on column IT.CR_EXP_CLIENTES.tot_pasivo
+  is 'Total Pasivo.';
+comment on column IT.CR_EXP_CLIENTES.tot_activo
+  is 'Total Activo.';
+comment on column IT.CR_EXP_CLIENTES.rentabilidad
+  is 'Rentabilidad.';
+comment on column IT.CR_EXP_CLIENTES.can_productos
+  is 'Cantidad de Productos diferentes.';
+comment on column IT.CR_EXP_CLIENTES.can_cta_pasivos
+  is 'Cantidad de Cuentas del Pasivo.';
+comment on column IT.CR_EXP_CLIENTES.can_cta_activos
+  is 'Cantidad de Cuentas del Activo.';
+comment on column IT.CR_EXP_CLIENTES.por_cruzamiento
+  is 'Porcentaje de Cruzamiento.';
+comment on column IT.CR_EXP_CLIENTES.int_cobrados
+  is 'Intereses cobrados.';
+comment on column IT.CR_EXP_CLIENTES.int_pagados
+  is 'Intereses pagados.';
+comment on column IT.CR_EXP_CLIENTES.mto_comision
+  is 'Comisiones cobradas.';
+comment on column IT.CR_EXP_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_EXP_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_EXP_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_EXP_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_EXP_CLIENTES
+  add constraint PK_CR_EXP_CLIENTES primary key (COD_PERSONA, ANO_MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_EXP_CLIENTES
+  add constraint FK_REXCL_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_EXP_CLIENTES
+  add constraint FK_REXCL_COD_USU_OFICIAL foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

@@ -1,0 +1,20 @@
+create table IT.GE_BCP_CLASIFICACION_CAB
+(
+  fecha DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_BCP_CLASIFICACION_CAB
+  is 'Cabecera de registro para importación de Clasificación de clientes del BCP.';
+comment on column IT.GE_BCP_CLASIFICACION_CAB.fecha
+  is 'Fecha de la última clasificación del BCP';
+

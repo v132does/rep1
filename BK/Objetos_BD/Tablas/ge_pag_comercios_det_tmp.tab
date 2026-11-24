@@ -1,0 +1,95 @@
+create table IT.GE_PAG_COMERCIOS_DET_TMP
+(
+  cod_usuario      VARCHAR2(10),
+  cod_ente         NUMBER(7),
+  nro_resumen      NUMBER(18),
+  fec_proceso      DATE,
+  nro_secuencia    NUMBER(3),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  nro_cuenta       VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  fec_envio        DATE,
+  importe          NUMBER(18,2),
+  estado           VARCHAR2(1),
+  cod_procesadora  NUMBER(10),
+  nro_cta_origen   VARCHAR2(15),
+  nom_ente         VARCHAR2(35),
+  raz_soc_ente     VARCHAR2(35),
+  observacion      VARCHAR2(100),
+  cod_ent_pag_com  NUMBER(2),
+  tip_cuenta       NUMBER(1),
+  fec_pro_real     DATE,
+  cod_proceso      NUMBER(3),
+  cod_rubro        VARCHAR2(15),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_COMERCIOS_DET_TMP
+  is 'Archivo temporal de resumen de pago a comercios.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_usuario
+  is 'Código de usuario.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_ente
+  is 'Código del ente.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.nro_resumen
+  is 'Nro. de resumen.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.nro_secuencia
+  is 'Nro. de secuencia.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_modulo
+  is 'Código de modulo.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.nro_cuenta
+  is 'Nro. de cuenta.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.fec_envio
+  is 'Fecha de envio.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.importe
+  is 'Importe de la operacion.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.estado
+  is 'Estado actual.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_procesadora
+  is 'Código de la Procesadora.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.nro_cta_origen
+  is 'Nro. de cuenta origen.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.nom_ente
+  is 'Nombre del Ente.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.raz_soc_ente
+  is 'Razón social.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.observacion
+  is 'Observaciones.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_ent_pag_com
+  is 'Cod. Entidad Pagadora de Comercio.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.tip_cuenta
+  is 'Tipo de Cuenta.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.fec_pro_real
+  is 'Fecha tenida en cuenta para generacion de movimientos.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_proceso
+  is 'Código Proceso.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.cod_rubro
+  is 'Código de Rubro.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.GE_PAG_COMERCIOS_DET_TMP.usu_modificacion
+  is 'Usuario de modificacion.';
+

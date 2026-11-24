@@ -1,0 +1,84 @@
+create table IT.CB_INF_CON_TMP
+(
+  libro              VARCHAR2(1) not null,
+  nro_cuenta         VARCHAR2(15),
+  cod_moneda         VARCHAR2(3),
+  nro_documento      VARCHAR2(40),
+  tipo               VARCHAR2(1),
+  monto              NUMBER(18,2),
+  ref_movimiento     VARCHAR2(100),
+  cta_monto          NUMBER(18,2),
+  mov_monto          NUMBER(18,2),
+  credito            NUMBER(18,2),
+  debito             NUMBER(18,2),
+  nro_secuencia      NUMBER(3),
+  fecha              DATE,
+  hora               VARCHAR2(8),
+  cod_usuario        VARCHAR2(10),
+  mov_tipo           VARCHAR2(1),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  cod_rubro          VARCHAR2(15),
+  nro_ref_externa    VARCHAR2(50),
+  nro_conciliacion   NUMBER(20),
+  ref_con_automatica VARCHAR2(40),
+  observacion        VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_INF_CON_TMP.libro
+  is 'Indicador de Libro. S=Swift, N=Movimientos.';
+comment on column IT.CB_INF_CON_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CB_INF_CON_TMP.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.CB_INF_CON_TMP.nro_documento
+  is 'Número de Documento.';
+comment on column IT.CB_INF_CON_TMP.tipo
+  is 'Tipo de Movimiento. C=Crédito, D=Débito.';
+comment on column IT.CB_INF_CON_TMP.monto
+  is 'Monto de la Operación.';
+comment on column IT.CB_INF_CON_TMP.ref_movimiento
+  is 'Referencia del Extrato Swift o Concepto del Movimiento.';
+comment on column IT.CB_INF_CON_TMP.cta_monto
+  is 'Monto del Extracto Swift.';
+comment on column IT.CB_INF_CON_TMP.mov_monto
+  is 'Monto del Movimiento.';
+comment on column IT.CB_INF_CON_TMP.credito
+  is 'Monto del Movimiento Tipo Crédito.';
+comment on column IT.CB_INF_CON_TMP.debito
+  is 'Monto del Movimiento Tipo Débito.';
+comment on column IT.CB_INF_CON_TMP.nro_secuencia
+  is 'Número de Orden del Extracto o Número de Secuencia del Movimiento.';
+comment on column IT.CB_INF_CON_TMP.fecha
+  is 'Fecha del Extracto Swift o Fecha del Movimiento.';
+comment on column IT.CB_INF_CON_TMP.hora
+  is 'Hora del Movimiento.';
+comment on column IT.CB_INF_CON_TMP.cod_usuario
+  is 'Código de Usuario relacionado al Movimiento.';
+comment on column IT.CB_INF_CON_TMP.mov_tipo
+  is 'Tipo del Movimiento. D=Día, H=Histórica.';
+comment on column IT.CB_INF_CON_TMP.cod_modulo
+  is 'Código de Módulo relacionado al Movimiento.';
+comment on column IT.CB_INF_CON_TMP.cod_modalidad
+  is 'Código de Modalidad relacionado al Movimiento.';
+comment on column IT.CB_INF_CON_TMP.cod_rubro
+  is 'Código de Rubro relacionado al Movimiento.';
+comment on column IT.CB_INF_CON_TMP.nro_ref_externa
+  is 'Número de Referencia Externa del Extracto Swift.';
+comment on column IT.CB_INF_CON_TMP.nro_conciliacion
+  is 'Número de Conciliación.';
+comment on column IT.CB_INF_CON_TMP.ref_con_automatica
+  is 'Referencia por Conciliación automática.';
+comment on column IT.CB_INF_CON_TMP.observacion
+  is 'Corresponde al tag :86:';
+

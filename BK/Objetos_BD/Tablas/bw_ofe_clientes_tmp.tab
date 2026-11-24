@@ -1,0 +1,44 @@
+create table IT.BW_OFE_CLIENTES_TMP
+(
+  cod_persona VARCHAR2(10) not null,
+  producto    VARCHAR2(500) not null,
+  cantidad    NUMBER default 1 not null,
+  inicio      VARCHAR2(10) default 'S' not null,
+  fec_inicio  DATE,
+  fec_fin     DATE,
+  mensaje     VARCHAR2(3000),
+  url_imagen  VARCHAR2(3000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_OFE_CLIENTES_TMP
+  is 'Contiene las ofertas popup para los clientes desde mobile';
+comment on column IT.BW_OFE_CLIENTES_TMP.cod_persona
+  is 'Codigo cliente.';
+comment on column IT.BW_OFE_CLIENTES_TMP.producto
+  is 'Producto a ofertar.';
+comment on column IT.BW_OFE_CLIENTES_TMP.cantidad
+  is 'Numero de veces para mostrar la oferta.';
+comment on column IT.BW_OFE_CLIENTES_TMP.inicio
+  is 'S: Mostrar al hacer login, N: mostrar al hacer logout.';
+comment on column IT.BW_OFE_CLIENTES_TMP.fec_inicio
+  is 'Fecha inicio de la oferta.';
+comment on column IT.BW_OFE_CLIENTES_TMP.fec_fin
+  is 'Fecha final de oferta.';
+comment on column IT.BW_OFE_CLIENTES_TMP.mensaje
+  is 'Mensaje pop up a mostrar al usuario.';
+comment on column IT.BW_OFE_CLIENTES_TMP.url_imagen
+  is 'Url de imagen a mostrar.';
+alter table IT.BW_OFE_CLIENTES_TMP
+  add constraint CK_BOCLI_INICIO_TMP
+  check (INICIO IN ('S', 'N'));
+

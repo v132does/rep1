@@ -1,0 +1,56 @@
+create table IT.TA_TAR_NOMINADAS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  nro_tarjeta       VARCHAR2(25) not null,
+  cod_persona       VARCHAR2(10) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nro_documento     VARCHAR2(20) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  env_cuenta        VARCHAR2(1) default 'N',
+  env_tarjeta       VARCHAR2(1) default 'N',
+  env_activacion    VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_TAR_NOMINADAS
+  is 'Tabla de relación entre la Tarjeta Innominda y el cliente.';
+comment on column IT.TA_TAR_NOMINADAS.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.TA_TAR_NOMINADAS.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_TAR_NOMINADAS.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.TA_TAR_NOMINADAS.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.TA_TAR_NOMINADAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.TA_TAR_NOMINADAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_TAR_NOMINADAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_TAR_NOMINADAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TAR_NOMINADAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_TAR_NOMINADAS.env_cuenta
+  is 'Envio via WS de Cuentas';
+comment on column IT.TA_TAR_NOMINADAS.env_tarjeta
+  is 'Envio via WS de Tarjetas';
+comment on column IT.TA_TAR_NOMINADAS.env_activacion
+  is 'Envio via WS de Activación';
+alter table IT.TA_TAR_NOMINADAS
+  add constraint FK_TNOMI_NROTAR foreign key (NRO_TARJETA, NRO_CUENTA)
+  references IT.TA_TARJETAS (NRO_TARJETA, NRO_CUENTA);
+

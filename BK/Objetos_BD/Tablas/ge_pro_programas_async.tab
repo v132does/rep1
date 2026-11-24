@@ -1,0 +1,70 @@
+CREATE TABLE it.GE_PRO_PROGRAMAS_ASYNC (
+   COD_PROCESO      NUMBER(3,0),
+   NRO_ORDEN        NUMBER(3,0),
+   COD_PROGRAMA     VARCHAR2(30 BYTE),
+   ESTADO           VARCHAR2(20 BYTE) NOT NULL,
+   TOKEN            VARCHAR2(3000 BYTE),
+   JOB_NOMBRE       VARCHAR2(30 BYTE),
+   FEC_SOLICITUD    TIMESTAMP,
+   FEC_INICIO       TIMESTAMP,
+   FEC_FIN          TIMESTAMP,
+   USU_SOLICITUD    VARCHAR2(20 BYTE),
+   FEC_MODIFICACION TIMESTAMP NOT NULL,
+   ERR_MENSAJE      VARCHAR2(3000 BYTE)
+)
+tablespace IT_DATA
+pctfree 10
+initrans 1
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+COMMENT ON TABLE it.GE_PRO_PROGRAMAS_ASYNC IS 'Tabla de Control para la serialización de recursos lógicos protegidos.';
+
+COMMENT ON COLUMN it.GE_PRO_PROGRAMAS_ASYNC.COD_PROCESO IS 'Codigo del proceso. Primer campo que define unívocamente al recurso lógico protegido.';
+
+COMMENT ON COLUMN it.GE_PRO_PROGRAMAS_ASYNC.NRO_ORDEN IS 'Numero de orden. Segundo campo que define unívocamente al recurso lógico protegido.';
+
+COMMENT ON COLUMN it.GE_PRO_PROGRAMAS_ASYNC.COD_PROGRAMA IS 'Nombre del programa que representa al recurso lógico protegido.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.ESTADO IS 'Estado del recurso: IDLE(Libre) REQUESTED(Job creado pendiente de ejecución) RUNNING(Ejecutando) ERROR(Finalizó con error) KILL(Finalización forzada).';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.TOKEN IS 'Información codifica para trazar la ejecución hasta el evento de finalización.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.JOB_NOMBRE IS 'Nombre del Job que tomó el recurso lógico protegido. Útil para recuperar recursos RUNNING huérfanos.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.FEC_SOLICITUD IS 'Fecha en que se solicitó el recurso lógico protegido.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.FEC_INICIO IS 'Fecha en que se inició el uso del recurso lógico protegido.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.FEC_FIN IS 'Fecha en que se liberó el uso del recurso lógico protegido.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.USU_SOLICITUD IS 'Usuario que solicitó el recurso lógico protegido.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.FEC_MODIFICACION IS 'Fecha en que se realizo la ultima modificacion en el registro.';
+
+COMMENT ON COLUMN IT.GE_PRO_PROGRAMAS_ASYNC.ERR_MENSAJE IS 'Descripcion de error.';
+
+ALTER TABLE IT.GE_PRO_PROGRAMAS_ASYNC
+add constraint PK_GE_PRO_PROGRAMAS_ASYNC primary key (COD_PROCESO, NRO_ORDEN)
+using index 
+tablespace IT_IND
+pctfree 10
+initrans 2
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+CREATE PUBLIC SYNONYM GE_PRO_PROGRAMAS_ASYNC FOR it.GE_PRO_PROGRAMAS_ASYNC;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT on it.GE_PRO_PROGRAMAS_ASYNC to IT_TEMPORAL;

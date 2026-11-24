@@ -1,0 +1,80 @@
+create table IT.CO_EST_CLIENTES_HIS
+(
+  fecha           DATE,
+  cod_cliente     VARCHAR2(20),
+  nro_cuenta      VARCHAR2(20),
+  cod_niv_mora    VARCHAR2(6),
+  des_niv_mora    VARCHAR2(100),
+  cod_usuario     VARCHAR2(30),
+  fec_asignacion  DATE,
+  cod_perfil      VARCHAR2(10),
+  cod_rol         VARCHAR2(6),
+  des_rol         VARCHAR2(100),
+  turno           NUMBER(6),
+  des_turno       VARCHAR2(100),
+  cod_estrategia  VARCHAR2(6),
+  des_estrategia  VARCHAR2(255),
+  mto_atraso      NUMBER(12,2),
+  fec_castigo     DATE,
+  mto_castigo     NUMBER(12,2),
+  mto_provision   NUMBER(12,2),
+  fec_judicial    DATE,
+  ges_judicial    VARCHAR2(1),
+  can_dia_atr_cta NUMBER(20)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_EST_CLIENTES_HIS
+  is 'Registros de Estados de Clientes del día proveniente del Recovery Strategy.';
+comment on column IT.CO_EST_CLIENTES_HIS.fecha
+  is 'Fecha de Registro en ITGF.';
+comment on column IT.CO_EST_CLIENTES_HIS.cod_cliente
+  is 'Código del Cliente.';
+comment on column IT.CO_EST_CLIENTES_HIS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CO_EST_CLIENTES_HIS.cod_niv_mora
+  is 'Código de nivel de mora.';
+comment on column IT.CO_EST_CLIENTES_HIS.des_niv_mora
+  is 'Descripción del nivel de mora.';
+comment on column IT.CO_EST_CLIENTES_HIS.cod_usuario
+  is 'Código de Usuario.';
+comment on column IT.CO_EST_CLIENTES_HIS.fec_asignacion
+  is 'Fecha de Asignación.';
+comment on column IT.CO_EST_CLIENTES_HIS.cod_perfil
+  is 'Código de Perfil.';
+comment on column IT.CO_EST_CLIENTES_HIS.cod_rol
+  is 'Código de Rol.';
+comment on column IT.CO_EST_CLIENTES_HIS.des_rol
+  is 'Descripción del Rol.';
+comment on column IT.CO_EST_CLIENTES_HIS.turno
+  is 'Código del turno.';
+comment on column IT.CO_EST_CLIENTES_HIS.des_turno
+  is 'Descripción del turno.';
+comment on column IT.CO_EST_CLIENTES_HIS.cod_estrategia
+  is 'Código de estrategia.';
+comment on column IT.CO_EST_CLIENTES_HIS.des_estrategia
+  is 'Descripción de la estrategia.';
+comment on column IT.CO_EST_CLIENTES_HIS.mto_atraso
+  is 'Monto de Atraso.';
+comment on column IT.CO_EST_CLIENTES_HIS.fec_castigo
+  is 'Fecha Castigo.';
+comment on column IT.CO_EST_CLIENTES_HIS.mto_castigo
+  is 'Monto Castigo.';
+comment on column IT.CO_EST_CLIENTES_HIS.mto_provision
+  is 'Monto Previsión.';
+comment on column IT.CO_EST_CLIENTES_HIS.fec_judicial
+  is 'Fecha Judicial.';
+comment on column IT.CO_EST_CLIENTES_HIS.ges_judicial
+  is 'Indica si esta Activo en Gestión Judicial.';
+comment on column IT.CO_EST_CLIENTES_HIS.can_dia_atr_cta
+  is 'Cantidad de días de atraso de la Cuenta.';
+

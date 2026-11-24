@@ -1,0 +1,35 @@
+create table IT.SIMGIA_ARPAGTCIT_BKP
+(
+  rpfcha    VARCHAR2(8),
+  rphora    VARCHAR2(8),
+  rpusr     VARCHAR2(10),
+  rpcta     VARCHAR2(15),
+  rpmone    VARCHAR2(3),
+  rpmonto   NUMBER,
+  rpsuc     NUMBER,
+  rpori     NUMBER,
+  rpconc    VARCHAR2(100),
+  rpcaja    NUMBER,
+  rprubit   VARCHAR2(15),
+  rprubas   VARCHAR2(20),
+  rptipo    VARCHAR2(1),
+  rptrn     NUMBER,
+  rpmod     NUMBER,
+  rptrnp    NUMBER,
+  rpasie    NUMBER,
+  rpline    NUMBER,
+  reversado VARCHAR2(1),
+  fecha_his DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

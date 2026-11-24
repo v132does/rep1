@@ -1,0 +1,70 @@
+create table IT.SIMGIA_CR
+(
+  cod_persona NUMBER,
+  cod_oficina NUMBER,
+  nom_persona VARCHAR2(120),
+  monto_gs    NUMBER,
+  nom_gestor  VARCHAR2(60) not null,
+  fecha       DATE,
+  cod_gestor  VARCHAR2(60)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INDEX_SIMDIA_CR_PERSONA on IT.SIMGIA_CR (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INDEX_SIMGIA_CR_COD_GESTOR on IT.SIMGIA_CR (COD_GESTOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INDEX_SIMGIA_CR_FECHA on IT.SIMGIA_CR (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.INDEX_SIMGIA_CR_OFICINA on IT.SIMGIA_CR (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

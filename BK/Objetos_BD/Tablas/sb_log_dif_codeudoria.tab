@@ -1,0 +1,48 @@
+create table IT.SB_LOG_DIF_CODEUDORIA
+(
+  fecha         DATE,
+  nro_documento VARCHAR2(60),
+  tot_riesgo    NUMBER(18,2),
+  tot_sr        NUMBER(18,2),
+  diferencia    NUMBER(18,2),
+  observacion   VARCHAR2(1000),
+  cod_persona   VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_LOG_DIF_CODEUDORIA.fecha
+  is 'Fecha.';
+comment on column IT.SB_LOG_DIF_CODEUDORIA.nro_documento
+  is 'Nro. de Documento.';
+comment on column IT.SB_LOG_DIF_CODEUDORIA.tot_riesgo
+  is 'Total Riesgo.';
+comment on column IT.SB_LOG_DIF_CODEUDORIA.tot_sr
+  is 'Total Fecha.';
+comment on column IT.SB_LOG_DIF_CODEUDORIA.diferencia
+  is 'Diferencia.';
+comment on column IT.SB_LOG_DIF_CODEUDORIA.observacion
+  is 'Observación.';
+comment on column IT.SB_LOG_DIF_CODEUDORIA.cod_persona
+  is 'Código de Persona.';
+create index IT.IN_SLARCO_FECHA on IT.SB_LOG_DIF_CODEUDORIA (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,64 @@
+create table IT.SIMGIA_ARMA709_BKP
+(
+  m709suc    VARCHAR2(40),
+  m709cta    VARCHAR2(3),
+  m709sub    VARCHAR2(6),
+  m709nombre VARCHAR2(4000),
+  m709direcc VARCHAR2(4000),
+  m709telef  NUMBER,
+  m709riesgo NUMBER,
+  m709sdoant NUMBER,
+  m709sdoact NUMBER,
+  m709sddvan NUMBER,
+  m709sddvac NUMBER,
+  m709divisa NUMBER,
+  m709trasp  NUMBER,
+  m709limsob NUMBER,
+  m709vctlim NUMBER,
+  m709numero NUMBER,
+  m709impsto NUMBER,
+  m709cntdeb NUMBER,
+  m709cntcre NUMBER,
+  m709sdmdse NUMBER,
+  m709acmdia NUMBER,
+  m709sdmdme NUMBER,
+  m709ultmov VARCHAR2(6),
+  m709nodisp NUMBER,
+  m709mayint NUMBER,
+  m709maycom NUMBER,
+  m709inisob NUMBER,
+  m709smdant NUMBER,
+  m709ctahme CHAR(1),
+  m709totemb NUMBER,
+  m709totblq NUMBER,
+  m709ind1   CHAR(1),
+  m709ind2   CHAR(1),
+  m709ind3   CHAR(1),
+  m709ind4   CHAR(1),
+  m709blqint NUMBER,
+  m709iniexc NUMBER,
+  m709aumsob NUMBER,
+  m709fillr1 CHAR(1),
+  m709trasps NUMBER,
+  m709grpcta NUMBER,
+  m709sucorg NUMBER,
+  m709nrprop NUMBER,
+  m709anprop NUMBER,
+  m709depcnb NUMBER,
+  m709totcrp NUMBER,
+  m709plzadl NUMBER,
+  m709fillr2 CHAR(1),
+  fecha_his  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

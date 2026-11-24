@@ -1,0 +1,67 @@
+create table IT.CO_INF_OPE_RELACIONES
+(
+  cod_modulo        NUMBER(3) not null,
+  cod_inf_operacion NUMBER(2) not null,
+  relacion          VARCHAR2(1) not null,
+  usu_insercion     VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_modalidad     NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_INF_OPE_RELACIONES
+  is 'Informconf-Relacion de Operaciones.';
+comment on column IT.CO_INF_OPE_RELACIONES.cod_modulo
+  is 'Codigo de modulo del sistema.';
+comment on column IT.CO_INF_OPE_RELACIONES.cod_inf_operacion
+  is 'Codigo de operacion de Informconf.';
+comment on column IT.CO_INF_OPE_RELACIONES.relacion
+  is 'Relacion de la persona con la cuenta.';
+comment on column IT.CO_INF_OPE_RELACIONES.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CO_INF_OPE_RELACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CO_INF_OPE_RELACIONES.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.CO_INF_OPE_RELACIONES.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+comment on column IT.CO_INF_OPE_RELACIONES.cod_modalidad
+  is 'Indica la modalidad de la operación, especialmente para identificar modalidades de Operaciones Vencidas.';
+alter table IT.CO_INF_OPE_RELACIONES
+  add constraint PK_CO_INF_OPE_RELACIONES primary key (COD_MODULO, COD_INF_OPERACION, RELACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_INF_OPE_RELACIONES
+  add constraint FK_OIOPE_COD_INF_OPERACION foreign key (COD_INF_OPERACION)
+  references IT.CO_INF_OPERACIONES (COD_INF_OPERACION);
+alter table IT.CO_INF_OPE_RELACIONES
+  add constraint FK_OIOPE_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.CO_INF_OPE_RELACIONES
+  add constraint FK_OIOPR_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CO_INF_OPE_RELACIONES
+  add constraint AVCON_1126195439_COD_M_001
+  check (COD_MODULO BETWEEN 0 AND 999);
+

@@ -1,0 +1,108 @@
+create table IT.MI_QUERY_10
+(
+  empresa                    NUMBER,
+  fecha_informe              DATE,
+  secuencia                  NUMBER,
+  pais                       VARCHAR2(400),
+  tipo_doc                   VARCHAR2(400),
+  nro_documento              VARCHAR2(60),
+  nombre_deudor              VARCHAR2(400),
+  tipo_deudor                VARCHAR2(60),
+  vinculo                    VARCHAR2(60),
+  grupo_econ                 VARCHAR2(400),
+  actividad                  VARCHAR2(60),
+  sucursal                   VARCHAR2(60),
+  cuenta                     VARCHAR2(60),
+  cat_resultante             VARCHAR2(60),
+  cat_subjetiva              VARCHAR2(60),
+  fecha_desde_cat_sub        DATE,
+  titulo                     VARCHAR2(3),
+  capitulo                   VARCHAR2(3),
+  rubro                      VARCHAR2(60),
+  modulo                     VARCHAR2(60),
+  moneda                     VARCHAR2(60),
+  operacion                  VARCHAR2(60),
+  sub_operacion              VARCHAR2(60),
+  tipo_operacion             VARCHAR2(3),
+  papel                      NUMBER,
+  fecha_de_alta              VARCHAR2(10),
+  fecha_de_vto               DATE,
+  dias_mora                  NUMBER(5),
+  monto_desembolsado         NUMBER,
+  saldo_capital_mo           NUMBER,
+  saldo_capital_ml           NUMBER,
+  interes_mo                 NUMBER,
+  interes_ml                 NUMBER,
+  interes_suspendido_mo      NUMBER,
+  interes_suspendido_ml      NUMBER,
+  saldo_contingente_mo       NUMBER,
+  saldo_contingente_ml       NUMBER,
+  garantia_computable_mo     NUMBER,
+  garantia_computable_ml     NUMBER,
+  porcentaje_prevision       NUMBER,
+  prevision_s_capital_mo     NUMBER,
+  prevision_s_capital_ml     NUMBER,
+  prevision_s_interes_mo     NUMBER,
+  prevision_s_interes_ml     NUMBER,
+  prevision_s_contingente_mo NUMBER,
+  prevision_s_contingente_ml NUMBER,
+  primera_prevision_mo       NUMBER,
+  primera_prevision_ml       NUMBER,
+  segunda_prevision_mo       NUMBER,
+  segunda_prevision_ml       NUMBER,
+  prevision_generica_mo      NUMBER,
+  prevision_generica_ml      NUMBER,
+  estado                     VARCHAR2(60),
+  ejecutivo                  VARCHAR2(60),
+  nombre_ejecutivo           VARCHAR2(60),
+  segmento                   VARCHAR2(60),
+  clasif_interna             VARCHAR2(60),
+  tipo_prestamo              VARCHAR2(120),
+  tae                        NUMBER,
+  tan                        NUMBER,
+  monto_operacion_mo         NUMBER,
+  monto_operacion_ml         NUMBER,
+  monto_cuota_atrasada_mo    NUMBER,
+  monto_cuota_atrasada_ml    NUMBER,
+  cuotas_canceladas          NUMBER,
+  fecha_1er_vto              DATE,
+  fecha_vto_mas_antiguo      DATE,
+  saldo_deuda_en_activo_mo   NUMBER,
+  saldo_deuda_en_activo_ml   NUMBER,
+  total_de_riesgo            NUMBER,
+  recuperaciones             VARCHAR2(60),
+  categoria_de_persona       VARCHAR2(60),
+  categoria_de_operacion     VARCHAR2(60),
+  garantia_bancaria_mo       NUMBER,
+  garantia_bancaria_ml       NUMBER,
+  garantia_no_bancaria_mo    NUMBER,
+  garantia_no_bancaria_ml    NUMBER,
+  categoria_rrr              VARCHAR2(60),
+  es_r4                      VARCHAR2(60),
+  tipo_doc_crc               VARCHAR2(60),
+  nro_doc_crc                VARCHAR2(60)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_QUERY_10_FEC_INF on IT.MI_QUERY_10 (FECHA_INFORME)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,70 @@
+create table IT.GE_DNA_ORD_TRANSFERENCIAS
+(
+  nro_ord_transferencia VARCHAR2(50) not null,
+  fecha                 DATE,
+  hora                  VARCHAR2(10),
+  cod_modulo            NUMBER(3) not null,
+  cod_modalidad         NUMBER(3) not null,
+  nro_cta_solicitante   VARCHAR2(35),
+  tot_monto             NUMBER(18,2) default 0 not null,
+  cod_moneda            VARCHAR2(3),
+  dat_xml               CLOB,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default sysdate not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DNA_ORD_TRANSFERENCIAS
+  is 'Contiene registro de las Ordenes de Transferencias.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.nro_ord_transferencia
+  is 'Numero de Orden Transferencia.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.fecha
+  is 'Fecha.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.hora
+  is 'Hora.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.cod_modulo
+  is 'Código del modulo de la transferencia.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.cod_modalidad
+  is 'Código de la Modalidad de la Transferencia.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.nro_cta_solicitante
+  is 'Nro. Cuenta Solicitante.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.tot_monto
+  is 'Monto Total.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.dat_xml
+  is 'XML.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_DNA_ORD_TRANSFERENCIAS.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+alter table IT.GE_DNA_ORD_TRANSFERENCIAS
+  add constraint PK_GE_SNP_ORD_TRANSFERENCIAS primary key (NRO_ORD_TRANSFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

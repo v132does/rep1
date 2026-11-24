@@ -1,0 +1,11 @@
+create global temporary table IT.SYB12_SYSUSERS
+(
+  db_id   NUMBER(10),
+  suid    NUMBER(10),
+  db_uid  NUMBER(10) not null,
+  gid     NUMBER(10),
+  name    VARCHAR2(256),
+  environ VARCHAR2(256)
+)
+on commit preserve rows;
+

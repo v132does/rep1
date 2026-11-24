@@ -1,0 +1,79 @@
+create table IT.PR_CHQ_LIBRADORES
+(
+  nro_documento      VARCHAR2(20) not null,
+  nom_completo       VARCHAR2(120) not null,
+  fec_ingreso        DATE not null,
+  est_informconf     VARCHAR2(1),
+  fec_ven_informconf DATE,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  cod_tip_documento  NUMBER(3) not null,
+  cod_persona        VARCHAR2(10),
+  nombre             VARCHAR2(60),
+  apellido           VARCHAR2(60),
+  referencia         VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CHQ_LIBRADORES
+  is 'Libradores de Cheques en Custodia.';
+comment on column IT.PR_CHQ_LIBRADORES.nro_documento
+  is 'Numero de documento (Cedula de identidad o RUC).';
+comment on column IT.PR_CHQ_LIBRADORES.nom_completo
+  is 'Nombre de la Persona.';
+comment on column IT.PR_CHQ_LIBRADORES.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.PR_CHQ_LIBRADORES.est_informconf
+  is 'Estado del Informconf (A=Aprobado, R=Rechazado).';
+comment on column IT.PR_CHQ_LIBRADORES.fec_ven_informconf
+  is 'Vencimiento del Informconf.';
+comment on column IT.PR_CHQ_LIBRADORES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CHQ_LIBRADORES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_CHQ_LIBRADORES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_CHQ_LIBRADORES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_CHQ_LIBRADORES.cod_tip_documento
+  is 'Código de Tipo de Documento.';
+comment on column IT.PR_CHQ_LIBRADORES.cod_persona
+  is 'Código de persona.';
+comment on column IT.PR_CHQ_LIBRADORES.nombre
+  is 'Nombre de la persona.';
+comment on column IT.PR_CHQ_LIBRADORES.apellido
+  is 'Apellido de la persona.';
+comment on column IT.PR_CHQ_LIBRADORES.referencia
+  is 'Para indicar si el Librador opera con la Fabrica de Dscto. de Documentos (FAD).';
+alter table IT.PR_CHQ_LIBRADORES
+  add constraint PK_PR_CHQ_LIBRADORES primary key (NRO_DOCUMENTO, COD_TIP_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CHQ_LIBRADORES
+  add constraint FK_PCLIB_COD_TIP_DOCUMENTO foreign key (COD_TIP_DOCUMENTO)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+alter table IT.PR_CHQ_LIBRADORES
+  add constraint AVCON_1085092804_EST_I_000
+  check (EST_INFORMCONF IN ('A', 'R'));
+

@@ -1,0 +1,73 @@
+create table IT.GE_ENV_PAG_RECAUDACIONES_TMP
+(
+  cod_ente      VARCHAR2(20),
+  cliente       VARCHAR2(120),
+  fec_operacion VARCHAR2(12),
+  nro_archivo   NUMBER(10),
+  cta_debito    VARCHAR2(20),
+  cta_credito   VARCHAR2(20),
+  monto         NUMBER(18,2),
+  cod_moneda    VARCHAR2(3),
+  concepto      VARCHAR2(100),
+  observacion   VARCHAR2(1000),
+  tipo          VARCHAR2(1),
+  nro_factura   VARCHAR2(1000),
+  tip_cobranza  VARCHAR2(10),
+  codigo        NUMBER(18) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ENV_PAG_RECAUDACIONES_TMP
+  is 'Tabla temporal utilizada en prg_env_pag_recaudaciones.';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.cod_ente
+  is 'Codigo de Ente';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.cliente
+  is 'Cliente';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.fec_operacion
+  is 'Fecha Operacion';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.nro_archivo
+  is 'Nro.Archivo';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.cta_debito
+  is 'Cta.Debito';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.cta_credito
+  is 'Cta.Credito';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.monto
+  is 'Monto';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.cod_moneda
+  is 'Cod.Moneda';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.concepto
+  is 'Concepto';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.observacion
+  is 'Observacion';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.tipo
+  is 'Tipo (N-E)';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.nro_factura
+  is 'Nro de Factura';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.tip_cobranza
+  is 'Tipo de Cobranza';
+comment on column IT.GE_ENV_PAG_RECAUDACIONES_TMP.codigo
+  is 'Codigo';
+alter table IT.GE_ENV_PAG_RECAUDACIONES_TMP
+  add constraint PK_GE_ENV_PAG_REC_TMP primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,47 @@
+create table IT.MD_CTA_DOC_TMP
+(
+  moneda          VARCHAR2(10),
+  tasa            VARCHAR2(10),
+  monto           NUMBER(18,2),
+  titulo          VARCHAR2(10),
+  cupon           NUMBER(10),
+  fec_compra      DATE,
+  fec_vencimiento DATE,
+  denominacion    VARCHAR2(100),
+  cod_modalidad   NUMBER(3),
+  cod_persona     VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_CTA_DOC_TMP
+  is 'Temporal para carga masiva de Documentos de Mesa.';
+comment on column IT.MD_CTA_DOC_TMP.moneda
+  is 'Moneda del Documento.';
+comment on column IT.MD_CTA_DOC_TMP.tasa
+  is 'Tasa.';
+comment on column IT.MD_CTA_DOC_TMP.monto
+  is 'Monto Capital/Interés.';
+comment on column IT.MD_CTA_DOC_TMP.titulo
+  is 'Código Numérico que identifica al Documento y sus cupones.';
+comment on column IT.MD_CTA_DOC_TMP.cupon
+  is 'Número del Cupón. Cupón 0 Capital.';
+comment on column IT.MD_CTA_DOC_TMP.fec_compra
+  is 'Fecha de la Compra.';
+comment on column IT.MD_CTA_DOC_TMP.fec_vencimiento
+  is 'Fecha del Vencimiento.';
+comment on column IT.MD_CTA_DOC_TMP.denominacion
+  is 'Denominación de la Cuenta.';
+comment on column IT.MD_CTA_DOC_TMP.cod_modalidad
+  is 'Modalidad ';
+comment on column IT.MD_CTA_DOC_TMP.cod_persona
+  is 'Codigo de la persona';
+

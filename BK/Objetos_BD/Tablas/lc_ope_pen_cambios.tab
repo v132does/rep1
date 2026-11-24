@@ -1,0 +1,257 @@
+create table IT.LC_OPE_PEN_CAMBIOS
+(
+  nro_operacion       NUMBER(7) not null,
+  cod_tip_operacion   VARCHAR2(3) not null,
+  referenciado        VARCHAR2(1) default 'N' not null,
+  cod_tip_referencia  VARCHAR2(3),
+  nro_referencia      NUMBER(10) default 0,
+  cod_tip_ope_bcp     VARCHAR2(6),
+  cod_moneda          VARCHAR2(3) not null,
+  cod_persona         VARCHAR2(10),
+  cod_oficina         NUMBER(3) not null,
+  fec_operacion       DATE not null,
+  monto               NUMBER(18,2) default 0 not null,
+  cotizacion          NUMBER(14,8) not null,
+  mto_equ_local       NUMBER(18,2) default 0 not null,
+  cta_referencia      VARCHAR2(15),
+  cod_tra_cargo1      NUMBER(4),
+  mto_cargo1          NUMBER(18,2) default 0,
+  cod_tra_cargo2      NUMBER(4),
+  mto_cargo2          NUMBER(18,2) default 0,
+  cod_tra_cargo3      NUMBER(4),
+  mto_cargo3          NUMBER(18,2) default 0,
+  cod_tra_cargo4      NUMBER(4),
+  mto_cargo4          NUMBER(18,2) default 0,
+  cta_ref_contra1     VARCHAR2(15),
+  mto_contra1         NUMBER(18,2) default 0,
+  cta_ref_contra2     VARCHAR2(15),
+  mto_contra2         NUMBER(18,2) default 0,
+  cta_ref_contra3     VARCHAR2(15),
+  mto_contra3         NUMBER(18,2) default 0,
+  cta_ref_contra4     VARCHAR2(15),
+  mto_contra4         NUMBER(18,2) default 0,
+  nro_cuenta          VARCHAR2(15) not null,
+  nro_cta_bancaria    VARCHAR2(15),
+  nro_cheque          VARCHAR2(15),
+  nro_boleta          NUMBER(15),
+  concepto            VARCHAR2(35),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  nro_documento       VARCHAR2(20) not null,
+  liquidado           VARCHAR2(1) default 'N' not null,
+  cod_usu_liquidacion VARCHAR2(10),
+  fec_liquidacion     DATE,
+  cta_ref_contra5     VARCHAR2(15),
+  mto_contra5         NUMBER(18,2) default 0,
+  cod_retencion       NUMBER(3),
+  nro_diario          NUMBER(3) default 0,
+  ope_homebanking     VARCHAR2(1) default 'N',
+  cod_mon_destino     VARCHAR2(3),
+  nro_secuencia       NUMBER(3) not null,
+  rel_monedas         NUMBER(18,4),
+  mto_equ_cargo1      NUMBER(18,2),
+  mto_equ_cargo2      NUMBER(18,2),
+  mto_equ_cargo3      NUMBER(18,2),
+  mto_equ_cargo4      NUMBER(18,2),
+  ind_ser_digital     VARCHAR2(1),
+  cod_tra_cargo6      NUMBER(4),
+  mto_cargo6          NUMBER(18,2) default 0,
+  mto_equ_cargo6      NUMBER(18,2) default 0,
+  cod_tra_cargo7      NUMBER(4),
+  mto_cargo7          NUMBER(18,2) default 0,
+  mto_equ_cargo7      NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_OPE_PEN_CAMBIOS
+  is 'Operaciones Pendientes de Cambios.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_operacion
+  is 'Numero de operacion identificadora.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tip_operacion
+  is 'Codigo del tipo de operacion de cambios.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.referenciado
+  is 'Referenciado por otra operacion S/N.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tip_referencia
+  is 'Codigo del tipo de referencia de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_referencia
+  is 'Numero del tipo referencia.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tip_ope_bcp
+  is 'Codigo de BCP asignado al Tipo de Operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_moneda
+  is 'Codigo de moneda de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_persona
+  is 'Codigo del cliente  de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.fec_operacion
+  is 'Fecha de emision de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.monto
+  is 'Monto de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cotizacion
+  is 'Cotizacion de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_local
+  is 'Monto equivalente en moneda local.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cta_referencia
+  is 'Cuenta Debito/Credito a la que hace referencia la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tra_cargo1
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_cargo1
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tra_cargo2
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_cargo2
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tra_cargo3
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_cargo3
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tra_cargo4
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_cargo4
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cta_ref_contra1
+  is 'Contra cuenta de la operacion (efectivo).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_contra1
+  is 'Monto o valor de la contra cuenta (efectivo).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cta_ref_contra2
+  is 'Contra cuenta de la operacion (cheque).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_contra2
+  is 'Monto o valor de la contra cuenta (cheque).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cta_ref_contra3
+  is 'Contra cuenta de la operacion (Cuenta Cliente).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_contra3
+  is 'Monto o valor de la contra cuenta (Cuenta Cliente).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cta_ref_contra4
+  is 'Contra cuenta de la operacion (Cuenta Contable).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_contra4
+  is 'Monto o valor de la contra cuenta (Cuenta Contable).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_cuenta
+  is 'Numero de Cuenta de Cambios.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_cta_bancaria
+  is 'Cuenta corriente corresponsal.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_cheque
+  is 'Numero de cheque.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_boleta
+  is 'Numero deposito.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.concepto
+  is 'Concepto.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.observacion
+  is 'Observacion sobre la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_documento
+  is 'Numero de documento del cliente.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.liquidado
+  is 'Indica si la operacion ya fue liquidada.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_usu_liquidacion
+  is 'Usuario que realizo la liquidacion de la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.fec_liquidacion
+  is 'Fecha en que se liquida la operacion.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cta_ref_contra5
+  is 'Contra cuenta de la operacion (cheque nuestro banco).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_contra5
+  is 'Monto o valor de la contra cuenta (cheque nuestro banco).';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_retencion
+  is 'Codigo de retencion. Ver tabla de Codigos de retenciones.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_diario
+  is 'El Número de Operación diaria ';
+comment on column IT.LC_OPE_PEN_CAMBIOS.ope_homebanking
+  is 'La Operación para retomar vía Home Banking S|N';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_mon_destino
+  is 'Código de la Moneda destino de la Operación ';
+comment on column IT.LC_OPE_PEN_CAMBIOS.nro_secuencia
+  is 'Nro. de Secuencia';
+comment on column IT.LC_OPE_PEN_CAMBIOS.rel_monedas
+  is 'Relacion de Monedas';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_cargo1
+  is 'Monto Equivalente Cargo1';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_cargo2
+  is 'Monto Equivalente Cargo2';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_cargo3
+  is 'Monto Equivalente Cargo3';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_cargo4
+  is 'Monto Equivalente Cargo4';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tra_cargo6
+  is 'Código de Cargo';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_cargo6
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_cargo6
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.cod_tra_cargo7
+  is 'Código de Cargo';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_cargo7
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PEN_CAMBIOS.mto_equ_cargo7
+  is 'Monto del cargo.';
+create index IT.IN_LOPE2_COD_TIP_OPERACION on IT.LC_OPE_PEN_CAMBIOS (COD_TIP_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPE2_CTA_REF_CONTRA3 on IT.LC_OPE_PEN_CAMBIOS (CTA_REF_CONTRA3, LIQUIDADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_OPE_PEN_CAMBIOS
+  add constraint PK_LC_OPE_PEN_CAMBIO2 primary key (NRO_OPERACION, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_OPE_PEN_CAMBIOS
+  add constraint FK_LOPE2_COD_TIP_OPE_BCP foreign key (COD_TIP_OPE_BCP)
+  references IT.LC_TIP_OPE_BCP (COD_TIP_OPE_BCP);
+alter table IT.LC_OPE_PEN_CAMBIOS
+  add constraint FK_LOPE2_COD_TIP_OPERACION foreign key (COD_TIP_OPERACION)
+  references IT.LC_TIP_OPERACIONES (COD_TIP_OPERACION);
+alter table IT.LC_OPE_PEN_CAMBIOS
+  add constraint FK_LOPE2_COD_TIP_REFERENCIA foreign key (COD_TIP_REFERENCIA)
+  references IT.LC_TIP_REFERENCIAS (COD_TIP_REFERENCIA);
+alter table IT.LC_OPE_PEN_CAMBIOS
+  add constraint FK_LOPE2_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.LC_CTA_CAMBIOS (NRO_CUENTA);
+alter table IT.LC_OPE_PEN_CAMBIOS
+  add constraint AVCO2_1123594858_REFER_000
+  check (REFERENCIADO IN ('S', 'N'));
+

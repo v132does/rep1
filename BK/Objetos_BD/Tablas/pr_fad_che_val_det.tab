@@ -1,0 +1,115 @@
+create table IT.PR_FAD_CHE_VAL_DET
+(
+  nro_solicitud    NUMBER(7) not null,
+  nro_secuencia    NUMBER(5) not null,
+  cod_persona      VARCHAR2(10),
+  relacion         VARCHAR2(1),
+  nro_cuota        NUMBER(3),
+  cod_banco        NUMBER(3),
+  nro_cheque       NUMBER(15),
+  cta_libradora    VARCHAR2(20),
+  nro_validacion   NUMBER(3) not null,
+  tip_validacion   VARCHAR2(1) not null,
+  abr_validacion   VARCHAR2(30) not null,
+  observacion      VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tip_afe_lim_cre  VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_FAD_CHE_VAL_DET
+  is 'Se registran las validaciones hechas a los cheques de la Fabrica de Dscto. de Documentos.';
+comment on column IT.PR_FAD_CHE_VAL_DET.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_FAD_CHE_VAL_DET.nro_secuencia
+  is 'Número de secuencia de verificación.';
+comment on column IT.PR_FAD_CHE_VAL_DET.cod_persona
+  is 'Código de persona verificada.';
+comment on column IT.PR_FAD_CHE_VAL_DET.relacion
+  is 'Relación (D=Deudor, L=Librador, C=Cheque,S=Solicitud).';
+comment on column IT.PR_FAD_CHE_VAL_DET.nro_cuota
+  is 'Numero de Cuota.';
+comment on column IT.PR_FAD_CHE_VAL_DET.cod_banco
+  is 'Codigo de Banco.';
+comment on column IT.PR_FAD_CHE_VAL_DET.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.PR_FAD_CHE_VAL_DET.cta_libradora
+  is 'Cuenta Libradora.';
+comment on column IT.PR_FAD_CHE_VAL_DET.nro_validacion
+  is 'Nro. validación (Referencia: FAD_TIP_VALIDACION).';
+comment on column IT.PR_FAD_CHE_VAL_DET.tip_validacion
+  is 'Tipo de Validación (A=Alerta, B=Bloqueante).';
+comment on column IT.PR_FAD_CHE_VAL_DET.abr_validacion
+  is 'Abreviatura de Validación.';
+comment on column IT.PR_FAD_CHE_VAL_DET.observacion
+  is 'Observaciones.';
+comment on column IT.PR_FAD_CHE_VAL_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_FAD_CHE_VAL_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_FAD_CHE_VAL_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_FAD_CHE_VAL_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.PR_FAD_CHE_VAL_DET.tip_afe_lim_cre
+  is 'Tipo de afectación a límite de crédito. D=Dscto de Cheques, P=Prestamos contra pagaré.';
+create index IT.IN_FADVL_CTA_LIBRADORA on IT.PR_FAD_CHE_VAL_DET (NRO_SOLICITUD, CTA_LIBRADORA, COD_BANCO, NRO_CHEQUE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FADVL_SOLICITUDES on IT.PR_FAD_CHE_VAL_DET (NRO_SOLICITUD)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_FAD_CHE_VAL_DET
+  add constraint PK_GE_FAD_CHE_VAL_DET primary key (NRO_SOLICITUD, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_FAD_CHE_VAL_DET
+  add constraint FK_FAVAD_CHE_CUSTODIAS foreign key (NRO_SOLICITUD, NRO_CUOTA, NRO_CHEQUE, COD_BANCO, CTA_LIBRADORA)
+  references IT.PR_FAD_CHE_CUSTODIAS (NRO_SOLICITUD, NRO_CUOTA, NRO_CHEQUE, COD_BANCO, CTA_LIBRADORA);
+alter table IT.PR_FAD_CHE_VAL_DET
+  add constraint FK_FAVAD_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.PR_FAD_CHE_VAL_DET
+  add constraint FADON_1118276299_COD_B_002
+  check (COD_BANCO BETWEEN 0 AND 999);
+

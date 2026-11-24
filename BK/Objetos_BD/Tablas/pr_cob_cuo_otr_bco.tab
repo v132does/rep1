@@ -1,0 +1,57 @@
+create table IT.PR_COB_CUO_OTR_BCO
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cuota        NUMBER(3) not null,
+  fec_cobro        DATE not null,
+  fec_proceso      DATE not null,
+  estado           VARCHAR2(1) not null,
+  nro_boleta       NUMBER(15),
+  nro_cheque       NUMBER(8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_COB_CUO_OTR_BCO
+  is 'Contiene los datos de Pagos de Prestamos realizados con Cheque Cargo Otros Bancos.';
+comment on column IT.PR_COB_CUO_OTR_BCO.nro_cuenta
+  is 'Número de Préstamo.';
+comment on column IT.PR_COB_CUO_OTR_BCO.nro_cuota
+  is 'Número de Cuota del Préstamo.';
+comment on column IT.PR_COB_CUO_OTR_BCO.fec_cobro
+  is 'Fecha en que se procesa el cobro en caja.';
+comment on column IT.PR_COB_CUO_OTR_BCO.fec_proceso
+  is 'Fecha en que se aplicará el cobro a la cuota.';
+comment on column IT.PR_COB_CUO_OTR_BCO.estado
+  is 'Estado del registro: C-En Compensación, P-Pagado/Procesado, R-Rechazado';
+comment on column IT.PR_COB_CUO_OTR_BCO.nro_cheque
+  is 'Número de Cheque con el que se cobro la cuota.';
+alter table IT.PR_COB_CUO_OTR_BCO
+  add constraint PK_PR_COB_CUO_OTR_BCO primary key (NRO_CUENTA, NRO_CUOTA, ESTADO, FEC_COBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 16M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COB_CUO_OTR_BCO
+  add constraint FK_PCOBCO_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.PR_CTA_PRESTAMOS (NRO_CUENTA);
+

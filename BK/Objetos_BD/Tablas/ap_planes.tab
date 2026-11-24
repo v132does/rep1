@@ -1,0 +1,112 @@
+create table IT.AP_PLANES
+(
+  cod_plan          NUMBER(10) not null,
+  ano_creacion      NUMBER(4) not null,
+  tipo              VARCHAR2(1) default 'I' not null,
+  mto_presupuestado NUMBER(18,2) default 0 not null,
+  mto_ejecutado     NUMBER(18,2) default 0 not null,
+  por_ejecutado     NUMBER(5,2) default 0 not null,
+  descripcion       VARCHAR2(60) not null,
+  fec_inicio        DATE not null,
+  fec_fin           DATE not null,
+  duracion          NUMBER(4) not null,
+  estado            VARCHAR2(1) default 'I' not null,
+  des_detallada     VARCHAR2(1000),
+  fec_ini_real      DATE,
+  fec_fin_real      DATE,
+  dur_real          NUMBER(4),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_PLANES
+  is 'Planes.';
+comment on column IT.AP_PLANES.cod_plan
+  is 'Identificador del Plan.';
+comment on column IT.AP_PLANES.ano_creacion
+  is 'Año de Creación del Plan.';
+comment on column IT.AP_PLANES.tipo
+  is 'Tipo de Plan ( G - I ).';
+comment on column IT.AP_PLANES.mto_presupuestado
+  is 'Monto Total segun el presupuesto de con proyecto del plan.';
+comment on column IT.AP_PLANES.mto_ejecutado
+  is 'Monto Total ejercutado para el Plan.';
+comment on column IT.AP_PLANES.por_ejecutado
+  is 'Porcentaje Ejecutado.';
+comment on column IT.AP_PLANES.descripcion
+  is 'Objetivo del Plan.';
+comment on column IT.AP_PLANES.fec_inicio
+  is 'Fecha estimada de creacion del plan.';
+comment on column IT.AP_PLANES.fec_fin
+  is 'Fecha estimada de finalizacion del plan.';
+comment on column IT.AP_PLANES.duracion
+  is 'Duracion (dias) del plan.';
+comment on column IT.AP_PLANES.estado
+  is 'Indica si el plan se encuentra activo.';
+comment on column IT.AP_PLANES.des_detallada
+  is 'Descripcion detallada del plan.';
+comment on column IT.AP_PLANES.fec_ini_real
+  is 'Fecha de Inicio Real del Plan.';
+comment on column IT.AP_PLANES.fec_fin_real
+  is 'Fecha Fin Real del Plan.';
+comment on column IT.AP_PLANES.dur_real
+  is 'Duracion real en dias.';
+comment on column IT.AP_PLANES.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_PLANES.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AP_PLANES.usu_modificacion
+  is 'Usuario que Modifica.';
+comment on column IT.AP_PLANES.fec_modificacion
+  is 'Fecha de Modificacion.';
+alter table IT.AP_PLANES
+  add constraint PK_AP_PLANES primary key (COD_PLAN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_PLANES
+  add constraint AVCON_1081349332_COD_P_017
+  check (COD_PLAN BETWEEN 1 AND 999999999);
+alter table IT.AP_PLANES
+  add constraint AVCON_1081349332_ESTAD_001
+  check (ESTADO IN ('A', 'I'));
+alter table IT.AP_PLANES
+  add constraint AVCON_1081349332_TIPO_000
+  check (TIPO IN ('I', 'G'));
+alter table IT.AP_PLANES
+  add constraint AVCON_1084023505_COD_P_000
+  check (COD_PLAN BETWEEN 1 AND 999999999);
+alter table IT.AP_PLANES
+  add constraint AVCON_1084023505_TIPO_000
+  check (TIPO IN ('I', 'G'));
+alter table IT.AP_PLANES
+  add constraint CK_YPLAN_RANGO_FECHA
+  check ((fec_inicio is not null
+and fec_inicio < fec_fin) or (fec_inicio is null and fec_fin is null));
+alter table IT.AP_PLANES
+  add constraint CK_YPLAN_RANGO_FECHA_REAL
+  check ((fec_ini_real is not null
+and fec_ini_real < fec_fin_real) or (fec_ini_real is null
+and fec_fin_real is null));
+

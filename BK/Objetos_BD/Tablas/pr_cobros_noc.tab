@@ -1,0 +1,106 @@
+create table IT.PR_COBROS_NOC
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cuota_desde  NUMBER(3) not null,
+  nro_cuota_hasta  NUMBER(3) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  nro_secuencia    NUMBER(3) not null,
+  estado           VARCHAR2(1) default 'I' not null,
+  mto_cobrado      NUMBER(18,2) not null,
+  cod_ofi_origen   NUMBER(3) not null,
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  fec_proceso      DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_canal        VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_COBROS_NOC
+  is 'Registra los cobros de cuotas de préstamos.';
+comment on column IT.PR_COBROS_NOC.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.PR_COBROS_NOC.nro_cuota_desde
+  is 'Número de cuota desde la cual fue pagada.';
+comment on column IT.PR_COBROS_NOC.nro_cuota_hasta
+  is 'Número de cuota hasta la cual fue pagada.';
+comment on column IT.PR_COBROS_NOC.fecha
+  is 'Fecha de cobro.';
+comment on column IT.PR_COBROS_NOC.hora
+  is 'Hora en que se realizó el cobro.';
+comment on column IT.PR_COBROS_NOC.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.PR_COBROS_NOC.estado
+  is 'Estado del registro (I=Ingresado, P=Procesado, A=Anteriormente Pagado, E=Error en cierre operativo).';
+comment on column IT.PR_COBROS_NOC.mto_cobrado
+  is 'Monto Cobrado.';
+comment on column IT.PR_COBROS_NOC.cod_ofi_origen
+  is 'Oficina Origen.';
+comment on column IT.PR_COBROS_NOC.cod_mod_padre
+  is 'Código de Módulo Padre.';
+comment on column IT.PR_COBROS_NOC.cod_mad_padre
+  is 'Código de Modalidad Padre.';
+comment on column IT.PR_COBROS_NOC.cod_tra_padre
+  is 'Código de Transacción Padre del Cobro.';
+comment on column IT.PR_COBROS_NOC.fec_proceso
+  is 'Fecha en que fue procesado el cobro.';
+comment on column IT.PR_COBROS_NOC.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_COBROS_NOC.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_COBROS_NOC.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_COBROS_NOC.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_COBROS_NOC.cod_canal
+  is 'Canal de ingreso';
+create index IT.IN_PCNOC_COD_MAD_PADRE on IT.PR_COBROS_NOC (COD_MAD_PADRE, COD_MOD_PADRE, COD_OFI_ORIGEN, COD_TRA_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COBROS_NOC
+  add constraint PK_PR_COBROS_NOC primary key (NRO_CUENTA, NRO_CUOTA_DESDE, FECHA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_COBROS_NOC
+  add constraint FK_PCNOC_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.PR_COBROS_NOC
+  add constraint FK_PCNOC_COD_TRANSACCION foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_COBROS_NOC
+  add constraint FK_PCNOC_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

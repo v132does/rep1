@@ -1,0 +1,86 @@
+create table IT.GE_DEB_CRE_BATCH_DET
+(
+  cod_deb_cre_batch NUMBER(3) not null,
+  cod_moneda        VARCHAR2(4) not null,
+  cod_transaccion   NUMBER(4),
+  cod_rubro         VARCHAR2(15),
+  nro_cuenta        VARCHAR2(15),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEB_CRE_BATCH_DET
+  is 'Detalles de Debitos y Creditos en Batch';
+comment on column IT.GE_DEB_CRE_BATCH_DET.cod_deb_cre_batch
+  is 'Codigo del Debito o Credito en Batch.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_DEB_CRE_BATCH_DET.cod_transaccion
+  is 'Codigo de la Transaccion de contrapartida del movimiento.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.cod_rubro
+  is 'Rubro Contable de contrapartida.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.nro_cuenta
+  is 'Numero de Cuenta de contrapartida.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DEB_CRE_BATCH_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_DEB_CRE_BATCH_DET
+  add constraint PK_GE_DEB_CRE_BATCH_DET primary key (COD_DEB_CRE_BATCH, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DEB_CRE_BATCH_DET
+  add constraint UK_GE_DEB_CRE_BATCH_DET unique (COD_DEB_CRE_BATCH, COD_MONEDA, COD_TRANSACCION, COD_RUBRO, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DEB_CRE_BATCH_DET
+  add constraint FK_GDCBD_COD_DEB_CRE_BATCH foreign key (COD_DEB_CRE_BATCH)
+  references IT.GE_DEB_CRE_BATCH (COD_DEB_CRE_BATCH);
+alter table IT.GE_DEB_CRE_BATCH_DET
+  add constraint FK_GDCBD_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.GE_DEB_CRE_BATCH_DET
+  add constraint FK_GDCBD_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_DEB_CRE_BATCH_DET
+  add constraint CK_CTA_RUB_TRANSACCION
+  check ((nro_cuenta is not null and cod_rubro is null and cod_transaccion is not null) or
+(nro_cuenta is null and cod_rubro is not null and cod_transaccion is null) or
+(nro_cuenta is null and cod_rubro is null and cod_transaccion is not null));
+

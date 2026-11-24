@@ -1,0 +1,186 @@
+create table IT.SB_SNP_CATASTROS
+(
+  nro_orden               NUMBER(15) not null,
+  estado                  VARCHAR2(1) not null,
+  origen                  VARCHAR2(1),
+  cod_mensaje             VARCHAR2(35),
+  cod_moneda              VARCHAR2(3),
+  monto                   NUMBER(18,2),
+  ind_mto_fijo            VARCHAR2(1),
+  fec_vencimiento         DATE,
+  dia_envio               NUMBER(2),
+  cod_per_solicitante     VARCHAR2(10),
+  cod_tip_doc_solicitante NUMBER(3),
+  nro_doc_solicitante     VARCHAR2(20),
+  cod_tip_per_solicitante VARCHAR2(2),
+  nom_solicitante         VARCHAR2(120),
+  dir_solicitante         VARCHAR2(100),
+  cod_swi_pte_solicitante VARCHAR2(20),
+  nro_cta_pte_solicitante VARCHAR2(35),
+  nro_cta_solicitante     VARCHAR2(35),
+  cod_per_receptor        VARCHAR2(10),
+  cod_tip_doc_receptor    NUMBER(3),
+  nro_doc_receptor        VARCHAR2(20),
+  cod_tip_per_receptor    VARCHAR2(2),
+  nom_receptor            VARCHAR2(120),
+  dir_receptor            VARCHAR2(100),
+  cod_swi_pte_receptor    VARCHAR2(20),
+  nro_cta_pte_receptor    VARCHAR2(35),
+  nro_cta_receptor        VARCHAR2(35),
+  usu_insercion           VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion           DATE default sysdate not null,
+  usu_modificacion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion        DATE default sysdate not null,
+  nro_referencia          VARCHAR2(20),
+  nro_ref_externa         VARCHAR2(20),
+  fec_registro            DATE,
+  titular_servicio        VARCHAR2(120),
+  cod_servicio            VARCHAR2(30),
+  can_cuotas              NUMBER(3),
+  motivo                  VARCHAR2(2),
+  fec_recepcion           DATE,
+  tip_rechazo             VARCHAR2(3),
+  fec_autorizacion        DATE,
+  fec_rechazo             DATE,
+  fec_cancelacion         DATE,
+  error                   VARCHAR2(2000),
+  fec_ult_proceso         DATE,
+  situacion               VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SNP_CATASTROS
+  is 'Registro de las órdenes de Domiciliación para la generación automótica de transferencias de Débito entre clientes.';
+comment on column IT.SB_SNP_CATASTROS.nro_orden
+  is 'Identificador del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.estado
+  is 'Estado del Catastro.
+A - Aprobado
+R - Rechazado
+C - Cancelado
+P - Pendiente Aprobacion
+O - Pendiente Autoriz.-Entidad Debitante
+N - Pendiente Cancelación
+
+';
+comment on column IT.SB_SNP_CATASTROS.origen
+  is 'Origen del Catastro. H-Homebanking, I-ITGF.';
+comment on column IT.SB_SNP_CATASTROS.cod_mensaje
+  is 'Sirve para determinar el Tipo de MT a enviar con la información catastrada con relación a la tabla SB_SNP_MENSAJES.';
+comment on column IT.SB_SNP_CATASTROS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.SB_SNP_CATASTROS.monto
+  is 'Monto del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.ind_mto_fijo
+  is 'Indicador de Monto Fijo.';
+comment on column IT.SB_SNP_CATASTROS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.SB_SNP_CATASTROS.dia_envio
+  is 'Indica el día de cada mes para el envío del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.cod_per_solicitante
+  is 'Código del Cliente Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.cod_tip_doc_solicitante
+  is 'Tipo de Documento del Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.nro_doc_solicitante
+  is 'Número de Documento del Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.cod_tip_per_solicitante
+  is 'Código de Tipo de Persona Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.nom_solicitante
+  is 'Nombre del Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.dir_solicitante
+  is 'Dirección del Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.cod_swi_pte_solicitante
+  is 'Código Swift del Participante Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.nro_cta_pte_solicitante
+  is 'Número de Cuenta del Participante Solicitante.';
+comment on column IT.SB_SNP_CATASTROS.nro_cta_solicitante
+  is 'Cuenta de Referencia del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.cod_per_receptor
+  is 'Código de Persona del Receptor.';
+comment on column IT.SB_SNP_CATASTROS.cod_tip_doc_receptor
+  is 'Tipo de Documento del Receptor.';
+comment on column IT.SB_SNP_CATASTROS.nro_doc_receptor
+  is 'Número de Documento del Receptor.';
+comment on column IT.SB_SNP_CATASTROS.cod_tip_per_receptor
+  is 'Código de Tipo de Persona del Receptor.';
+comment on column IT.SB_SNP_CATASTROS.nom_receptor
+  is 'Nombre del Receptor.';
+comment on column IT.SB_SNP_CATASTROS.dir_receptor
+  is 'Dirección del Receptor.';
+comment on column IT.SB_SNP_CATASTROS.cod_swi_pte_receptor
+  is 'Código Swift del Participante Receptor.';
+comment on column IT.SB_SNP_CATASTROS.nro_cta_pte_receptor
+  is 'Número de Cuenta del Participante Receptor.';
+comment on column IT.SB_SNP_CATASTROS.nro_cta_receptor
+  is 'Número de Cuenta del Cliente Receptor.';
+comment on column IT.SB_SNP_CATASTROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_SNP_CATASTROS.fec_insercion
+  is 'Fecha en que se inserta el registro.';
+comment on column IT.SB_SNP_CATASTROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_CATASTROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_CATASTROS.nro_referencia
+  is 'Referencia del MT999 recibido.';
+comment on column IT.SB_SNP_CATASTROS.nro_ref_externa
+  is 'Referencia del catastro enviado por la otra entidad.';
+comment on column IT.SB_SNP_CATASTROS.fec_registro
+  is 'Fecha enviada en la solicitud de catastro.';
+comment on column IT.SB_SNP_CATASTROS.titular_servicio
+  is 'Nombre del titular del servicio.';
+comment on column IT.SB_SNP_CATASTROS.cod_servicio
+  is 'Código de servicio.';
+comment on column IT.SB_SNP_CATASTROS.can_cuotas
+  is 'Cantidad de cuotas para el cobro del servicio.';
+comment on column IT.SB_SNP_CATASTROS.motivo
+  is 'Motivo del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.fec_recepcion
+  is 'Fecha de Recepción del MT999.';
+comment on column IT.SB_SNP_CATASTROS.tip_rechazo
+  is 'Código de Motivo de Rechazo.';
+comment on column IT.SB_SNP_CATASTROS.fec_autorizacion
+  is 'Fecha de Autorización del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.fec_rechazo
+  is 'Fecha de Rechazo del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.fec_cancelacion
+  is 'Fecha de Cancelación del Catastro.';
+comment on column IT.SB_SNP_CATASTROS.error
+  is 'Errores registrados en la Recepción de un mensaje de Catastro.';
+comment on column IT.SB_SNP_CATASTROS.fec_ult_proceso
+  is 'Fecha de cuando fue ejecutado por ultima vez.';
+comment on column IT.SB_SNP_CATASTROS.situacion
+  is 'Situación del Catastro con respecto a la respuesta obtenida.';
+alter table IT.SB_SNP_CATASTROS
+  add constraint PK_SB_SNP_CATASTROS primary key (NRO_ORDEN)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_SNP_CATASTROS
+  add constraint CK_SSCAT_ESTADO
+  check (ESTADO IN ('A','R','C','P','O','N'));
+alter table IT.SB_SNP_CATASTROS
+  add constraint CK_SSCAT_IND_MTO_FIJO
+  check (IND_MTO_FIJO IN ('S', 'N'));
+alter table IT.SB_SNP_CATASTROS
+  add constraint CK_SSCAT_ORIGEN
+  check (ORIGEN IN ('H', 'I'));
+

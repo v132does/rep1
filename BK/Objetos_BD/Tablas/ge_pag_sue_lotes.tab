@@ -1,0 +1,88 @@
+create table IT.GE_PAG_SUE_LOTES
+(
+  cod_ente         NUMBER(5) not null,
+  fec_proceso      DATE not null,
+  nro_secuencia    NUMBER(3) not null,
+  nro_cta_debito   VARCHAR2(15) not null,
+  mto_credito      NUMBER(18,2),
+  mto_debito       NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  cantidad         NUMBER(10),
+  estado           VARCHAR2(1) not null,
+  tip_pago         VARCHAR2(1),
+  tip_ingreso      VARCHAR2(1),
+  tip_proceso      VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_SUE_LOTES
+  is 'Pagos de Sueldos en Batch.';
+comment on column IT.GE_PAG_SUE_LOTES.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_PAG_SUE_LOTES.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.GE_PAG_SUE_LOTES.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.GE_PAG_SUE_LOTES.nro_cta_debito
+  is 'Número de Cuenta de Débito.';
+comment on column IT.GE_PAG_SUE_LOTES.mto_credito
+  is 'Monto total a Acreditar.';
+comment on column IT.GE_PAG_SUE_LOTES.mto_debito
+  is 'Monto total a Debitar.';
+comment on column IT.GE_PAG_SUE_LOTES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_PAG_SUE_LOTES.cantidad
+  is 'Cantidad de cuentas a Acreditar.';
+comment on column IT.GE_PAG_SUE_LOTES.estado
+  is 'Estado del Pago: P/Pendiente, N/Movimiento Normal (Procesado), E/Error.';
+comment on column IT.GE_PAG_SUE_LOTES.tip_pago
+  is 'El Tipo de Acreditación: A/Aguinaldo, C/Comisión, T/Crédito, G/Gratificación o S/Sueldo.';
+comment on column IT.GE_PAG_SUE_LOTES.tip_ingreso
+  is 'Tipo de Ingreso: I/Form de ITGF, H/HomeBanking.';
+comment on column IT.GE_PAG_SUE_LOTES.tip_proceso
+  is 'Tipo de Proceso (''B''/ Batch, ''R''/A requerimiento).';
+comment on column IT.GE_PAG_SUE_LOTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PAG_SUE_LOTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PAG_SUE_LOTES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PAG_SUE_LOTES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_PAG_SUE_LOTES
+  add constraint PK_GE_PAG_SUE_LOTES primary key (COD_ENTE, FEC_PROCESO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_SUE_LOTES
+  add constraint FK_GPASL_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.GE_PAG_SUE_LOTES
+  add check (ESTADO IN('P','N','E','C'));
+alter table IT.GE_PAG_SUE_LOTES
+  add check (TIP_INGRESO IN('I', 'H'));
+alter table IT.GE_PAG_SUE_LOTES
+  add check (TIP_PAGO IN('A', 'C', 'T', 'S'));
+

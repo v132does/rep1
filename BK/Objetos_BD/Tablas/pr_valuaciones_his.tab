@@ -1,0 +1,127 @@
+create table IT.PR_VALUACIONES_HIS
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  fecha                DATE not null,
+  estado               VARCHAR2(1) not null,
+  tipo                 VARCHAR2(1) not null,
+  tip_interes          VARCHAR2(1) not null,
+  tip_renovacion       VARCHAR2(1),
+  tip_documento        VARCHAR2(1) not null,
+  sal_capital          NUMBER(18,2) default 0 not null,
+  sal_interes          NUMBER(18,2) default 0 not null,
+  sal_int_adelantado   NUMBER(18,2) default 0,
+  dev_no_cobrado       NUMBER(18,2) default 0 not null,
+  tot_gar_computables  NUMBER(18,2) default 0,
+  tot_prevision        NUMBER(18,2) default 0,
+  cat_automatica       NUMBER(3,2) not null,
+  cotizacion           NUMBER(14,8) default 0 not null,
+  tot_val_capital      NUMBER(18,2) default 0 not null,
+  tot_val_interes      NUMBER(18,2) default 0 not null,
+  tot_val_int_ade      NUMBER(18,2) default 0 not null,
+  tot_val_devengado    NUMBER(18,2) default 0 not null,
+  tot_val_garantia     NUMBER(18,2) default 0 not null,
+  tot_val_prevision    NUMBER(18,2) default 0 not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  dev_suspenso         NUMBER(18,2) default 0,
+  tot_val_suspenso     NUMBER(18,2) default 0 not null,
+  cot_anterior         NUMBER(14,8) default 0,
+  val_int_devengar     NUMBER(18,2) default 0,
+  tot_val_int_devengar NUMBER(18,2) default 0,
+  tot_valuacion        NUMBER(18,2)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_VALUACIONES_HIS
+  is 'Datos para el proceso de ganancias por valuaciones HISTORICO.';
+comment on column IT.PR_VALUACIONES_HIS.nro_cuenta
+  is 'Número de prestamo.';
+comment on column IT.PR_VALUACIONES_HIS.fecha
+  is 'Fecha en que se proceso por ultima vez las diferencias por valuaciones.';
+comment on column IT.PR_VALUACIONES_HIS.estado
+  is 'Estado de cuenta on line (C=Vigente, V=Vencido, G=En Gestion, M=Moroso, I=Irrecurable, N=Cancelado).';
+comment on column IT.PR_VALUACIONES_HIS.tipo
+  is 'Tipo de Préstamo (Amortizable, Plazo Fijo, Descto. de Documentos).';
+comment on column IT.PR_VALUACIONES_HIS.tip_interes
+  is 'Tipo de interes (A=Adelantado / V=Vencido).';
+comment on column IT.PR_VALUACIONES_HIS.tip_renovacion
+  is 'Tipo de renovación: Refinanciado, rEstructurado, reNovado.';
+comment on column IT.PR_VALUACIONES_HIS.tip_documento
+  is 'Tipo de documento de credito (1=Vista / 2=Vencimiento).';
+comment on column IT.PR_VALUACIONES_HIS.sal_capital
+  is 'Saldo del capital.';
+comment on column IT.PR_VALUACIONES_HIS.sal_interes
+  is 'Saldo del interes.';
+comment on column IT.PR_VALUACIONES_HIS.sal_int_adelantado
+  is 'Saldo total interés documento.';
+comment on column IT.PR_VALUACIONES_HIS.dev_no_cobrado
+  is 'Devengado No Cobrado.';
+comment on column IT.PR_VALUACIONES_HIS.tot_gar_computables
+  is 'Total de Garantias computables.';
+comment on column IT.PR_VALUACIONES_HIS.tot_prevision
+  is 'Monto total de la Previsión.';
+comment on column IT.PR_VALUACIONES_HIS.cat_automatica
+  is 'Categoria automatica del Sistema.';
+comment on column IT.PR_VALUACIONES_HIS.cotizacion
+  is 'Cotización utilizada en el calculo de valuación.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_capital
+  is 'Monto total de valuación por capital.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_interes
+  is 'Monto total de valuación por interés.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_int_ade
+  is 'Monto total de valuación por el interés adelantado.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_devengado
+  is 'Monto total de valuación por el devengado.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_garantia
+  is 'Monto total de valuación por la garantía computable.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_prevision
+  is 'Monto total de valuación por la previsión.';
+comment on column IT.PR_VALUACIONES_HIS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_VALUACIONES_HIS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_VALUACIONES_HIS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_VALUACIONES_HIS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_VALUACIONES_HIS.dev_suspenso
+  is 'Devengado en Suspenso.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_suspenso
+  is 'Monto total de valuación por el suspendido.';
+comment on column IT.PR_VALUACIONES_HIS.cot_anterior
+  is 'Cotizacion Anterior.';
+comment on column IT.PR_VALUACIONES_HIS.val_int_devengar
+  is 'Interes a devengar.';
+comment on column IT.PR_VALUACIONES_HIS.tot_val_int_devengar
+  is 'Monto total de valuacion por el interes a devengar.';
+comment on column IT.PR_VALUACIONES_HIS.tot_valuacion
+  is 'Monto Total de Valuación Consolidado.';
+alter table IT.PR_VALUACIONES_HIS
+  add constraint PK_PR_VALUACIONES_HIS primary key (NRO_CUENTA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_VALUACIONES_HIS
+  add constraint FK_PVHIS_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.PR_CTA_PRESTAMOS (NRO_CUENTA);
+

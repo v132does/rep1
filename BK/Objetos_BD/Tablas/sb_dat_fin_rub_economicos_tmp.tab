@@ -1,0 +1,18 @@
+create table IT.SB_DAT_FIN_RUB_ECONOMICOS_TMP
+(
+  nro_operacion     VARCHAR2(60),
+  cod_rub_economico VARCHAR2(6),
+  fecha             DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

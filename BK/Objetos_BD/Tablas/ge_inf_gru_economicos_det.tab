@@ -1,0 +1,45 @@
+create table IT.GE_INF_GRU_ECONOMICOS_DET
+(
+  nro_inf_credito NUMBER not null,
+  cod_persona     VARCHAR2(10),
+  nom_cliente     VARCHAR2(120),
+  mto_activo      NUMBER,
+  des_pro_activo  VARCHAR2(35),
+  mto_pasivo      NUMBER,
+  des_pro_pasivo  VARCHAR2(35),
+  tip_vinculo     VARCHAR2(120),
+  cod_mon_activo  VARCHAR2(3),
+  cod_mon_pasivo  VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.nro_inf_credito
+  is 'Número del Informe de Crédito.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.nom_cliente
+  is 'Nombre del Cliente.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.mto_activo
+  is 'Monto del Producto  Activo.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.des_pro_activo
+  is 'Descripción del Producto Activo.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.mto_pasivo
+  is 'Monto del Producto Pasivo.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.des_pro_pasivo
+  is 'Descripción del Producto Pasivo.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.tip_vinculo
+  is 'Tipo de vinculo.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.cod_mon_activo
+  is 'Código de Moneda del Producto Activo.';
+comment on column IT.GE_INF_GRU_ECONOMICOS_DET.cod_mon_pasivo
+  is 'Código de Moneda del Producto Pasivo.';
+

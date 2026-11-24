@@ -1,0 +1,117 @@
+--------------------------------------------------------------------------------
+-- Tabla: IT.GE_CRC_CTRL_RESULTADOS_LOG
+-- Descripción: Detalle de cada control ejecutado (1 fila por control y ejecución).
+--              Se utiliza para auditar resultados de controles del paso
+--              EJECUTAR_CONTROLES y para el consolidado del paso DISP_EXTRACTOR.
+--------------------------------------------------------------------------------
+
+CREATE TABLE IT.GE_CRC_CTRL_RESULTADOS_LOG (
+    ID_LOG_CTRL     NUMBER(18)     NOT NULL,
+    ID_EJECUCION    NUMBER(18)     NOT NULL,
+    FECHA_PROCESO   DATE           NOT NULL,
+
+    ID_CTRL         NUMBER(18)     NOT NULL,
+    COD_PROC        VARCHAR2(50)   NOT NULL,
+
+    DESCRIPCION     VARCHAR2(4000) NULL,
+    TABLA_DESTINO   VARCHAR2(128)  NULL,
+
+    CRITICO         CHAR(1)        NULL,         -- S | N
+    MIN_REGISTROS   NUMBER(10)     NULL,
+    RESULTADO_CNT   NUMBER(18)     NULL,
+
+    ESTADO          VARCHAR2(10)   NULL,         -- OK | WARNING | ERROR
+    RETCODE         NUMBER(1)      NULL,         -- 0 / 1
+    RETDESC         VARCHAR2(1000) NULL,
+
+    FH_CONTROL      TIMESTAMP      DEFAULT SYSTIMESTAMP,
+    USUARIO         VARCHAR2(30)   NULL,
+
+    CONSTRAINT PK_GE_CRC_CTRL_RESULTADOS_LOG
+        PRIMARY KEY (ID_LOG_CTRL),
+
+    CONSTRAINT CK_CRC_CTRL_LOG_EST
+        CHECK (ESTADO IN ('OK', 'WARNING', 'ERROR')),
+
+    CONSTRAINT CK_CRC_CTRL_LOG_CRI
+        CHECK (CRITICO IN ('S', 'N')),
+
+    CONSTRAINT CK_CRC_CTRL_LOG_RC
+        CHECK (RETCODE IN (0, 1))
+)
+TABLESPACE IT_DATA;
+
+--------------------------------------------------------------------------------
+-- Comentarios
+--------------------------------------------------------------------------------
+
+COMMENT ON TABLE IT.GE_CRC_CTRL_RESULTADOS_LOG IS
+'Detalle de resultados de controles CRC ejecutados (1 fila por control y por ejecución). Base de auditoría y consolidación para disponibilización del extractor.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.ID_LOG_CTRL IS
+'Identificador único del registro de log de control (PK).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.ID_EJECUCION IS
+'Identificador de ejecución del orquestador CRC al que corresponde el resultado del control.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.FECHA_PROCESO IS
+'Fecha de proceso FinDía asociada a la ejecución del control.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.ID_CTRL IS
+'Identificador del control ejecutado (referencia a tabla de configuración de controles).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.COD_PROC IS
+'Código lógico del control/proceso evaluado.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.DESCRIPCION IS
+'Descripción funcional del control ejecutado.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.TABLA_DESTINO IS
+'Tabla o entidad principal verificada por el control (dato informativo).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.CRITICO IS
+'Indicador de criticidad del control (S=crítico, N=no crítico).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.MIN_REGISTROS IS
+'Mínimo de registros esperado según la regla del control.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.RESULTADO_CNT IS
+'Cantidad obtenida como resultado del control (generalmente COUNT(*)).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.ESTADO IS
+'Estado del control: OK, WARNING o ERROR.';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.RETCODE IS
+'Código de retorno del control (0=OK/WARNING, 1=ERROR).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.RETDESC IS
+'Detalle del resultado del control (regla aplicada y valores evaluados).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.FH_CONTROL IS
+'Fecha y hora de ejecución del control (por defecto SYSTIMESTAMP).';
+
+COMMENT ON COLUMN IT.GE_CRC_CTRL_RESULTADOS_LOG.USUARIO IS
+'Usuario que ejecutó el control (automático o manual).';
+
+--------------------------------------------------------------------------------
+-- Índices
+--------------------------------------------------------------------------------
+
+CREATE INDEX IT.IX_CRC_CTRL_LOG_01
+    ON IT.GE_CRC_CTRL_RESULTADOS_LOG (ID_EJECUCION, FECHA_PROCESO)
+TABLESPACE IT_IND;
+
+CREATE INDEX IT.IX_CRC_CTRL_LOG_02
+    ON IT.GE_CRC_CTRL_RESULTADOS_LOG (ID_CTRL)
+TABLESPACE IT_IND;
+
+--------------------------------------------------------------------------------
+-- Sinónimo y permisos
+--------------------------------------------------------------------------------
+
+CREATE PUBLIC SYNONYM GE_CRC_CTRL_RESULTADOS_LOG
+FOR IT.GE_CRC_CTRL_RESULTADOS_LOG;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+ON IT.GE_CRC_CTRL_RESULTADOS_LOG
+TO IT_TEMPORAL;

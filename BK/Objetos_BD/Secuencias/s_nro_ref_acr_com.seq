@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_REF_ACR_COM
+minvalue 1
+maxvalue 999999
+start with 712960
+increment by 1
+nocache
+cycle;
+

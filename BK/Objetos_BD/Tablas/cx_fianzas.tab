@@ -1,0 +1,238 @@
+create table IT.CX_FIANZAS
+(
+  cod_fianza           NUMBER(7),
+  cod_modulo           NUMBER(3) not null,
+  cod_modalidad        NUMBER(3) not null,
+  cod_oficina          NUMBER(3) not null,
+  nro_cuenta           VARCHAR2(15) not null,
+  dig_verificador      NUMBER(1),
+  descripcion          VARCHAR2(100) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  monto                NUMBER(18,2) default 0 not null,
+  cod_per_solicitante  VARCHAR2(10) not null,
+  representante        VARCHAR2(50),
+  fec_concesion        DATE,
+  fec_vencimiento      DATE,
+  cod_banco            NUMBER(3),
+  fec_comision         DATE,
+  imp_comision         NUMBER(18,2) default 0,
+  val_tas_comision     NUMBER(5,2),
+  per_vto_comision     NUMBER(6),
+  estado               VARCHAR2(1) not null,
+  fec_cancelacion      DATE,
+  nro_linea            NUMBER(7),
+  fec_ult_pago         DATE,
+  for_pago             VARCHAR2(1),
+  nro_cta_debito       VARCHAR2(15),
+  cod_per_beneficiario VARCHAR2(10),
+  beneficiario         VARCHAR2(100),
+  direccion            VARCHAR2(100),
+  cod_pais             NUMBER(3),
+  cod_ciudad           NUMBER(3),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion     DATE default SYSDATE,
+  nom_ciudad           VARCHAR2(100),
+  telefono             VARCHAR2(20),
+  fec_solicitud        DATE,
+  nom_banco            VARCHAR2(100),
+  cod_bco_corresponsal NUMBER(3),
+  cod_cau_cancelacion  NUMBER(3),
+  aval                 VARCHAR2(4000),
+  fec_cam_estado       DATE,
+  est_batch            VARCHAR2(1),
+  observacion          VARCHAR2(4000),
+  nro_cta_referencia   VARCHAR2(15),
+  cod_sit_contable     NUMBER(20),
+  stand_by             VARCHAR2(1) default 'N',
+  contragarantia       VARCHAR2(1) default 'N',
+  cod_rub_economico    VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CX_FIANZAS
+  is 'Contiene los datos de las Fianzas Otorgadas.';
+comment on column IT.CX_FIANZAS.cod_fianza
+  is 'Codigo de la fianza (solicitud).';
+comment on column IT.CX_FIANZAS.cod_modulo
+  is 'Codigo del modulo de la fianza. Siempre es 8.';
+comment on column IT.CX_FIANZAS.cod_modalidad
+  is 'Codigo de modalidad de la fianza. 87-Stand by 88-Fianzas emitidas 89-Fianzas recibidas.';
+comment on column IT.CX_FIANZAS.cod_oficina
+  is 'Codigo de oficina de la fianza.';
+comment on column IT.CX_FIANZAS.nro_cuenta
+  is 'Numero de cuenta de la fianza.';
+comment on column IT.CX_FIANZAS.dig_verificador
+  is 'Digito verificador de la cuenta.';
+comment on column IT.CX_FIANZAS.descripcion
+  is 'Descripcion de la fianza.';
+comment on column IT.CX_FIANZAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CX_FIANZAS.monto
+  is 'Importe de la fianza.';
+comment on column IT.CX_FIANZAS.cod_per_solicitante
+  is 'Codigo de cliente solicitante.';
+comment on column IT.CX_FIANZAS.representante
+  is 'Representante local.';
+comment on column IT.CX_FIANZAS.fec_concesion
+  is 'Fecha de concesion.';
+comment on column IT.CX_FIANZAS.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.CX_FIANZAS.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.CX_FIANZAS.fec_comision
+  is 'Fecha de comision.';
+comment on column IT.CX_FIANZAS.imp_comision
+  is 'Importe de la comision.';
+comment on column IT.CX_FIANZAS.val_tas_comision
+  is 'Valor de la tasa de comision.';
+comment on column IT.CX_FIANZAS.per_vto_comision
+  is 'Periodo de dias de vencimiento para las comisiones.';
+comment on column IT.CX_FIANZAS.estado
+  is 'Estado de la fianza. S-Solicitado A-aprobado(activo) C-Cancelado.';
+comment on column IT.CX_FIANZAS.fec_cancelacion
+  is 'Fecha de cancelacion.';
+comment on column IT.CX_FIANZAS.nro_linea
+  is 'Nro. de linea.';
+comment on column IT.CX_FIANZAS.fec_ult_pago
+  is 'Fecha de ultimo cobro.';
+comment on column IT.CX_FIANZAS.for_pago
+  is 'Forma de pago: D-Debito o  C-Caja.';
+comment on column IT.CX_FIANZAS.nro_cta_debito
+  is 'Cuenta de debito.';
+comment on column IT.CX_FIANZAS.cod_per_beneficiario
+  is 'Codigo de la persona beneficiaria.';
+comment on column IT.CX_FIANZAS.beneficiario
+  is 'Nombre del Beneficiario.';
+comment on column IT.CX_FIANZAS.direccion
+  is 'Direccion del beneficiario.';
+comment on column IT.CX_FIANZAS.cod_pais
+  is 'Codigo del pais del beneficiario.';
+comment on column IT.CX_FIANZAS.cod_ciudad
+  is 'Codigo de la ciudad del beneficiario.';
+comment on column IT.CX_FIANZAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CX_FIANZAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CX_FIANZAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CX_FIANZAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CX_FIANZAS.nom_ciudad
+  is 'Nombre de la ciudad del beneficiario.';
+comment on column IT.CX_FIANZAS.telefono
+  is 'Telefono del beneficiario.';
+comment on column IT.CX_FIANZAS.fec_solicitud
+  is 'Fecha de solicitud de la fianza.';
+comment on column IT.CX_FIANZAS.nom_banco
+  is 'Nombre del Banco avalado.';
+comment on column IT.CX_FIANZAS.cod_bco_corresponsal
+  is 'Codigo del Banco corresponsal, en caso de fianza extranjera.';
+comment on column IT.CX_FIANZAS.cod_cau_cancelacion
+  is 'Causa de cancelacion.';
+comment on column IT.CX_FIANZAS.aval
+  is 'Texto detallado del aval.';
+comment on column IT.CX_FIANZAS.fec_cam_estado
+  is 'Fecha del ultimo cambio de estado.';
+comment on column IT.CX_FIANZAS.est_batch
+  is 'Estado batch de la fianza. S-Solicitado A-aprobado(activo) C-Cancelado.';
+comment on column IT.CX_FIANZAS.observacion
+  is 'Observaciones de la fianza.';
+comment on column IT.CX_FIANZAS.nro_cta_referencia
+  is 'Numero de cuenta de la fianza recibida del exterior que avala a esta fianza.';
+comment on column IT.CX_FIANZAS.cod_sit_contable
+  is 'Indica la Situacion Contable actual de la Operacion. ';
+comment on column IT.CX_FIANZAS.stand_by
+  is 'Indica si la Fianza es con Stand By o No (S/N).';
+comment on column IT.CX_FIANZAS.contragarantia
+  is 'Indica si la Fianza es un Contragarantia o No (S/N).';
+comment on column IT.CX_FIANZAS.cod_rub_economico
+  is 'Código de Rubro Económico.';
+create index IT.IN_XFIAN_COD_BCO_CORRESPONSAL on IT.CX_FIANZAS (COD_BCO_CORRESPONSAL, COD_CAU_CANCELACION, COD_CIUDAD, COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_PAIS, COD_RUB_ECONOMICO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_FIANZAS
+  add constraint PK_CX_FIANZAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_BCO_CORRESP foreign key (COD_BCO_CORRESPONSAL)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_CAU_CANCELA foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.CX_FIANZAS
+  add constraint FK_XFIAN_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CX_FIANZAS
+  add constraint AVCON_1173794793_COD_B_002
+  check (COD_BANCO BETWEEN 0 AND 999);
+alter table IT.CX_FIANZAS
+  add constraint AVCON_1173794793_COD_C_001
+  check (COD_CIUDAD BETWEEN 0 AND 999);
+alter table IT.CX_FIANZAS
+  add constraint AVCON_1173794793_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CX_FIANZAS
+  add constraint AVCON_1173794793_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CX_FIANZAS
+  add constraint AVCON_1173794793_COD_O_004
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CX_FIANZAS
+  add constraint AVCON_1173794793_COD_P_002
+  check (COD_PAIS BETWEEN 0 AND 999);
+alter table IT.CX_FIANZAS
+  add constraint CK_XFIAN_IMP_COMISION
+  check (NVL(IMP_COMISION,0) >= 0);
+alter table IT.CX_FIANZAS
+  add constraint CK_XFIAN_MONTO
+  check (NVL(MONTO,0) > 0);
+

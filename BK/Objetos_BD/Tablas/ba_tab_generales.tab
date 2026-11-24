@@ -1,0 +1,55 @@
+create table IT.BA_TAB_GENERALES
+(
+  codigo           VARCHAR2(25),
+  sub_codigo       VARCHAR2(25),
+  fecha1           DATE,
+  descripcion      VARCHAR2(50),
+  longitud         NUMBER(5) default 0,
+  tipo_long        VARCHAR2(1),
+  num_entero1      NUMBER(11) default 0,
+  des_entero1      VARCHAR2(50),
+  num_entero2      NUMBER(11) default 0,
+  des_entero2      VARCHAR2(50),
+  num_decimal1     NUMBER(30,5) default 0,
+  des_decimal1     VARCHAR2(50),
+  num_decimal2     NUMBER(30,5) default 0,
+  des_decimal2     VARCHAR2(50),
+  texto1           VARCHAR2(50),
+  des_texto1       VARCHAR2(50),
+  texto2           VARCHAR2(50),
+  des_texto2       VARCHAR2(50),
+  des_fecha1       VARCHAR2(50),
+  fecha2           DATE,
+  des_fecha2       VARCHAR2(50),
+  ayuda            VARCHAR2(50),
+  fec_baja         DATE,
+  fechayhora       DATE,
+  auditor          VARCHAR2(10),
+  id               NUMBER(11) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_TAB_GENERALES
+  is 'Tabla creada por WorldSys.';
+comment on column IT.BA_TAB_GENERALES.usu_insercion
+  is 'Usuario que realizo la  insercion del registro.';
+comment on column IT.BA_TAB_GENERALES.fec_insercion
+  is 'Fecha en que se inserto el  registro.';
+comment on column IT.BA_TAB_GENERALES.usu_modificacion
+  is ' Usuario que realizo la ultima modificacion  en el registro.';
+comment on column IT.BA_TAB_GENERALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima  modificacion en el registro.';
+

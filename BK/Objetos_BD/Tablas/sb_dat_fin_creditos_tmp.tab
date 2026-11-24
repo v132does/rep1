@@ -1,0 +1,26 @@
+create table IT.SB_DAT_FIN_CREDITOS_TMP
+(
+  cod_persona       VARCHAR2(10) not null,
+  nro_cuenta        VARCHAR2(15) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  sal_capital       NUMBER(20,2) default 0,
+  dev_no_cobrado    NUMBER(20,2) default 0,
+  cod_rub_economico VARCHAR2(6),
+  rub_con_capital   VARCHAR2(18),
+  estado_rub        VARCHAR2(2),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  des_gru_mis       VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

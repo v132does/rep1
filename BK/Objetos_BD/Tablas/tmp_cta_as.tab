@@ -1,0 +1,22 @@
+create table IT.TMP_CTA_AS
+(
+  suc        VARCHAR2(2),
+  producto   VARCHAR2(6),
+  subcuenta  VARCHAR2(6),
+  debe_haber VARCHAR2(1),
+  monto      NUMBER(17,2),
+  nro_cuenta VARCHAR2(15),
+  terminal   VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

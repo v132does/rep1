@@ -1,0 +1,82 @@
+create table IT.BA_AREAS
+(
+  cod_oficina        NUMBER(3) not null,
+  cod_area           NUMBER(3) not null,
+  descripcion        VARCHAR2(35) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  sigla              VARCHAR2(3),
+  cod_usu_supervisor VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_AREAS
+  is 'Areas de Oficinas.';
+comment on column IT.BA_AREAS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.BA_AREAS.cod_area
+  is 'Codigo del Area.';
+comment on column IT.BA_AREAS.descripcion
+  is 'Nombre del Area.';
+comment on column IT.BA_AREAS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.BA_AREAS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.BA_AREAS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.BA_AREAS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.BA_AREAS.sigla
+  is 'Sigla del Area.';
+comment on column IT.BA_AREAS.cod_usu_supervisor
+  is 'Supervisor del Area.';
+create index IT.IN_EAREA_COD_OFICINA on IT.BA_AREAS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_AREAS
+  add constraint PK_BA_AREAS primary key (COD_AREA, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_AREAS
+  add constraint FK_EAREA_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.BA_AREAS
+  add constraint FK_EAREA_COD_USU_SUPERVISOR foreign key (COD_USU_SUPERVISOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_AREAS
+  add constraint AVCON_1077111591_COD_A_002
+  check (COD_AREA BETWEEN 1 AND 999);
+alter table IT.BA_AREAS
+  add constraint AVCON_1077111591_COD_O_004
+  check (COD_OFICINA BETWEEN 1 AND 999);
+

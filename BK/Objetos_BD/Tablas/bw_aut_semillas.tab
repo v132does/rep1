@@ -1,0 +1,48 @@
+create table IT.BW_AUT_SEMILLAS
+(
+  nro_documento    NUMBER(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  nro_semilla      VARCHAR2(6) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_AUT_SEMILLAS
+  is 'Tabla utilizada para almacenar seed de QR encriptados. Se utiliza solamente cuando la autorizacion requiere softtoken. Debe asociarse un seed a cada combinacion unica de nro. documento y cod. persona. ';
+comment on column IT.BW_AUT_SEMILLAS.nro_documento
+  is 'Nro. de documento a autorizar. FK a BW_MOV_PENDIENTES.nro_documento';
+comment on column IT.BW_AUT_SEMILLAS.nro_semilla
+  is 'semilla para encriptar QR de autorizacion. Es numero aleatorio generado dentro al autorizar operaciones';
+alter table IT.BW_AUT_SEMILLAS
+  add constraint PK_BW_AUT_SEMILLAS primary key (NRO_DOCUMENTO, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_AUT_SEMILLAS
+  add constraint FK_BW_AUT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_AUT_SEMILLAS
+  add constraint FK_BW_AUT_NRO_DOCUMENTO foreign key (NRO_DOCUMENTO)
+  references IT.BW_MOV_PENDIENTES (NRO_DOCUMENTO);
+

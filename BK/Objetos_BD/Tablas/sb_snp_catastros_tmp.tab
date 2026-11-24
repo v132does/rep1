@@ -1,0 +1,45 @@
+create table IT.SB_SNP_CATASTROS_TMP
+(
+  cod_per_servicio    VARCHAR2(10),
+  nro_doc_servicio    VARCHAR2(20),
+  nro_cta_servicio    VARCHAR2(35),
+  fec_vencimiento     DATE,
+  cod_moneda          VARCHAR2(3),
+  monto               NUMBER(18,2),
+  ent_bca_cliente     VARCHAR2(10),
+  cod_tip_doc_cliente NUMBER(3),
+  nro_doc_cliente     VARCHAR2(20),
+  nro_cta_cliente     VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_SNP_CATASTROS_TMP.cod_per_servicio
+  is 'Código de Persona del Proveedor del Servicio.';
+comment on column IT.SB_SNP_CATASTROS_TMP.nro_doc_servicio
+  is 'Número de Documento del Proveedor.';
+comment on column IT.SB_SNP_CATASTROS_TMP.nro_cta_servicio
+  is 'Cuenta Corriente o Ahorro a la Vista.';
+comment on column IT.SB_SNP_CATASTROS_TMP.fec_vencimiento
+  is 'Fecha del Cobro.';
+comment on column IT.SB_SNP_CATASTROS_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.SB_SNP_CATASTROS_TMP.monto
+  is 'Monto del Cobro.';
+comment on column IT.SB_SNP_CATASTROS_TMP.ent_bca_cliente
+  is 'Entidad del Débito.';
+comment on column IT.SB_SNP_CATASTROS_TMP.cod_tip_doc_cliente
+  is 'Tipo Doc. Débito.';
+comment on column IT.SB_SNP_CATASTROS_TMP.nro_doc_cliente
+  is 'Nro. Doc. Débito.';
+comment on column IT.SB_SNP_CATASTROS_TMP.nro_cta_cliente
+  is 'Cuenta Débito.';
+

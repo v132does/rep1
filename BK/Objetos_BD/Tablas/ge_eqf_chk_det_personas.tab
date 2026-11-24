@@ -1,0 +1,93 @@
+create table IT.GE_EQF_CHK_DET_PERSONAS
+(
+  nro_solicitud      NUMBER(10) not null,
+  nro_secuencia      NUMBER(5) not null,
+  cod_persona        VARCHAR2(10) not null,
+  fec_consulta       DATE,
+  hor_consulta       VARCHAR2(10),
+  nom_ser_webservice VARCHAR2(50),
+  tip_documento      VARCHAR2(10),
+  nro_documento      VARCHAR2(100),
+  nombre             VARCHAR2(100),
+  apellido           VARCHAR2(100),
+  fec_nacimiento     VARCHAR2(100),
+  sexo               VARCHAR2(100),
+  sit_ban_estado     VARCHAR2(100),
+  sit_ban_est_codigo VARCHAR2(100),
+  msg_error          VARCHAR2(4000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.nro_secuencia
+  is 'Nro de secuencia por solicitud';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.fec_consulta
+  is 'Fecha de la consulta al servicio web';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.hor_consulta
+  is 'Hora de la consulta al servicio web';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.nom_ser_webservice
+  is 'Nombre del servicio web consultado';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.tip_documento
+  is 'Tipo de documento';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.nro_documento
+  is 'Nro de documento';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.nombre
+  is 'Nombre persona';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.apellido
+  is 'Apellido Perosna';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.fec_nacimiento
+  is 'Fecha de nacimiento';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.sexo
+  is 'Sexo';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.sit_ban_estado
+  is 'Estado Situación Bancaria';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.sit_ban_est_codigo
+  is 'Código estado situación Bancaria';
+comment on column IT.GE_EQF_CHK_DET_PERSONAS.msg_error
+  is 'Mensaje de error del webservice si lo hubiere';
+create index IT.IN_DETPER_PER_SOL_FEC on IT.GE_EQF_CHK_DET_PERSONAS (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_CHK_DET_PERSONAS
+  add constraint PK_GE_EQF_CHK_DET_PERSONA primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_CHK_DET_PERSONAS
+  add constraint FK_CHKDP_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_EQF_SOLICITUDES (NRO_SOLICITUD) on delete cascade;
+

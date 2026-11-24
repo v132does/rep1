@@ -1,0 +1,64 @@
+create table IT.PR_LIN_APLICACIONES
+(
+  nro_linea        NUMBER(7) not null,
+  nro_sec_padre    NUMBER(10) not null,
+  nro_cuenta       VARCHAR2(50) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  mto_aplicado     NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LIN_APLICACIONES
+  is 'Tabla de aplicación de LÍneas.';
+comment on column IT.PR_LIN_APLICACIONES.nro_linea
+  is 'Número de Línea.';
+comment on column IT.PR_LIN_APLICACIONES.nro_sec_padre
+  is 'Número de Secuencia Padre.';
+comment on column IT.PR_LIN_APLICACIONES.nro_cuenta
+  is 'Número de Cuenta de Referencia (ge_cuentas o solicitudes de tarjetas o préstamos).';
+comment on column IT.PR_LIN_APLICACIONES.cod_moneda
+  is 'Moneda de la Propuesta aplicada.';
+comment on column IT.PR_LIN_APLICACIONES.mto_aplicado
+  is 'Monto aplicado.';
+comment on column IT.PR_LIN_APLICACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_LIN_APLICACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_LIN_APLICACIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_LIN_APLICACIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.PR_LIN_APLICACIONES
+  add constraint PK_PR_LIN_APLICACIONES primary key (NRO_LINEA, NRO_CUENTA, NRO_SEC_PADRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LIN_APLICACIONES
+  add constraint FK_PLAPL_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_LIN_APLICACIONES
+  add constraint FK_PLAPL_NRO_LINEA foreign key (NRO_LINEA)
+  references IT.PR_LINEAS (NRO_LINEA);
+

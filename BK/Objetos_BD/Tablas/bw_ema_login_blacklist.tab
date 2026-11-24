@@ -1,0 +1,59 @@
+create table IT.BW_EMA_LOGIN_BLACKLIST
+(
+  cod_persona      NUMBER not null,
+  cod_empresa      NUMBER not null,
+  cod_dispositivo  VARCHAR2(100),
+  version_ema      VARCHAR2(10),
+  mobile_os        VARCHAR2(10),
+  estado           VARCHAR2(5) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.cod_persona
+  is 'codigo de persona del registro en el blacklist de login';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.cod_empresa
+  is 'codigo de empresa del registro en el blacklist de login';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.cod_dispositivo
+  is 'codigo de dispositivo utilizado en el login';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.version_ema
+  is 'version de la app EMA utilizada en el login';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.mobile_os
+  is 'sistema operativo del movil utilizado en el login';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.estado
+  is 'estado del registro en el blacklist de login, BLOCK/PASS';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.fec_insercion
+  is 'fecha de insercion del registro en el blacklist';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.usu_insercion
+  is 'usuario de insercion del registro en el blacklist';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.fec_modificacion
+  is 'fecha de ultima modificacion del registro en el blacklist';
+comment on column IT.BW_EMA_LOGIN_BLACKLIST.usu_modificacion
+  is 'usuario de modificacion del registro en el blacklist';
+alter table IT.BW_EMA_LOGIN_BLACKLIST
+  add constraint PK_BW_EMA_LOGIN_BLACKLIST primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

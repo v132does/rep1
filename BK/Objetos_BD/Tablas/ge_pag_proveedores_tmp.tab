@@ -1,0 +1,167 @@
+create table IT.GE_PAG_PROVEEDORES_TMP
+(
+  nro_orden                NUMBER(12),
+  nro_factura              VARCHAR2(20),
+  tip_comprobante          VARCHAR2(1),
+  for_pago                 VARCHAR2(1) default 'C',
+  nro_cheque               NUMBER(15),
+  nro_cta_credito          VARCHAR2(15),
+  fec_ingreso              DATE,
+  fec_pago                 DATE,
+  monto                    NUMBER(18,2),
+  nro_recibo               NUMBER(7),
+  beneficiario             VARCHAR2(60),
+  concepto                 VARCHAR2(40),
+  estado                   VARCHAR2(1) default 'C',
+  cod_usu_operador         VARCHAR2(10),
+  cod_ente                 NUMBER(5),
+  cod_proceso              NUMBER(3),
+  cod_moneda               VARCHAR2(3),
+  fec_insercion            DATE default SYSDATE not null,
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion         DATE default SYSDATE not null,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  tip_carga                VARCHAR2(1) default 'A',
+  cod_mon_recibido         VARCHAR2(3),
+  ref_facturas             VARCHAR2(1000),
+  referencia               VARCHAR2(15),
+  mon_tot_recibo           NUMBER(18,2),
+  ret_fac_proveedor        NUMBER(18,2),
+  des_fac_proveedor        NUMBER(18,2),
+  ret_facturas             NUMBER(18,2),
+  des_sucursal             VARCHAR2(100),
+  tipo                     VARCHAR2(1),
+  nro_cta_debito           VARCHAR2(15),
+  nro_secuencia            NUMBER(6),
+  nro_archivo              NUMBER(6),
+  cod_tip_doc_beneficiario NUMBER(3),
+  nro_doc_beneficiario     VARCHAR2(20),
+  nro_cta_beneficiario     VARCHAR2(35),
+  ent_bca_beneficiario     NUMBER(5),
+  ind_valor                VARCHAR2(1),
+  dir_beneficiario         VARCHAR2(100),
+  tip_factura              VARCHAR2(1),
+  nro_con_cambio           NUMBER(7),
+  ben_dir_correo           VARCHAR2(80),
+  nro_ord_archivo          NUMBER(6),
+  cod_swift                VARCHAR2(20),
+  ind_gen_nro_orden        VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_PROVEEDORES_TMP
+  is 'Archivo temporal de carga de pago a proveedores.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_orden
+  is 'Nro Orden.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_factura
+  is 'Nro Factura.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.tip_comprobante
+  is 'Tipo Comprobante.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.for_pago
+  is 'Forma Pago. C=Crédito en Cuenta; G=Cheque Gerencia; (I) Transferencia interbancaria.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_cheque
+  is 'Nro Cheque.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_cta_credito
+  is 'Nro Cta Credito.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.fec_ingreso
+  is 'Fecha Ingreso.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.fec_pago
+  is 'Fecha Pago.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.monto
+  is 'Monto Pago.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_recibo
+  is 'Nro Recibo.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.beneficiario
+  is 'Nombre Beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.concepto
+  is 'Concepto.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.estado
+  is 'Estado Ord Pago.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_usu_operador
+  is 'Operador.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_ente
+  is 'Cod Empresa.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_proceso
+  is 'Cod Proceso.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.tip_carga
+  is 'Tipo de carga de los datos. A=Ascii, H=Homebanking.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_mon_recibido
+  is 'Codigo de Moneda Recibido en archivo txt.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ref_facturas
+  is 'Facturas Pagadas/Canceladas';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.referencia
+  is 'Referencia';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.mon_tot_recibo
+  is 'Monto Total de Recibo';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ret_fac_proveedor
+  is 'Retenciones Sobre Facturas Proveedor';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.des_fac_proveedor
+  is 'Descuento sobre Facturas Proveedor';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ret_facturas
+  is 'Retenciones sobre Facturas';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.des_sucursal
+  is 'Descripción de la Sucursal del Proveedor';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.tipo
+  is 'Tipo de Movimiento (D=Debito, C=Credito)';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_cta_debito
+  is 'Nro. Cta. Debito';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_secuencia
+  is 'Nro. de Secuencia';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_archivo
+  is 'Nro. de proceso del dia';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_tip_doc_beneficiario
+  is 'Tipo de documento del beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_doc_beneficiario
+  is 'Número de documento del beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_cta_beneficiario
+  is 'Número de cuenta del beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ent_bca_beneficiario
+  is 'Entidad del beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ind_valor
+  is 'Tipo Valor del MT de la Transferencia (Alto Valor / Bajo Valor).';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.dir_beneficiario
+  is 'Dirección del Beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.tip_factura
+  is 'Tipo de Factura, 1=Contado, 2 Crédito.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_con_cambio
+  is 'Número de contrato de cambios.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ben_dir_correo
+  is 'Dirección de correo del beneficiario.';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.nro_ord_archivo
+  is 'Orden de insercion en el archivo';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.cod_swift
+  is 'Codigo Swift de la entidad';
+comment on column IT.GE_PAG_PROVEEDORES_TMP.ind_gen_nro_orden
+  is 'Columna que indica si el nro de orden fue generado automaticamente (S) o no (N).';
+alter table IT.GE_PAG_PROVEEDORES_TMP
+  add constraint AVCON_1118190090_ESTAD_000
+  check (ESTADO IN ('C', 'N', 'A'));
+alter table IT.GE_PAG_PROVEEDORES_TMP
+  add constraint AVCON_1118190090_FOR_P_000
+  check (FOR_PAGO IN ('C', 'G','E','R','I'));
+alter table IT.GE_PAG_PROVEEDORES_TMP
+  add constraint AVCON_1118190090_NRO_O_000
+  check (NRO_ORDEN BETWEEN 0 AND 999999999999);
+alter table IT.GE_PAG_PROVEEDORES_TMP
+  add constraint CK_GPAPT_TIP_CARGA
+  check (TIP_CARGA IN ('A', 'H'));
+

@@ -1,0 +1,39 @@
+create table IT.PR_CUOTAS_RE4_AN
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  nro_cuota           NUMBER(3) not null,
+  mto_capital         NUMBER(18,2) default 0 not null,
+  fec_vencimiento     DATE not null,
+  mto_interes         NUMBER(18,2) default 0 not null,
+  estado              VARCHAR2(1) not null,
+  sal_capital         NUMBER(18,2) default 0 not null,
+  sal_interes         NUMBER(18,2) default 0 not null,
+  prioridad           VARCHAR2(1) not null,
+  fec_ult_pago        DATE,
+  val_recargo         NUMBER(18,2) default 0,
+  mto_int_documentado NUMBER(18,2) default 0,
+  nro_documento       NUMBER(8),
+  sal_int_documentado NUMBER(18,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  dev_no_cobrado      NUMBER(18,2) default 0,
+  dev_suspenso        NUMBER(18,2) default 0,
+  dev_acumulado       NUMBER(18,2) default 0,
+  mto_int_descontado  NUMBER(18,2) default 0,
+  mto_cap_adelantado  NUMBER(18,2),
+  mto_iva_imponible   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

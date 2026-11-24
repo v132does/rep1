@@ -1,0 +1,80 @@
+create table IT.GE_CAT_SUBJETIVA_HIS
+(
+  fecha               DATE,
+  cod_persona         VARCHAR2(10),
+  cod_gru_economico   NUMBER(5),
+  cat_subjetiva       NUMBER(1),
+  cat_subjetiva_ant   NUMBER(1),
+  cat_automatica      NUMBER(3,2),
+  observacion         VARCHAR2(2000),
+  tot_deu_real        NUMBER(18,2),
+  tot_gar_computables NUMBER(18,2),
+  usu_insercion       VARCHAR2(10),
+  fec_insercion       DATE,
+  usu_modificacion    VARCHAR2(10),
+  fec_modificacion    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CAT_SUBJETIVA_HIS
+  is 'Historico de Categoria Subjetiva.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.fecha
+  is 'Fecha.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.cod_gru_economico
+  is 'Código de Grupo Económico.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.cat_subjetiva
+  is 'Categoría Subjetiva.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.cat_subjetiva_ant
+  is 'Categoría Subjetiva Anterior.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.cat_automatica
+  is 'Categoría Automática.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.observacion
+  is 'Observación.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.tot_deu_real
+  is 'Total Deuda Real.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.tot_gar_computables
+  is 'Total Garantía Computable.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_CAT_SUBJETIVA_HIS.fec_modificacion
+  is 'Fecha de Modificación.';
+create index IT.IN_GCASUH_COD_PERSONA on IT.GE_CAT_SUBJETIVA_HIS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCASUH_FECHA on IT.GE_CAT_SUBJETIVA_HIS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

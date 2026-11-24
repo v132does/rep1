@@ -1,0 +1,21 @@
+create table IT.GE_LOG_CON_FAC_POD
+(
+  cod_banco     VARCHAR2(10),
+  nro_cuenta    VARCHAR2(15),
+  respuesta     BLOB,
+  error         VARCHAR2(2000),
+  usu_insercion VARCHAR2(10) default substr(user,1,10),
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

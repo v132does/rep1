@@ -1,0 +1,166 @@
+create table IT.GE_NOM_LOGISTICA_TMP
+(
+  cod_plastico       VARCHAR2(6),
+  cod_ofi_origen     NUMBER(3),
+  sub_modalidad      VARCHAR2(60),
+  tipo_cta           VARCHAR2(2),
+  embozado           VARCHAR2(80),
+  cod_per_ente       VARCHAR2(10),
+  nom_ente           VARCHAR2(80),
+  dir_ente           VARCHAR2(80),
+  tel_ente           VARCHAR2(15),
+  cod_persona        VARCHAR2(10),
+  nro_cuenta         VARCHAR2(15),
+  tip_doc            VARCHAR2(3),
+  nro_documento      VARCHAR2(20),
+  pri_nombre         VARCHAR2(30),
+  seg_nombre         VARCHAR2(30),
+  pri_apellido       VARCHAR2(30),
+  seg_apellido       VARCHAR2(30),
+  dir_cliente        VARCHAR2(80),
+  cel_cliente        VARCHAR2(15),
+  dir_sec_cliente    VARCHAR2(80),
+  tel_cliente        VARCHAR2(15),
+  mail               VARCHAR2(80),
+  fec_nacimiento     DATE,
+  cod_sexo           VARCHAR2(1),
+  pais               VARCHAR2(35),
+  est_civil          VARCHAR2(1),
+  sep_bienes         VARCHAR2(1),
+  conyuge            VARCHAR2(80),
+  cony_tip_doc       VARCHAR2(3),
+  cony_nro_documento VARCHAR2(20),
+  des_oficina        VARCHAR2(80),
+  cod_usu_oficial    VARCHAR2(10),
+  fec_apertura       DATE,
+  destino            VARCHAR2(80),
+  sec_contable       VARCHAR2(35),
+  nro_guia           VARCHAR2(20) not null,
+  usu_insercion      VARCHAR2(10),
+  con_tdd            VARCHAR2(1),
+  cod_estado         VARCHAR2(1) default 'N',
+  nro_cus            NUMBER(6),
+  fec_insercion      DATE,
+  usu_modificacion   VARCHAR2(10),
+  fec_modificacion   DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_NOM_LOGISTICA_TMP
+  is 'Guarda el archivo recibido de logística importado por nómina para los CUS.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_plastico
+  is 'Código del plástico de la tarjeta de débito.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_ofi_origen
+  is 'Código de oficina.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.sub_modalidad
+  is 'Descripción de la sub-modalidad de la cuenta.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.tipo_cta
+  is 'Tipo de cuenta, AH/CC.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.embozado
+  is 'Descripción de la denominación de la cuenta.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_per_ente
+  is 'Código de persona del ente vinculado a la cuenta.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.nom_ente
+  is 'Descripción del nombre del ente vinculado a la cuenta.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.dir_ente
+  is 'Dirección del ente vinculado a la cuenta.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.tel_ente
+  is 'Teléfono del ente vinculado a la cuenta.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_persona
+  is 'Código de persona del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.nro_cuenta
+  is 'Número de cuenta del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.tip_doc
+  is 'Tipo de documento del cliente (CI, PAS, CRC).';
+comment on column IT.GE_NOM_LOGISTICA_TMP.nro_documento
+  is 'Número de documento del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.pri_nombre
+  is 'Primer nombre del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.seg_nombre
+  is 'Segundo nombre del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.pri_apellido
+  is 'Primer apellido del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.seg_apellido
+  is 'Segundo apellido del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.dir_cliente
+  is 'Dirección principal del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cel_cliente
+  is 'Teléfono celular del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.dir_sec_cliente
+  is 'Dirección secundaria del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.tel_cliente
+  is 'Teléfono de línea baja del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.mail
+  is 'Dirección de email del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.fec_nacimiento
+  is 'Fecha de nacimiento del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_sexo
+  is 'Código de sexo del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.pais
+  is 'Descripción del país del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.est_civil
+  is 'Estado civil del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.sep_bienes
+  is 'Tiene o no separación de bienes el cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.conyuge
+  is 'Conyuge del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cony_tip_doc
+  is 'Tipo de documento del conyuge del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cony_nro_documento
+  is 'Número de documento del conyuge del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.des_oficina
+  is 'Descripción de la oficina del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_usu_oficial
+  is 'Código de oficial del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.fec_apertura
+  is 'Fecha de apertura de la cuenta del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.destino
+  is 'Dirección del kit del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.sec_contable
+  is 'Descripción del sector contable del cliente.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.nro_guia
+  is 'Número de guia.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.con_tdd
+  is 'Cuenta o no con tarjeta de débito.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.cod_estado
+  is 'Estado de impresión del contrato (I-mpreso, A-nulado, N-o impreso)';
+comment on column IT.GE_NOM_LOGISTICA_TMP.nro_cus
+  is 'Número de lote de clientes importados.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.fec_insercion
+  is 'Fecha de inserción.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.usu_modificacion
+  is 'Usuario de modificación.';
+comment on column IT.GE_NOM_LOGISTICA_TMP.fec_modificacion
+  is 'Fecha de modificación.';
+alter table IT.GE_NOM_LOGISTICA_TMP
+  add constraint PK_NRO_GUIA primary key (NRO_GUIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_NOM_LOGISTICA_TMP
+  add constraint FK_CTA_NOM_LOGISTICA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_NOM_LOGISTICA_TMP
+  add constraint FK_PER_NOM_LOGISTICA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

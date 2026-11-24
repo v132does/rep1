@@ -1,0 +1,106 @@
+create table IT.PR_SOLICITUDES_TMP
+(
+  nro_solicitud       NUMBER(7) not null,
+  descripcion         VARCHAR2(35) not null,
+  monto               NUMBER(18,2) default 0 not null,
+  dia_plazo           NUMBER(4) not null,
+  fec_vencimiento     DATE not null,
+  cod_persona         VARCHAR2(10),
+  fec_inicio          DATE not null,
+  tip_monto           VARCHAR2(1) not null,
+  tot_prestamo        NUMBER(18,2) default 0,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_oficina         NUMBER(3) not null,
+  fec_pri_vencimiento DATE,
+  val_tasa            NUMBER(20,4) not null,
+  can_cuotas          NUMBER(6) not null,
+  tip_amortizacion    VARCHAR2(1),
+  tot_interes         NUMBER(18,2) default 0,
+  tot_cargos          NUMBER(18,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SOLICITUDES_TMP
+  is 'Contiene los datos de las Propuestas simuladas de Prestamos.';
+comment on column IT.PR_SOLICITUDES_TMP.nro_solicitud
+  is 'Numero de propuesta.';
+comment on column IT.PR_SOLICITUDES_TMP.descripcion
+  is 'Descripcion de la propuesta.';
+comment on column IT.PR_SOLICITUDES_TMP.monto
+  is 'Valor del monto del prestamo.';
+comment on column IT.PR_SOLICITUDES_TMP.dia_plazo
+  is 'Plazo en dias.';
+comment on column IT.PR_SOLICITUDES_TMP.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.PR_SOLICITUDES_TMP.cod_persona
+  is 'Codigo de cliente.';
+comment on column IT.PR_SOLICITUDES_TMP.fec_inicio
+  is 'Fecha de inicio del prestamo / solicitud.';
+comment on column IT.PR_SOLICITUDES_TMP.tip_monto
+  is 'Tipo de monto.';
+comment on column IT.PR_SOLICITUDES_TMP.tot_prestamo
+  is 'Valor total  del prestamo.';
+comment on column IT.PR_SOLICITUDES_TMP.cod_modulo
+  is 'Codigo del modulo.';
+comment on column IT.PR_SOLICITUDES_TMP.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.PR_SOLICITUDES_TMP.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.PR_SOLICITUDES_TMP.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.PR_SOLICITUDES_TMP.fec_pri_vencimiento
+  is 'Fecha final del periodo de gracia.';
+comment on column IT.PR_SOLICITUDES_TMP.val_tasa
+  is 'Tasa de Interes.';
+comment on column IT.PR_SOLICITUDES_TMP.can_cuotas
+  is 'Cantidad de cuotas.';
+comment on column IT.PR_SOLICITUDES_TMP.tip_amortizacion
+  is 'Tipo de sistema de amortizacion.';
+comment on column IT.PR_SOLICITUDES_TMP.tot_interes
+  is 'Total interes.';
+comment on column IT.PR_SOLICITUDES_TMP.tot_cargos
+  is 'Total cargos.';
+comment on column IT.PR_SOLICITUDES_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_SOLICITUDES_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_SOLICITUDES_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_SOLICITUDES_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.PR_SOLICITUDES_TMP
+  add constraint PK_PR_SOLICITUDES_TMP primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOLICITUDES_TMP
+  add constraint FK_PSOLTMP_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_SOLICITUDES_TMP
+  add constraint FK_PSOLTMP_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

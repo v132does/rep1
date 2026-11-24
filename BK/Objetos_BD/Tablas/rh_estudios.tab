@@ -1,0 +1,70 @@
+create table IT.RH_ESTUDIOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  curso            VARCHAR2(40) not null,
+  institucion      VARCHAR2(40) not null,
+  duracion         VARCHAR2(30) not null,
+  ind_interno      VARCHAR2(1) default 'N' not null,
+  titulo           VARCHAR2(40),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_ESTUDIOS
+  is 'Estudios del Empleado.';
+comment on column IT.RH_ESTUDIOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_ESTUDIOS.curso
+  is 'Curso realizado.';
+comment on column IT.RH_ESTUDIOS.institucion
+  is 'Institucion en la que se dicto.';
+comment on column IT.RH_ESTUDIOS.duracion
+  is 'Duracion del mismo.';
+comment on column IT.RH_ESTUDIOS.ind_interno
+  is 'Si fue realizado dentro de la Institucion o no.';
+comment on column IT.RH_ESTUDIOS.titulo
+  is 'Titulo Obtenido.';
+comment on column IT.RH_ESTUDIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_ESTUDIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_ESTUDIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_ESTUDIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_ESTUDIOS
+  add constraint PK_RH_ESTUDIOS primary key (COD_PERSONA, CURSO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_ESTUDIOS
+  add constraint FK_HESTU_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_ESTUDIOS
+  add constraint AVCON_1191539451_IND_I_000
+  check (IND_INTERNO IN ('S', 'N'));
+alter table IT.RH_ESTUDIOS
+  add constraint CK_INSTITUCION
+  check ((IND_INTERNO='N' AND INSTITUCION IS NOT NULL) or (IND_INTERNO = 'S'));
+

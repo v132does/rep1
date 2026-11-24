@@ -1,0 +1,58 @@
+﻿create table IT.CB_REC_CHEQUES
+(
+  nro_recibo       NUMBER(7) not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_cheque       NUMBER(15) not null,
+  cod_banco        NUMBER(3) not null,
+  monto            NUMBER(18,2) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_REC_CHEQUES
+  is 'Detalle de cheques por recibo';
+comment on column IT.CB_REC_CHEQUES.nro_recibo
+  is 'Nro. de recibo';
+comment on column IT.CB_REC_CHEQUES.cod_oficina
+  is 'Código de Oficina';
+comment on column IT.CB_REC_CHEQUES.nro_cheque
+  is 'Nro. de cheque';
+comment on column IT.CB_REC_CHEQUES.cod_banco
+  is 'Codigo de Banco al que pertenece el Cheque';
+comment on column IT.CB_REC_CHEQUES.monto
+  is 'Monto del Cheque';
+comment on column IT.CB_REC_CHEQUES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_REC_CHEQUES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_REC_CHEQUES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_REC_CHEQUES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CB_REC_CHEQUES
+  add constraint PK_CB_REC_CHEQUES primary key (NRO_RECIBO, NRO_CHEQUE, COD_BANCO, COD_OFICINA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

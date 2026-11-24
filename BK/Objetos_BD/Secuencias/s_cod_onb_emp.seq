@@ -1,0 +1,7 @@
+create sequence IT.S_COD_ONB_EMP
+minvalue 1
+maxvalue 999999999
+start with 17152
+increment by 1
+nocache;
+

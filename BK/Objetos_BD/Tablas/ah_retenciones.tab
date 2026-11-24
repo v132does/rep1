@@ -1,0 +1,214 @@
+create table IT.AH_RETENCIONES
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_documento    NUMBER(15) not null,
+  cod_retencion    NUMBER(3) not null,
+  fec_final        DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  fec_inicio       DATE not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_ofi_origen   NUMBER(3) not null,
+  liberado         VARCHAR2(1) default 'N' not null,
+  detallado        VARCHAR2(1) default 'N' not null,
+  lib_posterior    VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  sal_retenido     NUMBER(18,2) default 0 not null,
+  lib_anticipada   VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_RETENCIONES
+  is 'Retenciones de Depositos.';
+comment on column IT.AH_RETENCIONES.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.AH_RETENCIONES.cod_modulo
+  is 'Codigo del Modulo de la Cuenta.';
+comment on column IT.AH_RETENCIONES.cod_modalidad
+  is 'Codigo de la Modalidad de la Cuenta.';
+comment on column IT.AH_RETENCIONES.cod_oficina
+  is 'Codigo de la Oficina de la Cuenta.';
+comment on column IT.AH_RETENCIONES.nro_documento
+  is 'Nro.de Documento (boleta de deposito).';
+comment on column IT.AH_RETENCIONES.cod_retencion
+  is 'Codigo de Retencion. Ver tabla de Codigos de Retenciones.';
+comment on column IT.AH_RETENCIONES.fec_final
+  is 'Fecha Valor de la Retencion (final de la retencion).';
+comment on column IT.AH_RETENCIONES.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.AH_RETENCIONES.monto
+  is 'Valor de la Retencion.';
+comment on column IT.AH_RETENCIONES.fec_inicio
+  is 'Fecha de Inicio de la Retencion.';
+comment on column IT.AH_RETENCIONES.cod_usuario
+  is 'Codigo del Cajero que grabo el Deposito.';
+comment on column IT.AH_RETENCIONES.cod_ofi_origen
+  is 'Codigo de Oficina donde se realizo el Deposito.';
+comment on column IT.AH_RETENCIONES.liberado
+  is 'Indicador de si la Retencion ya ha sido Liberada en el proceso de liberacion de retenciones correspondiente. (N=NO / S=SI).';
+comment on column IT.AH_RETENCIONES.detallado
+  is 'Indicador de si los Cheques correspondientes a la Retencion o Boleta de Deposito ya han sido grabado en la tabla de cheques remitidos a Camara. (N=NO / S=SI).';
+comment on column IT.AH_RETENCIONES.lib_posterior
+  is 'Marca de Liberacion Posterior.';
+comment on column IT.AH_RETENCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_RETENCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_RETENCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_RETENCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_RETENCIONES.sal_retenido
+  is 'Saldo pendiente de Liberación';
+comment on column IT.AH_RETENCIONES.lib_anticipada
+  is 'Liberacion Anticipada Cheques C/O con Creación de Cuentas de Prestamos';
+create index IT.IN_AHRE_NRO_DOCUMENTO on IT.AH_RETENCIONES (NRO_DOCUMENTO, COD_RETENCION, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_AHRE_USU_MODIFICACION on IT.AH_RETENCIONES (USU_MODIFICACION, LIB_POSTERIOR, LIBERADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 448K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ARETE_COD_OFI_ORIGEN on IT.AH_RETENCIONES (COD_OFI_ORIGEN, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_AHRE_COD_MONEDA on IT.AH_RETENCIONES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_AHRE_COD_OFI_ORIGEN on IT.AH_RETENCIONES (COD_OFI_ORIGEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_AHRE_COD_RETENCION on IT.AH_RETENCIONES (COD_RETENCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_AHRE_COD_USUARIO on IT.AH_RETENCIONES (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_RETENCIONES
+  add constraint PK_AH_RETENCIONES primary key (NRO_CUENTA, NRO_DOCUMENTO, COD_RETENCION, FEC_FINAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 576K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_RETENCIONES
+  add constraint FK_ARETEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_RETENCIONES
+  add constraint FK_ARETEN_COD_OFICINA foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.AH_RETENCIONES
+  add constraint FK_ARETEN_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.AH_RETENCIONES
+  add constraint FK_ARETEN_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_COD_O_001
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_COD_R_000
+  check (COD_RETENCION BETWEEN 0 AND 999);
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_DETAL_000
+  check (DETALLADO IN ('S', 'N'));
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_LIBER_000
+  check (LIBERADO IN ('S', 'N'));
+alter table IT.AH_RETENCIONES
+  add constraint AVCON_1083334408_LIB_P_000
+  check (LIB_POSTERIOR IN ('S', 'N'));
+

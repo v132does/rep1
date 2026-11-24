@@ -1,0 +1,55 @@
+create table IT.GE_CLIENTES_NOV
+(
+  cod_persona           VARCHAR2(10) not null,
+  fec_cam_clasificacion DATE not null,
+  cat_rie_anterior      VARCHAR2(2),
+  cat_rie_actual        VARCHAR2(2),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLIENTES_NOV
+  is 'Clasificación de Personas';
+comment on column IT.GE_CLIENTES_NOV.cod_persona
+  is 'Código de Persona cuya Clasificación ha cambiado.';
+comment on column IT.GE_CLIENTES_NOV.fec_cam_clasificacion
+  is 'Fecha de Cambio de Estado de la Clasificación de la Persona.';
+comment on column IT.GE_CLIENTES_NOV.cat_rie_anterior
+  is 'Clasificación de Riesgo del Cliente, anterior.';
+comment on column IT.GE_CLIENTES_NOV.cat_rie_actual
+  is 'Clasificación de Riesgo del Cliente, actual.';
+comment on column IT.GE_CLIENTES_NOV.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CLIENTES_NOV.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CLIENTES_NOV.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CLIENTES_NOV.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CLIENTES_NOV
+  add constraint PK_GE_CLIENTES_NOV primary key (COD_PERSONA, FEC_CAM_CLASIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

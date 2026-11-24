@@ -1,0 +1,52 @@
+create table IT.CR_AFICIONES
+(
+  cod_aficion      NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AFICIONES
+  is 'Tipos de Aficiones.';
+comment on column IT.CR_AFICIONES.cod_aficion
+  is 'Codigo de Aficion.';
+comment on column IT.CR_AFICIONES.descripcion
+  is 'Descripcion de la Aficion.';
+comment on column IT.CR_AFICIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AFICIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AFICIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AFICIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_AFICIONES
+  add constraint PK_CR_AFICIONES primary key (COD_AFICION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_AFICIONES
+  add constraint AVCON_1080843837_COD_A_000
+  check (COD_AFICION BETWEEN 1 AND 999);
+

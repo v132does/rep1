@@ -1,0 +1,61 @@
+create table IT.CR_PUN_VALORES
+(
+  cod_puntaje      NUMBER(3) not null,
+  cod_campo        VARCHAR2(10) not null,
+  descripcion      VARCHAR2(300) not null,
+  puntaje          NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUN_VALORES
+  is 'Valores por Conceptos de Scoring.';
+comment on column IT.CR_PUN_VALORES.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUN_VALORES.cod_campo
+  is 'Codigo de Campo.';
+comment on column IT.CR_PUN_VALORES.descripcion
+  is 'Descripcion.';
+comment on column IT.CR_PUN_VALORES.puntaje
+  is 'Puntaje a asignar.';
+comment on column IT.CR_PUN_VALORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PUN_VALORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PUN_VALORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_VALORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_PUN_VALORES
+  add constraint PK_CR_PUN_VALORES primary key (COD_PUNTAJE, COD_CAMPO, DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PUN_VALORES
+  add constraint FK_RPVAL_COD_PUNTAJE foreign key (COD_PUNTAJE)
+  references IT.CR_PUNTAJES (COD_PUNTAJE);
+alter table IT.CR_PUN_VALORES
+  add constraint AVCON_1084887748_COD_P_000
+  check (COD_PUNTAJE BETWEEN 0 AND 999);
+

@@ -1,0 +1,162 @@
+-- Create table
+create table IT.GE_PER_INHIBIDAS
+(
+  cod_persona        VARCHAR2(10) not null,
+  nro_orden          NUMBER(6) not null,
+  cod_causa          NUMBER(3) not null,
+  fec_inicio         DATE not null,
+  fec_vencimiento    DATE,
+  origen             VARCHAR2(60) not null,
+  cod_banco          NUMBER(3),
+  nro_cta_inhibida   VARCHAR2(15),
+  mto_multa          NUMBER(18,2) default 0,
+  referencia         VARCHAR2(80),
+  detalle            VARCHAR2(2000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  estado             VARCHAR2(1),
+  cod_campana        NUMBER(10),
+  situacion          VARCHAR2(1),
+  fec_rehabilitacion DATE,
+  cod_rehabilitacion VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_PER_INHIBIDAS
+  is 'Personas Inhibidas.';
+-- Add comments to the columns 
+comment on column IT.GE_PER_INHIBIDAS.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.GE_PER_INHIBIDAS.nro_orden
+  is 'Orden de inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.cod_causa
+  is 'Codigo de inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.fec_inicio
+  is 'Fecha de la inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.fec_vencimiento
+  is 'Fecha de Vencimiento de la inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.origen
+  is 'Origen de inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.GE_PER_INHIBIDAS.nro_cta_inhibida
+  is 'Cuenta inhibida.';
+comment on column IT.GE_PER_INHIBIDAS.mto_multa
+  is 'Importe de la Multa por Inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.referencia
+  is 'Referencia de la inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.detalle
+  is 'Detalle de Inhibicion.';
+comment on column IT.GE_PER_INHIBIDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PER_INHIBIDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PER_INHIBIDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PER_INHIBIDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PER_INHIBIDAS.estado
+  is 'Estado (I=Inhibido, D=Desinhibido).';
+comment on column IT.GE_PER_INHIBIDAS.cod_campana
+  is 'Código de la campaña.';
+comment on column IT.GE_PER_INHIBIDAS.situacion
+  is 'Situación (P=Pendiente de envío a BCP; E=Enviado a BCP; R=Rehabilitación de Inhibición).';
+comment on column IT.GE_PER_INHIBIDAS.fec_rehabilitacion
+  is 'Fecha de Rehabilitación.';
+comment on column IT.GE_PER_INHIBIDAS.cod_rehabilitacion
+  is 'Código de Rehabilitación según BCP.';
+-- Create/Recreate indexes 
+create index IT.IN_GPINH_COD_BANCO on IT.GE_PER_INHIBIDAS (COD_BANCO, COD_CAUSA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPINH_COD_CAMPANA on IT.GE_PER_INHIBIDAS (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPINH_NRO_CTA_INHIBIDA on IT.GE_PER_INHIBIDAS (NRO_CTA_INHIBIDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPINH_PERSONA on IT.GE_PER_INHIBIDAS (COD_PERSONA, ESTADO, COD_CAUSA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_PER_INHIBIDAS
+  add constraint PK_GE_PER_INHIBIDAS primary key (COD_PERSONA, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PER_INHIBIDAS
+  add constraint FK_GPINH_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.GE_PER_INHIBIDAS
+  add constraint FK_GPINH_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_PER_INHIBIDAS
+  add constraint FK_GPINH_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+-- Create/Recreate check constraints 
+alter table IT.GE_PER_INHIBIDAS
+  add constraint AVCON_1118764357_COD_B_000
+  check (COD_BANCO BETWEEN 0 AND 999);
+alter table IT.GE_PER_INHIBIDAS
+  add constraint AVCON_1118764357_COD_C_000
+  check (COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.GE_PER_INHIBIDAS
+  add constraint AVCON_1118764357_COD_C_001
+  check (COD_CAMPANA BETWEEN 0 AND 999999999);

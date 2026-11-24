@@ -1,0 +1,7 @@
+create sequence IT.S_ID_DEP_CHEQUE
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 9
+increment by 1
+nocache;
+

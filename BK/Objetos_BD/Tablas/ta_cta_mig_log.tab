@@ -1,0 +1,22 @@
+-- Create table
+create table IT.ta_cta_mig_log
+(
+  cod_persona     VARCHAR2(10) not null,
+  tip_producto    VARCHAR2(10) not null,
+  nro_lote        NUMBER(5),
+  cod_proceso     number (5),
+  msj_proceso     VARCHAR2(400),
+  fecha           date default sysdate,
+  nro_cuenta   VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

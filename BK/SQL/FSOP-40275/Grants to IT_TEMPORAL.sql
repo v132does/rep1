@@ -1,0 +1,2 @@
+grant EXECUTE on "IT"."PAG_EXT" to "IT_TEMPORAL" ;
+COMMIT;

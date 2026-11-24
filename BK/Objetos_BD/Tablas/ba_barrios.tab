@@ -1,0 +1,78 @@
+create table IT.BA_BARRIOS
+(
+  cod_pais         NUMBER(3) not null,
+  cod_ciudad       NUMBER(5) not null,
+  cod_barrio       NUMBER(4) not null,
+  descripcion      VARCHAR2(60) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  ref_externa      NUMBER(7),
+  des_bco_central  VARCHAR2(60),
+  cod_tipo_zona    VARCHAR2(1),
+  cod_departamento NUMBER(3),
+  cod_ciudad_bcp   VARCHAR2(4),
+  desc_ciudad_bcp  VARCHAR2(60)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_BARRIOS
+  is 'Barrios.';
+comment on column IT.BA_BARRIOS.cod_pais
+  is 'Codigo de pais.';
+comment on column IT.BA_BARRIOS.cod_ciudad
+  is 'Codigo de ciudad.';
+comment on column IT.BA_BARRIOS.cod_barrio
+  is 'Codigo de barrio.';
+comment on column IT.BA_BARRIOS.descripcion
+  is 'Nombre del barrio (ampliado a 60 chars para cubrir descripciones BCP de hasta 56 chars).';
+comment on column IT.BA_BARRIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_BARRIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_BARRIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_BARRIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_BARRIOS.ref_externa
+  is 'Codigo de referencia BCP del barrio (hasta 7 digitos: DDDCCCBBB). Analogo a BA_CIUDADES.REF_EXTERNA.';
+comment on column IT.BA_BARRIOS.des_bco_central
+  is 'Descripcion del barrio segun catalogo BCP, incluyendo sufijo de zona (ej: SAJONIA - URBANA). Analogo a BA_CIUDADES.DES_BCO_CENTRAL.';
+comment on column IT.BA_BARRIOS.cod_tipo_zona
+  is 'Tipo de zona: U=Urbana, R=Rural, S=Sub Urbana. Resuelto contra dominio TIPO_ZONA_BARRIO de BA_COD_REFERENCIAS.';
+comment on column IT.BA_BARRIOS.cod_departamento
+  is 'Codigo de departamento asociado al dato BCP segun codificacion usada por BA_CIUDADES. Capital BCP 00 se persiste como 18; Exterior queda nulo.';
+comment on column IT.BA_BARRIOS.cod_ciudad_bcp
+  is 'Codigo de ciudad BCP zero-padded (ej: 0101), informado en BARRIOS_BCP.CSV.';
+comment on column IT.BA_BARRIOS.desc_ciudad_bcp
+  is 'Descripcion de ciudad segun catalogo BCP informada en BARRIOS_BCP.CSV.';
+alter table IT.BA_BARRIOS
+  add constraint PK_BA_BARRIOS primary key (COD_PAIS, COD_CIUDAD, COD_BARRIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_BARRIOS
+  add constraint FK_EBARR_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.BA_BARRIOS
+  add constraint CK_COD_BARRIO
+  check (cod_barrio between 1 and 9999);

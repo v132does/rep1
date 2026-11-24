@@ -1,0 +1,95 @@
+create table IT.GE_SNP_MSJ_MT940
+(
+  cod_mensaje      VARCHAR2(20) not null,
+  referencia       VARCHAR2(100),
+  nro_cuenta       VARCHAR2(100),
+  nro_extracto     VARCHAR2(100),
+  nro_hoja         VARCHAR2(100),
+  fec_inicial      DATE,
+  cod_moneda       VARCHAR2(100),
+  sal_inicial      NUMBER(18,2),
+  fec_final        DATE,
+  sal_final        NUMBER(18,2),
+  mensaje          LONG,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tipo             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_MSJ_MT940
+  is 'Tabla de cabecera de los Extractos MT940';
+comment on column IT.GE_SNP_MSJ_MT940.cod_mensaje
+  is 'Codigo de Mensaje (Para relacionar con el detalle)';
+comment on column IT.GE_SNP_MSJ_MT940.referencia
+  is 'Referencia del extracto';
+comment on column IT.GE_SNP_MSJ_MT940.nro_cuenta
+  is 'Nro. de Cuenta';
+comment on column IT.GE_SNP_MSJ_MT940.nro_extracto
+  is 'Nro. de Extracto';
+comment on column IT.GE_SNP_MSJ_MT940.nro_hoja
+  is 'Nro. de Hoja del Extracto';
+comment on column IT.GE_SNP_MSJ_MT940.fec_inicial
+  is 'Fecha inicial del extracto';
+comment on column IT.GE_SNP_MSJ_MT940.cod_moneda
+  is 'Moneda de la cuenta';
+comment on column IT.GE_SNP_MSJ_MT940.sal_inicial
+  is 'Saldo inicial del extracto';
+comment on column IT.GE_SNP_MSJ_MT940.fec_final
+  is 'Fecha final del extracto';
+comment on column IT.GE_SNP_MSJ_MT940.sal_final
+  is 'Saldo final del extracto';
+comment on column IT.GE_SNP_MSJ_MT940.mensaje
+  is 'Mensaje SWIFT original';
+comment on column IT.GE_SNP_MSJ_MT940.tipo
+  is 'Tipo (D/C)';
+create index IT.IN_NRO_CUENTA2 on IT.GE_SNP_MSJ_MT940 (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_REFERENCIA on IT.GE_SNP_MSJ_MT940 (REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SNP_MSJ_MT940
+  add constraint PK_GE_SNP_MSJ_MT940 primary key (COD_MENSAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

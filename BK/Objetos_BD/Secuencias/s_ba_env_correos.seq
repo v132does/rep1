@@ -1,0 +1,7 @@
+-- Create sequence 
+create sequence IT.S_BA_ENV_CORREOS
+minvalue 1
+maxvalue 999999999999999
+start with 4655192
+increment by 1
+nocache;

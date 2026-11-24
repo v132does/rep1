@@ -1,0 +1,7 @@
+create sequence IT.S_COD_AUTORIZACION
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 660467
+increment by 1
+nocache;
+

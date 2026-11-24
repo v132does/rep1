@@ -1,0 +1,42 @@
+create table IT.LC_MAI_TRANSFERENCIAS_LOG
+(
+  nro_operacion    NUMBER(15),
+  dir_envio        VARCHAR2(4000),
+  fec_envio        DATE,
+  hor_envio        VARCHAR2(8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_modalidad    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.nro_operacion
+  is 'Nro. de Operacion de Transferencia';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.dir_envio
+  is 'Direccion de Correo del Destinatario';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.fec_envio
+  is 'Fecha de Envio';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.hor_envio
+  is 'Hora de Envio';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.usu_modificacion
+  is 'Usuario de Modifidacion';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.fec_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.LC_MAI_TRANSFERENCIAS_LOG.cod_modalidad
+  is 'Modalidad de la Transferencia';
+

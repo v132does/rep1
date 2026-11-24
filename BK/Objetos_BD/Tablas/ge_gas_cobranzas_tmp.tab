@@ -1,0 +1,23 @@
+create table IT.GE_GAS_COBRANZAS_TMP
+(
+  cod_persona     VARCHAR2(10),
+  cod_oficina     VARCHAR2(10),
+  nro_cuenta      VARCHAR2(15),
+  nro_cuota       VARCHAR2(10),
+  cod_tra_cargo   VARCHAR2(10),
+  fec_vencimiento DATE,
+  monto           VARCHAR2(10),
+  cod_emp_cob     VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

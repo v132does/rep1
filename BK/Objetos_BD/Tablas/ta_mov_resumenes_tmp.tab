@@ -1,0 +1,81 @@
+create table IT.TA_MOV_RESUMENES_TMP
+(
+  cod_entidad     NUMBER(2),
+  cla_tarjeta     NUMBER(2),
+  afinidad        NUMBER(2),
+  nro_cuenta      NUMBER(9),
+  nro_cta_entidad NUMBER(11),
+  monto           NUMBER(18,2),
+  mto_comision    NUMBER(18,2),
+  mto_iva         NUMBER(18,2),
+  fec_valor       DATE,
+  fec_proceso     DATE,
+  tip_movimiento  VARCHAR2(1),
+  can_cuotas      NUMBER(2),
+  tip_cargo       NUMBER(2),
+  can_cuotas2     NUMBER(2),
+  tip_debito      NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_RESUMENES_TMP
+  is 'Tabla de registro de archivo de BANCARD SDRESUM';
+comment on column IT.TA_MOV_RESUMENES_TMP.cod_entidad
+  is 'Código de Entidad por el cual se identifica en Bancard.';
+comment on column IT.TA_MOV_RESUMENES_TMP.cla_tarjeta
+  is 'Clase de Tarjeta. Ej.: Visa, Mastercard.';
+comment on column IT.TA_MOV_RESUMENES_TMP.afinidad
+  is 'Afinidad. Ej. Visa Clásica, Visa Oro, Mastercard Black. ';
+comment on column IT.TA_MOV_RESUMENES_TMP.nro_cuenta
+  is 'Nro. de Cuenta identificatoria en la Entidad y en Bancard.';
+comment on column IT.TA_MOV_RESUMENES_TMP.nro_cta_entidad
+  is 'Nro. de Cuenta en la Entidad, en caso de ser diferente a la que retorna Bancard.';
+comment on column IT.TA_MOV_RESUMENES_TMP.monto
+  is 'Monto del Tipo de Movimiento / Débito realizado.';
+comment on column IT.TA_MOV_RESUMENES_TMP.mto_comision
+  is 'Monto de Comisión generado por el débito realizado.';
+comment on column IT.TA_MOV_RESUMENES_TMP.mto_iva
+  is 'Monto de IVA generado por la comisión (si aplica).';
+comment on column IT.TA_MOV_RESUMENES_TMP.fec_valor
+  is 'Fecha valor del registro del débito.';
+comment on column IT.TA_MOV_RESUMENES_TMP.fec_proceso
+  is 'Fecha de proceso del registro del débito.';
+comment on column IT.TA_MOV_RESUMENES_TMP.tip_movimiento
+  is 'Tipo de Movimiento: V - Ventas
+P - Pagos
+D - Cargos-Débito
+C - Cargos-Crédito
+A - Adelantos POS
+T - Adelantos ATM
+Q - Comisión Adel.
+I - Iva.';
+comment on column IT.TA_MOV_RESUMENES_TMP.can_cuotas
+  is 'Cantidad de Cuotas. ';
+comment on column IT.TA_MOV_RESUMENES_TMP.tip_cargo
+  is 'Tipo de Cargo.';
+comment on column IT.TA_MOV_RESUMENES_TMP.can_cuotas2
+  is 'Cantidad de Cuotas. ';
+comment on column IT.TA_MOV_RESUMENES_TMP.tip_debito
+  is 'Tipo de Débito: 09-Por Mora, 17-Por Servicio Mensual.-';
+create index IT.IN_TMRES_TIP_DEBITO on IT.TA_MOV_RESUMENES_TMP (TIP_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

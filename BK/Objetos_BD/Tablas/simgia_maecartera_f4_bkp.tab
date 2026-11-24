@@ -1,0 +1,76 @@
+create table IT.SIMGIA_MAECARTERA_F4_BKP
+(
+  fecha            VARCHAR2(6),
+  sucursalfu       NUMBER(3),
+  nuries           VARCHAR2(10) not null,
+  propuesta        NUMBER,
+  congru           VARCHAR2(20) not null,
+  nudoc            NUMBER not null,
+  guaranies        NUMBER,
+  contravalo       NUMBER,
+  iaddivisa        NUMBER,
+  vencim           VARCHAR2(8) not null,
+  codtasa          NUMBER,
+  nrolibrado       NUMBER,
+  ctadocact        NUMBER,
+  rubro_act        VARCHAR2(4000),
+  ctadocpas        NUMBER,
+  rubro_pas        VARCHAR2(4000),
+  filler           VARCHAR2(15),
+  tipod            NUMBER not null,
+  fechaemisi       VARCHAR2(6),
+  sucursalcu       NUMBER,
+  gastosgc         NUMBER,
+  vctoint          VARCHAR2(6),
+  iadmontodc       NUMBER,
+  iadsaldocp       NUMBER,
+  iadmetodo        NUMBER,
+  iadfeini         NUMBER,
+  iaddias          NUMBER,
+  iadinteres       NUMBER,
+  iadadev          NUMBER,
+  iadnrocuo        NUMBER,
+  iadcodtasa       NUMBER,
+  ctandocact       NUMBER,
+  ctandocord       NUMBER,
+  ctandocorh       NUMBER,
+  rubro            VARCHAR2(4000),
+  transaccion      NUMBER,
+  transaccion2     NUMBER,
+  transaccion3     NUMBER,
+  modalidad        NUMBER(3),
+  tip_amortizacion VARCHAR2(1),
+  cod_moneda       VARCHAR2(3),
+  cat_riesgo       VARCHAR2(1),
+  nro_cuenta       VARCHAR2(15),
+  cod_ori_fondo    NUMBER,
+  tipo             VARCHAR2(20),
+  fecha_his        DATE default sysdate,
+  rubro_susp       VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SIMGIA_MAECARTERA_F4_BKP
+  add constraint PK_SMG_MAECARTERA_F4_BKP primary key (NURIES, CONGRU, VENCIM, NUDOC, TIPOD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

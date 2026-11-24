@@ -1,0 +1,62 @@
+create table IT.LC_FOR_CUR_FORWARD
+(
+  cod_moneda       VARCHAR2(3) not null,
+  ano              NUMBER(4),
+  semana           NUMBER(2),
+  fec_desde        DATE not null,
+  fec_hasta        DATE,
+  dia_plazo        NUMBER(6) not null,
+  val_cotizacion   NUMBER(14,8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.LC_FOR_CUR_FORWARD.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.LC_FOR_CUR_FORWARD.ano
+  is 'Año de los datos';
+comment on column IT.LC_FOR_CUR_FORWARD.semana
+  is 'Semana de los datos';
+comment on column IT.LC_FOR_CUR_FORWARD.fec_desde
+  is 'Fecha desde';
+comment on column IT.LC_FOR_CUR_FORWARD.fec_hasta
+  is 'Fecha hasta';
+comment on column IT.LC_FOR_CUR_FORWARD.dia_plazo
+  is 'Dias de Plazo';
+comment on column IT.LC_FOR_CUR_FORWARD.val_cotizacion
+  is 'Valor de la cotizacion (Curva Forward)';
+comment on column IT.LC_FOR_CUR_FORWARD.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.LC_FOR_CUR_FORWARD.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.LC_FOR_CUR_FORWARD.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.LC_FOR_CUR_FORWARD.fec_modificacion
+  is 'Fecha de Modificacion';
+alter table IT.LC_FOR_CUR_FORWARD
+  add constraint PK2_LC_COT_CUR_FORWARD primary key (COD_MONEDA, FEC_DESDE, DIA_PLAZO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

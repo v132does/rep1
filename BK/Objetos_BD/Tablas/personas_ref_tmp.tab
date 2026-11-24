@@ -1,0 +1,21 @@
+create table IT.PERSONAS_REF_TMP
+(
+  tipo_ident    VARCHAR2(3) not null,
+  nro_documento VARCHAR2(15),
+  tipo_per      VARCHAR2(1),
+  apellido      VARCHAR2(30),
+  nombre        VARCHAR2(60),
+  fecha_nac     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

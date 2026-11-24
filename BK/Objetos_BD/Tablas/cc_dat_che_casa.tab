@@ -1,0 +1,60 @@
+create table IT.CC_DAT_CHE_CASA
+(
+  cod_per_principal  VARCHAR2(10) not null,
+  cod_per_autorizada VARCHAR2(10),
+  cod_tip_documento  NUMBER(3) not null,
+  nro_documento      VARCHAR2(20) not null,
+  nom_completo       VARCHAR2(120) not null,
+  tip_linea          VARCHAR2(1) default 'C' not null,
+  nro_telefono       VARCHAR2(10) not null,
+  interno            VARCHAR2(5),
+  estado             VARCHAR2(1) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CC_DAT_CHE_CASA.cod_per_principal
+  is 'Codigo de la Persona Principal de la Chequera a Entregar.';
+comment on column IT.CC_DAT_CHE_CASA.cod_per_autorizada
+  is 'Codigo de la Persona Autorizada en caso de que sea cliente';
+comment on column IT.CC_DAT_CHE_CASA.cod_tip_documento
+  is 'Tipo de Documento de Identidad';
+comment on column IT.CC_DAT_CHE_CASA.nro_documento
+  is 'Nro de Documento de Identidad';
+comment on column IT.CC_DAT_CHE_CASA.nom_completo
+  is 'Nombre Completo de la Persona Autorizada';
+comment on column IT.CC_DAT_CHE_CASA.tip_linea
+  is 'Tipo de Linea C (Celular), B (Linea Baja)';
+comment on column IT.CC_DAT_CHE_CASA.nro_telefono
+  is 'Nro de telefono con prefijo';
+comment on column IT.CC_DAT_CHE_CASA.interno
+  is 'Interno en caso de linea baja empresarial';
+comment on column IT.CC_DAT_CHE_CASA.estado
+  is 'Estado de la autorización A (Activo) I (Inactivo)';
+alter table IT.CC_DAT_CHE_CASA
+  add constraint PK_CC_DAT_CHE_CASA primary key (COD_PER_PRINCIPAL, COD_TIP_DOCUMENTO, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

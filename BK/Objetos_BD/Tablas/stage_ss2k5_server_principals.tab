@@ -1,0 +1,14 @@
+create global temporary table IT.STAGE_SS2K5_SERVER_PRINCIPALS
+(
+  svrid_fk    NUMBER(38),
+  dbid_gen_fk NUMBER(38),
+  db_id       NUMBER(38),
+  name        VARCHAR2(256 CHAR) not null,
+  sid         RAW(85),
+  type        CHAR(2 CHAR) not null
+)
+on commit preserve rows;
+create index IT.S_SS2K5_S_P_DBID_GEN_FK on IT.STAGE_SS2K5_SERVER_PRINCIPALS (DBID_GEN_FK);
+create index IT.S_SS2K5_S_P_NAME on IT.STAGE_SS2K5_SERVER_PRINCIPALS (NAME);
+create index IT.S_SS2K5_S_P_SID on IT.STAGE_SS2K5_SERVER_PRINCIPALS (SID);
+

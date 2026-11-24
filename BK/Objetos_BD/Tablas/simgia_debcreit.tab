@@ -1,0 +1,34 @@
+create table IT.SIMGIA_DEBCREIT
+(
+  itsuc         NUMBER(2),
+  itcta         NUMBER(6),
+  itsub         NUMBER(6),
+  itriesgo      NUMBER(6),
+  itmonto       NUMBER(13,2),
+  ittipo        CHAR(1),
+  itref         VARCHAR2(100),
+  fec_proceso   DATE,
+  cod_persona   VARCHAR2(10),
+  nro_cuenta    VARCHAR2(15),
+  fec_migracion DATE default sysdate,
+  respuesta     VARCHAR2(2000),
+  estado        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SIMGIA_DEBCREIT.fec_proceso
+  is 'Fecha del proceso de migracion / completa trigger';
+comment on column IT.SIMGIA_DEBCREIT.cod_persona
+  is 'Codigo de persona / completa trigger';
+comment on column IT.SIMGIA_DEBCREIT.nro_cuenta
+  is 'Numero Cuenta formatado IT / completa trigger';
+

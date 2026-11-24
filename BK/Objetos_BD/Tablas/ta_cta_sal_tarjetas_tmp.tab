@@ -1,0 +1,47 @@
+create table IT.TA_CTA_SAL_TARJETAS_TMP
+(
+  cod_entidad   NUMBER(3),
+  nro_cuenta    NUMBER(11),
+  cod_moneda    NUMBER(3),
+  cod_tip_saldo NUMBER(3),
+  mto_saldo     NUMBER(15,2),
+  reservado     CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CTA_SAL_TARJETAS_TMP
+  is 'Es la Tabla de Saldos de Cuentas de Tarjetas';
+comment on column IT.TA_CTA_SAL_TARJETAS_TMP.cod_entidad
+  is 'Codigo de la Entidad.';
+comment on column IT.TA_CTA_SAL_TARJETAS_TMP.nro_cuenta
+  is 'Número de la Cuenta.';
+comment on column IT.TA_CTA_SAL_TARJETAS_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.TA_CTA_SAL_TARJETAS_TMP.cod_tip_saldo
+  is 'Código del tipo de Saldo.';
+comment on column IT.TA_CTA_SAL_TARJETAS_TMP.mto_saldo
+  is 'Monto del Saldo.';
+comment on column IT.TA_CTA_SAL_TARJETAS_TMP.reservado
+  is 'Registro Reservado.';
+create index IT.IN_TS_NRO_CUENTA on IT.TA_CTA_SAL_TARJETAS_TMP (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

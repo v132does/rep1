@@ -1,0 +1,30 @@
+--  Tabla de log de detalles de eventos (errores, advertencias, etc)
+CREATE TABLE IT.GE_LOG_TAS_INT_SEM_DET (
+    ID_LOG        NUMBER PRIMARY KEY,      -- Identificador unico del log detalle (por secuencia)
+    ID_EJECUCION  NUMBER,                  -- ID de ejecucion global, relaciona con GE_LOG_TAS_INT_SEM
+    TIPO_EVENTO   VARCHAR2(20),            -- ERROR, ADVERTENCIA, INFO, ETC.
+    NRO_CUENTA    VARCHAR2(20),            -- Numero de cuenta relacionada, si corresponde
+    PROCESO       VARCHAR2(100),           -- Procedimiento o funcion que origino el evento
+    MENSAJE       VARCHAR2(1000),          -- Mensaje descriptivo
+    FECHA_EVENTO  DATE DEFAULT SYSDATE     -- Fecha/hora del evento
+) TABLESPACE IT_DATA;
+
+--  Comentarios descriptivos
+COMMENT ON TABLE IT.GE_LOG_TAS_INT_SEM_DET IS 'Log de detalles de eventos de proceso de tasas interbancarias semanales/mensuales (NOR-314)';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.ID_LOG IS 'Identificador unico del log detalle (por secuencia)';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.ID_EJECUCION IS 'ID de ejecucion principal, relaciona con GE_LOG_TAS_INT_SEM';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.TIPO_EVENTO IS 'Tipo de evento: ERROR, ADVERTENCIA, INFO, ETC.';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.NRO_CUENTA IS 'Numero de cuenta involucrada (si corresponde)';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.PROCESO IS 'Nombre del procedimiento o funcion que genero el evento';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.MENSAJE IS 'Detalle del evento o mensaje de error';
+COMMENT ON COLUMN IT.GE_LOG_TAS_INT_SEM_DET.FECHA_EVENTO IS 'Fecha y hora en que ocurrio el evento';
+
+--  indice para trazabilidad
+CREATE INDEX IDX_GE_LOG_TAS_INT_DET_EJECUCION ON IT.GE_LOG_TAS_INT_SEM_DET (ID_EJECUCION)
+TABLESPACE IT_IND;
+
+-- Sinonimo y permisos
+CREATE PUBLIC SYNONYM GE_LOG_TAS_INT_SEM_DET FOR IT.GE_LOG_TAS_INT_SEM_DET;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.GE_LOG_TAS_INT_SEM_DET TO IT_TEMPORAL;
+

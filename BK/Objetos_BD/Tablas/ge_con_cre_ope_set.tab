@@ -1,0 +1,53 @@
+create table IT.GE_CON_CRE_OPE_SET
+(
+  nro_proceso      NUMBER(15) not null,
+  fecha            DATE,
+  fec_archivo      DATE,
+  estado           VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CON_CRE_OPE_SET.nro_proceso
+  is 'Nro de Proceso.';
+comment on column IT.GE_CON_CRE_OPE_SET.fecha
+  is 'Fecha Proceso.';
+comment on column IT.GE_CON_CRE_OPE_SET.fec_archivo
+  is 'Fecha Archivo.';
+comment on column IT.GE_CON_CRE_OPE_SET.estado
+  is 'Estado.';
+comment on column IT.GE_CON_CRE_OPE_SET.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_CON_CRE_OPE_SET.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_CON_CRE_OPE_SET.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_CON_CRE_OPE_SET.fec_modificacion
+  is 'Fecha de Modificación.';
+alter table IT.GE_CON_CRE_OPE_SET
+  add constraint PK_GE_CON_CRE_OPE_SET primary key (NRO_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

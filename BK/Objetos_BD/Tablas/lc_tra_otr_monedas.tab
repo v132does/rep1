@@ -1,0 +1,318 @@
+create table IT.LC_TRA_OTR_MONEDAS
+(
+  nro_referencia       NUMBER(10) not null,
+  cod_tip_referencia   VARCHAR2(3) not null,
+  cod_modulo           NUMBER(3) not null,
+  cod_modalidad        NUMBER(3) not null,
+  cod_oficina          NUMBER(3) not null,
+  fec_operacion        DATE not null,
+  nro_operacion        NUMBER(15),
+  cod_moneda           VARCHAR2(3) not null,
+  monto                NUMBER(18,2) default 0 not null,
+  saldo                NUMBER(18,2),
+  cod_banco            NUMBER(3),
+  nom_banco            VARCHAR2(100),
+  cod_pai_banco        NUMBER(3),
+  cod_ciu_banco        NUMBER(3),
+  cod_aba_banco        VARCHAR2(20),
+  cod_swi_banco        VARCHAR2(20),
+  cod_bco_corresponsal NUMBER(3),
+  cod_per_solicitante  VARCHAR2(10),
+  nom_solicitante      VARCHAR2(120) not null,
+  dir_solicitante      VARCHAR2(100),
+  tel_solicitante      VARCHAR2(20),
+  cod_pai_solicitante  NUMBER(3),
+  cod_ciu_solicitante  NUMBER(3),
+  cod_per_beneficiario VARCHAR2(10),
+  nom_beneficiario     VARCHAR2(120),
+  dir_beneficiario     VARCHAR2(100),
+  tel_beneficiario     VARCHAR2(20),
+  cod_pai_beneficiario NUMBER(3),
+  cod_ciu_beneficiario NUMBER(3),
+  nro_cta_referencia   VARCHAR2(30),
+  fec_ult_movimiento   DATE,
+  fec_recepcion        DATE,
+  cod_rubro            VARCHAR2(15),
+  plazo                NUMBER(3),
+  observacion          VARCHAR2(1000),
+  cod_uid_banco        VARCHAR2(20),
+  nro_ref_externa      VARCHAR2(20),
+  tip_mensaje          VARCHAR2(4),
+  tip_cargo            VARCHAR2(3),
+  cod_bco_cor_contra   NUMBER(3),
+  nom_ciu_beneficiario VARCHAR2(100),
+  nom_ciu_solicitante  VARCHAR2(100),
+  estado               VARCHAR2(4),
+  msj_swift            VARCHAR2(4000),
+  fec_cam_estado       DATE,
+  nro_doc_beneficiario VARCHAR2(20),
+  est_anterior         VARCHAR2(4),
+  enviada              VARCHAR2(1) default 'N',
+  fec_valor            DATE,
+  cod_msj_swift        NUMBER(4),
+  fec_envio            DATE,
+  hor_envio            VARCHAR2(8),
+  mto_cargo            NUMBER(18,2),
+  nro_sec_lote         NUMBER(6),
+  tip_fondo            VARCHAR2(2),
+  tip_motivo           VARCHAR2(2),
+  tip_financiacion     VARCHAR2(2),
+  nom_ordenante        VARCHAR2(35),
+  tip_ref_obs          VARCHAR2(3),
+  age_banco            VARCHAR2(35),
+  nom_bco_cor_contra   VARCHAR2(100),
+  cod_swi_bco_contra   VARCHAR2(20),
+  cod_aba_bco_contra   VARCHAR2(20),
+  cta_cobranza         VARCHAR2(15),
+  fondeado             VARCHAR2(1) default 'N',
+  procesado            VARCHAR2(1) default 'N',
+  referencia           VARCHAR2(1000),
+  nro_operacion2       NUMBER(15),
+  autorizado           VARCHAR2(1) default 'N',
+  cod_pai_bco_contra   NUMBER(3),
+  cod_ciu_bco_contra   NUMBER(3),
+  campo                VARCHAR2(30),
+  gpi                  VARCHAR2(1) default 'N',
+  codigo               VARCHAR2(200),
+  msj_swift_199        VARCHAR2(4000),
+  nro_ord_pag_dna      VARCHAR2(50),
+  nro_cta_debito       VARCHAR2(30),
+  cod_mon_tte          VARCHAR2(3),
+  mto_tte              NUMBER(18,2),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TRA_OTR_MONEDAS
+  is 'Contiene los datos de las Libranzas o Transferencias de Cambios.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_referencia
+  is 'Numero de referencia de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_tip_referencia
+  is 'Codigo de referencia de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_modulo
+  is 'Codigo del modulo de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_modalidad
+  is 'Codigo de la modalidad de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_oficina
+  is 'Codigo de la oficina de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_operacion
+  is 'Fecha de la operacion.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_operacion
+  is 'Numero de Operacion.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_TRA_OTR_MONEDAS.monto
+  is 'Monto de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.saldo
+  is 'Saldo actual de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_banco
+  is 'Codigo del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_banco
+  is 'Nombre del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_pai_banco
+  is 'Codigo de pais del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_ciu_banco
+  is 'Codigo de ciudad del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_aba_banco
+  is 'Codigo de BLZ/ABA del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_swi_banco
+  is 'Codigo SWIFT del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_bco_corresponsal
+  is 'Codigo del Banco corresponsal.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_per_solicitante
+  is 'Codigo del cliente solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_solicitante
+  is 'Nombre y apellido del solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.dir_solicitante
+  is 'Direccion del solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.tel_solicitante
+  is 'Nro. de Telefono del solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_pai_solicitante
+  is 'Codigo de pais del solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_ciu_solicitante
+  is 'Codigo de ciudad del solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_per_beneficiario
+  is 'Codigo del cliente beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_beneficiario
+  is 'Nombre y apellido del Beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.dir_beneficiario
+  is 'Direccion del Beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.tel_beneficiario
+  is 'Nro.de telefono del Beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_pai_beneficiario
+  is 'Codigo de pais del beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_ciu_beneficiario
+  is 'Codigo de ciudad del beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_cta_referencia
+  is 'Cuenta de referencia de la transferencia (puede ser de la entidad si es recibida o externa si es emitida).';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_ult_movimiento
+  is 'Fecha del ultimo movimiento.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_recepcion
+  is 'Fecha de recepcion de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_rubro
+  is 'Cuenta contable imputada.';
+comment on column IT.LC_TRA_OTR_MONEDAS.plazo
+  is 'Plazo en dias.';
+comment on column IT.LC_TRA_OTR_MONEDAS.observacion
+  is 'Observacion sobre la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_uid_banco
+  is 'Codigo UID del Banco emisor / pagador.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_ref_externa
+  is 'Numero de referencia externa que identifica a la transferencia en el swift.';
+comment on column IT.LC_TRA_OTR_MONEDAS.tip_mensaje
+  is 'Tipo de mensaje en el swift.';
+comment on column IT.LC_TRA_OTR_MONEDAS.tip_cargo
+  is 'Tipo de cargo generado en el swift.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_bco_cor_contra
+  is 'Codigo del Banco Corresponsal de la Contraparte.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_ciu_beneficiario
+  is 'Nombre de la ciudad del Beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_ciu_solicitante
+  is 'Nombre de la ciudad del Solicitante.';
+comment on column IT.LC_TRA_OTR_MONEDAS.estado
+  is 'Estado de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.msj_swift
+  is 'Mensaje original recibido / enviado del / al swift.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_cam_estado
+  is 'Fecha del ultimo cambio de estado.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_doc_beneficiario
+  is 'Numero de documento de identidad del beneficiario.';
+comment on column IT.LC_TRA_OTR_MONEDAS.est_anterior
+  is 'Estado anterior de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.enviada
+  is 'Indica si fue enviada a la entidad emisora (entidad en Convenio de Transferencias) para transferencias recibidas.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_valor
+  is 'Fecha estimada de pago.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_msj_swift
+  is 'Codigo de mensaje para envio al swift.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_envio
+  is 'Fecha envio de datos al swift para transferencias emitidas.';
+comment on column IT.LC_TRA_OTR_MONEDAS.hor_envio
+  is 'Hora de envio de datos al swift para transferencias emitidas.';
+comment on column IT.LC_TRA_OTR_MONEDAS.mto_cargo
+  is 'Monto del cargo de la transferencia.';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_sec_lote
+  is 'Valor utilizado para identificar los registros insertados en un lote de procesamiento.';
+comment on column IT.LC_TRA_OTR_MONEDAS.tip_fondo
+  is 'Origen de Fondos';
+comment on column IT.LC_TRA_OTR_MONEDAS.tip_motivo
+  is 'Motivo de la Transferencia';
+comment on column IT.LC_TRA_OTR_MONEDAS.tip_financiacion
+  is 'Tipo de financiacion';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_ordenante
+  is 'Nombre del Ordenante';
+comment on column IT.LC_TRA_OTR_MONEDAS.tip_ref_obs
+  is 'Tipo de Referencia de Observacion';
+comment on column IT.LC_TRA_OTR_MONEDAS.age_banco
+  is 'Agencia/Oficina del Banco';
+comment on column IT.LC_TRA_OTR_MONEDAS.nom_bco_cor_contra
+  is 'Nombre del Banco Corresponsal Intermediario';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_swi_bco_contra
+  is 'Codigo de Swift del Banco Contra';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_aba_bco_contra
+  is 'Codigo de Aba del Banco Contra';
+comment on column IT.LC_TRA_OTR_MONEDAS.cta_cobranza
+  is 'Cuenta de Cobranza (Importacion-Exportacion)';
+comment on column IT.LC_TRA_OTR_MONEDAS.fondeado
+  is 'Indica si la Transferencia Recibida fue Fondeada(S/N):';
+comment on column IT.LC_TRA_OTR_MONEDAS.procesado
+  is 'Columna que indica si la transferencia ya fue procesada (S) o no (N).';
+comment on column IT.LC_TRA_OTR_MONEDAS.referencia
+  is 'Referencia de la Transferencia';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_operacion2
+  is 'Numero de Operacion 2';
+comment on column IT.LC_TRA_OTR_MONEDAS.autorizado
+  is 'Autorización para compartir información con MH o DNA.';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_pai_bco_contra
+  is 'Codigo de pais del Banco intermediario';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_ciu_bco_contra
+  is 'Codigo de ciudad del Banco intermediario';
+comment on column IT.LC_TRA_OTR_MONEDAS.campo
+  is 'Identificador de la estructura para los datos del campo 50 y 59.';
+comment on column IT.LC_TRA_OTR_MONEDAS.gpi
+  is '(N) no / (S) si';
+comment on column IT.LC_TRA_OTR_MONEDAS.codigo
+  is 'Codigo UUID';
+comment on column IT.LC_TRA_OTR_MONEDAS.msj_swift_199
+  is 'Mensaje Swift de respuesta enviado';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_ord_pag_dna
+  is 'Nro Orden Pago DNA';
+comment on column IT.LC_TRA_OTR_MONEDAS.nro_cta_debito
+  is 'Nro de Cuenta de Debito del cliente';
+comment on column IT.LC_TRA_OTR_MONEDAS.cod_mon_tte
+  is 'Codigo de moneda de la TTE(Si difiere moneda)';
+comment on column IT.LC_TRA_OTR_MONEDAS.mto_tte
+  is 'Monto de la TTE (Si difiere monto)';
+comment on column IT.LC_TRA_OTR_MONEDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_TRA_OTR_MONEDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_TRA_OTR_MONEDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_LC_TRAO_FEC_OPERACION on IT.LC_TRA_OTR_MONEDAS (FEC_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LTRAO_NRO_OPERACION on IT.LC_TRA_OTR_MONEDAS (NRO_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TRA_OTR_MONEDAS
+  add constraint PK_LC_TRAO_MONEDAS primary key (NRO_REFERENCIA, COD_TIP_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TRA_OTR_MONEDAS
+  add constraint UK_LCTRAO_NRO_REF_EXTERNA unique (NRO_REF_EXTERNA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

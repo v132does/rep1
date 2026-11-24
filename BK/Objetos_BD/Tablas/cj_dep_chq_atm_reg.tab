@@ -1,0 +1,130 @@
+create table IT.CJ_DEP_CHQ_ATM_REG
+(
+  id_dep_cheque    NUMBER(20) not null,
+  nro_documento    VARCHAR2(20) not null,
+  tip_documento    VARCHAR2(20) not null,
+  nom_completo     VARCHAR2(120),
+  cod_lote         VARCHAR2(20) not null,
+  nro_transaccion  NUMBER(15) not null,
+  atm_id           VARCHAR2(10) not null,
+  cod_cheque       VARCHAR2(35),
+  cod_banco        VARCHAR2(2),
+  cta_libradora    VARCHAR2(20),
+  nro_cheque       VARCHAR2(15),
+  cod_moneda       VARCHAR2(2),
+  cod_persona      VARCHAR2(10),
+  tip_transaccion  VARCHAR2(30),
+  nro_cuenta       VARCHAR2(15),
+  monto_cheque     NUMBER(18,2),
+  nro_solicitud    NUMBER(7),
+  estado           VARCHAR2(30),
+  cod_id_crear     VARCHAR2(100),
+  fecha            DATE default sysdate not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  est_cheque       VARCHAR2(30) default 'I',
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  nro_secuencia    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CJ_DEP_CHQ_ATM_REG
+  is 'Registro de datos de transacciones de deposito de cheque.';
+-- Add comments to the columns 
+comment on column IT.CJ_DEP_CHQ_ATM_REG.id_dep_cheque
+  is 'Id.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nro_documento
+  is 'Numero de Documento.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nom_completo
+  is 'Nombre del Depositante.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_lote
+  is 'Código de Lote de Transacción.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nro_transaccion
+  is 'Número único de Transacción.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.atm_id
+  is 'Identificador ATM.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_cheque
+  is 'Datos CMC7 leídos del cheque.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_banco
+  is 'Código De Banco.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cta_libradora
+  is 'Cuenta Libradora.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_moneda
+  is 'Tipo Moneda.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_persona
+  is 'Código Persona.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.tip_transaccion
+  is 'Tipo de deposito de cheq.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.monto_cheque
+  is 'Monto Operación.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nro_solicitud
+  is 'Numero de Op por Dcto Che.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.estado
+  is 'Estado transacción.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_id_crear
+  is 'Id. de  Documento en Crear.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.est_cheque
+  is 'Estado del cheque. I= Ingresado TED,  D = Depositado caja, R= Rechazado caja. ';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.hora
+  is 'Hora del movimiento.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.CJ_DEP_CHQ_ATM_REG.nro_secuencia
+  is 'Numero de secuencia.';
+-- Create/Recreate indexes 
+create index IT.IN_CJ_DEPO_CHE_ATM on IT.CJ_DEP_CHQ_ATM_REG (NRO_DOCUMENTO, COD_LOTE, NRO_TRANSACCION, ATM_ID, COD_PERSONA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CJ_DEP_CHQ_ATM_REG
+  add constraint PK_CJ_DEPOSITO primary key (ID_DEP_CHEQUE, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

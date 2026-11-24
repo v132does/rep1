@@ -1,0 +1,79 @@
+create table IT.LC_TIP_OPE_OFICINAS
+(
+  cod_tip_operacion  VARCHAR2(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  tip_movimiento     VARCHAR2(1) not null,
+  tip_aplicacion     VARCHAR2(1) not null,
+  cod_rubro          VARCHAR2(15),
+  cod_tip_referencia VARCHAR2(3),
+  cod_mad_afectada   NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TIP_OPE_OFICINAS
+  is 'Contiene la Parametrizacion de Tipos de Operaciones por Oficina.';
+comment on column IT.LC_TIP_OPE_OFICINAS.cod_tip_operacion
+  is 'Codigo del tipo de operacion.';
+comment on column IT.LC_TIP_OPE_OFICINAS.cod_oficina
+  is 'Codigo de la oficina.';
+comment on column IT.LC_TIP_OPE_OFICINAS.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.LC_TIP_OPE_OFICINAS.tip_movimiento
+  is 'Indica si el movimiento es debito o credito.';
+comment on column IT.LC_TIP_OPE_OFICINAS.tip_aplicacion
+  is 'A que tipo de cuenta aplica.';
+comment on column IT.LC_TIP_OPE_OFICINAS.cod_rubro
+  is 'Numero de la cuenta contable que afecta.';
+comment on column IT.LC_TIP_OPE_OFICINAS.cod_tip_referencia
+  is 'Codigo del tipo de referencia de la operacion.';
+comment on column IT.LC_TIP_OPE_OFICINAS.cod_mad_afectada
+  is 'Codigo de la modalidad afectada.';
+comment on column IT.LC_TIP_OPE_OFICINAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_TIP_OPE_OFICINAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_TIP_OPE_OFICINAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_TIP_OPE_OFICINAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_TIP_OPE_OFICINAS
+  add constraint PK_LC_TIP_OPE_OFICINAS primary key (COD_TIP_OPERACION, COD_OFICINA, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TIP_OPE_OFICINAS
+  add constraint FK_LTIOO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_TIP_OPE_OFICINAS
+  add constraint FK_LTIOO_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_TIP_OPE_OFICINAS
+  add constraint FK_LTIOO_COD_TIP_OPERACION foreign key (COD_TIP_OPERACION)
+  references IT.LC_TIP_OPERACIONES (COD_TIP_OPERACION);
+alter table IT.LC_TIP_OPE_OFICINAS
+  add constraint FK_LTIOO_COD_TIP_REFERENCIA foreign key (COD_TIP_REFERENCIA)
+  references IT.LC_TIP_REFERENCIAS (COD_TIP_REFERENCIA);
+

@@ -1,0 +1,56 @@
+create table IT.AH_AUDITORIAS
+(
+  tabla          VARCHAR2(40) not null,
+  clave          VARCHAR2(100) not null,
+  usuario        VARCHAR2(30) default USER not null,
+  fec_sistema    DATE not null,
+  fec_calendario DATE not null,
+  tip_novedad    VARCHAR2(1) not null,
+  terminal       VARCHAR2(40),
+  detalle        VARCHAR2(2000) not null,
+  origen         VARCHAR2(40)
+)
+tablespace IT_AUD
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_AUDITORIAS
+  is 'Registra la auditoria de operaciones o novedades sobre los registros.';
+comment on column IT.AH_AUDITORIAS.tabla
+  is 'Nombre de la tabla auditada.';
+comment on column IT.AH_AUDITORIAS.clave
+  is 'Clave primaria correspondiente al registro auditado a ser identificado.';
+comment on column IT.AH_AUDITORIAS.usuario
+  is 'Usuario responsable por la novedad ocurrida sobre los datos.';
+comment on column IT.AH_AUDITORIAS.fec_sistema
+  is 'Fecha del sistema en que se realizo la operacion.';
+comment on column IT.AH_AUDITORIAS.fec_calendario
+  is 'Fecha calendario del modulo en el momento de realizarse la operacion.';
+comment on column IT.AH_AUDITORIAS.tip_novedad
+  is 'Tipo de novedad u operacion realizada con el dato.';
+comment on column IT.AH_AUDITORIAS.terminal
+  is 'Nombre de la terminal en la que se ejecuto la operacion.';
+comment on column IT.AH_AUDITORIAS.detalle
+  is 'Detalle de modificaciones realizadas.';
+comment on column IT.AH_AUDITORIAS.origen
+  is 'Nombre del programa o aplicacion desde el cual se ejecuto la operacion.';
+create index IT.IN_AAUDI_FEC_SISTEMA on IT.AH_AUDITORIAS (TABLA, CLAVE, USUARIO, FEC_SISTEMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

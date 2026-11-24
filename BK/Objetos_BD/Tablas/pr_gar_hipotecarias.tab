@@ -1,0 +1,142 @@
+create table IT.PR_GAR_HIPOTECARIAS
+(
+  nro_garantia       NUMBER(7) not null,
+  nro_finca          VARCHAR2(20) not null,
+  cod_distrito       NUMBER(3) not null,
+  cta_catastral      VARCHAR2(20),
+  direccion          VARCHAR2(80) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  val_edilicio       NUMBER(18,2) default 0,
+  val_terreno        NUMBER(18,2) default 0,
+  fec_ult_tasacion   DATE,
+  fec_inicio         DATE,
+  fec_vencimiento    DATE,
+  cod_ent_seguro     NUMBER(5),
+  nro_poliza         VARCHAR2(20),
+  fec_vto_seguro     DATE,
+  serie              VARCHAR2(5),
+  nro_inscripcion    NUMBER(10),
+  nro_folio          NUMBER(5),
+  fec_inscripcion    DATE,
+  val_vta_rapida     NUMBER(18,2) default 0,
+  val_seguro         NUMBER(18,2),
+  cod_ent_tasador    NUMBER(5),
+  tip_vivienda       VARCHAR2(3),
+  fec_fir_escritura  DATE,
+  fec_ini_seguro     DATE,
+  cod_ent_fiduciaria NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_GAR_HIPOTECARIAS
+  is 'Contiene los datos de las Garantías Hipotecarias.';
+comment on column IT.PR_GAR_HIPOTECARIAS.nro_garantia
+  is 'Número de la Garantía.';
+comment on column IT.PR_GAR_HIPOTECARIAS.nro_finca
+  is 'Número de Finca de la Propiedad.';
+comment on column IT.PR_GAR_HIPOTECARIAS.cod_distrito
+  is 'Distrito al que Pertenece la Propiedad.';
+comment on column IT.PR_GAR_HIPOTECARIAS.cta_catastral
+  is 'Cuenta Catastral.';
+comment on column IT.PR_GAR_HIPOTECARIAS.direccion
+  is 'Dirección de la propiedad.';
+comment on column IT.PR_GAR_HIPOTECARIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.val_edilicio
+  is 'Valor Edilicio.';
+comment on column IT.PR_GAR_HIPOTECARIAS.val_terreno
+  is 'Valor del Terreno.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_ult_tasacion
+  is 'Fecha última tasación.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_inicio
+  is 'Fecha Inicial de la Garantía.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_vencimiento
+  is 'Fecha de Vencimiento de la Garantía.';
+comment on column IT.PR_GAR_HIPOTECARIAS.cod_ent_seguro
+  is 'Código de la Aseguradora.';
+comment on column IT.PR_GAR_HIPOTECARIAS.nro_poliza
+  is 'Número de Póliza de Seguro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_vto_seguro
+  is 'Fecha de Vencimiento del Seguro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.serie
+  is 'Serie de la Hipoteca.';
+comment on column IT.PR_GAR_HIPOTECARIAS.nro_inscripcion
+  is 'Número de Inscripción.';
+comment on column IT.PR_GAR_HIPOTECARIAS.nro_folio
+  is 'Número de Folio.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_inscripcion
+  is 'Fecha de Inscripción.';
+comment on column IT.PR_GAR_HIPOTECARIAS.val_vta_rapida
+  is 'Monto de Venta Rápida.';
+comment on column IT.PR_GAR_HIPOTECARIAS.val_seguro
+  is 'Valor del Serguro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.cod_ent_tasador
+  is 'Código de Ente del Tasador.';
+comment on column IT.PR_GAR_HIPOTECARIAS.tip_vivienda
+  is 'Código del Tipo de Vivienda. Corresponde al Dominio TIP_VIVIENDA.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_fir_escritura
+  is 'Fecha de Firma de Escritura del Seguro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.fec_ini_seguro
+  is 'Fecha de Valor del Seguro.';
+comment on column IT.PR_GAR_HIPOTECARIAS.cod_ent_fiduciaria
+  is 'Código de la entidad fiduciaria.';
+create index IT.IN_PGHIP_COD_DISTRITO on IT.PR_GAR_HIPOTECARIAS (COD_DISTRITO, COD_ENT_SEGURO, COD_ENT_TASADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_HIPOTECARIAS
+  add constraint PK_PR_GAR_HIPOTECARIAS primary key (NRO_GARANTIA, NRO_FINCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_GAR_HIPOTECARIAS
+  add constraint FK_PGHIP_COD_DISTRITO foreign key (COD_DISTRITO)
+  references IT.GE_DISTRITOS (COD_DISTRITO);
+alter table IT.PR_GAR_HIPOTECARIAS
+  add constraint FK_PGHIP_COD_ENT_SEGURO foreign key (COD_ENT_SEGURO)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GAR_HIPOTECARIAS
+  add constraint FK_PGHIP_COD_ENT_TASADOR foreign key (COD_ENT_TASADOR)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.PR_GAR_HIPOTECARIAS
+  add constraint FK_PGHIP_NRO_GARANTIA foreign key (NRO_GARANTIA)
+  references IT.PR_GARANTIAS (NRO_GARANTIA);
+alter table IT.PR_GAR_HIPOTECARIAS
+  add constraint AVCON_1083093671_COD_D_001
+  check (COD_DISTRITO BETWEEN 0 AND 999);
+

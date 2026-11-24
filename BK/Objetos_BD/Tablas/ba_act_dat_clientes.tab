@@ -1,0 +1,131 @@
+create table IT.BA_ACT_DAT_CLIENTES
+(
+  id               NUMBER not null,
+  cod_persona      VARCHAR2(10),
+  direccion        VARCHAR2(80),
+  cod_ciudad       NUMBER(3),
+  cod_barrio       NUMBER(4),
+  numero           VARCHAR2(8),
+  edificio         VARCHAR2(35),
+  departamento     VARCHAR2(8),
+  piso             VARCHAR2(8),
+  tel_numero       VARCHAR2(9),
+  tel_area         VARCHAR2(4),
+  tel_tip_linea    VARCHAR2(1),
+  email            VARCHAR2(50),
+  estado           VARCHAR2(1) not null,
+  observacion      VARCHAR2(300),
+  token            VARCHAR2(100),
+  fec_caducidad    DATE,
+  fec_solicitud    DATE not null,
+  fec_confirmacion DATE,
+  fec_migracion    DATE,
+  tip_solicitud    VARCHAR2(1) not null,
+  migrado          VARCHAR2(1) not null,
+  cod_pais         NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BA_ACT_DAT_CLIENTES.id
+  is 'Identificador unico';
+comment on column IT.BA_ACT_DAT_CLIENTES.cod_persona
+  is 'Identificador de cliente en IT';
+comment on column IT.BA_ACT_DAT_CLIENTES.direccion
+  is 'Descripcion de la direccion o calle';
+comment on column IT.BA_ACT_DAT_CLIENTES.cod_ciudad
+  is 'Codigo de la ciudad en ba_ciudades';
+comment on column IT.BA_ACT_DAT_CLIENTES.cod_barrio
+  is 'Codigo de barrios en ba_barrios';
+comment on column IT.BA_ACT_DAT_CLIENTES.numero
+  is 'Numero o altura de la vivienda en la calle';
+comment on column IT.BA_ACT_DAT_CLIENTES.edificio
+  is 'Edificio y bloque o cuerpo';
+comment on column IT.BA_ACT_DAT_CLIENTES.departamento
+  is 'Identificador del departamento';
+comment on column IT.BA_ACT_DAT_CLIENTES.piso
+  is 'Piso del departmento';
+comment on column IT.BA_ACT_DAT_CLIENTES.tel_numero
+  is 'Numero de telefono sin codigo de area';
+comment on column IT.BA_ACT_DAT_CLIENTES.tel_area
+  is 'Codigo de area de telefono';
+comment on column IT.BA_ACT_DAT_CLIENTES.tel_tip_linea
+  is 'Tipo de telefono. B=Linea Baja, C = Celular';
+comment on column IT.BA_ACT_DAT_CLIENTES.email
+  is 'Correo electronico';
+comment on column IT.BA_ACT_DAT_CLIENTES.estado
+  is 'Estado de registro. C-Confirmado, A=Anulado, P=Pendiente, R=Rechazado, E=Error en migracion';
+comment on column IT.BA_ACT_DAT_CLIENTES.observacion
+  is 'Informacion adicional que se requiera agregar';
+comment on column IT.BA_ACT_DAT_CLIENTES.token
+  is 'Token Autogenerado a incluir en url de confirmacion';
+comment on column IT.BA_ACT_DAT_CLIENTES.fec_caducidad
+  is 'Fecha de expiración del token';
+comment on column IT.BA_ACT_DAT_CLIENTES.fec_solicitud
+  is 'Fecha en que se dio de alta la solicitud en la web';
+comment on column IT.BA_ACT_DAT_CLIENTES.fec_confirmacion
+  is 'Fecha de confirmacion de la solicitud';
+comment on column IT.BA_ACT_DAT_CLIENTES.fec_migracion
+  is 'Fecha de migracion a las tablas maestras';
+comment on column IT.BA_ACT_DAT_CLIENTES.tip_solicitud
+  is 'Tipo de Solicitud. A = direccion  T= telefono fijo, E=email, C=celular';
+comment on column IT.BA_ACT_DAT_CLIENTES.migrado
+  is 'S=Migrado en tabla maestra. N = No Migrado';
+comment on column IT.BA_ACT_DAT_CLIENTES.cod_pais
+  is 'Codigo del pais en ba_paises';
+comment on column IT.BA_ACT_DAT_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro';
+comment on column IT.BA_ACT_DAT_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro';
+comment on column IT.BA_ACT_DAT_CLIENTES.usu_modificacion
+  is 'Usuario que  modifico el registro';
+comment on column IT.BA_ACT_DAT_CLIENTES.fec_modificacion
+  is 'Fecha de modificacion del registro';
+create index IT.IND_BADC_FEC_SOLICITUD on IT.BA_ACT_DAT_CLIENTES (FEC_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ACT_DAT_CLIENTES
+  add constraint PK_BA_ACT_DAT_CLIENTES primary key (ID)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_ACT_DAT_CLIENTES
+  add constraint FK_BARRIO foreign key (COD_CIUDAD, COD_BARRIO, COD_PAIS)
+  references IT.BA_BARRIOS (COD_PAIS, COD_CIUDAD, COD_BARRIO);
+alter table IT.BA_ACT_DAT_CLIENTES
+  add constraint FK_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.BA_ACT_DAT_CLIENTES
+  add constraint FK_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

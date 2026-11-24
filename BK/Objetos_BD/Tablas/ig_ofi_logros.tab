@@ -1,0 +1,121 @@
+create table IT.IG_OFI_LOGROS
+(
+  cod_unidad       NUMBER(3) not null,
+  cod_usu_oficial  VARCHAR2(10) not null,
+  cod_concepto     NUMBER(3) not null,
+  cod_sub_concepto NUMBER(4) not null,
+  cod_plazo        NUMBER(3) default 1 not null,
+  cod_periodo      NUMBER(3) not null,
+  monto            NUMBER(18,2) default 0,
+  valor            NUMBER(7,4),
+  cantidad         NUMBER(5),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_OFI_LOGROS
+  is 'Resumen de Logros por Oficial.';
+comment on column IT.IG_OFI_LOGROS.cod_unidad
+  is 'Codigo de la unidad de negocios del oficial.';
+comment on column IT.IG_OFI_LOGROS.cod_usu_oficial
+  is 'Codigo del oficial de cuentas.';
+comment on column IT.IG_OFI_LOGROS.cod_concepto
+  is 'Codigo de Concepto.';
+comment on column IT.IG_OFI_LOGROS.cod_sub_concepto
+  is 'Codigo de Sub-Concepto.';
+comment on column IT.IG_OFI_LOGROS.cod_plazo
+  is 'Codigo de Plazo.';
+comment on column IT.IG_OFI_LOGROS.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_OFI_LOGROS.monto
+  is 'Monto del logro en la moneda de consolidacion.';
+comment on column IT.IG_OFI_LOGROS.valor
+  is 'Valor del logro expresado en Porcentaje.';
+comment on column IT.IG_OFI_LOGROS.cantidad
+  is 'Cantidad.';
+comment on column IT.IG_OFI_LOGROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_OFI_LOGROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_OFI_LOGROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_OFI_LOGROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.IG_OFI_LOGROS.cod_moneda
+  is 'Moneda.';
+comment on column IT.IG_OFI_LOGROS.fecha
+  is 'Fecha del proceso.';
+create index IT.IN_IOLOG_COD_PERIODO on IT.IG_OFI_LOGROS (COD_PERIODO, COD_USU_OFICIAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_IOLOG_FECHA on IT.IG_OFI_LOGROS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_OFI_LOGROS
+  add constraint PK_IG_OFI_LOGROS primary key (FECHA, COD_UNIDAD, COD_USU_OFICIAL, COD_CONCEPTO, COD_SUB_CONCEPTO, COD_PLAZO, COD_PERIODO, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.IG_CONCEPTOS (COD_CONCEPTO);
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_PLAZO foreign key (COD_PLAZO)
+  references IT.IG_PLAZOS (COD_PLAZO);
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_UNIDAD foreign key (COD_UNIDAD)
+  references IT.IG_UNI_NEGOCIOS (COD_UNIDAD);
+alter table IT.IG_OFI_LOGROS
+  add constraint FK_IOLOG_COD_USUARIO foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

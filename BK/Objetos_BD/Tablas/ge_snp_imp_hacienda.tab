@@ -1,0 +1,59 @@
+create table IT.GE_SNP_IMP_HACIENDA
+(
+  cod_impuesto          VARCHAR2(30) not null,
+  cod_msj_swift         NUMBER(3) not null,
+  cod_tip_operacion     VARCHAR2(3) not null,
+  cod_sub_tip_operacion VARCHAR2(3) not null,
+  descripcion           VARCHAR2(60) not null,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion      DATE default SYSDATE,
+  nro_cta_int_bcp       VARCHAR2(34)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_IMP_HACIENDA
+  is 'Registra impuestos definidos por mensajes, tipo y sub tipo de mensaje que serán utilizados en los mensajes de transferencia para el Ministerio de Hacienda.';
+comment on column IT.GE_SNP_IMP_HACIENDA.cod_impuesto
+  is 'Código del Impuesto.';
+comment on column IT.GE_SNP_IMP_HACIENDA.cod_msj_swift
+  is 'Código del mensaje Swift.';
+comment on column IT.GE_SNP_IMP_HACIENDA.cod_tip_operacion
+  is 'Código del tipo de Operación.';
+comment on column IT.GE_SNP_IMP_HACIENDA.cod_sub_tip_operacion
+  is 'Código del sub tipo de Operación.';
+comment on column IT.GE_SNP_IMP_HACIENDA.descripcion
+  is 'Descripción del impuesto.';
+comment on column IT.GE_SNP_IMP_HACIENDA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SNP_IMP_HACIENDA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SNP_IMP_HACIENDA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_SNP_IMP_HACIENDA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_SNP_IMP_HACIENDA
+  add constraint PK_GE_SNP_IMP_HACIENDA primary key (COD_IMPUESTO, COD_MSJ_SWIFT, COD_TIP_OPERACION, COD_SUB_TIP_OPERACION, DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

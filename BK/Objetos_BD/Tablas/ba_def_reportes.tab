@@ -1,0 +1,67 @@
+create table IT.BA_DEF_REPORTES
+(
+  cod_programa     VARCHAR2(30) not null,
+  nro_orden        NUMBER(3) not null,
+  sec_ejecucion    NUMBER(3) not null,
+  descripcion      VARCHAR2(100) not null,
+  negrita          VARCHAR2(1) not null,
+  separador        VARCHAR2(1) not null,
+  sentencia        VARCHAR2(1000) not null,
+  observacion      VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_DEF_REPORTES
+  is 'Lineas de Detalle del Informe de Posición de Cambios Diario.';
+comment on column IT.BA_DEF_REPORTES.cod_programa
+  is 'Código de Programa.';
+comment on column IT.BA_DEF_REPORTES.nro_orden
+  is 'Nro. de Orden de aparición en el Reporte.';
+comment on column IT.BA_DEF_REPORTES.sec_ejecucion
+  is 'Secuencia para la ejecución de las Sentencias.';
+comment on column IT.BA_DEF_REPORTES.descripcion
+  is 'Descripción de la Línea de Detalle a ser desplegada en el reporte.';
+comment on column IT.BA_DEF_REPORTES.negrita
+  is 'Indicador de si el texto irá en negrita.';
+comment on column IT.BA_DEF_REPORTES.separador
+  is 'Indicador de si la línea desplegada deberá contar con una línea separadora a continuación.';
+comment on column IT.BA_DEF_REPORTES.sentencia
+  is 'Sentencia Sql utilizada para el cálculo a ser desplegado en la línea de detalle.';
+comment on column IT.BA_DEF_REPORTES.observacion
+  is 'Observación.';
+comment on column IT.BA_DEF_REPORTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_DEF_REPORTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_DEF_REPORTES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BA_DEF_REPORTES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.BA_DEF_REPORTES
+  add constraint PK_BA_DEF_REPORTES primary key (COD_PROGRAMA, NRO_ORDEN)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,66 @@
+create table IT.GE_EMBARGOS_DET
+(
+  cod_embargo      NUMBER(7) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cotizacion       NUMBER(14,8),
+  mto_embargado    NUMBER(18,2) default 0 not null,
+  mto_mon_cuenta   NUMBER(18,2) default 0 not null,
+  mto_aplicado     NUMBER(18,2),
+  sal_embargo      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EMBARGOS_DET
+  is 'Contiene datos del detalle del embargo de cuentas.';
+comment on column IT.GE_EMBARGOS_DET.cod_embargo
+  is 'Codigo de Embargo.';
+comment on column IT.GE_EMBARGOS_DET.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_EMBARGOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EMBARGOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EMBARGOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EMBARGOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EMBARGOS_DET.cotizacion
+  is 'Cotizacion de la Moneda.';
+comment on column IT.GE_EMBARGOS_DET.mto_embargado
+  is 'Monto Embargado.';
+comment on column IT.GE_EMBARGOS_DET.mto_mon_cuenta
+  is 'Saldo Equivalente.';
+alter table IT.GE_EMBARGOS_DET
+  add constraint PK_GE_EMBARGOS_DET primary key (NRO_CUENTA, COD_EMBARGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EMBARGOS_DET
+  add constraint FK_GEDET_COD_EMBARGO foreign key (COD_EMBARGO)
+  references IT.GE_EMBARGOS (COD_EMBARGO);
+alter table IT.GE_EMBARGOS_DET
+  add constraint FK_GEDET_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

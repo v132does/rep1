@@ -1,0 +1,73 @@
+create table IT.CB_JER_DER_GASTOS
+(
+  cod_area         NUMBER(3) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_direccion    NUMBER(6),
+  des_direccion    VARCHAR2(200),
+  cod_gerencia     NUMBER(6),
+  des_gerencia     VARCHAR2(200),
+  cod_ger_zonal    NUMBER(6),
+  des_ger_zonal    VARCHAR2(120),
+  cod_departamento NUMBER(6),
+  des_departamento VARCHAR2(120),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_JER_DER_GASTOS
+  is 'Tabla que registra la jerarquía de centro de costos por oficina y areá a ser utilizado para los informes.';
+comment on column IT.CB_JER_DER_GASTOS.cod_area
+  is 'Código del Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.CB_JER_DER_GASTOS.cod_direccion
+  is 'Código de la Dirección(Dirección Financiera, etc) al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.des_direccion
+  is 'Descripción de la Dirección(Dirección Financiera, etc) al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.cod_gerencia
+  is 'Código de la Gerencia al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.des_gerencia
+  is 'Descripción de la Gerencia al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.cod_ger_zonal
+  is 'Código de la Gerencia Zonal al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.des_ger_zonal
+  is 'Descripción de la Gerencia Zonal al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.cod_departamento
+  is 'Código del Departamento al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.des_departamento
+  is 'Descripción del Departamento al que pertenece el Centro de Costos.';
+comment on column IT.CB_JER_DER_GASTOS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_JER_DER_GASTOS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_JER_DER_GASTOS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_JER_DER_GASTOS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+alter table IT.CB_JER_DER_GASTOS
+  add constraint PK_CB_JER_DER_GASTOS primary key (COD_AREA, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

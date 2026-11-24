@@ -1,0 +1,47 @@
+create table IT.BA_PER_DOC_CHECKLIST
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_tip_documento VARCHAR2(10) not null,
+  fec_emision       DATE,
+  fec_vencimiento   DATE,
+  estado            VARCHAR2(1),
+  tiene             VARCHAR2(1) default 'N',
+  fec_insercion     DATE default SYSDATE,
+  usu_insercion     VARCHAR2(10) default substr(USER,1,10),
+  fec_modificacion  DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default substr(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BA_PER_DOC_CHECKLIST.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.BA_PER_DOC_CHECKLIST.cod_tip_documento
+  is 'Codigo de Tipo de Documento';
+comment on column IT.BA_PER_DOC_CHECKLIST.fec_emision
+  is 'Fecha de Emision del Documento';
+comment on column IT.BA_PER_DOC_CHECKLIST.fec_vencimiento
+  is 'Fecha de Vencimiento del Documento';
+comment on column IT.BA_PER_DOC_CHECKLIST.estado
+  is 'Estado';
+comment on column IT.BA_PER_DOC_CHECKLIST.tiene
+  is 'S/N';
+alter table IT.BA_PER_DOC_CHECKLIST
+  add constraint PK_BA_PER_DOC_CHECK primary key (COD_PERSONA, COD_TIP_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table IT.BA_PER_DOC_CHECKLIST
+  add constraint FK_ECOCH_COD_TIP_DOCUMENTO foreign key (COD_TIP_DOCUMENTO)
+  references IT.BA_CON_DOC_CHECKLIST (COD_TIP_DOCUMENTO);
+

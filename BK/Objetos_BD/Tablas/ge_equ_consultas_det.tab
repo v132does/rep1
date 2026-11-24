@@ -1,0 +1,37 @@
+create table IT.GE_EQU_CONSULTAS_DET
+(
+  fecha            DATE not null,
+  cod_persona      VARCHAR2(10) not null,
+  nom_campo        VARCHAR2(100) not null,
+  res_consulta     VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQU_CONSULTAS_DET
+  add primary key (FECHA, COD_PERSONA, NOM_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

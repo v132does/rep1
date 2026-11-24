@@ -1,0 +1,27 @@
+create table IT.SIMGIA_HISCHQDEV_BKP
+(
+  bfecdia   VARCHAR2(8),
+  bbcoinf   NUMBER,
+  bcliente  VARCHAR2(10),
+  bctipcta  VARCHAR2(42),
+  bccuenta  VARCHAR2(6),
+  bchqnro   VARCHAR2(40),
+  btipdoc   VARCHAR2(4000),
+  bdocum    VARCHAR2(20),
+  bfecgir   NUMBER,
+  bimporte  NUMBER,
+  bmotivo   VARCHAR2(4000),
+  fecha_his DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

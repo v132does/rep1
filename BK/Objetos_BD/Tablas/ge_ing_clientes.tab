@@ -1,0 +1,70 @@
+create table IT.GE_ING_CLIENTES
+(
+  cod_ing_cliente  NUMBER(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tip_ingreso      NUMBER(5),
+  ran_ingreso      VARCHAR2(15),
+  estado           VARCHAR2(1) default 'P' not null,
+  msg_error        VARCHAR2(500),
+  mon_ingreso      NUMBER(18,2),
+  nro_cuenta       VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  observacion      VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ING_CLIENTES
+  is 'Ingresos salariales de clientes.';
+comment on column IT.GE_ING_CLIENTES.cod_ing_cliente
+  is 'Codigo identificador de la tabla.';
+comment on column IT.GE_ING_CLIENTES.cod_persona
+  is 'Codigo de personas del cliente';
+comment on column IT.GE_ING_CLIENTES.tip_ingreso
+  is 'Tipo de Ingreso ';
+comment on column IT.GE_ING_CLIENTES.ran_ingreso
+  is 'Rango de Ingreso retornado por el servicio.';
+comment on column IT.GE_ING_CLIENTES.estado
+  is 'P-Pendiente, V-Verificado, E-Error, M-Migrado';
+comment on column IT.GE_ING_CLIENTES.msg_error
+  is 'Rango de Ingreso retornado por el servicio.';
+comment on column IT.GE_ING_CLIENTES.mon_ingreso
+  is 'Rango de Ingreso retornado por el servicio.';
+comment on column IT.GE_ING_CLIENTES.nro_cuenta
+  is 'Nro de Cuenta del Cliente';
+comment on column IT.GE_ING_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_ING_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ING_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ING_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_ING_CLIENTES.observacion
+  is 'Observacion.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_ING_CLIENTES
+  add constraint PK_GE_CLI_INGRESOS primary key (COD_ING_CLIENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

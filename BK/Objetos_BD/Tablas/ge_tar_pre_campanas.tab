@@ -1,0 +1,68 @@
+create table IT.GE_TAR_PRE_CAMPANAS
+(
+  cod_per_principal VARCHAR2(10) not null,
+  nro_cta_tarjeta   VARCHAR2(15),
+  nro_cta_prestamo  VARCHAR2(15) not null,
+  mto_prestamo      NUMBER(18,2) default 0 not null,
+  cod_campana       NUMBER(3) not null,
+  fec_inicio        DATE not null,
+  fec_cam_linea     DATE,
+  mto_lin_inicial   NUMBER(18,2),
+  mto_lin_final     NUMBER(18,2),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_TAR_PRE_CAMPANAS.cod_per_principal
+  is 'Código del Cliente principal';
+comment on column IT.GE_TAR_PRE_CAMPANAS.nro_cta_tarjeta
+  is 'Numero de Cuenta Tarjeta';
+comment on column IT.GE_TAR_PRE_CAMPANAS.nro_cta_prestamo
+  is 'Numero de Cuenta Prestamo';
+comment on column IT.GE_TAR_PRE_CAMPANAS.mto_prestamo
+  is 'Monto del prestamo';
+comment on column IT.GE_TAR_PRE_CAMPANAS.cod_campana
+  is 'Código de Campaña por el cual ingresó la operación.';
+comment on column IT.GE_TAR_PRE_CAMPANAS.fec_inicio
+  is 'Fecha de Inicio del Préstamo.';
+comment on column IT.GE_TAR_PRE_CAMPANAS.fec_cam_linea
+  is 'Fecha de Reducción de la linea en ITGF';
+comment on column IT.GE_TAR_PRE_CAMPANAS.mto_lin_inicial
+  is 'Monto de linea inicial';
+comment on column IT.GE_TAR_PRE_CAMPANAS.mto_lin_final
+  is 'Monto de linea final';
+comment on column IT.GE_TAR_PRE_CAMPANAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TAR_PRE_CAMPANAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TAR_PRE_CAMPANAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TAR_PRE_CAMPANAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_TAR_PRE_CAMPANAS
+  add constraint PK_GE_TAR_PRE_CAMPANAS primary key (NRO_CTA_PRESTAMO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

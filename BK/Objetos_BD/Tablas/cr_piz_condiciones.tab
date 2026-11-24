@@ -1,0 +1,52 @@
+create table IT.CR_PIZ_CONDICIONES
+(
+  cod_condicion    NUMBER(5) not null,
+  descripcion      VARCHAR2(80) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observacion      VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PIZ_CONDICIONES
+  is 'Pizarra de Condiciones.';
+comment on column IT.CR_PIZ_CONDICIONES.cod_condicion
+  is 'Condicion para Apertura de Cuentas.';
+comment on column IT.CR_PIZ_CONDICIONES.descripcion
+  is 'Descripcion de la Condicion.';
+comment on column IT.CR_PIZ_CONDICIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PIZ_CONDICIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PIZ_CONDICIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_CONDICIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_CONDICIONES.observacion
+  is 'Observaciones.';
+alter table IT.CR_PIZ_CONDICIONES
+  add constraint PK_CR_PIZ_CONDICIONES primary key (COD_CONDICION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

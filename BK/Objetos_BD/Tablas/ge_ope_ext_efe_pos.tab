@@ -1,0 +1,116 @@
+create table IT.GE_OPE_EXT_EFE_POS
+(
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  hor_referencia   VARCHAR2(8),
+  nro_transaccion  NUMBER(15),
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_tra_padre    NUMBER(4),
+  cod_persona      VARCHAR2(10),
+  nro_cta_cre      VARCHAR2(15),
+  nro_cta_deb      VARCHAR2(15),
+  monto            NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  extornado        VARCHAR2(1),
+  nro_tra_compra   NUMBER(15),
+  mto_compra       NUMBER(18,2),
+  fec_valor        DATE,
+  negocio          VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_OPE_EXT_EFE_POS
+  is 'Log operaciones de Extracción de Efectivo por POS.';
+comment on column IT.GE_OPE_EXT_EFE_POS.fecha
+  is 'Fecha.';
+comment on column IT.GE_OPE_EXT_EFE_POS.hora
+  is 'Hora.';
+comment on column IT.GE_OPE_EXT_EFE_POS.hor_referencia
+  is 'Hora Referencia.';
+comment on column IT.GE_OPE_EXT_EFE_POS.nro_transaccion
+  is 'Nro. Transacción.';
+comment on column IT.GE_OPE_EXT_EFE_POS.cod_mod_padre
+  is 'Cód. Módulo Padre.';
+comment on column IT.GE_OPE_EXT_EFE_POS.cod_mad_padre
+  is 'Cód. Modalidad Padre.';
+comment on column IT.GE_OPE_EXT_EFE_POS.cod_tra_padre
+  is 'Cód. Transacción Padre.';
+comment on column IT.GE_OPE_EXT_EFE_POS.cod_persona
+  is 'Cod. Persona.';
+comment on column IT.GE_OPE_EXT_EFE_POS.nro_cta_cre
+  is 'Nro. Cuenta Crédito.';
+comment on column IT.GE_OPE_EXT_EFE_POS.nro_cta_deb
+  is 'Nro. Cuenta Débito.';
+comment on column IT.GE_OPE_EXT_EFE_POS.monto
+  is 'Monto.';
+comment on column IT.GE_OPE_EXT_EFE_POS.cod_moneda
+  is 'Cod Moneda.';
+comment on column IT.GE_OPE_EXT_EFE_POS.extornado
+  is 'Extornado S/N.';
+comment on column IT.GE_OPE_EXT_EFE_POS.nro_tra_compra
+  is 'Nro. Transacción de la Compra.';
+comment on column IT.GE_OPE_EXT_EFE_POS.mto_compra
+  is 'Monto de la Compra';
+comment on column IT.GE_OPE_EXT_EFE_POS.fec_valor
+  is 'Fecha Real.';
+comment on column IT.GE_OPE_EXT_EFE_POS.negocio
+  is 'Negocio.';
+comment on column IT.GE_OPE_EXT_EFE_POS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_OPE_EXT_EFE_POS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_OPE_EXT_EFE_POS.usu_modificacion
+  is 'Usuario de Modificacion.';
+comment on column IT.GE_OPE_EXT_EFE_POS.fec_modificacion
+  is 'Fecha de Modificacion.';
+create index IT.ID_GMOEP_FECHA on IT.GE_OPE_EXT_EFE_POS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ID_GMOEP_NRO_CTA_CRE on IT.GE_OPE_EXT_EFE_POS (NRO_CTA_CRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ID_GMOEP_NRO_TRANSACCION on IT.GE_OPE_EXT_EFE_POS (FECHA, NRO_TRANSACCION, NRO_CTA_CRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

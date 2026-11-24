@@ -1,0 +1,162 @@
+create table IT.GE_AST_TRANSACCIONES
+(
+  cod_ast_transaccion NUMBER(8) not null,
+  cod_transaccion     NUMBER(4),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  descripcion         VARCHAR2(60),
+  tipo                VARCHAR2(1),
+  ind_monitoreo       VARCHAR2(1),
+  cod_gru_transaccion VARCHAR2(10),
+  usu_insercion       VARCHAR2(10),
+  fec_insercion       DATE,
+  usu_modificacion    VARCHAR2(10),
+  fec_modificacion    DATE,
+  fec_envio           DATE,
+  cod_tra_padre       NUMBER(4),
+  cod_mad_padre       NUMBER(3),
+  cod_mod_padre       NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AST_TRANSACCIONES
+  is 'Tabla de equivalencia de las trancciones para ASSITS';
+comment on column IT.GE_AST_TRANSACCIONES.cod_ast_transaccion
+  is 'Codigo de la transaccion en el ASSIST';
+comment on column IT.GE_AST_TRANSACCIONES.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_AST_TRANSACCIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_AST_TRANSACCIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_AST_TRANSACCIONES.descripcion
+  is 'Nombre de la transaccion.';
+comment on column IT.GE_AST_TRANSACCIONES.tipo
+  is 'Tipo de transaccion. Define en que forma afecta en la operacion.';
+comment on column IT.GE_AST_TRANSACCIONES.ind_monitoreo
+  is 'Indicador que verifica si se realiza o no el monitoreo.';
+comment on column IT.GE_AST_TRANSACCIONES.cod_gru_transaccion
+  is 'Código de Grupo de Transacción.';
+comment on column IT.GE_AST_TRANSACCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_AST_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_AST_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AST_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AST_TRANSACCIONES.fec_envio
+  is 'Fecha de envio a ASSIST.';
+create index IT.IN_GEAST_COD_MAD_PADRE on IT.GE_AST_TRANSACCIONES (COD_MAD_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEAST_COD_MODALIDAD on IT.GE_AST_TRANSACCIONES (COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEAST_COD_MOD_PADRE on IT.GE_AST_TRANSACCIONES (COD_MOD_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEAST_COD_MODULO on IT.GE_AST_TRANSACCIONES (COD_MODULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEAST_COD_TRANSACCION on IT.GE_AST_TRANSACCIONES (COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEAST_COD_TRA_PADRE on IT.GE_AST_TRANSACCIONES (COD_TRA_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AST_TRANSACCIONES
+  add constraint PK_GE_AST_TRANSACCIONES primary key (COD_AST_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AST_TRANSACCIONES
+  add constraint UK_GTAST_COD_TRANSACCION unique (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, COD_TRA_PADRE, COD_MAD_PADRE, COD_MOD_PADRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AST_TRANSACCIONES
+  add constraint FK_GTRAN_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

@@ -1,0 +1,26 @@
+create table IT.LC_ARM_MSJ_SWIFT_TMP
+(
+  nro_ref_externa VARCHAR2(20),
+  msj_swift       VARCHAR2(4000),
+  cod_msj_swift   VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_ARM_MSJ_SWIFT_TMP
+  is 'Mensajes SWIFT armados leidos de la tabla LC_MSJ_SWIFT_TMP';
+comment on column IT.LC_ARM_MSJ_SWIFT_TMP.nro_ref_externa
+  is 'Numero de referencia externa que identifica a la transferencia en el swift.';
+comment on column IT.LC_ARM_MSJ_SWIFT_TMP.msj_swift
+  is 'Mensaje original enviado al swift.';
+comment on column IT.LC_ARM_MSJ_SWIFT_TMP.cod_msj_swift
+  is 'Codigo de mensaje para envio al swift.';
+

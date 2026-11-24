@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_OPE_HOMEBANKING
+minvalue 1
+maxvalue 9999999999
+start with 12776658
+increment by 1
+nocache
+cycle;
+

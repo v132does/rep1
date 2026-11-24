@@ -1,0 +1,6 @@
+﻿BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:=1; END;
+/
+insert into ba_par_consultas (COD_CONSULTA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO, PER_FIL_RANGO)
+values ('CD_AUT_UMB', 'USUARIO', 'g', null, 'F', 'IT', to_date('27-03-2026 11:06:58', 'dd-mm-yyyy hh24:mi:ss'), 'IT', to_date('27-03-2026 11:06:58', 'dd-mm-yyyy hh24:mi:ss'), 5, 'V', 'S', 'N', 'S');
+
+

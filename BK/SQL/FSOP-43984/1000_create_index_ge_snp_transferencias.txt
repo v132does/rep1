@@ -1,0 +1,15 @@
+create index IT.IN_GSTRA_COD_PER_BENEFICIARIO ON IT.GE_SNP_TRANSFERENCIAS (TO_NUMBER(CASE WHEN fec_recepcion IS NULL THEN cod_per_solicitante ELSE cod_per_beneficiario END)) ONLINE
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  LOCAL 
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

@@ -1,0 +1,42 @@
+create table IT.MD_GARANTIAS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_garantia     NUMBER(7) not null,
+  cod_garantia     NUMBER(3) not null,
+  monto            NUMBER(18,2),
+  observacion      VARCHAR2(500),
+  usu_insercion    VARCHAR2(10),
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  fec_insercion    DATE,
+  cod_moneda       VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_GARANTIAS
+  add constraint MGARA_PK primary key (NRO_CUENTA, NRO_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_GARANTIAS
+  add constraint MGARA_MCDOC_FK foreign key (NRO_CUENTA)
+  references IT.MD_CTA_DOCUMENTOS (NRO_CUENTA);
+

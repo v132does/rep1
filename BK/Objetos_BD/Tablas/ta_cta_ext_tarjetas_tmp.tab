@@ -1,0 +1,35 @@
+create table IT.TA_CTA_EXT_TARJETAS_TMP
+(
+  cod_entidad       NUMBER(3),
+  nro_cuenta        NUMBER(11),
+  cod_moneda        NUMBER(3),
+  cod_tip_cargo     NUMBER(3),
+  usu_actualizacion VARCHAR2(10),
+  impuesto          CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CTA_EXT_TARJETAS_TMP
+  is 'Tabla de Cuentas Extraordinarias de Tarjetas.';
+comment on column IT.TA_CTA_EXT_TARJETAS_TMP.cod_entidad
+  is 'El código de la entidad.';
+comment on column IT.TA_CTA_EXT_TARJETAS_TMP.nro_cuenta
+  is 'El número de la cuenta.';
+comment on column IT.TA_CTA_EXT_TARJETAS_TMP.cod_moneda
+  is 'El código de moneda.';
+comment on column IT.TA_CTA_EXT_TARJETAS_TMP.cod_tip_cargo
+  is 'El código del tipo de cargo';
+comment on column IT.TA_CTA_EXT_TARJETAS_TMP.usu_actualizacion
+  is 'El usuario que ingresó la última actualización.';
+comment on column IT.TA_CTA_EXT_TARJETAS_TMP.impuesto
+  is 'Impuesto.';
+

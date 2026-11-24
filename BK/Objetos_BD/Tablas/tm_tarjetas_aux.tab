@@ -1,0 +1,40 @@
+create table IT.TM_TARJETAS_AUX
+(
+  nro_cuenta  VARCHAR2(15) not null,
+  nro_tarjeta VARCHAR2(25) not null,
+  problema    VARCHAR2(40)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_TARJETAS_AUX
+  is 'Tabla de tarjetas de creditos con problemas.';
+comment on column IT.TM_TARJETAS_AUX.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.TM_TARJETAS_AUX.nro_tarjeta
+  is 'Nro. de Tarjeta.';
+comment on column IT.TM_TARJETAS_AUX.problema
+  is 'Descripcion del problema.';
+alter table IT.TM_TARJETAS_AUX
+  add constraint PK_TM_TARJETAS_AUX primary key (NRO_CUENTA, NRO_TARJETA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

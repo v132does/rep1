@@ -1,0 +1,69 @@
+create table IT.TA_CON_BCD_DETALLE
+(
+  nro_mov_bancard  NUMBER(15) not null,
+  cod_gru_servicio NUMBER(3),
+  cod_transaccion  NUMBER(3),
+  fec_valor        DATE,
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  fec_transaccion  DATE,
+  hor_transaccion  VARCHAR2(8),
+  cod_ent_credito  NUMBER(5),
+  cod_ent_debito   NUMBER(5),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_CON_BCD_DETALLE.nro_mov_bancard
+  is 'Número de movimiento o boleta de BANCARD.';
+comment on column IT.TA_CON_BCD_DETALLE.cod_gru_servicio
+  is 'Código de Agrupación de Servicio (01 = POS, 02 = ATM, 03 = TIC, 04 = TC).';
+comment on column IT.TA_CON_BCD_DETALLE.cod_transaccion
+  is 'Código de Transacción de la operación.';
+comment on column IT.TA_CON_BCD_DETALLE.fec_valor
+  is 'Fecha valor de la operación.';
+comment on column IT.TA_CON_BCD_DETALLE.cod_moneda
+  is 'Código de Moneda de la operación.';
+comment on column IT.TA_CON_BCD_DETALLE.monto
+  is 'Importe de la operación.';
+comment on column IT.TA_CON_BCD_DETALLE.fec_transaccion
+  is 'Fecha de la transacción.';
+comment on column IT.TA_CON_BCD_DETALLE.hor_transaccion
+  is 'Hora de la transacción.';
+comment on column IT.TA_CON_BCD_DETALLE.cod_ent_credito
+  is 'Código de la Entidad Crédito.';
+comment on column IT.TA_CON_BCD_DETALLE.cod_ent_debito
+  is 'Código de la Entidad Débito.';
+comment on column IT.TA_CON_BCD_DETALLE.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_CON_BCD_DETALLE.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_CON_BCD_DETALLE.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.TA_CON_BCD_DETALLE.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+create index IT.IN_TCBDE_FEC_VALOR on IT.TA_CON_BCD_DETALLE (FEC_VALOR, NRO_MOV_BANCARD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

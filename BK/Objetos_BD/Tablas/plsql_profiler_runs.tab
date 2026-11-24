@@ -1,0 +1,40 @@
+create table IT.PLSQL_PROFILER_RUNS
+(
+  runid           NUMBER not null,
+  related_run     NUMBER,
+  run_owner       VARCHAR2(32),
+  run_date        DATE,
+  run_comment     VARCHAR2(2047),
+  run_total_time  NUMBER,
+  run_system_info VARCHAR2(2047),
+  run_comment1    VARCHAR2(2047),
+  spare1          VARCHAR2(256)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PLSQL_PROFILER_RUNS
+  is 'Run-specific information for the PL/SQL profiler.';
+alter table IT.PLSQL_PROFILER_RUNS
+  add primary key (RUNID)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

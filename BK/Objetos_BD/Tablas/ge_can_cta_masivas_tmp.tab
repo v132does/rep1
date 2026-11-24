@@ -1,0 +1,41 @@
+create table IT.GE_CAN_CTA_MASIVAS_TMP
+(
+  cliente    VARCHAR2(120),
+  nro_cedula VARCHAR2(20),
+  nro_cuenta VARCHAR2(15),
+  direccion  VARCHAR2(100),
+  nro_casa   VARCHAR2(8),
+  barrio     VARCHAR2(50),
+  localidad  VARCHAR2(50),
+  telefono   VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CAN_CTA_MASIVAS_TMP
+  is 'Temporal Cancelación de Cuentas Masivas';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.cliente
+  is 'Nombre y Apellido del Cliente.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.nro_cedula
+  is 'Número de Documento.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.direccion
+  is 'Dirección de la persona.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.nro_casa
+  is 'Número de casa.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.barrio
+  is 'Descripción del Barrio.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.localidad
+  is 'Ciudad.';
+comment on column IT.GE_CAN_CTA_MASIVAS_TMP.telefono
+  is 'Número de Teléfono.';
+

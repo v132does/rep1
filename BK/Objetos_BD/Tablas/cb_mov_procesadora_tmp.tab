@@ -1,0 +1,65 @@
+create table IT.CB_MOV_PROCESADORA_TMP
+(
+  nro_cuenta     VARCHAR2(15),
+  adherente      NUMBER(2),
+  emision        NUMBER(2),
+  nom_entidad    VARCHAR2(26),
+  nom_cliente    VARCHAR2(35),
+  ban_credito    NUMBER(3),
+  nro_atm_caja   NUMBER(4),
+  nom_comercio   VARCHAR2(26),
+  monto          NUMBER(18,2),
+  cod_moneda     VARCHAR2(3),
+  fecha          DATE,
+  hora           VARCHAR2(8),
+  cod_respuesta  NUMBER(2),
+  ind_conclusion VARCHAR2(1),
+  nro_referencia NUMBER(10),
+  raz_social     VARCHAR2(26),
+  cod_operacion  NUMBER(2),
+  des_operacion  VARCHAR2(40),
+  est_conciliado VARCHAR2(1),
+  mes            NUMBER(2),
+  ano            NUMBER(4),
+  ubicacion      VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_MOV_PROCESADORA_TMP.est_conciliado
+  is 'S=Si Encontrado.';
+comment on column IT.CB_MOV_PROCESADORA_TMP.ubicacion
+  is 'Lugar donde fue ubicado.';
+create index IT.IN_CBPRO_ANO2 on IT.CB_MOV_PROCESADORA_TMP (ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CBPRO_NRO_REFERENCIA2 on IT.CB_MOV_PROCESADORA_TMP (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

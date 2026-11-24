@@ -1,0 +1,109 @@
+create table IT.GE_ENV_PAG_PROVEEDORES_TMP
+(
+  codigo                   NUMBER(18) not null,
+  cod_ente                 VARCHAR2(20),
+  beneficiario             VARCHAR2(120),
+  fec_pago                 VARCHAR2(12),
+  fec_ingreso              VARCHAR2(12),
+  cta_debito               VARCHAR2(20),
+  cta_credito              VARCHAR2(20),
+  monto                    NUMBER(18,2),
+  cod_moneda               VARCHAR2(3),
+  nro_factura              VARCHAR2(20),
+  nro_operacion            VARCHAR2(20),
+  for_pago                 VARCHAR2(32),
+  cod_tip_doc_beneficiario VARCHAR2(3),
+  nro_doc_beneficiario     VARCHAR2(20),
+  bco_beneficiario         VARCHAR2(20),
+  nro_cta_beneficiario     VARCHAR2(35),
+  ind_valor                VARCHAR2(1),
+  concepto                 VARCHAR2(35),
+  nro_identificador        VARCHAR2(18),
+  nro_lote                 VARCHAR2(12),
+  canal                    VARCHAR2(12),
+  nro_tra_sipap            VARCHAR2(15),
+  est_pag_otr_banco        VARCHAR2(20),
+  mot_rechazo              VARCHAR2(30),
+  ref_facturas             VARCHAR2(1000),
+  tip_rechazo              VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ENV_PAG_PROVEEDORES_TMP
+  is 'Tabla temporal utilizada en prg_env_pag_proveedores.';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.codigo
+  is 'Codigo';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.cod_ente
+  is 'Codigo de Ente';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.beneficiario
+  is 'Beneficiario';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.fec_pago
+  is 'Fecha de Pago';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.fec_ingreso
+  is 'Fecha de Ingreso';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.cta_debito
+  is 'Cta.Debito';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.cta_credito
+  is 'Cta.Credito';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.monto
+  is 'Monto';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_factura
+  is 'Nro. Factura';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_operacion
+  is 'Nro.Operacion';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.for_pago
+  is 'Forma de Pago';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.cod_tip_doc_beneficiario
+  is 'Cod.Tip.Doc.Beneficiario';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_doc_beneficiario
+  is 'Nro.Doc.Beneficiario';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.bco_beneficiario
+  is 'Bco.Beneficiario';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_cta_beneficiario
+  is 'Nro.Cta.Beneficiario';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.ind_valor
+  is 'Indica Valor(A/B)';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.concepto
+  is 'Concepto';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_identificador
+  is 'Nro.Operacion';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_lote
+  is 'Nro.Lote';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.canal
+  is 'Canal';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.nro_tra_sipap
+  is 'Nro.Transf.Sipap';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.est_pag_otr_banco
+  is 'Estado de Pago Otro Banco';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.mot_rechazo
+  is 'Motivo de Rechazo';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.ref_facturas
+  is 'Referencia Facturas';
+comment on column IT.GE_ENV_PAG_PROVEEDORES_TMP.tip_rechazo
+  is 'Tipo de Rechazo';
+alter table IT.GE_ENV_PAG_PROVEEDORES_TMP
+  add constraint PK_GE_PAG_PROV_TMP primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

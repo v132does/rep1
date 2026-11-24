@@ -1,0 +1,114 @@
+create table IT.IG_UNI_NEGOCIOS
+(
+  cod_unidad          NUMBER(3) not null,
+  descripcion         VARCHAR2(60) not null,
+  cod_oficina         NUMBER(3),
+  cod_banca           NUMBER(3),
+  cod_usu_responsable VARCHAR2(10),
+  sigla               VARCHAR2(3),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  ofi_dependientes    VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_UNI_NEGOCIOS
+  is 'Unidades de Negocios (agrupador de oficinas, areas, etc.).';
+comment on column IT.IG_UNI_NEGOCIOS.cod_unidad
+  is 'Codigo de unidad de negocios.';
+comment on column IT.IG_UNI_NEGOCIOS.descripcion
+  is 'Nombre de la unidad de negocios.';
+comment on column IT.IG_UNI_NEGOCIOS.cod_oficina
+  is 'Codigo de oficina cabecera o principal.';
+comment on column IT.IG_UNI_NEGOCIOS.cod_banca
+  is 'Codigo del area.';
+comment on column IT.IG_UNI_NEGOCIOS.cod_usu_responsable
+  is 'Responsable de la unidad.';
+comment on column IT.IG_UNI_NEGOCIOS.sigla
+  is 'Sigla de la unidad.';
+comment on column IT.IG_UNI_NEGOCIOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.IG_UNI_NEGOCIOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.IG_UNI_NEGOCIOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.IG_UNI_NEGOCIOS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.IG_UNI_NEGOCIOS.ofi_dependientes
+  is 'Codigo de las oficinas, separadas por comas, que dependen de la oficina cabecera.';
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint PK_IG_UNI_NEGOCIOS primary key (COD_UNIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint UK_IUNEG_COD_BANCA unique (COD_BANCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint UK_IUNEG_COD_OFICINA unique (COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint FK_IUNEG_COD_BANCA foreign key (COD_BANCA)
+  references IT.GE_BANCAS (COD_BANCA);
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint FK_IUNEG_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint FK_IUNEG_COD_USU_RESPONSABLE foreign key (COD_USU_RESPONSABLE)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint AVCON_1077111597_COD_A_002
+  check (COD_BANCA BETWEEN 1 AND 999);
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint AVCON_1077111597_COD_O_004
+  check (COD_OFICINA BETWEEN 1 AND 999);
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint AVCON_1180382030_COD_U_003
+  check (COD_UNIDAD BETWEEN 0 AND 999);
+alter table IT.IG_UNI_NEGOCIOS
+  add constraint CK_IUNEG_OFI_BANCA
+  check (((COD_OFICINA IS NOT NULL
+AND COD_BANCA IS NULL) OR (COD_OFICINA IS NULL AND COD_BANCA IS NOT NULL)) or cod_unidad = 999);
+

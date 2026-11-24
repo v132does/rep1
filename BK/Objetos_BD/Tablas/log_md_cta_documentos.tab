@@ -1,0 +1,32 @@
+create table IT.LOG_MD_CTA_DOCUMENTOS
+(
+  titulo      VARCHAR2(100),
+  cupon       NUMBER(10),
+  mto_interes NUMBER(18,2),
+  sum_interes NUMBER(18,2),
+  mensaje     VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LOG_MD_CTA_DOCUMENTOS
+  is 'Log de Proceso Automático - Carga Cta Documentos - Mesa Dinero';
+comment on column IT.LOG_MD_CTA_DOCUMENTOS.titulo
+  is 'Número de Titulo del Documento.';
+comment on column IT.LOG_MD_CTA_DOCUMENTOS.cupon
+  is 'Número de Cupón.';
+comment on column IT.LOG_MD_CTA_DOCUMENTOS.mto_interes
+  is 'Monto del Interés.';
+comment on column IT.LOG_MD_CTA_DOCUMENTOS.sum_interes
+  is 'Sumatoria de los Valores Presentes de los Cupones.';
+comment on column IT.LOG_MD_CTA_DOCUMENTOS.mensaje
+  is 'Mensaje de Error.';
+

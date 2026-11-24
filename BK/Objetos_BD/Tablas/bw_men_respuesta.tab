@@ -1,0 +1,50 @@
+create table IT.BW_MEN_RESPUESTA
+(
+  nombre           VARCHAR2(25) not null,
+  des_mensaje      VARCHAR2(200),
+  error            VARCHAR2(1) default 'N',
+  fec_insercion    DATE default sysdate not null,
+  usu_insercion    VARCHAR2(10) default substr(USER,0,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(USER,0,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_MEN_RESPUESTA.nombre
+  is 'Nombre del Mensaje';
+comment on column IT.BW_MEN_RESPUESTA.des_mensaje
+  is 'Texto del mensaje';
+comment on column IT.BW_MEN_RESPUESTA.error
+  is 'S indica que es un mensaje de error';
+comment on column IT.BW_MEN_RESPUESTA.fec_insercion
+  is 'Fecha en que se realizó la inserción del registro';
+comment on column IT.BW_MEN_RESPUESTA.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BW_MEN_RESPUESTA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+comment on column IT.BW_MEN_RESPUESTA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+alter table IT.BW_MEN_RESPUESTA
+  add constraint BW_BEN_MENSAJES_PK primary key (NOMBRE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

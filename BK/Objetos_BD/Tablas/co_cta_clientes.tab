@@ -1,0 +1,58 @@
+create table IT.CO_CTA_CLIENTES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  relacion         VARCHAR2(3) not null,
+  secuencia        NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_CTA_CLIENTES
+  is 'Relación entre Cuentas y Personas.';
+comment on column IT.CO_CTA_CLIENTES.cod_persona
+  is 'Código de Persona.';
+comment on column IT.CO_CTA_CLIENTES.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.CO_CTA_CLIENTES.relacion
+  is 'Relación entre las Persona y la Cuenta (T=Titular, A=Avalista).';
+comment on column IT.CO_CTA_CLIENTES.secuencia
+  is 'Secuencia de la Relación.';
+comment on column IT.CO_CTA_CLIENTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CO_CTA_CLIENTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CO_CTA_CLIENTES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CO_CTA_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CO_CTA_CLIENTES
+  add constraint PK_CO_CTA_CLIENTES primary key (COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_CTA_CLIENTES
+  add constraint FK_OCCLI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

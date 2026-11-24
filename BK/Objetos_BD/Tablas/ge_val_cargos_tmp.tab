@@ -1,0 +1,40 @@
+create table IT.GE_VAL_CARGOS_TMP
+(
+  fecha            DATE,
+  cod_oficina      NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_transaccion  NUMBER(4),
+  cod_tas_cargo    NUMBER(3),
+  val_tas_cargo    NUMBER(20,4),
+  val_cargo        NUMBER(20,4),
+  cod_tra_impuesto NUMBER(4),
+  cod_tas_impuesto NUMBER(3),
+  val_tas_impuesto NUMBER(20,4),
+  val_impuesto     NUMBER(20,4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GEVALCAR on IT.GE_VAL_CARGOS_TMP (FECHA, COD_MONEDA, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,34 @@
+create table IT.SIMGIA_ARCAJASEG_BKP
+(
+  rnumero   VARCHAR2(5),
+  rtamano   VARCHAR2(1),
+  restado   VARCHAR2(1),
+  rtitular  VARCHAR2(4000),
+  rdirecc   VARCHAR2(4000),
+  rlocali   CHAR(1),
+  rtelefo   VARCHAR2(10),
+  robserv   CHAR(1),
+  rfchini   NUMBER,
+  rfchup    NUMBER,
+  rfchvto   NUMBER,
+  rctaofi   NUMBER,
+  rcuenta   NUMBER,
+  rsubcta   NUMBER,
+  rforpag   VARCHAR2(1),
+  roprdor   VARCHAR2(10),
+  rfumodi   NUMBER,
+  rcliente  NUMBER,
+  fecha_his DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

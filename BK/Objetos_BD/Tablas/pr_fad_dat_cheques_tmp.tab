@@ -1,0 +1,95 @@
+create table IT.PR_FAD_DAT_CHEQUES_TMP
+(
+  nro_solicitud      NUMBER(7),
+  nro_cuota          NUMBER(3),
+  cod_banco          NUMBER(3),
+  nro_cheque         NUMBER(15),
+  cta_libradora      VARCHAR2(20),
+  monto              NUMBER(18,2) default 0,
+  fec_emision        DATE,
+  fec_vencimiento    DATE,
+  abr_tip_documento1 VARCHAR2(4),
+  nro_documento1     VARCHAR2(20),
+  nom_completo1      VARCHAR2(120),
+  ape_completo1      VARCHAR2(120),
+  abr_tip_documento2 VARCHAR2(4),
+  nro_documento2     VARCHAR2(20),
+  nom_completo2      VARCHAR2(120),
+  ape_completo2      VARCHAR2(120),
+  abr_tip_documento3 VARCHAR2(4),
+  nro_documento3     VARCHAR2(20),
+  nom_completo3      VARCHAR2(120),
+  ape_completo3      VARCHAR2(120),
+  fec_deposito       DATE,
+  observacion        VARCHAR2(200),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_FAD_DAT_CHEQUES_TMP
+  is 'Datos temporales de cheques recibidos para descuentos.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nro_cuota
+  is 'Número de cuota.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.cod_banco
+  is 'Código de banco.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.cta_libradora
+  is 'Cuenta libradora.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.monto
+  is 'Importe del cheque.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.fec_emision
+  is 'Fecha de emisión.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.fec_vencimiento
+  is 'Fecha de vencimiento del cheque.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.abr_tip_documento1
+  is 'Abreviatura de Tipo de Documento.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nro_documento1
+  is 'Documento del primer firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nom_completo1
+  is 'Nombre del primer firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.ape_completo1
+  is 'Apellido del primer firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.abr_tip_documento2
+  is 'Abreviatura de Tipo de Documento.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nro_documento2
+  is 'Documento del segundo firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nom_completo2
+  is 'Nombre del segundo firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.ape_completo2
+  is 'Apellido del segundo firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.abr_tip_documento3
+  is 'Abreviatura de Tipo de Documento.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nro_documento3
+  is 'Documento del tercer firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.nom_completo3
+  is 'Nombre del tercer firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.ape_completo3
+  is 'Apellido del tercer firmante.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.fec_deposito
+  is 'Fecha de depósito.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.observacion
+  is 'Observaciones.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_FAD_DAT_CHEQUES_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

@@ -1,0 +1,300 @@
+create table IT.TA_MOV_LIQ_DET
+(
+  nro_mov_liq              NUMBER(18),
+  tip_registro             NUMBER(1),
+  nro_tarjeta              VARCHAR2(16),
+  cod_marca                VARCHAR2(5),
+  cod_ent_emisora          VARCHAR2(5),
+  cod_sucursal             VARCHAR2(5),
+  nro_cuenta               VARCHAR2(10),
+  tip_socio                VARCHAR2(2),
+  gru_cta_corriente        VARCHAR2(3),
+  tip_transaccion          VARCHAR2(3),
+  nro_comercio             VARCHAR2(15),
+  nom_fan_comercio         VARCHAR2(22),
+  cod_pos_comercio         VARCHAR2(10),
+  cod_autorizacion         VARCHAR2(6),
+  ica_adquirente           VARCHAR2(11),
+  cod_movimiento           VARCHAR2(5),
+  des_movimiento           VARCHAR2(30),
+  comprobante              VARCHAR2(23),
+  tip_plan                 VARCHAR2(2),
+  pla_cuotas               VARCHAR2(3),
+  nro_cuo_vigente          VARCHAR2(3),
+  fec_operacion            DATE,
+  hor_operacion            VARCHAR2(8),
+  fec_presentacion         DATE,
+  fec_cie_cta_corriente    DATE,
+  fec_clearing             DATE,
+  fec_diferimiento         DATE,
+  mcc                      VARCHAR2(5),
+  cod_moneda               VARCHAR2(3),
+  imp_mon_movimiento       NUMBER(20,4),
+  cod_mon_original         VARCHAR2(3),
+  imp_mon_original         NUMBER(20,4),
+  imp_interes              NUMBER(20,4),
+  imp_iva                  NUMBER(20,4),
+  imp_tot_movimiento       NUMBER(20,4),
+  imp_des_fin_otorgado     NUMBER(20,4),
+  imp_des_fin_otorgado_iva NUMBER(20,4),
+  imp_cuota                NUMBER(20,4),
+  imp_int_cuota            NUMBER(20,4),
+  imp_iva_cuota            NUMBER(20,4),
+  imp_tot_cuota            NUMBER(20,4),
+  debcred                  VARCHAR2(1),
+  tip_amortizacion         VARCHAR2(1),
+  can_anticipada           VARCHAR2(1),
+  tna                      NUMBER(14,5),
+  tea                      NUMBER(14,5),
+  tas_intercambio          NUMBER(14,5),
+  ara_emisor               NUMBER(13,4),
+  sig_arancel              VARCHAR2(1),
+  iva_ara_emisor           NUMBER(13,4),
+  sig_iva_arancel          VARCHAR2(1),
+  mot_mensaje              VARCHAR2(4),
+  imp_compensacion         NUMBER(20,4),
+  sig_imp_compensacion     VARCHAR2(1),
+  imp_per_rg4240           NUMBER(20,4),
+  sig_imp_per_rg4240       VARCHAR2(1),
+  mon_compensacion         VARCHAR2(3),
+  tip_tarjeta              NUMBER(1),
+  filler                   VARCHAR2(15),
+  procesado                VARCHAR2(1),
+  error                    VARCHAR2(500),
+  fec_proceso              DATE default TRUNC(SYSDATE),
+  cod_usuario              VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_LIQ_DET
+  is 'Detalle para importacion de archivo T2010S de GP.';
+comment on column IT.TA_MOV_LIQ_DET.tip_registro
+  is '2 - Detalle
+';
+comment on column IT.TA_MOV_LIQ_DET.nro_tarjeta
+  is 'Número de la Tarjeta
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_marca
+  is 'Código de Marca
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_ent_emisora
+  is 'Código asignado a la Entidad Otorgante.
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_sucursal
+  is 'Código asignado a la Sucursal
+';
+comment on column IT.TA_MOV_LIQ_DET.nro_cuenta
+  is 'Número de cuenta
+';
+comment on column IT.TA_MOV_LIQ_DET.tip_socio
+  is 'Tipo de socio
+';
+comment on column IT.TA_MOV_LIQ_DET.gru_cta_corriente
+  is 'Grupo de Cuenta Corriente del socio.
+';
+comment on column IT.TA_MOV_LIQ_DET.tip_transaccion
+  is 'Tipo de aplicación
+0: consumo  1 cuotas
+2: consumo en cuotas
+3: cobranzas
+1: adelanto
+8: adelanto en cuotas
+4: Devolución movimiento contado
+5: Devolución movimiento en cuotas';
+comment on column IT.TA_MOV_LIQ_DET.nro_comercio
+  is 'Código de Comercio  ( Vendrá en el IPM DE42)
+';
+comment on column IT.TA_MOV_LIQ_DET.nom_fan_comercio
+  is 'Nombre del Comercio (Vendrá en el IPM DE43)
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_pos_comercio
+  is 'Zip Code. Viene informado en el IPM. Dato necesario para la operatoria Promo Interior.
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_autorizacion
+  is 'Código de Autorización
+';
+comment on column IT.TA_MOV_LIQ_DET.ica_adquirente
+  is 'Código de identificación del adquirente otorgado por MasterCard DE33
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_movimiento
+  is 'Para consumos y adelantos: código de movimiento. Los posibles códigos de movimientos serán informados mediante interfase adicional
+Cobranzas: 0
+Ajustes: Código del ajuste';
+comment on column IT.TA_MOV_LIQ_DET.des_movimiento
+  is 'Descripción del movimiento
+';
+comment on column IT.TA_MOV_LIQ_DET.comprobante
+  is 'Para Consumos: Numero de Cupon / Referencia de la transacción (DE 31)
+Cobranzas/Ajustes: numero de comprobante enviado o generado por Infinitus';
+comment on column IT.TA_MOV_LIQ_DET.tip_plan
+  is 'PDS 1001. Valores posibles:
+20: Financiación Otorgante.
+21: Finaciación Comercio
+22: Financiación Adquirente
+23: Financiación a Plazo Promedio
+24: Préstamo de Consumo
+25: Préstamo de Financiación';
+comment on column IT.TA_MOV_LIQ_DET.pla_cuotas
+  is 'Cantidad de cuotas del movimento (PDS 1011)
+';
+comment on column IT.TA_MOV_LIQ_DET.nro_cuo_vigente
+  is 'Cuota que se liquidó en el periodo (PDS 1002)
+';
+comment on column IT.TA_MOV_LIQ_DET.fec_operacion
+  is 'Fecha en la que se realizó el movimiento (DE12) Formato YYYYMMDD
+';
+comment on column IT.TA_MOV_LIQ_DET.hor_operacion
+  is 'Hora de la operación (DE12)
+';
+comment on column IT.TA_MOV_LIQ_DET.fec_presentacion
+  is 'Fecha de presentación (Se tomará fecha de transmisión del IPM) Formato YYYYMMDD
+';
+comment on column IT.TA_MOV_LIQ_DET.fec_cie_cta_corriente
+  is 'Fecha de Cierre del Grupo de Cierre  liquidado o a liquidar Formato YYYYMMDD
+';
+comment on column IT.TA_MOV_LIQ_DET.fec_clearing
+  is 'Fecha de Clearing / Fecha en que se realizará la compensación PDS159 SC 8 Formato YYYYMMDD
+';
+comment on column IT.TA_MOV_LIQ_DET.fec_diferimiento
+  is 'Fecha de diferimento Formato YYYYMMDD
+';
+comment on column IT.TA_MOV_LIQ_DET.mcc
+  is 'Codigo de Ramo (Viene el MCC en el IPM DE26)
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_moneda
+  is 'Moneda del movimiento (Si es en Argentina será en moneda local DE49, si es un cupón en el extranjero será moneda dólar DE50)
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_mon_movimiento
+  is 'Importe del Movimiento (Si es en Argentina será en moneda local, si es un cupón en el extranjero será moneda dólar) DE 5
+';
+comment on column IT.TA_MOV_LIQ_DET.cod_mon_original
+  is 'Moneda de origen del movimiento DE 49 (formato ISO)
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_mon_original
+  is 'Importe en moneda de origen Ej Expresada en Yenes DE4
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_interes
+  is 'Importe del Interes total (Si es plan cuota fin otorg será el descuento fin otor o Arancel promo interior)DE1028
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_iva
+  is 'Importe del IVA
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_tot_movimiento
+  is 'Importe del movimiento + IVA + Intereses
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_des_fin_otorgado
+  is 'Importe del descuento financiacion ortorgante
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_des_fin_otorgado_iva
+  is 'Importe del descuento financiacion ortorgante IVA
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_cuota
+  is 'Importe de la cuota
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_int_cuota
+  is 'Importe del Interes de la cuota liquidada en el periodo (para préstamos)
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_iva_cuota
+  is 'Importe del IVA
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_tot_cuota
+  is 'Importe de la cuota + IVA + Intereses
+';
+comment on column IT.TA_MOV_LIQ_DET.debcred
+  is '0: Débito
+1: Crédito
+';
+comment on column IT.TA_MOV_LIQ_DET.tip_amortizacion
+  is '1: Fances promediado
+2: Americano
+3: Frances Diario
+4: Frances
+';
+comment on column IT.TA_MOV_LIQ_DET.can_anticipada
+  is '0: No es cancelación anticipada
+1: Es una cancelación anticipada
+';
+comment on column IT.TA_MOV_LIQ_DET.tna
+  is 'Tasa de financiacion nominal anual para préstamos
+';
+comment on column IT.TA_MOV_LIQ_DET.tea
+  is 'Tasa de financiacion efectiva anual para préstamos
+';
+comment on column IT.TA_MOV_LIQ_DET.tas_intercambio
+  is 'Tasa de intercambio (se informa programa en el IPM, habria que armar tabla con MCC tasa de intercambio)
+';
+comment on column IT.TA_MOV_LIQ_DET.ara_emisor
+  is 'Arancel emisor (Viene en el IPM  PDS146 sc 5)
+';
+comment on column IT.TA_MOV_LIQ_DET.sig_arancel
+  is 'Signo del campo anterior. Valores posibles: "-", "+"
+';
+comment on column IT.TA_MOV_LIQ_DET.iva_ara_emisor
+  is 'Iva del arancel emisor';
+comment on column IT.TA_MOV_LIQ_DET.sig_iva_arancel
+  is 'Signo del campo anterior. Valores posibles: "-", "+"
+';
+comment on column IT.TA_MOV_LIQ_DET.mot_mensaje
+  is 'Motivo de la contrapartida. DE 25 Function code > 2000 para chargeback o segunda presentación
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_compensacion
+  is 'Importe de Compensación
+';
+comment on column IT.TA_MOV_LIQ_DET.sig_imp_compensacion
+  is 'Signo del campo anterior. Valores posibles: "-", "+"
+';
+comment on column IT.TA_MOV_LIQ_DET.imp_per_rg4240
+  is 'Importe percep RG4240
+';
+comment on column IT.TA_MOV_LIQ_DET.sig_imp_per_rg4240
+  is 'Signo del campo anterior. Valores posibles: "-", "+"
+';
+comment on column IT.TA_MOV_LIQ_DET.mon_compensacion
+  is 'Moneda compensacion
+';
+comment on column IT.TA_MOV_LIQ_DET.tip_tarjeta
+  is '1 - Banda
+2 - EMV
+3 - EMV + Contactless
+';
+comment on column IT.TA_MOV_LIQ_DET.filler
+  is 'Espacios
+';
+comment on column IT.TA_MOV_LIQ_DET.procesado
+  is 'Marca de proceso del registro. Valores posibles S/N';
+comment on column IT.TA_MOV_LIQ_DET.error
+  is 'Mensaje de error';
+create index IT.IN_TA_MOV_LIQ_COM_CUENTA on IT.TA_MOV_LIQ_DET (NRO_CUENTA, COMPROBANTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TA_MOV_LIQ_DET on IT.TA_MOV_LIQ_DET (NRO_MOV_LIQ, COMPROBANTE, NRO_CUENTA, FEC_OPERACION, COD_MOVIMIENTO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,13 @@
+create global temporary table IT.SS2K5_IDENTITY_COLUMNS
+(
+  db_id           NUMBER(20),
+  seed_value      NUMBER(20),
+  increment_value NUMBER(20),
+  last_value      NUMBER(20),
+  object_id       NUMBER(20) not null,
+  column_id       NUMBER(20) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_I_C_OBJECT_ID on IT.SS2K5_IDENTITY_COLUMNS (OBJECT_ID);
+create index IT.SS2K5_IDENTITY_COLUMNS_DB_ID on IT.SS2K5_IDENTITY_COLUMNS (DB_ID);
+

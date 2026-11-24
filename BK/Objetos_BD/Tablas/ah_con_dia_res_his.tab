@@ -1,0 +1,46 @@
+create table IT.AH_CON_DIA_RES_HIS
+(
+  nro_con_dia NUMBER(18) not null,
+  fecha       DATE,
+  descripcion VARCHAR2(500),
+  cod_moneda  VARCHAR2(3) not null,
+  monto       NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CON_DIA_RES_HIS
+  is 'Conciliacion de transacciones diaria Resumen - historico';
+comment on column IT.AH_CON_DIA_RES_HIS.nro_con_dia
+  is 'Nro. Conciliacion diaria';
+comment on column IT.AH_CON_DIA_RES_HIS.fecha
+  is 'Fecha.';
+comment on column IT.AH_CON_DIA_RES_HIS.descripcion
+  is 'Descripcion.';
+comment on column IT.AH_CON_DIA_RES_HIS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.AH_CON_DIA_RES_HIS.monto
+  is 'Monto';
+alter table IT.AH_CON_DIA_RES_HIS
+  add constraint PK_AH_CON_DIA_RES_HIS primary key (NRO_CON_DIA, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

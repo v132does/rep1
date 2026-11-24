@@ -1,0 +1,72 @@
+-- Create table
+create table it.ge_log_pag_int_salario (
+   id               number default it.s_ge_log_pag_int_salario.nextval not null,
+   cod_intencion    number,
+   cod_nomina       number,
+   cod_empleado     number,
+   det_error        varchar2(4000),
+   usu_insercion    varchar2(10) default substr(
+      user,
+      1,
+      10
+   ) not null,
+   fec_insercion    date default sysdate not null,
+   usu_modificacion varchar2(10) default substr(
+      user,
+      1,
+      10
+   ) not null,
+   fec_modificacion date default sysdate not null
+)
+tablespace it_data
+pctfree 10
+initrans 1
+maxtrans 255
+   storage ( initial 64K next 1M minextents 1 maxextents unlimited );
+-- Add comments to the table 
+comment on table it.ge_log_pag_int_salario is
+   'Tabla para registrar los logs de intenciones de pagos de salario';
+-- Add comments to the columns 
+comment on column it.ge_log_pag_int_salario.id is
+   'Identificador único autogenerado del log.';
+comment on column it.ge_log_pag_int_salario.cod_intencion is
+   'Código de la intención';
+comment on column it.ge_log_pag_int_salario.cod_nomina is
+   'Código de la nómina';
+comment on column it.ge_log_pag_int_salario.cod_empleado is
+   'Código del empleado';
+comment on column it.ge_log_pag_int_salario.det_error is
+   'Detalle del error';
+comment on column it.ge_log_pag_int_salario.usu_insercion is
+   'Usuario que realizo la insercion del registro.';
+comment on column it.ge_log_pag_int_salario.fec_insercion is
+   'Fecha en que se inserto el registro.';
+comment on column it.ge_log_pag_int_salario.usu_modificacion is
+   'Usuario que realizo la ultima modificacion en el registro.';
+comment on column it.ge_log_pag_int_salario.fec_modificacion is
+   'Fecha en que se realizo la ultima modificacion en el registro.';
+
+-- Create/Recreate indexes 
+create index it.in_log_pag_int_sal_cod_intencion on
+   it.ge_log_pag_int_salario (
+      cod_intencion
+   )
+      tablespace it_ind pctfree 10 initrans 2 maxtrans 255
+         storage ( initial 64K next 1M minextents 1 maxextents unlimited );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table it.ge_log_pag_int_salario
+  add constraint pk_ge_log_pag_int_salario primary key (id)
+  using index 
+  tablespace it_ind
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select,insert,update,delete on it.ge_log_pag_int_salario to it_temporal;

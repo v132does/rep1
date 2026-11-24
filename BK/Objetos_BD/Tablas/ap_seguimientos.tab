@@ -1,0 +1,115 @@
+create table IT.AP_SEGUIMIENTOS
+(
+  cod_seguimiento     NUMBER(10) not null,
+  cod_plan            NUMBER(10) not null,
+  cod_proyecto        NUMBER(10) not null,
+  cod_tip_seguimiento NUMBER(3) not null,
+  fecha               DATE not null,
+  usu_insercion       VARCHAR2(240) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(240) not null,
+  fec_modificacion    DATE not null,
+  detalles            VARCHAR2(3000),
+  descripcion         VARCHAR2(60) not null,
+  cod_requerimiento   NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_SEGUIMIENTOS
+  is 'Seguimientos.';
+comment on column IT.AP_SEGUIMIENTOS.cod_seguimiento
+  is 'Codigo Largo.';
+comment on column IT.AP_SEGUIMIENTOS.cod_plan
+  is 'Identificador del Plan.';
+comment on column IT.AP_SEGUIMIENTOS.cod_proyecto
+  is 'Identificador del Proyecto.';
+comment on column IT.AP_SEGUIMIENTOS.cod_tip_seguimiento
+  is 'Codigo de Tipo de Seguimiento.';
+comment on column IT.AP_SEGUIMIENTOS.fecha
+  is 'Fecha.';
+comment on column IT.AP_SEGUIMIENTOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_SEGUIMIENTOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_SEGUIMIENTOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_SEGUIMIENTOS.fec_modificacion
+  is 'Fecha de modifcacion.';
+comment on column IT.AP_SEGUIMIENTOS.detalles
+  is 'Detalles del Informe de Seguimiento.';
+comment on column IT.AP_SEGUIMIENTOS.descripcion
+  is 'Descripcion del Seguimiento.';
+comment on column IT.AP_SEGUIMIENTOS.cod_requerimiento
+  is 'Codigo del Requerimiento.';
+create index IT.IN_YSEGU_COD_PROYECTO on IT.AP_SEGUIMIENTOS (COD_PROYECTO, COD_PLAN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YSEGU_COD_TIP_SEGUIMIENTO on IT.AP_SEGUIMIENTOS (COD_TIP_SEGUIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_SEGUIMIENTOS
+  add constraint PK_AP_SEGUIMIENTOS primary key (COD_SEGUIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_SEGUIMIENTOS
+  add constraint FK_YSEGU_COD_PROYECTO foreign key (COD_PROYECTO, COD_PLAN)
+  references IT.AP_PROYECTOS (COD_PROYECTO, COD_PLAN);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint FK_YSEGU_COD_REQUERIMIENTO foreign key (COD_REQUERIMIENTO)
+  references IT.AP_REQUERIMIENTOS (COD_REQUERIMIENTO);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint FK_YSEGU_COD_TIP_SEGUIMIENTO foreign key (COD_TIP_SEGUIMIENTO)
+  references IT.AP_TIP_SEGUIMIENTOS (COD_TIP_SEGUIMIENTO);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint AVCON_1081349332_COD_P_013
+  check (COD_PLAN BETWEEN 1 AND 999999999);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint AVCON_1081349332_COD_P_014
+  check (COD_PROYECTO BETWEEN 1 AND 999999999);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint AVCON_1081349332_COD_S_001
+  check (COD_SEGUIMIENTO BETWEEN 1 AND 999999999);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint AVCON_1081349332_COD_T_003
+  check (COD_TIP_SEGUIMIENTO BETWEEN 1 AND 999);
+alter table IT.AP_SEGUIMIENTOS
+  add constraint AVCON_1083682127_COD_R_001
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+

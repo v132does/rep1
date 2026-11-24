@@ -1,0 +1,101 @@
+create table IT.CC_CHE_RECHAZADOS_TMP
+(
+  fec_proceso         DATE default trunc(sysdate),
+  nro_cheque          NUMBER(15),
+  cta_libradora       VARCHAR2(20),
+  monto               NUMBER(18,2),
+  cod_bco_emisor      NUMBER(3),
+  cod_bco_receptor    NUMBER(3),
+  nro_cuenta          VARCHAR2(15),
+  cod_cau_devolucion  NUMBER(3),
+  cod_ofi_camara      NUMBER(3),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_usuario         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  tip_debito          VARCHAR2(1) default 'C' not null,
+  cod_oficina         NUMBER(3),
+  cod_rubro           VARCHAR2(15),
+  cob_cargos          VARCHAR2(1) default 'N' not null,
+  estado              VARCHAR2(1) default 'P' not null,
+  procesar            VARCHAR2(1) default 'N',
+  msj_error           VARCHAR2(200),
+  cod_moneda          VARCHAR2(3),
+  cod_cau_dev_bcp     NUMBER(3),
+  com_directa         VARCHAR2(1) default 'N',
+  nro_linea           NUMBER(10),
+  cod_cau_dev_bcp_det VARCHAR2(20),
+  cod_submotivo_det   VARCHAR2(9),
+  cod_submotivo       VARCHAR2(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_RECHAZADOS_TMP
+  is 'Cheques Cargo Otros Bancos rechazados.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.nro_cheque
+  is 'Número de cheque.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cta_libradora
+  is 'Cuenta Libradora del cheque';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.monto
+  is 'Importe del Cheque';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_bco_emisor
+  is 'Banco emisor.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_bco_receptor
+  is 'Banco receptor.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.nro_cuenta
+  is 'Número de cuenta';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_cau_devolucion
+  is 'Código de Devolución de Cheque.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_ofi_camara
+  is 'Oficina de Camara.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_usuario
+  is 'Código de usuario que realiza la operación.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.tip_debito
+  is 'Tipo de Débito (C=Cuenta Cliente, B=Rubro Contable)';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_oficina
+  is 'Código de Oficina';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_rubro
+  is 'Código de Cuenta Contable (Si se eligio tipo de débito B)';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cob_cargos
+  is 'Indica si se cobra Cargos por la devolución';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.estado
+  is 'Estado del registro (P=Pendiente, C=Confirmado,E=Error)';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.procesar
+  is 'Indica si se va a procesar el registro';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.msj_error
+  is 'Mensaje de Error';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_moneda
+  is 'Código de Moneda';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_cau_dev_bcp
+  is 'Código de Devolución BCP';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.com_directa
+  is 'Indica si es Compensación Directa';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.nro_linea
+  is 'Nro. de Línea o Correlativo del archivo';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_cau_dev_bcp_det
+  is 'Motivos de Rechazo Secundarios.';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_submotivo_det
+  is 'Submotivos de rechazos detallados';
+comment on column IT.CC_CHE_RECHAZADOS_TMP.cod_submotivo
+  is 'Submotivos de rechazos';
+

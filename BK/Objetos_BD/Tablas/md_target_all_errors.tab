@@ -1,0 +1,24 @@
+create table IT.MD_TARGET_ALL_ERRORS
+(
+  owner          VARCHAR2(128) not null,
+  name           VARCHAR2(128) not null,
+  type           VARCHAR2(12),
+  sequence       NUMBER not null,
+  line           NUMBER not null,
+  position       NUMBER not null,
+  text           VARCHAR2(4000) not null,
+  attribute      VARCHAR2(9),
+  message_number NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

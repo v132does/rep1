@@ -1,0 +1,95 @@
+create table IT.GE_AUT_PEDIDOS
+(
+  cod_usuario         VARCHAR2(10) not null,
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_usu_autorizador VARCHAR2(10),
+  mensaje             VARCHAR2(1000),
+  estado              VARCHAR2(1),
+  respuesta           VARCHAR2(1),
+  observacion         VARCHAR2(1000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  mto_mon_fuerte      NUMBER(18,2),
+  tip_autorizacion    VARCHAR2(1) default 'T' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AUT_PEDIDOS
+  is 'Autorizaciones de pedidos del Sistema. Contiene todas las autorizaciones de pedidos ON-LINE o previas realizadas en el Sistema.';
+comment on column IT.GE_AUT_PEDIDOS.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_AUT_PEDIDOS.fecha
+  is 'Fecha.';
+comment on column IT.GE_AUT_PEDIDOS.hora
+  is 'Hora.';
+comment on column IT.GE_AUT_PEDIDOS.cod_usu_autorizador
+  is 'Codigo de autorizador.';
+comment on column IT.GE_AUT_PEDIDOS.mensaje
+  is 'Mensaje.';
+comment on column IT.GE_AUT_PEDIDOS.estado
+  is 'Estado del pedido (S=Solicitado, C=Confirmado, A=Anulado).';
+comment on column IT.GE_AUT_PEDIDOS.respuesta
+  is 'Respuesta.';
+comment on column IT.GE_AUT_PEDIDOS.observacion
+  is 'Observacion.';
+comment on column IT.GE_AUT_PEDIDOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_AUT_PEDIDOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_AUT_PEDIDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AUT_PEDIDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_AUT_PEDIDOS.mto_mon_fuerte
+  is 'Monto en moneda fuerte de la operacion.';
+create index IT.IN_GAPED_COD_USU_AUTORIZADOR on IT.GE_AUT_PEDIDOS (COD_USU_AUTORIZADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AUT_PEDIDOS
+  add constraint PK_GE_AUT_PEDIDOS primary key (COD_USUARIO, FECHA, HORA, TIP_AUTORIZACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_AUT_PEDIDOS
+  add constraint FK_GAPED_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_AUT_PEDIDOS
+  add constraint FK_GAPED_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_AUT_PEDIDOS
+  add constraint AVCON_1097710823_ESTAD_000
+  check (ESTADO IN ('S', 'C', 'A'));
+alter table IT.GE_AUT_PEDIDOS
+  add constraint AVCON_1097710823_RESPU_000
+  check (RESPUESTA IN ('A', 'P', 'R'));
+

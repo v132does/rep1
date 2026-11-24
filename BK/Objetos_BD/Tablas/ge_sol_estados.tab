@@ -1,0 +1,55 @@
+create table IT.GE_SOL_ESTADOS
+(
+  cod_estado       VARCHAR2(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  des_gestion      VARCHAR2(60) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_orden        NUMBER(5) default 1 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_ESTADOS
+  is 'Estados por los que puede pasar la solicitud de creditos o tarjeta.';
+comment on column IT.GE_SOL_ESTADOS.cod_estado
+  is 'Codigo del estado.';
+comment on column IT.GE_SOL_ESTADOS.descripcion
+  is 'Descripcion del estado.';
+comment on column IT.GE_SOL_ESTADOS.des_gestion
+  is 'Descripcion de la actividad que se realiza.';
+comment on column IT.GE_SOL_ESTADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_ESTADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_ESTADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ESTADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_ESTADOS.nro_orden
+  is 'Numero de orden del estado.';
+alter table IT.GE_SOL_ESTADOS
+  add constraint PK_GE_SOL_ESTADOS primary key (COD_ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

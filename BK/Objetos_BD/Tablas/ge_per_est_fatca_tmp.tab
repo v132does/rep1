@@ -1,0 +1,45 @@
+create table IT.GE_PER_EST_FATCA_TMP
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_documento    VARCHAR2(20),
+  nro_cuenta       VARCHAR2(15),
+  est_nuevo        VARCHAR2(5),
+  observacion      VARCHAR2(120),
+  det_error        VARCHAR2(120),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  procesado        VARCHAR2(1),
+  procesar         VARCHAR2(1) default 'S'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PER_EST_FATCA_TMP.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_PER_EST_FATCA_TMP.nro_documento
+  is 'Número documento';
+alter table IT.GE_PER_EST_FATCA_TMP
+  add constraint PK_GE_PER_EST_FATCA_TMP primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

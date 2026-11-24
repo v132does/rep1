@@ -1,0 +1,88 @@
+create table IT.AH_TAR_DEB_PINES
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  relacion            VARCHAR2(2) default '00' not null,
+  nro_emision         VARCHAR2(2) not null,
+  nom_embozado        VARCHAR2(26) not null,
+  fec_vencimiento     VARCHAR2(6),
+  nro_pin             NUMBER(15),
+  fec_proceso         DATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  sucursal            VARCHAR2(3),
+  estado              VARCHAR2(1),
+  cod_ent_procesadora NUMBER(5) not null,
+  fec_impresion       DATE,
+  pin_encriptado      VARCHAR2(16),
+  registro            VARCHAR2(4000),
+  det_error           VARCHAR2(4000),
+  nro_bin             VARCHAR2(100) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEB_PINES
+  is 'Embozado de Tarjetas de Debito.';
+comment on column IT.AH_TAR_DEB_PINES.nro_cuenta
+  is 'Numero de Cuenta de la Operacion.';
+comment on column IT.AH_TAR_DEB_PINES.relacion
+  is '00 - Principal , 01- Adicional 1, 02 - Adicional 2 , etc.';
+comment on column IT.AH_TAR_DEB_PINES.nro_emision
+  is 'Secuencia de Emision.';
+comment on column IT.AH_TAR_DEB_PINES.nom_embozado
+  is 'Nombre de Embozado.';
+comment on column IT.AH_TAR_DEB_PINES.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.AH_TAR_DEB_PINES.nro_pin
+  is 'Numero de PIN.';
+comment on column IT.AH_TAR_DEB_PINES.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.AH_TAR_DEB_PINES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_TAR_DEB_PINES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_TAR_DEB_PINES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEB_PINES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_TAR_DEB_PINES.sucursal
+  is 'Sucursal.';
+comment on column IT.AH_TAR_DEB_PINES.estado
+  is 'Estado de impresión de tarjetas, dominio: EST_TAR_DEB_PINES ';
+comment on column IT.AH_TAR_DEB_PINES.cod_ent_procesadora
+  is 'Entidad Procesadora de la Tarjeta.';
+comment on column IT.AH_TAR_DEB_PINES.fec_impresion
+  is 'Control de la fecha de impresión y re-impresión.';
+comment on column IT.AH_TAR_DEB_PINES.pin_encriptado
+  is 'Guarda los pines encriptados de la tarjeta.';
+comment on column IT.AH_TAR_DEB_PINES.registro
+  is 'para guardar los registros recibidos del Webservice desencriptador de pines.';
+comment on column IT.AH_TAR_DEB_PINES.det_error
+  is 'Guarda los errores que retorna el WS de bancard al momento de recibir los registros.';
+comment on column IT.AH_TAR_DEB_PINES.nro_bin
+  is 'Nro Bin de la tarjeta';
+alter table IT.AH_TAR_DEB_PINES
+  add constraint PK_AH_TAR_DEB_PINES primary key (NRO_CUENTA, RELACION, NRO_EMISION, COD_ENT_PROCESADORA, NRO_BIN)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

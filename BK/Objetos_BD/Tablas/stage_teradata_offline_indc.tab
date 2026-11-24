@@ -1,0 +1,12 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_INDC
+(
+  index          NUMBER,
+  name           VARCHAR2(256),
+  tablename      VARCHAR2(256),
+  indexname      VARCHAR2(256),
+  indexnumber    NUMBER,
+  constrainttype CHAR(1),
+  constrainttext CLOB
+)
+on commit preserve rows;
+

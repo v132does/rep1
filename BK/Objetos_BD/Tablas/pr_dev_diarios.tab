@@ -1,0 +1,154 @@
+create table IT.PR_DEV_DIARIOS
+(
+  fecha            DATE not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  cod_oficina      NUMBER(3),
+  cod_rub_debito   VARCHAR2(20),
+  cod_rub_credito  VARCHAR2(20) not null,
+  descripcion      VARCHAR2(400),
+  concepto         VARCHAR2(400),
+  mto_debito       NUMBER,
+  mto_credito      NUMBER,
+  mto_mon_rubro    NUMBER,
+  estado           VARCHAR2(1) not null,
+  categoria        NUMBER(3,2) not null,
+  usu_insercion    VARCHAR2(30) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(30) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_DEV_DIARIOS
+  is 'Tabla de Registro Devengado de Préstamos Diario.';
+comment on column IT.PR_DEV_DIARIOS.fecha
+  is 'Fecha de Registro.';
+comment on column IT.PR_DEV_DIARIOS.nro_cuenta
+  is 'Número de Cuenta del Cliente.';
+comment on column IT.PR_DEV_DIARIOS.cod_moneda
+  is 'Código de Moneda de la Cuenta.';
+comment on column IT.PR_DEV_DIARIOS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.PR_DEV_DIARIOS.cod_rub_debito
+  is 'Rubro contable débito.';
+comment on column IT.PR_DEV_DIARIOS.cod_rub_credito
+  is 'Rubro contable crédito.';
+comment on column IT.PR_DEV_DIARIOS.descripcion
+  is 'Descripción del apunte contable.';
+comment on column IT.PR_DEV_DIARIOS.concepto
+  is 'Concepto del Movimiento.';
+comment on column IT.PR_DEV_DIARIOS.mto_debito
+  is 'Monto Débito.';
+comment on column IT.PR_DEV_DIARIOS.mto_credito
+  is 'Monto Crédito.';
+comment on column IT.PR_DEV_DIARIOS.mto_mon_rubro
+  is 'Monto en la Moneda del Rubro.';
+comment on column IT.PR_DEV_DIARIOS.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.PR_DEV_DIARIOS.categoria
+  is 'Categoría.';
+comment on column IT.PR_DEV_DIARIOS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.PR_DEV_DIARIOS.fec_insercion
+  is 'Fecha de Inserción';
+comment on column IT.PR_DEV_DIARIOS.usu_modificacion
+  is 'Usuario última modificación.';
+comment on column IT.PR_DEV_DIARIOS.fec_modificacion
+  is 'Fecha última modificación.';
+create index IT.IND_PDEVD_NRO_CUENTA on IT.PR_DEV_DIARIOS (NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_PDEVD_OFICINA on IT.PR_DEV_DIARIOS (COD_OFICINA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PDEVD_COD_MONEDA on IT.PR_DEV_DIARIOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PDEVD_COD_RUB_CREDITO on IT.PR_DEV_DIARIOS (COD_RUB_CREDITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PDEVD_COD_RUB_DEBITO on IT.PR_DEV_DIARIOS (COD_RUB_DEBITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PDEVD_FECHA on IT.PR_DEV_DIARIOS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_DEV_DIARIOS
+  add constraint PK_PR_DEV_DIARIOS primary key (FECHA, NRO_CUENTA, ESTADO, CATEGORIA, COD_RUB_CREDITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

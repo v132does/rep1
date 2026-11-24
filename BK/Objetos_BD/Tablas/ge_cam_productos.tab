@@ -1,0 +1,88 @@
+create table IT.GE_CAM_PRODUCTOS
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3),
+  nom_tabla        VARCHAR2(30) not null,
+  nom_campo        VARCHAR2(30) not null,
+  nro_orden        NUMBER(3) not null,
+  etiqueta         VARCHAR2(30) not null,
+  origen           VARCHAR2(1) default 'N' not null,
+  nom_tab_origen   VARCHAR2(30),
+  nom_cam_origen   VARCHAR2(30),
+  dominio          VARCHAR2(240),
+  cod_programa     VARCHAR2(30),
+  par_ampliado     VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CAM_PRODUCTOS
+  is 'Parametrización de Matriz de Condiciones.';
+comment on column IT.GE_CAM_PRODUCTOS.cod_modulo
+  is 'Código del Módulo.';
+comment on column IT.GE_CAM_PRODUCTOS.cod_modalidad
+  is 'Código de la Modalidad.';
+comment on column IT.GE_CAM_PRODUCTOS.nom_tabla
+  is 'Nombre de la Tabla.';
+comment on column IT.GE_CAM_PRODUCTOS.nom_campo
+  is 'Nombre del Campo.';
+comment on column IT.GE_CAM_PRODUCTOS.nro_orden
+  is 'Número de Orden para el Producto (Módulo y Modalidad).';
+comment on column IT.GE_CAM_PRODUCTOS.etiqueta
+  is 'Nombre a desplegar.';
+comment on column IT.GE_CAM_PRODUCTOS.origen
+  is 'Origen del dato a desplegar. Valores posibles del campo N,T,R,F.';
+comment on column IT.GE_CAM_PRODUCTOS.nom_tab_origen
+  is 'Nombre de la Tabla Origen de ITGF que contiene el campo a retornar.';
+comment on column IT.GE_CAM_PRODUCTOS.nom_cam_origen
+  is 'Nombre del Campo de la Tabla Origen de ITGF que contiene la descripción a retornar.';
+comment on column IT.GE_CAM_PRODUCTOS.dominio
+  is 'Dominio de la Referencia General.';
+comment on column IT.GE_CAM_PRODUCTOS.cod_programa
+  is 'Función a ejecutar sobre el campo.';
+comment on column IT.GE_CAM_PRODUCTOS.par_ampliado
+  is 'Sirve para indicar que el origen del dato F (Función) recibirá como parámetro el valor del campo NOM_CAMPO.';
+comment on column IT.GE_CAM_PRODUCTOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_CAM_PRODUCTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_CAM_PRODUCTOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_CAM_PRODUCTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_CAM_PRODUCTOS
+  add constraint UK_GCPRO_NRO_ORDEN unique (COD_MODULO, COD_MODALIDAD, NOM_TABLA, NOM_CAMPO, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CAM_PRODUCTOS
+  add constraint FK_GCPRO_COD_MODULO foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_CAM_PRODUCTOS
+  add constraint FK_GCPRO_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.GE_CAM_PRODUCTOS
+  add constraint CK_GCPRO_ORIGEN
+  check (NVL("ORIGEN",'T')='T' AND "NOM_TAB_ORIGEN" IS NOT NULL AND "NOM_CAM_ORIGEN" IS NOT NULL AND "DOMINIO" IS NULL AND "COD_PROGRAMA" IS NULL OR NVL("ORIGEN",'R')='R' AND "NOM_TAB_ORIGEN" IS NULL AND "NOM_CAM_ORIGEN" IS NULL AND "DOMINIO" IS NOT NULL AND "COD_PROGRAMA" IS NULL OR NVL("ORIGEN",'F')='F' AND "NOM_TAB_ORIGEN" IS NULL AND "NOM_CAM_ORIGEN" IS NULL AND "DOMINIO" IS NULL AND "COD_PROGRAMA" IS NOT NULL OR NVL("ORIGEN",'N')='N' AND "NOM_TAB_ORIGEN" IS NULL AND "NOM_CAM_ORIGEN" IS NULL AND "DOMINIO" IS NULL AND "COD_PROGRAMA" IS NULL);
+

@@ -1,0 +1,92 @@
+create table IT.SB_CRC_OPE_NO_ENVIADOS
+(
+  fecha                DATE not null,
+  nom_referencia       VARCHAR2(10) not null,
+  nro_formulario       VARCHAR2(3),
+  cod_oficina          NUMBER(4),
+  tip_operacion        NUMBER(3),
+  nro_operacion        VARCHAR2(60),
+  cod_moneda           VARCHAR2(3),
+  fec_operacion        DATE,
+  fec_pri_vencimiento  DATE,
+  nro_cuota            NUMBER(3),
+  cta_con_cap_original VARCHAR2(18),
+  mto_ori_capital      NUMBER(20,2) default 0,
+  mto_lin_credito      NUMBER(20,2) default 0,
+  cta_con_int_original VARCHAR2(18),
+  mto_ori_interes      NUMBER(20,2) default 0,
+  cod_rub_primario     VARCHAR2(6),
+  cod_departamento     VARCHAR2(4),
+  cod_rub_economico    VARCHAR2(6),
+  dia_plazo            NUMBER(5),
+  tas_nominal          NUMBER(5,2) default 0,
+  nro_registro         NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_OPE_NO_ENVIADOS
+  is 'Datos de Detalle del Archivo Operaciones CRC1.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.fecha
+  is 'Fecha.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.nom_referencia
+  is 'Nombre de Referencia.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.nro_formulario
+  is 'Número de Formulario.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.tip_operacion
+  is 'Tipo de Operación.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.nro_operacion
+  is 'Número de Operación.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.fec_operacion
+  is 'Fecha de Operación.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.fec_pri_vencimiento
+  is 'Fecha de Primer Vencimiento.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.nro_cuota
+  is 'Número de Cuota.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cta_con_cap_original
+  is 'Cuenta Contable del Capital Original.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.mto_ori_capital
+  is 'Monto del Capital Original.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.mto_lin_credito
+  is 'Monto de Línea de Crédito.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cta_con_int_original
+  is 'Cuenta Contable Interés Original.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.mto_ori_interes
+  is 'Monto Original Interés.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cod_rub_primario
+  is 'Código de Rubro Primario.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cod_departamento
+  is 'Código de Departamento.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.cod_rub_economico
+  is 'Código de Rubro de Crédito.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.dia_plazo
+  is 'Días de Plazo.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.tas_nominal
+  is 'Tasa Nominal.';
+comment on column IT.SB_CRC_OPE_NO_ENVIADOS.nro_registro
+  is 'Tasa Nominal.';
+create index IT.IN_SCONE_NRO_OPERACION on IT.SB_CRC_OPE_NO_ENVIADOS (NRO_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

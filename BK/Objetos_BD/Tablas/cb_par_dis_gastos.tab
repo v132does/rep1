@@ -1,0 +1,58 @@
+create table IT.CB_PAR_DIS_GASTOS
+(
+  cod_tip_distribucion VARCHAR2(5) not null,
+  cod_area             NUMBER(3) not null,
+  cod_oficina          NUMBER(3) not null,
+  porcentaje           NUMBER(14,8),
+  usu_insercion        VARCHAR2(10) default substr(user,1,10),
+  fec_insercion        DATE default sysdate,
+  usu_modificacion     VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion     DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_PAR_DIS_GASTOS
+  is 'Tabla que registra la parametrización de la forma de distribución por cada tipo de distribución de derrama de gastos.';
+comment on column IT.CB_PAR_DIS_GASTOS.cod_tip_distribucion
+  is 'Código del Tipo de Distribución: Referencias Generales(TIP_DIS_CEN_COSTOS),';
+comment on column IT.CB_PAR_DIS_GASTOS.cod_area
+  is 'Código de Centro de Costos.';
+comment on column IT.CB_PAR_DIS_GASTOS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.CB_PAR_DIS_GASTOS.porcentaje
+  is 'Porcentaje asignado al Tipo de Distribución manual.';
+comment on column IT.CB_PAR_DIS_GASTOS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_PAR_DIS_GASTOS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_PAR_DIS_GASTOS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_PAR_DIS_GASTOS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+alter table IT.CB_PAR_DIS_GASTOS
+  add constraint PK_CB_PAR_DIS_GASTOS primary key (COD_TIP_DISTRIBUCION, COD_AREA, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_PAR_DIS_GASTOS
+  add constraint FK_BPDCC_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

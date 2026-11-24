@@ -1,0 +1,163 @@
+create table IT.GE_POL_SEGUROS
+(
+  codigo              NUMBER not null,
+  cod_persona         VARCHAR2(10) not null,
+  cod_ente            NUMBER(5),
+  cod_oficina         NUMBER(3),
+  canal               VARCHAR2(2),
+  seccion             VARCHAR2(5),
+  sub_seccion         VARCHAR2(100),
+  nro_poliza          VARCHAR2(30),
+  producto            VARCHAR2(100),
+  mto_capital         NUMBER(18,2),
+  mto_premio          NUMBER(18,2),
+  mto_prima           NUMBER(18,2),
+  cuo_inicial         NUMBER(18,2),
+  mto_cuota           NUMBER(18,2),
+  can_cuota           NUMBER(2),
+  for_pago            VARCHAR2(1),
+  fec_inicial         DATE,
+  fec_final           DATE,
+  fec_propuesta       DATE,
+  fec_envio           DATE,
+  fec_entrega         DATE,
+  observaciones       VARCHAR2(2000),
+  estado              VARCHAR2(1),
+  referencia          VARCHAR2(30),
+  cod_usu_ges_interno VARCHAR2(10),
+  cod_ges_externo     VARCHAR2(10),
+  cod_irene           VARCHAR2(5),
+  cod_moneda          VARCHAR2(3),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  situacion           VARCHAR2(10),
+  tip_movimiento      VARCHAR2(10),
+  tip_anulacion       VARCHAR2(10),
+  cod_sub_seccion     VARCHAR2(4),
+  fec_emision         DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_POL_SEGUROS
+  is 'Tabla de Seguros por Cliente.';
+comment on column IT.GE_POL_SEGUROS.codigo
+  is 'Código identificador de registro. Igual al Número de Solicitud en SEBAOT.';
+comment on column IT.GE_POL_SEGUROS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_POL_SEGUROS.cod_ente
+  is 'Código de Ente Aseguradora.';
+comment on column IT.GE_POL_SEGUROS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.GE_POL_SEGUROS.canal
+  is 'Canal relacionado al cliente del seguro (dominio: SEC_CANALES).';
+comment on column IT.GE_POL_SEGUROS.seccion
+  is 'Sección de la póliza (dominio: SEC_SEGURO).';
+comment on column IT.GE_POL_SEGUROS.sub_seccion
+  is 'Sub-Sección al que corresponde la Sección de la póliza.';
+comment on column IT.GE_POL_SEGUROS.nro_poliza
+  is 'Número de la Póliza.';
+comment on column IT.GE_POL_SEGUROS.producto
+  is 'Producto al que corresponde la póliza.';
+comment on column IT.GE_POL_SEGUROS.mto_capital
+  is 'Capital Asegurado.';
+comment on column IT.GE_POL_SEGUROS.mto_premio
+  is 'Monto del premio de la póliza.';
+comment on column IT.GE_POL_SEGUROS.mto_prima
+  is 'Monto de la prima de la póliza.';
+comment on column IT.GE_POL_SEGUROS.cuo_inicial
+  is 'Monto de la cuota Inicial.';
+comment on column IT.GE_POL_SEGUROS.mto_cuota
+  is 'Monto de la Cuota.';
+comment on column IT.GE_POL_SEGUROS.can_cuota
+  is 'Cantidad de Cuotas.';
+comment on column IT.GE_POL_SEGUROS.for_pago
+  is 'Forma de Pago.';
+comment on column IT.GE_POL_SEGUROS.fec_inicial
+  is 'Fecha de inicio de Vigencia.';
+comment on column IT.GE_POL_SEGUROS.fec_final
+  is 'Fecha de fin de Vigencia.';
+comment on column IT.GE_POL_SEGUROS.fec_propuesta
+  is 'Fecha de ingreso de la propuesta.';
+comment on column IT.GE_POL_SEGUROS.fec_envio
+  is 'Fecha de envío de la póliza a la aseguradora.';
+comment on column IT.GE_POL_SEGUROS.fec_entrega
+  is 'Fecha de entrega de la póliza al Cliente.';
+comment on column IT.GE_POL_SEGUROS.observaciones
+  is 'Observaciones (Descripción del Riesgo).';
+comment on column IT.GE_POL_SEGUROS.estado
+  is 'Estado de la Póliza (dominio: EST_POLIZA).';
+comment on column IT.GE_POL_SEGUROS.referencia
+  is 'Referencia del número de la póliza que fué renovada.';
+comment on column IT.GE_POL_SEGUROS.cod_usu_ges_interno
+  is 'Gestor Interno.';
+comment on column IT.GE_POL_SEGUROS.cod_ges_externo
+  is 'Gestor Externo.';
+comment on column IT.GE_POL_SEGUROS.cod_irene
+  is 'Código Irene.';
+comment on column IT.GE_POL_SEGUROS.cod_moneda
+  is 'Código de la moneda.';
+comment on column IT.GE_POL_SEGUROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_POL_SEGUROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_POL_SEGUROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_POL_SEGUROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_POL_SEGUROS.situacion
+  is 'Situación de la Póliza. (dominio: SIT_POLIZA)';
+comment on column IT.GE_POL_SEGUROS.tip_movimiento
+  is 'Tipo de Movimiento de Seguro. (dominio: TIP_MOV_POLIZA)';
+comment on column IT.GE_POL_SEGUROS.tip_anulacion
+  is 'Tipo de Anulación. (dominio: TIP_ANU_POLIZA)';
+comment on column IT.GE_POL_SEGUROS.cod_sub_seccion
+  is 'Código de la sub-seccion o detalle de la poliza';
+comment on column IT.GE_POL_SEGUROS.fec_emision
+  is 'Fecha de Emisión de la Póliza.';
+create index IT.IN_GPSEG_COD_PERSONA on IT.GE_POL_SEGUROS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_POL_SEGUROS
+  add constraint PK_GE_POL_SEGUROS primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_POL_SEGUROS
+  add constraint FK_GPSEG_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_POL_SEGUROS
+  add constraint FK_GPSEG_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_POL_SEGUROS
+  add constraint FK_GPSEG_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

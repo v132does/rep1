@@ -1,0 +1,74 @@
+create table IT.TA_MOV_PROMOCIONES_TMP
+(
+  nro_tarjeta      VARCHAR2(25),
+  nro_cupon        NUMBER(18),
+  nro_boleta       NUMBER(18),
+  nro_cuenta       VARCHAR2(15),
+  cod_autorizacion NUMBER(18),
+  nom_tarjeta      VARCHAR2(250),
+  mto_origen       NUMBER(18,2),
+  mto_liquidacion  NUMBER(18,2),
+  des_comercio     VARCHAR2(250),
+  cod_procesadora  NUMBER(10),
+  fec_compra       DATE,
+  fec_proceso      DATE,
+  mto_comision     NUMBER(18,2),
+  cod_convenio     NUMBER(6),
+  mto_descuento    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOV_PROMOCIONES_TMP
+  is 'Tabla que registra las operaciones que poseen descuentos en mostrador - TC.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.nro_tarjeta
+  is 'Número de Tarjeta.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.nro_cupon
+  is 'Número de Cupón.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.nro_boleta
+  is 'Número de Boleta.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.cod_autorizacion
+  is 'Código de Autorización.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.nom_tarjeta
+  is 'Nombre del Cliente.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.mto_origen
+  is 'Monto Origen de la Operación.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.mto_liquidacion
+  is 'Monto Liquidado de la Operación.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.des_comercio
+  is 'Descripción del Comercio.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.cod_procesadora
+  is 'Código de la Procesadora.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.fec_compra
+  is 'Fecha de Compra.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.mto_comision
+  is 'Monto de la Comisión de la Operación.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.cod_convenio
+  is 'Código del Convenio.';
+comment on column IT.TA_MOV_PROMOCIONES_TMP.mto_descuento
+  is 'Monto del Descuento de la Operación.';
+create index IT.IN_TMPRO_COD_CONVENIO on IT.TA_MOV_PROMOCIONES_TMP (COD_CONVENIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

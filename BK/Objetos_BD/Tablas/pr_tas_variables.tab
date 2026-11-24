@@ -1,0 +1,139 @@
+create table IT.PR_TAS_VARIABLES
+(
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_sub_modalidad   NUMBER(3),
+  cod_moneda          VARCHAR2(3),
+  nro_solicitud       NUMBER(7) not null,
+  cod_persona         VARCHAR2(10),
+  monto               NUMBER(20,4) default 0,
+  tot_prestamo        NUMBER(20,4) default 0,
+  tot_desembolsar     NUMBER(20,4) default 0,
+  nro_cuotas          NUMBER(4),
+  tip_interes         VARCHAR2(1) default 'V' not null,
+  tas_interes         NUMBER(20,4),
+  tas_referencia      NUMBER(20,4),
+  fec_renegociacion   DATE,
+  cod_periodo         VARCHAR2(10),
+  spread              NUMBER(20,4),
+  nro_cuenta          VARCHAR2(15),
+  descripcion         VARCHAR2(240),
+  tas_piso            NUMBER(20,4),
+  tot_capital         NUMBER(20,4) default 0,
+  tot_interes         NUMBER(20,4),
+  tot_int_adelantado  NUMBER(20,4),
+  tot_int_original    NUMBER(20,4),
+  sc_tot_int_original NUMBER(20,4),
+  tot_cargo           NUMBER(20,4),
+  tot_val_cuota       NUMBER(20,4),
+  tip_spread          VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  migrado             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_TAS_VARIABLES
+  is 'Contiene los datos de los Tipos de Operaciones de Tasa Variable';
+comment on column IT.PR_TAS_VARIABLES.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.PR_TAS_VARIABLES.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.PR_TAS_VARIABLES.cod_sub_modalidad
+  is 'Codigo de Sub Modalidad';
+comment on column IT.PR_TAS_VARIABLES.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.PR_TAS_VARIABLES.nro_solicitud
+  is 'N¿mero de propuesta.';
+comment on column IT.PR_TAS_VARIABLES.cod_persona
+  is 'C¿digo de cliente.';
+comment on column IT.PR_TAS_VARIABLES.monto
+  is 'Valor del monto del prestamo.';
+comment on column IT.PR_TAS_VARIABLES.tot_prestamo
+  is 'Valor total  del prestamo.';
+comment on column IT.PR_TAS_VARIABLES.tot_desembolsar
+  is 'Total Neto a Desembolsar.';
+comment on column IT.PR_TAS_VARIABLES.nro_cuotas
+  is 'Numero de Cuotas';
+comment on column IT.PR_TAS_VARIABLES.tip_interes
+  is 'Tipo de interes (A=Adelantado / V=Vencido).';
+comment on column IT.PR_TAS_VARIABLES.tas_interes
+  is 'Tasa de Interes';
+comment on column IT.PR_TAS_VARIABLES.tas_referencia
+  is 'Tasa de Referencia.';
+comment on column IT.PR_TAS_VARIABLES.fec_renegociacion
+  is 'Fecha de Renegociacion de Tasa';
+comment on column IT.PR_TAS_VARIABLES.cod_periodo
+  is 'Periodo de Renegociacion';
+comment on column IT.PR_TAS_VARIABLES.spread
+  is 'Spread';
+comment on column IT.PR_TAS_VARIABLES.nro_cuenta
+  is 'N¿mero de Pr¿stamo.';
+comment on column IT.PR_TAS_VARIABLES.descripcion
+  is 'Descripci¿n de la propuesta.';
+comment on column IT.PR_TAS_VARIABLES.tas_piso
+  is 'Tasa Piso';
+comment on column IT.PR_TAS_VARIABLES.tot_capital
+  is 'Total de Capital';
+comment on column IT.PR_TAS_VARIABLES.tot_interes
+  is 'Total de interes';
+comment on column IT.PR_TAS_VARIABLES.tot_int_adelantado
+  is 'Total de interes Adelantado';
+comment on column IT.PR_TAS_VARIABLES.tot_int_original
+  is 'Total de interes Original';
+comment on column IT.PR_TAS_VARIABLES.sc_tot_int_original
+  is 'SC Total de interes Original';
+comment on column IT.PR_TAS_VARIABLES.tot_cargo
+  is 'Total de Cargo';
+comment on column IT.PR_TAS_VARIABLES.tot_val_cuota
+  is 'SC Total Val.Cuota';
+comment on column IT.PR_TAS_VARIABLES.tip_spread
+  is 'Tipo de Spread (I-Inicial/ T-temporal/ D-definitivo)';
+comment on column IT.PR_TAS_VARIABLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_TAS_VARIABLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_TAS_VARIABLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_TAS_VARIABLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.PR_TAS_VARIABLES.migrado
+  is 'Migrado S/N';
+create unique index IT.UK_NRO_CUENTA on IT.PR_TAS_VARIABLES (NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_TAS_VARIABLES
+  add constraint PK_PR_TAS_VARIABLES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

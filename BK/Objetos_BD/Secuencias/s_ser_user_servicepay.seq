@@ -1,0 +1,8 @@
+create sequence IT.S_SER_USER_SERVICEPAY
+minvalue 1
+maxvalue 999999999
+start with 1202734
+increment by 1
+nocache
+cycle;
+

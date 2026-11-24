@@ -1,0 +1,59 @@
+create table IT.GE_REC_DEP_AXION
+(
+  cod_ente            VARCHAR2(4),
+  tip_registro        VARCHAR2(1),
+  cod_dep_ini         NUMBER(18),
+  cod_dep_fin         NUMBER(18),
+  nombre              VARCHAR2(35),
+  domicilio           VARCHAR2(30),
+  cod_postal          VARCHAR2(4),
+  fec_alta            VARCHAR2(8),
+  fec_baja            VARCHAR2(8),
+  fec_modificacion    VARCHAR2(8),
+  fec_vencimiento     VARCHAR2(8),
+  tip_doc_depositante VARCHAR2(2),
+  nro_doc_depositante VARCHAR2(13),
+  cod_operacion       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REC_DEP_AXION
+  is 'Tabla para importar Maestro de Depositantes de Axion.';
+comment on column IT.GE_REC_DEP_AXION.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_REC_DEP_AXION.tip_registro
+  is 'Tipo de Registro. (fijo D)';
+comment on column IT.GE_REC_DEP_AXION.cod_dep_ini
+  is 'Código Depositante Inicial.';
+comment on column IT.GE_REC_DEP_AXION.cod_dep_fin
+  is 'Código Depositante Final.';
+comment on column IT.GE_REC_DEP_AXION.nombre
+  is 'Nombre del Depositante.';
+comment on column IT.GE_REC_DEP_AXION.domicilio
+  is 'Domicilio del Depositante.';
+comment on column IT.GE_REC_DEP_AXION.cod_postal
+  is 'Código Postal.';
+comment on column IT.GE_REC_DEP_AXION.fec_alta
+  is 'Fecha de Alta.';
+comment on column IT.GE_REC_DEP_AXION.fec_baja
+  is 'Fecha de Baja.';
+comment on column IT.GE_REC_DEP_AXION.fec_modificacion
+  is 'Fecha de Modificación.';
+comment on column IT.GE_REC_DEP_AXION.fec_vencimiento
+  is 'Fecha de Modificación.';
+comment on column IT.GE_REC_DEP_AXION.tip_doc_depositante
+  is 'Tipo de Documento. (`00'' DNI ''50'' CUIT)';
+comment on column IT.GE_REC_DEP_AXION.nro_doc_depositante
+  is 'Número de Documento del Depositante.';
+comment on column IT.GE_REC_DEP_AXION.cod_operacion
+  is 'Código de Operación. (A Alta M Modificación B Baja)';
+

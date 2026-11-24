@@ -1,0 +1,22 @@
+create table IT.TM_CLIENTE_PEP
+(
+  numero        NUMBER,
+  tip_documento VARCHAR2(30),
+  nro_documento VARCHAR2(20),
+  nombre        VARCHAR2(60),
+  apellido      VARCHAR2(60),
+  causal        VARCHAR2(20),
+  comentario    VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

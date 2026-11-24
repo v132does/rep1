@@ -1,0 +1,94 @@
+create table IT.CB_SAL_INVENTARIOS_DET_HIS
+(
+  fecha          DATE not null,
+  nro_referencia NUMBER(10) not null,
+  nro_cuenta     VARCHAR2(15) not null,
+  sal_actual     NUMBER(18,2),
+  sal_anterior   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_INVENTARIOS_DET_HIS
+  is 'Historico de Saldos contables detallados de inventarios fisicos.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_HIS.fecha
+  is 'Fecha.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_HIS.nro_referencia
+  is 'Nro. de referencia.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_HIS.nro_cuenta
+  is 'Nro. de cuenta.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_HIS.sal_actual
+  is 'Saldo actual.';
+comment on column IT.CB_SAL_INVENTARIOS_DET_HIS.sal_anterior
+  is 'Saldo anterior.';
+create index IT.IN_BINVE_FECHA on IT.CB_SAL_INVENTARIOS_DET_HIS (FECHA, NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BINVE_NRO_CUENTA on IT.CB_SAL_INVENTARIOS_DET_HIS (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BSIDH_FECHA on IT.CB_SAL_INVENTARIOS_DET_HIS (FECHA, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 16M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CINVD on IT.CB_SAL_INVENTARIOS_DET_HIS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_INVENTARIOS_DET_HIS
+  add constraint PK_CB_SAL_INVENTARIOS_DET_HIS primary key (FECHA, NRO_REFERENCIA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 24M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

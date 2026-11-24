@@ -1,0 +1,85 @@
+create table IT.CS_CON_CUOTAS
+(
+  nro_contrato        VARCHAR2(10) not null,
+  nro_cuota           NUMBER(6) not null,
+  fec_desde           DATE not null,
+  fec_hasta           DATE,
+  fec_vencimiento     DATE not null,
+  fec_pago            DATE,
+  monto               NUMBER(18,2),
+  saldo               NUMBER(18,2),
+  estado              VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  fec_pag_ant         DATE default SYSDATE,
+  cod_transaccion     NUMBER(4),
+  nro_cob_exc_visitas NUMBER(4),
+  hora                VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_CON_CUOTAS
+  is 'Detalle del control de pagos de cajas.';
+comment on column IT.CS_CON_CUOTAS.nro_contrato
+  is 'Codigo del Contrato.';
+comment on column IT.CS_CON_CUOTAS.nro_cuota
+  is 'Numero de Cuota.';
+comment on column IT.CS_CON_CUOTAS.fec_desde
+  is 'Periodo desde.';
+comment on column IT.CS_CON_CUOTAS.fec_hasta
+  is 'Periodo hasta.';
+comment on column IT.CS_CON_CUOTAS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.CS_CON_CUOTAS.fec_pago
+  is 'Fecha de Pago.';
+comment on column IT.CS_CON_CUOTAS.monto
+  is 'Monto Pagado.';
+comment on column IT.CS_CON_CUOTAS.saldo
+  is 'Saldo de la Cuota.';
+comment on column IT.CS_CON_CUOTAS.estado
+  is 'Estado de la Cuota.';
+comment on column IT.CS_CON_CUOTAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CS_CON_CUOTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CS_CON_CUOTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_CUOTAS.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_CUOTAS.fec_pag_ant
+  is 'Fecha del Pago anterior.';
+comment on column IT.CS_CON_CUOTAS.cod_transaccion
+  is 'Código de transacción indica el concepto que se estará cobrando si es por el cobro de Alquiler de Cajas o Recargo por exceso de visitas.';
+comment on column IT.CS_CON_CUOTAS.nro_cob_exc_visitas
+  is 'Número de Cobro por exceso de visita a la caja de seguridad.';
+comment on column IT.CS_CON_CUOTAS.hora
+  is 'Hora del pago de la cuota o recargo.';
+alter table IT.CS_CON_CUOTAS
+  add constraint PK_CS_CON_CUOTAS_2 unique (NRO_CONTRATO, NRO_CUOTA, NRO_COB_EXC_VISITAS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CS_CON_CUOTAS
+  add constraint FK_CCCUO_NRO_CONTRATO foreign key (NRO_CONTRATO)
+  references IT.CS_CONTRATOS (NRO_CONTRATO);
+

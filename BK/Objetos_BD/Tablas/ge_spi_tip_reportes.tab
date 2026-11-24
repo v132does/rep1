@@ -1,0 +1,46 @@
+create table IT.GE_SPI_TIP_REPORTES
+(
+  cod_reporte      VARCHAR2(150),
+  id_report        VARCHAR2(20),
+  nombre           VARCHAR2(150),
+  descripcion      VARCHAR2(150),
+  formato          VARCHAR2(3),
+  tipo             VARCHAR2(1),
+  obj_proceso      VARCHAR2(150),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_TIP_REPORTES
+  is 'Contiene la definición del esquema del los reportes del SPI.';
+comment on column IT.GE_SPI_TIP_REPORTES.cod_reporte
+  is 'reportType del reporte solicitado';
+comment on column IT.GE_SPI_TIP_REPORTES.nombre
+  is 'Nombre del Reporte';
+comment on column IT.GE_SPI_TIP_REPORTES.descripcion
+  is 'Descripcion de la funcionalidad del reporte';
+comment on column IT.GE_SPI_TIP_REPORTES.tipo
+  is 'Identificador del Tipo de Mensaje. E-Enviado, R-Recibido, A-Ambos';
+comment on column IT.GE_SPI_TIP_REPORTES.obj_proceso
+  is 'Objeto que realizará el procesamiento del MT. Debe ser un objeto válido: función, procedimiento, etc.';
+comment on column IT.GE_SPI_TIP_REPORTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_TIP_REPORTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SPI_TIP_REPORTES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_TIP_REPORTES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+

@@ -1,0 +1,60 @@
+create table IT.MI_TAB_PARAMETRICAS
+(
+  nom_tab_itgf     VARCHAR2(120) not null,
+  descripcion      VARCHAR2(500) not null,
+  nom_col_codigo   VARCHAR2(100),
+  val_cod_itgf     VARCHAR2(120),
+  nom_col_codigo2  VARCHAR2(100),
+  val_cod_itgf2    VARCHAR2(120),
+  nom_col_codigo3  VARCHAR2(100),
+  val_cod_itgf3    VARCHAR2(120),
+  nom_tab_bantotal VARCHAR2(120),
+  nom_col_bantotal VARCHAR2(100),
+  val_cod_bantotal VARCHAR2(120),
+  dom_ref_itgf     VARCHAR2(120),
+  dom_ref_bantotal VARCHAR2(120),
+  observacion      VARCHAR2(120),
+  comentario       VARCHAR2(120)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MI_TAB_PARAMETRICAS.nom_tab_itgf
+  is 'Nombre de la Tabla en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.descripcion
+  is 'Descripcion del campo a relacionar.';
+comment on column IT.MI_TAB_PARAMETRICAS.nom_col_codigo
+  is 'Nombre de la columna clave en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.val_cod_itgf
+  is 'Valor de la columna clave en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.nom_col_codigo2
+  is 'Nombre de la columna clave 2 en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.val_cod_itgf2
+  is 'Valor de la columna clave 2 en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.nom_col_codigo3
+  is 'Nombre de la columna clave 3 en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.val_cod_itgf3
+  is 'Valor de la columna clave 3 en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.nom_tab_bantotal
+  is 'Nombre de la Tabla en Bantotal.';
+comment on column IT.MI_TAB_PARAMETRICAS.nom_col_bantotal
+  is 'Nombre de la columna clave en Bantotal.';
+comment on column IT.MI_TAB_PARAMETRICAS.val_cod_bantotal
+  is 'Valor de la columna clave en Bantotal.';
+comment on column IT.MI_TAB_PARAMETRICAS.dom_ref_itgf
+  is 'Dominio de Referencia en ITGF.';
+comment on column IT.MI_TAB_PARAMETRICAS.dom_ref_bantotal
+  is 'Dominio de Referencia en Bantotal.';
+comment on column IT.MI_TAB_PARAMETRICAS.observacion
+  is 'Observación.';
+comment on column IT.MI_TAB_PARAMETRICAS.comentario
+  is 'Comentario.';
+

@@ -1,0 +1,69 @@
+create table IT.BA_AFECCIONES
+(
+  cod_afeccion      NUMBER(3) not null,
+  ind_discapacitado VARCHAR2(1) default 'N',
+  descripcion       VARCHAR2(30) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_AFECCIONES
+  is 'Tipos de Afecciones.';
+comment on column IT.BA_AFECCIONES.cod_afeccion
+  is 'Codigo de Afeccion.';
+comment on column IT.BA_AFECCIONES.ind_discapacitado
+  is 'Indicador de discapacidad fisica.';
+comment on column IT.BA_AFECCIONES.descripcion
+  is 'Descripcion.';
+comment on column IT.BA_AFECCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_AFECCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_AFECCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_AFECCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_AFECCIONES
+  add constraint PK_BA_AFECCIONES primary key (COD_AFECCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_AFECCIONES
+  add constraint UK_BAFEC_DESCRICPION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_AFECCIONES
+  add constraint AVCON_1191539250_IND_D_000
+  check (IND_DISCAPACITADO IN ('S', 'N'));
+

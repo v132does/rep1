@@ -1,0 +1,45 @@
+create table IT.BW_CNF_OFE_CLIENTES
+(
+  producto         VARCHAR2(100) not null,
+  tabla            VARCHAR2(100) not null,
+  filtro           VARCHAR2(1000),
+  campos           VARCHAR2(1000) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_CNF_OFE_CLIENTES.producto
+  is 'producto en ba_cod_referencias.';
+comment on column IT.BW_CNF_OFE_CLIENTES.tabla
+  is 'tabla a consultar.';
+comment on column IT.BW_CNF_OFE_CLIENTES.filtro
+  is 'filtro a aplicar a tabla.';
+comment on column IT.BW_CNF_OFE_CLIENTES.campos
+  is 'campos a seleccionar, si son varias columnas, deben estar concatenadas y el indicador para separar es '';''';
+alter table IT.BW_CNF_OFE_CLIENTES
+  add constraint PK_BW_CNF_OFE_CLIENTES primary key (PRODUCTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

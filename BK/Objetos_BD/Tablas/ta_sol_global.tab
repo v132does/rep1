@@ -1,0 +1,30 @@
+create table IT.TA_SOL_GLOBAL
+(
+  cod_solicitud    VARCHAR2(10) not null,
+  fecha            DATE default SYSDATE not null,
+  tipo_solicitud   VARCHAR2(10) not null,
+  nro_tarjeta      VARCHAR2(16) not null,
+  nro_cuenta       VARCHAR2(15),
+  estado           VARCHAR2(1),
+  detalle_entrega  VARCHAR2(60),
+  motivo           VARCHAR2(60),
+  tipo_entrega     VARCHAR2(10),
+  est_pin          VARCHAR2(10) not null,
+  fec_insercion    DATE,
+  usu_insercion    VARCHAR2(10),
+  fec_modificacion DATE,
+  usu_modificacion VARCHAR2(10),
+  cod_causa        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

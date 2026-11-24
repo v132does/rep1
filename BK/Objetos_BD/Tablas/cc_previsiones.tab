@@ -1,0 +1,100 @@
+create table IT.CC_PREVISIONES
+(
+  fecha                DATE not null,
+  nro_cuenta           VARCHAR2(15) not null,
+  monto                NUMBER(18,2) default 0 not null,
+  saldo                NUMBER(18,2) default 0,
+  linea                NUMBER(18,2) default 0,
+  porcentaje           NUMBER(5,2) default 0,
+  situacion            VARCHAR2(1),
+  tot_gar_computable   NUMBER(18,2) default 0,
+  tot_pri_prevision    NUMBER(18,2) default 0,
+  usu_insercion        VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  tot_prv_contingencia NUMBER(18,2),
+  mto_pre_anterior     NUMBER(18,2),
+  por_pre_anterior     NUMBER(5,2),
+  por_calculado        NUMBER(5,2),
+  ind_pri_sem_cat6     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_PREVISIONES
+  is 'Historial de Previsiones de Cuentas.';
+comment on column IT.CC_PREVISIONES.fecha
+  is 'Fecha de Previsi¿n.';
+comment on column IT.CC_PREVISIONES.nro_cuenta
+  is 'N¿mero de Cuenta.';
+comment on column IT.CC_PREVISIONES.monto
+  is 'Monto de la Previsi¿n.';
+comment on column IT.CC_PREVISIONES.saldo
+  is 'Saldo adeudado en el momento del c¿lculo.';
+comment on column IT.CC_PREVISIONES.linea
+  is 'L¿nea otorgada en el momento del c¿lculo.';
+comment on column IT.CC_PREVISIONES.porcentaje
+  is 'Porcentaje de riesgo considerado para el c¿lculo.';
+comment on column IT.CC_PREVISIONES.situacion
+  is 'Situaci¿n Contable de la Cuenta Corriente en Sobregiro seg¿n atraso.';
+comment on column IT.CC_PREVISIONES.tot_gar_computable
+  is 'Total computado de Garant¿as para el c¿lculo.';
+comment on column IT.CC_PREVISIONES.tot_pri_prevision
+  is 'Monto de la primera Previsi¿n.';
+comment on column IT.CC_PREVISIONES.usu_insercion
+  is 'Usuario que realiz¿ la inserci¿n del registro.';
+comment on column IT.CC_PREVISIONES.fec_insercion
+  is 'Fecha en que se insert¿ el registro.';
+comment on column IT.CC_PREVISIONES.usu_modificacion
+  is 'Usuario que realiz¿ la ¿ltima modificaci¿n en el registro.';
+comment on column IT.CC_PREVISIONES.fec_modificacion
+  is 'Fecha en que se realiz¿ la ¿ltima modificaci¿n en el registro.';
+comment on column IT.CC_PREVISIONES.tot_prv_contingencia
+  is 'Monto de la Previsi¿n de la Contingencia.';
+comment on column IT.CC_PREVISIONES.mto_pre_anterior
+  is 'Monto Anterior Previsionado.';
+comment on column IT.CC_PREVISIONES.por_pre_anterior
+  is 'Porcentaje Previsionado Anteriormente.';
+comment on column IT.CC_PREVISIONES.por_calculado
+  is 'Porcentaje Calculado.';
+comment on column IT.CC_PREVISIONES.ind_pri_sem_cat6
+  is 'Indicador que se calculó la previsión por el primer semestre de la previsión.';
+create index IT.IN_CPREV_NRO_CUENTA on IT.CC_PREVISIONES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_PREVISIONES
+  add constraint PK_CC_PREVISIONES primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_PREVISIONES
+  add constraint FK_CPREV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

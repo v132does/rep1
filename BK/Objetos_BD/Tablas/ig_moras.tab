@@ -1,0 +1,75 @@
+create table IT.IG_MORAS
+(
+  cod_mora         NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  dia_hasta        NUMBER(5) not null,
+  morosidad        VARCHAR2(1) default 'N' not null,
+  abreviatura      VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_MORAS
+  is 'Clasificacion de Morosidad.';
+comment on column IT.IG_MORAS.cod_mora
+  is 'Codigo de la mora.';
+comment on column IT.IG_MORAS.descripcion
+  is 'Descripcion de la mora.';
+comment on column IT.IG_MORAS.dia_hasta
+  is 'Cantidad de dias hasta los cuales se considera dentro de esta clasificacion.';
+comment on column IT.IG_MORAS.morosidad
+  is 'Indica si se considera mosoro. S/N.';
+comment on column IT.IG_MORAS.abreviatura
+  is 'Abreviatura o descripcion corta.';
+comment on column IT.IG_MORAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_MORAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_MORAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_MORAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_MORAS
+  add constraint PK_IG_MORAS primary key (COD_MORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_MORAS
+  add constraint UK_IMORA_DIA_HASTA unique (DIA_HASTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_MORAS
+  add constraint AVCON_1180382030_COD_M_000
+  check (COD_MORA BETWEEN 0 AND 999);
+

@@ -1,0 +1,50 @@
+create table IT.GE_PAG_COM_CLIENTES_TMP
+(
+  fecha           DATE,
+  nro_ref_externa VARCHAR2(15),
+  nro_cta_debito  VARCHAR2(15),
+  beneficiario    VARCHAR2(100),
+  tip_documento   VARCHAR2(3),
+  nro_documento   VARCHAR2(20),
+  nro_cta_credito VARCHAR2(15),
+  cod_moneda      VARCHAR2(3),
+  cod_ent_externa VARCHAR2(20),
+  monto           NUMBER(18,2),
+  nro_lote        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_COM_CLIENTES_TMP
+  is 'Pago a Comercios.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.fecha
+  is 'Fecha del Archivo.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.nro_ref_externa
+  is 'Nro. de cuenta en Entidad externa (vía SIPAP).';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.nro_cta_debito
+  is 'Nro. de Cuenta de Débito.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.beneficiario
+  is 'Nombre del Beneficiario.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.tip_documento
+  is 'Tipo de Documento del Beneficiario. ';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.nro_documento
+  is 'Nro. de Documento del Beneficiario.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.nro_cta_credito
+  is 'Nro. de Cuenta de Crédito.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.cod_moneda
+  is 'Código de moneda de la operación.';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.cod_ent_externa
+  is 'Código de Entidad Externa (vía SIPAP).';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.monto
+  is 'Monto de la Operación. ';
+comment on column IT.GE_PAG_COM_CLIENTES_TMP.nro_lote
+  is 'Número de Lote. ';
+

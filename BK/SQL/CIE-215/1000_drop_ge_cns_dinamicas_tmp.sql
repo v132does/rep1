@@ -1,0 +1,1 @@
+﻿drop table IT.GE_CNS_DINAMICAS_TMP;

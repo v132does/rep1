@@ -1,0 +1,70 @@
+create table IT.CB_CLA_RUB_CCO
+(
+  cod_rubro              VARCHAR2(15) not null,
+  cod_tip_cco            VARCHAR2(3),
+  cod_cla_cco            VARCHAR2(3),
+  cod_direccion          VARCHAR2(4),
+  cod_responsable        VARCHAR2(4),
+  cod_tip_administracion VARCHAR2(4),
+  cod_tip_operacion      VARCHAR2(3),
+  bloqueado              VARCHAR2(1),
+  fec_insercion          DATE default sysdate,
+  usu_insercion          VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion       DATE default sysdate,
+  usu_modificacion       VARCHAR2(10) default substr(user,1,10),
+  cod_tip_control        VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_CLA_RUB_CCO
+  is 'Tabla que registra la clasificación de los rubros - CCO.';
+comment on column IT.CB_CLA_RUB_CCO.cod_rubro
+  is 'Código de Rubro.';
+comment on column IT.CB_CLA_RUB_CCO.cod_tip_cco
+  is 'Código del Tipo de Rubro asignado por el Dpto. de Control Contable.';
+comment on column IT.CB_CLA_RUB_CCO.cod_cla_cco
+  is 'Código de Clasificación asignado por el Dpto. de Control Contable.';
+comment on column IT.CB_CLA_RUB_CCO.cod_direccion
+  is 'Código de Dirección asignado por el Dpto. de Control Contable.';
+comment on column IT.CB_CLA_RUB_CCO.cod_responsable
+  is 'Código del Responsable asignado por el Dpto. de Control Contable.';
+comment on column IT.CB_CLA_RUB_CCO.cod_tip_administracion
+  is 'Código del Tipo de Administración del Rubro Contable.';
+comment on column IT.CB_CLA_RUB_CCO.cod_tip_operacion
+  is 'Código del Tipo de Operación asignado por el Dpto. de Control Contable.';
+comment on column IT.CB_CLA_RUB_CCO.bloqueado
+  is 'Determina si el Rubro se encuentra Bloqueado(S-N).';
+comment on column IT.CB_CLA_RUB_CCO.fec_insercion
+  is 'Fecha de Inserción del Registro.';
+comment on column IT.CB_CLA_RUB_CCO.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_CLA_RUB_CCO.fec_modificacion
+  is 'Fecha de Modificación del Registro.';
+comment on column IT.CB_CLA_RUB_CCO.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_CLA_RUB_CCO.cod_tip_control
+  is 'Código del Tipo de Control.';
+alter table IT.CB_CLA_RUB_CCO
+  add constraint PK_CB_CLA_RUB_CCO primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

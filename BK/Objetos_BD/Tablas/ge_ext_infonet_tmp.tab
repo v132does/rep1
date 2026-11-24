@@ -1,0 +1,77 @@
+create table IT.GE_EXT_INFONET_TMP
+(
+  nro_cta_debito  VARCHAR2(15) not null,
+  cod_bco_debito  NUMBER(3) not null,
+  nro_cta_credito VARCHAR2(15) not null,
+  cod_bco_credito NUMBER(3) not null,
+  cod_operacion   VARCHAR2(2) not null,
+  cod_extorno     VARCHAR2(2) not null,
+  nro_documento   VARCHAR2(15) not null,
+  monto           NUMBER(18,2) not null,
+  cod_moneda      VARCHAR2(3) not null,
+  fecha           DATE not null,
+  hora            VARCHAR2(8) not null,
+  cod_bco_atm     NUMBER(3),
+  negocio         VARCHAR2(40),
+  nro_atm         VARCHAR2(3),
+  mto_comision    NUMBER(18,2),
+  dat_adicional   VARCHAR2(32)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_INFONET_TMP
+  is 'Extornos de Infonet Cobranzas';
+comment on column IT.GE_EXT_INFONET_TMP.nro_cta_debito
+  is 'Número de Cuenta de Débito';
+comment on column IT.GE_EXT_INFONET_TMP.cod_bco_debito
+  is 'Número de Banco para el Débito';
+comment on column IT.GE_EXT_INFONET_TMP.nro_cta_credito
+  is 'Número de Cuenta de Crédito';
+comment on column IT.GE_EXT_INFONET_TMP.cod_bco_credito
+  is 'Número de Banco para el Crédito';
+comment on column IT.GE_EXT_INFONET_TMP.cod_operacion
+  is 'Código de Operación Infonet';
+comment on column IT.GE_EXT_INFONET_TMP.cod_extorno
+  is 'Código de Extorno Procesadora (99)';
+comment on column IT.GE_EXT_INFONET_TMP.nro_documento
+  is 'Número de Documento ';
+comment on column IT.GE_EXT_INFONET_TMP.monto
+  is 'Importe de la Transacción';
+comment on column IT.GE_EXT_INFONET_TMP.cod_moneda
+  is 'Código de la Moneda';
+comment on column IT.GE_EXT_INFONET_TMP.fecha
+  is 'Fecha de la Transacción';
+comment on column IT.GE_EXT_INFONET_TMP.hora
+  is 'Hora de la Transacción';
+comment on column IT.GE_EXT_INFONET_TMP.cod_bco_atm
+  is 'Código Banco ATM';
+comment on column IT.GE_EXT_INFONET_TMP.negocio
+  is 'Negocio';
+comment on column IT.GE_EXT_INFONET_TMP.nro_atm
+  is 'Número ATM';
+comment on column IT.GE_EXT_INFONET_TMP.mto_comision
+  is 'Monto Comisión';
+comment on column IT.GE_EXT_INFONET_TMP.dat_adicional
+  is 'Datos Adicionales';
+create index IT.IN_GEINT_COD_EXTORNO on IT.GE_EXT_INFONET_TMP (COD_EXTORNO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

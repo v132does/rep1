@@ -1,0 +1,94 @@
+create table IT.GE_USU_LIMITES
+(
+  cod_usuario      VARCHAR2(10),
+  cod_moneda       VARCHAR2(3) not null,
+  mto_maximo       NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  categoria        VARCHAR2(2),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  niv_aprobacion   VARCHAR2(300),
+  pun_tasas        NUMBER(18,2),
+  pun_cotizacion   NUMBER(14,8),
+  cod_oficina      NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_USU_LIMITES
+  is 'Limites para Aprobacion de Solicitudes de Creditos o Tarjetas por Usuarios.';
+comment on column IT.GE_USU_LIMITES.cod_usuario
+  is 'Codigo del usuario.';
+comment on column IT.GE_USU_LIMITES.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.GE_USU_LIMITES.mto_maximo
+  is 'Monto maximo de limite.';
+comment on column IT.GE_USU_LIMITES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_USU_LIMITES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_USU_LIMITES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_USU_LIMITES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_USU_LIMITES.categoria
+  is 'Categoria  del usuario(puede ser nulo).';
+comment on column IT.GE_USU_LIMITES.cod_modulo
+  is 'Modulo al que aplica(puede ser nulo).';
+comment on column IT.GE_USU_LIMITES.cod_modalidad
+  is 'Modalidad al que aplica(puede ser nulo).';
+comment on column IT.GE_USU_LIMITES.niv_aprobacion
+  is 'Niveles de Aprobacion que puede aplicar.';
+comment on column IT.GE_USU_LIMITES.pun_tasas
+  is 'Puntos para aprobacion de Tasas.';
+comment on column IT.GE_USU_LIMITES.pun_cotizacion
+  is 'Puntos de margen para cotizacion de monedas (cambios).';
+comment on column IT.GE_USU_LIMITES.cod_oficina
+  is 'Oficina a la cual aplica este limite (solo para cambios).';
+alter table IT.GE_USU_LIMITES
+  add constraint UK_GE_USU_LIMITES unique (COD_USUARIO, COD_MONEDA, COD_MODULO, COD_MODALIDAD, NIV_APROBACION, CATEGORIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_USU_LIMITES
+  add constraint FK_GULIM_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_USU_LIMITES
+  add constraint FK_GULIM_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.GE_USU_LIMITES
+  add constraint FK_GULIM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_USU_LIMITES
+  add constraint FK_GULIM_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_USU_LIMITES
+  add constraint FK_GULIM_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_USU_LIMITES
+  add constraint AVCON_1119985601_COD_M_001
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_USU_LIMITES
+  add constraint AVCON_1119985601_COD_M_002
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+

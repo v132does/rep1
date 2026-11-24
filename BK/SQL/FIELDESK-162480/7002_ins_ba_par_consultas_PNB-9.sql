@@ -1,0 +1,6 @@
+Begin PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO := 1; End; 
+/
+insert into ba_par_consultas (COD_CONSULTA, COD_CAMPO, ALIAS, VAL_DEFECTO, TIPO, USU_INSERCION, NRO_ORDEN, TIP_VAL_DEFECTO, MODIFICABLE, OBLIGATORIO, PER_FIL_RANGO)
+values ('CD_LCR_INF', 'FEC_PROCES', null, null, 'F', 'IT', 1, 'S', 'S', 'S', null);
+
+commit;

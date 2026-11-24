@@ -1,0 +1,77 @@
+create table IT.SIMGIA_MAEICPC_F4_BKP
+(
+  riesgo              VARCHAR2(10) not null,
+  vto                 VARCHAR2(8) not null,
+  docnro              NUMBER not null,
+  sucursal            NUMBER(3) not null,
+  interes             NUMBER,
+  feini               VARCHAR2(8),
+  intdev              NUMBER,
+  intnodev            NUMBER,
+  fechcont            VARCHAR2(6),
+  periodo             CHAR(1),
+  modalidad           NUMBER(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  feecha              NUMBER,
+  cod_persona         VARCHAR2(10) not null,
+  cod_sec_credito     NUMBER(3) not null,
+  tip_interes         VARCHAR2(1),
+  tip_renovacion      VARCHAR2(1),
+  transaccion         NUMBER,
+  rubrocr             VARCHAR2(4000),
+  rubrocr_rub_it      VARCHAR2(4000),
+  inddocum            NUMBER,
+  transaccion2        NUMBER,
+  ctaactivo           VARCHAR2(4000),
+  ctaactivo_rub_it    VARCHAR2(4000),
+  ctaordact           NUMBER,
+  transaccion3        NUMBER,
+  ctapasivo           VARCHAR2(4000),
+  ctapasivo_rub_it    VARCHAR2(4000),
+  cobadl              CHAR(1),
+  propuesta           NUMBER,
+  estado              CHAR(1),
+  indpago             CHAR(1),
+  servicio            CHAR(2),
+  filler              VARCHAR2(15) not null,
+  devsusp             NUMBER,
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_sit_contable    NUMBER,
+  estado_it           VARCHAR2(1) not null,
+  estado_det          VARCHAR2(1) not null,
+  sal_interes         NUMBER(18,2) not null,
+  sal_int_documentado NUMBER(18,2),
+  mto_interes         NUMBER(18,2) not null,
+  dev_acumulado       NUMBER(18,2),
+  nro_cuota           NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  fecha_his           DATE default sysdate,
+  rubro_susp          VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SIMGIA_MAEICPC_F4_BKP
+  add constraint PK_SMG_MEICPC_F4_BKP primary key (RIESGO, VTO, DOCNRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

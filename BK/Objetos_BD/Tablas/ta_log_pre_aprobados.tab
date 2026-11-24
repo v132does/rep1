@@ -1,0 +1,25 @@
+create table IT.TA_LOG_PRE_APROBADOS
+(
+  cod_pre_aprobado     NUMBER,
+  cod_pla_pre_aprobado VARCHAR2(20),
+  cod_persona          VARCHAR2(10),
+  err_registro         VARCHAR2(500),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion        DATE default SYSDATE,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion     DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_LOG_PRE_APROBADOS
+  is 'Log para CartaOferta pre aprobados.';
+

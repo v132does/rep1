@@ -1,0 +1,50 @@
+create table IT.SB_ESTRATIFICACIONES_DEP_DET
+(
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cod_sec_contable VARCHAR2(1) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  plz_hasta        VARCHAR2(60) not null,
+  descripcion      VARCHAR2(40) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ESTRATIFICACIONES_DEP_DET
+  is 'Detalle de estratificaciones de depositos.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.fecha
+  is 'Fecha.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.cod_sec_contable
+  is 'Codigo de sector contable.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.nro_cuenta
+  is 'Nro de cuenta.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.monto
+  is 'Monto.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.plz_hasta
+  is 'Plazo hasta.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.descripcion
+  is 'Descripcion.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP_DET.fec_modificacion
+  is 'Fecha de modificacion.';
+

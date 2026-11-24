@@ -1,0 +1,82 @@
+create table IT.CR_PER_DEUDAS
+(
+  cod_persona        VARCHAR2(10) not null,
+  cod_ente           NUMBER(5) not null,
+  tip_garantia       NUMBER(3) not null,
+  mto_deuda          NUMBER(18,2) default 0,
+  mto_cuota          NUMBER(18,2) default 0,
+  sal_deuda          NUMBER(18,2) default 0,
+  fec_vencimiento    DATE,
+  max_atraso         NUMBER(5),
+  pro_atraso         NUMBER(5),
+  can_cuo_pendientes NUMBER(3),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  cod_moneda         VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_DEUDAS
+  is 'Deudas por Persona.';
+comment on column IT.CR_PER_DEUDAS.cod_persona
+  is 'Codigo de persona.';
+comment on column IT.CR_PER_DEUDAS.cod_ente
+  is 'Codigo de Ente.';
+comment on column IT.CR_PER_DEUDAS.tip_garantia
+  is 'Tipo de Garantia.';
+comment on column IT.CR_PER_DEUDAS.mto_deuda
+  is 'Monto de Deuda.';
+comment on column IT.CR_PER_DEUDAS.mto_cuota
+  is 'Monto de la Cuota.';
+comment on column IT.CR_PER_DEUDAS.sal_deuda
+  is 'Saldo de la Deuda.';
+comment on column IT.CR_PER_DEUDAS.fec_vencimiento
+  is 'Vencimiento de la Deuda.';
+comment on column IT.CR_PER_DEUDAS.max_atraso
+  is 'Maximo de Atrasos.';
+comment on column IT.CR_PER_DEUDAS.pro_atraso
+  is 'Promedio de Atrasos.';
+comment on column IT.CR_PER_DEUDAS.can_cuo_pendientes
+  is 'Cantidad de Cuotas Pendientes.';
+comment on column IT.CR_PER_DEUDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_DEUDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_DEUDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_DEUDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_DEUDAS.cod_moneda
+  is 'Codigo de la moneda.';
+alter table IT.CR_PER_DEUDAS
+  add constraint PK_CR_PER_DEUDAS primary key (COD_PERSONA, COD_ENTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_DEUDAS
+  add constraint FK_RDEUD_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.CR_PER_DEUDAS
+  add constraint FK_RDEUD_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

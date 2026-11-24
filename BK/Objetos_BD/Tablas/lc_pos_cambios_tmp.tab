@@ -1,0 +1,55 @@
+create table IT.LC_POS_CAMBIOS_TMP
+(
+  secuencia   NUMBER not null,
+  segmento    VARCHAR2(3) not null,
+  cod_moneda  VARCHAR2(3) not null,
+  cod_oficina NUMBER(3) not null,
+  compra      NUMBER(18,2),
+  venta       NUMBER(18,2),
+  compra_gs   NUMBER(18,2),
+  venta_gs    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_POS_CAMBIOS_TMP
+  is 'Tabla temporal de totales por segmento de límites VaR.';
+comment on column IT.LC_POS_CAMBIOS_TMP.secuencia
+  is 'Secuencia de registro';
+comment on column IT.LC_POS_CAMBIOS_TMP.segmento
+  is 'Segmento o tipo de operación.';
+comment on column IT.LC_POS_CAMBIOS_TMP.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.LC_POS_CAMBIOS_TMP.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.LC_POS_CAMBIOS_TMP.compra
+  is 'Monto total de compra en la moneda.';
+comment on column IT.LC_POS_CAMBIOS_TMP.venta
+  is 'Monto total de venta en la moneda.';
+comment on column IT.LC_POS_CAMBIOS_TMP.compra_gs
+  is 'Monto total de compra traducida a GS.';
+comment on column IT.LC_POS_CAMBIOS_TMP.venta_gs
+  is 'Monto total de venta traducida a GS.';
+alter table IT.LC_POS_CAMBIOS_TMP
+  add constraint PK_LPCT_POS_CAMBIOS_TMP primary key (SECUENCIA, COD_MONEDA, COD_OFICINA, SEGMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

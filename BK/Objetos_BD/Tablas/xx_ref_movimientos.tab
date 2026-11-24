@@ -1,0 +1,29 @@
+create table IT.XX_REF_MOVIMIENTOS
+(
+  cod_referencia      NUMBER(4) not null,
+  descripcion         VARCHAR2(60) not null,
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_transaccion     NUMBER(4),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  ref_archivo         VARCHAR2(30),
+  cod_otr_modulo      NUMBER(3),
+  cod_otr_modalidad   NUMBER(3),
+  cod_otr_transaccion NUMBER(4),
+  procesa             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,30 @@
+create table IT.GE_PER_INHIBIDAS_TMP
+(
+  cod_persona     VARCHAR2(10) not null,
+  cod_causa       NUMBER(3) not null,
+  fec_inicio      DATE not null,
+  err_descripcion VARCHAR2(200),
+  tie_error       VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PER_INHIBIDAS_TMP.cod_persona
+  is 'CODIGO DE PERSONA';
+comment on column IT.GE_PER_INHIBIDAS_TMP.cod_causa
+  is 'CODIGO DE CAUSAL';
+comment on column IT.GE_PER_INHIBIDAS_TMP.fec_inicio
+  is 'FECHA DE INICIO';
+comment on column IT.GE_PER_INHIBIDAS_TMP.err_descripcion
+  is 'Descripcion del error';
+comment on column IT.GE_PER_INHIBIDAS_TMP.tie_error
+  is 'S o N para indicar error en el proceso de importacion';
+

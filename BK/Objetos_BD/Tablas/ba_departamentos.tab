@@ -1,0 +1,58 @@
+create table IT.BA_DEPARTAMENTOS
+(
+  cod_departamento NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  ref_externa      NUMBER(3),
+  ref_bco_central  VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_DEPARTAMENTOS
+  is 'Departamentos del Paraguay.';
+comment on column IT.BA_DEPARTAMENTOS.cod_departamento
+  is 'Codigo de departamento.';
+comment on column IT.BA_DEPARTAMENTOS.descripcion
+  is 'Nombre del departamento.';
+comment on column IT.BA_DEPARTAMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_DEPARTAMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_DEPARTAMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_DEPARTAMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_DEPARTAMENTOS.ref_externa
+  is 'Codigo de referencia de la Procesadora de Tarjetas.';
+comment on column IT.BA_DEPARTAMENTOS.ref_bco_central
+  is 'Código Identificatorio del Departamento en el Banco Central.';
+alter table IT.BA_DEPARTAMENTOS
+  add constraint PK_BA_DEPARTAMENTOS primary key (COD_DEPARTAMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_DEPARTAMENTOS
+  add constraint AVCON_1077111591_COD_D_000
+  check (COD_DEPARTAMENTO BETWEEN 1 AND 999);
+

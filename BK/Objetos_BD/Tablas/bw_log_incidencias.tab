@@ -1,0 +1,56 @@
+create table IT.BW_LOG_INCIDENCIAS
+(
+  nro_telefono    VARCHAR2(20),
+  cod_error       VARCHAR2(10),
+  usu_insercion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion   DATE default SYSDATE not null,
+  observacion     VARCHAR2(4000),
+  cod_motivo      VARCHAR2(3),
+  nro_caja        NUMBER(3),
+  cod_tip_mensaje VARCHAR2(3),
+  cod_persona     VARCHAR2(20),
+  nro_cta_debito  VARCHAR2(15),
+  nro_cta_credito VARCHAR2(15),
+  monto           NUMBER(18,2),
+  cod_moneda      VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_LOG_INCIDENCIAS
+  is 'Contiene los registros de eventos de Regional Móvil.';
+comment on column IT.BW_LOG_INCIDENCIAS.nro_telefono
+  is 'Número de Teléfono.';
+comment on column IT.BW_LOG_INCIDENCIAS.cod_error
+  is 'Código de Error . Dominio : MSG_PAW_BCE de ba_cod_referencias';
+comment on column IT.BW_LOG_INCIDENCIAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_LOG_INCIDENCIAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_LOG_INCIDENCIAS.observacion
+  is 'Observación.';
+comment on column IT.BW_LOG_INCIDENCIAS.cod_motivo
+  is 'Código de Motivo.';
+comment on column IT.BW_LOG_INCIDENCIAS.nro_caja
+  is 'Número de Caja.';
+comment on column IT.BW_LOG_INCIDENCIAS.cod_tip_mensaje
+  is 'Código del Tipo de Mensaje.';
+comment on column IT.BW_LOG_INCIDENCIAS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.BW_LOG_INCIDENCIAS.nro_cta_debito
+  is 'Número de Cuenta de Débito.';
+comment on column IT.BW_LOG_INCIDENCIAS.nro_cta_credito
+  is 'Número de Cuenta de Crédito.';
+comment on column IT.BW_LOG_INCIDENCIAS.monto
+  is 'Monto de la Operación.';
+comment on column IT.BW_LOG_INCIDENCIAS.cod_moneda
+  is 'Código de Moneda.';
+

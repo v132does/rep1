@@ -1,0 +1,69 @@
+create table IT.SMG_RUBROS_CRCP
+(
+  cat1        VARCHAR2(100),
+  cat2        VARCHAR2(100),
+  extra       VARCHAR2(1),
+  cod_rubro   VARCHAR2(15),
+  descripcion VARCHAR2(200),
+  tipo        VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_SMG_CRCP_CAT1 on IT.SMG_RUBROS_CRCP (CAT1)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_SMG_CRCP_CAT2 on IT.SMG_RUBROS_CRCP (CAT2)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_SMG_CRCP_RUB on IT.SMG_RUBROS_CRCP (COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_SMG_CRCP_TIPO on IT.SMG_RUBROS_CRCP (TIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,7 @@
+create sequence IT.S_COD_ONB_PER
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 8375
+increment by 1
+nocache;
+

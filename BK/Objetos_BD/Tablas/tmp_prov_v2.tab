@@ -1,0 +1,24 @@
+create table IT.TMP_PROV_V2
+(
+  nro_ruc       VARCHAR2(20),
+  nro_timbrado  VARCHAR2(20),
+  nro_cuenta    VARCHAR2(15),
+  moneda        VARCHAR2(4000),
+  nom_proveedor VARCHAR2(100),
+  retiene_iva   VARCHAR2(1),
+  cod_persona   VARCHAR2(10),
+  tipo_persona  VARCHAR2(1),
+  cod_ente      NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

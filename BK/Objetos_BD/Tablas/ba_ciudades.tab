@@ -1,0 +1,103 @@
+create table IT.BA_CIUDADES
+(
+  cod_ciudad       NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  cod_pais         NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_departamento NUMBER(3),
+  cod_postal       VARCHAR2(10),
+  ref_externa      NUMBER(6),
+  des_bco_central  VARCHAR2(60)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_CIUDADES
+  is 'Ciudades.';
+comment on column IT.BA_CIUDADES.cod_ciudad
+  is 'Codigo de Ciudad.';
+comment on column IT.BA_CIUDADES.descripcion
+  is 'Nombre de Ciudad.';
+comment on column IT.BA_CIUDADES.cod_pais
+  is 'Codigo de Pais.';
+comment on column IT.BA_CIUDADES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_CIUDADES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_CIUDADES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_CIUDADES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_CIUDADES.cod_departamento
+  is 'Codigo de Departamento o Provincia.';
+comment on column IT.BA_CIUDADES.cod_postal
+  is 'Codigo Postal.';
+comment on column IT.BA_CIUDADES.ref_externa
+  is 'Código de referencia de ciudades para procesadora Bancard.';
+comment on column IT.BA_CIUDADES.des_bco_central
+  is 'Descripción de ciudad válidos para BCP';
+create index IT.IN_ECIUD_COD_DEPARTAMENTO on IT.BA_CIUDADES (COD_DEPARTAMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ECIUD_COD_PAIS on IT.BA_CIUDADES (COD_PAIS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_CIUDADES
+  add constraint PK_BA_CIUDADES primary key (COD_CIUDAD, COD_PAIS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_CIUDADES
+  add constraint FK_ECIUD_COD_DEPARTAMENTO foreign key (COD_DEPARTAMENTO)
+  references IT.BA_DEPARTAMENTOS (COD_DEPARTAMENTO);
+alter table IT.BA_CIUDADES
+  add constraint FK_ECIUD_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.BA_CIUDADES
+  add constraint AVCON_1082997745_COD_C_000
+  check (COD_CIUDAD BETWEEN 0 AND 999);
+alter table IT.BA_CIUDADES
+  add constraint AVCON_1082997745_COD_D_001
+  check (COD_DEPARTAMENTO BETWEEN 0 AND 999);
+alter table IT.BA_CIUDADES
+  add constraint AVCON_1082997745_COD_P_001
+  check (COD_PAIS BETWEEN 0 AND 999);
+

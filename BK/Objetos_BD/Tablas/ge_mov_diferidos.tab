@@ -1,0 +1,146 @@
+create table IT.GE_MOV_DIFERIDOS
+(
+  cod_mov_diferido  NUMBER(10) not null,
+  fecha             DATE,
+  hora              VARCHAR2(8),
+  cod_usuario       VARCHAR2(10),
+  nro_secuencia     NUMBER(3),
+  monto             NUMBER(18,2) default 0 not null,
+  mto_equ_local     NUMBER(18,2) default 0,
+  cod_moneda        VARCHAR2(3) not null,
+  nro_cuenta        VARCHAR2(15),
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_transaccion   NUMBER(4) not null,
+  concepto          VARCHAR2(100),
+  fec_inicio        DATE not null,
+  fec_vencimiento   DATE not null,
+  estado            VARCHAR2(1) default 'N' not null,
+  mto_dev_anterior  NUMBER(18,2) default 0,
+  mto_dev_actual    NUMBER(18,2) default 0 not null,
+  mto_dev_acumulado NUMBER(18,2) default 0 not null,
+  can_dia_actual    NUMBER(6) default 0 not null,
+  can_dia_anterior  NUMBER(6) default 0,
+  cod_oficina       NUMBER(3),
+  fec_ult_proceso   DATE,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_MOV_DIFERIDOS.cod_mov_diferido
+  is 'Código identificador del Movimiento Diferido. Secuencia S_COD_MOV_DIFERIDO.';
+comment on column IT.GE_MOV_DIFERIDOS.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.cod_usuario
+  is 'Usuario del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.nro_secuencia
+  is 'Secuencia del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.monto
+  is 'Monto del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.GE_MOV_DIFERIDOS.cod_moneda
+  is 'Moneda del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.nro_cuenta
+  is 'N° de Cuenta afectada.';
+comment on column IT.GE_MOV_DIFERIDOS.cod_modulo
+  is 'Modulo de la Comisión Cobrada.';
+comment on column IT.GE_MOV_DIFERIDOS.cod_modalidad
+  is 'Modalidad de la Comisión Cobrada.';
+comment on column IT.GE_MOV_DIFERIDOS.cod_transaccion
+  is 'Transacción de la Comisión Cobrada.';
+comment on column IT.GE_MOV_DIFERIDOS.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.GE_MOV_DIFERIDOS.fec_inicio
+  is 'Fecha de inicio del Devengamiento.';
+comment on column IT.GE_MOV_DIFERIDOS.fec_vencimiento
+  is 'Fecha de vencimiento del Devengamiento.';
+comment on column IT.GE_MOV_DIFERIDOS.estado
+  is 'Estado del Movimiento(N/Normal, R/Reversado)';
+comment on column IT.GE_MOV_DIFERIDOS.mto_dev_anterior
+  is 'Devengado del proceso actual.';
+comment on column IT.GE_MOV_DIFERIDOS.mto_dev_actual
+  is 'Devengado del proceso anterior.';
+comment on column IT.GE_MOV_DIFERIDOS.mto_dev_acumulado
+  is 'Devengado Acumulado.';
+comment on column IT.GE_MOV_DIFERIDOS.can_dia_actual
+  is 'Cantidad actual de días transcurridos.';
+comment on column IT.GE_MOV_DIFERIDOS.can_dia_anterior
+  is 'anterior de días transcurridos.';
+comment on column IT.GE_MOV_DIFERIDOS.cod_oficina
+  is 'Código de la Oficina de la Cuenta.';
+comment on column IT.GE_MOV_DIFERIDOS.fec_ult_proceso
+  is 'Fecha de último Proceso.';
+comment on column IT.GE_MOV_DIFERIDOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_MOV_DIFERIDOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_MOV_DIFERIDOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_MOV_DIFERIDOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_GMDIF_NRO_CUENTA on IT.GE_MOV_DIFERIDOS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMDIF_NRO_SECUENCIA on IT.GE_MOV_DIFERIDOS (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_DIFERIDOS
+  add constraint PK_GE_MOV_DIFERIDOS primary key (COD_MOV_DIFERIDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_DIFERIDOS
+  add constraint FK_GMDIF_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_MOV_DIFERIDOS
+  add constraint FK_GMDIF_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOV_DIFERIDOS
+  add constraint FK_GMDIF_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOV_DIFERIDOS
+  add constraint FK_GMDIF_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

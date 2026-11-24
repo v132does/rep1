@@ -1,0 +1,47 @@
+create table IT.CB_RUB_BAL_IMPOSITIVO
+(
+  nro_orden        NUMBER(7),
+  cod_rubro        VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_RUB_BAL_IMPOSITIVO
+  is 'Rubros para el balance impositivo. Proveidos por Hacienda.';
+comment on column IT.CB_RUB_BAL_IMPOSITIVO.nro_orden
+  is 'Nro. orden.';
+comment on column IT.CB_RUB_BAL_IMPOSITIVO.cod_rubro
+  is 'Codigo de rubro padre para el Balance Impositivo.';
+comment on column IT.CB_RUB_BAL_IMPOSITIVO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_RUB_BAL_IMPOSITIVO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_RUB_BAL_IMPOSITIVO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_BAL_IMPOSITIVO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_CB_RUB_BAL_IMPOSITIVO on IT.CB_RUB_BAL_IMPOSITIVO (NRO_ORDEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

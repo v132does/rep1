@@ -1,0 +1,55 @@
+create table IT.AP_TIP_SEGUIMIENTOS
+(
+  cod_tip_seguimiento NUMBER(3) not null,
+  descripcion         VARCHAR2(35) not null,
+  plantilla           LONG not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_TIP_SEGUIMIENTOS
+  is 'Tipos de Seguimientos.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.cod_tip_seguimiento
+  is 'Codigo de Tipo de Seguimiento.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.descripcion
+  is 'Descripcion.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.plantilla
+  is 'Plantilla.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_TIP_SEGUIMIENTOS.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.AP_TIP_SEGUIMIENTOS
+  add constraint PK_AP_TIP_SEGUIMIENTOS primary key (COD_TIP_SEGUIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_TIP_SEGUIMIENTOS
+  add constraint AVCON_1081349332_COD_T_004
+  check (COD_TIP_SEGUIMIENTO BETWEEN 1 AND 999);
+

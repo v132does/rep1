@@ -1,0 +1,25 @@
+CREATE TABLE IT.SB_LCR_DATOS_TMP
+(
+  NRO_ITEM			NUMBER(10),
+  ID_PADRE			NUMBER(10),
+  GRUPO				VARCHAR2(200),
+  SUB_GRUPO			VARCHAR2(200),
+  SAL_MON_LOCAL		NUMBER(18,2),
+  SAL_EXTRANJERA	NUMBER(18,2),
+  SAL_TOTAL			NUMBER(18,2),
+  SAL_ML_PONDERADO  NUMBER(18,2),
+  SAL_EXT_PONDERADO	NUMBER(18,2),
+  SAL_TOT_PONDERADO NUMBER(18,2)
+
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

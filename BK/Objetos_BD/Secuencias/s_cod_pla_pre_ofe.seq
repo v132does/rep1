@@ -1,0 +1,8 @@
+create sequence IT.S_COD_PLA_PRE_OFE
+minvalue 0
+maxvalue 9999999999
+start with 162947
+increment by 1
+nocache
+order;
+

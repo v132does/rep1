@@ -1,0 +1,47 @@
+create table IT.BW_TOK_TAR_INF_USUARIOS
+(
+  cod_inf_usuario  VARCHAR2(30) not null,
+  tip_aplicacion   VARCHAR2(36),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_INF_USUARIOS.cod_inf_usuario
+  is 'Valor único que identifica el token del usuario';
+comment on column IT.BW_TOK_TAR_INF_USUARIOS.tip_aplicacion
+  is 'Tipo de aplicación para el token del usuario. Valores Posibles: WEB, MOBILE_APP, MOBILE_WEB, MARKETPLACE';
+comment on column IT.BW_TOK_TAR_INF_USUARIOS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_INF_USUARIOS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_INF_USUARIOS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_INF_USUARIOS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_INF_USUARIOS
+  add constraint PK_BW_TOK_TAR_INF_USUARIOS primary key (COD_INF_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

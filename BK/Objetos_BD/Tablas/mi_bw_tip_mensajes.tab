@@ -1,0 +1,27 @@
+create table IT.MI_BW_TIP_MENSAJES
+(
+  cod_tip_mensaje VARCHAR2(3) not null,
+  descripcion     VARCHAR2(60) not null,
+  consulta        VARCHAR2(1) default 'N' not null,
+  ingresa         VARCHAR2(1) default 'N' not null,
+  autoriza        VARCHAR2(1) default 'N' not null,
+  dir_mail        VARCHAR2(100),
+  nom_funcion     VARCHAR2(60),
+  interno         VARCHAR2(1),
+  afe_web         VARCHAR2(1),
+  afe_tas         VARCHAR2(1),
+  afe_ivr         VARCHAR2(1),
+  afe_movil       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,219 @@
+create table IT.GE_SOLICITUDES
+(
+  nro_solicitud           NUMBER(7) not null,
+  cod_estado              VARCHAR2(3) not null,
+  cod_cau_rechazo         NUMBER(3),
+  puntaje                 NUMBER(3),
+  lin_sugerida            NUMBER(18,2) default 0,
+  cod_est_anterior        VARCHAR2(3),
+  fec_cam_estado          DATE,
+  cod_persona             VARCHAR2(10),
+  cod_modulo              NUMBER(3) not null,
+  cod_modalidad           NUMBER(3) not null,
+  monto                   NUMBER(18,2) default 0 not null,
+  cod_moneda              VARCHAR2(3) not null,
+  plz_meses               NUMBER(3),
+  fec_solicitud           DATE not null,
+  fec_vencimiento         DATE,
+  cod_canal               NUMBER(3),
+  cod_campana             NUMBER(3),
+  cod_usu_promotor        VARCHAR2(10),
+  cod_usu_oficial         VARCHAR2(10),
+  usu_insercion           VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion           DATE default SYSDATE not null,
+  usu_modificacion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion        DATE default SYSDATE not null,
+  tipo                    VARCHAR2(1),
+  observacion             VARCHAR2(4000),
+  cod_est_sugerido        VARCHAR2(3),
+  mto_aprobado            NUMBER(18,2) default 0 not null,
+  nro_sol_prestamo        NUMBER(7),
+  mto_limite              NUMBER(18,2) default 0,
+  nom_embozado            VARCHAR2(20),
+  tip_destino             VARCHAR2(1),
+  cod_banca               NUMBER(3),
+  cod_afinidad            VARCHAR2(10),
+  cod_garantia            NUMBER(3),
+  cod_oficina             NUMBER(3),
+  can_dia_desembolso      NUMBER(3),
+  fec_apr_riesgo          DATE,
+  fec_aprobacion          DATE,
+  mto_cuota               NUMBER(18,2),
+  mto_extraordinario      NUMBER(18,2),
+  cat_sistema             VARCHAR2(4),
+  tot_deu_sistema         NUMBER(18,2),
+  val_tasa                NUMBER(20,4),
+  usu_apr_riesgo          VARCHAR2(10),
+  usu_aprobacion          VARCHAR2(10),
+  cod_est_procesado       VARCHAR2(1),
+  sub_afinidad            VARCHAR2(2),
+  nro_simulacion          NUMBER(7),
+  cod_destino             NUMBER(3),
+  cod_sub_destino         NUMBER(3),
+  cod_sec_credito         NUMBER(3),
+  ind_can_aprobacion      VARCHAR2(1),
+  deb_automatico          VARCHAR2(1),
+  nro_cta_debito          VARCHAR2(15),
+  cod_per_conyuge         VARCHAR2(10),
+  cod_causa               NUMBER(3),
+  tip_cierre              NUMBER(3),
+  tip_cobro               VARCHAR2(1),
+  ind_tar_aum_linea       VARCHAR2(1),
+  tot_deu_entidad         NUMBER(18,2),
+  tot_deu_cod_sistema     NUMBER(18,2),
+  tot_deu_cod_entidad     NUMBER(18,2),
+  tot_deu_con_sistema     NUMBER(18,2),
+  tot_deu_con_entidad     NUMBER(18,2),
+  tot_deu_con_cod_sistema NUMBER(18,2),
+  tot_deu_con_cod_entidad NUMBER(18,2),
+  ind_con_scoring         VARCHAR2(1),
+  nro_cta_tarjeta         VARCHAR2(15),
+  nro_tarjeta             VARCHAR2(25),
+  cat_sis_conyuge         VARCHAR2(4),
+  cod_rub_economico       VARCHAR2(6),
+  referencia              VARCHAR2(35),
+  tip_envio               VARCHAR2(1),
+  cod_cau_anulacion       NUMBER(3),
+  niv_aprobacion          VARCHAR2(2),
+  tip_renovacion          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOLICITUDES
+  is 'Solicitudes de creditos o tarjetas.';
+comment on column IT.GE_SOLICITUDES.nro_solicitud
+  is 'Numero de Solicitud.';
+comment on column IT.GE_SOLICITUDES.cod_estado
+  is 'Estado de la solicitud.';
+comment on column IT.GE_SOLICITUDES.cod_cau_rechazo
+  is 'Codigo de causa de rechazo.';
+comment on column IT.GE_SOLICITUDES.puntaje
+  is 'Puntaje obtenido.';
+comment on column IT.GE_SOLICITUDES.lin_sugerida
+  is 'Linea Sugerida.';
+comment on column IT.GE_SOLICITUDES.cod_est_anterior
+  is 'Codigo de estado anterior.';
+comment on column IT.GE_SOLICITUDES.fec_cam_estado
+  is 'Fecha de cambio de estado.';
+comment on column IT.GE_SOLICITUDES.cod_persona
+  is 'Codigo de Personas.';
+comment on column IT.GE_SOLICITUDES.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_SOLICITUDES.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.GE_SOLICITUDES.monto
+  is 'Monto de la solicitud.';
+comment on column IT.GE_SOLICITUDES.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.GE_SOLICITUDES.plz_meses
+  is 'Plazo en meses.';
+comment on column IT.GE_SOLICITUDES.fec_solicitud
+  is 'Fecha de la solicitud.';
+comment on column IT.GE_SOLICITUDES.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.GE_SOLICITUDES.cod_canal
+  is 'Codigo de canal.';
+comment on column IT.GE_SOLICITUDES.cod_campana
+  is 'Código de campaña.';
+comment on column IT.GE_SOLICITUDES.cod_usu_promotor
+  is 'Codigo del usuario promotor.';
+comment on column IT.GE_SOLICITUDES.cod_usu_oficial
+  is 'Codigo del usuario oficial.';
+comment on column IT.GE_SOLICITUDES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOLICITUDES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOLICITUDES.tipo
+  is 'Tipo de Verificacion in Situ.';
+comment on column IT.GE_SOLICITUDES.observacion
+  is 'Observacion sobre la solicitud.';
+comment on column IT.GE_SOLICITUDES.cod_est_sugerido
+  is 'Estado Sugerido.';
+comment on column IT.GE_SOLICITUDES.mto_aprobado
+  is 'Monto aprobado por los analistas.';
+comment on column IT.GE_SOLICITUDES.nro_sol_prestamo
+  is 'Numero de solicitud de prestamos generada.';
+comment on column IT.GE_SOLICITUDES.mto_limite
+  is 'Monto limite para compras en cuotas.';
+comment on column IT.GE_SOLICITUDES.nom_embozado
+  is 'Nombre a Embozar en caso de que sea Tarjetas de Credito.';
+comment on column IT.GE_SOLICITUDES.tip_destino
+  is 'Tipo de Destino.';
+comment on column IT.GE_SOLICITUDES.cod_banca
+  is 'Codigo de Banca.';
+create index IT.IN_GSOLI_COD_PERSONA on IT.GE_SOLICITUDES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOLICITUDES
+  add constraint PK_GE_SOLICITUDES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_BANCA foreign key (COD_BANCA)
+  references IT.GE_BANCAS (COD_BANCA);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_CAU_RECHAZO foreign key (COD_CAU_RECHAZO)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_ESTADO foreign key (COD_ESTADO)
+  references IT.GE_SOL_ESTADOS (COD_ESTADO);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_EST_ANTERIOR foreign key (COD_EST_ANTERIOR)
+  references IT.GE_SOL_ESTADOS (COD_ESTADO);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_EST_SUGERIDO foreign key (COD_EST_SUGERIDO)
+  references IT.GE_SOL_ESTADOS (COD_ESTADO);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_USU_OFICIAL foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_SOLICITUDES
+  add constraint FK_GSOLI_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

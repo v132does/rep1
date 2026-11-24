@@ -1,0 +1,61 @@
+create table IT.AH_SIM_INTERESES
+(
+  cod_usuario      VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  fec_vencimiento  DATE not null,
+  mto_intereses    NUMBER(18,2) default 0 not null,
+  val_tasa         NUMBER(20,4) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_SIM_INTERESES
+  is 'Simulacion de  Intereses.';
+comment on column IT.AH_SIM_INTERESES.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.AH_SIM_INTERESES.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.AH_SIM_INTERESES.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.AH_SIM_INTERESES.fec_vencimiento
+  is 'Fecha Vencimiento.';
+comment on column IT.AH_SIM_INTERESES.mto_intereses
+  is 'Monto Interes.';
+comment on column IT.AH_SIM_INTERESES.val_tasa
+  is 'Tasa.';
+comment on column IT.AH_SIM_INTERESES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_SIM_INTERESES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_SIM_INTERESES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_SIM_INTERESES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.AH_SIM_INTERESES
+  add constraint PK_AH_SIM_INTERESES primary key (COD_USUARIO, COD_MODULO, COD_MODALIDAD, FEC_VENCIMIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,62 @@
+create table IT.TA_CON_PROMOCIONES_DET
+(
+  nro_convenio     NUMBER(6) not null,
+  por_descuento    NUMBER(7,2) not null,
+  por_entidad      NUMBER(7,2) default 0 not null,
+  por_comercio     NUMBER(7,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_inicio       DATE not null,
+  fec_fin          DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_CON_PROMOCIONES_DET.nro_convenio
+  is 'Número de Convenio de Promoción.';
+comment on column IT.TA_CON_PROMOCIONES_DET.por_descuento
+  is 'Porcentaje de descuento promoción.';
+comment on column IT.TA_CON_PROMOCIONES_DET.por_entidad
+  is 'Porcentaje que le corresponde a la Entidad.';
+comment on column IT.TA_CON_PROMOCIONES_DET.por_comercio
+  is 'Porcentaje que le corresponde al Comercio.';
+comment on column IT.TA_CON_PROMOCIONES_DET.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_CON_PROMOCIONES_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_CON_PROMOCIONES_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_CON_PROMOCIONES_DET.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+comment on column IT.TA_CON_PROMOCIONES_DET.fec_inicio
+  is 'Fecha inicio vigencia de la promoción especial.';
+comment on column IT.TA_CON_PROMOCIONES_DET.fec_fin
+  is 'Fecha fin vigencia de la promoción especial.';
+alter table IT.TA_CON_PROMOCIONES_DET
+  add constraint PK_TA_CON_PROMOCIONES_DET primary key (NRO_CONVENIO, POR_DESCUENTO, FEC_INICIO, FEC_FIN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_CON_PROMOCIONES_DET
+  add constraint FK_CPDET_NRO_CONVENIO foreign key (NRO_CONVENIO)
+  references IT.TA_CON_PROMOCIONES (NRO_CONVENIO);
+

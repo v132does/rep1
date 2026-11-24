@@ -1,0 +1,68 @@
+create table IT.BA_PER_GEN_OFERTAS_HIS
+(
+  cod_registro       NUMBER not null,
+  fec_consulta       DATE not null,
+  cod_persona        VARCHAR2(10) not null,
+  mto_lim_prestable  NUMBER,
+  cod_cat_crc        VARCHAR2(1),
+  tot_deu_crc        NUMBER,
+  mto_cuo_aproximado NUMBER,
+  faja               VARCHAR2(1),
+  fec_ing_set        DATE,
+  ant_infomercio     VARCHAR2(2),
+  mto_oferta         NUMBER,
+  can_cuotas         NUMBER,
+  cod_moneda         VARCHAR2(3),
+  rta_servicio       VARCHAR2(10),
+  rta_rrnn           VARCHAR2(10),
+  est_servicios      VARCHAR2(1) default 'P',
+  est_rrnn           VARCHAR2(1) default 'P',
+  error              VARCHAR2(100),
+  mto_ingreso        NUMBER,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  nde_prestamo       NUMBER,
+  can_cuo_ml         NUMBER,
+  rci_ml             NUMBER,
+  mto_max_tc         NUMBER,
+  mto_max_pr         NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.BA_PER_GEN_OFERTAS_HIS.nde_prestamo
+  is 'Nivel de endeudamiento Préstamo.';
+comment on column IT.BA_PER_GEN_OFERTAS_HIS.can_cuo_ml
+  is 'Cantidad de cuotas recibidas ML. Matriz de ofertas.';
+comment on column IT.BA_PER_GEN_OFERTAS_HIS.rci_ml
+  is 'Relacion RCI de ML. Matriz de ofertas.';
+comment on column IT.BA_PER_GEN_OFERTAS_HIS.mto_max_tc
+  is 'Monto máximo para tarjeta de crédito.';
+comment on column IT.BA_PER_GEN_OFERTAS_HIS.mto_max_pr
+  is 'Monto máximo para préstamo.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BA_PER_GEN_OFERTAS_HIS
+  add constraint PK_BA_PER_GEN_OFERTAS_HIS primary key (COD_REGISTRO, FEC_CONSULTA, COD_PERSONA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

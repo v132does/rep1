@@ -1,0 +1,114 @@
+create table IT.GE_BCP_CLASIFICACION_HIS
+(
+  fec_proceso      DATE not null,
+  tip_documento    VARCHAR2(3) not null,
+  nro_documento    VARCHAR2(15) not null,
+  tip_formulario   NUMBER(2),
+  nombre           VARCHAR2(60),
+  apellido         VARCHAR2(60),
+  fec_nacimiento   NUMBER(8),
+  fec_baja         NUMBER(8),
+  cla_entidad      VARCHAR2(2),
+  cla_sistema      VARCHAR2(2),
+  tot_deu_entidad  NUMBER(15),
+  tot_deu_sistema  NUMBER(15),
+  tot_con_entidad  NUMBER(15),
+  tot_con_sistema  NUMBER(15),
+  tot_cou_entidad  NUMBER(15),
+  tot_cou_sistema  NUMBER(15),
+  tot_riesgo       NUMBER(18),
+  nro_registro     NUMBER(6),
+  cod_persona      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  periodo          NUMBER(8)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_BCP_CLASIFICACION_HIS
+  is 'Contiene los registros del consolidado de CRC enviado mensualmente por BCP.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.fec_proceso
+  is 'Fecha de Clasificacion.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.nro_documento
+  is 'Numero del Documento de Identidad.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tip_formulario
+  is 'Tipo de Formulario.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.nombre
+  is 'Nombre de la Persona Fisica o Juridica.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.apellido
+  is 'Apellido de la Persona Juridica.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.fec_nacimiento
+  is 'Fecha de Nacimiento.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.fec_baja
+  is 'Fecha de baja o inactivacion.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.cla_entidad
+  is 'Clasificacion informada por la Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.cla_sistema
+  is 'Clasificacion del Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_deu_entidad
+  is 'Total Deuda Contable de la Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_deu_sistema
+  is 'Total Deuda Contable resto del Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_con_entidad
+  is 'Total Contingencia Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_con_sistema
+  is 'Total Contingencia resto Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_cou_entidad
+  is 'Total Codeudoria de la Entidad.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_cou_sistema
+  is 'Total Codeudoria del Sistema.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.tot_riesgo
+  is 'Total Riesgos.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.nro_registro
+  is 'Numero de registros correlativos.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.usu_insercion
+  is 'Usuario que registro el dato.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.fec_insercion
+  is 'Fecha del registro del dato.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.usu_modificacion
+  is 'Usuario que realizo la modificacion.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.fec_modificacion
+  is 'Fecha en la cual se realizo la modificacion.';
+comment on column IT.GE_BCP_CLASIFICACION_HIS.periodo
+  is 'Periodo Consultado (YYYYMMDD)';
+create index IT.IN_GBCPC_COD_PERSONA on IT.GE_BCP_CLASIFICACION_HIS (COD_PERSONA, PERIODO DESC)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_BCP_CLASIFICACION_HIS
+  add constraint PK_GE_BCP_CLASIFICACION_HIS primary key (FEC_PROCESO, TIP_DOCUMENTO, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

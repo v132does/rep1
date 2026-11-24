@@ -1,0 +1,52 @@
+create table IT.AP_RAMOS
+(
+  cod_ramo         NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_RAMOS
+  is 'Ramos.';
+comment on column IT.AP_RAMOS.cod_ramo
+  is 'Codigo del Ramo.';
+comment on column IT.AP_RAMOS.descripcion
+  is 'Descripcion.';
+comment on column IT.AP_RAMOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_RAMOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_RAMOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_RAMOS.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.AP_RAMOS
+  add constraint PK_AP_RAMOS primary key (COD_RAMO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_RAMOS
+  add constraint AVCON_1081349332_COD_R_004
+  check (COD_RAMO BETWEEN 1 AND 999);
+

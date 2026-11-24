@@ -1,0 +1,62 @@
+create table IT.CB_FAC_COMPRAS_DET
+(
+  cod_proveedor     NUMBER(5) not null,
+  nro_factura       VARCHAR2(20) not null,
+  nro_linea         NUMBER(9) not null,
+  cod_rubro         VARCHAR2(15) not null,
+  tip_iva           VARCHAR2(1),
+  cod_rub_iva       VARCHAR2(15),
+  cod_tas_iva       NUMBER(3),
+  mto_grabadas      NUMBER(18,2),
+  mto_excentas      NUMBER(18,2),
+  mto_iva           NUMBER(18,2),
+  mto_detalle       NUMBER(18,2),
+  mto_gra_equ_local NUMBER(18,2),
+  mto_exc_equ_local NUMBER(18,2),
+  mto_iva_equ_local NUMBER(18,2),
+  mto_det_equ_local NUMBER(18,2),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_FAC_COMPRAS_DET.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_FAC_COMPRAS_DET.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_FAC_COMPRAS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_FAC_COMPRAS_DET.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+alter table IT.CB_FAC_COMPRAS_DET
+  add constraint PK_CB_FAC_COMPRAS_DET primary key (COD_PROVEEDOR, NRO_FACTURA, NRO_LINEA, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_FAC_COMPRAS_DET
+  add constraint FK_CFACD_COD_PROVEEDOR foreign key (COD_PROVEEDOR)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.CB_FAC_COMPRAS_DET
+  add constraint FK_CFACD_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

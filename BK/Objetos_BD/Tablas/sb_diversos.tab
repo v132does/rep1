@@ -1,0 +1,61 @@
+-- Create table
+create table IT.SB_DIVERSOS
+(
+  fecha            DATE not null,
+  cod_rubro        VARCHAR2(15) not null,
+  descripcion      VARCHAR2(200),
+  mto_mon_local    NUMBER(18,2) default 0,
+  mto_equ_local    NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.SB_DIVERSOS
+  is 'Tabla utilizada para generacion de Informes Diversos';
+-- Add comments to the columns 
+comment on column IT.SB_DIVERSOS.fecha
+  is 'Fecha.';
+comment on column IT.SB_DIVERSOS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.SB_DIVERSOS.descripcion
+  is 'Descripcion del rubro contable.';
+comment on column IT.SB_DIVERSOS.mto_mon_local
+  is 'Saldo en moneda local.';
+comment on column IT.SB_DIVERSOS.mto_equ_local
+  is 'Equivalente en moneda local del saldo en moneda extranjera.';
+comment on column IT.SB_DIVERSOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_DIVERSOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_DIVERSOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_DIVERSOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+-- Create/Recreate indexes 
+create index IT.IDX_SB_DIVERSOS on IT.SB_DIVERSOS (TO_CHAR(FECHA,'DD/MM/YYYY'))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.SB_DIVERSOS to IT_TEMPORAL;

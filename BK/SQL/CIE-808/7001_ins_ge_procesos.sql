@@ -1,0 +1,7 @@
+﻿BEGIN PRE_INI_APLICACION; PAE_CNF.G_COD_MODULO:=1; END;
+/
+
+insert into GE_PROCESOS (COD_PROCESO, DESCRIPCION, NRO_ORDEN, OBLIGATORIO, TIPO, HOR_INICIO, HOR_FIN, COD_USUARIO, ERROR, PERMISO)
+values (42, 'Control de Procesos', 1, 'N', 'N', null, null, null, null, 'ADM. DE SISTEMAS');
+
+commit;

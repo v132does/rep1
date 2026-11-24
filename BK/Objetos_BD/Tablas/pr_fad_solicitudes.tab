@@ -1,0 +1,142 @@
+create table IT.PR_FAD_SOLICITUDES
+(
+  nro_solicitud      NUMBER(7) not null,
+  descripcion        VARCHAR2(240) not null,
+  cod_persona        VARCHAR2(10) not null,
+  cod_oficina        NUMBER(3),
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  cod_moneda         VARCHAR2(3) not null,
+  fecha              DATE not null,
+  fec_vencimiento    DATE,
+  estado             VARCHAR2(1) default 'I',
+  monto              NUMBER(18,2) default 0 not null,
+  tot_prestamo       NUMBER(18,2) default 0,
+  tipo               VARCHAR2(1) default 'D',
+  cod_usu_oficial    VARCHAR2(10),
+  fec_aprobacion     DATE,
+  cod_usu_aprobacion VARCHAR2(10),
+  nro_sol_operacion  NUMBER(7),
+  nro_linea          NUMBER(7),
+  observaciones      VARCHAR2(1000),
+  referencia         VARCHAR2(10),
+  cod_sub_modalidad  NUMBER(3) default 1,
+  nro_cuenta         VARCHAR2(15),
+  cotizacion         NUMBER(14,8),
+  ind_lin_credito    VARCHAR2(1) default 'N',
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  referencia2        VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_FAD_SOLICITUDES
+  is 'Contiene los datos de las solicitudes de la Fabrica de Dscto de Cheques.';
+comment on column IT.PR_FAD_SOLICITUDES.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_FAD_SOLICITUDES.descripcion
+  is 'Descripción de la propuesta.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_persona
+  is 'Código de cliente.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_modulo
+  is 'Código del módulo.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.PR_FAD_SOLICITUDES.fecha
+  is 'Fecha solicitud.';
+comment on column IT.PR_FAD_SOLICITUDES.fec_vencimiento
+  is 'Fecha de vencimiento.';
+comment on column IT.PR_FAD_SOLICITUDES.estado
+  is 'Estado de la Solicitud. (I=Ingresado, V=Validado, E=Con Error, A=Aprobado, D=Descontado, C=Cancelado).';
+comment on column IT.PR_FAD_SOLICITUDES.monto
+  is 'Valor del monto del prestamo.';
+comment on column IT.PR_FAD_SOLICITUDES.tot_prestamo
+  is 'Valor total  del prestamo.';
+comment on column IT.PR_FAD_SOLICITUDES.tipo
+  is 'Tipo de préstamo.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_usu_oficial
+  is 'Código del promotor.';
+comment on column IT.PR_FAD_SOLICITUDES.fec_aprobacion
+  is 'Fecha Aprobado / Rechazado.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_usu_aprobacion
+  is 'Usuario que Aprobo / Rechazo un prestamo.';
+comment on column IT.PR_FAD_SOLICITUDES.nro_sol_operacion
+  is 'Número de propuesta de la operación (pr_solicitudes).';
+comment on column IT.PR_FAD_SOLICITUDES.nro_linea
+  is 'Número de Línea.';
+comment on column IT.PR_FAD_SOLICITUDES.observaciones
+  is 'Observaciones.';
+comment on column IT.PR_FAD_SOLICITUDES.referencia
+  is 'Nro de solicitud de la propuesta de crédito.';
+comment on column IT.PR_FAD_SOLICITUDES.cod_sub_modalidad
+  is 'Código de Sub-Modalidad.';
+comment on column IT.PR_FAD_SOLICITUDES.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.PR_FAD_SOLICITUDES.cotizacion
+  is 'Cotización.';
+comment on column IT.PR_FAD_SOLICITUDES.ind_lin_credito
+  is 'Indica si la Operación está bajo Linea de Crédito.';
+comment on column IT.PR_FAD_SOLICITUDES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_FAD_SOLICITUDES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_FAD_SOLICITUDES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_FAD_SOLICITUDES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_FAD_SOLICITUDES.referencia2
+  is 'Nro de solicitud de la propuesta de crédito.';
+create index IT.IN_FABLI_COD_PERSONA on IT.PR_FAD_SOLICITUDES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_FABLI_ESTADO on IT.PR_FAD_SOLICITUDES (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_FAD_SOLICITUDES
+  add constraint PK_PR_FAD_SOLICITUDES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

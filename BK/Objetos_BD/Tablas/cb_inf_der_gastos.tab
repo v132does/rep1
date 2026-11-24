@@ -1,0 +1,104 @@
+create table IT.CB_INF_DER_GASTOS
+(
+  fecha                DATE,
+  cod_oficina          NUMBER(3),
+  cod_rubro            VARCHAR2(15),
+  cod_area             NUMBER(3),
+  cod_modulo           NUMBER(3) not null,
+  cod_modalidad        NUMBER(3) not null,
+  cod_transaccion      NUMBER(4),
+  cod_moneda           VARCHAR2(3),
+  importe              NUMBER(18,2),
+  cod_tip_distribucion VARCHAR2(5),
+  referencia           NUMBER(20),
+  usu_insercion        VARCHAR2(10) default substr(user,1,10),
+  fec_insercion        DATE default sysdate,
+  usu_modificacion     VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion     DATE default sysdate,
+  fec_proceso          DATE,
+  hor_proceso          VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_INF_DER_GASTOS
+  is 'Registra el informe detallado de los gastos directos y los gastos resultantes de la derrama de gastos por oficina, rubro y area.';
+comment on column IT.CB_INF_DER_GASTOS.fecha
+  is 'Fecha de generación del informe.';
+comment on column IT.CB_INF_DER_GASTOS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.CB_INF_DER_GASTOS.cod_rubro
+  is 'Código del Rubro Contable.';
+comment on column IT.CB_INF_DER_GASTOS.cod_area
+  is 'Código del Área (Centro de Costos).';
+comment on column IT.CB_INF_DER_GASTOS.cod_modulo
+  is 'Código del Módulo.';
+comment on column IT.CB_INF_DER_GASTOS.cod_modalidad
+  is 'Código de la Modalidad.';
+comment on column IT.CB_INF_DER_GASTOS.cod_transaccion
+  is 'Código de Transacción.';
+comment on column IT.CB_INF_DER_GASTOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CB_INF_DER_GASTOS.importe
+  is 'Importe.';
+comment on column IT.CB_INF_DER_GASTOS.cod_tip_distribucion
+  is 'Código del Tipo de Distribución utilizado en el proceso de derrama de gastos.';
+comment on column IT.CB_INF_DER_GASTOS.referencia
+  is 'Nro. Del Asiento Contable generado.';
+comment on column IT.CB_INF_DER_GASTOS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.CB_INF_DER_GASTOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_INF_DER_GASTOS.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.CB_INF_DER_GASTOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CB_INF_DER_GASTOS.fec_proceso
+  is 'Fecha de generación del movimiento.';
+comment on column IT.CB_INF_DER_GASTOS.hor_proceso
+  is 'Hora de generación del movimiento.';
+create index IT.IN_BICC_AREA on IT.CB_INF_DER_GASTOS (FECHA, COD_OFICINA, COD_AREA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BICC_FECHA on IT.CB_INF_DER_GASTOS (FECHA, COD_OFICINA, COD_RUBRO, COD_AREA, COD_TRANSACCION, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BICC_RUBRO on IT.CB_INF_DER_GASTOS (FECHA, COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

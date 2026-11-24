@@ -1,0 +1,83 @@
+create table IT.GE_SOL_TRA_CUENTAS
+(
+  nro_transferencia NUMBER(15) not null,
+  fec_ingreso       DATE not null,
+  monto             NUMBER(18,2) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  nro_cta_debito    VARCHAR2(15) not null,
+  cod_persona       VARCHAR2(10) not null,
+  nom_beneficiario  VARCHAR2(120),
+  nro_telefono      VARCHAR2(20) not null,
+  nro_cta_credito   VARCHAR2(15),
+  fec_credito       DATE,
+  hora_credito      VARCHAR2(8),
+  estado            VARCHAR2(1) default 'P' not null,
+  tipo_doc_benef    VARCHAR2(3),
+  nro_doc_benef     VARCHAR2(15),
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  fec_vencimiento   DATE,
+  concepto          VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_TRA_CUENTAS
+  is 'Historico de transferencias entre Clientes y no Clientes';
+comment on column IT.GE_SOL_TRA_CUENTAS.nro_transferencia
+  is 'Nro de Transferencia/bloqueo';
+comment on column IT.GE_SOL_TRA_CUENTAS.fec_ingreso
+  is 'Fecha de Ingreso de la transferencia';
+comment on column IT.GE_SOL_TRA_CUENTAS.monto
+  is 'Monto a transferir';
+comment on column IT.GE_SOL_TRA_CUENTAS.cod_moneda
+  is 'Tipo de Moneda';
+comment on column IT.GE_SOL_TRA_CUENTAS.nro_cta_debito
+  is 'Cuenta a Debitar';
+comment on column IT.GE_SOL_TRA_CUENTAS.cod_persona
+  is 'Persona que realizara la transferencia';
+comment on column IT.GE_SOL_TRA_CUENTAS.nom_beneficiario
+  is 'Nombre de la persona a quien ira la transferencia';
+comment on column IT.GE_SOL_TRA_CUENTAS.nro_telefono
+  is 'Numero de telefono de la persona beneficiada';
+comment on column IT.GE_SOL_TRA_CUENTAS.nro_cta_credito
+  is 'Numero de Credito nuevo una vez que realiza Onboarding';
+comment on column IT.GE_SOL_TRA_CUENTAS.fec_credito
+  is 'Fecha en que realiza la acreditacion';
+comment on column IT.GE_SOL_TRA_CUENTAS.hora_credito
+  is 'Hora en que se realiza la acreditacion';
+comment on column IT.GE_SOL_TRA_CUENTAS.estado
+  is 'P-Pendiente Onboarding; V-Vencido; C-Cancelado; R-Realizado';
+comment on column IT.GE_SOL_TRA_CUENTAS.tipo_doc_benef
+  is 'Tipo de Documento del Beneficiario. CI, RUC';
+comment on column IT.GE_SOL_TRA_CUENTAS.nro_doc_benef
+  is 'Numero de documento';
+comment on column IT.GE_SOL_TRA_CUENTAS.fec_vencimiento
+  is 'Fecha de vencimiento de solicitud de credito';
+comment on column IT.GE_SOL_TRA_CUENTAS.concepto
+  is 'Concepto de la transferencia';
+alter table IT.GE_SOL_TRA_CUENTAS
+  add constraint PK_GE_SOL_TRA_CUENTAS primary key (NRO_TRANSFERENCIA, FEC_INGRESO, NRO_CTA_DEBITO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

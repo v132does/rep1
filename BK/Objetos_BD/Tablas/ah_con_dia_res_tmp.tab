@@ -1,0 +1,30 @@
+﻿-- Create table
+create table it.ah_con_dia_res_tmp
+(
+  tip_registro VARCHAR2(1),
+  entidad      NUMBER(5),
+  can_registro NUMBER(12),
+  filter       VARCHAR2(1782)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.AH_CON_DIA_RES_TMP.tip_registro
+  is 'Tipo de registro (3-Trailer).';
+comment on column IT.AH_CON_DIA_RES_TMP.entidad
+  is 'Entidad.';
+comment on column IT.AH_CON_DIA_RES_TMP.can_registro
+  is 'Cantidad de registros.';
+comment on column IT.AH_CON_DIA_RES_TMP.filter
+  is 'Filtros.';
+-- Grant/Revoke object privileges 
+grant select, insert, delete on IT.AH_CON_DIA_RES_TMP to IT_TEMPORAL;

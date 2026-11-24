@@ -1,0 +1,70 @@
+-- Create table
+create table IT.CR_PER_RIESGO_PLA_TMP
+(
+  cod_persona       VARCHAR2(10) not null,
+  nro_documento     VARCHAR2(20) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nivel_riesgo      VARCHAR2(10) not null,
+  procesado         VARCHAR2(1) default 'N',
+  error_desc        VARCHAR2(4000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CR_PER_RIESGO_PLA_TMP
+  is 'Tabla temporal de migración de nivel de riesgos de clientes.';
+-- Add comments to the columns 
+comment on column IT.CR_PER_RIESGO_PLA_TMP.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.nro_documento
+  is 'Nro. documento';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.cod_tip_documento
+  is 'Tipo documento.';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.nivel_riesgo
+  is 'Nivel de riesgo ''A'': ALTO, ''M'': MEDIO, ''B'': BAJO.';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CR_PER_RIESGO_PLA_TMP.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_RIESGO_PLA_TMP_CLI on IT.CR_PER_RIESGO_PLA_TMP (COD_PERSONA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RIESGO_PLA_TMP_PROC on IT.CR_PER_RIESGO_PLA_TMP (PROCESADO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

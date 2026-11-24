@@ -1,0 +1,44 @@
+create table IT.SIMGIA_ARMA719_FEBRERO
+(
+  m719suc    VARCHAR2(40),
+  m719cta    CHAR(3),
+  m719sub    VARCHAR2(6),
+  m719nombre VARCHAR2(4000),
+  m719direcc VARCHAR2(4000),
+  m719telef  NUMBER,
+  m719riesgo NUMBER,
+  m719sdmean NUMBER,
+  m719sddmea NUMBER,
+  m719sdact  NUMBER,
+  m719sddiac NUMBER,
+  m719numero NUMBER,
+  m719tipoin NUMBER,
+  m719bndcap NUMBER,
+  m719divisa NUMBER,
+  m719sdomed NUMBER,
+  m719fchult NUMBER,
+  m719bndliq NUMBER,
+  m719slmmea NUMBER,
+  m719ind2   VARCHAR2(1),
+  m719sucorg NUMBER,
+  m719ind1   VARCHAR2(1),
+  m719acudie NUMBER,
+  m719acudi  NUMBER,
+  m719prdpef NUMBER,
+  m719apuaux NUMBER,
+  m719grpcta NUMBER,
+  m719fillr1 VARCHAR2(1),
+  fecha_his  DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

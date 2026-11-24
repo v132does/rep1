@@ -1,0 +1,34 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900633948, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900499755, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (5224848, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900109911, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900041526, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900168983, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (1212510, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900148655, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900240025, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900240032, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900518948, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900251575, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900251599, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900254255, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (19411423, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (19429860, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900040659, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900004097, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900376276, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900376283, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900445017, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (635744, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900252576, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (1474390, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (18867078, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900054495, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (19411389, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900462603, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900307614, 'NRO_SEC_CTA_MT940',0);
+insert into it.ge_cta_dat_adicionales (nro_cuenta, parametro, val_parametro) values (900625271, 'NRO_SEC_CTA_MT940',0);
+
+commit;

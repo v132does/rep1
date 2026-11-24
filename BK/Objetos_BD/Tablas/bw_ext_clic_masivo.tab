@@ -1,0 +1,85 @@
+create table IT.BW_EXT_CLIC_MASIVO
+(
+  fecha            DATE not null,
+  nro_lote         NUMBER(10) not null,
+  nro_orden        NUMBER(10) not null,
+  cod_persona      VARCHAR2(10) not null,
+  ret_cuentas      VARCHAR2(1) default 'N',
+  ret_tarjetas     VARCHAR2(1) default 'N',
+  nro_tarjeta      VARCHAR2(25),
+  procesado        VARCHAR2(1) default 'N',
+  mensaje          VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_EXT_CLIC_MASIVO
+  is 'Tabla a utilizar en el proceso de importacion de datos SUS_MAS_EXT_CLIC';
+comment on column IT.BW_EXT_CLIC_MASIVO.fecha
+  is 'Fecha de Importacion';
+comment on column IT.BW_EXT_CLIC_MASIVO.nro_lote
+  is 'Numero de Archivo importado de la fecha.';
+comment on column IT.BW_EXT_CLIC_MASIVO.nro_orden
+  is 'Nro. Orden de la Solicitud.';
+comment on column IT.BW_EXT_CLIC_MASIVO.cod_persona
+  is 'Codigo de persona del cliente.';
+comment on column IT.BW_EXT_CLIC_MASIVO.ret_cuentas
+  is 'Indica si se va a suscribir todas las cuentas del cliente. Valores posibles (S/N)';
+comment on column IT.BW_EXT_CLIC_MASIVO.ret_tarjetas
+  is 'Indica si se va a suscribir todas las tarjetas del cliente. Valores posibles (S/N)';
+comment on column IT.BW_EXT_CLIC_MASIVO.nro_tarjeta
+  is 'Numero de tarjeta que va a suscribirse al servicio de forma individual. En este caso no se tendrá en cuenta el valor de RET_TARJETAS.';
+comment on column IT.BW_EXT_CLIC_MASIVO.procesado
+  is 'Indicador si el registro fue procesado o no (S=Si, N=No). En caso de Error queda como procesado = N.';
+comment on column IT.BW_EXT_CLIC_MASIVO.mensaje
+  is 'Mensaje de Error (ERROR) o de Procesado correctamente (INFO).';
+comment on column IT.BW_EXT_CLIC_MASIVO.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.BW_EXT_CLIC_MASIVO.fec_insercion
+  is 'Fecha en que se insertó el registro. ';
+comment on column IT.BW_EXT_CLIC_MASIVO.usu_modificacion
+  is 'Usuario que realizó la última modificación. ';
+comment on column IT.BW_EXT_CLIC_MASIVO.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+create index IT.IN_BWEXTCLIMASIVO on IT.BW_EXT_CLIC_MASIVO (FECHA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_EXT_CLIC_MASIVO
+  add constraint PK_BW_EXT_CLIC_MASIVO primary key (FECHA, NRO_LOTE, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_EXT_CLIC_MASIVO
+  add constraint BW_EXT_CLIC_MASIVO_FK_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

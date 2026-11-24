@@ -1,0 +1,59 @@
+create table IT.MD_CONSTRAINT_DETAILS
+(
+  id                NUMBER not null,
+  ref_flag          CHAR(1) default 'N',
+  constraint_id_fk  NUMBER not null,
+  column_id_fk      NUMBER,
+  column_portion    NUMBER,
+  constraint_text   CLOB,
+  detail_order      NUMBER not null,
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_CONSTRAINT_DETAILS
+  is 'Constraint details show what columns are "involved" in a constraint.';
+comment on column IT.MD_CONSTRAINT_DETAILS.id
+  is 'Primary Key';
+comment on column IT.MD_CONSTRAINT_DETAILS.ref_flag
+  is '"N" or Null signify that this column is the colum that is used in the constraint.  A flag of Y signifies that the colum is a referenced column (i.e. part of a foreign key constraint)';
+comment on column IT.MD_CONSTRAINT_DETAILS.constraint_id_fk
+  is 'Constraint that this detail belongs to //PARENTFIELD';
+comment on column IT.MD_CONSTRAINT_DETAILS.column_portion
+  is 'The portion of a column this detail belongs (e.g. for constrints on substrings)';
+comment on column IT.MD_CONSTRAINT_DETAILS.constraint_text
+  is 'The text of the constraint';
+alter table IT.MD_CONSTRAINT_DETAILS
+  add constraint MD_CONSTRAINT_DETAILS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_CONSTRAINT_DETAILS
+  add constraint MD_CONSTRAINT_DETAILS_MD__FK1 foreign key (CONSTRAINT_ID_FK)
+  references IT.MD_CONSTRAINTS (ID) on delete cascade;
+alter table IT.MD_CONSTRAINT_DETAILS
+  add constraint MD_CONSTRAINT_DETAILS_MD__FK2 foreign key (COLUMN_ID_FK)
+  references IT.MD_COLUMNS (ID) on delete cascade;
+

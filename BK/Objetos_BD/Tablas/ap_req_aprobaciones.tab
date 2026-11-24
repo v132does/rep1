@@ -1,0 +1,91 @@
+create table IT.AP_REQ_APROBACIONES
+(
+  cod_requerimiento NUMBER(10) not null,
+  orden             NUMBER(4) not null,
+  cod_grupo         NUMBER(3) not null,
+  estado            VARCHAR2(1) default 'P' not null,
+  cod_usuario       VARCHAR2(10),
+  fec_verificacion  DATE,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  nota              VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_REQ_APROBACIONES
+  is 'Aprobaciones de Requerimientos.';
+comment on column IT.AP_REQ_APROBACIONES.cod_requerimiento
+  is 'Codigo del Requerimiento.';
+comment on column IT.AP_REQ_APROBACIONES.orden
+  is 'Orden.';
+comment on column IT.AP_REQ_APROBACIONES.cod_grupo
+  is 'Rol del Usuario.';
+comment on column IT.AP_REQ_APROBACIONES.estado
+  is 'Estado.';
+comment on column IT.AP_REQ_APROBACIONES.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.AP_REQ_APROBACIONES.fec_verificacion
+  is 'Fecha de Verificacion.';
+comment on column IT.AP_REQ_APROBACIONES.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_REQ_APROBACIONES.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AP_REQ_APROBACIONES.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_REQ_APROBACIONES.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.AP_REQ_APROBACIONES.nota
+  is 'Observacion.';
+create index IT.FK_YRAPR_COD_USUARIO on IT.AP_REQ_APROBACIONES (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_REQ_APROBACIONES
+  add constraint PK_AP_REQ_APROBACIONES primary key (COD_REQUERIMIENTO, ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_REQ_APROBACIONES
+  add constraint FK_YRAPR_COD_REQUERIMIENTO foreign key (COD_REQUERIMIENTO)
+  references IT.AP_REQUERIMIENTOS (COD_REQUERIMIENTO) on delete cascade;
+alter table IT.AP_REQ_APROBACIONES
+  add constraint FK_YRAPR_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_REQ_APROBACIONES
+  add constraint AVCON_1081349332_COD_G_003
+  check (COD_GRUPO BETWEEN 1 AND 999);
+alter table IT.AP_REQ_APROBACIONES
+  add constraint AVCON_1081349332_COD_R_006
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+alter table IT.AP_REQ_APROBACIONES
+  add constraint AVCON_1081349332_ESTAD_004
+  check (ESTADO IN ('P', 'A', 'C'));
+

@@ -1,0 +1,42 @@
+create table IT.GE_SPI_CLI_CAS_TMP
+(
+  nro_referencia    VARCHAR2(33) not null,
+  cli_recordid      VARCHAR2(33),
+  tip_identificador VARCHAR2(10) not null,
+  val_identificador VARCHAR2(80) not null,
+  fec_vto_documento DATE,
+  residencia        VARCHAR2(1),
+  nombre            VARCHAR2(80),
+  apellido          VARCHAR2(60),
+  apodo             VARCHAR2(30),
+  genero            VARCHAR2(10),
+  fec_nacimiento    DATE,
+  lugar_nacimiento  VARCHAR2(80),
+  direccion         VARCHAR2(80),
+  pais              VARCHAR2(35),
+  ciudad            VARCHAR2(35),
+  departamento      VARCHAR2(35),
+  inf_adicional     VARCHAR2(2000),
+  det_adicional_pv  VARCHAR2(2000),
+  est_cliente       VARCHAR2(20),
+  est_solicitud     VARCHAR2(1),
+  error             VARCHAR2(2000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  tip_accion        VARCHAR2(3),
+  tip_canal         VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

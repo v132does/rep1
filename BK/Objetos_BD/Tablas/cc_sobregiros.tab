@@ -1,0 +1,94 @@
+create table IT.CC_SOBREGIROS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  fecha               DATE not null,
+  saldo               NUMBER(18,2) default 0 not null,
+  liquidado           VARCHAR2(1) default 'N' not null,
+  usu_insercion       VARCHAR2(15) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(15) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  sal_total           NUMBER(18,2) default 0 not null,
+  sal_retenido        NUMBER(18,2) default 0 not null,
+  mto_linea           NUMBER(18,2) default 0 not null,
+  can_dias            NUMBER(6),
+  mto_lin_transitoria NUMBER(18,2),
+  can_dia_sobregiro   NUMBER(6),
+  generado            VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_SOBREGIROS
+  is 'Saldos en Sobregiros por Cuenta.';
+comment on column IT.CC_SOBREGIROS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CC_SOBREGIROS.fecha
+  is 'Fecha en que se produjo el sobregiro.';
+comment on column IT.CC_SOBREGIROS.saldo
+  is 'Saldo de la cuenta en el momento del sobregiro.';
+comment on column IT.CC_SOBREGIROS.liquidado
+  is 'El sobregiro fue levantado.';
+comment on column IT.CC_SOBREGIROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_SOBREGIROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_SOBREGIROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SOBREGIROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_SOBREGIROS.sal_total
+  is 'Saldo total en sobregiro.';
+comment on column IT.CC_SOBREGIROS.sal_retenido
+  is 'Saldo retenido en sobregiro.';
+comment on column IT.CC_SOBREGIROS.mto_linea
+  is 'Monto actual de la linea de sobregiro.';
+comment on column IT.CC_SOBREGIROS.can_dias
+  is 'Cantidad total de Días de Exceso.';
+comment on column IT.CC_SOBREGIROS.mto_lin_transitoria
+  is 'Porcion de la linea transitoria a la fecha.';
+comment on column IT.CC_SOBREGIROS.can_dia_sobregiro
+  is 'Cantidad total de Días de Sobregiro.';
+comment on column IT.CC_SOBREGIROS.generado
+  is 'Indica que ya se calculó el interés y el impuesto por los sobregiros de la cuenta.';
+create index IT.IN_SOBRE_LIQUIDADO on IT.CC_SOBREGIROS (LIQUIDADO, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 576K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOBREGIROS
+  add constraint PK_CC_SOBREGIROS primary key (NRO_CUENTA, FECHA, LIQUIDADO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 640K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOBREGIROS
+  add constraint FK_GCUEN_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_SOBREGIROS
+  add constraint AVCON_1084831806_LIQUI_000
+  check (LIQUIDADO IN ('S', 'N'));
+

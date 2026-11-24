@@ -1,0 +1,23 @@
+create table IT.GE_EXT_BAN_SALDOS_TMP
+(
+  cod_persona  VARCHAR2(10) not null,
+  nro_cuenta   VARCHAR2(15) not null,
+  denominacion VARCHAR2(50) not null,
+  sal_anterior NUMBER,
+  sal_actual   NUMBER,
+  fec_extracto DATE,
+  cod_ente     NUMBER(5),
+  cod_banco    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

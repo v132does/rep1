@@ -1,0 +1,59 @@
+create table IT.BW_DAT_GENERICOS
+(
+  cod_dato         NUMBER not null,
+  tipo             VARCHAR2(50) not null,
+  cod_persona      VARCHAR2(10),
+  cod_empresa      VARCHAR2(10),
+  descripcion      VARCHAR2(450),
+  datos_genericos  VARCHAR2(4000),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_DAT_GENERICOS.cod_dato
+  is 'codigo identificador de dato generico';
+comment on column IT.BW_DAT_GENERICOS.tipo
+  is 'tipo de dato generico';
+comment on column IT.BW_DAT_GENERICOS.cod_persona
+  is 'codigo de persona';
+comment on column IT.BW_DAT_GENERICOS.cod_empresa
+  is 'codigo de empresa';
+comment on column IT.BW_DAT_GENERICOS.descripcion
+  is 'descripcion del data generico';
+comment on column IT.BW_DAT_GENERICOS.datos_genericos
+  is 'datos genericos adicionales (Ej: json de atributos adicionales)';
+comment on column IT.BW_DAT_GENERICOS.fec_insercion
+  is 'fecha de insercion';
+comment on column IT.BW_DAT_GENERICOS.usu_insercion
+  is 'usuario de insercion';
+comment on column IT.BW_DAT_GENERICOS.fec_modificacion
+  is 'fecha de modificacion';
+comment on column IT.BW_DAT_GENERICOS.usu_modificacion
+  is 'usuario de modificacion';
+alter table IT.BW_DAT_GENERICOS
+  add constraint PK_BW_DAT_GENERICOS primary key (COD_DATO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

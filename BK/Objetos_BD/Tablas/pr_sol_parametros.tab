@@ -1,0 +1,145 @@
+create table IT.PR_SOL_PARAMETROS
+(
+  cod_canal         NUMBER(3),
+  cod_campana       NUMBER(3),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  tip_interes       VARCHAR2(1) default 'V',
+  tip_amortizacion  VARCHAR2(1),
+  aju_ult_cuota     VARCHAR2(1) default 'N',
+  tip_aju_fecha     VARCHAR2(1) default 'E',
+  tip_monto         VARCHAR2(1),
+  aju_gracia        VARCHAR2(1) default 'N',
+  cod_sec_credito   NUMBER(3),
+  cod_departamento  NUMBER(3),
+  tip_documento     VARCHAR2(1),
+  tipo              VARCHAR2(1) default 'A',
+  val_tasa          NUMBER(20,4) default 0,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null,
+  cod_rub_economico VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SOL_PARAMETROS
+  is 'Parametros Generales  de Solicitudes.';
+comment on column IT.PR_SOL_PARAMETROS.cod_canal
+  is 'Codigo del Canal puede ser nulo.';
+comment on column IT.PR_SOL_PARAMETROS.cod_campana
+  is 'Codigo de la Campaña. Puede ser nulo.';
+comment on column IT.PR_SOL_PARAMETROS.cod_modulo
+  is 'Codigo del modulo de la operacion.';
+comment on column IT.PR_SOL_PARAMETROS.cod_modalidad
+  is 'Codigo de la modalidad de la operacion.';
+comment on column IT.PR_SOL_PARAMETROS.tip_interes
+  is 'Tipo de interes (A=Adelantado / V=Vencido).';
+comment on column IT.PR_SOL_PARAMETROS.tip_amortizacion
+  is 'Tipo de sistema de amortización.';
+comment on column IT.PR_SOL_PARAMETROS.aju_ult_cuota
+  is 'Se ajusta última Cuota S/N.';
+comment on column IT.PR_SOL_PARAMETROS.tip_aju_fecha
+  is 'Tipo de ajuste de fecha.';
+comment on column IT.PR_SOL_PARAMETROS.tip_monto
+  is 'Tipo de monto B-bruto o N-neto.';
+comment on column IT.PR_SOL_PARAMETROS.aju_gracia
+  is 'Se ajusta el periodo de gracia S/N.';
+comment on column IT.PR_SOL_PARAMETROS.cod_sec_credito
+  is 'Código de sector.';
+comment on column IT.PR_SOL_PARAMETROS.cod_departamento
+  is 'Código de departamento.';
+comment on column IT.PR_SOL_PARAMETROS.tip_documento
+  is 'Tipo de documento. (1=Vista / 2=Vencimiento).';
+comment on column IT.PR_SOL_PARAMETROS.tipo
+  is 'Tipo de préstamo.';
+comment on column IT.PR_SOL_PARAMETROS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.PR_SOL_PARAMETROS.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.PR_SOL_PARAMETROS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.PR_SOL_PARAMETROS.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.PR_SOL_PARAMETROS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.PR_SOL_PARAMETROS.cod_rub_economico
+  is 'Código de Rubro Económico.';
+alter table IT.PR_SOL_PARAMETROS
+  add constraint UK_PR_SOL_PARAMETROS unique (COD_CANAL, COD_CAMPANA, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOL_PARAMETROS
+  add constraint FK_GSPAR_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint FK_GSPAR_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint FK_GSPAR_COD_DEPARTAMENTO foreign key (COD_DEPARTAMENTO)
+  references IT.BA_DEPARTAMENTOS (COD_DEPARTAMENTO);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint FK_GSPAR_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint FK_GSPAR_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint FK_GSPAR_COD_SEC_CREDITO foreign key (COD_SEC_CREDITO)
+  references IT.PR_SEC_CREDITOS (COD_SEC_CREDITO);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_AJU_G_000
+  check (AJU_GRACIA IN ('S', 'N'));
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_AJU_U_000
+  check (AJU_ULT_CUOTA IN ('S', 'N'));
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_COD_C_000
+  check (COD_CANAL BETWEEN 0 AND 999);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_COD_C_001
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_COD_D_001
+  check (COD_DEPARTAMENTO BETWEEN 0 AND 999);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_COD_M_001
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_COD_M_002
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_TIP_A_000
+  check (TIP_AMORTIZACION IN ('C', 'F', 'P'));
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_TIP_A_001
+  check (TIP_AJU_FECHA IN ('E', 'H'));
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_TIP_D_000
+  check (TIP_DOCUMENTO IN ('1', '2'));
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_TIP_I_000
+  check (TIP_INTERES IN ('V', 'A'));
+alter table IT.PR_SOL_PARAMETROS
+  add constraint AVCON_1090942942_TIP_M_000
+  check (TIP_MONTO IN ('B', 'N'));
+

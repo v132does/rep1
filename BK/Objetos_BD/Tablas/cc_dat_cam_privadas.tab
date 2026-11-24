@@ -1,0 +1,28 @@
+create table IT.CC_DAT_CAM_PRIVADAS
+(
+  fecha         DATE,
+  tipo          VARCHAR2(100),
+  oficina       VARCHAR2(100),
+  orden         VARCHAR2(100),
+  banco         VARCHAR2(100),
+  cod_moneda    VARCHAR2(3),
+  mto_tra_400   NUMBER(18,2),
+  mto_enviado   NUMBER(18,2),
+  mto_devuelto  NUMBER(18,2),
+  mto_recibido  NUMBER(18,2),
+  mto_rechazado NUMBER(18,2),
+  mto_neto      NUMBER(18,2),
+  accion        VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

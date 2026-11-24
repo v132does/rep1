@@ -1,0 +1,7 @@
+create sequence IT.S_COD_MODULO
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 31
+increment by 1
+nocache;
+

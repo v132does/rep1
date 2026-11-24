@@ -1,0 +1,13 @@
+create global temporary table IT.STAGE_SS2K5_CHECK_CONSTRAINTS
+(
+  svrid_fk         NUMBER(38),
+  dbid_gen_fk      NUMBER(38),
+  object_id_gen    NUMBER(38),
+  object_id        NUMBER(38) not null,
+  parent_column_id NUMBER(38) not null,
+  definition       CLOB
+)
+on commit preserve rows;
+create index IT.S_SS2K5_C_C_OBJECT_ID on IT.STAGE_SS2K5_CHECK_CONSTRAINTS (OBJECT_ID);
+create index IT.S_SS2K5_CK_CTS_DBID_GEN_FK on IT.STAGE_SS2K5_CHECK_CONSTRAINTS (DBID_GEN_FK);
+

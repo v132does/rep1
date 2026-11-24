@@ -1,0 +1,139 @@
+create table IT.GE_DOM_BAN_OPERACIONES
+(
+  fec_proceso              DATE not null,
+  nro_cta_debito           VARCHAR2(15) not null,
+  cod_persona              VARCHAR2(10),
+  for_pago                 VARCHAR2(1),
+  estado                   VARCHAR2(1),
+  concepto                 VARCHAR2(100),
+  cod_moneda               VARCHAR2(3),
+  monto                    NUMBER(18,2),
+  beneficiario             VARCHAR2(60),
+  nro_doc_beneficiario     VARCHAR2(20),
+  cod_tip_doc_beneficiario NUMBER(3),
+  ben_dir_correo           VARCHAR2(80),
+  dir_beneficiario         VARCHAR2(100),
+  cod_per_pte_beneficiario VARCHAR2(10),
+  nro_cta_beneficiario     VARCHAR2(35),
+  ind_valor                VARCHAR2(1),
+  nro_referencia           NUMBER(15),
+  nro_documento            NUMBER(15),
+  fec_tra_snp              DATE,
+  est_tra_snp              VARCHAR2(1),
+  sit_tra_snp              VARCHAR2(1),
+  fec_mov_pago             DATE,
+  hor_mov_pago             VARCHAR2(8),
+  usu_mov_pago             VARCHAR2(10),
+  tot_creditos             NUMBER(18,2),
+  tot_debitos              NUMBER(18,2),
+  can_creditos             NUMBER(6),
+  can_debitos              NUMBER(6),
+  ref_creditos             VARCHAR2(4000),
+  ref_debitos              VARCHAR2(4000),
+  error                    VARCHAR2(4000),
+  fec_insercion            DATE default SYSDATE,
+  usu_insercion            VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion         DATE default SYSDATE,
+  usu_modificacion         VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DOM_BAN_OPERACIONES
+  is 'Contiene los datos de Transferencias Interbancarias.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.fec_proceso
+  is 'Fecha de Proceso';
+comment on column IT.GE_DOM_BAN_OPERACIONES.nro_cta_debito
+  is 'Nro de Cuenta de Debito';
+comment on column IT.GE_DOM_BAN_OPERACIONES.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.GE_DOM_BAN_OPERACIONES.for_pago
+  is 'Forma de Pago (I=Transferencia Interbancaria)';
+comment on column IT.GE_DOM_BAN_OPERACIONES.estado
+  is 'Estado del Mensaje SWIFT, A-Aprobado, C-Cancelado, E-Error, S-Solicitado, V-Verificado.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.concepto
+  is 'Concepto de la Operación.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.monto
+  is 'Monto de la Transferencia.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.beneficiario
+  is 'Nombre del Beneficiario';
+comment on column IT.GE_DOM_BAN_OPERACIONES.nro_doc_beneficiario
+  is 'Número de Documento de Identidad del Beneficiario.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.cod_tip_doc_beneficiario
+  is 'Tipo de Documento del Beneficiario.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.ben_dir_correo
+  is 'Dirección de correo del beneficiario.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.dir_beneficiario
+  is 'Dirección del Beneficiario.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.cod_per_pte_beneficiario
+  is 'Codigo de Persona Pte Beneficiario Destino (Banco o Ente)';
+comment on column IT.GE_DOM_BAN_OPERACIONES.nro_cta_beneficiario
+  is 'Cuenta de Referencia de la Transferencia (puede ser de la Entidad si es Emitida o Externa si es Recibida).';
+comment on column IT.GE_DOM_BAN_OPERACIONES.ind_valor
+  is 'Indica si la Transferencia es S=Alto Valor, N=Bajo Valor.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.nro_referencia
+  is 'Numero de Referencia de la Transferencia. Ej: 213804.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.nro_documento
+  is 'Nro de Documento de la Operacion';
+comment on column IT.GE_DOM_BAN_OPERACIONES.fec_tra_snp
+  is 'Fecha del registro de la Transferencia SNP';
+comment on column IT.GE_DOM_BAN_OPERACIONES.est_tra_snp
+  is 'Estado de la Transferencia SNP';
+comment on column IT.GE_DOM_BAN_OPERACIONES.sit_tra_snp
+  is 'Situacion de la Transferencia SNP';
+comment on column IT.GE_DOM_BAN_OPERACIONES.fec_mov_pago
+  is 'Fecha del Movimiento de Pago de la Transferencia SNP';
+comment on column IT.GE_DOM_BAN_OPERACIONES.hor_mov_pago
+  is 'Hora del Movimiento de Pago de la Transferencia SNP';
+comment on column IT.GE_DOM_BAN_OPERACIONES.usu_mov_pago
+  is 'Usuario del Movimiento de Pago de la Transferencia SNP';
+comment on column IT.GE_DOM_BAN_OPERACIONES.tot_creditos
+  is 'Total de Creditos';
+comment on column IT.GE_DOM_BAN_OPERACIONES.tot_debitos
+  is 'Total de Debitos';
+comment on column IT.GE_DOM_BAN_OPERACIONES.can_creditos
+  is 'Cantidad de Creditos';
+comment on column IT.GE_DOM_BAN_OPERACIONES.can_debitos
+  is 'Cantidad de Debitos';
+comment on column IT.GE_DOM_BAN_OPERACIONES.ref_creditos
+  is 'Referencia de Fecha, hora, y usuario de movimientos de Creditos';
+comment on column IT.GE_DOM_BAN_OPERACIONES.ref_debitos
+  is 'Referencia de Fecha, hora, y usuario de movimientos de Debitos';
+comment on column IT.GE_DOM_BAN_OPERACIONES.error
+  is 'Descripción del Error generado al procesar el Mensaje.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.GE_DOM_BAN_OPERACIONES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+alter table IT.GE_DOM_BAN_OPERACIONES
+  add constraint PK_GE_DOM_BAN_OPERACIONES primary key (FEC_PROCESO, NRO_CTA_DEBITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DOM_BAN_OPERACIONES
+  add constraint FK_DOMCT_NRO_CUENTA foreign key (NRO_CTA_DEBITO)
+  references IT.GE_DOM_BAN_CUENTAS (NRO_CUENTA);
+

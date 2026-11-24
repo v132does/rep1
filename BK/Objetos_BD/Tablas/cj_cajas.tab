@@ -1,0 +1,109 @@
+create table IT.CJ_CAJAS
+(
+  nro_caja            NUMBER(3) not null,
+  estado              VARCHAR2(1) default 'A' not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  descripcion         VARCHAR2(50) not null,
+  cod_usu_responsable VARCHAR2(10),
+  cod_usu_autorizador VARCHAR2(10),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tipo                VARCHAR2(1) default 'H' not null,
+  fec_hor_cierre      DATE default SYSDATE,
+  mto_asegurado       NUMBER(18,2),
+  presente            VARCHAR2(1) default 'N',
+  impresora           VARCHAR2(200) default 'LPT1',
+  fec_cierre          DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CJ_CAJAS
+  is 'Numeros de Caja.';
+-- Add comments to the columns 
+comment on column IT.CJ_CAJAS.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CJ_CAJAS.estado
+  is 'Estado de la Caja. (A=Activo / I-Inactivo).';
+comment on column IT.CJ_CAJAS.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CJ_CAJAS.cod_usuario
+  is 'Codigo de Usuario.';
+comment on column IT.CJ_CAJAS.descripcion
+  is 'Descripcion de la Caja.';
+comment on column IT.CJ_CAJAS.cod_usu_responsable
+  is 'Codigo del Responsable.';
+comment on column IT.CJ_CAJAS.cod_usu_autorizador
+  is 'Codigo de la Persona que Autoriza.';
+comment on column IT.CJ_CAJAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_CAJAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_CAJAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_CAJAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_CAJAS.tipo
+  is 'Codigo del Tipo de Caja.';
+comment on column IT.CJ_CAJAS.fec_hor_cierre
+  is 'Fecha y Hora de Cierre Diario. Los sobres ingresados posteriores a esta pasan al dia sgte.';
+comment on column IT.CJ_CAJAS.mto_asegurado
+  is 'Monto Asegurado de la Caja expresado en Moneda Fuerte.';
+comment on column IT.CJ_CAJAS.presente
+  is 'Indica si el Cajero esta Presente en la Caja actualmente.';
+comment on column IT.CJ_CAJAS.impresora
+  is 'Indica el Nombre de la Impresora en la que imprime el Cajero. Si hay mas de una, se separan por comas (,).';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CJ_CAJAS
+  add constraint PK_CJ_CAJAS primary key (NRO_CAJA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CJ_CAJAS
+  add constraint FK_JCAJA_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CJ_CAJAS
+  add constraint FK_JCAJA_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CJ_CAJAS
+  add constraint FK_JCAJA_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CJ_CAJAS
+  add constraint FK_JCAJA_COD_USU_RESPONSABLE foreign key (COD_USU_RESPONSABLE)
+  references IT.BA_USUARIOS (COD_USUARIO);
+-- Create/Recreate check constraints 
+alter table IT.CJ_CAJAS
+  add constraint AVCON_1081777853_COD_O_003
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CJ_CAJAS
+  add constraint AVCON_1081777853_NRO_C_000
+  check (NRO_CAJA BETWEEN 0 AND 999)
+  disable
+  novalidate;
+alter table IT.CJ_CAJAS
+  add constraint AVCON_1081778057_ESTAD_000
+  check (ESTADO IN ('A', 'I'));
+alter table IT.CJ_CAJAS
+  add constraint AVCON_1082657665_TIPO_000
+  check (TIPO IN ('H', 'A', 'S','P','C','T'));

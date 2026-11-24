@@ -1,0 +1,331 @@
+create table IT.BA_PERSONAS
+(
+  cod_persona         VARCHAR2(10) not null,
+  nom_completo        VARCHAR2(120),
+  tipo                VARCHAR2(1) not null,
+  cod_usu_promotor    VARCHAR2(10),
+  cod_tip_documento   NUMBER(3) not null,
+  nro_documento       VARCHAR2(20) not null,
+  cod_pais            NUMBER(3) not null,
+  dir_correo          VARCHAR2(80),
+  cod_actividad       NUMBER(3),
+  ref_bancaria        NUMBER(1),
+  ref_comercial       NUMBER(1),
+  ref_laboral         NUMBER(1),
+  ref_tarjeta         NUMBER(1),
+  tot_ingresos        NUMBER(18,2) default 0,
+  ing_presuntos       NUMBER(18,2) default 0,
+  egr_presuntos       NUMBER(18,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  est_verificacion    VARCHAR2(1) default 'N',
+  cod_usu_verificador VARCHAR2(10),
+  nom_per_informo     VARCHAR2(120),
+  obs_verificacion    VARCHAR2(1000),
+  fec_verificacion    DATE,
+  tip_relacion        VARCHAR2(1),
+  fec_vto_documento   DATE,
+  tip_iva             VARCHAR2(2),
+  tas_personalizada   VARCHAR2(1) default 'N',
+  recibe_sms          VARCHAR2(1) default 'S',
+  cod_pai_documento   NUMBER(3),
+  cod_rub_primario    VARCHAR2(6),
+  cod_rub_secundario  VARCHAR2(6),
+  cod_rub_terciario   VARCHAR2(6),
+  cod_ciu_origen      NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PERSONAS
+  is 'Personas.';
+comment on column IT.BA_PERSONAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BA_PERSONAS.nom_completo
+  is 'Nombre Completo (Se calcula).';
+comment on column IT.BA_PERSONAS.tipo
+  is 'Tipo de Persona (F=Fisica, J=Juridica).';
+comment on column IT.BA_PERSONAS.cod_usu_promotor
+  is 'Codigo del Promotor.';
+comment on column IT.BA_PERSONAS.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.BA_PERSONAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.BA_PERSONAS.cod_pais
+  is 'Pais de Origen.';
+comment on column IT.BA_PERSONAS.dir_correo
+  is 'Direccion de Mail.';
+comment on column IT.BA_PERSONAS.cod_actividad
+  is 'Codigo de Actividad.';
+comment on column IT.BA_PERSONAS.ref_bancaria
+  is 'Referencia Bancaria.';
+comment on column IT.BA_PERSONAS.ref_comercial
+  is 'Referencia Comercial.';
+comment on column IT.BA_PERSONAS.ref_laboral
+  is 'Referencia laboral.';
+comment on column IT.BA_PERSONAS.ref_tarjeta
+  is 'Referencia Tarjeta.';
+comment on column IT.BA_PERSONAS.tot_ingresos
+  is 'Total de Ingresos.';
+comment on column IT.BA_PERSONAS.ing_presuntos
+  is 'Ingresos Presuntos.';
+comment on column IT.BA_PERSONAS.egr_presuntos
+  is 'Egresos Presuntos.';
+comment on column IT.BA_PERSONAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PERSONAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PERSONAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PERSONAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PERSONAS.est_verificacion
+  is 'Estado de la verificacion.';
+comment on column IT.BA_PERSONAS.cod_usu_verificador
+  is 'Codigo de usuario verificador.';
+comment on column IT.BA_PERSONAS.nom_per_informo
+  is 'Nombre de la persona que proporciono los datos.';
+comment on column IT.BA_PERSONAS.obs_verificacion
+  is 'Observacion de la verificacion.';
+comment on column IT.BA_PERSONAS.fec_verificacion
+  is 'Fecha de la verificacion.';
+comment on column IT.BA_PERSONAS.tip_relacion
+  is 'Tipo de Relacion de la persona que da la informacion.';
+comment on column IT.BA_PERSONAS.fec_vto_documento
+  is 'Vencimiento del Documento.';
+comment on column IT.BA_PERSONAS.tip_iva
+  is 'Tipo de IVA o Responsabilidad ante el Fisco.';
+comment on column IT.BA_PERSONAS.tas_personalizada
+  is 'Tiene tasa personalizada (S/N).';
+comment on column IT.BA_PERSONAS.recibe_sms
+  is 'Indica si la persona desea recibir mensajes SMS en su telefono movil.';
+comment on column IT.BA_PERSONAS.cod_pai_documento
+  is 'Código de País del Documento.';
+comment on column IT.BA_PERSONAS.cod_rub_primario
+  is 'Código de Rubro Económico Primario';
+comment on column IT.BA_PERSONAS.cod_rub_secundario
+  is 'Código de Rubro Económico Secundario';
+comment on column IT.BA_PERSONAS.cod_rub_terciario
+  is 'Código de Rubro Económico Terciario';
+create index IT.IN_BBVA_BA_PERSONAS on IT.BA_PERSONAS (TO_NUMBER(COD_PERSONA))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_BA_PERSONAS_FEC_INS on IT.BA_PERSONAS (TRUNC(FEC_INSERCION))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BPERS_COD_RUB_PRIMARIO on IT.BA_PERSONAS (COD_RUB_PRIMARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BPERS_COD_RUB_SECUNDARIO on IT.BA_PERSONAS (COD_RUB_SECUNDARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BPERS_COD_RUB_TERCIARIO on IT.BA_PERSONAS (COD_RUB_TERCIARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_PAI_DOCUMENTO on IT.BA_PERSONAS (COD_PAI_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_TIP_DOC_NRO_DOC on IT.BA_PERSONAS (COD_TIP_DOCUMENTO, LTRIM(REPLACE(TRIM(NRO_DOCUMENTO),'-',''),'0'), COD_PERSONA, NOM_COMPLETO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COD_USU_VERIFICADOR on IT.BA_PERSONAS (COD_USU_VERIFICADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EPERS_COD_ACTIVIDAD on IT.BA_PERSONAS (COD_ACTIVIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EPERS_COD_PAIS on IT.BA_PERSONAS (COD_PAIS)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EPERS_COD_TIP_DOCUMENTO on IT.BA_PERSONAS (COD_TIP_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EPERS_COD_USU_PROMOTOR on IT.BA_PERSONAS (COD_USU_PROMOTOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EPERS_EST_VERIFICACION on IT.BA_PERSONAS (EST_VERIFICACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PERSONAS
+  add constraint PK_BA_PERSONAS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PERSONAS
+  add constraint UK_EPERS_NRO_DOCUMENTO unique (NRO_DOCUMENTO, COD_TIP_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_ACTIVIDAD foreign key (COD_ACTIVIDAD)
+  references IT.GE_ACTIVIDADES (COD_ACTIVIDAD);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_PAI_DOCUMENTO foreign key (COD_PAI_DOCUMENTO)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_RUB_PRIMARIO foreign key (COD_RUB_PRIMARIO)
+  references IT.GE_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_RUB_SECUNDARIO foreign key (COD_RUB_SECUNDARIO)
+  references IT.GE_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_RUB_TERCIARIO foreign key (COD_RUB_TERCIARIO)
+  references IT.GE_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_TIP_DOCUMENTO foreign key (COD_TIP_DOCUMENTO)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_PERSONAS
+  add constraint FK_EPERS_COD_USU_VERIFICADOR foreign key (COD_USU_VERIFICADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

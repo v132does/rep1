@@ -1,0 +1,229 @@
+create table IT.CB_COR_MOVIMIENTOS_TMP
+(
+  fecha               DATE,
+  hora                VARCHAR2(8),
+  cod_usuario         VARCHAR2(10),
+  nro_secuencia       NUMBER(3),
+  fec_valor           DATE,
+  monto               NUMBER(18,2),
+  nro_cuenta          VARCHAR2(15),
+  cod_moneda          VARCHAR2(3),
+  cod_oficina         NUMBER(3),
+  cod_error           VARCHAR2(10),
+  cod_retencion       NUMBER(3),
+  fec_fin_retencion   DATE,
+  est_cuenta          VARCHAR2(1),
+  estado              VARCHAR2(1),
+  cod_causa           NUMBER(3),
+  cod_banco           NUMBER(3),
+  cod_ofi_origen      NUMBER(3),
+  concepto            VARCHAR2(100),
+  cod_tasa            NUMBER(3),
+  val_tasa            NUMBER,
+  cod_rubro           VARCHAR2(15),
+  cod_ref_cambio      VARCHAR2(3),
+  reversado           VARCHAR2(1),
+  cod_usu_reversion   VARCHAR2(10),
+  hor_reversion       VARCHAR2(8),
+  emi_aviso           VARCHAR2(1),
+  cod_tra_padre       NUMBER(4),
+  cod_mod_padre       NUMBER(3),
+  cod_mad_padre       NUMBER(3),
+  cod_transaccion     NUMBER(4),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  mto_equ_local       NUMBER(18,2),
+  nro_caja            NUMBER(3),
+  cotizacion          NUMBER,
+  cod_bco_central     VARCHAR2(6),
+  nro_documento       NUMBER(15),
+  nro_documento2      NUMBER(15),
+  nro_documento3      NUMBER(15),
+  nro_documento4      NUMBER(15),
+  protegido           VARCHAR2(1),
+  tip_mov_rubro       VARCHAR2(1),
+  cod_autorizacion    NUMBER(10),
+  cod_usu_autorizador VARCHAR2(10),
+  usu_insercion       VARCHAR2(10),
+  fec_insercion       DATE,
+  usu_modificacion    VARCHAR2(10),
+  fec_modificacion    DATE,
+  cod_tip_ope_cambio  VARCHAR2(3),
+  nro_folio           NUMBER,
+  referencia          VARCHAR2(20),
+  des_tra_padre       VARCHAR2(60) not null,
+  abr_tra_padre       VARCHAR2(6) not null,
+  des_transaccion     VARCHAR2(60),
+  cod_tip_movimiento  VARCHAR2(1),
+  tip_movimiento      VARCHAR2(13),
+  nom_usu_autorizador VARCHAR2(60),
+  nom_usu_reversion   VARCHAR2(60),
+  nom_usuario         VARCHAR2(60) not null,
+  des_est_cuenta      VARCHAR2(35),
+  des_banco           VARCHAR2(40),
+  des_causa           VARCHAR2(35),
+  des_rubro           VARCHAR2(60),
+  des_ofi_origen      VARCHAR2(35) not null,
+  tipo                CHAR(1),
+  des_tipo            VARCHAR2(13),
+  denominacion        VARCHAR2(100),
+  cod_persona         VARCHAR2(10),
+  cod_sit_contable    NUMBER,
+  nro_conciliacion    NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_COR_MOVIMIENTOS_TMP
+  is 'Movimientos Historicos de Rubros a Conciliar, de rango de fecha a conciliar.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.hora
+  is 'Hora del movimiento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.fec_valor
+  is 'Fecha valor de la transaccion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.monto
+  is 'Importe de la transaccion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_error
+  is 'Codigo de error.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_retencion
+  is 'Codigo de retencion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.fec_fin_retencion
+  is 'Fecha fin de la retencion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.est_cuenta
+  is 'Estado de la cuenta. (En caso de que se haga cambio de estado).';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.estado
+  is 'Estado del movimiento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_causa
+  is 'Codigo de causa de bloqueo.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_ofi_origen
+  is 'Codigo de oficina origen.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.val_tasa
+  is 'Importe de la tasa.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_rubro
+  is 'Codigo de cuenta contable.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_ref_cambio
+  is 'Codigo de referencia.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.reversado
+  is 'Reversado. (N=NO / S=SI).';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_usu_reversion
+  is 'Operador de reversion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.hor_reversion
+  is 'Hora de reversion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.emi_aviso
+  is 'Emitir aviso. (N=NO / S=SI).';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_caja
+  is 'Numero de caja.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cotizacion
+  is 'Cotizacion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_bco_central
+  is 'Codigo en el BCP.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_documento
+  is 'Numero de documento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_documento2
+  is 'Numero de documento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_documento3
+  is 'Numero de documento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_documento4
+  is 'Numero de documento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.protegido
+  is 'Protegido. (N=NO / S=SI).';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.tip_mov_rubro
+  is 'Tipo de movimiento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_autorizacion
+  is 'Numero de autorizacion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_usu_autorizador
+  is 'Codigo de autorizacion.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_tip_ope_cambio
+  is 'Codigo de tipo de operacion de cambio.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.referencia
+  is 'Referencia general.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_persona
+  is 'Persona asociada al movimiento.';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.cod_sit_contable
+  is 'Indica la Situacion Contable actual de la Operacion. ';
+comment on column IT.CB_COR_MOVIMIENTOS_TMP.nro_conciliacion
+  is 'Número Secuencia Extracto Swift.';
+create index IT.IN_COR_MOV_FECHA on IT.CB_COR_MOVIMIENTOS_TMP (FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_MOV_NRO_DOC4 on IT.CB_COR_MOVIMIENTOS_TMP (NRO_DOCUMENTO4)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_COR_MOV_PKMOV on IT.CB_COR_MOVIMIENTOS_TMP (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

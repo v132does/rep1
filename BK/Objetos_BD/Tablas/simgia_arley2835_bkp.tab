@@ -1,0 +1,23 @@
+create table IT.SIMGIA_ARLEY2835_BKP
+(
+  leyfecha  NUMBER,
+  leysuc    VARCHAR2(2),
+  leycta    VARCHAR2(40),
+  leysub    VARCHAR2(6),
+  leychnro  VARCHAR2(40),
+  leymonto  NUMBER,
+  leymulta  NUMBER,
+  fecha_his DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,274 @@
+create table IT.PSA044
+(
+  psa044fin VARCHAR2(8) not null,
+  psa044ffi VARCHAR2(8) not null,
+  psa044pai NUMBER(3) not null,
+  psa044tdo NUMBER(4) not null,
+  psa044ndo VARCHAR2(25) not null,
+  psa044ent NUMBER(3),
+  psa044den VARCHAR2(40),
+  psa044ncl VARCHAR2(70),
+  psa044tpe VARCHAR2(8),
+  psa044sba VARCHAR2(40),
+  psa044sla NUMBER(9),
+  psa044vsl NUMBER(9),
+  psa044fab VARCHAR2(8),
+  psa044cpn NUMBER(3),
+  psa044pnc VARCHAR2(9),
+  psa044ocu VARCHAR2(40),
+  psa044aec NUMBER(9),
+  psa044osl NUMBER(1),
+  psa044fid NUMBER(1),
+  psa044pep NUMBER(1),
+  psa044lre NUMBER(1),
+  psa044faf VARCHAR2(8),
+  psa044fei VARCHAR2(8),
+  psa044voc NUMBER(1),
+  psa044vpa NUMBER(1),
+  psa044vae NUMBER(1),
+  psa044cpu NUMBER(10),
+  psa044ccp NUMBER(10),
+  psa044tcp NUMBER(18,2),
+  psa044tsp NUMBER(18,2),
+  psa044tvc NUMBER(18,2),
+  psa044cdp NUMBER(10),
+  psa044tdp NUMBER(18,2),
+  psa044prp NUMBER(18,2),
+  psa044vpr NUMBER(9),
+  psa044ccu NUMBER(10),
+  psa044ccc NUMBER(10),
+  psa044tcc NUMBER(18,2),
+  psa044cdc NUMBER(10),
+  psa044tdc NUMBER(18,2),
+  psa044prc NUMBER(18,2),
+  psa044vca NUMBER(9),
+  psa044cju NUMBER(10),
+  psa044ccj NUMBER(10),
+  psa044tcj NUMBER(18,2),
+  psa044cdj NUMBER(10),
+  psa044tdj NUMBER(18,2),
+  psa044prj NUMBER(18,2),
+  psa044vju NUMBER(9),
+  psa044pun NUMBER(4),
+  psa044dpu VARCHAR2(50),
+  psa044n01 NUMBER(18,2),
+  psa044n02 NUMBER(18,2),
+  psa044n03 NUMBER(18,2),
+  psa044n04 NUMBER(18,2),
+  psa044n05 NUMBER(18,2),
+  psa044n06 NUMBER(18,2),
+  psa044n07 NUMBER(18,2),
+  psa044n08 NUMBER(18,2),
+  psa044n09 NUMBER(18,2),
+  psa044n10 NUMBER(18,2),
+  psa044c01 VARCHAR2(100),
+  psa044c02 VARCHAR2(100),
+  psa044c03 VARCHAR2(100),
+  psa044c04 VARCHAR2(100),
+  psa044c05 VARCHAR2(100),
+  psa044c06 VARCHAR2(100),
+  psa044c07 VARCHAR2(100),
+  psa044c08 VARCHAR2(100),
+  psa044c09 VARCHAR2(100),
+  psa044c10 VARCHAR2(100),
+  psa044f01 VARCHAR2(8),
+  psa044f02 VARCHAR2(8),
+  psa044f03 VARCHAR2(8),
+  psa044f04 VARCHAR2(8),
+  psa044f05 VARCHAR2(8),
+  psa044f06 VARCHAR2(8),
+  psa044f07 VARCHAR2(8),
+  psa044f08 VARCHAR2(8),
+  psa044f09 VARCHAR2(8),
+  psa044f10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA044
+  is 'TABLA PIC resultado';
+comment on column IT.PSA044.psa044fin
+  is 'Fecha Inicial del Reporte';
+comment on column IT.PSA044.psa044ffi
+  is 'Fecha Final del Reporte';
+comment on column IT.PSA044.psa044pai
+  is 'Pais del Documento';
+comment on column IT.PSA044.psa044tdo
+  is 'Tipo de Documento';
+comment on column IT.PSA044.psa044ndo
+  is 'Numero de Documento';
+comment on column IT.PSA044.psa044ent
+  is 'Entidad';
+comment on column IT.PSA044.psa044den
+  is 'Descripcion Entidad';
+comment on column IT.PSA044.psa044ncl
+  is 'Nombre del Cliente';
+comment on column IT.PSA044.psa044tpe
+  is 'Tipo de Persona';
+comment on column IT.PSA044.psa044sba
+  is 'Segmento de Banca';
+comment on column IT.PSA044.psa044sla
+  is 'Segmento LAFT';
+comment on column IT.PSA044.psa044vsl
+  is 'Vulnerabilidad de Segmento LAFT';
+comment on column IT.PSA044.psa044fab
+  is 'Fecha Actualizacion Basica';
+comment on column IT.PSA044.psa044cpn
+  is 'Codigo Pais de Nacimiento - Constitucion';
+comment on column IT.PSA044.psa044pnc
+  is 'Descripcion Pais de Nacimiento - Constitucion';
+comment on column IT.PSA044.psa044ocu
+  is 'Ocupacion Persona Natural';
+comment on column IT.PSA044.psa044aec
+  is 'Actividad Economica Cliente (CIIU)';
+comment on column IT.PSA044.psa044osl
+  is 'Cliente con Actividad de Organizaciones Sin Fines de Lucro';
+comment on column IT.PSA044.psa044fid
+  is 'Clasificacion del Cliente como Fideicomiso';
+comment on column IT.PSA044.psa044pep
+  is 'PEP';
+comment on column IT.PSA044.psa044lre
+  is 'Cliente en Lista Restrictiva';
+comment on column IT.PSA044.psa044faf
+  is 'Fecha Actualizacion Financiera';
+comment on column IT.PSA044.psa044fei
+  is 'Fecha de Emision del Informe';
+comment on column IT.PSA044.psa044voc
+  is 'Vulnerabilidad de Ocupacion';
+comment on column IT.PSA044.psa044vpa
+  is 'Vulnerabilidad de Pais';
+comment on column IT.PSA044.psa044vae
+  is 'Vulnerabilidad de CIIU';
+comment on column IT.PSA044.psa044cpu
+  is 'Cantidad de Productos Utilizados';
+comment on column IT.PSA044.psa044ccp
+  is 'Cantidad de Operaciones de Creditos Productos';
+comment on column IT.PSA044.psa044tcp
+  is 'Total de Operaciones de Credito Productos';
+comment on column IT.PSA044.psa044tsp
+  is 'Total de Saldo Productos';
+comment on column IT.PSA044.psa044tvc
+  is 'Total de Valor Cuota Productos';
+comment on column IT.PSA044.psa044cdp
+  is 'Cantidad de Operaciones de Debitos Productos';
+comment on column IT.PSA044.psa044tdp
+  is 'Total de Operaciones de Debitos Productos';
+comment on column IT.PSA044.psa044prp
+  is 'Promedio de Totales de Operaciones de Creditos y Debitos Productos';
+comment on column IT.PSA044.psa044vpr
+  is 'Vulnerabilidad Productos';
+comment on column IT.PSA044.psa044ccu
+  is 'Cantidad de Canales Utilizados';
+comment on column IT.PSA044.psa044ccc
+  is 'Cantidad de Operaciones de Creditos Canales';
+comment on column IT.PSA044.psa044tcc
+  is 'Total de Operaciones de Creditos Canales';
+comment on column IT.PSA044.psa044cdc
+  is 'Cantidad de Operaciones de Debitos Canales';
+comment on column IT.PSA044.psa044tdc
+  is 'Total de Operaciones de Debitos Canales';
+comment on column IT.PSA044.psa044prc
+  is 'Promedio de Totales de Operaciones de Creditos y Debitos Canales';
+comment on column IT.PSA044.psa044vca
+  is 'Vulnerabilidad Canales';
+comment on column IT.PSA044.psa044cju
+  is 'Cantidad de Jurisdicciones Utilizadas';
+comment on column IT.PSA044.psa044ccj
+  is 'Cantidad de Operaciones de Creditos Jurisdicciones';
+comment on column IT.PSA044.psa044tcj
+  is 'Total de Operaciones de Creditos Jurisdicciones';
+comment on column IT.PSA044.psa044cdj
+  is 'Cantidad de Operaciones de Debitos Jurisdicciones';
+comment on column IT.PSA044.psa044tdj
+  is 'Total de Operaciones de Debitos Jurisdicciones';
+comment on column IT.PSA044.psa044prj
+  is 'Promedio de Totales de Operaciones de Creditos y Debitos Jurisdicciones';
+comment on column IT.PSA044.psa044vju
+  is 'Vulnerabilidad Jurisdicciones';
+comment on column IT.PSA044.psa044pun
+  is 'Puntaje';
+comment on column IT.PSA044.psa044dpu
+  is 'Descripcion del Puntaje';
+comment on column IT.PSA044.psa044n01
+  is 'Auxiliar Numerico 01';
+comment on column IT.PSA044.psa044n02
+  is 'Auxiliar Numerico 02';
+comment on column IT.PSA044.psa044n03
+  is 'Auxiliar Numerico 03';
+comment on column IT.PSA044.psa044n04
+  is 'Auxiliar Numerico 04';
+comment on column IT.PSA044.psa044n05
+  is 'Auxiliar Numerico 05';
+comment on column IT.PSA044.psa044n06
+  is 'Auxiliar Numerico 06';
+comment on column IT.PSA044.psa044n07
+  is 'Auxiliar Numerico 07';
+comment on column IT.PSA044.psa044n08
+  is 'Auxiliar Numerico 08';
+comment on column IT.PSA044.psa044n09
+  is 'Auxiliar Numerico 09';
+comment on column IT.PSA044.psa044n10
+  is 'Auxiliar Numerico 10';
+comment on column IT.PSA044.psa044c01
+  is 'Auxiliar Caracter 01';
+comment on column IT.PSA044.psa044c02
+  is 'Auxiliar Caracter 02';
+comment on column IT.PSA044.psa044c03
+  is 'Auxiliar Caracter 03';
+comment on column IT.PSA044.psa044c04
+  is 'Auxiliar Caracter 04';
+comment on column IT.PSA044.psa044c05
+  is 'Auxiliar Caracter 05';
+comment on column IT.PSA044.psa044c06
+  is 'Auxiliar Caracter 06';
+comment on column IT.PSA044.psa044c07
+  is 'Auxiliar Caracter 07';
+comment on column IT.PSA044.psa044c08
+  is 'Auxiliar Caracter 08';
+comment on column IT.PSA044.psa044c09
+  is 'Auxiliar Caracter 09';
+comment on column IT.PSA044.psa044c10
+  is 'Auxiliar Caracter 10';
+comment on column IT.PSA044.psa044f01
+  is 'Auxiliar Fecha 01';
+comment on column IT.PSA044.psa044f02
+  is 'Auxiliar Fecha 02';
+comment on column IT.PSA044.psa044f03
+  is 'Auxiliar Fecha 03';
+comment on column IT.PSA044.psa044f04
+  is 'Auxiliar Fecha 04';
+comment on column IT.PSA044.psa044f05
+  is 'Auxiliar Fecha 05';
+comment on column IT.PSA044.psa044f06
+  is 'Auxiliar Fecha 06';
+comment on column IT.PSA044.psa044f07
+  is 'Auxiliar Fecha 07';
+comment on column IT.PSA044.psa044f08
+  is 'Auxiliar Fecha 08';
+comment on column IT.PSA044.psa044f09
+  is 'Auxiliar Fecha 09';
+comment on column IT.PSA044.psa044f10
+  is 'Auxiliar Fecha 10';
+alter table IT.PSA044
+  add constraint PK_PSA044 primary key (PSA044FIN, PSA044FFI, PSA044PAI, PSA044TDO, PSA044NDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,22 @@
+-- Create table
+create table IT.PR_CAL_TASAS
+(
+  nro_solicitud   NUMBER(7) not null,
+  cuota           NUMBER(4),
+  val_tan         NUMBER(20,4) default 0 not null,
+  val_tae         NUMBER(20,4) default 0 not null,
+  per_vencimiento NUMBER(4),
+  monto_capital   NUMBER(20,4) default 0 not null,
+  monto_total     VARCHAR2(50) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

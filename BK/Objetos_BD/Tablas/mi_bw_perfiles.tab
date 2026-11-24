@@ -1,0 +1,18 @@
+create table IT.MI_BW_PERFILES
+(
+  cod_perfil     VARCHAR2(20) not null,
+  descripcion    VARCHAR2(35) not null,
+  afe_per_fisica VARCHAR2(1) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

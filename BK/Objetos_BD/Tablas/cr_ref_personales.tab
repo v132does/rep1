@@ -1,0 +1,196 @@
+create table IT.CR_REF_PERSONALES
+(
+  cod_persona          VARCHAR2(10) not null,
+  cod_referencia       NUMBER(1),
+  tip_referencia       VARCHAR2(1),
+  nro_secuencia        NUMBER(5) not null,
+  nom_persona          VARCHAR2(80),
+  telefonos            VARCHAR2(20),
+  lug_trabajo          VARCHAR2(80),
+  puesto               VARCHAR2(80),
+  rel_persona          VARCHAR2(30),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  observacion          VARCHAR2(1000),
+  est_verificacion     VARCHAR2(1) default 'N',
+  conoce               VARCHAR2(1) default 'N',
+  rec_mensaje          VARCHAR2(1) default 'N',
+  cnf_dat_particulares VARCHAR2(1) default 'N',
+  cnf_dat_laborales    VARCHAR2(1) default 'N',
+  cod_usu_verificador  VARCHAR2(10),
+  obs_verificacion     VARCHAR2(1000),
+  fec_verificacion     DATE,
+  cod_inf_laboral      NUMBER(5),
+  nom_per_informo      VARCHAR2(120),
+  car_per_informo      VARCHAR2(35),
+  nom_per_certifico    VARCHAR2(120),
+  car_per_certifico    VARCHAR2(35),
+  cod_pais             NUMBER(3),
+  cod_ciudad           NUMBER(3),
+  direccion            VARCHAR2(80)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_REF_PERSONALES
+  is 'Referencias Personales.';
+comment on column IT.CR_REF_PERSONALES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.CR_REF_PERSONALES.cod_referencia
+  is 'Evaluacion de la referencia.';
+comment on column IT.CR_REF_PERSONALES.tip_referencia
+  is 'Tipo de Referencia L - Laboral, P - Personal.';
+comment on column IT.CR_REF_PERSONALES.nro_secuencia
+  is 'Secuencia.';
+comment on column IT.CR_REF_PERSONALES.nom_persona
+  is 'Nombre de la persona que da la referencia.';
+comment on column IT.CR_REF_PERSONALES.telefonos
+  is 'Numero de Telefono.';
+comment on column IT.CR_REF_PERSONALES.lug_trabajo
+  is 'Lugar de Trabajo.';
+comment on column IT.CR_REF_PERSONALES.puesto
+  is 'Puesto que ocupa.';
+comment on column IT.CR_REF_PERSONALES.rel_persona
+  is 'Relacion con la persona.';
+comment on column IT.CR_REF_PERSONALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_REF_PERSONALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_REF_PERSONALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_REF_PERSONALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_REF_PERSONALES.observacion
+  is 'Observacion de la referencia.';
+comment on column IT.CR_REF_PERSONALES.est_verificacion
+  is 'Estado de la verificacion. No Verificado / Verificado / Sin Datos.';
+comment on column IT.CR_REF_PERSONALES.conoce
+  is 'Indica si conoce a la persona.';
+comment on column IT.CR_REF_PERSONALES.rec_mensaje
+  is 'Indica si recibe mensaje para la persona.';
+comment on column IT.CR_REF_PERSONALES.cnf_dat_particulares
+  is 'Indica si la persona confirma los datos particulares.';
+comment on column IT.CR_REF_PERSONALES.cnf_dat_laborales
+  is 'Indica si se confirmaron los datos laborales.';
+comment on column IT.CR_REF_PERSONALES.cod_usu_verificador
+  is 'Codigo del usuario verificador.';
+comment on column IT.CR_REF_PERSONALES.obs_verificacion
+  is 'Observacion sobre la verificacion de datos.';
+comment on column IT.CR_REF_PERSONALES.fec_verificacion
+  is 'Fecha de verificacion.';
+comment on column IT.CR_REF_PERSONALES.cod_inf_laboral
+  is 'Codigo de la informacion laboral cuya referencia se esta solicitando.';
+comment on column IT.CR_REF_PERSONALES.nom_per_informo
+  is 'Nombre de la persona que proporciono la informacion.';
+comment on column IT.CR_REF_PERSONALES.car_per_informo
+  is 'Cargo de la persona que proporciono la informacion.';
+comment on column IT.CR_REF_PERSONALES.nom_per_certifico
+  is 'Nombre de la persona que certifico la informacion.';
+comment on column IT.CR_REF_PERSONALES.car_per_certifico
+  is 'Cargo de la persona que certifico la informacion.';
+comment on column IT.CR_REF_PERSONALES.cod_pais
+  is 'Código del País.';
+comment on column IT.CR_REF_PERSONALES.cod_ciudad
+  is 'Código de la Ciudad.';
+comment on column IT.CR_REF_PERSONALES.direccion
+  is 'Dirección de la Referencia.';
+create index IT.CR_REF_PERSONALESJJ2020 on IT.CR_REF_PERSONALES (COD_PERSONA, COD_INF_LABORAL)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RRPER_COD_INF_LABORAL on IT.CR_REF_PERSONALES (COD_INF_LABORAL, COD_REFERENCIA, COD_USU_VERIFICADOR, TIP_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REF_PERSONALES
+  add constraint PK_CR_REF_PERSONALES primary key (COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REF_PERSONALES
+  add constraint FK_RRPER_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.CR_REF_PERSONALES
+  add constraint FK_RRPER_COD_INF_LABORAL foreign key (COD_PERSONA, COD_INF_LABORAL)
+  references IT.CR_INF_LABORALES (COD_PERSONA, NRO_SECUENCIA);
+alter table IT.CR_REF_PERSONALES
+  add constraint FK_RRPER_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_REF_PERSONALES
+  add constraint FK_RRPER_COD_REFERENCIA foreign key (COD_REFERENCIA, TIP_REFERENCIA)
+  references IT.CR_REFERENCIAS (COD_REFERENCIA, TIP_REFERENCIA);
+alter table IT.CR_REF_PERSONALES
+  add constraint FK_RRPER_COD_USU_VERIFICADOR foreign key (COD_USU_VERIFICADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1080843837_TIP_R_000
+  check (TIP_REFERENCIA IN ('L', 'P'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1083270925_CNF_D_000
+  check (CNF_DAT_PARTICULARES IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1083270925_CNF_D_001
+  check (CNF_DAT_LABORALES IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1083270925_CONOC_000
+  check (CONOCE IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1083270925_EST_V_000
+  check (EST_VERIFICACION IN ('N', 'V', 'S'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1083270925_REC_M_000
+  check (REC_MENSAJE IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1087226787_CNF_D_000
+  check (CNF_DAT_PARTICULARES IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1087226787_CNF_D_001
+  check (CNF_DAT_LABORALES IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1087226787_CONOC_000
+  check (CONOCE IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1087226787_EST_V_000
+  check (EST_VERIFICACION IN ('N', 'V', 'S'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1087226787_REC_M_000
+  check (REC_MENSAJE IN ('S', 'N'));
+alter table IT.CR_REF_PERSONALES
+  add constraint AVCON_1087226787_TIP_R_000
+  check (TIP_REFERENCIA IN ('L', 'P'));
+

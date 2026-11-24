@@ -1,0 +1,53 @@
+create table IT.BW_CTA_TELEFONOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_celular      VARCHAR2(10) not null,
+  estado           VARCHAR2(1) default 'A' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CTA_TELEFONOS
+  is 'Tabla para configuración de operaciones sin tarjeta';
+comment on column IT.BW_CTA_TELEFONOS.cod_persona
+  is 'Código de persona';
+comment on column IT.BW_CTA_TELEFONOS.nro_cuenta
+  is 'Número de cuenta asociada al servicio.';
+comment on column IT.BW_CTA_TELEFONOS.nro_celular
+  is 'Número de celular vinculado a la cuenta';
+comment on column IT.BW_CTA_TELEFONOS.estado
+  is 'Estado de la vinculación';
+alter table IT.BW_CTA_TELEFONOS
+  add constraint PK_BW_CTA_TELEFONOS primary key (NRO_CELULAR, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CTA_TELEFONOS
+  add constraint FK_BWCTE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_CTA_TELEFONOS
+  add constraint FK_BWCTE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

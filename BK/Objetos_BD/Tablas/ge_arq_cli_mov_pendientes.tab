@@ -1,0 +1,80 @@
+create table IT.GE_ARQ_CLI_MOV_PENDIENTES
+(
+  fec_extracto     DATE not null,
+  fre_extracto     VARCHAR2(1) not null,
+  cod_extracto     NUMBER(5) not null,
+  tip_comision     NUMBER(4) not null,
+  descripcion      VARCHAR2(100) not null,
+  monto            NUMBER(18,2) not null,
+  cod_persona      VARCHAR2(10) not null,
+  fec_movimiento   DATE,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  hor_movimiento   VARCHAR2(8),
+  nro_linea        NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARQ_CLI_MOV_PENDIENTES
+  is 'Detalle de comisiones pendientes de pago.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.fec_extracto
+  is 'Fecha del Extracto.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.fre_extracto
+  is 'Frecuencia del Extracto.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.cod_extracto
+  is 'Codigo del Extracto. ';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.tip_comision
+  is 'Tipo de Comision.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.descripcion
+  is 'Descripcion de la comision.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.monto
+  is 'Monto.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.fec_movimiento
+  is 'Fecha del Movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.cod_modulo
+  is 'Codigo del Modulo de la Cuenta.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.cod_modalidad
+  is 'Codigo de la Modalidad de la Cuenta.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.usu_insercion
+  is 'Usuario que inserto el Registro.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.usu_modificacion
+  is 'Usuario que modifico el Registro.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.hor_movimiento
+  is 'Hora del Movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_PENDIENTES.nro_linea
+  is 'Numero de Linea.';
+create index IT.UK_GE_ARQ_CLI_MOV_PEND on IT.GE_ARQ_CLI_MOV_PENDIENTES (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA, FEC_MOVIMIENTO, NRO_LINEA, HOR_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,64 @@
+create table IT.RH_CAL_DESEMPENOS
+(
+  cod_persona       VARCHAR2(10) not null,
+  fec_calificacion  DATE not null,
+  cod_tip_desempeno NUMBER(3) not null,
+  calificacion      NUMBER(3),
+  observacion       VARCHAR2(1000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_CAL_DESEMPENOS
+  is 'Calificaciones de Desempe?o de Empleados.';
+comment on column IT.RH_CAL_DESEMPENOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_CAL_DESEMPENOS.fec_calificacion
+  is 'Fecha de Calificacion.';
+comment on column IT.RH_CAL_DESEMPENOS.cod_tip_desempeno
+  is 'Tipo de Calidad del Desempeño.';
+comment on column IT.RH_CAL_DESEMPENOS.calificacion
+  is 'Calificacion obtenida en la evaluacion de desempeño.';
+comment on column IT.RH_CAL_DESEMPENOS.observacion
+  is 'Observacion.';
+comment on column IT.RH_CAL_DESEMPENOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_CAL_DESEMPENOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_CAL_DESEMPENOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_CAL_DESEMPENOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_CAL_DESEMPENOS
+  add constraint PK_RH_CAL_DESEMPENOS primary key (COD_PERSONA, FEC_CALIFICACION, COD_TIP_DESEMPENO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_CAL_DESEMPENOS
+  add constraint FK_HCDES_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_CAL_DESEMPENOS
+  add constraint FK_HCDES_COD_TIP_DESEMPENO foreign key (COD_TIP_DESEMPENO)
+  references IT.RH_TIP_DESEMPENOS (COD_TIP_DESEMPENO);
+

@@ -1,0 +1,61 @@
+create table IT.CO_TRM_ASIGNACIONES_DET
+(
+  cod_tramo        NUMBER(3) not null,
+  tip_tramo        VARCHAR2(5) not null,
+  dia_inicial      NUMBER(5),
+  dia_final        NUMBER(5),
+  detalle          VARCHAR2(2000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_TRM_ASIGNACIONES_DET
+  is 'Detalle de Asignaciones por Tramos.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.cod_tramo
+  is 'Código de Tramo para Gestión de Cobranzas.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.tip_tramo
+  is 'Tipo de Tramo (R=Ref O Reestr.; P=PAC; N=Nuevo; O=Otro).';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.dia_inicial
+  is 'Días de Mora Inicial para la asignación a este Tramo.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.dia_final
+  is 'Días de Mora Final para la asignación a este Tramo.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.detalle
+  is 'Speach de la llamada.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CO_TRM_ASIGNACIONES_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CO_TRM_ASIGNACIONES_DET
+  add constraint PK_CO_TRM_ASIGNACIONES_DET primary key (COD_TRAMO, TIP_TRAMO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_TRM_ASIGNACIONES_DET
+  add constraint CK_OTADE_TIP_TRAMO
+  check (TIP_TRAMO IN( 'R', 'P', 'N' , 'O'));
+

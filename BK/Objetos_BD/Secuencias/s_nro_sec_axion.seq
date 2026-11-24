@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_SEC_AXION
+minvalue 1
+maxvalue 999999
+start with 8541
+increment by 1
+cache 20
+cycle;
+

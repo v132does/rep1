@@ -1,0 +1,58 @@
+﻿-- Create table
+create table IT.MD_DOC_DETALLES
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_cuota          NUMBER(3) not null,
+  mto_capital        NUMBER(18,2),
+  fec_vencimiento    DATE,
+  mto_interes        NUMBER(18,2),
+  estado             VARCHAR2(1),
+  val_recargo        NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default USER,
+  usu_modificacion   VARCHAR2(10) default USER,
+  fec_insercion      DATE default SYSDATE,
+  fec_modificacion   DATE default SYSDATE,
+  dev_acumulado      NUMBER(18,2),
+  mto_int_descontado NUMBER(18,2),
+  mto_cap_adelantado NUMBER(18,2),
+  sal_capital        NUMBER(18,2),
+  sal_interes        NUMBER(18,2),
+  fec_ult_pago       DATE,
+  plazo              NUMBER(4),
+  mto_impuesto       NUMBER(18,2),
+  val_cap_presente   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.MD_DOC_DETALLES.val_cap_presente
+  is 'monto capital descontado';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.MD_DOC_DETALLES
+  add constraint PK_MD_DOC_DETALLES primary key (NRO_CUENTA, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_DOC_DETALLES
+  add constraint FK_MDDET_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.MD_CTA_DOCUMENTOS (NRO_CUENTA);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.MD_DOC_DETALLES to IT_TEMPORAL;

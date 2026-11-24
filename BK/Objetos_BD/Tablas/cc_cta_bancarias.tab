@@ -1,0 +1,235 @@
+create table IT.CC_CTA_BANCARIAS
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  cod_modulo           NUMBER(3) not null,
+  cod_modalidad        NUMBER(3) not null,
+  cod_oficina          NUMBER(3) not null,
+  dig_verificador      NUMBER(1),
+  cod_moneda           VARCHAR2(3) not null,
+  denominacion         VARCHAR2(100) not null,
+  fec_apertura         DATE,
+  sal_minimo           NUMBER(18,2) default 0,
+  mto_acuerdo          NUMBER(18,2) default 0,
+  est_batch            VARCHAR2(1),
+  estado               VARCHAR2(1) not null,
+  fec_ult_conciliacion DATE,
+  sal_ult_conciliacion NUMBER(16,2),
+  nro_folio            NUMBER(7),
+  fec_cam_estado       DATE,
+  fec_ult_movimiento   DATE,
+  hor_ult_movimiento   VARCHAR2(8),
+  sal_ret_batch        NUMBER(18,2) default 0,
+  sal_retenido         NUMBER(18,2) default 0,
+  sal_blo_batch        NUMBER(18,2) default 0,
+  sal_bloqueado        NUMBER(18,2) default 0,
+  sal_tot_batch        NUMBER(18,2) default 0,
+  sal_total            NUMBER(18,2) default 0,
+  cod_banco            NUMBER(3),
+  nro_cta_bancaria     VARCHAR2(30),
+  cod_programa         VARCHAR2(30),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_rubro            VARCHAR2(15),
+  fec_ult_extracto     DATE,
+  sal_ult_extracto     NUMBER(16,2),
+  fre_extracto         VARCHAR2(1) default 'M',
+  mto_deb_pendientes   NUMBER(18,2),
+  mto_cre_pendientes   NUMBER(18,2),
+  cod_ente             NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CTA_BANCARIAS
+  is 'Maestro de Cuentas Bancarias.';
+comment on column IT.CC_CTA_BANCARIAS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.cod_modulo
+  is 'Codigo de Modulo de la Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.cod_modalidad
+  is 'Codigo de Modalidad de la Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.cod_oficina
+  is 'Codigo de Oficina de la Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.dig_verificador
+  is 'Digito Verificador de la Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.cod_moneda
+  is 'Codigo de la Moneda con que opera la Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.denominacion
+  is 'Rubro o Nombre de la cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.fec_apertura
+  is 'Fecha de Apertura de la Cuenta.';
+comment on column IT.CC_CTA_BANCARIAS.sal_minimo
+  is 'Saldo Minimo Pactado.';
+comment on column IT.CC_CTA_BANCARIAS.mto_acuerdo
+  is 'Indica si la Cuenta tiene Acuerdo de Sobregiro  Vigente. (S = SI / N = NO).';
+comment on column IT.CC_CTA_BANCARIAS.est_batch
+  is 'Estado de Cuenta Batch.';
+comment on column IT.CC_CTA_BANCARIAS.estado
+  is 'Estado de Cuenta On Line ( A=abierta falta depositar, N=normal, C=cancelada, I=inactiva, T=totalmente bloqueada ).';
+comment on column IT.CC_CTA_BANCARIAS.fec_ult_conciliacion
+  is 'Fecha de Ultimo Extracto.';
+comment on column IT.CC_CTA_BANCARIAS.sal_ult_conciliacion
+  is 'Saldo del Ultimo Extracto.';
+comment on column IT.CC_CTA_BANCARIAS.nro_folio
+  is 'Numero de folio.';
+comment on column IT.CC_CTA_BANCARIAS.fec_cam_estado
+  is 'Fecha de Cambio de Estado.';
+comment on column IT.CC_CTA_BANCARIAS.fec_ult_movimiento
+  is 'Fecha de Ultimo Movimiento.';
+comment on column IT.CC_CTA_BANCARIAS.hor_ult_movimiento
+  is 'Hora del Ultimo Movimiento.';
+comment on column IT.CC_CTA_BANCARIAS.sal_ret_batch
+  is 'Saldo Retenido Batch.';
+comment on column IT.CC_CTA_BANCARIAS.sal_retenido
+  is 'Saldo Retenido On Line.';
+comment on column IT.CC_CTA_BANCARIAS.sal_blo_batch
+  is 'Saldo Bloqueado Batch.';
+comment on column IT.CC_CTA_BANCARIAS.sal_bloqueado
+  is 'Saldo Bloqueado On Line.';
+comment on column IT.CC_CTA_BANCARIAS.sal_tot_batch
+  is 'Saldo Total Batch.';
+comment on column IT.CC_CTA_BANCARIAS.sal_total
+  is 'Saldo Total On Line.';
+comment on column IT.CC_CTA_BANCARIAS.cod_banco
+  is 'Codigo del Banco Asociado.';
+comment on column IT.CC_CTA_BANCARIAS.nro_cta_bancaria
+  is 'Numero de Cuenta en el Banco.';
+comment on column IT.CC_CTA_BANCARIAS.cod_programa
+  is 'Codigo del Reporte para Impresion de Cheques.';
+comment on column IT.CC_CTA_BANCARIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CTA_BANCARIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CTA_BANCARIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CTA_BANCARIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CTA_BANCARIAS.cod_rubro
+  is 'Rubro Contable Asociado.';
+comment on column IT.CC_CTA_BANCARIAS.fec_ult_extracto
+  is 'Fecha de Ultimo Extracto.';
+comment on column IT.CC_CTA_BANCARIAS.sal_ult_extracto
+  is 'Saldo del Ultimo Extracto.';
+comment on column IT.CC_CTA_BANCARIAS.fre_extracto
+  is 'Frecuencia de Emision del Extracto.';
+comment on column IT.CC_CTA_BANCARIAS.mto_deb_pendientes
+  is 'Debitos Pendientes para el Dia Siguiente.';
+comment on column IT.CC_CTA_BANCARIAS.mto_cre_pendientes
+  is 'Creditos Pendientes de Aplicar para el Dia Siguiente.';
+comment on column IT.CC_CTA_BANCARIAS.cod_ente
+  is 'Código del Ente del tipo Financiero Asociado a la Cuenta.';
+create index IT.IN_BBVA_COD_CTA_BANCARIAS on IT.CC_CTA_BANCARIAS (COD_BANCO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_COD_MODULO_MODALIDAD on IT.CC_CTA_BANCARIAS (COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_MONEDAS_BANCARIAS on IT.CC_CTA_BANCARIAS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CCBAN_COD_BANCO on IT.CC_CTA_BANCARIAS (COD_BANCO, COD_MODALIDAD, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CMOHI_FEC_ULT_CONCILIACION on IT.CC_CTA_BANCARIAS (FEC_ULT_CONCILIACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_BANCARIAS
+  add constraint PK_CC_CTA_BANCARIAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_BANCARIAS
+  add constraint FK_CCBAN_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint FK_CCBAN_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint FK_CCBAN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint FK_CCBAN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint FK_CCBAN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint FK_CCBAN_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint AVCON_1092358390_COD_M_003
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint AVCON_1092358390_COD_M_004
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint AVCON_1092358390_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CC_CTA_BANCARIAS
+  add constraint CK_CCBAN_SAL_BLOQUEADO
+  check (nvl(sal_bloqueado,0) >= 0);
+

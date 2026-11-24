@@ -1,0 +1,82 @@
+create table IT.TM_OSC_REHA_PENDIENTES
+(
+  nro_circular      VARCHAR2(8) not null,
+  nro_secuencia     VARCHAR2(6) not null,
+  ano_circular      VARCHAR2(4),
+  codigo_banco      VARCHAR2(4),
+  tipo_document     VARCHAR2(4) not null,
+  nro_documento     VARCHAR2(25),
+  nombre1           VARCHAR2(70),
+  nombre2           VARCHAR2(25),
+  nombre3           VARCHAR2(25),
+  apellido1         VARCHAR2(25),
+  apellido2         VARCHAR2(25),
+  apellido_casa     VARCHAR2(25),
+  fecha_circula     VARCHAR2(8),
+  msj_error         VARCHAR2(200),
+  cod_tip_documento NUMBER(3),
+  estado            VARCHAR2(1) default 'P',
+  fec_cam_estado    DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_OSC_REHA_PENDIENTES
+  is 'Tabla temporal de Rehabilitaciones OSC.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.nro_circular
+  is 'Numero de Circular.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.nro_secuencia
+  is 'Numero de Secuencia.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.ano_circular
+  is 'Año de la Circular.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.codigo_banco
+  is 'Codigo del Banco.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.tipo_document
+  is 'Tipo de Documento.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.nro_documento
+  is 'Numero de Documento.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.nombre1
+  is 'Primer Nombre.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.nombre2
+  is 'Segundo Nombre.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.nombre3
+  is 'Tercer Nombre.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.apellido1
+  is 'Primer Apellido.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.apellido2
+  is 'Segundo Apellido.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.apellido_casa
+  is 'Apellidos de Casado.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.fecha_circula
+  is 'Fecha de la Circular.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.cod_tip_documento
+  is 'Tipo de Documento.';
+comment on column IT.TM_OSC_REHA_PENDIENTES.estado
+  is 'Estado (''P''=Pendientes, ''R''=Rechazda).';
+comment on column IT.TM_OSC_REHA_PENDIENTES.fec_cam_estado
+  is 'Fecha de Cambio de Estado.';
+alter table IT.TM_OSC_REHA_PENDIENTES
+  add constraint UK_TM_OSC_REHA_PENDIENTES unique (NRO_CIRCULAR, NRO_SECUENCIA, TIPO_DOCUMENT, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

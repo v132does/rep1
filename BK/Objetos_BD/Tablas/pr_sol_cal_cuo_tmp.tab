@@ -1,0 +1,34 @@
+create table IT.PR_SOL_CAL_CUO_TMP
+(
+  nro_solicitud      NUMBER(7) not null,
+  nro_cuota          NUMBER(3) not null,
+  mto_capital        NUMBER(18,2) default 0 not null,
+  fec_vto_habil      DATE,
+  fec_vto_exacto     DATE,
+  val_interes        NUMBER(20,4),
+  sal_capital        NUMBER(18,2),
+  sal_cap_anterior   NUMBER(18,2),
+  dia_periodo        NUMBER(4),
+  dia_transcurridos  NUMBER(4),
+  dia_interes        NUMBER(4),
+  tip_calculo        VARCHAR2(1),
+  val_int_original   NUMBER(20,4),
+  val_int_adelantado NUMBER(20,4),
+  usu_insercion      VARCHAR2(10) default user not null,
+  fec_insercion      DATE default sysdate not null,
+  usu_modificacion   VARCHAR2(10) default user not null,
+  fec_modificacion   DATE default sysdate not null,
+  val_cuo_calculado  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

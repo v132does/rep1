@@ -1,0 +1,118 @@
+create table IT.GE_REN_POL_SEGUROS
+(
+  fecha                DATE,
+  nro_renovacion       NUMBER(18) not null,
+  cod_persona          VARCHAR2(10),
+  cod_tip_seguro       VARCHAR2(5),
+  cod_ente             NUMBER(5),
+  nro_poliza           VARCHAR2(30),
+  nro_cta_debito       VARCHAR2(15),
+  fec_desde            DATE,
+  fec_hasta            DATE,
+  mto_capital          NUMBER(18,2),
+  mto_cuota            NUMBER(18,2),
+  ind_imp_sebaot       VARCHAR2(1),
+  ind_int_comercial    VARCHAR2(1),
+  ind_autogestion      VARCHAR2(1),
+  cod_canal            NUMBER(3),
+  estado               VARCHAR2(1),
+  observacion          VARCHAR2(100),
+  motivo               VARCHAR2(200),
+  fec_confirmacion     DATE,
+  fec_cancelacion      DATE,
+  cod_moneda           VARCHAR2(3),
+  fec_ven_pol_ant      DATE,
+  nro_seguro           NUMBER(18),
+  nro_seg_ant          NUMBER(18),
+  cod_usu_confirmacion VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REN_POL_SEGUROS
+  is 'Renovación de Poliza de Seguros.';
+comment on column IT.GE_REN_POL_SEGUROS.fecha
+  is 'Fecha.';
+comment on column IT.GE_REN_POL_SEGUROS.nro_renovacion
+  is 'Nro Renovacion.';
+comment on column IT.GE_REN_POL_SEGUROS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_REN_POL_SEGUROS.cod_tip_seguro
+  is 'Código tipo de Seguro.';
+comment on column IT.GE_REN_POL_SEGUROS.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_REN_POL_SEGUROS.nro_poliza
+  is 'Nro. de Poliza.';
+comment on column IT.GE_REN_POL_SEGUROS.nro_cta_debito
+  is 'Nro. de Cuenta Debito.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_desde
+  is 'Fecha Desde.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_hasta
+  is 'Fecha Hasta.';
+comment on column IT.GE_REN_POL_SEGUROS.mto_capital
+  is 'Monto Capital.';
+comment on column IT.GE_REN_POL_SEGUROS.mto_cuota
+  is 'Monto Cuota.';
+comment on column IT.GE_REN_POL_SEGUROS.ind_imp_sebaot
+  is 'Ind. Importación de Sebaot.';
+comment on column IT.GE_REN_POL_SEGUROS.ind_int_comercial
+  is 'Ind. Inteligencia Comercial.';
+comment on column IT.GE_REN_POL_SEGUROS.ind_autogestion
+  is 'Ind. Autogestion.';
+comment on column IT.GE_REN_POL_SEGUROS.cod_canal
+  is 'Código de Canal.';
+comment on column IT.GE_REN_POL_SEGUROS.estado
+  is 'Estado: I: Ingresado, P: Confirmado, C: Cancelado.';
+comment on column IT.GE_REN_POL_SEGUROS.observacion
+  is 'Observación.';
+comment on column IT.GE_REN_POL_SEGUROS.motivo
+  is 'Motivo.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_confirmacion
+  is 'Fecha Confirmacion.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_cancelacion
+  is 'Fecha Cancelacion.';
+comment on column IT.GE_REN_POL_SEGUROS.cod_moneda
+  is 'Cod. Moneda.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_ven_pol_ant
+  is 'Fecha de vencimiento Poliza Anterior';
+comment on column IT.GE_REN_POL_SEGUROS.nro_seguro
+  is 'Número seguro.';
+comment on column IT.GE_REN_POL_SEGUROS.nro_seg_ant
+  is 'Número seguro anterior.';
+comment on column IT.GE_REN_POL_SEGUROS.cod_usu_confirmacion
+  is 'Usuario Confirmación.';
+comment on column IT.GE_REN_POL_SEGUROS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_REN_POL_SEGUROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_REN_POL_SEGUROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_REN_POL_SEGUROS
+  add constraint PK_GE_REN_POL_SEGUROS primary key (NRO_RENOVACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

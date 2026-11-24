@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_RET_SER_DIGITAL
+minvalue 1
+maxvalue 9999999999
+start with 21
+increment by 1
+cache 20
+order;
+

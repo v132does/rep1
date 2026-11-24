@@ -1,0 +1,112 @@
+create table IT.CB_SAL_CONSOLIDADOS
+(
+  cod_rubro             VARCHAR2(15) not null,
+  ano                   NUMBER(4) not null,
+  mes                   NUMBER(2) not null,
+  sal_mon_loc_ant       NUMBER(18,2) default 0,
+  deb_mon_local         NUMBER(18,2) default 0,
+  cre_mon_local         NUMBER(18,2) default 0,
+  sal_ini_mes_mon_local NUMBER(18,2) default 0,
+  sal_mon_rub_ant       NUMBER(18,2) default 0,
+  deb_mon_rubro         NUMBER(18,2) default 0,
+  cre_mon_rubro         NUMBER(18,2) default 0,
+  sal_ini_mes_mon_rubro NUMBER(18,2) default 0,
+  protegido             VARCHAR2(1) default 'N' not null,
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  sal_equ_loc_ant       NUMBER(18,2) default 0,
+  deb_equ_local         NUMBER(18,2) default 0,
+  cre_equ_local         NUMBER(18,2) default 0,
+  sal_ini_mes_equ_local NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_CONSOLIDADOS
+  is 'Contiene los saldos de las cuentas contables consolidadas.';
+comment on column IT.CB_SAL_CONSOLIDADOS.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_SAL_CONSOLIDADOS.ano
+  is 'Año de saldo.';
+comment on column IT.CB_SAL_CONSOLIDADOS.mes
+  is 'Mes de saldo.';
+comment on column IT.CB_SAL_CONSOLIDADOS.sal_mon_loc_ant
+  is 'Saldo de ayer en moneda local.';
+comment on column IT.CB_SAL_CONSOLIDADOS.deb_mon_local
+  is 'Debitos de hoy en moneda local.';
+comment on column IT.CB_SAL_CONSOLIDADOS.cre_mon_local
+  is 'Creditos de hoy en moneda local.';
+comment on column IT.CB_SAL_CONSOLIDADOS.sal_ini_mes_mon_local
+  is 'Saldo de inicio del mes en moneda local.';
+comment on column IT.CB_SAL_CONSOLIDADOS.sal_mon_rub_ant
+  is 'Saldo de ayer en moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.deb_mon_rubro
+  is 'Debitos de hoy en moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.cre_mon_rubro
+  is 'Creditos de hoy en moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.sal_ini_mes_mon_rubro
+  is 'Saldo de inicio del mes en moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.protegido
+  is 'Registro protegido ? ( S=Es protegido, no puede ser borrado, N=No es protegido, puede ser borrado ).';
+comment on column IT.CB_SAL_CONSOLIDADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SAL_CONSOLIDADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SAL_CONSOLIDADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_CONSOLIDADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_CONSOLIDADOS.sal_equ_loc_ant
+  is 'Saldo anterior del equivalente en moneda local de la moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.deb_equ_local
+  is 'Total de debitos del equivalente en moneda local de la moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.cre_equ_local
+  is 'Total de creditos del equivalente en moneda local de la moneda extranjera.';
+comment on column IT.CB_SAL_CONSOLIDADOS.sal_ini_mes_equ_local
+  is 'Saldo inicial del mes equivalente en moneda local de la moneda extranjera.';
+create index IT.IN_BBVA_COD_RUB on IT.CB_SAL_CONSOLIDADOS (COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_CONSOLIDADOS
+  add constraint PK_CB_SAL_CONSOLIDADOS primary key (COD_RUBRO, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_CONSOLIDADOS
+  add constraint AVCON_1082384743_PROTE_001
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_SAL_CONSOLIDADOS
+  add constraint AVCON_1085418068_PROTE_001
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.CB_SAL_CONSOLIDADOS
+  add constraint AVCON_1086033593_PROTE_001
+  check (PROTEGIDO IN ('S', 'N'));
+

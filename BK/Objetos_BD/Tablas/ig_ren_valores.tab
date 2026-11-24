@@ -1,0 +1,85 @@
+create table IT.IG_REN_VALORES
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15),
+  cod_periodo      NUMBER(3) not null,
+  fecha            DATE not null,
+  cod_concepto     NUMBER(3) not null,
+  cod_sub_concepto NUMBER(4) not null,
+  monto            NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mto_equ_local    NUMBER(18,2),
+  cantidad         NUMBER(8) default 0 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_REN_VALORES
+  is 'Valores a ser Utilizados para el Calculo de la Rentabilidad.';
+comment on column IT.IG_REN_VALORES.cod_persona
+  is 'Codigo de cliente.';
+comment on column IT.IG_REN_VALORES.nro_cuenta
+  is 'Nro de cuenta.';
+comment on column IT.IG_REN_VALORES.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_REN_VALORES.fecha
+  is 'Fecha del proceso.';
+comment on column IT.IG_REN_VALORES.cod_concepto
+  is 'Codigo del concepto.';
+comment on column IT.IG_REN_VALORES.cod_sub_concepto
+  is 'Codigo del sub concepto.';
+comment on column IT.IG_REN_VALORES.monto
+  is 'Monto que afecta a la rentabilidad.';
+comment on column IT.IG_REN_VALORES.cod_moneda
+  is 'Moneda del movimiento.';
+comment on column IT.IG_REN_VALORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_REN_VALORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_REN_VALORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_REN_VALORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.IG_REN_VALORES.mto_equ_local
+  is 'Monto en la moneda local.';
+comment on column IT.IG_REN_VALORES.cantidad
+  is 'Cantidad de Operaciones.';
+alter table IT.IG_REN_VALORES
+  add constraint UK_IG_REN_VALORES unique (COD_PERSONA, NRO_CUENTA, COD_PERIODO, FECHA, COD_CONCEPTO, COD_SUB_CONCEPTO, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_REN_VALORES
+  add constraint FK_IRVAL_COD_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_REN_VALORES
+  add constraint FK_IRVAL_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_REN_VALORES
+  add constraint FK_IRVAL_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.GE_CLIENTES (COD_PERSONA);
+alter table IT.IG_REN_VALORES
+  add constraint FK_IRVAL_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

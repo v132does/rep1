@@ -1,0 +1,93 @@
+create table IT.BA_MODULOS
+(
+  cod_modulo         NUMBER(3) not null,
+  cod_sistema        NUMBER(3) not null,
+  descripcion        VARCHAR2(35) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  des_detallada      VARCHAR2(250),
+  abreviatura        VARCHAR2(10),
+  fec_implementacion DATE,
+  observacion        VARCHAR2(1000),
+  estado             NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_MODULOS
+  is 'Modulos.';
+comment on column IT.BA_MODULOS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.BA_MODULOS.cod_sistema
+  is 'Codigo de Sistema.';
+comment on column IT.BA_MODULOS.descripcion
+  is 'Descripcion Breve.';
+comment on column IT.BA_MODULOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_MODULOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_MODULOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MODULOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MODULOS.des_detallada
+  is 'Descripcion Detallada.';
+comment on column IT.BA_MODULOS.abreviatura
+  is 'Abreviatura.';
+comment on column IT.BA_MODULOS.fec_implementacion
+  is 'Fecha de Implementacion.';
+comment on column IT.BA_MODULOS.observacion
+  is 'Observaciones del modulo.';
+comment on column IT.BA_MODULOS.estado
+  is 'Estado en que se encuentra el proceso de cierre del Modulo.';
+alter table IT.BA_MODULOS
+  add constraint PK_BA_MODULOS primary key (COD_MODULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MODULOS
+  add constraint UK_EMODU_DESCRIPCION unique (COD_SISTEMA, DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MODULOS
+  add constraint FK_EMODU_COD_SISTEMA foreign key (COD_SISTEMA)
+  references IT.BA_SISTEMAS (COD_SISTEMA);
+alter table IT.BA_MODULOS
+  add constraint AVCON_1096580217_COD_M_008
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.BA_MODULOS
+  add constraint AVCON_1096580217_COD_S_003
+  check (COD_SISTEMA BETWEEN 0 AND 999);
+alter table IT.BA_MODULOS
+  add constraint AVCON_1096580217_ESTAD_000
+  check (ESTADO IN (1, 2, 3, 4, 6, 9, 88));
+

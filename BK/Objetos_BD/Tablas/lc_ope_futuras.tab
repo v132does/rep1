@@ -1,0 +1,175 @@
+create table IT.LC_OPE_FUTURAS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  nro_operacion       NUMBER(7) default 0 not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_tip_ope_bcp     VARCHAR2(6) not null,
+  fec_operacion       DATE not null,
+  monto               NUMBER(18,2) default 0 not null,
+  mto_utilizado       NUMBER(18,2) default 0 not null,
+  mto_bloqueado       NUMBER(18,2) default 0,
+  cotizacion          NUMBER(14,8) not null,
+  cot_vencimiento     NUMBER(14,8) not null,
+  fec_vencimiento     DATE not null,
+  plazo               NUMBER(10),
+  fec_liquidacion     DATE,
+  cod_tip_referencia  VARCHAR2(3),
+  nro_referencia      NUMBER(10) default 0,
+  cod_mad_transaccion NUMBER(3) default 0 not null,
+  cod_mad_padre       NUMBER(3) default 0 not null,
+  cod_ofi_origen      NUMBER(3) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  estado              VARCHAR2(1),
+  nro_documento       VARCHAR2(20) not null,
+  cod_persona         VARCHAR2(10),
+  fec_est_activo      DATE,
+  tip_liquidacion     VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_OPE_FUTURAS
+  is 'Contiene los datos de las Operaciones de Cambios a Futuro.';
+comment on column IT.LC_OPE_FUTURAS.nro_cuenta
+  is 'NUmero de la cuenta de cambios.';
+comment on column IT.LC_OPE_FUTURAS.nro_operacion
+  is 'Numero de operacion identificadora.';
+comment on column IT.LC_OPE_FUTURAS.cod_modulo
+  is 'Codigo de modulo de la cuenta de cambios.';
+comment on column IT.LC_OPE_FUTURAS.cod_modalidad
+  is 'Codigo de modalidad de la cuenta de cambios.';
+comment on column IT.LC_OPE_FUTURAS.cod_oficina
+  is 'Codigo de oficina de la cuenta.';
+comment on column IT.LC_OPE_FUTURAS.cod_moneda
+  is 'Codigo de moneda de la cuenta.';
+comment on column IT.LC_OPE_FUTURAS.cod_tip_ope_bcp
+  is 'Codigo de BCP asignada a la cuenta.';
+comment on column IT.LC_OPE_FUTURAS.fec_operacion
+  is 'Fecha de emision de la operacion.';
+comment on column IT.LC_OPE_FUTURAS.monto
+  is 'Importe de  la linea de cambios.';
+comment on column IT.LC_OPE_FUTURAS.mto_utilizado
+  is 'Importe utilizado de la linea on-line.';
+comment on column IT.LC_OPE_FUTURAS.mto_bloqueado
+  is 'Importe bloqueado.';
+comment on column IT.LC_OPE_FUTURAS.cotizacion
+  is 'Cotizacion Inicial de la operacion.';
+comment on column IT.LC_OPE_FUTURAS.cot_vencimiento
+  is 'Cotizacion pactada para el vencimiento.';
+comment on column IT.LC_OPE_FUTURAS.fec_vencimiento
+  is 'Fecha de vencimiento de la operacion.';
+comment on column IT.LC_OPE_FUTURAS.plazo
+  is 'Plazo en dias de la operacion.';
+comment on column IT.LC_OPE_FUTURAS.fec_liquidacion
+  is 'Fecha pactada para su liquidacion.';
+comment on column IT.LC_OPE_FUTURAS.cod_tip_referencia
+  is 'Codigo del tipo de referencia de la operacion.';
+comment on column IT.LC_OPE_FUTURAS.nro_referencia
+  is 'Numero del tipo referencia.';
+comment on column IT.LC_OPE_FUTURAS.cod_mad_transaccion
+  is 'Codigo de modalidad hija(compra o venta).';
+comment on column IT.LC_OPE_FUTURAS.cod_mad_padre
+  is 'Codigo del modalidad padre(Op.futura o Swap).';
+comment on column IT.LC_OPE_FUTURAS.cod_ofi_origen
+  is 'Oficina origen en la genero la operacion.';
+comment on column IT.LC_OPE_FUTURAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_OPE_FUTURAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_OPE_FUTURAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_FUTURAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_FUTURAS.estado
+  is 'Estado de la Operación';
+comment on column IT.LC_OPE_FUTURAS.nro_documento
+  is 'Número de Documento del Cliente.';
+comment on column IT.LC_OPE_FUTURAS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.LC_OPE_FUTURAS.fec_est_activo
+  is 'Fecha de Estado Activo';
+comment on column IT.LC_OPE_FUTURAS.tip_liquidacion
+  is 'Tipo Liquidacion (NDF-Non Delivery Forward / FDF-Full Delivery Forward).';
+create index IT.IN_BBVA_LC_OPE_FUTURAS on IT.LC_OPE_FUTURAS (COD_PERSONA, COD_MAD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOFU_NRO_REFERENCIA on IT.LC_OPE_FUTURAS (NRO_REFERENCIA, COD_TIP_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOFUT_COD_MODALIDAD on IT.LC_OPE_FUTURAS (COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_TIP_OPE_BCP, COD_TIP_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_OPE_FUTURAS
+  add constraint PK_LC_OPE_FUTURAS primary key (NRO_OPERACION, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_OPE_FUTURAS
+  add constraint FK_LOFUT_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.LC_OPE_FUTURAS
+  add constraint FK_LOFUT_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_OPE_FUTURAS
+  add constraint FK_LOFUT_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_OPE_FUTURAS
+  add constraint FK_LOFUT_COD_TIP_OPE_BCP foreign key (COD_TIP_OPE_BCP)
+  references IT.LC_TIP_OPE_BCP (COD_TIP_OPE_BCP);
+alter table IT.LC_OPE_FUTURAS
+  add constraint FK_LOFUT_COD_TIP_REFERENCIA foreign key (COD_TIP_REFERENCIA)
+  references IT.LC_TIP_REFERENCIAS (COD_TIP_REFERENCIA);
+alter table IT.LC_OPE_FUTURAS
+  add constraint FK_LOFUT_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.LC_CTA_CAMBIOS (NRO_CUENTA);
+

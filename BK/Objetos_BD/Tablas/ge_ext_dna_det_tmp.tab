@@ -1,0 +1,24 @@
+create table IT.GE_EXT_DNA_DET_TMP
+(
+  fecha         DATE,
+  tipo          VARCHAR2(3),
+  monto         NUMBER(18,2),
+  datos         VARCHAR2(240),
+  concepto      VARCHAR2(240),
+  cuentadestino VARCHAR2(240),
+  reversado     VARCHAR2(1),
+  mto_debito    NUMBER(18,2),
+  mto_credito   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

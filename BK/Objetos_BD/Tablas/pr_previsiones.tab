@@ -1,0 +1,119 @@
+create table IT.PR_PREVISIONES
+(
+  fecha                 DATE not null,
+  nro_cuenta            VARCHAR2(15) not null,
+  monto                 NUMBER(18,2) default 0 not null,
+  usu_insercion         VARCHAR2(10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  sal_capital           NUMBER(18,2) default 0,
+  dev_no_cobrado        NUMBER(18,2) default 0,
+  porcentaje            NUMBER(5,2) default 0,
+  tot_gar_computables   NUMBER(18,2) default 0,
+  tot_pri_prevision     NUMBER(18,2) default 0,
+  tot_cap_pri_prevision NUMBER(18,2) default 0,
+  tot_cap_seg_prevision NUMBER(18,2) default 0,
+  tot_int_pri_prevision NUMBER(18,2) default 0,
+  tot_int_seg_prevision NUMBER(18,2) default 0,
+  mto_pre_anterior      NUMBER(18,2),
+  por_pre_anterior      NUMBER(5,2),
+  por_calculado         NUMBER(5,2),
+  ind_pri_sem_cat6      VARCHAR2(1),
+  mto_pre_total         NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_PREVISIONES
+  is 'Historial de previsiones de cuentas.';
+comment on column IT.PR_PREVISIONES.fecha
+  is 'Fecha de previsión.';
+comment on column IT.PR_PREVISIONES.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.PR_PREVISIONES.monto
+  is 'Importe de la previsión.';
+comment on column IT.PR_PREVISIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_PREVISIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_PREVISIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_PREVISIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_PREVISIONES.sal_capital
+  is 'Saldo capital de la operación en el momento del calculo.';
+comment on column IT.PR_PREVISIONES.dev_no_cobrado
+  is 'Monto devengado no cobrado en el momento del calculo.';
+comment on column IT.PR_PREVISIONES.porcentaje
+  is 'Porcentaje de riesgo considerado para el calculo.';
+comment on column IT.PR_PREVISIONES.tot_gar_computables
+  is 'Total computado de garantías para el calculo.';
+comment on column IT.PR_PREVISIONES.tot_pri_prevision
+  is 'Total de la Primera previsión.';
+comment on column IT.PR_PREVISIONES.tot_cap_pri_prevision
+  is 'Primera Previsión del Saldo Capital de la Operación.';
+comment on column IT.PR_PREVISIONES.tot_cap_seg_prevision
+  is 'Segunda Previsión del Saldo Capital de la Operación.';
+comment on column IT.PR_PREVISIONES.tot_int_pri_prevision
+  is 'Primera Previsión de Interés de la Operación.';
+comment on column IT.PR_PREVISIONES.tot_int_seg_prevision
+  is 'Segunda Previsión de Interés de la Operación.';
+comment on column IT.PR_PREVISIONES.mto_pre_anterior
+  is 'Monto Anterior Previsionado.';
+comment on column IT.PR_PREVISIONES.por_pre_anterior
+  is 'Porcentaje Previsionado Anteriormente.';
+comment on column IT.PR_PREVISIONES.por_calculado
+  is 'Porcentaje Calculado.';
+comment on column IT.PR_PREVISIONES.ind_pri_sem_cat6
+  is 'Indicador que se calculó la previsión por el primer semestre de la previsión.';
+create index IT.IN_PPREV_NRO_CUENTA on IT.PR_PREVISIONES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.IN_PPREV_NRO_CUENTA_02 on IT.PR_PREVISIONES (NRO_CUENTA, MONTO, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 120M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_PREVISIONES
+  add constraint PK_PR_PREVISIONES primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_PREVISIONES
+  add constraint FK_PPREV_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

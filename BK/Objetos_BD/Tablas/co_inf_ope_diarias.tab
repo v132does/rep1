@@ -1,0 +1,131 @@
+create table IT.CO_INF_OPE_DIARIAS
+(
+  fec_proceso       DATE not null,
+  cod_persona       VARCHAR2(10) not null,
+  ide_operacion     VARCHAR2(25) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  relacion          VARCHAR2(1),
+  fec_operacion     DATE,
+  fec_ven_pendiente DATE,
+  fec_ult_pago      DATE,
+  pla_operacion     NUMBER(4),
+  tot_operacion     NUMBER(18,2),
+  sal_actual        NUMBER(18,2),
+  fin_registro      VARCHAR2(1) default 'I' not null,
+  estado            VARCHAR2(1) default 'P',
+  usu_insercion     VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  gen_archivo       VARCHAR2(1),
+  cod_modalidad     NUMBER(3),
+  det_error         VARCHAR2(200),
+  cod_respuesta     VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_INF_OPE_DIARIAS
+  is 'Datos a ser enviados a Informconf.';
+comment on column IT.CO_INF_OPE_DIARIAS.fec_proceso
+  is 'Fecha en que se proceso el envio de datos a Informconf.';
+comment on column IT.CO_INF_OPE_DIARIAS.cod_persona
+  is 'Indica el codigo del cliente que es informado a Informconf.';
+comment on column IT.CO_INF_OPE_DIARIAS.ide_operacion
+  is 'Identificador de la operacion. Para prestamos es el nro de cuenta, para tarjetas, son los ultimo 8 digitos de la tarjeta principal.';
+comment on column IT.CO_INF_OPE_DIARIAS.cod_modulo
+  is 'Indica el tipo de operacion (Prestamo, Tarjeta o Sobregiro).';
+comment on column IT.CO_INF_OPE_DIARIAS.cod_moneda
+  is 'Indica moneda de la operacion utilizando la codificacion del sistema.';
+comment on column IT.CO_INF_OPE_DIARIAS.relacion
+  is 'Es la relacion que tiene el cliente con el prestamo ya sea principal, codeudor, etc.';
+comment on column IT.CO_INF_OPE_DIARIAS.fec_operacion
+  is 'Fecha de inicio del prestamo.';
+comment on column IT.CO_INF_OPE_DIARIAS.fec_ven_pendiente
+  is 'Fecha del primer vencimiento pendiente de pago.';
+comment on column IT.CO_INF_OPE_DIARIAS.fec_ult_pago
+  is 'Fecha en la que el cliente realizo el ultimo pago de su operacion.';
+comment on column IT.CO_INF_OPE_DIARIAS.pla_operacion
+  is 'Plazo del prestamo.';
+comment on column IT.CO_INF_OPE_DIARIAS.tot_operacion
+  is 'Se utiliza para las operaciones de prestamos es el total del prestamo dado al cliente.';
+comment on column IT.CO_INF_OPE_DIARIAS.sal_actual
+  is 'El monto que constituye el saldo a la fecha de la operacion.';
+comment on column IT.CO_INF_OPE_DIARIAS.fin_registro
+  is 'Finalidad del registro para Informconf. ( I= Insertar; E= Eliminar ).';
+comment on column IT.CO_INF_OPE_DIARIAS.estado
+  is 'Indica el estado del registro con relacion a Informconf. ( P= Pendiente; E= Error; G= Generado; R= Procesado; C= Corregido ).';
+comment on column IT.CO_INF_OPE_DIARIAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CO_INF_OPE_DIARIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CO_INF_OPE_DIARIAS.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.CO_INF_OPE_DIARIAS.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+comment on column IT.CO_INF_OPE_DIARIAS.cod_modalidad
+  is 'Indica la modalidad de la operación, especialmente para identificar modalidades de Operaciones Vencidas.';
+comment on column IT.CO_INF_OPE_DIARIAS.det_error
+  is 'Indica el detalle de Error en caso de respuesta con error de Informconf';
+comment on column IT.CO_INF_OPE_DIARIAS.cod_respuesta
+  is 'Indica el código de respuesta de Informconf';
+create index IT.IN_OIOPD_ESTADO on IT.CO_INF_OPE_DIARIAS (FEC_PROCESO, COD_PERSONA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint PK_CO_INF_OPE_DIARIAS primary key (FEC_PROCESO, COD_PERSONA, IDE_OPERACION, FIN_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint FK_OIOPD_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint FK_OIOPD_COD_MODULO foreign key (COD_MODULO)
+  references IT.BA_MODULOS (COD_MODULO);
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint FK_OIOPD_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint FK_OIOPD_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint AVCON_1126542560_COD_M_001
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint AVCON_1126542560_ESTAD_001
+  check (ESTADO IN ('P', 'E', 'G', 'R', 'C'));
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint FEC_OPERACION_INVALIDA221
+  check (NVL(to_char(FEC_OPERACION,'YYYY'),'1901') > '1900');
+alter table IT.CO_INF_OPE_DIARIAS
+  add constraint FEC_ULT_PAGO_INVALIDA220
+  check (NVL(to_char(FEC_ULT_PAGO,'YYYY'),'1901') > '1900');
+

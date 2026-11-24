@@ -1,0 +1,16 @@
+create global temporary table IT.STAGE_TERADATA_INDICES
+(
+  mdid           NUMBER,
+  databasename   VARCHAR2(128 CHAR),
+  tablename      VARCHAR2(128 CHAR),
+  indexnumber    NUMBER(10),
+  indextype      CHAR(1 CHAR),
+  uniqueflag     CHAR(1 CHAR),
+  indexname      VARCHAR2(128 CHAR),
+  columnname     VARCHAR2(128 CHAR),
+  columnposition NUMBER(10),
+  creatorname    VARCHAR2(128 CHAR),
+  indexmode      CHAR(1 CHAR)
+)
+on commit preserve rows;
+

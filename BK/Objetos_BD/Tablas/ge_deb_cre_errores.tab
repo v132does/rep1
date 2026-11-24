@@ -1,0 +1,68 @@
+create table IT.GE_DEB_CRE_ERRORES
+(
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  nro_secuencia     NUMBER(8) not null,
+  cod_deb_cre_batch NUMBER(3) not null,
+  nro_cuenta        VARCHAR2(15),
+  cod_moneda        VARCHAR2(4),
+  sal_disponible    NUMBER(18,2),
+  mto_operacion     NUMBER(18,2),
+  cod_tra_padre     NUMBER(4),
+  cod_error         NUMBER(4) not null,
+  msj_error         VARCHAR2(4000) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEB_CRE_ERRORES
+  is 'Errores de Procesos de Debitos y Creditos en Batch';
+comment on column IT.GE_DEB_CRE_ERRORES.fecha
+  is 'Fecha de proceso del Debito o Credito Batch.';
+comment on column IT.GE_DEB_CRE_ERRORES.hora
+  is 'Hora de proceso.';
+comment on column IT.GE_DEB_CRE_ERRORES.cod_usuario
+  is 'Usuario que realizo el proceso.';
+comment on column IT.GE_DEB_CRE_ERRORES.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_DEB_CRE_ERRORES.cod_deb_cre_batch
+  is 'Codigo del Debito o Credito en Batch.';
+comment on column IT.GE_DEB_CRE_ERRORES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_DEB_CRE_ERRORES.cod_moneda
+  is 'Codigo de Moneda de la cuenta.';
+comment on column IT.GE_DEB_CRE_ERRORES.sal_disponible
+  is 'Saldo Disponible de la cuenta al momento del proceso.';
+comment on column IT.GE_DEB_CRE_ERRORES.mto_operacion
+  is 'Monto del Debito / Credito.';
+comment on column IT.GE_DEB_CRE_ERRORES.cod_tra_padre
+  is 'Codigo de la Transaccion Padre del movimiento.';
+comment on column IT.GE_DEB_CRE_ERRORES.cod_error
+  is 'Codigo de Error.';
+comment on column IT.GE_DEB_CRE_ERRORES.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.GE_DEB_CRE_ERRORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_DEB_CRE_ERRORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_DEB_CRE_ERRORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_DEB_CRE_ERRORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_DEB_CRE_ERRORES
+  add constraint FK_GDCER_COD_DEB_CRE_BATCH foreign key (COD_DEB_CRE_BATCH)
+  references IT.GE_DEB_CRE_BATCH (COD_DEB_CRE_BATCH);
+

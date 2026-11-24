@@ -1,0 +1,14 @@
+create global temporary table IT.STAGE_SS2K5_SYSPROPERTIES
+(
+  svrid_fk    NUMBER(38),
+  dbid_gen_fk NUMBER(38),
+  class       NUMBER(38) not null,
+  major_id    NUMBER(38) not null,
+  minor_id    NUMBER(38) not null,
+  name        VARCHAR2(500 CHAR) not null,
+  value       VARCHAR2(1000 CHAR) not null
+)
+on commit preserve rows;
+create index IT.S_SS2K5_PS_DBID_GEN_FK on IT.STAGE_SS2K5_SYSPROPERTIES (DBID_GEN_FK);
+create index IT.S_SS2K5_PS_MAJOR_ID on IT.STAGE_SS2K5_SYSPROPERTIES (MAJOR_ID);
+

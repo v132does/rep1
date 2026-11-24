@@ -1,0 +1,61 @@
+create table IT.CB_COS_SUCURSALES_DET
+(
+  ano           NUMBER(4) not null,
+  mes           NUMBER(2) not null,
+  cod_oficina   NUMBER(3) not null,
+  cod_rubro     VARCHAR2(15) not null,
+  cod_moneda    VARCHAR2(3),
+  cod_plazo     NUMBER(3),
+  tipo          VARCHAR2(1),
+  mto_acu_saldo NUMBER(18,2),
+  can_dias      NUMBER(6),
+  mto_promedio  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_COS_SUCURSALES_DET
+  is 'Detalle de Costos Intersucursales.';
+comment on column IT.CB_COS_SUCURSALES_DET.ano
+  is 'Año.';
+comment on column IT.CB_COS_SUCURSALES_DET.mes
+  is 'Mes.';
+comment on column IT.CB_COS_SUCURSALES_DET.cod_oficina
+  is 'Oficina.';
+comment on column IT.CB_COS_SUCURSALES_DET.cod_rubro
+  is 'Rubro Contable.';
+comment on column IT.CB_COS_SUCURSALES_DET.cod_moneda
+  is 'Moneda.';
+comment on column IT.CB_COS_SUCURSALES_DET.cod_plazo
+  is 'Plazo Contable.';
+comment on column IT.CB_COS_SUCURSALES_DET.tipo
+  is 'Tipo de Costo. ';
+comment on column IT.CB_COS_SUCURSALES_DET.mto_acu_saldo
+  is 'Saldo Acumulado.';
+comment on column IT.CB_COS_SUCURSALES_DET.can_dias
+  is 'Cantidad de Dias.';
+comment on column IT.CB_COS_SUCURSALES_DET.mto_promedio
+  is 'Monto Promedio.';
+alter table IT.CB_COS_SUCURSALES_DET
+  add constraint PK_CB_COS_SUCURSALES primary key (ANO, MES, COD_OFICINA, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

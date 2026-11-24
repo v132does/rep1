@@ -1,0 +1,88 @@
+create table IT.AH_CUPONES
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  tipo             VARCHAR2(1) not null,
+  nro_cupon        NUMBER(7) not null,
+  mto_interes      NUMBER(18,2) default 0 not null,
+  fec_vencimiento  DATE not null,
+  estado           VARCHAR2(1) not null,
+  fec_hor_emision  DATE,
+  fec_pago         DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  est_batch        VARCHAR2(1),
+  bloqueado        VARCHAR2(1),
+  endoso           VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CUPONES
+  is 'Contiene datos de Cupones de Interes de los Certificados de Depositos de Ahorros.';
+comment on column IT.AH_CUPONES.nro_cuenta
+  is 'Numero de Cuenta del CDA.';
+comment on column IT.AH_CUPONES.tipo
+  is 'Tipo de Cupon (O/P/V).';
+comment on column IT.AH_CUPONES.nro_cupon
+  is 'Numero de Cupon.';
+comment on column IT.AH_CUPONES.mto_interes
+  is 'Importe del Interes.';
+comment on column IT.AH_CUPONES.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.AH_CUPONES.estado
+  is 'Estado del Cupon (C=Cargado, E=Emitido, V=Vencido,  P=Pagado).';
+comment on column IT.AH_CUPONES.fec_hor_emision
+  is 'Fecha de Emision del Cupon.';
+comment on column IT.AH_CUPONES.fec_pago
+  is 'Fecha de Pago de Cupon.';
+comment on column IT.AH_CUPONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CUPONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CUPONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CUPONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CUPONES.est_batch
+  is 'Estado Batch del Cupon.';
+comment on column IT.AH_CUPONES.bloqueado
+  is 'Bloqueado (Si/No).';
+comment on column IT.AH_CUPONES.endoso
+  is 'Nombre de la/s persona/s a quien/es se endosa el Cupón.';
+alter table IT.AH_CUPONES
+  add constraint PK_AH_CUPONES primary key (NRO_CUENTA, NRO_CUPON)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 640K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CUPONES
+  add constraint FK_ACCUP_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CUPONES
+  add constraint AVCON_1080844426_ESTAD_003
+  check (ESTADO IN ('C', 'E', 'V', 'P'));
+alter table IT.AH_CUPONES
+  add constraint AVCON_1080844426_TIPO_002
+  check (TIPO IN ('O', 'P'));
+alter table IT.AH_CUPONES
+  add constraint AVCON_1108478595_BLOQU_000
+  check (BLOQUEADO IN ('S', 'N'));
+

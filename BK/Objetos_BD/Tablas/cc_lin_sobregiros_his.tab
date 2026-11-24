@@ -1,0 +1,138 @@
+create table IT.CC_LIN_SOBREGIROS_HIS
+(
+  nro_secuencia     NUMBER(7) default 1,
+  tipo              VARCHAR2(1),
+  cod_persona       VARCHAR2(10),
+  nro_cuenta        VARCHAR2(15),
+  fec_inicio        DATE,
+  fec_vencimiento   DATE,
+  cod_moneda        VARCHAR2(3),
+  monto             NUMBER(18,2) default 0,
+  estado            VARCHAR2(1),
+  cod_tasa          NUMBER(3),
+  val_tas_interes   NUMBER(20,4) default 0,
+  dia_tasa          NUMBER(3),
+  tas_preferencial  NUMBER(8,2),
+  dia_sin_costo     NUMBER(3),
+  nro_linea         NUMBER(7),
+  nro_sec_padre     NUMBER(7),
+  cod_usu_autoriza  VARCHAR2(10),
+  niv_aprobacion    VARCHAR2(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  observacion       VARCHAR2(1000),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE,
+  cotizacion        NUMBER(14,8),
+  observacion_his   VARCHAR2(4000),
+  can_automatica    VARCHAR2(1) default 'N',
+  cod_canal         NUMBER(3),
+  cod_campana       NUMBER(3),
+  cod_rub_economico VARCHAR2(6)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_LIN_SOBREGIROS_HIS
+  is 'Historico de Lineas de Sobregiro por Cuenta.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.nro_secuencia
+  is 'Numero del acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.tipo
+  is 'Tipo de acuerdo, T= Temporal, P= Permanente.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_persona
+  is 'Codigo del cliente asociado a la linea.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.nro_cuenta
+  is 'Numero de la cuenta a la que le corresponde el acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.fec_inicio
+  is 'Fecha en que se realiza el acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.fec_vencimiento
+  is 'Fecha de vencimiento del acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_moneda
+  is 'Moneda de la Linea.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.monto
+  is 'Valor del acuerdo de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.estado
+  is 'Estado.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_tasa
+  is 'Codigo de la tasa de interes que se aplicara en la liquidacion del sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.val_tas_interes
+  is 'Valor de la tasa de interes que se aplicara en la liquidacion del sobregiro acordado.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.dia_tasa
+  is 'Dias de tasa preferencial.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.tas_preferencial
+  is 'Tasa de tasa preferencial.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.dia_sin_costo
+  is 'Dias sin costo por utilizacion de linea.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.nro_linea
+  is 'Linea de credito asociada.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.nro_sec_padre
+  is 'Nro. de la secuencia padre (donde el cliente esta cargado).';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_usu_autoriza
+  is 'Codigo del autorizador de sobregiro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.niv_aprobacion
+  is 'Niveles de aprobacion.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.observacion
+  is 'Observaciones.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.can_automatica
+  is 'Indica si la linea fue cancelada por un proceso o en forma manual';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_canal
+  is 'Código Canal';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_campana
+  is 'Código Campaña';
+comment on column IT.CC_LIN_SOBREGIROS_HIS.cod_rub_economico
+  is 'Cod. de Rubro Economico.';
+create index IT.IN_CLSHI_COD_PERSONA on IT.CC_LIN_SOBREGIROS_HIS (COD_PERSONA, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 6M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CLSHI_NRO_CUENTA on IT.CC_LIN_SOBREGIROS_HIS (NRO_CUENTA, FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 7M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CLSHI_NRO_SEC_PADRE on IT.CC_LIN_SOBREGIROS_HIS (NRO_SEC_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

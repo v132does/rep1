@@ -1,0 +1,68 @@
+create table IT.TA_CTA_DEB_AUT_DETALLE
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cta_debito   VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  relacion         VARCHAR2(1) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  sal_total        NUMBER(18,2),
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  fec_proceso      DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.nro_cuenta
+  is 'Nro. de Cuenta de Tarjeta de Credito';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.nro_cta_debito
+  is 'Nro. de Cuenta de Debito';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.relacion
+  is 'Relacion';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.sal_total
+  is 'Saldo Total';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.fec_proceso
+  is 'Fecha de Proceso';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.usu_insercion
+  is 'Fecha de Insercion';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.fec_insercion
+  is 'Usuario de Insercion';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.usu_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.TA_CTA_DEB_AUT_DETALLE.fec_modificacion
+  is 'Usuario de Modificacion';
+alter table IT.TA_CTA_DEB_AUT_DETALLE
+  add constraint PK_TA_CTA_DEB_AUT_DETALLE primary key (NRO_CUENTA, COD_PERSONA, NRO_CTA_DEBITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

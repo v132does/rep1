@@ -1,0 +1,68 @@
+create table IT.GE_VAL_CUS_TITULARES
+(
+  cod_val_custodia NUMBER(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  relacion         VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  nro_secuencia    NUMBER(7) not null,
+  ret_documento    VARCHAR2(1),
+  nro_cta_debito   VARCHAR2(10),
+  car_cobrado      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_VAL_CUS_TITULARES.cod_val_custodia
+  is 'Código del Valor en Custodia';
+comment on column IT.GE_VAL_CUS_TITULARES.cod_persona
+  is 'Código del Cliente Titular /  A la Orden';
+comment on column IT.GE_VAL_CUS_TITULARES.relacion
+  is 'Tipo de Relación';
+comment on column IT.GE_VAL_CUS_TITULARES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_VAL_CUS_TITULARES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_VAL_CUS_TITULARES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_VAL_CUS_TITULARES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_VAL_CUS_TITULARES.nro_secuencia
+  is 'Numero Secuencial. Relacionado con GE_VAL_CUSTODIAS_DET.NRO_SECUENCIA';
+comment on column IT.GE_VAL_CUS_TITULARES.ret_documento
+  is 'Indica que el documento fue retirado temporalmente por esta persona.-';
+comment on column IT.GE_VAL_CUS_TITULARES.nro_cta_debito
+  is 'Número de Cuenta de débito para el cobro de Cargos.-';
+comment on column IT.GE_VAL_CUS_TITULARES.car_cobrado
+  is 'Indica si el cobro fue o no imputado (S/N).-';
+alter table IT.GE_VAL_CUS_TITULARES
+  add constraint PK_GE_CUS_VAL_CUSTODIAS primary key (COD_VAL_CUSTODIA, COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_VAL_CUS_TITULARES
+  add constraint FK_GCVTI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_VAL_CUS_TITULARES
+  add constraint FK_GCVTI_COD_VAL_CUSTODIA foreign key (COD_VAL_CUSTODIA)
+  references IT.GE_VAL_CUSTODIAS (COD_VAL_CUSTODIA);
+

@@ -1,0 +1,56 @@
+create table IT.TM_OSC_REHA
+(
+  nro_circular  VARCHAR2(8),
+  nro_secuencia VARCHAR2(6),
+  ano_circular  VARCHAR2(4),
+  codigo_banco  VARCHAR2(4),
+  tipo_document VARCHAR2(4),
+  nro_documento VARCHAR2(25),
+  nombre1       VARCHAR2(70),
+  nombre2       VARCHAR2(25),
+  nombre3       VARCHAR2(25),
+  apellido1     VARCHAR2(25),
+  apellido2     VARCHAR2(25),
+  apellido_casa VARCHAR2(25),
+  fecha_circula VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_OSC_REHA
+  is 'Tabla temporal de Rehabilitaciones OSC.';
+comment on column IT.TM_OSC_REHA.nro_circular
+  is 'Numero de Circular.';
+comment on column IT.TM_OSC_REHA.nro_secuencia
+  is 'Numero de Secuencia.';
+comment on column IT.TM_OSC_REHA.ano_circular
+  is 'Año de la Circular.';
+comment on column IT.TM_OSC_REHA.codigo_banco
+  is 'Codigo del Banco.';
+comment on column IT.TM_OSC_REHA.tipo_document
+  is 'Tipo de Documento.';
+comment on column IT.TM_OSC_REHA.nro_documento
+  is 'Numero de Documento.';
+comment on column IT.TM_OSC_REHA.nombre1
+  is 'Primer Nombre.';
+comment on column IT.TM_OSC_REHA.nombre2
+  is 'Segundo Nombre.';
+comment on column IT.TM_OSC_REHA.nombre3
+  is 'Tercer Nombre.';
+comment on column IT.TM_OSC_REHA.apellido1
+  is 'Primer Apellido.';
+comment on column IT.TM_OSC_REHA.apellido2
+  is 'Segundo Apellido.';
+comment on column IT.TM_OSC_REHA.apellido_casa
+  is 'Apellidos de Casado.';
+comment on column IT.TM_OSC_REHA.fecha_circula
+  is 'Fecha de la Circular.';
+

@@ -1,0 +1,30 @@
+create table IT.PV_CUOTAS
+(
+  cod_compra        NUMBER(10) not null,
+  nro_cuota         NUMBER(3) not null,
+  mto_cuota         NUMBER(18,2),
+  fec_vencimiento   DATE,
+  estado            VARCHAR2(1),
+  nro_factura       VARCHAR2(20),
+  cod_ent_proveedor NUMBER(5),
+  nro_orden         NUMBER(10),
+  fec_pago          DATE,
+  mto_iva           NUMBER(18,2),
+  mto_retencion     NUMBER(18,2),
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

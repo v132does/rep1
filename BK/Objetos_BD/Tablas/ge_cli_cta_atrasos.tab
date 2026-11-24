@@ -1,0 +1,124 @@
+create table IT.GE_CLI_CTA_ATRASOS
+(
+  cod_persona         VARCHAR2(10) not null,
+  nro_cuenta          VARCHAR2(15) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_estado          VARCHAR2(1) not null,
+  mto_mora            NUMBER(18,2) default 0,
+  dia_atraso          NUMBER(5) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_oficina         NUMBER(3),
+  tie_deposito        VARCHAR2(1) default 'N',
+  nro_cta_credito     VARCHAR2(15),
+  procesado           VARCHAR2(1) default 'N',
+  tot_cobrado         NUMBER(18,2) default 0,
+  fec_hor_proceso     DATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default SYSDATE,
+  fec_mov_origen      DATE,
+  hor_mov_origen      VARCHAR2(8),
+  cod_usu_origen      VARCHAR2(10),
+  cod_tra_pad_origen  NUMBER(4),
+  fec_mov_deb24x7     DATE,
+  hor_mov_deb24x7     VARCHAR2(8),
+  cod_usu_deb24x7     VARCHAR2(10),
+  cod_tra_pad_deb24x7 NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLI_CTA_ATRASOS
+  is 'Cuentas de clientes con atrasos';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_persona
+  is 'Codigo del cliente.';
+comment on column IT.GE_CLI_CTA_ATRASOS.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_modulo
+  is 'Tipo de producto.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_modalidad
+  is 'Sub tipo de Producto.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_estado
+  is 'Estado de la cuenta.';
+comment on column IT.GE_CLI_CTA_ATRASOS.mto_mora
+  is 'Total del monto en mora.';
+comment on column IT.GE_CLI_CTA_ATRASOS.dia_atraso
+  is 'dias de atraso.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_moneda
+  is 'moneda de la cuenta.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_oficina
+  is 'Codigo de la sucursal.';
+comment on column IT.GE_CLI_CTA_ATRASOS.tie_deposito
+  is 'Indica si recibio Deposito en el día.';
+comment on column IT.GE_CLI_CTA_ATRASOS.nro_cta_credito
+  is 'Número de cuenta a la que se realizo el crédito.';
+comment on column IT.GE_CLI_CTA_ATRASOS.procesado
+  is 'Indica si se proceso el pago de la Cta. con atraso.';
+comment on column IT.GE_CLI_CTA_ATRASOS.tot_cobrado
+  is 'Total de cobro.';
+comment on column IT.GE_CLI_CTA_ATRASOS.fec_hor_proceso
+  is 'Fecha y Hora del Proceso Cobro.';
+comment on column IT.GE_CLI_CTA_ATRASOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CLI_CTA_ATRASOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CLI_CTA_ATRASOS.fec_mov_origen
+  is 'Fecha del movimiento por el crédito de origen.';
+comment on column IT.GE_CLI_CTA_ATRASOS.hor_mov_origen
+  is 'Hora del movimiento por el crédito de origen.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_usu_origen
+  is 'Usuario del movimiento por el crédito de origen.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_tra_pad_origen
+  is 'Transacción Padre del movimiento por el crédito de origen.';
+comment on column IT.GE_CLI_CTA_ATRASOS.fec_mov_deb24x7
+  is 'Fecha del movimiento por el débito Cobrador 24x7.';
+comment on column IT.GE_CLI_CTA_ATRASOS.hor_mov_deb24x7
+  is 'Hora del movimiento por el débito Cobrador 24x7.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_usu_deb24x7
+  is 'Usuario del movimiento por el débito Cobrador 24x7.';
+comment on column IT.GE_CLI_CTA_ATRASOS.cod_tra_pad_deb24x7
+  is 'Transacción Padre del movimiento por el débito Cobrador 24x7.';
+create index IT.IN_BBVA_GCTA_NRCUENTA on IT.GE_CLI_CTA_ATRASOS (COD_PERSONA, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint PK_GE_CLI_CTA_ATRASOS primary key (COD_PERSONA, NRO_CUENTA);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint FK_GCCTA_COD_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, COD_ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint FK_GCCTA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint FK_GCCTA_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint FK_GCTA_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint AVCON_CTA_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint AVCON_CTA_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_CLI_CTA_ATRASOS
+  add constraint AVCON_CTA_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

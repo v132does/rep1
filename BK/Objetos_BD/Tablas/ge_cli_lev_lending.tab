@@ -1,0 +1,64 @@
+create table IT.GE_CLI_LEV_LENDING
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_documento    VARCHAR2(20) not null,
+  tipo             VARCHAR2(10),
+  descripcion      VARCHAR2(100) not null,
+  anho             NUMBER(4),
+  mes              NUMBER(2),
+  ratio            VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLI_LEV_LENDING
+  is 'Clientes Leveraged Lending';
+comment on column IT.GE_CLI_LEV_LENDING.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.GE_CLI_LEV_LENDING.nro_documento
+  is 'Nro de RUC/CI de cliente';
+comment on column IT.GE_CLI_LEV_LENDING.tipo
+  is 'Tipo de Leveraged';
+comment on column IT.GE_CLI_LEV_LENDING.descripcion
+  is 'Descripcion de Leveraged';
+comment on column IT.GE_CLI_LEV_LENDING.anho
+  is 'Año';
+comment on column IT.GE_CLI_LEV_LENDING.mes
+  is 'Mes';
+comment on column IT.GE_CLI_LEV_LENDING.ratio
+  is 'Ratio';
+comment on column IT.GE_CLI_LEV_LENDING.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CLI_LEV_LENDING.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CLI_LEV_LENDING.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CLI_LEV_LENDING.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_CLI_LEV_LENDING
+  add constraint UK_GE_CLI_LEV_LENDING unique (NRO_DOCUMENTO, COD_PERSONA, ANHO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

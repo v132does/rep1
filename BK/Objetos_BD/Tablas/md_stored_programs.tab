@@ -1,0 +1,80 @@
+create table IT.MD_STORED_PROGRAMS
+(
+  id                NUMBER not null,
+  schema_id_fk      NUMBER not null,
+  programtype       VARCHAR2(20),
+  name              VARCHAR2(4000),
+  package_id_fk     NUMBER,
+  native_sql        CLOB,
+  native_key        VARCHAR2(4000),
+  language          VARCHAR2(40) not null,
+  comments          VARCHAR2(4000),
+  linecount         NUMBER,
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_STORED_PROGRAMS
+  is 'Container for stored programs.';
+comment on column IT.MD_STORED_PROGRAMS.id
+  is 'Primary Key';
+comment on column IT.MD_STORED_PROGRAMS.schema_id_fk
+  is 'Schema to which this object belongs.  Note that the PACKAGE_ID_FK (if present also leads us to the relevant schema), however a stored program may or may not belong in a package.  If it is in a package, then the SCHEMA_ID_FK and the SCHEME_ID_FK in the parent package should match //PARENTFIELD';
+comment on column IT.MD_STORED_PROGRAMS.programtype
+  is 'Java/TSQL/PLSQL, etc.';
+comment on column IT.MD_STORED_PROGRAMS.name
+  is 'Name of the stored program //OBJECTNAME';
+comment on column IT.MD_STORED_PROGRAMS.package_id_fk
+  is 'The package to which this object belongs';
+comment on column IT.MD_STORED_PROGRAMS.native_sql
+  is 'The SQL used to create this object at source';
+comment on column IT.MD_STORED_PROGRAMS.native_key
+  is 'A unique indetifier for this object at source';
+comment on column IT.MD_STORED_PROGRAMS.language
+  is '//PUBLIC';
+create index IT.MD_STORED_PROGRAS_IDX2 on IT.MD_STORED_PROGRAMS (SCHEMA_ID_FK, UPPER(NAME))
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 166
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_STORED_PROGRAMS
+  add constraint MD_STORED_PROGRAMS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_STORED_PROGRAMS
+  add constraint MD_STORED_PROGRAMS_MD_PAC_FK1 foreign key (PACKAGE_ID_FK)
+  references IT.MD_PACKAGES (ID) on delete cascade;
+alter table IT.MD_STORED_PROGRAMS
+  add constraint MD_STORED_PROGRAMS_MD_SCH_FK1 foreign key (SCHEMA_ID_FK)
+  references IT.MD_SCHEMAS (ID) on delete cascade;
+

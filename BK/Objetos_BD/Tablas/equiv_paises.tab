@@ -1,0 +1,30 @@
+create table IT.EQUIV_PAISES
+(
+  cod_pais_it   NUMBER(3) not null,
+  cod_pais_bbva VARCHAR2(255),
+  descripcion   VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_EQUIV_PAISES on IT.EQUIV_PAISES (COD_PAIS_BBVA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

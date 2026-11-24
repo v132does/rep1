@@ -1,0 +1,21 @@
+create table IT.PERSONAS_REF
+(
+  rf_apellido   VARCHAR2(30),
+  rf_nombre     VARCHAR2(30),
+  rf_fecha_nac  DATE,
+  rf_fecha_baja DATE,
+  rf_tipo_ident VARCHAR2(15),
+  rf_numero     VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+

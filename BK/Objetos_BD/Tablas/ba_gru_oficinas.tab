@@ -1,0 +1,58 @@
+create table IT.BA_GRU_OFICINAS
+(
+  cod_gru_oficina   NUMBER(3) not null,
+  descripcion       VARCHAR2(35) not null,
+  cod_usu_encargado VARCHAR2(10) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_GRU_OFICINAS
+  is 'Grupos de oficinas.';
+comment on column IT.BA_GRU_OFICINAS.cod_gru_oficina
+  is 'Codigo del grupo.';
+comment on column IT.BA_GRU_OFICINAS.descripcion
+  is 'Descripcion del Grupo.';
+comment on column IT.BA_GRU_OFICINAS.cod_usu_encargado
+  is 'Usuario encargado.';
+comment on column IT.BA_GRU_OFICINAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_GRU_OFICINAS.fec_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_GRU_OFICINAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion.';
+comment on column IT.BA_GRU_OFICINAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion.';
+alter table IT.BA_GRU_OFICINAS
+  add constraint PK_BA_GRU_OFICINAS primary key (COD_GRU_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_GRU_OFICINAS
+  add constraint FK_EGOFI_COD_USU_ENCARGADO foreign key (COD_USU_ENCARGADO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_GRU_OFICINAS
+  add constraint AVCON_1095262090_COD_G_000
+  check (COD_GRU_OFICINA BETWEEN 0 AND 999);
+

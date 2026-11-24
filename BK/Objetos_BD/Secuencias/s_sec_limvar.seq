@@ -1,0 +1,8 @@
+create sequence IT.S_SEC_LIMVAR
+minvalue 1
+maxvalue 999999999999
+start with 1046530
+increment by 1
+nocache
+cycle;
+

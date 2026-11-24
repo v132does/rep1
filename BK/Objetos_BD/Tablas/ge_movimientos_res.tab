@@ -1,0 +1,66 @@
+﻿-- Create table
+create table IT.GE_MOVIMIENTOS_RES
+(
+  fec_valor         DATE,
+  monto             NUMBER(18,2) default 0,
+  nro_cuenta        VARCHAR2(15),
+  cod_moneda        VARCHAR2(3) not null,
+  cod_oficina       NUMBER(3),
+  est_cuenta        VARCHAR2(1),
+  reversado         VARCHAR2(1) default 'N' not null,
+  cod_transaccion   NUMBER(4),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  fec_max_insercion DATE,
+  procesado         VARCHAR2(1) default 'N' not null,
+  rutina1           VARCHAR2(30),
+  tipo              VARCHAR2(1),
+  afecta            VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_MOVIMIENTOS_RES
+  is 'Resumen de movimientos diarios por Cuenta';
+-- Add comments to the columns 
+comment on column IT.GE_MOVIMIENTOS_RES.fec_valor
+  is 'Fecha  Valor';
+comment on column IT.GE_MOVIMIENTOS_RES.monto
+  is 'Monto total de las transacciones';
+comment on column IT.GE_MOVIMIENTOS_RES.nro_cuenta
+  is 'Nro. de Cuenta';
+comment on column IT.GE_MOVIMIENTOS_RES.cod_moneda
+  is 'Codigo de la moneda';
+comment on column IT.GE_MOVIMIENTOS_RES.cod_oficina
+  is 'Oficina de la Cuenta';
+comment on column IT.GE_MOVIMIENTOS_RES.est_cuenta
+  is 'Estado a la cual se transferirá la cuenta';
+comment on column IT.GE_MOVIMIENTOS_RES.reversado
+  is 'Reversado S/N';
+comment on column IT.GE_MOVIMIENTOS_RES.cod_transaccion
+  is 'Código de Transacción';
+comment on column IT.GE_MOVIMIENTOS_RES.cod_modulo
+  is 'Código del Módulo de la Transacción y Cuenta';
+comment on column IT.GE_MOVIMIENTOS_RES.cod_modalidad
+  is 'Código de la modalidad de la Transacción y cuenta';
+comment on column IT.GE_MOVIMIENTOS_RES.fec_max_insercion
+  is 'Máxima Fecha y Hora de inserción de los movimientos por esta Cuenta y Transacción';
+comment on column IT.GE_MOVIMIENTOS_RES.procesado
+  is 'Determina si el registro ya fue procesado. Dominio: S-Si / N-No';
+comment on column IT.GE_MOVIMIENTOS_RES.rutina1
+  is 'Nombre de rutina.';
+comment on column IT.GE_MOVIMIENTOS_RES.tipo
+  is 'Tipo de transaccion. Define en que forma afecta en la operacion.';
+comment on column IT.GE_MOVIMIENTOS_RES.afecta
+  is 'Detalle. (D=Debito, C=Credito, S=Cabecera).';
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_MOVIMIENTOS_RES to IT_TEMPORAL;

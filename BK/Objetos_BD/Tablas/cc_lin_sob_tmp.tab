@@ -1,0 +1,33 @@
+create table IT.CC_LIN_SOB_TMP
+(
+  nro_cuenta        VARCHAR2(15),
+  monto             NUMBER(18,2) default 0 not null,
+  cod_persona       VARCHAR2(10),
+  fec_inicio        DATE,
+  cod_campana       NUMBER(3),
+  tipo              VARCHAR2(1) default 'T',
+  fec_vencimiento   DATE,
+  cod_moneda        VARCHAR2(3),
+  det_error         VARCHAR2(500),
+  pun_scoring       NUMBER(17,9),
+  pro_mora          NUMBER(17,9),
+  cod_rub_economico VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CC_LIN_SOB_TMP.pun_scoring
+  is 'Puntaje de Scoring del Interviniente proveniente de la herramienta externa.';
+comment on column IT.CC_LIN_SOB_TMP.pro_mora
+  is 'Probabilidad de Mora. (PD)';
+comment on column IT.CC_LIN_SOB_TMP.cod_rub_economico
+  is 'Cod. de Rubro Economico.';
+

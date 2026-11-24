@@ -1,0 +1,43 @@
+create table IT.GE_SPI_LIMITES
+(
+  nro_referencia      VARCHAR2(33) not null,
+  can_lim_establecido NUMBER(18,2) not null,
+  can_lim_utilizada   NUMBER(18,2) not null,
+  por_lim_utilizado   NUMBER(6,2) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default sysdate not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default sysdate not null,
+  nro_ref_externa     VARCHAR2(33),
+  nro_cta_informe     VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SPI_LIMITES.nro_referencia
+  is 'Nro de referencia autonumérico.';
+comment on column IT.GE_SPI_LIMITES.can_lim_establecido
+  is 'Cantidad de Limite establecido.';
+comment on column IT.GE_SPI_LIMITES.can_lim_utilizada
+  is 'Cantidad de Limite utilizada.';
+comment on column IT.GE_SPI_LIMITES.por_lim_utilizado
+  is 'Porcentaje de limite utilizado.';
+comment on column IT.GE_SPI_LIMITES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_LIMITES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SPI_LIMITES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_LIMITES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_LIMITES.nro_ref_externa
+  is 'Referencia Externa del SWIFT enviado por BCP y sobre el cual se está registrando una RESPUESTA. Ej: 213804/001, 213804/002, etc.';
+

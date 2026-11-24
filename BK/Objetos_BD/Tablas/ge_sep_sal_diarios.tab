@@ -1,0 +1,31 @@
+create table IT.GE_SEP_SAL_DIARIOS
+(
+  fecha       DATE not null,
+  nro_cuenta  VARCHAR2(15) not null,
+  cod_moneda  VARCHAR2(3) not null,
+  sal_tot_cap NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GESDS_FECHA on IT.GE_SEP_SAL_DIARIOS (FECHA, NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

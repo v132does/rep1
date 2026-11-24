@@ -1,0 +1,18 @@
+create table IT.CC_ULT_EXTRACTO
+(
+  nro_cuenta       VARCHAR2(15),
+  sal_ult_extracto NUMBER(18,2),
+  fec_ult_extracto DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

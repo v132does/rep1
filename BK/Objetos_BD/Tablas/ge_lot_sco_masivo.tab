@@ -1,0 +1,47 @@
+create table IT.GE_LOT_SCO_MASIVO
+(
+  nro_lote_pro_nomina VARCHAR2(20) not null,
+  fec_ing_pro_nomina  DATE not null,
+  fec_pro_socoring    DATE,
+  estado              VARCHAR2(2),
+  fec_insercion       DATE,
+  usu_insercion       VARCHAR2(10),
+  fec_modificacion    DATE,
+  usu_modificacion    VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOT_SCO_MASIVO
+  is 'Tabla de lotes a procesar Scoring masivo de altas masivas';
+comment on column IT.GE_LOT_SCO_MASIVO.nro_lote_pro_nomina
+  is 'Nro lote de proceso de alta masiva nómina';
+comment on column IT.GE_LOT_SCO_MASIVO.fec_ing_pro_nomina
+  is 'Fecha de ingreso de nóminas';
+comment on column IT.GE_LOT_SCO_MASIVO.fec_pro_socoring
+  is 'Fecha de proceso de scoring masivo';
+comment on column IT.GE_LOT_SCO_MASIVO.estado
+  is 'E= pendiente de proceso scoring, P= Procesado ';
+alter table IT.GE_LOT_SCO_MASIVO
+  add constraint PK_GE_LOT_SCO_MASIVO primary key (NRO_LOTE_PRO_NOMINA, FEC_ING_PRO_NOMINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

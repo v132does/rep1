@@ -1,0 +1,62 @@
+create table IT.GE_TIP_SEGUROS
+(
+  cod_tipo         NUMBER(5) not null,
+  descripcion      VARCHAR2(60) not null,
+  cod_ente         NUMBER(5) not null,
+  cod_canal        NUMBER(3) not null,
+  activo           VARCHAR2(1) default 'N' not null,
+  can_dias         NUMBER,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_TIP_SEGUROS.cod_tipo
+  is 'Codigo de tipo de Seguro';
+comment on column IT.GE_TIP_SEGUROS.descripcion
+  is 'Descripcion del Seguro';
+comment on column IT.GE_TIP_SEGUROS.cod_ente
+  is 'Codigo Ente del seguro';
+comment on column IT.GE_TIP_SEGUROS.cod_canal
+  is 'Canal ofrecimiento ATM/WEB';
+comment on column IT.GE_TIP_SEGUROS.activo
+  is 'Indica si el seguro se encuentra Activo';
+comment on column IT.GE_TIP_SEGUROS.can_dias
+  is 'Cantidad de dias para nuevo ofrecimiento';
+comment on column IT.GE_TIP_SEGUROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.GE_TIP_SEGUROS.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.GE_TIP_SEGUROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.GE_TIP_SEGUROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+alter table IT.GE_TIP_SEGUROS
+  add constraint PK_GE_TIP_SEGUROS primary key (COD_TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TIP_SEGUROS
+  add constraint FK_GTSEG_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+

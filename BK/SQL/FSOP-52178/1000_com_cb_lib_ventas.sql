@@ -1,0 +1,1 @@
+comment on column "IT"."CB_LIB_VENTAS"."ESTADO" is 'Estado de la factura. G indica que fue Generado y registrado en las tablas de Facturación Electrónica. X indica que ocurrió un error al procesarlo'

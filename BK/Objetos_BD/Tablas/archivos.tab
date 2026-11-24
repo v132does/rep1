@@ -1,0 +1,39 @@
+create table IT.ARCHIVOS
+(
+  cdent    NUMBER not null,
+  texto    VARCHAR2(30) not null,
+  archivo  VARCHAR2(30) not null,
+  numreg   NUMBER,
+  numbanco NUMBER,
+  registro VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.ARCHIVOS.cdent
+  is 'Código de Entidad';
+comment on column IT.ARCHIVOS.texto
+  is 'Texto identificado';
+comment on column IT.ARCHIVOS.archivo
+  is 'Archivo que sera cargado.';
+create unique index IT.PK_ARCHIVOS on IT.ARCHIVOS (TEXTO, ARCHIVO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

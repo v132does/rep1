@@ -1,0 +1,32 @@
+create table IT.GE_RA_LOG_FTP
+(
+  fec_envio   DATE not null,
+  nom_archivo VARCHAR2(200),
+  det_error   VARCHAR2(4000),
+  hor_inicio  VARCHAR2(8),
+  hor_fin     VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RA_LOG_FTP
+  is 'Reportes automáticos log de errores en los envios de archivos a traves del servidor FTP.';
+comment on column IT.GE_RA_LOG_FTP.fec_envio
+  is 'Fecha de envio del archivos.';
+comment on column IT.GE_RA_LOG_FTP.nom_archivo
+  is 'Nombre del archivo que se envio el mail.';
+comment on column IT.GE_RA_LOG_FTP.det_error
+  is 'Detalle del error provocado al enviar el email.';
+comment on column IT.GE_RA_LOG_FTP.hor_inicio
+  is 'Hora de Inicio del envío.';
+comment on column IT.GE_RA_LOG_FTP.hor_fin
+  is 'Hora fin del envio';
+

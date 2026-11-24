@@ -1,0 +1,90 @@
+CREATE MATERIALIZED VIEW IT.PV_CAT_SOBREGIROS
+REFRESH FORCE ON DEMAND
+AS
+SELECT b.cod_persona,
+       a.cod_modulo,
+       a.cod_modalidad,
+       a.cod_oficina,
+       a.nro_cuenta,
+       a.cod_moneda,
+       NVL(sal_total,0)-NVL(sal_bloqueado,0)-NVL(sal_retenido,0) sal_actual,
+       a.estado,
+       nvl(f.dias_sobregiro,0) dias_sobregiro ,
+       /*DECODE(NVL(a.cod_ente,-1),-1,0,*/NVL(g.linea,0)/*)*/ linea -- ICL 22/03/2012 Mail HB Solo considerar lineas de sobregiro de pago de nómina
+  FROM cc_cta_corrientes a ,
+       ge_cta_clientes b,
+       (SELECT can_dias dias_sobregiro, d.nro_Cuenta
+          FROM cc_sobregiros_res D) f,
+       (SELECT SUM(monto) linea, c.nro_cuenta
+          FROM cc_lin_sobregiros c
+         WHERE c.estado = 'A' -- ICL 23/02/2012 Unificado con conceptos de Contabilidad
+         GROUP BY c.nro_cuenta) g
+ WHERE a.nro_cuenta    =  b.nro_cuenta
+   AND f.nro_cuenta(+) = a.nro_cuenta
+   AND g.nro_cuenta(+) = a.nro_cuenta
+   AND b.relacion ='P'    --solo los principales de cuenta
+   AND ( (NVL(sal_total,0)-NVL(sal_bloqueado,0)-NVL(sal_retenido,0) < 0 AND a.estado <> 'C')
+         OR
+          (a.estado = 'C' AND a.sal_tot_batch - a.sal_blo_batch - a.sal_ret_batch != 0 ) -- cancelado pero con saldo batch
+        )
+      --- Union agregado por ICL 22/03/2012 Mail de HB donde debe considerarse como contingencia
+      --- Lineas de ctas.ctes. con saldo positivo de Nómina
+ UNION ALL
+ SELECT b.cod_persona,
+        a.cod_modulo,
+        a.cod_modalidad,
+        a.cod_oficina,
+        a.nro_cuenta,
+        a.cod_moneda,
+        0 sal_actual, -- No se consideran deuda, solo contingente
+        a.estado,
+        nvl(f.dias_sobregiro,0)dias_sobregiro,
+        nvl(g.linea,0) linea  -- ICL 26/03/2012
+   FROM cc_cta_corrientes a ,
+        ge_cta_clientes b,
+        (SELECT can_dias dias_sobregiro, d.nro_Cuenta
+           FROM cc_sobregiros_res D) f,
+        (SELECT sum(monto)linea, c.nro_cuenta
+           FROM cc_lin_sobregiros c
+          WHERE c.estado = 'A'  -- ICL 23/02/2012 Unificado con conceptos de Contabilidad
+          GROUP BY c.nro_cuenta) g
+  WHERE a.nro_cuenta =  b.nro_cuenta
+    AND f.nro_cuenta(+) = a.nro_cuenta
+    AND g.nro_cuenta(+) = a.nro_cuenta
+    --AND a.cod_ente is not null -- Solo Pago de Nómina
+    AND b.relacion ='P'    --solo los principales de cuenta
+    AND NVL(sal_total,0)-NVL(sal_bloqueado,0)-NVL(sal_retenido,0) >= 0
+    AND nvl(g.linea,0) > 0
+    AND a.estado not in ('A','C','X')
+ UNION
+ SELECT  c.cod_persona,
+        c.cod_modulo,
+        c.cod_modalidad,
+        c.cod_oficina,
+        c.nro_cuenta,
+        c.cod_moneda,
+        0 sal_actual, -- No se consideran deuda, solo contingente
+        a.estado estado,
+        nvl(f.dias_sobregiro,0) dias_sobregiro,
+        0 linea
+   FROM cc_cta_corrientes a,
+      it.ge_cla_operaciones_his c,
+      it.ge_cta_clientes b,
+      (SELECT can_dias dias_sobregiro, d.nro_Cuenta
+           FROM cc_sobregiros_res D) f,
+      (SELECT sum(monto)linea, c.nro_cuenta
+           FROM cc_lin_sobregiros c
+          WHERE c.estado = 'A'  -- ICL 23/02/2012 Unificado con conceptos de Contabilidad
+          GROUP BY c.nro_cuenta) g
+  WHERE a.nro_cuenta    =  b.nro_cuenta
+    AND c.nro_cuenta =  b.nro_cuenta
+    AND f.nro_cuenta(+) = c.nro_cuenta
+    AND g.nro_cuenta(+) = c.nro_cuenta
+    AND b.relacion ='P'    --solo los principales de cuenta
+    AND nvl(g.linea,0) = 0
+    AND NVL(sal_total,0)-NVL(sal_bloqueado,0)-NVL(sal_retenido,0) >= 0
+    AND c.fecha =  pag_cal.FU_OBT_FEC_ANTERIOR(1)
+    AND c.cod_modulo = 4
+    AND c.cat_automatica >1
+    AND c.nro_cuenta NOT IN(select cc.nro_cuenta from it.cc_sobregiros cc
+                            where cc.fecha =  pag_cal.FU_OBT_FEC_ACTUAL(1));

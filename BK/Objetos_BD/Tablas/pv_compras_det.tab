@@ -1,0 +1,112 @@
+create table IT.PV_COMPRAS_DET
+(
+  cod_compra       NUMBER(10) not null,
+  nro_linea        NUMBER(3) not null,
+  cantidad         NUMBER(10) not null,
+  val_unitario     NUMBER(18,6) default 0 not null,
+  cod_articulo     NUMBER(10),
+  cod_oficina      NUMBER(3),
+  cod_area         NUMBER(3),
+  val_compra       NUMBER(18,2) default 0 not null,
+  tip_impuesto     NUMBER(14,4) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  descripcion      VARCHAR2(250) not null,
+  mto_neto         NUMBER(18,6) default 0,
+  val_impuesto     NUMBER(18,6),
+  transaccion_iva  NUMBER(4),
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4) not null,
+  val_total        NUMBER(18,2) default 0 not null,
+  tip_imp_iva      VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PV_COMPRAS_DET
+  is 'Detalle de Compras a Proveedores.';
+comment on column IT.PV_COMPRAS_DET.cod_compra
+  is 'Codigo de la Compra.';
+comment on column IT.PV_COMPRAS_DET.nro_linea
+  is 'Numero de Linea del Detalle.';
+comment on column IT.PV_COMPRAS_DET.cantidad
+  is 'Cantidad de Articulos del Detalle la Compra.';
+comment on column IT.PV_COMPRAS_DET.val_unitario
+  is 'Valor Unitario del Articulo.';
+comment on column IT.PV_COMPRAS_DET.cod_articulo
+  is 'Codigo del Articulo.';
+comment on column IT.PV_COMPRAS_DET.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.PV_COMPRAS_DET.cod_area
+  is 'Codigo del Area.';
+comment on column IT.PV_COMPRAS_DET.val_compra
+  is 'Monto de la compra.';
+comment on column IT.PV_COMPRAS_DET.tip_impuesto
+  is 'Indica si el Articulo es Exenta o Gravada (IVA 5% o 10 %).';
+comment on column IT.PV_COMPRAS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PV_COMPRAS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PV_COMPRAS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PV_COMPRAS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.PV_COMPRAS_DET.descripcion
+  is 'Descripcion del Bien para Activo Fijo, o el Concepto.';
+comment on column IT.PV_COMPRAS_DET.mto_neto
+  is 'Valor Neto (sin iva)';
+comment on column IT.PV_COMPRAS_DET.val_impuesto
+  is 'Valor del impuesto';
+comment on column IT.PV_COMPRAS_DET.transaccion_iva
+  is 'Transaccion de IVA';
+comment on column IT.PV_COMPRAS_DET.cod_modulo
+  is 'Codigo del Modulo (proveedores).';
+comment on column IT.PV_COMPRAS_DET.cod_modalidad
+  is 'Codigo de la Modalidad (proveedores).';
+comment on column IT.PV_COMPRAS_DET.cod_transaccion
+  is 'Codigo del Concepto (transaccion).';
+comment on column IT.PV_COMPRAS_DET.val_total
+  is 'Monto Total de la Linea.';
+comment on column IT.PV_COMPRAS_DET.tip_imp_iva
+  is 'Tipo de impuesto.';
+alter table IT.PV_COMPRAS_DET
+  add constraint PK_PV_COMPRAS_DET primary key (COD_COMPRA, NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PV_COMPRAS_DET
+  add constraint FK_KCDE_COD_AREA foreign key (COD_AREA, COD_OFICINA)
+  references IT.BA_AREAS (COD_AREA, COD_OFICINA);
+alter table IT.PV_COMPRAS_DET
+  add constraint FK_KCDE_COD_COMPRA foreign key (COD_COMPRA)
+  references IT.PV_COMPRAS (COD_COMPRA);
+alter table IT.PV_COMPRAS_DET
+  add constraint FK_KCDE_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.PV_COMPRAS_DET
+  add constraint AVCON_1202423458_CANTI_000
+  check (CANTIDAD BETWEEN 0 AND 999999999);
+alter table IT.PV_COMPRAS_DET
+  add constraint AVCON_1202423458_NRO_L_000
+  check (NRO_LINEA BETWEEN 0 AND 999);
+

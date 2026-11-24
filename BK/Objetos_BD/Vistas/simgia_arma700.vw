@@ -1,0 +1,150 @@
+create or replace force view it.simgia_arma700 as
+select '0' M700SUC,
+       '0' M700CTA,
+       '0' M700SUB,
+       '' nro_cuenta,
+       '' M700NOMBRE,
+       '' M700DIRECC,
+       0 M700TELEFO,
+       0 M700RIESGO,
+       0 M700SMEANT,
+       0 M700SACT,
+       '' M700CTAHMN,
+       0 M700TRASPA,
+       0 M700ENTVEN,
+       0 M700LIMISO,
+       0 M700VTOLIM,
+       '0' M700NUMERO,
+       0 M700IMPUE,
+       0 M700APAXMA,
+       0 M700CNTDEB,
+       0 M700ANOPRO,
+       0 M700SDMDSE,
+       0 M700ACUDIA,
+       0 M700SDOMDM,
+       to_number(nvl(to_char(pae_cnf.fu_obt_fec_actual(1),'ddmmyy'),0)) M700FECULT,
+       0 M700SDONOD,
+       0 M700BANLQ,
+       0 M700FEINEX,
+       '' FILLER,
+       0 M700MAYSDO,
+       0 M700AUMESO,
+       0 M700FEINSO,
+       0 M700SDMDAN,
+       0 M700SERINS,
+       '' M700CTAHME,
+       0 M700TOTEM,
+       0 M700TOTBLQ,
+       '' M700IND1,
+       '' M700IND2,
+       '' M700IND3,
+       '' M700IND4,
+       0 M700APUNEM,
+       0 M700APANL,
+       0 M700APCHQ,
+       0 M700APCONF,
+       0 M700APBLQ,
+       0 M700TOTDCN,
+       0 M700TOTDCO,
+       0 M700TOTCRP,
+       0 M700APCR,
+       0 M700MTRASP,
+       0 M700TOTCFO,
+       0 M700GRUPO,
+       0 M700PLZADL,
+       0 M700INCHQR,
+       0 M700FINCHQ,
+       '' FILLER2,
+       0 M700CNTCRE,
+       0 M700NRPROP
+
+from dual
+
+union all
+
+select to_char(nvl(cccor.cod_oficina, 0)) M700SUC,
+       '700' M700CTA,
+       to_char(nvl(substr(cccor.nro_cuenta, 5, 6), 0)) M700SUB,
+       cccor.nro_cuenta nro_cuenta,
+       nvl(PAI_INT.FU_SIM_NORM_CADENA(cccor.denominacion,40), '') M700NOMBRE,
+       nvl(PAI_INT.FU_SIM_NORM_CADENA((select a.direccion from ba_direcciones a where a.cod_persona = gccli.cod_persona and a.principal like 'S' and rownum=1 ),40), '') M700DIRECC,
+       0 M700TELEFO,
+       to_number(nvl(gccli.cod_persona, 0)) M700RIESGO,
+       0 M700SMEANT,
+       --nvl(cccor.sal_total - (cccor.sal_retenido + cccor.sal_bloqueado), 0) M700SACT,
+       --pai_int.calcula_saldo_arma7xx(cccor.sal_tot_batch,cccor.sal_ret_batch,cccor.sal_blo_batch)  M700SACT, -- cambiado el 30-mar-2011 NAF para igualar con logica de inventario
+       pai_int.calcula_saldo_arma7xx(cccor.sal_tot_batch,cccor.sal_ret_batch,cccor.sal_blo_batch) M700SACT,
+       '' M700CTAHMN,
+       0 M700TRASPA,
+       0 M700ENTVEN,
+       nvl(cclso.monto, 0) M700LIMISO,
+       to_number(nvl(to_char(cclso.fec_vencimiento,'yymmdd'), 0)) M700VTOLIM,
+       --0 M700NUMERO,
+       --obt_cta_sobregiro
+       nvl(PAI_INT.fu_obt_cta_contable(fub_obt_rub_transaccion(cccor.cod_modulo,
+                                 cccor.cod_modalidad,
+                                 602, --codigo transaccion --sobregiro
+                                 cccor.cod_moneda,
+                                 gccli.cod_persona,
+                                 1,
+                                 'C')),0) M700NUMERO,
+       0 M700IMPUE,
+       0 M700APAXMA,
+       0 M700CNTDEB,
+       0 M700ANOPRO,
+       0 M700SDMDSE,
+       0 M700ACUDIA,
+       0 M700SDOMDM,
+       to_number(nvl(to_char(cccor.fec_ult_movimiento,'ddmmyy'),0)) M700FECULT,
+       0 M700SDONOD,
+       0 M700BANLQ,
+       0 M700FEINEX,
+       '' FILLER,
+       0 M700MAYSDO,
+       0 M700AUMESO,
+       case
+       when nvl(cccor.dia_atraso,0) = 0 and nvl(cccor.sal_total - (cccor.sal_retenido + cccor.sal_bloqueado), 0) < 0 then
+            to_number(to_char(pae_cnf.fu_obt_fec_actual(1), 'ddmmyy'))
+       else
+            decode(nvl(cccor.dia_atraso,0), 0, 0, to_number(to_char((pae_cnf.fu_obt_fec_actual(1) - (nvl(cccor.dia_atraso,0)-1)), 'ddmmyy')) )
+       end M700FEINSO,
+       0 M700SDMDAN,
+       0 M700SERINS,
+       '' M700CTAHME,
+       0 M700TOTEM,
+       0 M700TOTBLQ,
+       --'' M700IND1,
+       to_char(decode(nvl(cccor.cod_cau_cancelacion,-1), -1,'',236,2,1)) M700IND1, --a pedido de Roberto gimenez 2010-02-04
+       '' M700IND2,
+       '' M700IND3,
+       '' M700IND4,
+       0 M700APUNEM,
+       0 M700APANL,
+       0 M700APCHQ,
+       0 M700APCONF,
+       0 M700APBLQ,
+       0 M700TOTDCN,
+       0 M700TOTDCO,
+       0 M700TOTCRP,
+       0 M700APCR,
+       0 M700MTRASP,
+       0 M700TOTCFO,
+       nvl(eg.grubcp, 0) M700GRUPO,
+       0 M700PLZADL,
+       0 M700INCHQR,
+       0 M700FINCHQ,
+       '' FILLER2,
+       0 M700CNTCRE,
+       0 M700NRPROP
+
+from cc_cta_corrientes cccor, cc_lin_sobregiros cclso, ge_cta_clientes gccli, ge_clientes gcli, equiv_grubcp eg
+
+where cccor.nro_cuenta = cclso.nro_cuenta (+)
+and   cccor.nro_cuenta = gccli.nro_cuenta (+)
+and   gccli.cod_persona = gcli.cod_persona (+)
+and   gcli.cod_tip_deudor = eg.cod_tip_deudor(+)
+and   gcli.cod_sec_contable = eg.cod_sec_contable(+)
+and   gccli.relacion (+) in ('P')
+and   cccor.cod_moneda in ('GS')
+;
+

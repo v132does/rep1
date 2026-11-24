@@ -1,0 +1,86 @@
+create table IT.BA_PER_IMA_DOCUMENTOS
+(
+  cod_persona        VARCHAR2(10) not null,
+  ima_doc            BLOB,
+  fec_escaneo        DATE,
+  est_doc            VARCHAR2(1),
+  observacion        VARCHAR2(120),
+  fec_aprobacion     DATE,
+  cod_usu_aprobacion VARCHAR2(10),
+  cod_tip_documento  VARCHAR2(10) not null,
+  fec_vencimiento    DATE,
+  nro_referencia     NUMBER(10) not null,
+  fec_insercion      DATE default SYSDATE,
+  usu_insercion      VARCHAR2(10) default substr(USER,1,10),
+  fec_modificacion   DATE default SYSDATE,
+  usu_modificacion   VARCHAR2(10) default substr(USER,1,10),
+  cod_id_crear       VARCHAR2(100),
+  url_crear          VARCHAR2(500),
+  fec_emision        DATE,
+  est_acuse_web      VARCHAR2(1) default 'N',
+  fec_acuse_web      DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_IMA_DOCUMENTOS
+  is 'Datos del Registro de Firmas por Persona.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.cod_persona
+  is 'Codigo de la persona fisica.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.ima_doc
+  is 'Imagen de la Firma.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.fec_escaneo
+  is 'Fecha y Hora del Scaneo.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.est_doc
+  is 'Estado.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.observacion
+  is 'Observacion.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.fec_aprobacion
+  is 'Fecha Aprobacion de la Firma.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.cod_usu_aprobacion
+  is 'Codigo de usuario.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.cod_tip_documento
+  is 'Tipo de documento.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.fec_vencimiento
+  is 'Fecha de Vencimiento del documento.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.nro_referencia
+  is 'Nro. de referencia.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.cod_id_crear
+  is 'Id. de  Documento en Crear.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.url_crear
+  is 'URL de Documento Crear.';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.fec_emision
+  is 'Fecha Emision de Tipo Documento CheckList';
+comment on column IT.BA_PER_IMA_DOCUMENTOS.est_acuse_web
+  is 'Fecha de Acuse Web';
+alter table IT.BA_PER_IMA_DOCUMENTOS
+  add constraint PK_BA_PER_IMA_DOCUMENTOS primary key (COD_PERSONA, COD_TIP_DOCUMENTO, NRO_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

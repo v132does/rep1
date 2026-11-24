@@ -1,0 +1,43 @@
+create table IT.SB_CRC_SALDOS
+(
+  nom_referencia VARCHAR2(10) not null,
+  fec_periodo    DATE not null,
+  cod_entidad    NUMBER(4),
+  tot_registro   NUMBER(9)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_SALDOS
+  is 'Datos de los Saldos de las Operaciones para la Generación del Archivo Saldos para envío a CRC.';
+comment on column IT.SB_CRC_SALDOS.nom_referencia
+  is 'Nombre del Archivo a Generarse a la CRC (Archivo SALDOS).';
+comment on column IT.SB_CRC_SALDOS.fec_periodo
+  is 'Fecha de Periodo de envío del Archivo.';
+comment on column IT.SB_CRC_SALDOS.cod_entidad
+  is 'Código de Identificación de la Entidad Financiera/Bancaria.';
+comment on column IT.SB_CRC_SALDOS.tot_registro
+  is 'Total de Registros Contados del Archivo de Saldos por Operaciones.';
+alter table IT.SB_CRC_SALDOS
+  add constraint PK_SB_CRC_SALDOS primary key (NOM_REFERENCIA, FEC_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

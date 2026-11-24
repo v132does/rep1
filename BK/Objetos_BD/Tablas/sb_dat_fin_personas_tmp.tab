@@ -1,0 +1,21 @@
+create table IT.SB_DAT_FIN_PERSONAS_TMP
+(
+  cod_persona          VARCHAR2(10) not null,
+  cod_mon_predominante VARCHAR2(1),
+  tip_credito          VARCHAR2(5),
+  sub_segmentacion     VARCHAR2(5),
+  tip_persona          VARCHAR2(1),
+  cod_gru_economico    NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

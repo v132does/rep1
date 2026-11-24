@@ -1,0 +1,9 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo :=1; end;
+/
+insert into GE_CTA_DEF_ADICIONALES (PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, COD_BANCA, OBLIGATORIO, MODIFICABLE, TIP_CAMPO, TIP_DATO, LON_MAXIMA, VAL_DEFECTO, PERMISO, TIP_PERMISO)
+values ('PRE_CTA_EQU_FOGAPY', 6, null, null, null, null, 'N', 'S', 'T', 'A', 30, null, null, 'P');
+
+insert into GE_CTA_DEF_ADICIONALES (PARAMETRO, COD_MODULO, COD_MODALIDAD, COD_OFICINA, COD_MONEDA, COD_BANCA, OBLIGATORIO, MODIFICABLE, TIP_CAMPO, TIP_DATO, LON_MAXIMA, VAL_DEFECTO, PERMISO, TIP_PERMISO)
+values ('PRE_INF_CTA_FOGAPY', 6, null, null, null, null, 'N', 'S', 'T', 'A', 1, null, null, 'P');
+
+commit;

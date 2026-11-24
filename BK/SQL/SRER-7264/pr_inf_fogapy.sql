@@ -1,0 +1,99 @@
+-- Create table
+create table IT.PR_INF_FOGAPY
+(
+  fecha               DATE not null,
+  tip_ejecucion       VARCHAR2(1) not null,
+  nro_cuenta          VARCHAR2(30) not null,
+  cod_persona         VARCHAR2(15),
+  nro_documento       VARCHAR2(30),
+  cod_garantia        NUMBER(10),
+  nro_garantia        VARCHAR2(30),
+  nro_doc_garantia    VARCHAR2(30),
+  mto_capital         NUMBER(18,2),
+  sal_capital         NUMBER(18,2) not null,
+  fec_sig_vto_capital DATE not null,
+  sig_sal_capital     NUMBER(18,2) not null,
+  can_cuo_pagadas     NUMBER(10) not null,
+  can_cuo_atrasadas   NUMBER(10) not null,
+  dia_atraso          NUMBER(10) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.PR_INF_FOGAPY
+  is 'Tabla para almacenar los datos del informe FOGAPY';
+-- Add comments to the columns 
+comment on column IT.PR_INF_FOGAPY.fecha
+  is 'Fecha de proceso del informe.';
+comment on column IT.PR_INF_FOGAPY.nro_cuenta
+  is 'Número de cuenta de préstamo.';
+comment on column IT.PR_INF_FOGAPY.cod_persona
+  is 'Código del cliente principal.';
+comment on column IT.PR_INF_FOGAPY.nro_documento
+  is 'Número de documento del cliente.';
+comment on column IT.PR_INF_FOGAPY.cod_garantia
+  is 'Código de la garantía asociada al préstamo.';
+comment on column IT.PR_INF_FOGAPY.nro_garantia
+  is 'Número de la garantía asociada.';
+comment on column IT.PR_INF_FOGAPY.nro_doc_garantia
+  is 'Número de certificado de la garantía de Fogapy.';
+comment on column IT.PR_INF_FOGAPY.mto_capital
+  is 'Monto de capital del préstamo.';
+comment on column IT.PR_INF_FOGAPY.sal_capital
+  is 'Saldo de capital del préstamo.';
+comment on column IT.PR_INF_FOGAPY.fec_sig_vto_capital
+  is 'Fecha de vencimiento de la próxima cuota de capital.';
+comment on column IT.PR_INF_FOGAPY.sig_sal_capital
+  is 'Saldo de capital a vencer desde la próxima cuota.';
+comment on column IT.PR_INF_FOGAPY.can_cuo_pagadas
+  is 'Cantidad de cuotas de capital pagadas.';
+comment on column IT.PR_INF_FOGAPY.can_cuo_atrasadas
+  is 'Cantidad de cuotas en mora de capital.';
+comment on column IT.PR_INF_FOGAPY.dia_atraso
+  is 'Cantidad de días de mora de capital.';
+comment on column IT.PR_INF_FOGAPY.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_INF_FOGAPY.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+
+-- Create/Recreate indexes 
+create index IT.IDX_PR_INF_FOGAPY_CTA on IT.PR_INF_FOGAPY (NRO_CUENTA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.PR_INF_FOGAPY
+  add constraint PK_PR_INF_FOGAPY primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.PR_INF_FOGAPY to IT_TEMPORAL;

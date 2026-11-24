@@ -1,0 +1,8 @@
+-- Create sequence 
+create sequence IT.S_COD_VAL_CUSTODIA
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 302002
+increment by 1
+cache 1000
+cycle;

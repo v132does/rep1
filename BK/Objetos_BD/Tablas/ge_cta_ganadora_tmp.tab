@@ -1,0 +1,179 @@
+create table IT.GE_CTA_GANADORA_TMP
+(
+  cod_persona   VARCHAR2(10),
+  nombre        VARCHAR2(120),
+  nro_documento VARCHAR2(20),
+  gestor        VARCHAR2(120),
+  ofi_gestor    VARCHAR2(120),
+  cod_paquete   NUMBER(3),
+  descripcion   VARCHAR2(35),
+  estado        VARCHAR2(100),
+  fec_inicio    DATE,
+  nro_cuenta    VARCHAR2(15),
+  cod_moneda    VARCHAR2(3),
+  des_modal     VARCHAR2(35),
+  mes_pro_01    VARCHAR2(20),
+  sal_pro_01    NUMBER(18,2),
+  tie_car_01    VARCHAR2(1),
+  mes_pro_02    VARCHAR2(20),
+  sal_pro_02    NUMBER(18,2),
+  tie_car_02    VARCHAR2(1),
+  mes_pro_03    VARCHAR2(20),
+  sal_pro_03    NUMBER(18,2),
+  tie_car_03    VARCHAR2(1),
+  mes_pro_04    VARCHAR2(20),
+  sal_pro_04    NUMBER(18,2),
+  tie_car_04    VARCHAR2(1),
+  mes_pro_05    VARCHAR2(20),
+  sal_pro_05    NUMBER(18,2),
+  tie_car_05    VARCHAR2(1),
+  mes_pro_06    VARCHAR2(20),
+  sal_pro_06    NUMBER(18,2),
+  tie_car_06    VARCHAR2(1),
+  mes_pro_07    VARCHAR2(20),
+  sal_pro_07    NUMBER(18,2),
+  tie_car_07    VARCHAR2(1),
+  mes_pro_08    VARCHAR2(20),
+  sal_pro_08    NUMBER(18,2),
+  tie_car_08    VARCHAR2(1),
+  mes_pro_09    VARCHAR2(20),
+  sal_pro_09    NUMBER(18,2),
+  tie_car_09    VARCHAR2(1),
+  mes_pro_10    VARCHAR2(20),
+  sal_pro_10    NUMBER(18,2),
+  tie_car_10    VARCHAR2(1),
+  mes_pro_11    VARCHAR2(20),
+  sal_pro_11    NUMBER(18,2),
+  tie_car_11    VARCHAR2(1),
+  mes_pro_12    VARCHAR2(20),
+  sal_pro_12    NUMBER(18,2),
+  tie_car_12    VARCHAR2(1),
+  mes_pro_13    VARCHAR2(20),
+  sal_pro_13    NUMBER(18,2),
+  tie_car_13    VARCHAR2(1),
+  mes_pro_14    VARCHAR2(20),
+  sal_pro_14    NUMBER(18,2),
+  tie_car_14    VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_GANADORA_TMP
+  is 'Tabla temporal de datos de Saldo Promedio de Cuenta Ganadora';
+comment on column IT.GE_CTA_GANADORA_TMP.cod_persona
+  is 'Código de riesgo';
+comment on column IT.GE_CTA_GANADORA_TMP.nombre
+  is 'Nombre de la Persona';
+comment on column IT.GE_CTA_GANADORA_TMP.nro_documento
+  is 'Nro. de documento';
+comment on column IT.GE_CTA_GANADORA_TMP.gestor
+  is 'Gestor del cliente';
+comment on column IT.GE_CTA_GANADORA_TMP.ofi_gestor
+  is 'Oficina del Gestor';
+comment on column IT.GE_CTA_GANADORA_TMP.cod_paquete
+  is 'Código del Paquete';
+comment on column IT.GE_CTA_GANADORA_TMP.descripcion
+  is 'Descripción del paquete';
+comment on column IT.GE_CTA_GANADORA_TMP.estado
+  is 'Estado del paquete';
+comment on column IT.GE_CTA_GANADORA_TMP.fec_inicio
+  is 'Fecha de Inicio del paquete';
+comment on column IT.GE_CTA_GANADORA_TMP.nro_cuenta
+  is 'Número de cuenta';
+comment on column IT.GE_CTA_GANADORA_TMP.cod_moneda
+  is 'Código de moneda';
+comment on column IT.GE_CTA_GANADORA_TMP.des_modal
+  is 'Descripción de la Modalidad';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_01
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_01
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_01
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_02
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_02
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_02
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_03
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_03
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_03
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_04
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_04
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_04
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_05
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_05
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_05
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_06
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_06
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_06
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_07
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_07
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_07
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_08
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_08
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_08
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_09
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_09
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_09
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_10
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_10
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_10
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_11
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_11
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_11
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_12
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_12
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_12
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_13
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_13
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_13
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.mes_pro_14
+  is 'Año/Mes del Proceso de la consulta';
+comment on column IT.GE_CTA_GANADORA_TMP.sal_pro_14
+  is 'Saldo Promedio del Año/Mes ';
+comment on column IT.GE_CTA_GANADORA_TMP.tie_car_14
+  is 'S = Tiene Cargo, N = No tiene Cargo en ese Año/Mes ';
+

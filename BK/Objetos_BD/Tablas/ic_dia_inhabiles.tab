@@ -1,0 +1,46 @@
+create table IT.IC_DIA_INHABILES
+(
+  fecha            DATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IC_DIA_INHABILES
+  is 'DIAS INHABILES DEL AÑO DEL PAIS';
+comment on column IT.IC_DIA_INHABILES.fecha
+  is 'Fecha correspondiente al dia inhabil';
+comment on column IT.IC_DIA_INHABILES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IC_DIA_INHABILES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IC_DIA_INHABILES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IC_DIA_INHABILES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IC_DIA_INHABILES
+  add constraint UK_IC_DIA_INHABILES unique (FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

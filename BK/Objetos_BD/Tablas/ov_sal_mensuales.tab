@@ -1,0 +1,70 @@
+create table IT.OV_SAL_MENSUALES
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  ano               NUMBER(4) not null,
+  mes               NUMBER(2) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_oficina       NUMBER(3) not null,
+  sal_total         NUMBER(18,2) default 0 not null,
+  sal_acumulado     NUMBER(18,2) default 0 not null,
+  can_dia_acumulado NUMBER(3) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.OV_SAL_MENSUALES
+  is 'Contiene los saldos promedios de cuentas vencidas ** Mantener un año completo **.';
+comment on column IT.OV_SAL_MENSUALES.nro_cuenta
+  is 'Numero de cuenta vencida.';
+comment on column IT.OV_SAL_MENSUALES.ano
+  is 'Año del saldo mensual.';
+comment on column IT.OV_SAL_MENSUALES.mes
+  is 'Mes del saldo mensual.';
+comment on column IT.OV_SAL_MENSUALES.cod_modulo
+  is 'Codigo del modulo de la operacion vencida.';
+comment on column IT.OV_SAL_MENSUALES.cod_modalidad
+  is 'Codigo de modalidad de la operacion vencida.';
+comment on column IT.OV_SAL_MENSUALES.cod_oficina
+  is 'Codigo de oficina de la operacion vencida.';
+comment on column IT.OV_SAL_MENSUALES.sal_total
+  is 'Saldo. ';
+comment on column IT.OV_SAL_MENSUALES.sal_acumulado
+  is 'Acumulado del saldo. ';
+comment on column IT.OV_SAL_MENSUALES.can_dia_acumulado
+  is 'Cantidad de dias acumulado. ';
+comment on column IT.OV_SAL_MENSUALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.OV_SAL_MENSUALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.OV_SAL_MENSUALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.OV_SAL_MENSUALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.OV_SAL_MENSUALES
+  add constraint PK_OV_SAL_MENSUALES primary key (NRO_CUENTA, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

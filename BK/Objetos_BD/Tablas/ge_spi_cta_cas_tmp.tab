@@ -1,0 +1,36 @@
+create table IT.GE_SPI_CTA_CAS_TMP
+(
+  nro_referencia      VARCHAR2(33) not null,
+  nro_cta_solicitante VARCHAR2(35),
+  cli_recordid        VARCHAR2(33),
+  cta_recordid        VARCHAR2(33),
+  ali_recordid        VARCHAR2(33),
+  cod_persona         VARCHAR2(10),
+  tip_cuenta          VARCHAR2(3),
+  fec_apertura        DATE,
+  fec_cancelacion     DATE,
+  moneda              VARCHAR2(3),
+  cta_por_defecto     VARCHAR2(1),
+  error               VARCHAR2(4000),
+  est_solicitud       VARCHAR2(1),
+  tip_identificador   VARCHAR2(10),
+  identificador       VARCHAR2(20),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default sysdate not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default sysdate not null,
+  tip_accion          VARCHAR2(3),
+  tip_canal           VARCHAR2(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

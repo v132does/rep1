@@ -1,0 +1,52 @@
+create table IT.GE_LOG_ENVIOS
+(
+  nro_referencia   NUMBER(15) not null,
+  nro_intento      NUMBER(6) not null,
+  error            VARCHAR2(4000) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_ENVIOS
+  is 'Tabla de LOG de Envios de Transferencias Interbancarias en Pago a Proveedores.';
+comment on column IT.GE_LOG_ENVIOS.nro_referencia
+  is 'Número de Referencia de la Transferencia.';
+comment on column IT.GE_LOG_ENVIOS.nro_intento
+  is 'Número de Intento de envío de la transferencia';
+comment on column IT.GE_LOG_ENVIOS.error
+  is 'Descripccion del Error';
+comment on column IT.GE_LOG_ENVIOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_LOG_ENVIOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_LOG_ENVIOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_LOG_ENVIOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_LOG_ENVIOS
+  add constraint PK_GE_LOG_ENVIOS primary key (NRO_REFERENCIA, NRO_INTENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

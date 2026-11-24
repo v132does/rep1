@@ -1,0 +1,25 @@
+create table IT.SIMGIA_CDABLQ_BKP
+(
+  cdabseq    VARCHAR2(40),
+  cdabriesgo VARCHAR2(10),
+  cdabsuc    NUMBER(3),
+  cdabnumero NUMBER(7),
+  cdabcupon  VARCHAR2(15),
+  cdabmonto  NUMBER,
+  cdabfeblq  VARCHAR2(6),
+  cdavtoblq  VARCHAR2(6),
+  cdamotivob VARCHAR2(20),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

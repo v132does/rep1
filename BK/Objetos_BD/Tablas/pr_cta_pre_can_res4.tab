@@ -1,0 +1,163 @@
+create table IT.PR_CTA_PRE_CAN_RES4
+(
+  nro_cuenta            VARCHAR2(15) not null,
+  cod_persona           VARCHAR2(15) not null,
+  cod_moneda            VARCHAR2(3),
+  dia_atraso            NUMBER(5),
+  sal_capital           NUMBER(18,2),
+  sal_interes           NUMBER(18,2),
+  mto_cargo             NUMBER(18,2),
+  mto_impuesto          NUMBER(18,2),
+  mto_mora              NUMBER(18,2),
+  mto_mor_int           NUMBER(18,2),
+  mto_punitorio         NUMBER(18,2),
+  tot_deuda             NUMBER(18,2),
+  tot_deu_200320        NUMBER(18,2),
+  mto_devengado         NUMBER(18,2),
+  mto_dev_suspenso      NUMBER(18,2),
+  nro_sol_nueva         NUMBER(7),
+  nro_cta_nueva         VARCHAR2(15),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  mov_act               NUMBER(1) default 0,
+  reversado             VARCHAR2(1) default 'N' not null,
+  fec_sol_reversa       DATE,
+  fec_reversion         DATE,
+  cod_usu_reversion     VARCHAR2(10),
+  hor_reversion         VARCHAR2(10),
+  inv_mto_cargo         NUMBER(18,2) default 0,
+  inv_mto_impuesto      NUMBER(18,2) default 0,
+  inv_interes           NUMBER(18,2) default 0,
+  inv_int_moratorio     NUMBER(18,2) default 0,
+  inv_int_punitorio     NUMBER(18,2) default 0,
+  inv_ges_cobranza      NUMBER(18,2) default 0,
+  inv_sobregiro         NUMBER(18,2) default 0,
+  sal_inv_interes       NUMBER(18,2) default 0,
+  sal_inv_int_moratorio NUMBER(18,2) default 0,
+  sal_inv_int_punitorio NUMBER(18,2) default 0,
+  sal_inv_ges_cobranza  NUMBER(18,2) default 0,
+  sal_inv_sobregiro     NUMBER(18,2) default 0,
+  fec_proceso           DATE,
+  inventariar           VARCHAR2(1) default 'S',
+  nro_secuencia         NUMBER not null,
+  cat_aut_cta_origen    NUMBER(3,2),
+  cat_ren_cta_origen    NUMBER(3,2),
+  cat_ren_cta_nueva     NUMBER(3,2),
+  fec_ini_cta_nueva     DATE,
+  cat_rie_cliente       NUMBER(3,2),
+  fec_dat_rie_cliente   DATE,
+  sub_cat_individual    NUMBER(3,2),
+  fec_mov_can           DATE,
+  hor_mov_can           VARCHAR2(8),
+  usu_mov_can           VARCHAR2(10),
+  inv_val_suspenso      NUMBER(18,2) default 0,
+  sal_inv_val_suspenso  NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_mto_cargo
+  is 'Monto Total Cargo ';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_mto_impuesto
+  is 'Monto Total Impuesto ';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_interes
+  is 'Inventario de Interes(MTO_DEV_SUSPENSO)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_int_moratorio
+  is 'Inventario de Interes Moratorio(MTO_MORA+MTO_MOR_INT)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_int_punitorio
+  is 'Inventario de Interes Punitorio(MTO_PUNITORIO)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_ges_cobranza
+  is 'Inventario de Gestion de Cobranza(de pr_cta_gastos)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_sobregiro
+  is 'Inventario de Sobregiro';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sal_inv_interes
+  is 'Saldo Inventario de Interes(MTO_DEV_SUSPENSO)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sal_inv_int_moratorio
+  is 'Saldo Inventario de Interes Moratorio(MTO_MORA+MTO_MOR_INT)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sal_inv_int_punitorio
+  is 'Saldo Inventario de Interes Punitorio(MTO_PUNITORIO)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sal_inv_ges_cobranza
+  is 'Saldo Inventario de Gestion de Cobranza(de pr_cta_gastos)';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sal_inv_sobregiro
+  is 'Saldo Inventario de Sobregiro';
+comment on column IT.PR_CTA_PRE_CAN_RES4.fec_proceso
+  is 'Fecha de Procesamiento';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inventariar
+  is 'Inventariar S/N';
+comment on column IT.PR_CTA_PRE_CAN_RES4.nro_secuencia
+  is 'Nro de Secuencia autonumerica';
+comment on column IT.PR_CTA_PRE_CAN_RES4.cat_aut_cta_origen
+  is 'Categoria automatica Cta. Madre';
+comment on column IT.PR_CTA_PRE_CAN_RES4.cat_ren_cta_origen
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones Cta. Madre';
+comment on column IT.PR_CTA_PRE_CAN_RES4.cat_ren_cta_nueva
+  is 'categoria de las renovaciones, refinanciaciones o restructuraciones Cta. Hijo';
+comment on column IT.PR_CTA_PRE_CAN_RES4.fec_ini_cta_nueva
+  is 'Fecha Inicio Cta. Hijo';
+comment on column IT.PR_CTA_PRE_CAN_RES4.cat_rie_cliente
+  is 'Categoria de Riesgo del Cliente antes del nacimiento de la nueva cuenta.';
+comment on column IT.PR_CTA_PRE_CAN_RES4.fec_dat_rie_cliente
+  is 'Fecha obtenida para Categoria de Riesgo del Cliente antes del nacimiento de la nueva cuenta.';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sub_cat_individual
+  is 'Categoria individual Cliente - Solo para Cliente con Cat. Riesgo 1 - es para indicar categoria mayor entre 1a y 1b';
+comment on column IT.PR_CTA_PRE_CAN_RES4.fec_mov_can
+  is 'Fecha de Movimiento de Cancelacion de cta anterior para refinanciacion total 1x1 o por cuotas';
+comment on column IT.PR_CTA_PRE_CAN_RES4.hor_mov_can
+  is 'Hora de Movimiento de Cancelacion de cta anterior para refinanciacion total 1x1 o por cuotas';
+comment on column IT.PR_CTA_PRE_CAN_RES4.usu_mov_can
+  is 'Usuario de de Movimiento de Cancelacion de cta anterior para refinanciacion total 1x1 o por cuotas';
+comment on column IT.PR_CTA_PRE_CAN_RES4.inv_val_suspenso
+  is 'Inventario de Valuacion en Suspenso';
+comment on column IT.PR_CTA_PRE_CAN_RES4.sal_inv_val_suspenso
+  is 'Saldo Inventario de Valuacion en Suspenso';
+create index IT.IN_PCPCR_COD_PERSONA on IT.PR_CTA_PRE_CAN_RES4 (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_PRE_CAN_RES4
+  add constraint PK_CTA_PRE_RE41 primary key (NRO_CUENTA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_PRE_CAN_RES4
+  add constraint UK_CONSO_NRO_CUENTA unique (NRO_CUENTA, NRO_SOL_NUEVA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

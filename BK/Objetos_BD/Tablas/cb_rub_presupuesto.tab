@@ -1,0 +1,47 @@
+create table IT.CB_RUB_PRESUPUESTO
+(
+  ano              NUMBER(4) not null,
+  cod_rubro        VARCHAR2(15) not null,
+  monto            NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_RUB_PRESUPUESTO.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.CB_RUB_PRESUPUESTO.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.CB_RUB_PRESUPUESTO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_RUB_PRESUPUESTO.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+alter table IT.CB_RUB_PRESUPUESTO
+  add constraint PK_CB_CON_PRESUPUESTO primary key (ANO, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_RUB_PRESUPUESTO
+  add constraint FK_CBCON_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+

@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_SOL_NEGATIVO
+minvalue -100000000000000000000
+maxvalue 0
+start with -641734
+increment by -1
+nocache;
+

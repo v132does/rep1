@@ -1,0 +1,136 @@
+create table IT.CO_ASIGNACIONES
+(
+  cod_persona        VARCHAR2(10) not null,
+  cod_tramo          NUMBER(3) not null,
+  tip_gestor         VARCHAR2(1) not null,
+  cod_gestor         VARCHAR2(10),
+  fec_ini_asignacion DATE not null,
+  fec_fin_asignacion DATE,
+  cod_agenda         NUMBER(10),
+  tip_baja           VARCHAR2(1),
+  cod_usu_cobrador   VARCHAR2(10),
+  cod_age_cobrador   NUMBER(10),
+  tip_segmento       VARCHAR2(5) not null,
+  can_gestiones      NUMBER(4) default 0 not null,
+  cod_oficina        NUMBER(3),
+  cod_usu_oficial    VARCHAR2(10),
+  asignado           VARCHAR2(1) default 'N',
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_ASIGNACIONES
+  is 'Asignaciones de Cobranzas por Tramo y Gestor.';
+comment on column IT.CO_ASIGNACIONES.cod_persona
+  is 'Código de Persona.';
+comment on column IT.CO_ASIGNACIONES.cod_tramo
+  is 'Código de Tramo para Gestión de Cobranzas.';
+comment on column IT.CO_ASIGNACIONES.tip_gestor
+  is 'Tipo de Gestor (A=Abogado; O=Oficial; G=Gestor; M=Gestor medio dia; E=Cobrador externo).';
+comment on column IT.CO_ASIGNACIONES.cod_gestor
+  is 'Gestor de la Actividad (Usuario para los que tienen agenda y cod_ente para el abogado).';
+comment on column IT.CO_ASIGNACIONES.fec_ini_asignacion
+  is 'Fecha Inicial de Asignación de la Actividad.';
+comment on column IT.CO_ASIGNACIONES.fec_fin_asignacion
+  is 'Fecha de Finalización de Asignación al Gestor.';
+comment on column IT.CO_ASIGNACIONES.cod_agenda
+  is 'Código de Actividad de la Agenda.';
+comment on column IT.CO_ASIGNACIONES.tip_baja
+  is 'Tipo de Baja (T=Tumbo; P=Pago; O= Otro).';
+comment on column IT.CO_ASIGNACIONES.cod_usu_cobrador
+  is 'Usuario del Cobrador enviado por el Gestor.';
+comment on column IT.CO_ASIGNACIONES.cod_age_cobrador
+  is 'Actividad de la Agenda del Cobrador.';
+comment on column IT.CO_ASIGNACIONES.tip_segmento
+  is 'Segmento (1 = Se externaliza, 0 = No se externaliza).';
+comment on column IT.CO_ASIGNACIONES.can_gestiones
+  is 'Cantidad de veces que se gestionó al Cliente.';
+comment on column IT.CO_ASIGNACIONES.cod_oficina
+  is 'Oficina del Cliente (se utiliza para asignación por sucursal).';
+comment on column IT.CO_ASIGNACIONES.cod_usu_oficial
+  is 'Oficial del Cliente (se utiliza para asignación por sucursal).';
+comment on column IT.CO_ASIGNACIONES.asignado
+  is 'Indica si se asigna al Oficial S/N (se utiliza para asignación por sucursal).';
+comment on column IT.CO_ASIGNACIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CO_ASIGNACIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CO_ASIGNACIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CO_ASIGNACIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.COAGENDASJJ2020 on IT.CO_ASIGNACIONES (COD_AGENDA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_OASIG_COD_TRAMO on IT.CO_ASIGNACIONES (COD_TRAMO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_ASIGNACIONES
+  add constraint PK_CO_ASIGNACIONES primary key (COD_PERSONA, FEC_INI_ASIGNACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CO_ASIGNACIONES
+  add constraint FK_OASIG_COD_AGENDA foreign key (COD_AGENDA)
+  references IT.CR_AGENDAS (COD_AGENDA);
+alter table IT.CO_ASIGNACIONES
+  add constraint FK_OASIG_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CO_ASIGNACIONES
+  add constraint FK_OASIG_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CO_ASIGNACIONES
+  add constraint FK_OASIG_COD_TRAMO foreign key (COD_TRAMO)
+  references IT.CO_TRM_ASIGNACIONES (COD_TRAMO);
+alter table IT.CO_ASIGNACIONES
+  add constraint FK_OASIG_COD_USU_COBRADOR foreign key (COD_USU_COBRADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CO_ASIGNACIONES
+  add constraint FK_OASIG_COD_USU_OFICIAL foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CO_ASIGNACIONES
+  add constraint CK_OASIG_TIP_BAJA
+  check (TIP_BAJA IN ('T','P', 'O'));
+alter table IT.CO_ASIGNACIONES
+  add constraint CK_OASIG_TIP_GESTOR
+  check (TIP_GESTOR IN( 'A', 'O', 'E' , 'G', 'M', 'I'));
+

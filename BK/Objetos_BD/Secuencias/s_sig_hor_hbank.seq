@@ -1,0 +1,9 @@
+create sequence IT.S_SIG_HOR_HBANK
+minvalue 0
+maxvalue 99999999999
+start with 33654698
+increment by 1
+cache 20
+cycle
+order;
+

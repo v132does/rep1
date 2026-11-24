@@ -1,0 +1,1 @@
+ALTER TABLE IT.cb_doc_elec_cab ADD sfn_observaciones VARCHAR2(4000);

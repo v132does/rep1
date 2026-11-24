@@ -1,0 +1,122 @@
+create table IT.LOG_ATM
+(
+  mensaje           VARCHAR2(4000),
+  respuesta         VARCHAR2(4000),
+  usu_insercion     VARCHAR2(10) default user,
+  fec_insercion     DATE default sysdate,
+  error             VARCHAR2(1000),
+  fec_inicio        DATE,
+  reprocesado       VARCHAR2(1) default 'N' not null,
+  cod_extorno       VARCHAR2(2),
+  fecha             DATE,
+  nro_transaccion   NUMBER(15),
+  nro_cta_debito    VARCHAR2(15),
+  hora              VARCHAR2(8),
+  cod_bco_debito    NUMBER(3),
+  nro_cta_credito   VARCHAR2(15),
+  cod_bco_credito   NUMBER(3),
+  cod_operacion     VARCHAR2(2),
+  mto_total         NUMBER(18,2),
+  can_cheques       NUMBER(4),
+  cod_moneda        VARCHAR2(3),
+  nro_atm           NUMBER(3),
+  nro_pos           NUMBER(2),
+  tra_pos           NUMBER(4),
+  tip_hora          VARCHAR2(3),
+  nom_comercio      VARCHAR2(40),
+  nro_tra_extornado VARCHAR2(15),
+  cod_bco_atm       NUMBER(3),
+  servicio          VARCHAR2(3),
+  prestacion        VARCHAR2(4),
+  marca             VARCHAR2(3),
+  producto          VARCHAR2(3),
+  med_pago          VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LOG_ATM
+  is 'Log de Envios y Respuestas de Mensajería.';
+comment on column IT.LOG_ATM.mensaje
+  is 'Pedido ingresado';
+comment on column IT.LOG_ATM.respuesta
+  is 'Respuesta del Sistema';
+comment on column IT.LOG_ATM.usu_insercion
+  is 'Usuario del sistema ';
+comment on column IT.LOG_ATM.fec_insercion
+  is 'Fecha de insercion';
+comment on column IT.LOG_ATM.error
+  is 'Mensaje de Error';
+comment on column IT.LOG_ATM.fec_inicio
+  is 'Hora Inicio de la Operacion';
+comment on column IT.LOG_ATM.reprocesado
+  is 'Indicador de reproceso para operaciones con error.';
+comment on column IT.LOG_ATM.cod_extorno
+  is 'Código de Reversión (99).';
+comment on column IT.LOG_ATM.fecha
+  is 'Fecha de la Transacción.';
+comment on column IT.LOG_ATM.nro_transaccion
+  is 'Número único de Transacción.';
+comment on column IT.LOG_ATM.nro_cta_debito
+  is 'Número de Cuenta Débito.';
+comment on column IT.LOG_ATM.hora
+  is 'Hora de la Transacción.';
+comment on column IT.LOG_ATM.cod_bco_debito
+  is 'Código de entidad de Débito.';
+comment on column IT.LOG_ATM.nro_cta_credito
+  is 'Número Cuenta de Crédito.';
+comment on column IT.LOG_ATM.cod_bco_credito
+  is 'Código de Entidad Crédito.';
+comment on column IT.LOG_ATM.cod_operacion
+  is 'Código de Transacción.';
+comment on column IT.LOG_ATM.mto_total
+  is 'Importe Total de la Transacción.';
+comment on column IT.LOG_ATM.can_cheques
+  is 'Cantidad de Cheques solicitada.';
+comment on column IT.LOG_ATM.cod_moneda
+  is 'Moneda de la Transacción.';
+comment on column IT.LOG_ATM.nro_atm
+  is 'Nro. del ATM donde se realiza la transacción.';
+comment on column IT.LOG_ATM.nro_pos
+  is 'Nro. de Caja de Pos del comercio o agencia bancaria.';
+comment on column IT.LOG_ATM.tra_pos
+  is 'Nro. de Transacción o Nro. del ATM.';
+comment on column IT.LOG_ATM.tip_hora
+  is 'Flag de horario/Flag bancario.';
+comment on column IT.LOG_ATM.nom_comercio
+  is 'Nombre del negocio.';
+comment on column IT.LOG_ATM.nro_tra_extornado
+  is 'Número de boleta a reversar.';
+comment on column IT.LOG_ATM.cod_bco_atm
+  is 'Entidad dueña del ATM.';
+comment on column IT.LOG_ATM.servicio
+  is 'Servicio (ATM, POS, ..)';
+comment on column IT.LOG_ATM.prestacion
+  is 'Prestacion (TD, TC, STAR)';
+comment on column IT.LOG_ATM.marca
+  is 'Marca (VS, MC, INF, ENT)';
+comment on column IT.LOG_ATM.producto
+  is 'Producto de la Marca (CLA, MST, ELE, PMO)';
+comment on column IT.LOG_ATM.med_pago
+  is 'Medio de Pago (00-Efectivo, 01-Tarjeta Credito, 02-Tarjeta Debito)';
+create index IT.IN_LOG_ATM_FECHA on IT.LOG_ATM (FEC_INSERCION, REPROCESADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

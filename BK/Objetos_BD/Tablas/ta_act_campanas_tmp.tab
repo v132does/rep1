@@ -1,0 +1,23 @@
+create table IT.TA_ACT_CAMPANAS_TMP
+(
+  nro_tarjeta VARCHAR2(25) not null,
+  cod_campana NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ACT_CAMPANAS_TMP
+  is 'Es la tabla temporal del proceso de actualización de tarjetas ACT_CAM_TARJETAS';
+comment on column IT.TA_ACT_CAMPANAS_TMP.nro_tarjeta
+  is 'Numero de la Tarjeta.';
+comment on column IT.TA_ACT_CAMPANAS_TMP.cod_campana
+  is 'Numero de la Campana.';
+

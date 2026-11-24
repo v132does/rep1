@@ -1,0 +1,38 @@
+create table IT.CB_OPE_MAR_SUPERIORES_HIS
+(
+  fec_apertura          DATE,
+  fecha                 DATE,
+  fecha_operacion       DATE,
+  fecha_vencimiento     DATE,
+  cod_persona           VARCHAR2(10),
+  nom_completo          VARCHAR2(120),
+  cod_oficina           NUMBER(3),
+  descripcion_oficina   VARCHAR2(35),
+  nro_cuenta            VARCHAR2(15),
+  denominacion_cuenta   VARCHAR2(65),
+  cod_modalidad         NUMBER(3),
+  descripcion_modalidad VARCHAR2(35),
+  cod_moneda            VARCHAR2(3),
+  monto                 NUMBER(18,2),
+  monto_moneda_local    NUMBER,
+  tasa_nominal          NUMBER,
+  tasa_efectiva         NUMBER,
+  tasa_base             NUMBER,
+  tasa_pizarra          NUMBER,
+  plazo                 NUMBER,
+  cod_rubro             VARCHAR2(15),
+  porcentaje_operacion  NUMBER,
+  monto_porcentaje      NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

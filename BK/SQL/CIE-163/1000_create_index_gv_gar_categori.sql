@@ -1,0 +1,1 @@
+CREATE INDEX IT.IN_GGCAT_NRO_CUENTA ON IT.gv_gar_categorizacion(nro_cuenta);

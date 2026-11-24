@@ -1,0 +1,9 @@
+create sequence IT.S_COD_EXT_DNA
+minvalue 0
+maxvalue 99999999999
+start with 1
+increment by 1
+nocache
+cycle
+order;
+

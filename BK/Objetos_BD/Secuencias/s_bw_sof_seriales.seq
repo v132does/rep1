@@ -1,0 +1,7 @@
+create sequence IT.S_BW_SOF_SERIALES
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 102923
+increment by 1
+cache 20;
+

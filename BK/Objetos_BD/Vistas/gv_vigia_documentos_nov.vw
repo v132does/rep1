@@ -1,0 +1,42 @@
+CREATE OR REPLACE FORCE VIEW IT.GV_VIGIA_DOCUMENTOS_NOV AS
+SELECT -- LOA.*
+PE.COD_PERSONA AS ID_CASO,
+'VENCIMIENTO DE PERFIL' AS ID_FORMULARIO,
+'RMINFADI'  AS TIPO_FORMULARIO,
+NULL AS OBSERVACIONES,
+LOA.FEC_INICIO AS VIGENCIA_DESDE,
+NULL AS VIGENCIA_HASTA,
+---------------------**********************************hasta aqui estructura Vigia *******---------------------
+trunc(SYSDATE-1) /*pag_cal.fu_obt_fec_actual(6)*/ as Fec_Proceso, 'ALTA' AS MARCA
+FROM BA_PERSONAS PE --- Datos Catastro
+LEFT JOIN GE_CLIENTES GE -- Datos Cliente
+  ON GE.COD_PERSONA = PE.COD_PERSONA
+JOIN (SELECT LOA1.MTO_LIMITE, LOA1.COD_PERSONA,LOA1.FEC_INICIO, LOA1.FEC_MODIFICACION
+FROM CR_PER_TIP_OPERACIONES LOA1
+WHERE /*LOA1.COD_MONEDA = 'GS'
+AND*/ LOA1.rowid=(select max(q.rowid) from CR_PER_TIP_OPERACIONES q where q.cod_persona= LOA1.cod_persona)) LOA ON LOA.COD_PERSONA = PE.COD_PERSONA
+WHERE  PE.COD_TIP_DOCUMENTO NOT IN (9,10)
+AND TRUNC(LOA.FEC_MODIFICACION) = trunc(SYSDATE-1) /*pag_cal.fu_obt_fec_actual(6)*/
+--AND LOA.COD_PERSONA IN (8237749,9571538)
+UNION -------**********************************************************************
+SELECT -- LOA.*
+PE.COD_PERSONA AS ID_CASO,
+'VENCIMIENTO DE PERFIL' AS ID_FORMULARIO,
+'RMINFADI'  AS TIPO_FORMULARIO,
+NULL AS OBSERVACIONES,
+LOA.FEC_INICIO AS VIGENCIA_DESDE,
+NULL AS VIGENCIA_HASTA,
+---------------------**********************************hasta aqui estructura Vigia *******---------------------
+trunc(SYSDATE-1) /*pag_cal.fu_obt_fec_actual(6)*/ as Fec_Proceso, 'MODIFICACION' AS MARCA
+FROM BA_PERSONAS PE --- Datos Catastro
+LEFT JOIN GE_CLIENTES GE -- Datos Cliente
+  ON GE.COD_PERSONA = PE.COD_PERSONA
+JOIN (SELECT LOA1.MTO_LIMITE, LOA1.COD_PERSONA,LOA1.FEC_INICIO, LOA1.FEC_MODIFICACION
+FROM CR_PER_TIP_OPERACIONES LOA1
+WHERE /*LOA1.COD_MONEDA = 'GS'
+AND*/ LOA1.rowid=(select max(q.rowid) from CR_PER_TIP_OPERACIONES q where q.cod_persona= LOA1.cod_persona)) LOA ON LOA.COD_PERSONA = PE.COD_PERSONA
+WHERE  PE.COD_TIP_DOCUMENTO NOT IN (9,10)
+AND TRUNC(LOA.FEC_INICIO) < trunc(SYSDATE-1) /* pag_cal.fu_obt_fec_actual(6)*/
+AND TRUNC(LOA.FEC_MODIFICACION) = trunc(SYSDATE-1)  /*pag_cal.fu_obt_fec_actual(6)*/
+;
+

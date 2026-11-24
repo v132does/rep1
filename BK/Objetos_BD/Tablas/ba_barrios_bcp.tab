@@ -1,0 +1,27 @@
+CREATE TABLE IT.BA_BARRIOS_BCP (
+COD_BARRIO                  NUMBER(38),    
+COD_BARRIO_BCP              NUMBER(38) ,   
+DESCRIPCION_BANKITTI        VARCHAR2(128) ,
+COD_CIUDAD                  NUMBER(38),    
+CIUDAD_DESCRIPCION          VARCHAR2(128) ,
+COD_DEPARTAMENTO            NUMBER(38),    
+DEP_DESCRIP                 VARCHAR2(128) ,
+COD_PAIS                    NUMBER(38) ,   
+PAIS_DESCRIPCION            VARCHAR2(128) )
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+CREATE INDEX IT.IX_BA_BARRIOS_BCP_PCCB
+ON IT.BA_BARRIOS_BCP (COD_PAIS, COD_CIUDAD, COD_BARRIO);
+
+CREATE PUBLIC SYNONYM BA_BARRIOS_BCP FOR IT.BA_BARRIOS_BCP;
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.BA_BARRIOS_BCP TO IT_TEMPORAL;

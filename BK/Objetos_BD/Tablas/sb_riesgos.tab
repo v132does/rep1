@@ -1,0 +1,67 @@
+create table IT.SB_RIESGOS
+(
+  fecha              DATE not null,
+  nro_registro       NUMBER(6) not null,
+  tip_formulario     NUMBER(2) not null,
+  identificador      NUMBER(1) not null,
+  cuenta             VARCHAR2(15) not null,
+  tot_mon_local      NUMBER(17,2) not null,
+  tot_mon_extranjera NUMBER(17,2) not null,
+  tot_equivalente    NUMBER(17,2) not null,
+  usu_insercion      VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_RIESGOS
+  is 'Datos para el archivo de Riesgos de Planinfo.';
+comment on column IT.SB_RIESGOS.fecha
+  is 'Fecha de Periodo informado.';
+comment on column IT.SB_RIESGOS.nro_registro
+  is 'Nro. de Registro.';
+comment on column IT.SB_RIESGOS.tip_formulario
+  is 'Tipo Fomulario.';
+comment on column IT.SB_RIESGOS.identificador
+  is 'Identificador de modulo superior (0).';
+comment on column IT.SB_RIESGOS.cuenta
+  is 'Codigo de cuenta del Plan de Cuentas del rubro informado.';
+comment on column IT.SB_RIESGOS.tot_mon_local
+  is 'Total registrado en moneda local.';
+comment on column IT.SB_RIESGOS.tot_mon_extranjera
+  is 'Total registrado en moneda extranjera.';
+comment on column IT.SB_RIESGOS.tot_equivalente
+  is 'Total registrado en moneda equivalente.';
+comment on column IT.SB_RIESGOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_RIESGOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_RIESGOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_RIESGOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.SB_RIESGOS
+  add constraint SRIES_PK primary key (FECHA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

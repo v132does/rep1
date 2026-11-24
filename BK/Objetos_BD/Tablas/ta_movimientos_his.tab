@@ -1,0 +1,349 @@
+create table IT.TA_MOVIMIENTOS_HIS
+(
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  nro_secuencia       NUMBER(3) not null,
+  fec_valor           DATE,
+  monto               NUMBER(18,2) default 0,
+  nro_cuenta          VARCHAR2(15),
+  cod_moneda          VARCHAR2(3) not null,
+  cod_oficina         NUMBER(3) not null,
+  cod_error           VARCHAR2(10),
+  cod_retencion       NUMBER(3),
+  fec_fin_retencion   DATE,
+  est_cuenta          VARCHAR2(1),
+  estado              VARCHAR2(1) not null,
+  cod_causa           NUMBER(3),
+  cod_banco           NUMBER(3),
+  cod_ofi_origen      NUMBER(3) not null,
+  concepto            VARCHAR2(100),
+  cod_tasa            NUMBER(3),
+  val_tasa            NUMBER(20,4) default 0,
+  cod_rubro           VARCHAR2(15),
+  cod_ref_cambio      VARCHAR2(3),
+  reversado           VARCHAR2(1) default 'N' not null,
+  cod_usu_reversion   VARCHAR2(10),
+  hor_reversion       VARCHAR2(8),
+  emi_aviso           VARCHAR2(1) default 'N',
+  cod_tra_padre       NUMBER(4) not null,
+  cod_mod_padre       NUMBER(3) not null,
+  cod_mad_padre       NUMBER(3) not null,
+  cod_transaccion     NUMBER(4),
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  mto_equ_local       NUMBER(18,2) default 0,
+  nro_caja            NUMBER(3),
+  cotizacion          NUMBER(14,8) default 0,
+  cod_bco_central     VARCHAR2(6),
+  nro_documento       NUMBER(15),
+  nro_documento2      NUMBER(15),
+  nro_documento3      NUMBER(15),
+  nro_documento4      NUMBER(15),
+  protegido           VARCHAR2(1) default 'N',
+  tip_mov_rubro       VARCHAR2(1),
+  cod_autorizacion    NUMBER(10),
+  cod_usu_autorizador VARCHAR2(10),
+  cod_tip_ope_cambio  VARCHAR2(3),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  referencia          VARCHAR2(20),
+  cod_persona         VARCHAR2(10),
+  cod_sit_contable    NUMBER(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_MOVIMIENTOS_HIS
+  is 'Movimientos Diarios. Contiene los datos historicos de los movimientos generados por Tarjetas de Credito.';
+comment on column IT.TA_MOVIMIENTOS_HIS.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.hora
+  is 'Hora del movimiento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.TA_MOVIMIENTOS_HIS.fec_valor
+  is 'Fecha valor de la transaccion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.monto
+  is 'Importe de la transaccion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_error
+  is 'Codigo de error.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_retencion
+  is 'Codigo de retencion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.fec_fin_retencion
+  is 'Fecha fin de la retencion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.est_cuenta
+  is 'Estado de la cuenta. (En caso de que se haga cambio de estado).';
+comment on column IT.TA_MOVIMIENTOS_HIS.estado
+  is 'Estado del movimiento. ( ).';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_causa
+  is 'Codigo de causa de bloqueo.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_ofi_origen
+  is 'Codigo de oficina origen.';
+comment on column IT.TA_MOVIMIENTOS_HIS.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.TA_MOVIMIENTOS_HIS.val_tasa
+  is 'Importe de la tasa.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_rubro
+  is 'Codigo de cuenta contable.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_ref_cambio
+  is 'Codigo de referencia.';
+comment on column IT.TA_MOVIMIENTOS_HIS.reversado
+  is 'Reversado. (N=NO / S=SI).';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_usu_reversion
+  is 'Operador de reversion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.hor_reversion
+  is 'Hora de reversion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.emi_aviso
+  is 'Emitir aviso. (N=NO / S=SI).';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.TA_MOVIMIENTOS_HIS.mto_equ_local
+  is 'Importe equivalente en GS.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_caja
+  is 'Numero de caja.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cotizacion
+  is 'Cotizacion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_bco_central
+  is 'Codigo en el BCP.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_documento2
+  is 'Numero de documento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_documento3
+  is 'Numero de documento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.nro_documento4
+  is 'Numero de documento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.protegido
+  is 'Protegido. (N=NO / S=SI).';
+comment on column IT.TA_MOVIMIENTOS_HIS.tip_mov_rubro
+  is 'Tipo de movimiento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_autorizacion
+  is 'Numero de autorizacion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_usu_autorizador
+  is 'Codigo de autorizacion.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_tip_ope_cambio
+  is 'Codigo de tipo de operacion de cambio.';
+comment on column IT.TA_MOVIMIENTOS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_MOVIMIENTOS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_MOVIMIENTOS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_MOVIMIENTOS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_MOVIMIENTOS_HIS.referencia
+  is 'Referencia general.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_persona
+  is 'Persona asociada al movimiento.';
+comment on column IT.TA_MOVIMIENTOS_HIS.cod_sit_contable
+  is 'Indica la Situacion Contable actual de la Operacion.';
+create index IT.IN_TMHIS_FECHA on IT.TA_MOVIMIENTOS_HIS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TMHIS_FECHA_01 on IT.TA_MOVIMIENTOS_HIS (FECHA, HORA, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TMHIS_NRO_CUENTA on IT.TA_MOVIMIENTOS_HIS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TMHIS_NRO_DOCUMENTO on IT.TA_MOVIMIENTOS_HIS (NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TMHIS_NRO_DOCUMENTO3 on IT.TA_MOVIMIENTOS_HIS (NRO_DOCUMENTO3)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TMHIS_NRO_DOCUMENTO4 on IT.TA_MOVIMIENTOS_HIS (NRO_DOCUMENTO4)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+CREATE INDEX IT.IN_TMHIS_FEC_INS_NRO_CUENTA ON IT.TA_MOVIMIENTOS_HIS (FEC_INSERCION,NRO_CUENTA) online
+  tablespace IT_IND
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+   initial 64K
+   next 1M
+   minextents 1
+   maxextents unlimited
+  );
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint PK_TA_MOVIMIENTOS_HIS primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_CAUSAL foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_TRA_HIJO foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_USU_AUTORIZADOR foreign key (COD_USU_AUTORIZADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_COD_USU_REVERSION foreign key (COD_USU_REVERSION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint FK_TMHIS_NRO_CAJA foreign key (NRO_CAJA)
+  references IT.CJ_CAJAS (NRO_CAJA);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_B_003
+  check (COD_BANCO BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_C_001
+  check (COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_M_011
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_M_012
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_M_013
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_O_004
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_R_001
+  check (COD_RETENCION BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_COD_T_002
+  check (COD_TASA BETWEEN 0 AND 999);
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_EMI_A_000
+  check (EMI_AVISO IN ('S', 'N'));
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_PROTE_001
+  check (PROTEGIDO IN ('S', 'N'));
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_REVER_000
+  check (REVERSADO IN ('S', 'N'));
+alter table IT.TA_MOVIMIENTOS_HIS
+  add constraint AVCON_2083072595_TIP_M_000
+  check (TIP_MOV_RUBRO IN ('D', 'C'));
+

@@ -1,0 +1,148 @@
+﻿-- Create table
+create table IT.GE_BANCOS
+(
+  cod_banco        NUMBER(3) not null,
+  descripcion      VARCHAR2(40) not null,
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  sigla            VARCHAR2(4),
+  ubicacion        VARCHAR2(1) not null,
+  cod_bco_central  NUMBER(4),
+  cod_swift        VARCHAR2(20),
+  estado           VARCHAR2(1),
+  cod_aba          VARCHAR2(20),
+  cod_uid          VARCHAR2(20),
+  ind_grupo        VARCHAR2(1),
+  cod_pais         NUMBER(3),
+  cod_ciudad       NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_BANCOS
+  is 'Datos de Bancos.';
+-- Add comments to the columns 
+comment on column IT.GE_BANCOS.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.GE_BANCOS.descripcion
+  is 'Nombre del banco.';
+comment on column IT.GE_BANCOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.GE_BANCOS.tipo
+  is 'Tipo de banco. (O=Oficial, N=No oficial ).';
+comment on column IT.GE_BANCOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_BANCOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_BANCOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_BANCOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_BANCOS.sigla
+  is 'Iniciales del banco.';
+comment on column IT.GE_BANCOS.ubicacion
+  is 'Banco local / exterior (L=Local / E=Exterior).';
+comment on column IT.GE_BANCOS.cod_bco_central
+  is 'Codigo de banco en el BCP.';
+comment on column IT.GE_BANCOS.cod_swift
+  is 'Codigo Swift, codigo electronico del banco.';
+comment on column IT.GE_BANCOS.estado
+  is 'Estado A-Activo /I-Inactivo.';
+comment on column IT.GE_BANCOS.cod_aba
+  is 'Codigo Aba, codigo dado a los bancos estadounidenses.';
+comment on column IT.GE_BANCOS.cod_uid
+  is 'Codigo Uid, identificador del banco a nivel mundial.';
+comment on column IT.GE_BANCOS.ind_grupo
+  is 'Indica si el Banco pertenece o no al grupo de la Entidad Bancaria.';
+comment on column IT.GE_BANCOS.cod_pais
+  is 'Codigo de Pais que corresponde al Banco.';
+comment on column IT.GE_BANCOS.cod_ciudad
+  is 'Codigo de Ciudad que corresponde al Banco.';
+-- Create/Recreate indexes 
+create index IT.IN_GBANC_COD_BCO_CENTRAL on IT.GE_BANCOS (COD_BCO_CENTRAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GBANC_COD_PERSONA on IT.GE_BANCOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GBANC_COD_SWIFT on IT.GE_BANCOS (COD_SWIFT, UBICACION, ESTADO, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 576K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_BANCOS
+  add constraint PK_GE_BANCOS primary key (COD_BANCO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_BANCOS
+  add constraint FK_GBANC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA)
+  disable
+  novalidate;
+alter table IT.GE_BANCOS
+  add constraint FK_GCIU_COD_CIUDAD foreign key (COD_CIUDAD, COD_PAIS)
+  references IT.BA_CIUDADES (COD_CIUDAD, COD_PAIS);
+alter table IT.GE_BANCOS
+  add constraint FK_GPAI_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+-- Create/Recreate check constraints 
+alter table IT.GE_BANCOS
+  add constraint AVCON_1085092804_COD_B_002
+  check (COD_BANCO BETWEEN 0 AND 999);
+alter table IT.GE_BANCOS
+  add constraint AVCON_1093528760_TIPO_000
+  check (TIPO IN ('O', 'N'));
+alter table IT.GE_BANCOS
+  add constraint AVCON_1093528760_UBICA_000
+  check (UBICACION IN ('L', 'E'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_BANCOS to IT_TEMPORAL;

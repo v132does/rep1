@@ -1,0 +1,44 @@
+create table IT.CC_SOBREGIROS_RES_ANT
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  can_dias          NUMBER(6) not null,
+  sit_deuda         VARCHAR2(1) not null,
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null,
+  can_dia_sobregiro NUMBER(6) not null,
+  max_atraso        NUMBER(6),
+  pro_atraso        NUMBER(6),
+  mto_sob_suspenso  NUMBER(18,2),
+  mto_mora          NUMBER(18,2),
+  fecha             DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CC_SOBREGIROS_RES_ANT.fecha
+  is 'fecha a la cual corresponden los datos';
+alter table IT.CC_SOBREGIROS_RES_ANT
+  add constraint PK_CC_SOBREGIROS_RES_ANT primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,48 @@
+create table IT.TA_EXT_CIERRE_TMP_GP
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fec_cierre         DATE not null,
+  nro_tarjeta        VARCHAR2(25),
+  linea_credito      NUMBER(18,2),
+  tas_anu_nominal    NUMBER(20,4),
+  tas_anu_efectiva   NUMBER(20,4),
+  sal_financiado     NUMBER(18,2),
+  sal_facturado      NUMBER(18,2),
+  sal_cuo_pendientes NUMBER(18,2),
+  int_car_dev        NUMBER(20,4),
+  pago_minimo        NUMBER(18,2),
+  fec_vencimiento    DATE,
+  dia_mora           NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_EXT_CIERRE_TMP_GP.tas_anu_nominal
+  is '(Tasa Anual Nominal) ';
+comment on column IT.TA_EXT_CIERRE_TMP_GP.tas_anu_efectiva
+  is '(Tasa Anual Efectiva)';
+comment on column IT.TA_EXT_CIERRE_TMP_GP.int_car_dev
+  is '(nt/Cargos Deveng. en susp)';
+alter table IT.TA_EXT_CIERRE_TMP_GP
+  add constraint PK_TA_EXT_CIERRE_TMP_GP primary key (NRO_CUENTA, FEC_CIERRE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

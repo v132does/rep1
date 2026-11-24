@@ -1,0 +1,23 @@
+create global temporary table IT.STAGE_SS2K5_COLUMNS
+(
+  svrid_fk          NUMBER(38),
+  dbid_gen_fk       NUMBER(38),
+  id_gen_fk         NUMBER(38),
+  colid_gen         NUMBER(38),
+  name              VARCHAR2(256 CHAR),
+  rule_object_id    NUMBER(38) not null,
+  column_id         NUMBER(38) not null,
+  max_length        NUMBER(5) not null,
+  precision         NUMBER(5) not null,
+  scale             NUMBER(5) not null,
+  is_nullable       NUMBER(5),
+  user_type_id      NUMBER(38) not null,
+  system_type_id    NUMBER(5) not null,
+  default_object_id NUMBER(38) not null,
+  object_id         NUMBER(38) not null
+)
+on commit preserve rows;
+create index IT.S_SS2K5_COLUMNS_COLUMN_ID on IT.STAGE_SS2K5_COLUMNS (COLUMN_ID);
+create index IT.S_SS2K5_COLUMNS_DBID_GEN_FK on IT.STAGE_SS2K5_COLUMNS (DBID_GEN_FK);
+create index IT.S_SS2K5_COLUMNS_OBJ_IND on IT.STAGE_SS2K5_COLUMNS (SVRID_FK, DBID_GEN_FK, OBJECT_ID);
+

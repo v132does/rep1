@@ -1,0 +1,61 @@
+create table IT.WF_TIP_CIR_TAR_DET
+(
+  cod_tip_circuito NUMBER(3) not null,
+  cod_tip_tarea    NUMBER(3) not null,
+  cod_tip_tar_det  NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  detalle          VARCHAR2(300),
+  estado           VARCHAR2(1) default 'A' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_TIP_CIR_TAR_DET
+  is 'Definicion de los detalles de las tareas o pasos a realizar por cada definicion de circuitos';
+comment on column IT.WF_TIP_CIR_TAR_DET.cod_tip_circuito
+  is 'Codigo del tipo de circuito';
+comment on column IT.WF_TIP_CIR_TAR_DET.cod_tip_tarea
+  is 'Codigo de la tarea definida';
+comment on column IT.WF_TIP_CIR_TAR_DET.cod_tip_tar_det
+  is 'Codigo de la sub tarea';
+comment on column IT.WF_TIP_CIR_TAR_DET.descripcion
+  is 'Descripcion del tipo de circuito';
+comment on column IT.WF_TIP_CIR_TAR_DET.detalle
+  is 'Detalle de la definicion ';
+comment on column IT.WF_TIP_CIR_TAR_DET.estado
+  is 'Estado del usuario en el Grupo de usuarios: A-Activo I-Inactivo';
+comment on column IT.WF_TIP_CIR_TAR_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_TIP_CIR_TAR_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_TIP_CIR_TAR_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_TIP_CIR_TAR_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.WF_TIP_CIR_TAR_DET
+  add constraint PK_WF_TIP_CIR_TAR_DET primary key (COD_TIP_CIRCUITO, COD_TIP_TAREA, COD_TIP_TAR_DET)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

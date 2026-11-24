@@ -1,0 +1,30 @@
+create table IT.CB_SAL_BCO_CLEARING
+(
+  ano          NUMBER(4),
+  mes          NUMBER(2),
+  nro_cuenta   VARCHAR2(15),
+  sal_anterior NUMBER(15),
+  sal_actual   NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_SAL_BCO_CLEARING.ano
+  is 'Año.';
+comment on column IT.CB_SAL_BCO_CLEARING.mes
+  is 'Mes.';
+comment on column IT.CB_SAL_BCO_CLEARING.nro_cuenta
+  is 'Cuenta.';
+comment on column IT.CB_SAL_BCO_CLEARING.sal_anterior
+  is 'Saldo Anterior.';
+comment on column IT.CB_SAL_BCO_CLEARING.sal_actual
+  is 'Saldo Actual.';
+

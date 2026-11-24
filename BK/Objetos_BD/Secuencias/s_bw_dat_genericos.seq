@@ -1,0 +1,7 @@
+create sequence IT.S_BW_DAT_GENERICOS
+minvalue 1
+maxvalue 9999999999
+start with 12221
+increment by 1
+nocache;
+

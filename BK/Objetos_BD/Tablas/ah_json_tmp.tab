@@ -1,0 +1,22 @@
+create table IT.AH_JSON_TMP
+(
+  dato        CLOB,
+  cod_persona VARCHAR2(10),
+  nro_cta     VARCHAR2(20),
+  fec_proceso DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_JSON_TMP
+  add constraint JS_DATO
+  check (dato is JSON);
+

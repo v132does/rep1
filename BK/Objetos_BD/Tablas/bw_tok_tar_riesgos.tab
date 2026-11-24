@@ -1,0 +1,56 @@
+create table IT.BW_TOK_TAR_RIESGOS
+(
+  cod_consulta     VARCHAR2(36) not null,
+  recomendacion    VARCHAR2(36),
+  pts_dispositivo  VARCHAR2(10),
+  pts_cuenta       VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_RIESGOS.cod_consulta
+  is 'Codigo del request';
+comment on column IT.BW_TOK_TAR_RIESGOS.recomendacion
+  is 'La recomendacio´n de decision. GREEN, YELLOW, ORANGE o RED';
+comment on column IT.BW_TOK_TAR_RIESGOS.pts_dispositivo
+  is 'DeviceScore';
+comment on column IT.BW_TOK_TAR_RIESGOS.pts_cuenta
+  is 'AccountScore';
+comment on column IT.BW_TOK_TAR_RIESGOS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_RIESGOS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_RIESGOS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_RIESGOS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_RIESGOS
+  add constraint PK_BW_TOK_TAR_RIESGOS primary key (COD_CONSULTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_RIESGOS
+  add constraint FK_BTTRIESGOS_COD_CONS foreign key (COD_CONSULTA)
+  references IT.BW_TOK_TAR_CONSULTAS (COD_CONSULTA);
+

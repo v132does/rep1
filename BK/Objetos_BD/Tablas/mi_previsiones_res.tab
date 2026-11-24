@@ -1,0 +1,21 @@
+create table IT.MI_PREVISIONES_RES
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  fecha                DATE not null,
+  porcentaje           NUMBER(5,2) default 0,
+  por_calculado        NUMBER(5,2) default 0,
+  tot_prv_contingencia NUMBER(18,2) default 0,
+  monto                NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

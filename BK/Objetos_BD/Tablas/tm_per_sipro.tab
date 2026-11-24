@@ -1,0 +1,75 @@
+create table IT.TM_PER_SIPRO
+(
+  nro_registro     NUMBER(12),
+  fecha            DATE,
+  nom_completo     VARCHAR2(200),
+  tipo             VARCHAR2(1),
+  tip_documento    VARCHAR2(15),
+  nro_documento    VARCHAR2(20),
+  cod_acusacion    NUMBER(3),
+  acu_descripcion  VARCHAR2(100),
+  observacion      VARCHAR2(200),
+  cod_fuente       NUMBER(3),
+  fue_descripcion  VARCHAR2(100),
+  cliente          VARCHAR2(2),
+  cod_persona      VARCHAR2(10),
+  activo           VARCHAR2(2),
+  dat_adicionales  VARCHAR2(200),
+  msj_error        VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TM_PER_SIPRO.nro_registro
+  is 'Nro. de Registro';
+comment on column IT.TM_PER_SIPRO.fecha
+  is 'Fecha Registro';
+comment on column IT.TM_PER_SIPRO.nom_completo
+  is 'Nombre Completo';
+comment on column IT.TM_PER_SIPRO.tipo
+  is 'Tipo de Persona según SIPRO, C=Company, I=Individual';
+comment on column IT.TM_PER_SIPRO.tip_documento
+  is 'Tipo de Documento';
+comment on column IT.TM_PER_SIPRO.nro_documento
+  is 'Número de Documento';
+comment on column IT.TM_PER_SIPRO.cod_acusacion
+  is 'Código de Acusación';
+comment on column IT.TM_PER_SIPRO.acu_descripcion
+  is 'Descripción de la Acusación';
+comment on column IT.TM_PER_SIPRO.observacion
+  is 'Observaciones';
+comment on column IT.TM_PER_SIPRO.cod_fuente
+  is 'Código de Fuente';
+comment on column IT.TM_PER_SIPRO.fue_descripcion
+  is 'Descripción de la Fuente';
+comment on column IT.TM_PER_SIPRO.cliente
+  is 'Es Cliente (S/N)';
+comment on column IT.TM_PER_SIPRO.cod_persona
+  is 'Código de Persona';
+comment on column IT.TM_PER_SIPRO.activo
+  is 'Activo (S/N)';
+comment on column IT.TM_PER_SIPRO.dat_adicionales
+  is 'Datos Adicionales';
+comment on column IT.TM_PER_SIPRO.msj_error
+  is 'Mensaje de Error en la Carga de Datos';
+comment on column IT.TM_PER_SIPRO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TM_PER_SIPRO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TM_PER_SIPRO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TM_PER_SIPRO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

@@ -1,0 +1,22 @@
+create table IT.MD_CODE_REGEX
+(
+  id          NUMBER not null,
+  regex       VARCHAR2(100) not null,
+  description VARCHAR2(200) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_CODE_REGEX.id
+  is 'ID of regex for searching source code';
+comment on column IT.MD_CODE_REGEX.regex
+  is 'Regex to use in reports of artifiacts in code.  This will be used for customers to analyze what is in their code.';
+

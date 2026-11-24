@@ -1,0 +1,56 @@
+create table IT.BW_TOK_TAR_OTP
+(
+  cod_consulta     VARCHAR2(36) not null,
+  cod_verificacion VARCHAR2(36) not null,
+  cod_tokenizacion VARCHAR2(36),
+  vencimiento      DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_OTP.cod_consulta
+  is 'Codigo del request';
+comment on column IT.BW_TOK_TAR_OTP.cod_verificacion
+  is 'Clave Dinamica enviada al usuario';
+comment on column IT.BW_TOK_TAR_OTP.cod_tokenizacion
+  is 'Codigo Tokenizacion referencia PanRefId y TokenRefId';
+comment on column IT.BW_TOK_TAR_OTP.vencimiento
+  is 'Vencimiento del otp';
+comment on column IT.BW_TOK_TAR_OTP.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_OTP.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_OTP.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_OTP.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_OTP
+  add constraint PK_BW_TOK_TAR_OTP primary key (COD_CONSULTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TOK_TAR_OTP
+  add constraint FK_BTTOTP_COD_TOKEN foreign key (COD_TOKENIZACION)
+  references IT.BW_TOK_TAR_TOKENIZACION (COD_TOKENIZACION);
+

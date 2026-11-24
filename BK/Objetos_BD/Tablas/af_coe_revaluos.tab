@@ -1,0 +1,67 @@
+create table IT.AF_COE_REVALUOS
+(
+  fec_proceso          DATE not null,
+  tipo                 VARCHAR2(1) default 'M' not null,
+  coeficiente          NUMBER(20,4) default 0 not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  ind_procesado        VARCHAR2(1) default 'N',
+  coe_hacienda         NUMBER(20,4) default 0,
+  coe_fin_depreciacion NUMBER(20,4) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AF_COE_REVALUOS
+  is 'Coeficientes de Revaluo del Activo Fijo.';
+comment on column IT.AF_COE_REVALUOS.fec_proceso
+  is 'Fecha de Proceso del Coeficiente.';
+comment on column IT.AF_COE_REVALUOS.tipo
+  is 'Tipo del Coeficiente de Revaluo (A / Anual, M / Mensual).';
+comment on column IT.AF_COE_REVALUOS.coeficiente
+  is 'Valor de la tasa de revaluo.';
+comment on column IT.AF_COE_REVALUOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AF_COE_REVALUOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AF_COE_REVALUOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AF_COE_REVALUOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AF_COE_REVALUOS.ind_procesado
+  is 'Indica si el coeficiente ya fue procesado.';
+comment on column IT.AF_COE_REVALUOS.coe_hacienda
+  is 'Valor de la tasa de revaluo de M. Hacienda';
+comment on column IT.AF_COE_REVALUOS.coe_fin_depreciacion
+  is 'Coeficiente de los Bienes cuyo Vencimiento de Depreciación se realizó durante el Año.';
+alter table IT.AF_COE_REVALUOS
+  add constraint PK_AF_COE_REVALUOS primary key (FEC_PROCESO, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_COE_REVALUOS
+  add constraint AVCON_1191859966_IND_P_000
+  check (IND_PROCESADO IN ('S', 'N'));
+alter table IT.AF_COE_REVALUOS
+  add constraint AVCON_1191859966_TIPO_000
+  check (TIPO IN ('A', 'M'));
+

@@ -1,0 +1,49 @@
+create table IT.CR_AGE_GRUPOS
+(
+  cod_grupo        VARCHAR2(5) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AGE_GRUPOS
+  is 'Grupos  de Agenda.';
+comment on column IT.CR_AGE_GRUPOS.cod_grupo
+  is 'Codigo de grupo.';
+comment on column IT.CR_AGE_GRUPOS.descripcion
+  is 'Descripcion del grupo.';
+comment on column IT.CR_AGE_GRUPOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AGE_GRUPOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AGE_GRUPOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGE_GRUPOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_AGE_GRUPOS
+  add constraint PK_CR_AGE_GRUPOS primary key (COD_GRUPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

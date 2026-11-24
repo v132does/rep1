@@ -1,0 +1,35 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_ARCHIVOS
+-- Descripción: Archivos Excel del proceso de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_ARCHIVOS (
+    id                  NUMBER,
+    id_ejecucion        VARCHAR2(255),
+    nombre_archivo      VARCHAR2(255)       NOT NULL,
+    contenido_blob      BLOB                NOT NULL,
+    fecha_creacion      TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_SOL_ARC_FECHA  ON IT.SB_SOL_ARCHIVOS(fecha_creacion) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_SOL_ARCHIVOS IS 'Archivos Excel generados por el proceso de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_ARCHIVOS.id IS 'Identificador unico del archivo';
+COMMENT ON COLUMN IT.SB_SOL_ARCHIVOS.id_ejecucion IS 'Referencia a la ejecucion que genero el archivo';
+COMMENT ON COLUMN IT.SB_SOL_ARCHIVOS.nombre_archivo IS 'Nombre del archivo generado';
+COMMENT ON COLUMN IT.SB_SOL_ARCHIVOS.contenido_blob IS 'Contenido binario del archivo Excel';
+COMMENT ON COLUMN IT.SB_SOL_ARCHIVOS.fecha_creacion IS 'Fecha de creacion del archivo';

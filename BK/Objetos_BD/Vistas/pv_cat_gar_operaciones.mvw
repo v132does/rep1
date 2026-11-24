@@ -1,0 +1,19 @@
+CREATE MATERIALIZED VIEW IT.PV_CAT_GAR_OPERACIONES
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT gc.nro_cuenta,
+       sum(nvl(gc.mto_apl_computable,0))mto_computable
+  FROM gv_cta_garantias gc,
+       pr_garantias pg,
+       pr_gar_tipos c,
+       ge_clientes cl,
+       ge_cta_clientes cc
+ WHERE gc.nro_garantia = pg.nro_garantia
+   AND gc.cod_garantia = c.cod_garantia
+   AND pg.cod_garantia = c.cod_garantia
+   AND gc.nro_cuenta   = cc.nro_cuenta
+   AND cl.cod_persona  = cc.cod_persona
+   AND CC.RELACION     = 'P'
+   AND c.computable    = 'S'
+   GROUP BY gc.nro_cuenta;
+

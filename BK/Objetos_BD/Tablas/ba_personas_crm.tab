@@ -1,0 +1,134 @@
+create table IT.BA_PERSONAS_CRM
+(
+  cod_persona         VARCHAR2(10) not null,
+  nom_completo        VARCHAR2(120),
+  tipo                VARCHAR2(1),
+  cod_usu_promotor    VARCHAR2(10),
+  cod_tip_documento   NUMBER(3),
+  nro_documento       VARCHAR2(20),
+  cod_pais            NUMBER(3),
+  dir_correo          VARCHAR2(80),
+  cod_actividad       NUMBER(3),
+  ref_bancaria        NUMBER(1),
+  ref_comercial       NUMBER(1),
+  ref_laboral         NUMBER(1),
+  ref_tarjeta         NUMBER(1),
+  tot_ingresos        NUMBER(18,2),
+  ing_presuntos       NUMBER(18,2),
+  egr_presuntos       NUMBER(18,2),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    TIMESTAMP(6) default current_timestamp not null,
+  est_verificacion    VARCHAR2(1),
+  cod_usu_verificador VARCHAR2(10),
+  nom_per_informo     VARCHAR2(120),
+  obs_verificacion    VARCHAR2(1000),
+  fec_verificacion    DATE,
+  tip_relacion        VARCHAR2(1),
+  fec_vto_documento   DATE,
+  tip_iva             VARCHAR2(2),
+  tas_personalizada   VARCHAR2(1),
+  recibe_sms          VARCHAR2(1),
+  cod_pai_documento   NUMBER(3),
+  cod_rub_primario    VARCHAR2(6),
+  cod_rub_secundario  VARCHAR2(6),
+  cod_rub_terciario   VARCHAR2(6),
+  tip_accion          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PERSONAS_CRM
+  is 'Personas.';
+comment on column IT.BA_PERSONAS_CRM.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.BA_PERSONAS_CRM.nom_completo
+  is 'Nombre Completo (Se calcula).';
+comment on column IT.BA_PERSONAS_CRM.tipo
+  is 'Tipo de Persona (F=Fisica, J=Juridica).';
+comment on column IT.BA_PERSONAS_CRM.cod_usu_promotor
+  is 'Codigo del Promotor.';
+comment on column IT.BA_PERSONAS_CRM.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.BA_PERSONAS_CRM.nro_documento
+  is 'Numero de documento.';
+comment on column IT.BA_PERSONAS_CRM.cod_pais
+  is 'Pais de Origen.';
+comment on column IT.BA_PERSONAS_CRM.dir_correo
+  is 'Direccion de Mail.';
+comment on column IT.BA_PERSONAS_CRM.cod_actividad
+  is 'Codigo de Actividad.';
+comment on column IT.BA_PERSONAS_CRM.ref_bancaria
+  is 'Referencia Bancaria.';
+comment on column IT.BA_PERSONAS_CRM.ref_comercial
+  is 'Referencia Comercial.';
+comment on column IT.BA_PERSONAS_CRM.ref_laboral
+  is 'Referencia laboral.';
+comment on column IT.BA_PERSONAS_CRM.ref_tarjeta
+  is 'Referencia Tarjeta.';
+comment on column IT.BA_PERSONAS_CRM.tot_ingresos
+  is 'Total de Ingresos.';
+comment on column IT.BA_PERSONAS_CRM.ing_presuntos
+  is 'Ingresos Presuntos.';
+comment on column IT.BA_PERSONAS_CRM.egr_presuntos
+  is 'Egresos Presuntos.';
+comment on column IT.BA_PERSONAS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PERSONAS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PERSONAS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PERSONAS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PERSONAS_CRM.est_verificacion
+  is 'Estado de la verificacion.';
+comment on column IT.BA_PERSONAS_CRM.cod_usu_verificador
+  is 'Codigo de usuario verificador.';
+comment on column IT.BA_PERSONAS_CRM.nom_per_informo
+  is 'Nombre de la persona que proporciono los datos.';
+comment on column IT.BA_PERSONAS_CRM.obs_verificacion
+  is 'Observacion de la verificacion.';
+comment on column IT.BA_PERSONAS_CRM.fec_verificacion
+  is 'Fecha de la verificacion.';
+comment on column IT.BA_PERSONAS_CRM.tip_relacion
+  is 'Tipo de Relacion de la persona que da la informacion.';
+comment on column IT.BA_PERSONAS_CRM.fec_vto_documento
+  is 'Vencimiento del Documento.';
+comment on column IT.BA_PERSONAS_CRM.tip_iva
+  is 'Tipo de IVA o Responsabilidad ante el Fisco.';
+comment on column IT.BA_PERSONAS_CRM.tas_personalizada
+  is 'Tiene tasa personalizada (S/N).';
+comment on column IT.BA_PERSONAS_CRM.recibe_sms
+  is 'Indica si la persona desea recibir mensajes SMS en su telefono movil.';
+comment on column IT.BA_PERSONAS_CRM.cod_pai_documento
+  is 'Código de País del Documento.';
+comment on column IT.BA_PERSONAS_CRM.cod_rub_primario
+  is 'Código de Rubro Económico Primario';
+comment on column IT.BA_PERSONAS_CRM.cod_rub_secundario
+  is 'Código de Rubro Económico Secundario';
+comment on column IT.BA_PERSONAS_CRM.cod_rub_terciario
+  is 'Código de Rubro Económico Terciario';
+comment on column IT.BA_PERSONAS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.IN_CRM_BA_PERSONAS_CRM on IT.BA_PERSONAS_CRM (TO_NUMBER(COD_PERSONA))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

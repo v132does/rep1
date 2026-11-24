@@ -1,0 +1,64 @@
+create table IT.CC_TIT_EJECUTIVOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  titulares        VARCHAR2(1200),
+  mto_sobregiro    NUMBER(18,2) not null,
+  fecha            DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_TIT_EJECUTIVOS
+  is 'Los titulos ejecutivos son documentos que deben acompa?ar los legajos de las cuentas corrientes canceladas.';
+comment on column IT.CC_TIT_EJECUTIVOS.nro_cuenta
+  is 'Numero de la cuenta corriente cancelada y de la cual se hace el titulo.';
+comment on column IT.CC_TIT_EJECUTIVOS.cod_moneda
+  is 'Codigo de moneda de la cuenta.';
+comment on column IT.CC_TIT_EJECUTIVOS.titulares
+  is 'Son los nombres de los titulares de la cuenta.';
+comment on column IT.CC_TIT_EJECUTIVOS.mto_sobregiro
+  is 'Monto de sobregiro de la cuenta cancelada';
+comment on column IT.CC_TIT_EJECUTIVOS.fecha
+  is 'Fecha de emision del titulo ejecutivo';
+comment on column IT.CC_TIT_EJECUTIVOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_TIT_EJECUTIVOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_TIT_EJECUTIVOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_TIT_EJECUTIVOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CC_TIT_EJECUTIVOS
+  add constraint PK_CC_TITULOS_EJECUTIVOS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 20
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_TIT_EJECUTIVOS
+  add constraint FK_CTEJE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CC_TIT_EJECUTIVOS
+  add constraint FK_CTEJE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.CC_CTA_CORRIENTES (NRO_CUENTA);
+

@@ -1,0 +1,100 @@
+create table IT.RH_AUSENCIAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_tip_ausencia VARCHAR2(3) not null,
+  fec_inicio       DATE not null,
+  fec_fin          DATE not null,
+  ind_justificado  VARCHAR2(1) default 'N' not null,
+  ind_procesado    VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_AUSENCIAS
+  is 'Ausencias de los Empleados.';
+comment on column IT.RH_AUSENCIAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_AUSENCIAS.cod_tip_ausencia
+  is 'Tipo de Ausencias.';
+comment on column IT.RH_AUSENCIAS.fec_inicio
+  is 'Fecha de Inicio.';
+comment on column IT.RH_AUSENCIAS.fec_fin
+  is 'Fecha Final.';
+comment on column IT.RH_AUSENCIAS.ind_justificado
+  is 'Indicador de SI o NO.';
+comment on column IT.RH_AUSENCIAS.ind_procesado
+  is 'Indica si ya fue Procesado o no.';
+comment on column IT.RH_AUSENCIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_AUSENCIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_AUSENCIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_AUSENCIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HAUSE_COD_PERSONA on IT.RH_AUSENCIAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HAUSE_COD_TIP_AUSENCIA on IT.RH_AUSENCIAS (COD_TIP_AUSENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_AUSENCIAS
+  add constraint PK_RH_AUSENCIAS primary key (FEC_INICIO, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_AUSENCIAS
+  add constraint FK_HAUSE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_AUSENCIAS
+  add constraint FK_HAUSE_COD_TIP_AUSENCIA foreign key (COD_TIP_AUSENCIA)
+  references IT.RH_TIP_AUSENCIAS (COD_TIP_AUSENCIA);
+alter table IT.RH_AUSENCIAS
+  add constraint AVCON_1191946344_IND_J_000
+  check (IND_JUSTIFICADO IN ('S', 'N'));
+alter table IT.RH_AUSENCIAS
+  add constraint AVCON_1191946344_IND_P_000
+  check (IND_PROCESADO IN ('S', 'N'));
+alter table IT.RH_AUSENCIAS
+  add constraint CK_FEC_INI_AUSENCIA
+  check (fec_inicio <= fec_fin);
+

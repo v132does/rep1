@@ -1,0 +1,56 @@
+create table IT.MD_MIGR_PARAMETER
+(
+  id                NUMBER not null,
+  connection_id_fk  NUMBER not null,
+  object_id         NUMBER not null,
+  object_type       VARCHAR2(4000) not null,
+  param_existing    NUMBER not null,
+  param_order       NUMBER not null,
+  param_name        VARCHAR2(4000) not null,
+  param_type        VARCHAR2(4000) not null,
+  param_data_type   VARCHAR2(4000) not null,
+  percision         NUMBER,
+  scale             NUMBER,
+  nullable          CHAR(1) not null,
+  default_value     VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.MD_MIGR_PARAMETER.connection_id_fk
+  is 'the connection in which this belongs //PARENTFIELD';
+comment on column IT.MD_MIGR_PARAMETER.param_existing
+  is '1 represents a new parameter for PL/SQL that was not present in the origional. 0 represents a n existing parameter that was present in the origional';
+comment on column IT.MD_MIGR_PARAMETER.param_order
+  is 'IF -1 THEN THIS PARAM IS A RETURN PARAMETER. 1 WILL BE THE FIRST PARAMETER IN THE PARAMETER LIST';
+alter table IT.MD_MIGR_PARAMETER
+  add constraint MIGR_PARAMETER_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_MIGR_PARAMETER
+  add constraint MIGR_PARAMETER_FK foreign key (CONNECTION_ID_FK)
+  references IT.MD_CONNECTIONS (ID) on delete cascade;
+

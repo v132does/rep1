@@ -1,0 +1,37 @@
+create table IT.CO_INF_OPE_DIA_TMP
+(
+  cod_persona       VARCHAR2(10),
+  pri_nombre        VARCHAR2(120),
+  seg_nombre        VARCHAR2(30),
+  pri_apellido      VARCHAR2(30),
+  seg_apellido      VARCHAR2(30),
+  ape_casada        VARCHAR2(4000),
+  nro_documento     VARCHAR2(4000),
+  nro_cedula        VARCHAR2(20),
+  ide_operacion     VARCHAR2(25),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER,
+  cod_moneda        VARCHAR2(3),
+  relacion          VARCHAR2(1),
+  fec_operacion     DATE,
+  fec_ven_pendiente DATE,
+  fec_ult_pago      DATE,
+  pla_operacion     NUMBER(4),
+  tot_operacion     NUMBER(18,2),
+  sal_actual        NUMBER(18,2),
+  fin_registro      VARCHAR2(1),
+  gen_archivo       VARCHAR2(1),
+  tip_persona       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

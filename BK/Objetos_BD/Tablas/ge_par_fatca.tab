@@ -1,0 +1,67 @@
+create table IT.GE_PAR_FATCA
+(
+  est_nuevo             VARCHAR2(30) not null,
+  est_anterior          VARCHAR2(30),
+  tip_indicio           VARCHAR2(1),
+  cod_sec_contable      VARCHAR2(1),
+  ind_nro_identificador VARCHAR2(1),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  ind_nomina            VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAR_FATCA
+  is 'Tabla que permitirá configurar Estados FATCA con Fec. Vto., Fec. Caducidad, Mensaje y tipo de documento FATCA requerido. Las asignaciones previstas son Manual (por pantalla) y Automática(procedimiento base de datos). ';
+comment on column IT.GE_PAR_FATCA.est_nuevo
+  is 'Nuevo Estado a Asignar a la persona en FATCA.';
+comment on column IT.GE_PAR_FATCA.est_anterior
+  is 'Estado FATCA anterior de la persona, este campo es utilizado en el proceso para la evaluación de nuevo estado de la persona en FATCA.';
+comment on column IT.GE_PAR_FATCA.tip_indicio
+  is 'Indica el tipo de indicio que se deberá tener en cuenta en el proceso de asigación automática de estado FATCA. Valores posibles F-uerte(Personas Físicas), D-ebil (Personas Físicas), N-o aplica (Personas Físicas y Jurídicas), E-xiste (Personas Jurídicas). ';
+comment on column IT.GE_PAR_FATCA.cod_sec_contable
+  is 'Código del Sector Contable al cual corresponde el cliente, este dato es utilizado para evaluar el estado a asignar en FATCA a personas Jurídicas en el proceso automático de asignación de estado FATCA.';
+comment on column IT.GE_PAR_FATCA.ind_nro_identificador
+  is 'Indica si se deberá tener en cuenta en el proceso de asignación automática de estado FATCA  el registro o no del Número identificador.';
+comment on column IT.GE_PAR_FATCA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PAR_FATCA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PAR_FATCA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PAR_FATCA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_PAR_FATCA.ind_nomina
+  is 'Indica si el parámetro corresponde al segmento Nómina o No. Por defecto el valor sera nulo igual a N-o Nómina.';
+alter table IT.GE_PAR_FATCA
+  add constraint UK_GE_PAR_FATCA unique (EST_ANTERIOR, EST_NUEVO, TIP_INDICIO, COD_SEC_CONTABLE, IND_NRO_IDENTIFICADOR, IND_NOMINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAR_FATCA
+  add constraint FK_GPFAT_COD_SEC_CONTABLE foreign key (COD_SEC_CONTABLE)
+  references IT.GE_SEC_CONTABLES (COD_SEC_CONTABLE);
+alter table IT.GE_PAR_FATCA
+  add constraint CK_TIP_INDICIO
+  check (TIP_INDICIO IN ('D','F','N','E'));
+

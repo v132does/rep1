@@ -1,0 +1,80 @@
+create table IT.GE_LOG_SER_RECAUDACIONES
+(
+  fecha             DATE not null,
+  cod_ente          NUMBER(5) not null,
+  nro_boleta        NUMBER(15) not null,
+  fec_recaudacion   DATE not null,
+  nro_cta_recaudora VARCHAR2(35) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  tip_deposito      VARCHAR2(60) not null,
+  nro_cheque        NUMBER,
+  banco             VARCHAR2(4000),
+  importe           NUMBER,
+  est_cheque        VARCHAR2(60),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  nro_secuencia     NUMBER,
+  cod_depositante   NUMBER,
+  estado            VARCHAR2(1),
+  hora              VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_SER_RECAUDACIONES
+  is 'Logs de registros Informados a los Entes de Servicio de Recaudación en Ventanilla.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.fecha
+  is 'Fecha de Registro.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.cod_ente
+  is 'Código del Ente Recaudador.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.nro_boleta
+  is 'Número de Boleta';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.fec_recaudacion
+  is 'Fecha en que se realizó el depósito.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.nro_cta_recaudora
+  is 'Número de Cuenta de Crédito.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.tip_deposito
+  is 'Tipo de Depósito (efectivo, cheques, transferencias)';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.nro_cheque
+  is 'Número del Cheque.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.banco
+  is 'Banco correspondiente al cheque.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.importe
+  is 'Importe de la operación por tipo de depósito.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.est_cheque
+  is 'Estado del Cheque.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.nro_secuencia
+  is 'Número de Secuencia Informado en el Archivo.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.cod_depositante
+  is 'Código de Depositante.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.estado
+  is 'Estado del movimiento informado N=Normal, R=Reversado.';
+comment on column IT.GE_LOG_SER_RECAUDACIONES.hora
+  is 'Hora del movimiento en ge_rec_movimientos.';
+create index IT.IND_GE_LOG_SER_REC on IT.GE_LOG_SER_RECAUDACIONES (FECHA, COD_ENTE, NRO_BOLETA, FEC_RECAUDACION, NRO_CTA_RECAUDORA, COD_MONEDA, TIP_DEPOSITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

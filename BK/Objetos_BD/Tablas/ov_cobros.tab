@@ -1,0 +1,109 @@
+create table IT.OV_COBROS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  estado            VARCHAR2(1) not null,
+  sal_total         NUMBER(18,2) default 0,
+  fec_ult_pago      DATE,
+  dia_mora          NUMBER(5),
+  mto_total         NUMBER(18,2) default 0,
+  mto_int_moratorio NUMBER(18,2) default 0,
+  mto_int_punitorio NUMBER(18,2) default 0,
+  mto_cargo         NUMBER(18,2) default 0,
+  mto_cargo_iva     NUMBER(18,2) default 0,
+  mto_impuesto      NUMBER(18,2) default 0,
+  nro_documento     NUMBER(15),
+  mto_int_mor_cal   NUMBER(18,2) default 0,
+  mto_int_pun_cal   NUMBER(18,2) default 0,
+  mto_cargo_cal     NUMBER(18,2) default 0,
+  mto_car_iva_cal   NUMBER(18,2) default 0,
+  mto_impuesto_cal  NUMBER(18,2) default 0,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  mto_car_des       NUMBER(18,2) default 0,
+  mto_int_mor_des   NUMBER(18,2) default 0,
+  mto_int_pun_des   NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.OV_COBROS
+  is 'Registra los cobros de operaciones vencidas.';
+comment on column IT.OV_COBROS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.OV_COBROS.fecha
+  is 'Fecha de cobro.';
+comment on column IT.OV_COBROS.hora
+  is 'Hora en que se realizo el cobro.';
+comment on column IT.OV_COBROS.estado
+  is 'Estado en el momento del cobro.';
+comment on column IT.OV_COBROS.sal_total
+  is 'Saldo en el momento del cobro.';
+comment on column IT.OV_COBROS.fec_ult_pago
+  is 'Fecha de ultimo pago en el momento del cobro.';
+comment on column IT.OV_COBROS.dia_mora
+  is 'Dias de mora si estaba vencida ';
+comment on column IT.OV_COBROS.mto_total
+  is 'Monto cobrado.';
+comment on column IT.OV_COBROS.mto_int_moratorio
+  is 'Monto interes moratorio cobrado.';
+comment on column IT.OV_COBROS.mto_int_punitorio
+  is 'Monto interes punitorio cobrado.';
+comment on column IT.OV_COBROS.mto_cargo
+  is 'Monto del cargo cobrado.';
+comment on column IT.OV_COBROS.mto_cargo_iva
+  is 'Monto de impuesto sobre cargo cobrado.';
+comment on column IT.OV_COBROS.mto_impuesto
+  is 'Monto de impuestos cobrados.';
+comment on column IT.OV_COBROS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.OV_COBROS.mto_int_mor_cal
+  is 'Monto interes moratorio calculado.';
+comment on column IT.OV_COBROS.mto_int_pun_cal
+  is 'Monto de interes punitorio calculado.';
+comment on column IT.OV_COBROS.mto_cargo_cal
+  is 'Monto de cargos calculado.';
+comment on column IT.OV_COBROS.mto_car_iva_cal
+  is 'Monto de impuesto sobre cargo calculado.';
+comment on column IT.OV_COBROS.mto_impuesto_cal
+  is 'Monto de impuesto calculado.';
+comment on column IT.OV_COBROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.OV_COBROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.OV_COBROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.OV_COBROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.OV_COBROS.mto_car_des
+  is 'Monto del cargo descontado.';
+comment on column IT.OV_COBROS.mto_int_mor_des
+  is 'Monto interes moratorio descontado.';
+comment on column IT.OV_COBROS.mto_int_pun_des
+  is 'Monto interes punitorio descontado.';
+alter table IT.OV_COBROS
+  add constraint PK_OV_COBROS primary key (NRO_CUENTA, FECHA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

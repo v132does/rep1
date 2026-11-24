@@ -1,0 +1,48 @@
+create table IT.SB_CTA_GARANTIAS_NOV
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  nro_garantia       NUMBER(7) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  cod_persona        VARCHAR2(15),
+  cod_garantia       NUMBER(3),
+  mto_apl_computable NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_CTA_GARANTIAS_NOV.fecha
+  is 'Fecha de eliminación.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.hora
+  is 'Hora del registro.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.nro_garantia
+  is 'Número de Garantía. ';
+comment on column IT.SB_CTA_GARANTIAS_NOV.nro_cuenta
+  is 'Número de cuenta relacionada a la Garantía.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.cod_persona
+  is 'Código de Persona.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.cod_garantia
+  is 'Código de Garantía.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.mto_apl_computable
+  is 'Monto computable de la Garantía aplicado a la Operación.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.SB_CTA_GARANTIAS_NOV.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

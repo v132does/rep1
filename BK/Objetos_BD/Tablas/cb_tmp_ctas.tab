@@ -1,0 +1,20 @@
+create table IT.CB_TMP_CTAS
+(
+  cod_rubro_madrid VARCHAR2(20),
+  descripcion      VARCHAR2(200),
+  tipo_rub         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_TMP_CTAS.tipo_rub
+  is 'C=Consolidación, G=Gestión';
+

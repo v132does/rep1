@@ -1,0 +1,38 @@
+create table IT.SIMGIA_ARDEPIGN_2_BKP
+(
+  apriesgo         NUMBER,
+  apsucur          NUMBER,
+  apcuenta         NUMBER,
+  apsubcta         NUMBER,
+  apident          NUMBER,
+  apbenef          NUMBER,
+  apservi          NUMBER,
+  apfchcon         NUMBER,
+  apmonto          NUMBER,
+  apvencim         NUMBER,
+  apfchulc         NUMBER,
+  apmayor          NUMBER,
+  rub_transaccion0 VARCHAR2(4000),
+  aprefer          VARCHAR2(30),
+  apfchreg         NUMBER,
+  apestado         CHAR(1),
+  apconcta         VARCHAR2(4000),
+  rub_transaccion  VARCHAR2(4000),
+  apofireg         NUMBER,
+  apoprreg         VARCHAR2(10),
+  apsercda         VARCHAR2(5),
+  tipo             VARCHAR2(16),
+  fecha_his        DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

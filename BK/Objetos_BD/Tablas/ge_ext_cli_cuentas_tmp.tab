@@ -1,0 +1,87 @@
+-- Create table
+create global temporary table IT.GE_EXT_CLI_CUENTAS_TMP
+(
+  cod_persona       VARCHAR2(10),
+  fec_extracto      DATE,
+  cod_extracto      NUMBER(3),
+  fre_extracto      VARCHAR2(1),
+  nro_cuenta        VARCHAR2(20),
+  tip_cuenta        VARCHAR2(1),
+  cod_modalidad     NUMBER(3),
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  sal_anterior      NUMBER(14,2) default 0,
+  sal_actual        NUMBER(14,2),
+  sal_a_confirmar   NUMBER(14,2),
+  nro_folio         NUMBER(7),
+  tas_retorno       NUMBER(20,4),
+  tas_nominal       NUMBER(20,4),
+  tas_efectiva      NUMBER(20,4),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE,
+  sal_promedio      NUMBER(18,2),
+  nro_cta_combinada VARCHAR2(15),
+  cod_modulo        NUMBER(3),
+  sal_bloqueado     NUMBER(18,2) default 0,
+  sal_blo_anterior  NUMBER(18,2) default 0
+)
+on commit preserve rows;
+-- Add comments to the table 
+comment on table IT.GE_EXT_CLI_CUENTAS_TMP
+  is 'Saldos de cuentas de extractos provisorios.';
+-- Add comments to the columns 
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.cod_persona
+  is 'Codigo del Cliente.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.fec_extracto
+  is 'Fecha del Extracto.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.cod_extracto
+  is 'Codigo de Extracto.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.fre_extracto
+  is 'Frecuencia del Extracto (M=MENSUAL, S=SEMANAL, D=DIARIA).';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.tip_cuenta
+  is 'Tipo de Cuenta (A=Activa / P = Pasiva).';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.cod_oficina
+  is 'Oficina de la Cuenta.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.sal_anterior
+  is 'Saldo Anterior.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.sal_actual
+  is 'Saldo Actual.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.sal_a_confirmar
+  is 'Saldo a confirmar.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.nro_folio
+  is 'Numero de Folio.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.tas_retorno
+  is 'Valor de la Tasa de Retorno.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.tas_nominal
+  is 'Valor de la Tasa Nominal.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.tas_efectiva
+  is 'Valor de la Tasa Efectiva.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.sal_promedio
+  is 'Saldo Promedio.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.nro_cta_combinada
+  is 'Numero de cuenta de cuenta combinada.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.cod_modulo
+  is 'Modulo de la cuenta.';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.sal_bloqueado
+  is 'Total de Saldo Bloqueado ACTUAL';
+comment on column IT.GE_EXT_CLI_CUENTAS_TMP.sal_blo_anterior
+  is 'Total de Saldo Bloqueado ANTERIOR';
+-- Create/Recreate indexes 
+create index IT.IN_GECCT_EXTRACTO on IT.GE_EXT_CLI_CUENTAS_TMP (COD_PERSONA, COD_EXTRACTO, FEC_EXTRACTO, FRE_EXTRACTO, TIP_CUENTA, COD_MODALIDAD, NRO_CUENTA);
+create index IT.IN_GECCT_NRO_CUENTA on IT.GE_EXT_CLI_CUENTAS_TMP (NRO_CUENTA, COD_PERSONA);

@@ -1,0 +1,7 @@
+create sequence IT.S_ID_DE_CAB
+minvalue 1
+maxvalue 99999999
+start with 1111513
+increment by 1
+nocache;
+

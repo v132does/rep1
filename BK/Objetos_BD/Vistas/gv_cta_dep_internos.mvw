@@ -1,0 +1,144 @@
+CREATE MATERIALIZED VIEW IT.GV_CTA_DEP_INTERNOS
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT 'A' tipo,
+          pr.cod_modulo,
+          pr.cod_modalidad,
+          pr.nro_cuenta,
+          pr.cod_oficina,
+          pr.cod_moneda,
+          pr.estado,
+          nvl((pr.fec_vencimiento - pr.fec_inicio),0) plazo,
+          decode(pr.estado,'C',nvl(pr.sal_capital,0),(nvl(pr.sal_capital,0) + nvl(pr.sal_interes,0) + nvl(pr.sal_int_adelantado,0) - nvl(pr.val_int_devengar,0) - nvl(pr.dev_suspenso,0))) monto,
+          pr.cod_ori_fondo cod_ori_fondo,
+          pr.cod_sub_modalidad
+     FROM pr_cta_prestamos pr
+    WHERE pr.estado NOT IN ('N','I')
+   UNION ALL
+   SELECT 'A' tipo,
+          ta.cod_modulo,
+          ta.cod_modalidad,
+          ta.nro_cuenta,
+          ta.cod_oficina,
+          ta.cod_moneda,
+          (CASE WHEN ta.estado = 'B' THEN
+              (CASE WHEN ta.dia_mora <= 60 THEN 'N'
+                    WHEN ta.dia_mora > 60 AND ta.dia_mora < 91 THEN 'V'
+                    WHEN ta.dia_mora > 90 AND ta.dia_mora < 151 THEN 'G'
+                    WHEN ta.dia_mora > 150 THEN 'M'
+               ELSE
+                  'N'
+               END)
+             WHEN ta.estado = 'P' THEN 'N'
+           ELSE
+              ta.estado
+           END) estado,
+          0 plazo,
+          nvl(ta.sal_procesadora,0) monto,
+          null,
+          null
+     FROM ta_cta_tarjetas ta
+    WHERE ta.estado <> 'C'
+      AND ta.cod_modalidad <> 55
+   UNION ALL
+   SELECT 'A' tipo,
+          ov.cod_modulo,
+          ov.cod_modalidad,
+          ov.nro_cuenta,
+          ov.cod_oficina,
+          ov.cod_moneda,
+          ov.estado,
+          (CASE WHEN m.cod_modulo = 6 THEN
+             (SELECT nvl(MIN(pr.fec_vencimiento - pr.fec_inicio),0)
+                FROM pr_cta_prestamos pr
+               WHERE pr.nro_cuenta = ov.nro_cta_origen)
+           ELSE
+              0
+           END) plazo,
+          nvl(ov.sal_total,0) monto,
+          null,
+          null
+     FROM ov_cta_vencidas ov, ge_cuentas m
+    WHERE NVL(ov.sal_total,0) > 0
+      AND ov.estado NOT IN ('C','I')
+      AND OV.NRO_CTA_ORIGEN = M.NRO_CUENTA
+   UNION ALL
+   SELECT (CASE WHEN (NVL(cc.sal_total,0) - NVL(cc.sal_bloqueado,0) - NVL(cc.sal_retenido,0)) < 0 THEN 'A' ELSE 'P' END) tipo,
+          cc.cod_modulo,
+          cc.cod_modalidad,
+          cc.nro_cuenta,
+          cc.cod_oficina,
+          cc.cod_moneda,
+          (CASE WHEN cc.estado IN ('I','S') THEN 'N' ELSE cc.estado END) estado,
+          0 plazo,
+          (CASE WHEN (NVL(cc.sal_total,0) - NVL(cc.sal_bloqueado,0) - NVL(cc.sal_retenido,0)) < 0 THEN
+             NVL(cc.sal_total,0) - NVL(cc.sal_bloqueado,0) - NVL(cc.sal_retenido,0)
+           ELSE
+             NVL(cc.sal_total,0) - NVL(cc.sal_retenido,0)
+           END) monto,
+           null,
+           cc.cod_sub_modalidad
+     FROM cc_cta_corrientes cc
+    WHERE cc.estado NOT IN ('A','C','X','P')
+   UNION ALL
+   SELECT 'P' tipo,
+          ah.cod_modulo,
+          ah.cod_modalidad,
+          ah.nro_cuenta,
+          ah.cod_oficina,
+          ah.cod_moneda,
+          (CASE WHEN ah.estado IN ('I','S') THEN 'N' ELSE ah.estado END) estado,
+          0 plazo,
+          NVL(ah.sal_total,0) - NVL(ah.sal_retenido,0) monto,
+          null,
+          ah.cod_sub_modalidad
+     FROM ah_cta_vistas ah
+    WHERE ah.estado NOT IN ('A','C','X')
+   UNION ALL
+   SELECT 'P' tipo,
+          ac.cod_modulo,
+          ac.cod_modalidad,
+          ac.nro_cuenta,
+          ac.cod_oficina,
+          ac.cod_moneda,
+          ac.estado,
+          nvl((ac.fec_vencimiento - ac.fec_apertura),0) plazo,
+          (nvl(ac.sal_total,0) - nvl(ac.sal_retenido,0)) monto,
+          null,
+          null
+     FROM Ah_Cta_Certificados ac
+    WHERE ac.cod_modalidad = 33
+      AND ac.estado NOT IN ('A','C','X')
+   -- Requerimiento: CNFDICC-3.
+   -- Fecha:29/01/2014.
+   UNION ALL
+   SELECT 'A' tipo,
+          ac.cod_modulo,
+          ac.cod_modalidad,
+          ac.nro_cuenta,
+          ac.cod_oficina,
+          ac.cod_moneda,
+          ac.estado,
+          nvl((ac.fec_vencimiento - ac.fec_inicio),0) plazo,
+          (nvl(ac.sal_capital,0)) monto,
+          null,
+          null
+     FROM md_cta_documentos ac
+    WHERE ac.cod_modalidad in (100,101,102,103,104,105,106,110,114,116,120,122,123,124,125,129,130,132,134,142,144,146)
+      AND ac.estado = 'C'
+   UNION ALL
+   SELECT 'P' tipo,
+          ac.cod_modulo,
+          ac.cod_modalidad,
+          ac.nro_cuenta,
+          ac.cod_oficina,
+          ac.cod_moneda,
+          ac.estado,
+          nvl((ac.fec_vencimiento - ac.fec_inicio),0) plazo,
+          (nvl(ac.sal_capital,0)) monto,
+          null,
+          null
+     FROM md_cta_documentos ac
+    WHERE ac.cod_modalidad in (109,115)
+      AND ac.estado = 'C';
+

@@ -1,0 +1,253 @@
+create table IT.TA_ERR_CTA_TAR_RECIBIDAS
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  denominacion         VARCHAR2(65),
+  cod_modulo           NUMBER(3),
+  cod_modalidad        NUMBER(3),
+  cod_oficina          NUMBER(3),
+  cod_moneda           VARCHAR2(3),
+  lin_credito          NUMBER(18,2) default 0,
+  lin_cuotas           NUMBER(18,2) default 0,
+  sal_facturar         NUMBER(18,2) default 0,
+  sal_facturado        NUMBER(18,2) default 0,
+  sal_financiado       NUMBER(18,2) default 0,
+  sal_ult_extracto     NUMBER(18,2) default 0,
+  sal_cuo_pendientes   NUMBER(18,2) default 0,
+  mto_pag_minimo       NUMBER(18,2) default 0,
+  sal_pag_minimo       NUMBER(18,2) default 0,
+  mto_mora             NUMBER(18,2) default 0,
+  dia_mora             NUMBER(14,2),
+  mto_autorizaciones   NUMBER(18,2) default 0,
+  mto_int_compras      NUMBER(18,2) default 0,
+  mto_pag_mes          NUMBER(18,2) default 0,
+  mto_gas_mora         NUMBER(18,2) default 0,
+  estado               VARCHAR2(1),
+  est_administradora   VARCHAR2(1),
+  fec_solicitud        DATE,
+  fec_apertura         DATE,
+  fec_ult_pago         DATE,
+  fec_ult_compra       DATE,
+  fec_ult_operacion    DATE,
+  fec_ult_extracto     DATE,
+  fec_ult_cierre       DATE,
+  fec_vct_ult_cierre   DATE,
+  tip_cierre           VARCHAR2(1),
+  cob_gas_financiero   VARCHAR2(1) default 'N',
+  tip_tas_financiacion VARCHAR2(1),
+  tip_com_emision      VARCHAR2(1),
+  tas_financiacion     NUMBER(20,4) default 0,
+  tas_adelanto         NUMBER(20,4) default 0,
+  tas_mora             NUMBER(20,4) default 0,
+  tas_cuotas           NUMBER(20,4) default 0,
+  deb_automatico       VARCHAR2(1) default 'N',
+  tip_cobro            VARCHAR2(1) default 'M',
+  nro_cta_debito       VARCHAR2(15),
+  mto_min_pago         NUMBER(18,2) default 0,
+  por_pag_minimo       NUMBER(5,2) default 0,
+  cod_usu_promotor     VARCHAR2(10),
+  mar_mora             VARCHAR2(1),
+  mar_excedido         VARCHAR2(1),
+  mar_recuperado       VARCHAR2(1),
+  mar_bloqueo          VARCHAR2(1),
+  con_costo            VARCHAR2(1) default 'N',
+  nro_solicitud        NUMBER(15),
+  cod_causa            NUMBER(3),
+  cat_automatica       NUMBER(3,2),
+  cod_canal            NUMBER(3),
+  cod_campana          NUMBER(3),
+  en_juicio            VARCHAR2(1) default 'N',
+  fec_juicio           DATE,
+  cod_ent_juicio       NUMBER(5),
+  max_atraso           NUMBER(5),
+  pro_atraso           NUMBER(5),
+  nro_linea            NUMBER(7),
+  sit_cuenta           NUMBER(1),
+  cod_sucursal         NUMBER(3),
+  nro_reg              NUMBER(10),
+  cod_usu_ente         VARCHAR2(10),
+  cod_ent_procesadora  NUMBER(5),
+  cod_afinidad         VARCHAR2(2),
+  det_error            VARCHAR2(4000),
+  fec_proceso          DATE default SYSDATE not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  car_no_aplicar       VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ERR_CTA_TAR_RECIBIDAS
+  is 'Es la tabla temporal de Cuentas de Tarjetas, aqui se reciben los datos desde las procesadoras.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.nro_cuenta
+  is 'Número de la Cuenta de Tarjeta.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_oficina
+  is 'Oficina.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.lin_credito
+  is 'Linea de Crédito.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.lin_cuotas
+  is 'Límite de Cuotas.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sal_facturar
+  is 'Saldo a Facturar.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sal_facturado
+  is 'Saldo Facturado No vencido.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sal_financiado
+  is 'Saldo Financiado.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sal_ult_extracto
+  is 'Saldo de Ultimo Extracto.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sal_cuo_pendientes
+  is 'Saldo de Cuotas Pendientes.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_pag_minimo
+  is 'Monto de Pago Minimo (Extracto).';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sal_pag_minimo
+  is 'Saldo de Pago Minimo.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_mora
+  is 'Monto en Mora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.dia_mora
+  is 'Dias de Mora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_autorizaciones
+  is 'Importe Autorizado no Cargado.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_int_compras
+  is 'Monto de Interés s/Compras.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_pag_mes
+  is 'Monto de Pagos del Mes.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_gas_mora
+  is 'Importe de Gastos por Mora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.est_administradora
+  is 'Estado de la Cuenta en la Administradora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_solicitud
+  is 'Fecha de Ingreso de la Solicitud.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_ult_pago
+  is 'Fecha de ultimo pago.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_ult_compra
+  is 'Fecha de utlima compra.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_ult_operacion
+  is 'Fecha de utlima operación.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_ult_extracto
+  is 'Fecha de ultimo extracto.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_ult_cierre
+  is 'Fecha de ultimo cierre.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_vct_ult_cierre
+  is 'Fecha de vencimiento de ultimo cierre.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tip_cierre
+  is 'Tipo de Cierre.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cob_gas_financiero
+  is 'Cobro de Gastos Financieros.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tip_tas_financiacion
+  is 'Tipo de Tasa de Financiación.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tip_com_emision
+  is 'Tipo de comisión de Emision.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tas_financiacion
+  is 'Tasa de Financiación.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tas_adelanto
+  is 'Tasa de Interés por Adelantos.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tas_mora
+  is 'Tasa de Interés por Mora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tas_cuotas
+  is 'Tasa de Interés Cuotas.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.deb_automatico
+  is 'Débito Automatico (S / N).';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.tip_cobro
+  is 'Tipo de Cobro (Minimo o Total).';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.nro_cta_debito
+  is 'Número de Cuenta para Débito Automático.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mto_min_pago
+  is 'Monto Minimo para Pagos.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.por_pag_minimo
+  is 'Porcentaje de Pago Minimo.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_usu_promotor
+  is 'Promotor.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mar_mora
+  is 'Marca de Mora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mar_excedido
+  is 'Marca de Excedido.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mar_recuperado
+  is 'Marca de Recuperado.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.mar_bloqueo
+  is 'Marca de Bloqueo A=Administrativo U=Usuario.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.con_costo
+  is 'Ind. De Con Costo o no (S= SI / N = NO).';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.nro_solicitud
+  is 'Número de Solicitud.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_causa
+  is 'Causa de Bloqueo.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cat_automatica
+  is 'Categoria de Riesgo.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_canal
+  is 'Código de Canal.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_campana
+  is 'Código de Campana.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.en_juicio
+  is 'Indica si la tarjeta se encuentra en estado judicial.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_juicio
+  is 'Fecha en la cual paso a juicio.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_ent_juicio
+  is 'Ente al cual se derivo el juicio.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.max_atraso
+  is 'Cantidad maxima de dias de atraso.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.pro_atraso
+  is 'Promedio de dias de atraso.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.nro_linea
+  is 'Número del Limite.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.sit_cuenta
+  is 'Situación de la cuenta en la Procesadora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_sucursal
+  is 'Código de sucursal de la tarjeta en la procesadora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.nro_reg
+  is 'Número de registro de posicion en el archivo recibido.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_usu_ente
+  is 'Código de usuario en el Ente de la Procesadora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_ent_procesadora
+  is 'Código de Ente de la Procesadora.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.cod_afinidad
+  is 'Código de Adinidad de la Tarjeta. Ref.Externa.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.det_error
+  is 'Comentario del Error ocurrido en el momento de la Lectura del Archivo.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_proceso
+  is 'Fecha del proceso del error.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+comment on column IT.TA_ERR_CTA_TAR_RECIBIDAS.car_no_aplicar
+  is 'Cargos a No Aplicar. Relacionado a los campos Franqueo y Aplica Seguro de Vida';
+alter table IT.TA_ERR_CTA_TAR_RECIBIDAS
+  add constraint PK_TA_ERR_CTA_TAR_RECIBIDAS primary key (NRO_CUENTA, FEC_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

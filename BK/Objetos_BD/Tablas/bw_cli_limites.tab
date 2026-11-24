@@ -1,0 +1,58 @@
+create table IT.BW_CLI_LIMITES
+(
+  cod_canal        VARCHAR2(3),
+  cod_persona      VARCHAR2(10) not null,
+  cod_tip_mensaje  VARCHAR2(3),
+  mto_limite       NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CLI_LIMITES
+  is 'Limite por persona y tipo de mensaje';
+comment on column IT.BW_CLI_LIMITES.cod_canal
+  is 'Código de Canal.';
+comment on column IT.BW_CLI_LIMITES.cod_persona
+  is 'Código de persona.';
+comment on column IT.BW_CLI_LIMITES.cod_tip_mensaje
+  is 'Código de Tipo de Mensaje.';
+comment on column IT.BW_CLI_LIMITES.mto_limite
+  is 'Monto Límite.';
+comment on column IT.BW_CLI_LIMITES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.BW_CLI_LIMITES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_CLI_LIMITES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_CLI_LIMITES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_CLI_LIMITES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BW_CLI_LIMITES
+  add constraint UK_WLIM_CLIENTE unique (COD_CANAL, COD_PERSONA, COD_TIP_MENSAJE, COD_MONEDA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

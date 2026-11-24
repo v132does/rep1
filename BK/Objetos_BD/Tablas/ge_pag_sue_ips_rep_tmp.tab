@@ -1,0 +1,36 @@
+create table IT.GE_PAG_SUE_IPS_REP_TMP
+(
+  nro_lote         NUMBER(10) not null,
+  nro_orden        NUMBER(10) not null,
+  nro_comprobante  NUMBER(15) not null,
+  nro_doc_jubilado VARCHAR2(20) not null,
+  estado           VARCHAR2(1) default 'I' not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR (USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR (USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_PAG_SUE_IPS_REP_TMP on IT.GE_PAG_SUE_IPS_REP_TMP (NRO_LOTE, NRO_ORDEN)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,54 @@
+create table IT.GE_BCP_DAT_PERSONALES_DET
+(
+  nro_solicitud       NUMBER(10) not null,
+  nro_registro        NUMBER(6) not null,
+  nro_secuencia       NUMBER(6) not null,
+  cod_entidad         VARCHAR2(4),
+  des_entidad         VARCHAR2(60),
+  mto_deuda           NUMBER(18,2),
+  periodo             VARCHAR2(10),
+  cla_sistema         NUMBER(2),
+  mto_codeudoria      NUMBER(18,2),
+  mto_contingencia    NUMBER(18,2),
+  mto_deu_fideicomiso NUMBER(18,2),
+  mto_deu_vendida     NUMBER(18,2),
+  cod_moneda          VARCHAR2(5),
+  tip_operacion       VARCHAR2(5),
+  des_operacion       VARCHAR2(100),
+  cla_entidad         NUMBER(2),
+  comprador           VARCHAR2(200),
+  fideicomitente      VARCHAR2(200),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_BCP_DAT_PERSONALES_DET
+  add constraint PK_GE_BCP_DAT_PERSONALES_DET primary key (NRO_SOLICITUD, NRO_REGISTRO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_BCP_DAT_PERSONALES_DET
+  add constraint FK_GBDET_NRO_SOLICITUD foreign key (NRO_SOLICITUD, NRO_REGISTRO)
+  references IT.GE_BCP_DAT_PERSONALES (NRO_SOLICITUD, NRO_REGISTRO);
+

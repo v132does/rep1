@@ -1,0 +1,81 @@
+create table IT.BA_PAISES
+(
+  cod_pais         NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nacionalidad     VARCHAR2(40),
+  ref_externa      NUMBER(3),
+  cod_pai_iso      VARCHAR2(3),
+  niv_riesgo       VARCHAR2(1),
+  prefijo          VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PAISES
+  is 'Paises.';
+comment on column IT.BA_PAISES.cod_pais
+  is 'Codigo de pais.';
+comment on column IT.BA_PAISES.descripcion
+  is 'Nombre del pais.';
+comment on column IT.BA_PAISES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PAISES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PAISES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PAISES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PAISES.nacionalidad
+  is 'Nacionalidad.';
+comment on column IT.BA_PAISES.ref_externa
+  is 'Campo de Referencia para Cod_PAIS BANCARD';
+comment on column IT.BA_PAISES.cod_pai_iso
+  is 'Código País equivalente ISO';
+comment on column IT.BA_PAISES.niv_riesgo
+  is 'Valores A-Alto ,M-Medio y B-Bajo.';
+comment on column IT.BA_PAISES.prefijo
+  is 'Prefijo telefonico de cada pais';
+alter table IT.BA_PAISES
+  add constraint PK_BA_PAISES primary key (COD_PAIS)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PAISES
+  add constraint UK_EPAIS_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_PAISES
+  add constraint AVCON_1150831723_COD_P_001
+  check (COD_PAIS BETWEEN 0 AND 999);
+

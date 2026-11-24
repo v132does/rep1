@@ -1,0 +1,9 @@
+create sequence IT.S_SIG_HOR_USUARIO1
+minvalue 0
+maxvalue 99999999999
+start with 7618529
+increment by 1
+cache 20
+cycle
+order;
+

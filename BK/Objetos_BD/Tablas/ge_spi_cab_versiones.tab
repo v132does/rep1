@@ -1,0 +1,52 @@
+create table IT.GE_SPI_CAB_VERSIONES
+(
+  tipo_msj         VARCHAR2(10) not null,
+  version          VARCHAR2(20) not null,
+  estado           VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SPI_CAB_VERSIONES.tipo_msj
+  is 'Tipo de mensaje MX';
+comment on column IT.GE_SPI_CAB_VERSIONES.version
+  is 'Versión del mensaje a enviar.';
+comment on column IT.GE_SPI_CAB_VERSIONES.estado
+  is 'Estado de la versión configurada.
+
+';
+comment on column IT.GE_SPI_CAB_VERSIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_CAB_VERSIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SPI_CAB_VERSIONES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_CAB_VERSIONES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+alter table IT.GE_SPI_CAB_VERSIONES
+  add constraint PK_GE_SPI_CAB_VERSIONES primary key (TIPO_MSJ)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

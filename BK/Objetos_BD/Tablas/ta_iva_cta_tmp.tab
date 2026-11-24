@@ -1,0 +1,62 @@
+create table IT.TA_IVA_CTA_TMP
+(
+  fec_cierre     DATE,
+  nro_cuenta     VARCHAR2(9),
+  nro_secuencia  NUMBER(5),
+  fec_proceso    DATE,
+  cod_iva        NUMBER(2),
+  descripcion    VARCHAR2(20),
+  mto_iva        NUMBER(14,2),
+  mto_movimiento NUMBER(14,2),
+  por_iva        NUMBER(6,2),
+  cod_entidad    NUMBER(2),
+  nro_tarjeta    VARCHAR2(16),
+  nro_cedula     VARCHAR2(9),
+  nro_orden      NUMBER(7),
+  rub_cargo      VARCHAR2(6),
+  mom_aplicacion NUMBER(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_IVA_CTA_TMP
+  is 'Tabla temporal para cargar los datos de IVA por cuenta enviado por la procesadora';
+comment on column IT.TA_IVA_CTA_TMP.fec_cierre
+  is 'Fecha del cierre';
+comment on column IT.TA_IVA_CTA_TMP.nro_cuenta
+  is 'Nro. de cuenta';
+comment on column IT.TA_IVA_CTA_TMP.nro_secuencia
+  is 'Nro. de secuencia';
+comment on column IT.TA_IVA_CTA_TMP.fec_proceso
+  is 'Fecha de proceso';
+comment on column IT.TA_IVA_CTA_TMP.cod_iva
+  is 'Codigo de IVA';
+comment on column IT.TA_IVA_CTA_TMP.descripcion
+  is 'Descripcion';
+comment on column IT.TA_IVA_CTA_TMP.mto_iva
+  is 'Monto de IVA';
+comment on column IT.TA_IVA_CTA_TMP.mto_movimiento
+  is 'Monto del movimiento';
+comment on column IT.TA_IVA_CTA_TMP.por_iva
+  is 'Porcentaje de IVA';
+comment on column IT.TA_IVA_CTA_TMP.cod_entidad
+  is 'Codigo de entidad';
+comment on column IT.TA_IVA_CTA_TMP.nro_tarjeta
+  is 'Nro. de tarjeta';
+comment on column IT.TA_IVA_CTA_TMP.nro_cedula
+  is 'Nro. de cedula';
+comment on column IT.TA_IVA_CTA_TMP.nro_orden
+  is 'Nro. de orden';
+comment on column IT.TA_IVA_CTA_TMP.rub_cargo
+  is 'Rubro del Cargo';
+comment on column IT.TA_IVA_CTA_TMP.mom_aplicacion
+  is 'Momento de aplicacion. 1-En el periodo, 2-En el cierre';
+

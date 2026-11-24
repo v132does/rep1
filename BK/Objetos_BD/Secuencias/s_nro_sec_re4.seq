@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_SEC_RE4
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 18235
+increment by 1
+nocache;
+

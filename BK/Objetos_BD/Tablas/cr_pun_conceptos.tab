@@ -1,0 +1,67 @@
+create table IT.CR_PUN_CONCEPTOS
+(
+  cod_puntaje      NUMBER(3) not null,
+  cod_campo        VARCHAR2(10) not null,
+  val_nulo         NUMBER(3),
+  val_otro         NUMBER(3),
+  ponderacion      NUMBER(5,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_gru_concepto VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUN_CONCEPTOS
+  is 'Conceptos x Scoring.';
+comment on column IT.CR_PUN_CONCEPTOS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUN_CONCEPTOS.cod_campo
+  is 'Codigo de Campo.';
+comment on column IT.CR_PUN_CONCEPTOS.val_nulo
+  is 'Valor en Caso de Nulo.';
+comment on column IT.CR_PUN_CONCEPTOS.val_otro
+  is 'Otro Valor.';
+comment on column IT.CR_PUN_CONCEPTOS.ponderacion
+  is 'Ponderacion.';
+comment on column IT.CR_PUN_CONCEPTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PUN_CONCEPTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PUN_CONCEPTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_CONCEPTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_CONCEPTOS.cod_gru_concepto
+  is 'Codigo de Grupo de Concepto.';
+alter table IT.CR_PUN_CONCEPTOS
+  add constraint PK_CR_PUN_CONCEPTOS primary key (COD_PUNTAJE, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PUN_CONCEPTOS
+  add constraint FK_RPCON_COD_PUNTAJE foreign key (COD_PUNTAJE)
+  references IT.CR_PUNTAJES (COD_PUNTAJE);
+alter table IT.CR_PUN_CONCEPTOS
+  add constraint AVCON_1080843837_COD_P_012
+  check (COD_PUNTAJE BETWEEN 1 AND 999);
+

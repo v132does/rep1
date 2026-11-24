@@ -1,0 +1,52 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_RESULTADOS
+-- Descripción: Almacena resultados del proceso de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_RESULTADOS (
+    id_resultado          NUMBER,
+    fecha                 DATE,
+    clasificacion         VARCHAR2(1),
+    cod_rubro             VARCHAR2(50),
+    categoria             VARCHAR2(255),
+    subcategoria          VARCHAR2(255),
+    descripcion           VARCHAR2(2000),
+    total_balance         NUMBER(20,2),
+    fuente_datos          VARCHAR2(100),
+    ORDEN                 NUMBER(5),
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_SOL_RES_FECHA     ON IT.SB_SOL_RESULTADOS(fecha) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_RES_RUBRO     ON IT.SB_SOL_RESULTADOS(cod_rubro) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_RES_FUENTE    ON IT.SB_SOL_RESULTADOS(fuente_datos) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_RES_CREACION  ON IT.SB_SOL_RESULTADOS(fecha_creacion) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_SOL_RESULTADOS IS 'Resultados del calculo de solvencia por rubro y periodo';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.id_resultado IS 'Identificador unico del resultado';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.fecha IS 'Fecha de corte del calculo';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.clasificacion IS 'Clasificacion del rubro (a, b, c, d, e, f)';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.cod_rubro IS 'Codigo del rubro contable';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.categoria IS 'Categoria de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.subcategoria IS 'Subcategoria de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.descripcion IS 'Descripcion del rubro o concepto';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.total_balance IS 'Saldo total del rubro en guaranies';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.fuente_datos IS 'Fuente de datos utilizada en el calculo';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.ORDEN IS 'Orden de presentacion en el informe';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_SOL_RESULTADOS.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';

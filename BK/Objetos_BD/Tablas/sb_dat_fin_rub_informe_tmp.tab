@@ -1,0 +1,17 @@
+create table IT.SB_DAT_FIN_RUB_INFORME_TMP
+(
+  cod_informe       NUMBER(3),
+  cod_rub_economico VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

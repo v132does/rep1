@@ -1,0 +1,85 @@
+create table IT.GE_TAS_PERSONALIZADAS_DAT
+(
+  hora             VARCHAR2(8) not null,
+  cod_ente         NUMBER(5) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_tasa         NUMBER(3) not null,
+  cod_persona      VARCHAR2(10) not null,
+  fec_vigencia     DATE not null,
+  val_minimo       NUMBER(18,2),
+  val_maximo       NUMBER(18,2),
+  val_tasa         NUMBER(20,4),
+  val_extension    NUMBER(20,4),
+  fec_vencimiento  DATE,
+  observacion      VARCHAR2(200),
+  procesado        VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TAS_PERSONALIZADAS_DAT
+  is 'Resultado de la Distribución de Tasas Personalizadas.';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.hora
+  is 'Hora de Ejecución.';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.cod_ente
+  is 'Código de Entidad de Tipo Pago de Sueldo';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.cod_tasa
+  is 'Código de Tasa';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.cod_persona
+  is 'Código de Persona';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.fec_vigencia
+  is 'Fecha de Vigencia';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.val_minimo
+  is 'Valor Mínimo Asignado';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.val_maximo
+  is 'Valor Máximo Asignado';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.val_tasa
+  is 'Valor de la Tasa';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.val_extension
+  is 'Porcentaje de Exoneración';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.fec_vencimiento
+  is 'Fecha de Vencimiento';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.observacion
+  is 'Observaciones';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.procesado
+  is 'Procesado S/N';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TAS_PERSONALIZADAS_DAT.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_TAS_PERSONALIZADAS_DAT
+  add constraint PK_GE_TAS_PERSONALIZADAS_DAT primary key (HORA, COD_ENTE, NRO_CUENTA, COD_TASA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TAS_PERSONALIZADAS_DAT
+  add constraint FK_GTAS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

@@ -1,0 +1,113 @@
+create table IT.BU_BIE_INMUEBLES
+(
+  cod_bien         NUMBER(4) not null,
+  cod_distrito     NUMBER(3) not null,
+  nro_finca        VARCHAR2(20) not null,
+  edificado        VARCHAR2(1) not null,
+  superficie       NUMBER(10) not null,
+  uni_medida       VARCHAR2(1) not null,
+  ubicacion        VARCHAR2(200) not null,
+  cod_barrio       NUMBER(4),
+  cod_pais         NUMBER(3),
+  cod_ciudad       NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BU_BIE_INMUEBLES.cod_bien
+  is 'Codigo del Bien Adjudicado (autonumerico).';
+comment on column IT.BU_BIE_INMUEBLES.cod_distrito
+  is 'Codigo de Distrito.';
+comment on column IT.BU_BIE_INMUEBLES.nro_finca
+  is 'Numero de Finca de la propiedad.';
+comment on column IT.BU_BIE_INMUEBLES.edificado
+  is 'Indica si en el terreno se encuentra alguna edificacion.';
+comment on column IT.BU_BIE_INMUEBLES.superficie
+  is 'Superficie del terreno completo.';
+comment on column IT.BU_BIE_INMUEBLES.uni_medida
+  is 'Unidad de medida de la Superficie. Dominio(UNI_MED_BIENES)';
+comment on column IT.BU_BIE_INMUEBLES.ubicacion
+  is 'Ubicacion de la propiedad.';
+comment on column IT.BU_BIE_INMUEBLES.cod_barrio
+  is 'Codigo de Barrio.';
+comment on column IT.BU_BIE_INMUEBLES.cod_pais
+  is 'Codigo de Pais.';
+comment on column IT.BU_BIE_INMUEBLES.cod_ciudad
+  is 'Codigo de Ciudad.';
+comment on column IT.BU_BIE_INMUEBLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BU_BIE_INMUEBLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BU_BIE_INMUEBLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIE_INMUEBLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_UBINM_COD_BARRIO on IT.BU_BIE_INMUEBLES (COD_BARRIO, COD_PAIS, COD_CIUDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_UBINM_COD_DISTRITO on IT.BU_BIE_INMUEBLES (COD_DISTRITO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_INMUEBLES
+  add constraint PK_BUE_BIE_INMUEBLES primary key (COD_BIEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_INMUEBLES
+  add constraint FK_UBINM_COD_BARRIO foreign key (COD_PAIS, COD_CIUDAD, COD_BARRIO)
+  references IT.BA_BARRIOS (COD_PAIS, COD_CIUDAD, COD_BARRIO);
+alter table IT.BU_BIE_INMUEBLES
+  add constraint FK_UBINM_COD_DISTRITO foreign key (COD_DISTRITO)
+  references IT.GE_DISTRITOS (COD_DISTRITO);
+alter table IT.BU_BIE_INMUEBLES
+  add constraint AVCON_1204750971_COD_C_000
+  check (COD_CIUDAD BETWEEN 0 AND 999);
+alter table IT.BU_BIE_INMUEBLES
+  add constraint AVCON_1204750971_COD_D_000
+  check (COD_DISTRITO BETWEEN 0 AND 999);
+alter table IT.BU_BIE_INMUEBLES
+  add constraint AVCON_1204750971_COD_P_000
+  check (COD_PAIS BETWEEN 0 AND 999);
+alter table IT.BU_BIE_INMUEBLES
+  add constraint CK_RANGO_MEDIDA_HECTAREAS
+  check ((UNI_MEDIDA = 'H' AND SUPERFICIE BETWEEN 0 AND 999999) OR UNI_MEDIDA <> 'H');
+

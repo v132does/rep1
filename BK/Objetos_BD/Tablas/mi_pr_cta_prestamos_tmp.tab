@@ -1,0 +1,46 @@
+create table IT.MI_PR_CTA_PRESTAMOS_TMP
+(
+  nro_cuenta        VARCHAR2(15),
+  dig_verificador   NUMBER(1),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  cod_oficina       NUMBER(3),
+  fec_cancelacion   DATE,
+  estado            VARCHAR2(1),
+  mto_capital       NUMBER(18,2),
+  sal_capital       NUMBER(18,2),
+  sal_interes       NUMBER(18,2),
+  est_batch         VARCHAR2(1),
+  sal_cap_batch     NUMBER(18,2),
+  sal_int_batch     NUMBER(18,2),
+  est_anterior      VARCHAR2(1),
+  dev_acumulado     NUMBER(18,2),
+  tip_documento     VARCHAR2(1),
+  nro_sol_renovada  NUMBER(7),
+  cob_automatico    VARCHAR2(1),
+  sal_int_devengado NUMBER(18,2),
+  nro_linea         NUMBER(7),
+  cod_moneda        VARCHAR2(3),
+  fec_inicio        DATE,
+  fec_vencimiento   DATE,
+  tipo              VARCHAR2(1),
+  val_tasa          NUMBER(20,4),
+  can_cuotas        NUMBER(5),
+  pro_atraso        NUMBER(5),
+  exo_impuestos     VARCHAR2(1),
+  cod_causa         NUMBER(3),
+  cta_ahorro        VARCHAR2(15),
+  can_cuo_pagadas   NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

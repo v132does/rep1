@@ -1,0 +1,26 @@
+create table IT.CX_BCO_CORRESPONSALES_TMP
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  cod_bco_corresponsal NUMBER(4) not null,
+  nro_cta_debito       VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CX_BCO_CORRESPONSALES_TMP
+  is 'Tabla temporal para levantar corresponsales de cuentas migradas de Comex.';
+comment on column IT.CX_BCO_CORRESPONSALES_TMP.nro_cuenta
+  is 'Cuenta Comex.';
+comment on column IT.CX_BCO_CORRESPONSALES_TMP.cod_bco_corresponsal
+  is 'Código del Banco Corresponsal.';
+comment on column IT.CX_BCO_CORRESPONSALES_TMP.nro_cta_debito
+  is 'Número de Cuenta Débito';
+

@@ -1,0 +1,64 @@
+create table IT.GE_TRA_FIRMAS
+(
+  cod_modulo       NUMBER(3) default 9 not null,
+  cod_modalidad    NUMBER(3) default 91 not null,
+  cod_transaccion  NUMBER(4) not null,
+  tip_control      VARCHAR2(1),
+  cod_facultad     VARCHAR2(4),
+  nro_ord_importe  NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRA_FIRMAS
+  is 'Cotiene las referencias para el Sistema externo de Facultades y poderes';
+comment on column IT.GE_TRA_FIRMAS.cod_modulo
+  is 'Código del Módulo';
+comment on column IT.GE_TRA_FIRMAS.cod_modalidad
+  is 'Código de Modalidad';
+comment on column IT.GE_TRA_FIRMAS.cod_transaccion
+  is 'Código de la Transacción';
+comment on column IT.GE_TRA_FIRMAS.tip_control
+  is 'Tipo de Control a realizar: R-Restrictivo, A-Alerta, N-No se realiza control';
+comment on column IT.GE_TRA_FIRMAS.cod_facultad
+  is 'Código de  Facultad definida en el sistema externo.';
+comment on column IT.GE_TRA_FIRMAS.nro_ord_importe
+  is 'Nro. de Orden en la Definición de Transacción de Caja para el importe';
+comment on column IT.GE_TRA_FIRMAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TRA_FIRMAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TRA_FIRMAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRA_FIRMAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_TRA_FIRMAS
+  add constraint PK_GE_TRA_FIRMAS primary key (COD_TRANSACCION, COD_MODALIDAD, COD_MODULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRA_FIRMAS
+  add constraint FK_GTFIR_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+

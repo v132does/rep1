@@ -1,0 +1,63 @@
+CREATE TABLE IT.GE_INF_TAS_INT_SEM (
+    CORCOD                NUMBER(8)      NOT NULL,
+    NRO_CUENTA            VARCHAR2(15)   NOT NULL,
+    COD_MODULO            NUMBER(3)      NOT NULL,
+    COD_MODALIDAD         NUMBER(3)      NOT NULL,
+    COD_MONEDA            VARCHAR2(4)    NOT NULL,
+    FEC_APERTURA          DATE           NOT NULL,
+    ENTCOD                NUMBER(5)      NOT NULL,
+    CODCTA                VARCHAR2(8)    NOT NULL,
+    ACOD                  VARCHAR2(5)    NOT NULL,
+    MONTO                 NUMBER(18,2)   NOT NULL,
+    TASREG                VARCHAR2(1)    NOT NULL,
+    VAL_TAS_LINEAL        NUMBER(5,2)    NULL,
+    VAL_TAS_NOMINAL       NUMBER(5,2)    NOT NULL,
+    VAL_TAS_EFECTIVA      NUMBER(5,2)    NOT NULL,
+    PLAZO                 NUMBER         NOT NULL,
+    COD_PLAZO             NUMBER(3)      NOT NULL,
+    PERIODO               NUMBER(5)      NOT NULL,
+    USU_INSERCION         VARCHAR2(10)   NOT NULL,
+    FEC_INSERCION         DATE           NOT NULL,
+    USU_MODIFICACION      VARCHAR2(10)   NOT NULL,
+    FEC_MODIFICACION      DATE           NOT NULL,
+    ID_EJECUCION          NUMBER,
+    ESTADO_VALIDACION     VARCHAR2(20),
+    DETALLE_VALIDACION    VARCHAR2(1000),
+    CONSTRAINT PK_GE_INF_TAS_INT_SEM PRIMARY KEY (CORCOD, NRO_CUENTA, ID_EJECUCION)
+) TABLESPACE IT_DATA;
+
+-- Comentarios descriptivos
+COMMENT ON TABLE IT.GE_INF_TAS_INT_SEM IS 'Tabla espejo generada por el nuevo proceso de tasas semanal (NOR-314)';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.CORCOD IS 'Codigo de corresponsal';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.NRO_CUENTA IS 'Numero de cuenta enmascarado o consolidado';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.COD_MODULO IS 'Codigo del modulo de producto';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.COD_MODALIDAD IS 'Codigo de modalidad operativa';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.COD_MONEDA IS 'Codigo de la moneda informada';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.FEC_APERTURA IS 'Fecha de apertura de la cuenta';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.MONTO IS 'Monto actual considerado para el calculo de tasa';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.VAL_TAS_NOMINAL IS 'Tasa nominal anual';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.VAL_TAS_EFECTIVA IS 'Tasa efectiva anual';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.COD_PLAZO IS 'Plazo de la operacion en dias';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.ENTCOD IS 'Codigo de entidad';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.CODCTA IS 'Codigo de cuenta original';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.ACOD IS 'Codigo de area o producto';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.PERIODO IS 'Periodo del informe en formato YYYYMM o YYYYWW';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.TASREG IS 'Indicador de tasa registrada manualmente (S/N)';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.USU_INSERCION IS 'Usuario que inserto el registro';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.FEC_INSERCION IS 'Fecha de insercion del registro';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.USU_MODIFICACION IS 'Usuario que modifico el registro';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.FEC_MODIFICACION IS 'Fecha de modificacion del registro';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.ID_EJECUCION IS 'Identificador de la ejecucion del proceso';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.ESTADO_VALIDACION IS 'Resultado del control de validacion';
+COMMENT ON COLUMN IT.GE_INF_TAS_INT_SEM.DETALLE_VALIDACION IS 'Detalle textual de inconsistencias encontradas';
+
+-- indices adicionales
+CREATE INDEX IDX_GE_INF_TAS_EJECUCION ON IT.GE_INF_TAS_INT_SEM (ID_EJECUCION)
+TABLESPACE IT_IND;
+CREATE INDEX IDX_GE_INF_TAS_CUENTA ON IT.GE_INF_TAS_INT_SEM (NRO_CUENTA)
+TABLESPACE IT_IND;
+
+-- Objeto publico y permisos
+CREATE PUBLIC SYNONYM GE_INF_TAS_INT_SEM FOR IT.GE_INF_TAS_INT_SEM;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT ON IT.GE_INF_TAS_INT_SEM TO IT_TEMPORAL;

@@ -1,0 +1,41 @@
+create table IT.GE_PAR_RA
+(
+  cod_servicio    VARCHAR2(8) not null,
+  nombre_servicio VARCHAR2(40) not null,
+  nombre_campo    VARCHAR2(40) not null,
+  valor           VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAR_RA.cod_servicio
+  is 'Código del servicio';
+comment on column IT.GE_PAR_RA.nombre_servicio
+  is 'Nombre del servicio';
+comment on column IT.GE_PAR_RA.nombre_campo
+  is 'Nombre del Campo del servicio';
+comment on column IT.GE_PAR_RA.valor
+  is 'Valor que debe tener el campo';
+alter table IT.GE_PAR_RA
+  add primary key (COD_SERVICIO, NOMBRE_SERVICIO, NOMBRE_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

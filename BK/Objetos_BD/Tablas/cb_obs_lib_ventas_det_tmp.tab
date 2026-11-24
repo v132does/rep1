@@ -1,0 +1,215 @@
+create table IT.CB_OBS_LIB_VENTAS_DET_TMP
+(
+  cod_persona      VARCHAR2(10),
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  cod_ofi_origen   NUMBER(3) not null,
+  tip_comprobante  VARCHAR2(1),
+  tip_venta        VARCHAR2(2),
+  cod_tra_padre    NUMBER(4) not null,
+  nro_documento    NUMBER(15),
+  descripcion      VARCHAR2(35),
+  cod_moneda       VARCHAR2(3) not null,
+  mto_exento       NUMBER(18,2),
+  mto_exento_gs    NUMBER(18,2),
+  mto_gravado_5    NUMBER(18,2),
+  mto_gra_5_gs     NUMBER(18,2),
+  mto_gravado_10   NUMBER(18,2),
+  mto_gra_10_gs    NUMBER(18,2),
+  impuesto_5       NUMBER(18,2),
+  impuesto_5_gs    NUMBER(18,2),
+  impuesto_10      NUMBER(18,2),
+  impuesto_10_gs   NUMBER(18,2),
+  cotizacion       NUMBER(14,4),
+  reversado        VARCHAR2(1),
+  nom_completo     VARCHAR2(120),
+  nro_doc_persona  VARCHAR2(20),
+  nro_cuenta       VARCHAR2(15),
+  nro_factura      VARCHAR2(20),
+  nro_timbrado     VARCHAR2(20),
+  error            VARCHAR2(300),
+  aju_impuesto_5   NUMBER(5),
+  aju_impuesto_10  NUMBER(5),
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_OBS_LIB_VENTAS_DET_TMP
+  is 'Libro de Venta Detalle Temporal.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_persona
+  is 'Código de Persona del Cliente.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.fecha
+  is 'Fecha de Generación del Movimiento.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.hora
+  is 'Hora de Generación del Movimiento.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_usuario
+  is 'Código de Usuario.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_ofi_origen
+  is 'Código de Oficina del Movimiento.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.tip_comprobante
+  is 'Tipo de Comprobante.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.tip_venta
+  is 'Condición de Venta(Contado, Crédito).';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_tra_padre
+  is 'Código de Transacción Padre.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.nro_documento
+  is 'Número de Documento del Movimiento.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.descripcion
+  is 'Descripción del Movimiento.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.mto_exento
+  is 'Monto Exento.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.mto_exento_gs
+  is 'Monto Exento en GS.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.mto_gravado_5
+  is 'Monto Gravado 5%.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.mto_gra_5_gs
+  is 'Monto Gravado 5% en GS.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.mto_gravado_10
+  is 'Monto Gravado 10% .';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.mto_gra_10_gs
+  is 'Monto Gravado 10% en GS.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.impuesto_5
+  is 'Impuesto 5%.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.impuesto_5_gs
+  is 'Impuesto 5% en GS.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.impuesto_10
+  is 'Impuesto 10%.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.impuesto_10_gs
+  is 'Impuesto 10% en GS.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cotizacion
+  is 'Cotización.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.reversado
+  is 'Reversado(S/N).';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.nom_completo
+  is 'Nombre Completo.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.nro_doc_persona
+  is 'Número de Documento de la Persona.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.nro_factura
+  is 'Número de Factura original si es una Reversión';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.nro_timbrado
+  is 'Número de Timbrado original si es una Reversión';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.error
+  is 'Descripción del error en la generación';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.aju_impuesto_5
+  is 'Ajuste en el monto de IVA 5%';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.aju_impuesto_10
+  is 'Ajuste en el monto de IVA 10%';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_mod_padre
+  is 'Código de Módulo Padre.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.cod_mad_padre
+  is 'Código de Modalidad Padre.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CB_OBS_LIB_VENTAS_DET_TMP.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_BOLVD_COD_MONEDA on IT.CB_OBS_LIB_VENTAS_DET_TMP (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BOLVD_COD_OFI_ORIGEN on IT.CB_OBS_LIB_VENTAS_DET_TMP (COD_OFI_ORIGEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BOLVD_COD_PERSONA on IT.CB_OBS_LIB_VENTAS_DET_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BOLVD_COD_TRA_PADRE on IT.CB_OBS_LIB_VENTAS_DET_TMP (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BOLVD_COD_USUARIO on IT.CB_OBS_LIB_VENTAS_DET_TMP (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_OBS_LIB_VENTAS_DET_TMP
+  add constraint PK_CB_OBS_LIB_VENTAS_DET_TMP primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_OBS_LIB_VENTAS_DET_TMP
+  add constraint FK_BOLVD_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CB_OBS_LIB_VENTAS_DET_TMP
+  add constraint FK_BOLVD_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CB_OBS_LIB_VENTAS_DET_TMP
+  add constraint FK_BOLVD_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CB_OBS_LIB_VENTAS_DET_TMP
+  add constraint FK_BOLVD_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

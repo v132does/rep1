@@ -1,0 +1,18 @@
+create table IT.MI_BA_PROFESIONES
+(
+  cod_profesion NUMBER(3) not null,
+  descripcion   VARCHAR2(35) not null,
+  ref_externa   NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

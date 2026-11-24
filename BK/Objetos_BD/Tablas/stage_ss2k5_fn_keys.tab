@@ -1,0 +1,12 @@
+create global temporary table IT.STAGE_SS2K5_FN_KEYS
+(
+  svrid_fk      NUMBER(38),
+  dbid_gen_fk   NUMBER(38),
+  object_id_gen NUMBER(38),
+  name          VARCHAR2(256 CHAR) not null,
+  object_id     NUMBER(38) not null
+)
+on commit preserve rows;
+create index IT.S_SS2K5_FN_KS_DBID_GEN_FK on IT.STAGE_SS2K5_FN_KEYS (DBID_GEN_FK);
+create index IT.S_SS2K5_FOREIGN_KEYS_OBJECT_ID on IT.STAGE_SS2K5_FN_KEYS (OBJECT_ID);
+

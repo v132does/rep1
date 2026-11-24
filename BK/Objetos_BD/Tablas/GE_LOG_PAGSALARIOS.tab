@@ -1,0 +1,61 @@
+-- Create table
+create table IT.GE_LOG_PAGSALARIOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_sesion       VARCHAR2(32),
+  nro_documento    NUMBER(15) not null,
+  nivel            VARCHAR2(6),
+  detalle          VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_LOG_PAGSALARIOS
+  is 'Tabla para registrar los logs de pagos de sueldos';
+-- Add comments to the columns 
+comment on column IT.GE_LOG_PAGSALARIOS.cod_persona
+  is 'Código Persona relacionado al pago';
+comment on column IT.GE_LOG_PAGSALARIOS.cod_sesion
+  is 'Código de la sesión asociada';
+comment on column IT.GE_LOG_PAGSALARIOS.nro_documento
+  is 'Numero de documento Pendiente';
+comment on column IT.GE_LOG_PAGSALARIOS.nivel
+  is 'Nivel de log INFO, ERROR WARN';
+comment on column IT.GE_LOG_PAGSALARIOS.detalle
+  is 'Detalle del log';
+comment on column IT.GE_LOG_PAGSALARIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_LOG_PAGSALARIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_LOG_PAGSALARIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_LOG_PAGSALARIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+-- Create/Recreate indexes 
+create index IT.IN_LOG_PAGSA_PERNRO on IT.GE_LOG_PAGSALARIOS (COD_PERSONA, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_LOG_PAGSALARIOS to IT_TEMPORAL;

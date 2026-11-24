@@ -1,0 +1,101 @@
+create table IT.GE_CTA_CLIENTES_CRM
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  dig_verificador  NUMBER(1),
+  cod_oficina      NUMBER(3),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  relacion         VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion TIMESTAMP(6) default current_timestamp not null,
+  tip_accion       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_CLIENTES_CRM
+  is 'Relacion Clientes / Cuentas.';
+comment on column IT.GE_CTA_CLIENTES_CRM.cod_persona
+  is 'Codigo de cliente.';
+comment on column IT.GE_CTA_CLIENTES_CRM.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_CTA_CLIENTES_CRM.dig_verificador
+  is 'Digito verificador.';
+comment on column IT.GE_CTA_CLIENTES_CRM.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_CTA_CLIENTES_CRM.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_CTA_CLIENTES_CRM.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_CTA_CLIENTES_CRM.relacion
+  is 'Relacion de cuenta(P=Principal, Y=Firmante conj,O=Firmante ind.,G=Garante,C=codDeudor,A=Adicional).';
+comment on column IT.GE_CTA_CLIENTES_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CTA_CLIENTES_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CTA_CLIENTES_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_CLIENTES_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_CLIENTES_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+create index IT.CRM_COD_PER_REL on IT.GE_CTA_CLIENTES_CRM (TO_NUMBER(COD_PERSONA), RELACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.IN_CRMREL_PER_CTA on IT.GE_CTA_CLIENTES_CRM (COD_PERSONA, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 6M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.IN_GCCRM_NRO_CUENTA on IT.GE_CTA_CLIENTES_CRM (NRO_CUENTA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 6M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCRM_RELACION on IT.GE_CTA_CLIENTES_CRM (NRO_CUENTA, COD_PERSONA, RELACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,170 @@
+CREATE MATERIALIZED VIEW IT.gv_lin_gar_credito
+REFRESH FORCE ON DEMAND
+AS
+SELECT P.NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       P.NRO_CUENTA,
+       g.mto_aplicado,
+       P.COD_MONEDA COD_MON_APL
+  FROM (Select nro_cuenta cu_cuenta, sum(mto_int_documentado) cu_int_adelantado
+                             from pr_cuotas
+                            where nro_cuota > 0
+                            Group by nro_cuenta),
+       GE_EST_CUENTAS B,
+       PR_GAR_TIPOS T,
+       GE_CTA_CLIENTES C,
+       PR_CTA_GARANTIAS G,
+       PR_CTA_PRESTAMOS P
+ WHERE cu_cuenta = p.nro_cuenta
+   and P.nro_cuenta = C.nro_cuenta
+   AND C.relacion = 'P'
+   AND P.NRO_LINEA IS NOT NULL
+   AND P.ESTADO <> 'N'
+   AND P.ESTADO = B.ESTADO
+   AND P.COD_MODULO = B.COD_MODULO
+   AND P.COD_MODALIDAD = B.COD_MODALIDAD
+   AND P.NRO_CUENTA = G.NRO_CUENTA
+   AND G.COD_GARANTIA = T.COD_GARANTIA
+UNION ALL
+SELECT S.NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       'Prop.Nro. '||to_char(S.NRO_SOLICITUD) NRO_CUENTA,
+       g.mto_aplicado,
+       S.COD_MONEDA COD_MON_APL
+  FROM BA_COD_REFERENCIAS B,
+       PR_GAR_TIPOS T,
+       PR_SOL_GARANTIAS G,
+       PR_SOLICITUDES S
+   WHERE S.NRO_LINEA IS NOT NULL
+     AND S.ESTADO NOT IN  ('A','N','R')
+     AND S.NRO_SOLICITUD = G.NRO_SOLICITUD
+     AND S.ESTADO = B.VAL_MINIMO
+     AND B.DOMINIO = 'EST_SOLICITUD'
+     AND G.COD_GARANTIA = T.COD_GARANTIA
+/* solicitudes de tarjeta de credito*/
+UNION ALL
+SELECT S.NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       'Sol.Nro. '||to_char(S.NRO_SOLICITUD) NRO_CUENTA,
+       g.mto_aplicado,
+       s.cod_moneda
+  FROM GE_SOL_ESTADOS B,
+       PR_GAR_TIPOS T,
+       TA_SOL_GARANTIAS G,
+       TA_SOLICITUDES S
+   WHERE/* S.NRO_LINEA IS NULL --NOT NULL
+     AND*/ S.COD_ESTADO IN ('PAN','APR')
+     AND S.NRO_SOLICITUD = G.NRO_SOLICITUD
+     AND S.COD_ESTADO = B.COD_ESTADO
+     AND G.COD_GARANTIA = T.COD_GARANTIA
+/* fin de tarjetas de credito solicitudes */
+UNION ALL
+SELECT SOB.NRO_LINEA,
+       SOB.NRO_SEC_PADRE,
+       SOB.NRO_CUENTA,
+       pag_gen.FU_CON_MON_A_MONEDA(sob.cod_moneda,lin.cod_moneda,sob.monto,sob.cotizacion)/lin.monto*gar.mto_aplicado mto_aplicado,
+       --gar.mto_aplicado,
+       LIN.COD_MONEDA COD_MON_APL
+  FROM BA_COD_REFERENCIAS REF,
+       GE_CTA_CLIENTES CLI,
+       PR_GAR_TIPOS TIP,
+       CC_CTA_CORRIENTES CTA,
+       CC_LIN_SOB_GARANTIAS GAR,
+       CC_LIN_SOBREGIROS LIN,
+       CC_LIN_SOBREGIROS SOB
+  WHERE LIN.NRO_SECUENCIA = SOB.NRO_SEC_PADRE
+    AND SOB.TIPO = 'P'
+    AND SOB.ESTADO = 'A'
+    AND SOB.NRO_SEC_PADRE = GAR.NRO_SECUENCIA
+    AND SOB.ESTADO = REF.VAL_MINIMO
+    AND SOB.NRO_CUENTA = CTA.NRO_CUENTA
+    AND SOB.NRO_CUENTA = CLI.NRO_CUENTA
+    AND CLI.RELACION = 'P'
+    AND REF.DOMINIO = 'EST_LIN_SOBREGIRO'
+    AND SOB.NRO_LINEA IS NOT NULL
+    AND GAR.COD_GARANTIA = TIP.COD_GARANTIA
+    --and sob.nro_cuenta = (Select min(nro_cuenta)
+    --                        from cc_lin_sobregiros x
+    --                       where x.nro_sec_padre = lin.nro_secuencia)
+UNION ALL
+SELECT NRO_LINEA NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       P.NRO_CUENTA,
+       g.mto_aplicado,
+       P.COD_MONEDA COD_MON_APL
+  FROM GE_EST_CUENTAS B,
+       PR_GAR_TIPOS T,
+       GE_CTA_CLIENTES C,
+       TA_CTA_GARANTIAS G,
+       TA_CTA_TARJETAS P
+ WHERE P.nro_cuenta = C.nro_cuenta
+   AND C.relacion = 'P'
+   AND P.NRO_LINEA IS NOT NULL
+   AND P.ESTADO <> 'C'
+   AND P.ESTADO = B.ESTADO
+   AND P.COD_MODULO = B.COD_MODULO
+   AND P.COD_MODALIDAD = B.COD_MODALIDAD
+   AND P.NRO_CUENTA = G.NRO_CUENTA(+)
+   AND G.COD_GARANTIA = T.COD_GARANTIA(+)
+UNION ALL
+SELECT NRO_LINEA NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       P.NRO_CUENTA,
+       G.MTO_APLICADO,
+       P.COD_MONEDA COD_MON_APL
+  FROM GE_EST_CUENTAS B,
+       PR_GAR_TIPOS T,
+       GE_CTA_CLIENTES C,
+       CX_CTA_GARANTIAS G,
+       CX_CTA_IMPORTACIONES P
+ WHERE P.nro_cuenta = C.nro_cuenta
+   AND C.relacion = 'P'
+   AND P.NRO_LINEA IS NOT NULL
+   AND P.ESTADO not in ('C','G')
+   AND P.ESTADO = B.ESTADO
+   AND P.COD_MODULO = B.COD_MODULO
+   AND P.COD_MODALIDAD = B.COD_MODALIDAD
+   AND P.NRO_CUENTA = G.NRO_CUENTA
+   AND G.COD_GARANTIA = T.COD_GARANTIA
+UNION ALL
+SELECT NRO_LINEA NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       P.NRO_CUENTA,
+       G.MTO_APLICADO,
+       P.COD_MONEDA COD_MON_APL
+  FROM GE_EST_CUENTAS B,
+       PR_GAR_TIPOS T,
+       GE_CTA_CLIENTES C,
+       CX_CTA_GARANTIAS G,
+       CX_Cta_Exportaciones P
+ WHERE P.nro_cuenta = C.nro_cuenta
+   AND C.relacion = 'P'
+   AND P.NRO_LINEA IS NOT NULL
+   AND P.ESTADO not in ('C','G')
+   AND P.ESTADO = B.ESTADO
+   AND P.COD_MODULO = B.COD_MODULO
+   AND P.COD_MODALIDAD = B.COD_MODALIDAD
+   AND P.NRO_CUENTA = G.NRO_CUENTA
+   AND G.COD_GARANTIA = T.COD_GARANTIA
+UNION ALL
+SELECT NRO_LINEA NRO_LINEA,
+       0 NRO_SEC_PADRE,
+       P.NRO_CUENTA,
+       G.MTO_APLICADO,
+       P.COD_MONEDA COD_MON_APL
+  FROM GE_EST_CUENTAS B,
+       PR_GAR_TIPOS T,
+       GE_CTA_CLIENTES C,
+       CX_CTA_GARANTIAS G,
+       CX_FIANZAS P
+ WHERE P.nro_cuenta = C.nro_cuenta
+   AND C.relacion = 'P'
+   AND P.NRO_LINEA IS NOT NULL
+   AND P.ESTADO <> 'C'
+   AND P.ESTADO = B.ESTADO
+   AND P.COD_MODULO = B.COD_MODULO
+   AND P.COD_MODALIDAD = B.COD_MODALIDAD
+   AND P.NRO_CUENTA = G.NRO_CUENTA
+   AND G.COD_GARANTIA = T.COD_GARANTIA;
+   
+create INDEX IT.IN_GLGCR_NRO_LINEA ON IT.gv_lin_gar_credito(nro_linea);

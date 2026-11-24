@@ -1,0 +1,158 @@
+create table IT.GE_SPI_TRANSFERENCIAS
+(
+  nro_referencia   NUMBER(15) not null,
+  message_id       VARCHAR2(50),
+  cod_tra_padre    NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_mx           VARCHAR2(15) not null,
+  tip_operacion    VARCHAR2(3) not null,
+  fec_valor        DATE,
+  fec_recepcion    DATE,
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  cod_per_origen   VARCHAR2(10),
+  nom_cli_origen   VARCHAR2(120),
+  tip_doc_origen   VARCHAR2(10),
+  nro_doc_origen   VARCHAR2(20),
+  nro_cta_origen   VARCHAR2(35),
+  bic_origen       VARCHAR2(20),
+  cod_per_receptor VARCHAR2(10),
+  nom_cli_receptor VARCHAR2(120),
+  tip_doc_receptor VARCHAR2(10),
+  nro_doc_receptor VARCHAR2(20),
+  nro_cta_receptor VARCHAR2(35),
+  bic_receptor     VARCHAR2(20),
+  id_validacion    VARCHAR2(20),
+  id_pago          VARCHAR2(20),
+  message_result   VARCHAR2(250),
+  error            VARCHAR2(1000),
+  estado           VARCHAR2(1) default 'P',
+  origen           VARCHAR2(1),
+  cod_error        VARCHAR2(250),
+  cod_mon_origen   VARCHAR2(3),
+  mto_origen       NUMBER(18,2),
+  tip_cambio       NUMBER(8,2),
+  id_sesion        VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_TRANSFERENCIAS
+  is 'Contiene los datos de Transferencias Interbancarias Instantaneas.';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nro_referencia
+  is 'ID de la transacción en el banco origen, generado localmente';
+comment on column IT.GE_SPI_TRANSFERENCIAS.message_id
+  is 'Contenido del mensaje recibido del SPI';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_tra_padre
+  is 'Codigo de transaccion Padre';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_oficina
+  is 'Codigo de Oficina';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_mx
+  is 'Tipo de mensaje SPI Ej: pacs.008';
+comment on column IT.GE_SPI_TRANSFERENCIAS.tip_operacion
+  is 'Tipo de Operacion (A) Activo/Enviado (P) Pasivo/Recibido';
+comment on column IT.GE_SPI_TRANSFERENCIAS.fec_valor
+  is 'Fecha Valor para cada operación del Participante.';
+comment on column IT.GE_SPI_TRANSFERENCIAS.fec_recepcion
+  is 'Fecha de recepcon para cada operación del Participante.';
+comment on column IT.GE_SPI_TRANSFERENCIAS.fecha
+  is 'Fecha de Movimiento(Debe corresponder al dia habil en sistema)';
+comment on column IT.GE_SPI_TRANSFERENCIAS.hora
+  is 'Hora de Movimiento';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_usuario
+  is 'Usuario del Movimiento';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_moneda
+  is 'Moneda de la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.monto
+  is 'Valor de la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_per_origen
+  is 'Codigo de persona que inicia la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nom_cli_origen
+  is 'Nombre del cliente que inicia la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.tip_doc_origen
+  is 'Tipo Documento del cliente que inicia la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nro_doc_origen
+  is 'Numero de Documento del cliente que inicia la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nro_cta_origen
+  is 'Numero de Cuenta del cliente que inicia la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.bic_origen
+  is 'Bic de origen de la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_per_receptor
+  is 'Codigo de persona que recibe la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nom_cli_receptor
+  is 'Nombre del cliente que recibe la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.tip_doc_receptor
+  is 'Tipo Documento del cliente que recibe la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nro_doc_receptor
+  is 'Numero de Documento del cliente que recibe la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.nro_cta_receptor
+  is 'Numero de Cuenta del cliente que recibe la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.bic_receptor
+  is 'Bic de destino de la transferencia';
+comment on column IT.GE_SPI_TRANSFERENCIAS.id_validacion
+  is 'Identificador de Validacion de transferencias recibidas';
+comment on column IT.GE_SPI_TRANSFERENCIAS.id_pago
+  is 'Identificador de pago de transferencias recibidas';
+comment on column IT.GE_SPI_TRANSFERENCIAS.message_result
+  is 'Resultado de la transferenia: [OK | ERROR | PENDING]';
+comment on column IT.GE_SPI_TRANSFERENCIAS.error
+  is 'Error';
+comment on column IT.GE_SPI_TRANSFERENCIAS.estado
+  is 'Estado del MX (P Pendiente, V validado, A Aprobado, C Cancelado)';
+comment on column IT.GE_SPI_TRANSFERENCIAS.origen
+  is 'descripcion del error';
+comment on column IT.GE_SPI_TRANSFERENCIAS.cod_error
+  is 'Codigos de errores concatenados entre comas';
+comment on column IT.GE_SPI_TRANSFERENCIAS.id_sesion
+  is 'Id sesion para identificar el periodo para conciliaciones';
+alter table IT.GE_SPI_TRANSFERENCIAS
+  add constraint PK_GE_SPI_TRANSFERENCIAS primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SPI_TRANSFERENCIAS
+  add constraint FK_GSPITRA_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SPI_TRANSFERENCIAS
+  add constraint FK_GSPITRA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_SPI_TRANSFERENCIAS
+  add constraint FK_GSPITRA_COD_PER_ORIGEN foreign key (COD_PER_ORIGEN)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_SPI_TRANSFERENCIAS
+  add constraint FK_GSPITRA_COD_PER_RECEPTOR foreign key (COD_PER_RECEPTOR)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_SPI_TRANSFERENCIAS
+  add constraint FK_GSPITRA_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

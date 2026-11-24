@@ -1,0 +1,67 @@
+create table IT.SB_PER_CRC
+(
+  cod_persona    VARCHAR2(10) not null,
+  tip_documento  VARCHAR2(4),
+  nro_documento  VARCHAR2(20) not null,
+  tip_persona    VARCHAR2(1) not null,
+  raz_social     VARCHAR2(120),
+  pri_apellido   VARCHAR2(30),
+  seg_apellido   VARCHAR2(30),
+  pri_nombre     VARCHAR2(30),
+  seg_nombre     VARCHAR2(30),
+  fec_nacimiento DATE,
+  fec_apertura   DATE,
+  est_civil      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_PER_CRC
+  is 'Tabla auxiliar de Personas para generacion del informe de CRC.';
+comment on column IT.SB_PER_CRC.cod_persona
+  is 'Código de Persona.';
+comment on column IT.SB_PER_CRC.tip_documento
+  is 'Tipo de Documento.';
+comment on column IT.SB_PER_CRC.nro_documento
+  is 'Número de Documento.';
+comment on column IT.SB_PER_CRC.tip_persona
+  is 'Tipo de Persona (F - Física, J - Jurídica).';
+comment on column IT.SB_PER_CRC.raz_social
+  is 'Razón Social - Personería Jurídica.';
+comment on column IT.SB_PER_CRC.pri_apellido
+  is 'Primer Apellido.';
+comment on column IT.SB_PER_CRC.seg_apellido
+  is 'Segundo Apellido.';
+comment on column IT.SB_PER_CRC.pri_nombre
+  is 'Primer Nombre.';
+comment on column IT.SB_PER_CRC.seg_nombre
+  is 'Segundo Nombre.';
+comment on column IT.SB_PER_CRC.fec_nacimiento
+  is 'Fecha de Nacimiento.';
+comment on column IT.SB_PER_CRC.fec_apertura
+  is 'Fecha de Apertura - Personería Jurídica.';
+comment on column IT.SB_PER_CRC.est_civil
+  is 'Estado Civil.';
+alter table IT.SB_PER_CRC
+  add constraint PK_SB_PER_CRC primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

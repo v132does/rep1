@@ -1,0 +1,13 @@
+create global temporary table IT.SS2K5_TABLES
+(
+  db_id     NUMBER(10),
+  name      VARCHAR2(256) not null,
+  object_id NUMBER(10) not null,
+  schema_id NUMBER(10) not null,
+  type      CHAR(2) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_TABLES_DB_ID on IT.SS2K5_TABLES (DB_ID);
+create index IT.SS2K5_TABLES_OBJECT_ID on IT.SS2K5_TABLES (OBJECT_ID);
+create index IT.SS2K5_TABLES_SCHEMA_ID on IT.SS2K5_TABLES (SCHEMA_ID);
+

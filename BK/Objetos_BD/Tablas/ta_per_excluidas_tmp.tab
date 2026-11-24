@@ -1,0 +1,23 @@
+create table IT.TA_PER_EXCLUIDAS_TMP
+(
+  nro_documento     VARCHAR2(20),
+  cod_tip_documento NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_PER_EXCLUIDAS_TMP
+  is 'Tabla temporal de personas excluidas (tarj. innominadas).';
+comment on column IT.TA_PER_EXCLUIDAS_TMP.nro_documento
+  is 'Numero de Documento';
+comment on column IT.TA_PER_EXCLUIDAS_TMP.cod_tip_documento
+  is 'Codigo de Tipo de Documento.';
+

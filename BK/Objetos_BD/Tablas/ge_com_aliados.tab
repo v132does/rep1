@@ -1,0 +1,53 @@
+create table IT.GE_COM_ALIADOS
+(
+  cod_ente         NUMBER(5) not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_moneda       VARCHAR2(3),
+  mto_facturacion  NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_COM_ALIADOS.cod_ente
+  is 'Código del Ente para Comercios Aliados.';
+comment on column IT.GE_COM_ALIADOS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.GE_COM_ALIADOS.cod_moneda
+  is 'Código de la Moneda del Monto facturado al Cliente por el Comercio Aliado.';
+comment on column IT.GE_COM_ALIADOS.mto_facturacion
+  is 'Monto facturado al Cliente por el Comercio Aliado.';
+comment on column IT.GE_COM_ALIADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_COM_ALIADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_COM_ALIADOS.usu_modificacion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_COM_ALIADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_COM_ALIADOS
+  add constraint PK_GE_COM_ALIADOS primary key (COD_ENTE, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

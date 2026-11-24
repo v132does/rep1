@@ -1,0 +1,148 @@
+create table IT.GE_SOL_VER_PARTICULARES
+(
+  nro_solicitud       NUMBER(7) not null,
+  existe              VARCHAR2(1) default 'N' not null,
+  tip_fachada         VARCHAR2(1) default 'B' not null,
+  tip_construccion    VARCHAR2(1) default 'B' not null,
+  cod_tip_vivienda    NUMBER(3),
+  tip_ubicacion       VARCHAR2(1) default 'C' not null,
+  tip_acceso          VARCHAR2(1) default 'F' not null,
+  tip_zona            VARCHAR2(1) default 'R' not null,
+  tip_relacion        VARCHAR2(1) not null,
+  nom_per_informo     VARCHAR2(120),
+  evaluacion          NUMBER(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  cod_persona         VARCHAR2(10) not null,
+  cod_direccion       NUMBER(3) not null,
+  cod_usu_verificador VARCHAR2(10) not null,
+  fecha               DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_VER_PARTICULARES
+  is 'Verificacion IN SITU particular.';
+comment on column IT.GE_SOL_VER_PARTICULARES.nro_solicitud
+  is 'Numero de solicitud.';
+comment on column IT.GE_SOL_VER_PARTICULARES.existe
+  is 'Existe la casa que se verifica.';
+comment on column IT.GE_SOL_VER_PARTICULARES.tip_fachada
+  is 'Tipo de fachada. (Buena/Mala/Regular).';
+comment on column IT.GE_SOL_VER_PARTICULARES.tip_construccion
+  is 'Tipo de construccion. (Buena/Mala/Regular).';
+comment on column IT.GE_SOL_VER_PARTICULARES.cod_tip_vivienda
+  is 'Tipo de vivienda.';
+comment on column IT.GE_SOL_VER_PARTICULARES.tip_ubicacion
+  is 'Tipo de Ubicacion. Centro / Barrio / Cerca Ruta / Lejos Ruta.';
+comment on column IT.GE_SOL_VER_PARTICULARES.tip_acceso
+  is 'Tipo de Acceso. Facill / Dificil / Inaccesible.';
+comment on column IT.GE_SOL_VER_PARTICULARES.tip_zona
+  is 'Tipo de Zona. Residencial / Comercial / Rural.';
+comment on column IT.GE_SOL_VER_PARTICULARES.tip_relacion
+  is 'Tipo de Relacion. Cliente / Esposa / Hijo / Padre / Madre / Hermano / Hermana / Pariente / Empleada / Vecino.';
+comment on column IT.GE_SOL_VER_PARTICULARES.nom_per_informo
+  is 'Nombre de la persona que proporciono los datos.';
+comment on column IT.GE_SOL_VER_PARTICULARES.evaluacion
+  is 'Evaluacion del analista de acuerdo a la informacion recopilada por el verificador.';
+comment on column IT.GE_SOL_VER_PARTICULARES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_VER_PARTICULARES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_VER_PARTICULARES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_VER_PARTICULARES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_VER_PARTICULARES.observacion
+  is 'Observacion sobre la verificacion.';
+comment on column IT.GE_SOL_VER_PARTICULARES.cod_persona
+  is 'Codigo de la persona deudor de la solicitud.';
+comment on column IT.GE_SOL_VER_PARTICULARES.cod_direccion
+  is 'Codigo de direccion que esta siendo verificada.';
+comment on column IT.GE_SOL_VER_PARTICULARES.cod_usu_verificador
+  is 'Codigo de Usuario Verificador.';
+comment on column IT.GE_SOL_VER_PARTICULARES.fecha
+  is 'Fecha de Verificacion.';
+create index IT.BBVA_IND_COD_PER__GE_SOL on IT.GE_SOL_VER_PARTICULARES (COD_PERSONA, COD_DIRECCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint PK_GE_SOL_PARTICULAR primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint FK_GSVPA_COD_DIRECCION foreign key (COD_PERSONA, COD_DIRECCION)
+  references IT.BA_DIRECCIONES (COD_PERSONA, COD_DIRECCION);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint FK_GSVPA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint FK_GSVPA_COD_TIP_VIVIENDA foreign key (COD_TIP_VIVIENDA)
+  references IT.BA_TIP_VIVIENDAS (COD_TIP_VIVIENDA);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint FK_GSVPA_COD_USU_VERIFICADOR foreign key (COD_USU_VERIFICADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint FK_GSVPA_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOLICITUDES (NRO_SOLICITUD);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_COD_T_008
+  check (COD_TIP_VIVIENDA BETWEEN 0 AND 999);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_EVALU_000
+  check (EVALUACION BETWEEN 1 AND 5);
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_EXIST_000
+  check (EXISTE IN ('S', 'N'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_TIP_A_000
+  check (TIP_ACCESO IN ('F', 'D', 'I'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_TIP_C_000
+  check (TIP_CONSTRUCCION IN ('B', 'M', 'R'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_TIP_F_000
+  check (TIP_FACHADA IN ('B', 'M', 'R'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_TIP_R_000
+  check (TIP_RELACION IN ('C', 'E', 'H', 'P', 'M', 'N', 'R', 'L', 'V'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_TIP_U_000
+  check (TIP_UBICACION IN ('C', 'B', 'R', 'L'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1083264899_TIP_Z_000
+  check (TIP_ZONA IN ('R', 'C', 'U'));
+alter table IT.GE_SOL_VER_PARTICULARES
+  add constraint AVCON_1086274550_COD_D_000
+  check (COD_DIRECCION BETWEEN 0 AND 999);
+

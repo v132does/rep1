@@ -1,0 +1,6 @@
+begin pre_ini_aplicacion; pae_cnf.G_COD_MODULO:=1; end; 
+/
+insert into it.ge_tra_campos (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, NRO_ORDEN, COD_CAMPO, TIP_CAMPO, LON_CAMPO, TIP_DESPLIEGUE, LON_DESPLIEGUE, NRO_LINEA, NRO_COLUMNA, FORMATO, ALINEACION, ETIQUETA, NRO_LIN_ETIQUETA, NRO_COL_ETIQUETA, VAL_DEFECTO, VAL_POSIBLES, VAL_MINIMO, VAL_MAXIMO, TIP_DATO, VALIDADO, AYUDA)
+values (354, 9, 91, 6, 'OPCION', 'X', 100, 'T', 0, 1, 16, null, 'I', null, 7, 2, null, null, null, null, 'D', 'S', '¿?');
+
+commit;

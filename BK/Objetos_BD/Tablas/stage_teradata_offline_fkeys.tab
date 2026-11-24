@@ -1,0 +1,14 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_FKEYS
+(
+  index        NUMBER,
+  dbname       VARCHAR2(256),
+  tabname      VARCHAR2(256),
+  reftabschema VARCHAR2(256),
+  reftabname   VARCHAR2(256),
+  constname    VARCHAR2(256),
+  colname      VARCHAR2(256),
+  refcolname   VARCHAR2(256),
+  type         CHAR(1)
+)
+on commit preserve rows;
+

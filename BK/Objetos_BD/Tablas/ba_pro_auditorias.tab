@@ -1,0 +1,50 @@
+create table IT.BA_PRO_AUDITORIAS
+(
+  cod_programa   VARCHAR2(30) not null,
+  referencia     VARCHAR2(100),
+  cod_usuario    VARCHAR2(30) default user not null,
+  fec_sistema    DATE not null,
+  fec_calendario DATE not null,
+  tip_novedad    VARCHAR2(1) default 'I' not null,
+  detalle        VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PRO_AUDITORIAS
+  is 'Registra la auditoria  en la ejecución de programas o novedades sobre los registros.';
+comment on column IT.BA_PRO_AUDITORIAS.cod_programa
+  is 'Codigo del Programa.';
+comment on column IT.BA_PRO_AUDITORIAS.referencia
+  is 'Referencia Intena. Ej. Cod_consulta, cod_persona, nro_cuenta, etc';
+comment on column IT.BA_PRO_AUDITORIAS.cod_usuario
+  is 'Usuario responsable por la novedad ocurrida sobre los datos.';
+comment on column IT.BA_PRO_AUDITORIAS.fec_sistema
+  is 'Fecha del sistema en que se realizo la operacion.';
+comment on column IT.BA_PRO_AUDITORIAS.fec_calendario
+  is 'Fecha calendario del modulo en el momento de realizarse la operacion.';
+comment on column IT.BA_PRO_AUDITORIAS.tip_novedad
+  is 'Tipo de novedad u operacion realizada con el dato: I-Ingreso al programa, R-Impresión de reporte, C-Consulta en pantalla X-Consulta en Excel';
+comment on column IT.BA_PRO_AUDITORIAS.detalle
+  is 'Detalle de modificaciones realizadas.';
+create index IT.IN_BPAUD_COD_PROGRAMA on IT.BA_PRO_AUDITORIAS (COD_PROGRAMA, FEC_SISTEMA, REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

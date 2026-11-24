@@ -1,0 +1,47 @@
+create table IT.BW_TOK_TAR_COMERCIOS
+(
+  cod_comercio     VARCHAR2(30) not null,
+  nom_comercio     VARCHAR2(36),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TOK_TAR_COMERCIOS.cod_comercio
+  is 'Valor único que identifica al comercio';
+comment on column IT.BW_TOK_TAR_COMERCIOS.nom_comercio
+  is 'Nombre del comercio';
+comment on column IT.BW_TOK_TAR_COMERCIOS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.BW_TOK_TAR_COMERCIOS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.BW_TOK_TAR_COMERCIOS.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.BW_TOK_TAR_COMERCIOS.fec_modificacion
+  is 'Fecha Modificacion';
+alter table IT.BW_TOK_TAR_COMERCIOS
+  add constraint PK_BW_TOK_TAR_COMERCIOS primary key (COD_COMERCIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

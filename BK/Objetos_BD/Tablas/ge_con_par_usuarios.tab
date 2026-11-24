@@ -1,0 +1,73 @@
+create table IT.GE_CON_PAR_USUARIOS
+(
+  cod_usu_pivot         VARCHAR2(10) not null,
+  can_res_secuencia     NUMBER(6) default 0,
+  cod_usu_ult_cambio    VARCHAR2(10),
+  nro_ult_cam_secuencia NUMBER(12) default 0,
+  tot_acu_uti_secuencia NUMBER(11) default 0,
+  cod_usu_actual        VARCHAR2(10),
+  can_usu_habilitados   NUMBER(6) default 0,
+  cod_sec_utilizada     VARCHAR2(50),
+  can_usu_utilizados    NUMBER(6) default 0,
+  ind_uti_secuencia     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_CON_PAR_USUARIOS.cod_usu_pivot
+  is 'Codigo de Usuario pivot agrupador de otros usuarios';
+comment on column IT.GE_CON_PAR_USUARIOS.can_res_secuencia
+  is 'Cantidad de reserva de la secuencia';
+comment on column IT.GE_CON_PAR_USUARIOS.cod_usu_ult_cambio
+  is 'Codigo de usuario ultimo cambio de secuencia';
+comment on column IT.GE_CON_PAR_USUARIOS.nro_ult_cam_secuencia
+  is 'Nro de ultimo cambio de secuencia';
+comment on column IT.GE_CON_PAR_USUARIOS.tot_acu_uti_secuencia
+  is 'Total acumulado utilizado de secuencia';
+comment on column IT.GE_CON_PAR_USUARIOS.cod_usu_actual
+  is 'Codigo de usuario actual';
+comment on column IT.GE_CON_PAR_USUARIOS.can_usu_habilitados
+  is 'Cantidad de usuarios habilitados';
+comment on column IT.GE_CON_PAR_USUARIOS.cod_sec_utilizada
+  is 'Codigo de secuencia utilizada';
+comment on column IT.GE_CON_PAR_USUARIOS.can_usu_utilizados
+  is 'Cantidad de usuarios utilizados';
+comment on column IT.GE_CON_PAR_USUARIOS.ind_uti_secuencia
+  is 'Indicador de utilizacion de secuencia BD';
+alter table IT.GE_CON_PAR_USUARIOS
+  add constraint PK_GE_CON_PAR_USUARIOS primary key (COD_USU_PIVOT)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CON_PAR_USUARIOS
+  add constraint UK_GE_CON_PAR_SECUENCIA unique (COD_SEC_UTILIZADA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

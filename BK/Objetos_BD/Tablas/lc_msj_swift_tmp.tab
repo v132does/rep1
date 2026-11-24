@@ -1,0 +1,23 @@
+create table IT.LC_MSJ_SWIFT_TMP
+(
+  nro_orden VARCHAR2(10),
+  texto     VARCHAR2(1000)
+)
+tablespace IT_AUD
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_MSJ_SWIFT_TMP
+  is 'Datos leidos del archivo ACK por lineas.';
+comment on column IT.LC_MSJ_SWIFT_TMP.nro_orden
+  is 'Nro de linea.';
+comment on column IT.LC_MSJ_SWIFT_TMP.texto
+  is 'Texto.';
+

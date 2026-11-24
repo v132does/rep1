@@ -1,0 +1,85 @@
+create table IT.CC_VALUACIONES_HIS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fecha             DATE not null,
+  estado            VARCHAR2(1) not null,
+  sal_total         NUMBER(18,2) default 0 not null,
+  sal_retenido      NUMBER(18,2) default 0 not null,
+  cat_automatica    NUMBER(3,2) not null,
+  situacion         VARCHAR2(1),
+  cotizacion        NUMBER(14,8) default 0 not null,
+  cot_anterior      NUMBER(14,8) default 0,
+  tot_valuacion     NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  tot_prevision     NUMBER(18,2),
+  tot_val_prevision NUMBER(18,2),
+  tot_val_general   NUMBER(18,2) default 0
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_VALUACIONES_HIS
+  is 'Historico de Datos para el proceso de ganancias por valuaciones.';
+comment on column IT.CC_VALUACIONES_HIS.nro_cuenta
+  is 'Numero de prestamo.';
+comment on column IT.CC_VALUACIONES_HIS.fecha
+  is 'Fecha en que se proceso por ultima vez las diferencias por valuaciones.';
+comment on column IT.CC_VALUACIONES_HIS.estado
+  is 'Estado de cuenta on line (C=Vigente, V=Vencido, G=En Gestion, M=Moroso, I=Irrecurable, N=Cancelado).';
+comment on column IT.CC_VALUACIONES_HIS.sal_total
+  is 'Saldo Total de la Cuenta.';
+comment on column IT.CC_VALUACIONES_HIS.sal_retenido
+  is 'Saldo Retenido.';
+comment on column IT.CC_VALUACIONES_HIS.cat_automatica
+  is 'Categoria automatica del Sistema.';
+comment on column IT.CC_VALUACIONES_HIS.situacion
+  is 'Situacion de acuerdo a los dias de sobregiro.';
+comment on column IT.CC_VALUACIONES_HIS.cotizacion
+  is 'Cotizacion utilizada en el calculo de valuacion.';
+comment on column IT.CC_VALUACIONES_HIS.cot_anterior
+  is 'Cotizacion Anterior.';
+comment on column IT.CC_VALUACIONES_HIS.tot_valuacion
+  is 'Monto total de valuacion por capital.';
+comment on column IT.CC_VALUACIONES_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_VALUACIONES_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_VALUACIONES_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_VALUACIONES_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_VALUACIONES_HIS.tot_prevision
+  is 'Importe de la Previsión de la Cuenta.';
+comment on column IT.CC_VALUACIONES_HIS.tot_val_prevision
+  is 'Monto Total de la Valuación de Previsión.';
+comment on column IT.CC_VALUACIONES_HIS.tot_val_general
+  is 'Monto Total Consolidado de Valuaciones.';
+alter table IT.CC_VALUACIONES_HIS
+  add constraint PK_CC_VALUACIONES_HIS primary key (NRO_CUENTA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_VALUACIONES_HIS
+  add constraint FK_CVHIS_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.CC_CTA_CORRIENTES (NRO_CUENTA);
+

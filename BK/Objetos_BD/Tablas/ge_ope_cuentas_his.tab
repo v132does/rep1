@@ -1,0 +1,42 @@
+create table IT.GE_OPE_CUENTAS_HIS
+(
+  cuenta                 VARCHAR2(10),
+  pais                   VARCHAR2(4000),
+  tipo_documento         VARCHAR2(4000),
+  numero_documento       VARCHAR2(20),
+  tipo_operacion_bcp     VARCHAR2(3),
+  moneda                 NUMBER(4),
+  descripcion_moneda     VARCHAR2(35),
+  rubro                  VARCHAR2(11),
+  modalidad              VARCHAR2(35),
+  nro_operacion          VARCHAR2(15),
+  fecha_contabilizacion  VARCHAR2(8),
+  tasa                   NUMBER,
+  fecha_vto              VARCHAR2(8),
+  fecha_pago             VARCHAR2(8),
+  dias_atraso            NUMBER,
+  monto_cuota            NUMBER,
+  capital                NUMBER,
+  interes                NUMBER,
+  saldo_a_cobrar_capital NUMBER,
+  saldo_a_cobrar_interes NUMBER,
+  saldo_a_pagar_capital  NUMBER,
+  saldo_a_pagar_interes  NUMBER,
+  estado                 VARCHAR2(4000),
+  categoria              VARCHAR2(4000),
+  nro_cuota              NUMBER,
+  cod_persona            VARCHAR2(10),
+  fecha_inicio           VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

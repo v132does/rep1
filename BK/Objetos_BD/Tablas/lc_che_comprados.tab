@@ -1,0 +1,70 @@
+create table IT.LC_CHE_COMPRADOS
+(
+  nro_operacion    NUMBER(15) not null,
+  cta_libradora    VARCHAR2(20) not null,
+  cod_banco        NUMBER(3) not null,
+  nro_cheque       NUMBER(15) not null,
+  monto            NUMBER(18,2) default 0,
+  cod_moneda       VARCHAR2(3),
+  fec_emision      DATE,
+  fec_vencimiento  DATE,
+  cod_persona      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_CHE_COMPRADOS
+  is 'Datos temporales de cheques comprados del país.';
+comment on column IT.LC_CHE_COMPRADOS.nro_operacion
+  is 'Nro. de operación a la cual pertenecen los cheques.';
+comment on column IT.LC_CHE_COMPRADOS.cta_libradora
+  is 'Cta. libradora del cheque.';
+comment on column IT.LC_CHE_COMPRADOS.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.LC_CHE_COMPRADOS.nro_cheque
+  is 'Numero de cheque.';
+comment on column IT.LC_CHE_COMPRADOS.monto
+  is 'Importe del cheque.';
+comment on column IT.LC_CHE_COMPRADOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.LC_CHE_COMPRADOS.fec_emision
+  is 'Fecha de emisión del cheque.';
+comment on column IT.LC_CHE_COMPRADOS.fec_vencimiento
+  is 'Fecha de vencimiento del cheque.';
+comment on column IT.LC_CHE_COMPRADOS.cod_persona
+  is 'Código de persona que realiza la operación.';
+comment on column IT.LC_CHE_COMPRADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_CHE_COMPRADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_CHE_COMPRADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CHE_COMPRADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_CHE_COMPRADOS
+  add constraint PK_LC_CHE_COMPRADOS primary key (NRO_OPERACION, CTA_LIBRADORA, COD_BANCO, NRO_CHEQUE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

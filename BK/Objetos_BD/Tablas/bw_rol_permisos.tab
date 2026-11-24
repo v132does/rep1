@@ -1,0 +1,112 @@
+create table IT.BW_ROL_PERMISOS
+(
+  cod_perfil       VARCHAR2(20) not null,
+  cod_tip_mensaje  VARCHAR2(3) not null,
+  cod_persona      VARCHAR2(10),
+  consulta         VARCHAR2(1) default 'N' not null,
+  ingresa          VARCHAR2(1) default 'N' not null,
+  autoriza         VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default USER not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default USER not null,
+  fec_modificacion DATE default SYSDATE not null,
+  can_firmas       NUMBER(3),
+  activo           VARCHAR2(1) default 'S'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_ROL_PERMISOS
+  is 'Autorizaciones de Acceso a las Transacciones.';
+comment on column IT.BW_ROL_PERMISOS.cod_perfil
+  is 'Código de Perfil.';
+comment on column IT.BW_ROL_PERMISOS.cod_tip_mensaje
+  is 'Código de Tipo de Mensaje.';
+comment on column IT.BW_ROL_PERMISOS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.BW_ROL_PERMISOS.consulta
+  is 'Indica si la operación es de Consulta.';
+comment on column IT.BW_ROL_PERMISOS.ingresa
+  is 'Indica si la operación es de Ingreso de datos.';
+comment on column IT.BW_ROL_PERMISOS.autoriza
+  is 'Indica si la operación necesita autorización.';
+comment on column IT.BW_ROL_PERMISOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_ROL_PERMISOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_ROL_PERMISOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_ROL_PERMISOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_ROL_PERMISOS.can_firmas
+  is 'Cantidad de Firmas del mismo perfil necesarias para finiquitar satisfactoriamente la operación.';
+comment on column IT.BW_ROL_PERMISOS.activo
+  is 'Indica si el registro esta activo(S) ó no.';
+create index IT.IN_WRPER_COD_PERSONA on IT.BW_ROL_PERMISOS (COD_PERSONA, COD_PERFIL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_WRPER_COD_TIP_MENSAJE on IT.BW_ROL_PERMISOS (COD_TIP_MENSAJE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_ROL_PERMISOS
+  add constraint UK_BW_ROL_PERMISOS unique (COD_PERFIL, COD_TIP_MENSAJE, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_ROL_PERMISOS
+  add constraint FK_WRPER_COD_PERFIL foreign key (COD_PERFIL)
+  references IT.BW_PERFILES (COD_PERFIL);
+alter table IT.BW_ROL_PERMISOS
+  add constraint FK_WRPER_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_ROL_PERMISOS
+  add constraint FK_WRPER_COD_TIP_MENSAJE foreign key (COD_TIP_MENSAJE)
+  references IT.BW_TIP_MENSAJES (COD_TIP_MENSAJE);
+alter table IT.BW_ROL_PERMISOS
+  add constraint CK_EST_AUTORIZA
+  check (AUTORIZA IN ('S', 'N'));
+alter table IT.BW_ROL_PERMISOS
+  add constraint CK_EST_CONSULTA
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.BW_ROL_PERMISOS
+  add constraint CK_EST_INGRESA
+  check (INGRESA IN ('S', 'N'));
+alter table IT.BW_ROL_PERMISOS
+  add constraint CK_INGRESA_CAN_FIRMAS
+  check (INGRESA = 'N' OR (INGRESA = 'S' AND CAN_FIRMAS IS NOT NULL AND CAN_FIRMAS BETWEEN 0 AND 9));
+

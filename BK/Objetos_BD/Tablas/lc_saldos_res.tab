@@ -1,0 +1,46 @@
+create table IT.LC_SALDOS_RES
+(
+  fecha      DATE not null,
+  cod_moneda VARCHAR2(3) not null,
+  tipo       VARCHAR2(1) not null,
+  tot_compra NUMBER(18,2),
+  tot_venta  NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_SALDOS_RES
+  is 'Resumen de Compra y Venta por dia.';
+comment on column IT.LC_SALDOS_RES.fecha
+  is 'Fecha del resumen.';
+comment on column IT.LC_SALDOS_RES.cod_moneda
+  is 'moneda.';
+comment on column IT.LC_SALDOS_RES.tipo
+  is 'E-Efectivo O-Otro.';
+comment on column IT.LC_SALDOS_RES.tot_compra
+  is 'total de compras del dia.';
+comment on column IT.LC_SALDOS_RES.tot_venta
+  is 'Total de ventas del dia.';
+create unique index IT.PK_SALDOS_RES on IT.LC_SALDOS_RES (FECHA, COD_MONEDA, TIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_SALDOS_RES
+  add constraint PK_LC_SALDOS_RES primary key (FECHA, COD_MONEDA, TIPO);
+

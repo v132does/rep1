@@ -1,0 +1,56 @@
+create table IT.TM_TAR_DEB_ERR
+(
+  nro_cuenta   VARCHAR2(15),
+  adherente    VARCHAR2(2),
+  nro_emision  VARCHAR2(2),
+  cod_sucursal VARCHAR2(2) not null,
+  estado       VARCHAR2(1),
+  embozado     VARCHAR2(35),
+  desc_error   VARCHAR2(200),
+  dire_tarjeta VARCHAR2(100),
+  nro_doc      VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_TAR_DEB_ERR
+  is 'Datos de las Tarjetas de Debito con Errores recibidos de INFONET.';
+comment on column IT.TM_TAR_DEB_ERR.nro_cuenta
+  is 'Numero de Cuenta Principal.';
+comment on column IT.TM_TAR_DEB_ERR.adherente
+  is 'Adherente: 00-Principal, 01...Adicional.';
+comment on column IT.TM_TAR_DEB_ERR.nro_emision
+  is 'Numero de Emision.';
+comment on column IT.TM_TAR_DEB_ERR.cod_sucursal
+  is 'Codigo de la Sucursal de las Tarjetas de Debito.';
+comment on column IT.TM_TAR_DEB_ERR.estado
+  is 'Estado de la Cuenta(1-Activo 2-Inactivo).';
+comment on column IT.TM_TAR_DEB_ERR.embozado
+  is 'Nombre embozado del Cliente.';
+comment on column IT.TM_TAR_DEB_ERR.desc_error
+  is 'Descripcion del Error.';
+comment on column IT.TM_TAR_DEB_ERR.dire_tarjeta
+  is 'Direccion  de la Tarjeta.';
+comment on column IT.TM_TAR_DEB_ERR.nro_doc
+  is 'Numero de Documento. ';
+create index IT.IN_TAR_DEB_CTA_ERR on IT.TM_TAR_DEB_ERR (NRO_CUENTA, ADHERENTE, NRO_EMISION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

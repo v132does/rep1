@@ -1,0 +1,83 @@
+create table IT.GE_LOG_SAL_ATM
+(
+  fecha            DATE not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_oficina      NUMBER(3),
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  hora             VARCHAR2(8),
+  can_debito       NUMBER(6),
+  mto_debito       NUMBER(18,2),
+  can_credito      NUMBER(6),
+  mto_credito      NUMBER(18,2),
+  actualizado      VARCHAR2(1),
+  det_error        VARCHAR2(400),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE,
+  tip_cuenta       VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_LOG_SAL_ATM.fecha
+  is 'Fecha actualización saldo.';
+comment on column IT.GE_LOG_SAL_ATM.cod_modulo
+  is 'Código Módulo de la Cuenta	';
+comment on column IT.GE_LOG_SAL_ATM.cod_modalidad
+  is 'Código Modalidad de la Cuenta';
+comment on column IT.GE_LOG_SAL_ATM.cod_oficina
+  is 'Código Oficina de la Cuenta	';
+comment on column IT.GE_LOG_SAL_ATM.nro_cuenta
+  is 'Número de Cuenta de Crédito o Débito.';
+comment on column IT.GE_LOG_SAL_ATM.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_LOG_SAL_ATM.hora
+  is 'Hora máxima de actualización de saldo';
+comment on column IT.GE_LOG_SAL_ATM.can_debito
+  is 'Cantidad de Débitos	';
+comment on column IT.GE_LOG_SAL_ATM.mto_debito
+  is 'Monto total de Débito en la Cuenta';
+comment on column IT.GE_LOG_SAL_ATM.can_credito
+  is 'Cantidad de Créditos';
+comment on column IT.GE_LOG_SAL_ATM.mto_credito
+  is 'Monto total de Créditos para la cuenta';
+comment on column IT.GE_LOG_SAL_ATM.actualizado
+  is 'Actualizado máxima de actualización de saldo';
+comment on column IT.GE_LOG_SAL_ATM.det_error
+  is 'Detalle del error de actualización de saldo de cuentas bancarias.';
+comment on column IT.GE_LOG_SAL_ATM.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.GE_LOG_SAL_ATM.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.GE_LOG_SAL_ATM.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.GE_LOG_SAL_ATM.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+comment on column IT.GE_LOG_SAL_ATM.tip_cuenta
+  is 'Tipo de Cuenta CB (Bancaria) / CT (Transaccional).';
+alter table IT.GE_LOG_SAL_ATM
+  add constraint PK_GE_LOG_SAL_ATM primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

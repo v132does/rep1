@@ -1,0 +1,14 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_TRIGS
+(
+  index     NUMBER,
+  tabschema VARCHAR2(256),
+  tabname   VARCHAR2(256),
+  owner     VARCHAR2(256),
+  trigname  VARCHAR2(256),
+  trigevent CHAR(1),
+  valid     CHAR(1),
+  remarks   VARCHAR2(4000),
+  text      CLOB
+)
+on commit preserve rows;
+

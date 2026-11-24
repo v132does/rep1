@@ -1,0 +1,35 @@
+create table IT.CB_SAL_PROMEDIOS_BKP
+(
+  cod_oficina           NUMBER(3) not null,
+  cod_rubro             VARCHAR2(15) not null,
+  ano                   NUMBER(4) not null,
+  mes                   NUMBER(2) not null,
+  cod_moneda            VARCHAR2(3) not null,
+  tot_acumulado         NUMBER(18,2),
+  tot_acu_mon_local     NUMBER(18,2),
+  tot_acu_mon_fuerte    NUMBER(18,2),
+  tot_acu_debitos       NUMBER(18,2),
+  tot_acu_creditos      NUMBER(18,2),
+  tot_acu_deb_mon_local NUMBER(18,2),
+  tot_acu_cre_mon_local NUMBER(18,2),
+  can_dia_acumulado     NUMBER(6),
+  usu_insercion         VARCHAR2(10) not null,
+  fec_insercion         DATE not null,
+  usu_modificacion      VARCHAR2(10) not null,
+  fec_modificacion      DATE not null,
+  tot_acu_equ_local     NUMBER(18,2),
+  tot_acu_deb_equ_loc   NUMBER(18,2),
+  tot_acu_cre_equ_loc   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

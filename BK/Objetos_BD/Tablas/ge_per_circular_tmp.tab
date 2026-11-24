@@ -1,0 +1,25 @@
+create table IT.GE_PER_CIRCULAR_TMP
+(
+  codigo        VARCHAR2(10) not null,
+  entidad       VARCHAR2(200) not null,
+  apellidos     VARCHAR2(200),
+  nombres       VARCHAR2(200),
+  nro_documento VARCHAR2(20) not null,
+  causal        VARCHAR2(40),
+  multa         VARCHAR2(100),
+  tiempo        VARCHAR2(10),
+  motivo_rehab  VARCHAR2(100),
+  inhabilitado  VARCHAR2(50)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

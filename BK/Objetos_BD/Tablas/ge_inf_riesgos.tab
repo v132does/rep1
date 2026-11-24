@@ -1,0 +1,45 @@
+create table IT.GE_INF_RIESGOS
+(
+  nro_inf_credito   NUMBER not null,
+  cod_modalidad     VARCHAR2(35),
+  cod_sub_modalidad VARCHAR2(60),
+  fec_inicio        DATE,
+  mto_autorizado    NUMBER,
+  mto_saldo         NUMBER,
+  fec_vencimiento   DATE,
+  garantias         VARCHAR2(120),
+  destino           VARCHAR2(120),
+  est_cuenta        VARCHAR2(35)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_RIESGOS.nro_inf_credito
+  is 'Número del Informe de Crédito.';
+comment on column IT.GE_INF_RIESGOS.cod_modalidad
+  is 'Descripcion de modalidad del producto.';
+comment on column IT.GE_INF_RIESGOS.cod_sub_modalidad
+  is 'Descripción de la sub-modalidad del producto.';
+comment on column IT.GE_INF_RIESGOS.fec_inicio
+  is 'Fecha de inicio.';
+comment on column IT.GE_INF_RIESGOS.mto_autorizado
+  is 'Monto autorizado.';
+comment on column IT.GE_INF_RIESGOS.mto_saldo
+  is 'Monto del saldo del producto.';
+comment on column IT.GE_INF_RIESGOS.fec_vencimiento
+  is 'Fecha de vencimiento del producto.';
+comment on column IT.GE_INF_RIESGOS.garantias
+  is 'Tipo de garantia del producto.';
+comment on column IT.GE_INF_RIESGOS.destino
+  is 'Destino del producto.';
+comment on column IT.GE_INF_RIESGOS.est_cuenta
+  is 'Estado de la Cuenta.';
+

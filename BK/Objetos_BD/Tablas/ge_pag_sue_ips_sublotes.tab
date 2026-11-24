@@ -1,0 +1,38 @@
+create table IT.GE_PAG_SUE_IPS_SUBLOTES
+(
+  nro_orden   NUMBER(10) not null,
+  nro_lote    NUMBER(10) not null,
+  nro_sublote NUMBER(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_SUE_IPS_SUBLOTES.nro_orden
+  is 'Nro de orden del pago en el lote tabla GE_PAG_SUE_IPS';
+comment on column IT.GE_PAG_SUE_IPS_SUBLOTES.nro_lote
+  is 'NRO_LOTE de la tabla GE_PAG_SUE_IPS';
+comment on column IT.GE_PAG_SUE_IPS_SUBLOTES.nro_sublote
+  is 'Nro. de Sublote en el que se procesara el pago.';
+alter table IT.GE_PAG_SUE_IPS_SUBLOTES
+  add constraint GE_PAG_SUE_IPS_SUBLOTES primary key (NRO_ORDEN, NRO_LOTE, NRO_SUBLOTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

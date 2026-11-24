@@ -1,0 +1,53 @@
+create table IT.SB_RIE_CONTINGENTES
+(
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3),
+  concepto         VARCHAR2(240) not null,
+  sal_inicio       NUMBER(18,2) default 0 not null,
+  constitucion     NUMBER(18,2) default 0 not null,
+  aplicacion       NUMBER(18,2) default 0 not null,
+  valuacion        NUMBER(18,2) default 0 not null,
+  desafectacion    NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_RIE_CONTINGENTES
+  is 'Detalle de Riesgos Contingentes.';
+comment on column IT.SB_RIE_CONTINGENTES.fecha
+  is 'Fecha.';
+comment on column IT.SB_RIE_CONTINGENTES.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_RIE_CONTINGENTES.concepto
+  is 'Concepto.';
+comment on column IT.SB_RIE_CONTINGENTES.sal_inicio
+  is 'Saldo Inicial.';
+comment on column IT.SB_RIE_CONTINGENTES.constitucion
+  is 'Constitucion.';
+comment on column IT.SB_RIE_CONTINGENTES.aplicacion
+  is 'Aplicacion.';
+comment on column IT.SB_RIE_CONTINGENTES.valuacion
+  is 'Valuacion. ';
+comment on column IT.SB_RIE_CONTINGENTES.desafectacion
+  is 'Desafectacion.';
+comment on column IT.SB_RIE_CONTINGENTES.usu_insercion
+  is 'Usuario que realizo la Insercion del Registro.';
+comment on column IT.SB_RIE_CONTINGENTES.fec_insercion
+  is 'Fecha en que se Inserto el Registro.';
+comment on column IT.SB_RIE_CONTINGENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_RIE_CONTINGENTES.fec_modificacion
+  is 'Fecha en que se realizo la Ultima Modificacion en el Registro.';
+

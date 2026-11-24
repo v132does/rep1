@@ -1,0 +1,51 @@
+create table IT.CJ_LOG_TED
+(
+  hora             VARCHAR2(10),
+  fecha            VARCHAR2(10),
+  mensaje          VARCHAR2(500),
+  nro_telefono     VARCHAR2(20),
+  mail             VARCHAR2(200),
+  otp              VARCHAR2(10),
+  canal            VARCHAR2(10),
+  cuerpo           VARCHAR2(1000),
+  usu_insercion    VARCHAR2(50) default user,
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(50) default user,
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CJ_LOG_TED.hora
+  is 'Hora en que se registro el mensaje';
+comment on column IT.CJ_LOG_TED.fecha
+  is 'Fecha en que se registro el mensaje';
+comment on column IT.CJ_LOG_TED.mensaje
+  is 'Mensaje enviado por el medio especificado';
+comment on column IT.CJ_LOG_TED.nro_telefono
+  is 'Telefono al que se envio el codigo OTP';
+comment on column IT.CJ_LOG_TED.mail
+  is 'Correo destinatario del OTP';
+comment on column IT.CJ_LOG_TED.otp
+  is 'Codigo Enviado para validar';
+comment on column IT.CJ_LOG_TED.canal
+  is 'Referencia a si el mensaje se envió por Personal o por IDL';
+comment on column IT.CJ_LOG_TED.cuerpo
+  is 'Cadena de datos completa recibida sin parsear';
+comment on column IT.CJ_LOG_TED.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.CJ_LOG_TED.fec_insercion
+  is 'Fecha en que se inserto el registro';
+comment on column IT.CJ_LOG_TED.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.CJ_LOG_TED.fec_modificacion
+  is 'Fecha en que se modifico el registro';
+

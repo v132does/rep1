@@ -1,0 +1,48 @@
+create table IT.SIMGIA_ARMA711_BKP
+(
+  m711suc     VARCHAR2(40),
+  m711cta     VARCHAR2(3),
+  m711sub     VARCHAR2(6),
+  m711nombre  VARCHAR2(4000),
+  m711direc   VARCHAR2(4000),
+  m711telef   NUMBER,
+  m711riesgo  NUMBER,
+  cod_persona VARCHAR2(10),
+  m711slmman  NUMBER,
+  m711sldact  NUMBER,
+  m711nro700  CHAR(1),
+  m711slnods  NUMBER,
+  m711numero  NUMBER,
+  m711tipint  NUMBER,
+  m711tipcap  NUMBER,
+  m711sdomed  NUMBER,
+  m711acdias  NUMBER,
+  m711ultmov  NUMBER,
+  m711inters  NUMBER,
+  m711bandlq  NUMBER,
+  m711sdmdsa  NUMBER,
+  m711badalt  NUMBER,
+  m711apctem  NUMBER,
+  m711apctbl  NUMBER,
+  m711apdbcr  NUMBER,
+  m711apaux   NUMBER,
+  m711ind1    CHAR(1),
+  m711ind2    CHAR(1),
+  m711grpcta  NUMBER,
+  m711fillr1  CHAR(1),
+  m711auxmae  NUMBER,
+  m711fillr2  CHAR(1),
+  fecha_his   DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

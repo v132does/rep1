@@ -1,0 +1,5 @@
+-- DDL para modificar la tabla BA_TAB_DEPURADAS
+ALTER TABLE IT.BA_TAB_DEPURADAS 
+  ADD (nro_grupo NUMBER(2));
+ALTER TABLE IT.BA_TAB_DEPURADAS 
+  DROP COLUMN programado;

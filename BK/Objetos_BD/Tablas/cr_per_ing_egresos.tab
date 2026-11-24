@@ -1,0 +1,85 @@
+create table IT.CR_PER_ING_EGRESOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_concepto     NUMBER(3) not null,
+  ing_egreso       VARCHAR2(1) not null,
+  importe          NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_informacion  DATE default SYSDATE,
+  frecuencia       VARCHAR2(1) default 'M'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_ING_EGRESOS
+  is 'Ingresos y Egresos por Persona.';
+comment on column IT.CR_PER_ING_EGRESOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_ING_EGRESOS.cod_concepto
+  is 'Codigo de Concepto.';
+comment on column IT.CR_PER_ING_EGRESOS.ing_egreso
+  is 'Indicador Ingreso o Egreso.';
+comment on column IT.CR_PER_ING_EGRESOS.importe
+  is 'Importe.';
+comment on column IT.CR_PER_ING_EGRESOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_ING_EGRESOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_ING_EGRESOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_ING_EGRESOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_ING_EGRESOS.fec_informacion
+  is 'Fecha de la Información.';
+comment on column IT.CR_PER_ING_EGRESOS.frecuencia
+  is 'M: mensual, A: anual.';
+create index IT.IN_RPIEG_COD_PERSONA on IT.CR_PER_ING_EGRESOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_ING_EGRESOS
+  add constraint PK_CR_PER_ING_EGRESOS primary key (COD_PERSONA, COD_CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_ING_EGRESOS
+  add constraint FK_RINEG_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.CR_CON_ING_EGR (COD_CONCEPTO);
+alter table IT.CR_PER_ING_EGRESOS
+  add constraint FK_RINEG_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PER_ING_EGRESOS
+  add constraint AVCON_1080843837_COD_C_003
+  check (COD_CONCEPTO BETWEEN 1 AND 999);
+alter table IT.CR_PER_ING_EGRESOS
+  add constraint AVCON_1080843837_ING_E_000
+  check (ING_EGRESO IN ('I', 'E'));
+

@@ -1,0 +1,52 @@
+create table IT.BA_TIP_VIVIENDAS
+(
+  cod_tip_vivienda NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_TIP_VIVIENDAS
+  is 'Permite definir los tipos de vivienda de las personas fisicas.';
+comment on column IT.BA_TIP_VIVIENDAS.cod_tip_vivienda
+  is 'Codigo de tipo de vivienda.';
+comment on column IT.BA_TIP_VIVIENDAS.descripcion
+  is 'Descripcion del tipo de vivienda.';
+comment on column IT.BA_TIP_VIVIENDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_TIP_VIVIENDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_TIP_VIVIENDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_TIP_VIVIENDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_TIP_VIVIENDAS
+  add constraint PK_BA_TIP_VIVIENDAS primary key (COD_TIP_VIVIENDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_TIP_VIVIENDAS
+  add constraint AVCON_1080842839_COD_T_002
+  check (COD_TIP_VIVIENDA BETWEEN 1 AND 999);
+

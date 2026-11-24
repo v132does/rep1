@@ -1,0 +1,7 @@
+create sequence IT.S_SNP_NRO_ORDEN
+minvalue 1
+maxvalue 999999999999999
+start with 39
+increment by 1
+nocache;
+

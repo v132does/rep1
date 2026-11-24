@@ -1,0 +1,25 @@
+create table IT.GE_SPI_LOG_CONTROLES
+(
+  nro_referencia   VARCHAR2(33) not null,
+  nro_ref_externa  VARCHAR2(33),
+  cod_msj_mx       VARCHAR2(8) not null,
+  fecha            DATE,
+  hora             VARCHAR2(8) not null,
+  cantidad         NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

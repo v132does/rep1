@@ -1,0 +1,97 @@
+-- Create table
+create table IT.PR_COBROS_TMP_RRR
+(
+  cod_persona            VARCHAR2(10) not null,
+  nro_cuenta             VARCHAR2(15) not null,
+  fec_valor              DATE not null,
+  sal_capital            NUMBER(18,2) default 0,
+  sal_interes            NUMBER(18,2) default 0,
+  mto_capital            NUMBER(18,2) default 0,
+  mto_interes            NUMBER(18,2) default 0,
+  mto_int_documentado    NUMBER(18,2) default 0,
+  mto_int_moratorio      NUMBER(18,2) default 0,
+  mto_int_mor_interes    NUMBER(18,2) default 0,
+  mto_int_mor_adelantado NUMBER(18,2) default 0,
+  mto_int_punitorio      NUMBER(18,2) default 0,
+  mto_cargo              NUMBER(18,2) default 0,
+  mto_impuesto           NUMBER(18,2) default 0,
+  cod_moneda             VARCHAR2(3),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  cod_clave              NUMBER(8),
+  nro_secuencia          NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.PR_COBROS_TMP_RRR
+  is 'Se utiliza para simulación de los cobros para cálculos temporales de préstamos a Renovar(RRR)';
+-- Add comments to the columns 
+comment on column IT.PR_COBROS_TMP_RRR.cod_persona
+  is 'Código de Persona.';
+comment on column IT.PR_COBROS_TMP_RRR.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.PR_COBROS_TMP_RRR.fec_valor
+  is 'Fecha valor del cobro.';
+comment on column IT.PR_COBROS_TMP_RRR.sal_capital
+  is 'Saldo capital del préstamo en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP_RRR.sal_interes
+  is 'Saldo interés del préstamo en el momento del cobro.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_capital
+  is 'Monto capital cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_interes
+  is 'Monto interés cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_int_documentado
+  is 'Monto interés documentado cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_int_moratorio
+  is 'Monto interés moratorio cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_int_mor_interes
+  is 'Monto interes moratorio sobre interes vencido cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_int_mor_adelantado
+  is 'Monto interés moratorio sobre interes adelantado vencido cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_int_punitorio
+  is 'Monto interés punitorio cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_cargo
+  is 'Monto del cargo cobrado.';
+comment on column IT.PR_COBROS_TMP_RRR.mto_impuesto
+  is 'Monto de impuestos cobrados.';
+comment on column IT.PR_COBROS_TMP_RRR.cod_moneda
+  is 'Código de moneda de la operación.';
+comment on column IT.PR_COBROS_TMP_RRR.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_COBROS_TMP_RRR.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_COBROS_TMP_RRR.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_COBROS_TMP_RRR.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_COBROS_TMP_RRR.cod_clave
+  is 'Código de clave para relacionar con la cabecera.';
+comment on column IT.PR_COBROS_TMP_RRR.nro_secuencia
+  is 'Número de registro.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.PR_COBROS_TMP_RRR
+  add constraint PK_PR_COBROS_TMP_RRR primary key (COD_PERSONA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

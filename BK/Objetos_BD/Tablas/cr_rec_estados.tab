@@ -1,0 +1,93 @@
+create table IT.CR_REC_ESTADOS
+(
+  cod_reclamo        NUMBER(5) not null,
+  cod_rec_estado     NUMBER(2) not null,
+  descripcion        VARCHAR2(35) not null,
+  grupo              VARCHAR2(1) default 'P' not null,
+  cod_actividad      NUMBER(3) not null,
+  cod_estado         NUMBER(2) not null,
+  ind_reprogramacion VARCHAR2(1) default 'N',
+  ind_reasignacion   VARCHAR2(1) default 'N',
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_REC_ESTADOS
+  is 'Estados por tipo de reclamos o pedidos.';
+comment on column IT.CR_REC_ESTADOS.cod_reclamo
+  is 'Código de reclamo o pedido.';
+comment on column IT.CR_REC_ESTADOS.cod_rec_estado
+  is 'Código de estado.';
+comment on column IT.CR_REC_ESTADOS.descripcion
+  is 'Descripción del estado.';
+comment on column IT.CR_REC_ESTADOS.grupo
+  is 'Grupo de estados: P=pendiente, R=realizado.';
+comment on column IT.CR_REC_ESTADOS.cod_actividad
+  is 'Código de Actividad en la Agenda.';
+comment on column IT.CR_REC_ESTADOS.cod_estado
+  is 'Código de Estado de la Agenda.';
+comment on column IT.CR_REC_ESTADOS.ind_reprogramacion
+  is 'Indica si la actividad es una reprogramación de tareas.';
+comment on column IT.CR_REC_ESTADOS.ind_reasignacion
+  is 'Indica si la actividad es una reasignación de tareas por parte de un supervisor.';
+comment on column IT.CR_REC_ESTADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CR_REC_ESTADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CR_REC_ESTADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CR_REC_ESTADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CR_REC_ESTADOS
+  add constraint PK_CR_REC_ESTADOS primary key (COD_RECLAMO, COD_REC_ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REC_ESTADOS
+  add constraint UK_RREST_COD_ESTADO unique (COD_RECLAMO, COD_ACTIVIDAD, COD_ESTADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_REC_ESTADOS
+  add constraint FK_RREST_COD_ACTIVIDAD foreign key (COD_ACTIVIDAD, COD_ESTADO)
+  references IT.CR_AGE_EST_ACTIVIDADES (COD_ACTIVIDAD, COD_ESTADO);
+alter table IT.CR_REC_ESTADOS
+  add constraint CK_RREST_GRUPO
+  check (GRUPO IN ('P', 'R', 'C'));
+alter table IT.CR_REC_ESTADOS
+  add constraint CK_RREST_IND_REASIGNACION
+  check (IND_REASIGNACION IN ('S', 'N'));
+alter table IT.CR_REC_ESTADOS
+  add constraint CK_RREST_IND_REPROGRAMACION
+  check (IND_REPROGRAMACION IN ('S', 'N'));
+

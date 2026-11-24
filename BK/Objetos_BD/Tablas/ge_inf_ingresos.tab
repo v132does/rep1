@@ -1,0 +1,176 @@
+create table IT.GE_INF_INGRESOS
+(
+  nro_inf_credito      NUMBER not null,
+  sal_ene_ano_anterior NUMBER,
+  sal_ene_ano_actual   NUMBER,
+  sal_feb_ano_anterior NUMBER,
+  sal_feb_ano_actual   NUMBER,
+  sal_mar_ano_anterior NUMBER,
+  sal_mar_ano_actual   NUMBER,
+  sal_abr_ano_anterior NUMBER,
+  sal_abr_ano_actual   NUMBER,
+  sal_may_ano_anterior NUMBER,
+  sal_may_ano_actual   NUMBER,
+  sal_jun_ano_anterior NUMBER,
+  sal_jun_ano_actual   NUMBER,
+  sal_jul_ano_anterior NUMBER,
+  sal_jul_ano_actual   NUMBER,
+  sal_ago_ano_anterior NUMBER,
+  sal_ago_ano_actual   NUMBER,
+  sal_set_ano_anterior NUMBER,
+  sal_set_ano_actual   NUMBER,
+  sal_oct_ano_anterior NUMBER,
+  sal_oct_ano_actual   NUMBER,
+  sal_nov_ano_anterior NUMBER,
+  sal_nov_ano_actual   NUMBER,
+  sal_dic_ano_anterior NUMBER,
+  sal_dic_ano_actual   NUMBER,
+  fac_ene_ano_anterior NUMBER,
+  fac_ene_ano_actual   NUMBER,
+  fac_feb_ano_anterior NUMBER,
+  fac_feb_ano_actual   NUMBER,
+  fac_mar_ano_anterior NUMBER,
+  fac_mar_ano_actual   NUMBER,
+  fac_abr_ano_anterior NUMBER,
+  fac_abr_ano_actual   NUMBER,
+  fac_may_ano_anterior NUMBER,
+  fac_may_ano_actual   NUMBER,
+  fac_jun_ano_anterior NUMBER,
+  fac_jun_ano_actual   NUMBER,
+  fac_jul_ano_anterior NUMBER,
+  fac_jul_ano_actual   NUMBER,
+  fac_ago_ano_anterior NUMBER,
+  fac_ago_ano_actual   NUMBER,
+  fac_set_ano_anterior NUMBER,
+  fac_set_ano_actual   NUMBER,
+  fac_oct_ano_anterior NUMBER,
+  fac_oct_ano_actual   NUMBER,
+  fac_nov_ano_anterior NUMBER,
+  fac_nov_ano_actual   NUMBER,
+  fac_dic_ano_anterior NUMBER,
+  fac_dic_ano_actual   NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INF_INGRESOS.nro_inf_credito
+  is 'Número del Informe de Crédito.';
+comment on column IT.GE_INF_INGRESOS.sal_ene_ano_anterior
+  is 'Salario mes de enero año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_ene_ano_actual
+  is 'Salario mes de enero año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_feb_ano_anterior
+  is 'Salario mes de febrero año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_feb_ano_actual
+  is 'Salario mes de febrero año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_mar_ano_anterior
+  is 'Salario mes de marzo año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_mar_ano_actual
+  is 'Salario mes de marzo año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_abr_ano_anterior
+  is 'Salario mes de abril año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_abr_ano_actual
+  is 'Salario mes de abril año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_may_ano_anterior
+  is 'Salario mes de mayo año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_may_ano_actual
+  is 'Salario mes de mayo año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_jun_ano_anterior
+  is 'Salario mes de junio año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_jun_ano_actual
+  is 'Salario mes de junio año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_jul_ano_anterior
+  is 'Salario mes de julio año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_jul_ano_actual
+  is 'Salario mes de julio año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_ago_ano_anterior
+  is 'Salario mes de agosto año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_ago_ano_actual
+  is 'Salario mes de agosto año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_set_ano_anterior
+  is 'Salario mes de setiembre año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_set_ano_actual
+  is 'Salario mes de setiembre año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_oct_ano_anterior
+  is 'Salario mes de octubre año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_oct_ano_actual
+  is 'Salario mes de octubre año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_nov_ano_anterior
+  is 'Salario mes de noviembre año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_nov_ano_actual
+  is 'Salario mes de noviembre año actual.';
+comment on column IT.GE_INF_INGRESOS.sal_dic_ano_anterior
+  is 'Salario mes de diciembre año anterior.';
+comment on column IT.GE_INF_INGRESOS.sal_dic_ano_actual
+  is 'Salario mes de diciembre año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_ene_ano_anterior
+  is 'Facturación mes de enero año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_ene_ano_actual
+  is 'Facturación mes de enero año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_feb_ano_anterior
+  is 'Facturación mes de febrero año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_feb_ano_actual
+  is 'Facturación mes de febrero año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_mar_ano_anterior
+  is 'Facturación mes de marzo año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_mar_ano_actual
+  is 'Facturación mes de marzo año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_abr_ano_anterior
+  is 'Facturación mes de abril año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_abr_ano_actual
+  is 'Facturación mes de abril año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_may_ano_anterior
+  is 'Facturación mes de mayo año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_may_ano_actual
+  is 'Facturación mes de mayo año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_jun_ano_anterior
+  is 'Facturación mes de junio año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_jun_ano_actual
+  is 'Facturación mes de junio año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_jul_ano_anterior
+  is 'Facturación mes de julio año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_jul_ano_actual
+  is 'Facturación mes de julio año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_ago_ano_anterior
+  is 'Facturación mes de agosto año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_ago_ano_actual
+  is 'Facturación mes de agosto año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_set_ano_anterior
+  is 'Facturación mes de setiembre año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_set_ano_actual
+  is 'Facturación mes de setiembre año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_oct_ano_anterior
+  is 'Facturación mes de octubre año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_oct_ano_actual
+  is 'Facturación mes de octubre año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_nov_ano_anterior
+  is 'Facturación mes de noviembre año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_nov_ano_actual
+  is 'Facturación mes de noviemrbe año actual.';
+comment on column IT.GE_INF_INGRESOS.fac_dic_ano_anterior
+  is 'Facturación mes de diciembre año anterior.';
+comment on column IT.GE_INF_INGRESOS.fac_dic_ano_actual
+  is 'Facturación mes de diciembre año actual.';
+alter table IT.GE_INF_INGRESOS
+  add constraint PK_GE_INF_INGRESOS primary key (NRO_INF_CREDITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

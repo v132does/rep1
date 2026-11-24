@@ -1,0 +1,44 @@
+create table IT.CB_SAL_ANUALES
+(
+  ano                NUMBER(4) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_rubro          VARCHAR2(15) not null,
+  sal_mon_loc_mes_01 NUMBER(18,2),
+  sal_mon_loc_mes_02 NUMBER(18,2),
+  sal_mon_loc_mes_03 NUMBER(18,2),
+  sal_mon_loc_mes_04 NUMBER(18,2),
+  sal_mon_loc_mes_05 NUMBER(18,2),
+  sal_mon_loc_mes_06 NUMBER(18,2),
+  sal_mon_loc_mes_07 NUMBER(18,2),
+  sal_mon_loc_mes_08 NUMBER(18,2),
+  sal_mon_loc_mes_09 NUMBER(18,2),
+  sal_mon_loc_mes_10 NUMBER(18,2),
+  sal_mon_loc_mes_11 NUMBER(18,2),
+  sal_mon_loc_mes_12 NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_ANUALES
+  add constraint PK_CB_SAL_ANUALES primary key (ANO, COD_OFICINA, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

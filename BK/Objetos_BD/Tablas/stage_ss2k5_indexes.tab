@@ -1,0 +1,15 @@
+create global temporary table IT.STAGE_SS2K5_INDEXES
+(
+  svrid_fk       NUMBER(38),
+  dbid_gen_fk    NUMBER(38),
+  object_id_gen  NUMBER(38),
+  object_id      NUMBER(38) not null,
+  index_id       NUMBER(38) not null,
+  name           VARCHAR2(256 CHAR),
+  is_unique      NUMBER(1),
+  is_primary_key NUMBER(1)
+)
+on commit preserve rows;
+create index IT.S_SS2K5_INDEXES_DBID_GEN_FK on IT.STAGE_SS2K5_INDEXES (DBID_GEN_FK);
+create index IT.S_SS2K5_INDEXES_OBJECT_ID on IT.STAGE_SS2K5_INDEXES (OBJECT_ID);
+

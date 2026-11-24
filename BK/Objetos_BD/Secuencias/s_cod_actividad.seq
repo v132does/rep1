@@ -1,0 +1,7 @@
+create sequence IT.S_COD_ACTIVIDAD
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 12
+increment by 1
+cache 20;
+

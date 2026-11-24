@@ -1,0 +1,163 @@
+create table IT.PR_LINEAS
+(
+  nro_linea         NUMBER(7) not null,
+  cod_persona       VARCHAR2(10),
+  cod_gru_economico NUMBER(5),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  cod_moneda        VARCHAR2(3) not null,
+  monto             NUMBER(18,2) default 0 not null,
+  fec_vencimiento   DATE,
+  fec_otorgamiento  DATE not null,
+  mto_aplicado      NUMBER(18,2) default 0,
+  descripcion       VARCHAR2(60),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  estado            VARCHAR2(1),
+  observacion       VARCHAR2(1000),
+  niv_aprobacion    VARCHAR2(3),
+  cotizacion        NUMBER(14,8) default 0,
+  fec_aprobacion    DATE,
+  nro_acta          NUMBER(10),
+  cod_campana       NUMBER(3),
+  url_crm           VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_LINEAS
+  is 'Tabla de Líneas de Crédito.';
+comment on column IT.PR_LINEAS.nro_linea
+  is 'Número de la Línea.';
+comment on column IT.PR_LINEAS.cod_persona
+  is 'Número de Cliente.';
+comment on column IT.PR_LINEAS.cod_gru_economico
+  is 'Grupo Económico.';
+comment on column IT.PR_LINEAS.cod_modulo
+  is 'Código del Módulo de la Línea.';
+comment on column IT.PR_LINEAS.cod_modalidad
+  is 'Código de la Modalidad de la Línea.';
+comment on column IT.PR_LINEAS.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.PR_LINEAS.monto
+  is 'Monto de la Línea.';
+comment on column IT.PR_LINEAS.fec_vencimiento
+  is 'Fecha de Validez desde.';
+comment on column IT.PR_LINEAS.fec_otorgamiento
+  is 'Fecha de Otorgamiento.';
+comment on column IT.PR_LINEAS.mto_aplicado
+  is 'Valor ya aplicado de la línea.';
+comment on column IT.PR_LINEAS.descripcion
+  is 'Descripción de la Línea.';
+comment on column IT.PR_LINEAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_LINEAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_LINEAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_LINEAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_LINEAS.estado
+  is 'Estado de la Linea (P=Pendiente, A=Aprobado, V=Vencido, B=Bloqueado, C=Cancelado).';
+comment on column IT.PR_LINEAS.observacion
+  is 'Observaciones.';
+comment on column IT.PR_LINEAS.niv_aprobacion
+  is 'Niveles de aprobación.';
+comment on column IT.PR_LINEAS.cotizacion
+  is 'Cotización.';
+comment on column IT.PR_LINEAS.fec_aprobacion
+  is 'Fecha de Aprobación.';
+comment on column IT.PR_LINEAS.nro_acta
+  is 'Número de Acta.';
+comment on column IT.PR_LINEAS.cod_campana
+  is 'Código de campaña.';
+comment on column IT.PR_LINEAS.url_crm
+  is 'Url de acceso directo a la solicitud de Admision en CRM';
+create index IT.IN_PLINE_COD_GRU_ECONOMICO on IT.PR_LINEAS (COD_GRU_ECONOMICO, COD_MODALIDAD, COD_MODULO, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PLINE_COD_PERSONA on IT.PR_LINEAS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_PLINE_ESTADO on IT.PR_LINEAS (ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LINEAS
+  add constraint PK_PR_LINEAS primary key (NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_LINEAS
+  add constraint FK_PLINE_COD_GRU_ECONOMICO foreign key (COD_GRU_ECONOMICO)
+  references IT.GE_GRU_ECONOMICOS (COD_GRU_ECONOMICO);
+alter table IT.PR_LINEAS
+  add constraint FK_PLINE_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_LINEAS
+  add constraint FK_PLINE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.PR_LINEAS
+  add constraint FK_PLINE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.PR_LINEAS
+  add constraint AVCON_1099424376_COD_G_001
+  check (COD_GRU_ECONOMICO BETWEEN 0 AND 99999);
+alter table IT.PR_LINEAS
+  add constraint AVCON_1099424376_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_LINEAS
+  add constraint AVCON_1099424376_COD_M_001
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.PR_LINEAS
+  add constraint AVCON_1121198217_ESTAD_000
+  check (ESTADO IN ('A', 'B', 'C', 'P', 'R', 'V'));
+alter table IT.PR_LINEAS
+  add constraint AVCON_1121908707_ESTAD_000
+  check (ESTADO IN ('A', 'B', 'C', 'P', 'R', 'V'));
+

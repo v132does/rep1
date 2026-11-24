@@ -1,0 +1,106 @@
+create table IT.CR_PER_VEHICULOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  nro_chapa        VARCHAR2(15),
+  cod_marca        NUMBER(5) not null,
+  modelo           VARCHAR2(50),
+  ano              NUMBER(4),
+  cod_moneda       VARCHAR2(3) not null,
+  val_comercial    NUMBER(18,2) default 0,
+  prendado         VARCHAR2(1) default 'N',
+  pre_a_quien      VARCHAR2(80),
+  val_prenda       NUMBER(18,2) default 0,
+  fec_pre_desde    DATE,
+  fec_pre_hasta    DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_VEHICULOS
+  is 'Vehiculos por Persona.';
+comment on column IT.CR_PER_VEHICULOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_VEHICULOS.nro_secuencia
+  is 'Secuencia.';
+comment on column IT.CR_PER_VEHICULOS.nro_chapa
+  is 'Numero de Chapa.';
+comment on column IT.CR_PER_VEHICULOS.cod_marca
+  is 'Codigo de Marca.';
+comment on column IT.CR_PER_VEHICULOS.modelo
+  is 'Modelo del Vehiculo.';
+comment on column IT.CR_PER_VEHICULOS.ano
+  is 'Año del Vehiculo.';
+comment on column IT.CR_PER_VEHICULOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.CR_PER_VEHICULOS.val_comercial
+  is 'Valor Comercial del Vehiculo.';
+comment on column IT.CR_PER_VEHICULOS.prendado
+  is 'Indica si esta Prendado (S/N).';
+comment on column IT.CR_PER_VEHICULOS.pre_a_quien
+  is 'Prendado a Quien.';
+comment on column IT.CR_PER_VEHICULOS.val_prenda
+  is 'Valor de la Prenda.';
+comment on column IT.CR_PER_VEHICULOS.fec_pre_desde
+  is 'Fecha de prenda hasta.';
+comment on column IT.CR_PER_VEHICULOS.fec_pre_hasta
+  is 'Fecha de prenda desde.';
+comment on column IT.CR_PER_VEHICULOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_VEHICULOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_VEHICULOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_VEHICULOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_RPVEH_COD_MARCA on IT.CR_PER_VEHICULOS (COD_MARCA, COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_VEHICULOS
+  add constraint PK_CR_PER_VEHICULOS primary key (COD_PERSONA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_VEHICULOS
+  add constraint FK_RVEHI_COD_MARCA foreign key (COD_MARCA)
+  references IT.CR_MAR_VEHICULOS (COD_MARCA);
+alter table IT.CR_PER_VEHICULOS
+  add constraint FK_RVEHI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PER_VEHICULOS
+  add constraint FK_RVEHI_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PER_VEHICULOS
+  add constraint AVCON_1080843837_PREND_000
+  check (PRENDADO IN ('S', 'N'));
+

@@ -1,0 +1,7 @@
+create sequence IT.S_COD_BIE_ADJUDICADO
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 518
+increment by 1
+nocache;
+

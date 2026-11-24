@@ -1,0 +1,35 @@
+create table IT.TM_DIR_OFAC
+(
+  nro_documento VARCHAR2(10),
+  direccion     VARCHAR2(125),
+  ciudad        VARCHAR2(30),
+  pais          VARCHAR2(40),
+  observacion   VARCHAR2(200),
+  msj_error     VARCHAR2(3000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_DIR_OFAC
+  is 'Archivo temporal de carga de Direcciones de OFAC.';
+comment on column IT.TM_DIR_OFAC.nro_documento
+  is 'Nro de documento.';
+comment on column IT.TM_DIR_OFAC.direccion
+  is 'Direccion de la persona.';
+comment on column IT.TM_DIR_OFAC.ciudad
+  is 'Ciudad. En caso de no existir definir ciudad por defecto.';
+comment on column IT.TM_DIR_OFAC.pais
+  is 'Pais. En caso de no existir definir pais por defecto.';
+comment on column IT.TM_DIR_OFAC.observacion
+  is 'Observacion sobre la direccion.';
+comment on column IT.TM_DIR_OFAC.msj_error
+  is 'Mensaje de Error del proceso de carga de datos.';
+

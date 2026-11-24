@@ -1,0 +1,24 @@
+create table IT.SB_ANA_LIQ_INF56
+(
+  moneda      CHAR(4),
+  cuentas     VARCHAR2(15),
+  men_7_dias  NUMBER,
+  men_30_dias NUMBER,
+  men_60_dias NUMBER,
+  men_90_dias NUMBER,
+  may_90_dias NUMBER,
+  monto       NUMBER,
+  informe     VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

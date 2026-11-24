@@ -1,0 +1,53 @@
+create table IT.LC_FOR_CUR_CUPONES
+(
+  cod_moneda       VARCHAR2(3) not null,
+  fec_subasta      DATE not null,
+  dia_plazo        NUMBER(6) not null,
+  val_tasa         NUMBER(20,4),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.LC_FOR_CUR_CUPONES.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.LC_FOR_CUR_CUPONES.fec_subasta
+  is 'Fecha de Subasta en BCP';
+comment on column IT.LC_FOR_CUR_CUPONES.dia_plazo
+  is 'Dia de Plazo';
+comment on column IT.LC_FOR_CUR_CUPONES.val_tasa
+  is 'Valor de la Tasa';
+comment on column IT.LC_FOR_CUR_CUPONES.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.LC_FOR_CUR_CUPONES.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.LC_FOR_CUR_CUPONES.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.LC_FOR_CUR_CUPONES.fec_modificacion
+  is 'Fecha e Modificacion';
+alter table IT.LC_FOR_CUR_CUPONES
+  add constraint PK_LC_FOR_CUR_RENDIMIENTO primary key (COD_MONEDA, FEC_SUBASTA, DIA_PLAZO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,55 @@
+create table IT.GE_FIR_CIRCUITOS
+(
+  tip_documento    VARCHAR2(3) not null,
+  nro_secuencia    NUMBER(3) not null,
+  cod_persona      VARCHAR2(10),
+  ind_beneficiario VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_FIR_CIRCUITOS
+  is 'Tabla de Secuencia de Firmas.';
+comment on column IT.GE_FIR_CIRCUITOS.tip_documento
+  is 'Tipo de documento. Dominio DOC_FIR_DIGITALES.';
+comment on column IT.GE_FIR_CIRCUITOS.nro_secuencia
+  is 'Nro. de Secuencia del Circuito.';
+comment on column IT.GE_FIR_CIRCUITOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_FIR_CIRCUITOS.ind_beneficiario
+  is 'Indicador si el Firmante es el Beneficiario.';
+comment on column IT.GE_FIR_CIRCUITOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_FIR_CIRCUITOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_FIR_CIRCUITOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_FIR_CIRCUITOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_FIR_CIRCUITOS
+  add constraint PK_GE_FIR_CIRCUITOS primary key (TIP_DOCUMENTO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

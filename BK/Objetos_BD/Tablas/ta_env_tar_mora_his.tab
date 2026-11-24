@@ -1,0 +1,104 @@
+create table IT.TA_ENV_TAR_MORA_HIS
+(
+  nro_tarjeta      VARCHAR2(19) not null,
+  fec_valor        VARCHAR2(8) not null,
+  concepto         VARCHAR2(40),
+  cod_moneda       VARCHAR2(3),
+  mto_mora         NUMBER(18,2),
+  tip_cargo        VARCHAR2(3),
+  tip_saldo        VARCHAR2(3),
+  tip_tran         VARCHAR2(1),
+  financia         VARCHAR2(1),
+  cod_usuario      VARCHAR2(10),
+  iva              VARCHAR2(1),
+  impuesto_iva     VARCHAR2(3),
+  mov_res1         VARCHAR2(1),
+  cod_procesadora  VARCHAR2(4),
+  fec_proceso      DATE,
+  cod_persona      VARCHAR2(10),
+  nro_cuenta       VARCHAR2(15),
+  dia_mora         NUMBER(14,2),
+  nom_completo     VARCHAR2(120),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ENV_TAR_MORA_HIS
+  is 'Tabla de historico donde se encuentran todos los registros de tarjetas en mora enviados a bancard.';
+comment on column IT.TA_ENV_TAR_MORA_HIS.nro_tarjeta
+  is 'Número de Tarjeta.';
+comment on column IT.TA_ENV_TAR_MORA_HIS.fec_valor
+  is 'Fecha en que se procesó el archivo en formato char';
+comment on column IT.TA_ENV_TAR_MORA_HIS.concepto
+  is 'Descripcion del registro a enviar para BANCARD';
+comment on column IT.TA_ENV_TAR_MORA_HIS.cod_moneda
+  is 'Moneda del Monto';
+comment on column IT.TA_ENV_TAR_MORA_HIS.mto_mora
+  is 'Monto en mora de la tarjeta';
+comment on column IT.TA_ENV_TAR_MORA_HIS.tip_cargo
+  is 'Tipo de cargo. 32-> Mov. Entidad-Interés, 33-> Mov. Entidad.';
+comment on column IT.TA_ENV_TAR_MORA_HIS.tip_saldo
+  is 'Tipo de Saldo. 1- A facturar -- 2-> Fact. No Vencido,3-> Financiado,6-> Interés a Facturar, 10-> Al pago mínimo';
+comment on column IT.TA_ENV_TAR_MORA_HIS.tip_tran
+  is 'Tipo transaccion. D -> Débito, C -> Crédito';
+comment on column IT.TA_ENV_TAR_MORA_HIS.financia
+  is 'Financiación. S -> Si, N -> No';
+comment on column IT.TA_ENV_TAR_MORA_HIS.cod_usuario
+  is 'Usuario que ejecuto el proceso de generar el archivo.';
+comment on column IT.TA_ENV_TAR_MORA_HIS.iva
+  is 'Forma de calcular el IVA. ?-> No Aplica, I-> Importe IVA Incluído, C-> Importe IVA a Calcular';
+comment on column IT.TA_ENV_TAR_MORA_HIS.impuesto_iva
+  is 'ID impuesto. Blanco -> Sin IVA, 1 -> IVA (10%), 4 -> IVA (5%)';
+comment on column IT.TA_ENV_TAR_MORA_HIS.mov_res1
+  is 'Tipific.Movim. p/ Resol. 1. N -> Normal, 1 -> Capital, 2 -> Cargo, 3 -> Interés, 4 -> Impuesto, 5 -> Pago';
+comment on column IT.TA_ENV_TAR_MORA_HIS.cod_procesadora
+  is 'Codigo de la procesadora. Ej: BANCARD, PROCARD, BEPSA, CABAL...etc';
+comment on column IT.TA_ENV_TAR_MORA_HIS.fec_proceso
+  is 'Fecha en que se procesó el archivo, se encuentra en formato tipo DATE';
+comment on column IT.TA_ENV_TAR_MORA_HIS.cod_persona
+  is 'Codigo de la persona al que pertenece la tarjeta';
+comment on column IT.TA_ENV_TAR_MORA_HIS.nro_cuenta
+  is 'Nro de la cuenta a la que pertenece la tarjeta';
+comment on column IT.TA_ENV_TAR_MORA_HIS.dia_mora
+  is 'Cantidad de dias en que se encuentra en mora la tarjeta';
+comment on column IT.TA_ENV_TAR_MORA_HIS.nom_completo
+  is 'Nombre completo del titular de la cuenta';
+create index IT.IN_TA_ENV_FEC_PROCESO on IT.TA_ENV_TAR_MORA_HIS (FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_ENV_TAR_MORA_HIS
+  add constraint PK_TA_ENV_TAR_MORA_HIS primary key (NRO_TARJETA, FEC_VALOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

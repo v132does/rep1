@@ -1,0 +1,16 @@
+create global temporary table IT.STAGE_SS2K5_FN_KEY_COLUMNS
+(
+  svrid_fk             NUMBER(38),
+  dbid_gen_fk          NUMBER(38),
+  constraint_column_id NUMBER(38) not null,
+  constraint_object_id NUMBER(38) not null,
+  parent_object_id     NUMBER(38) not null,
+  parent_column_id     NUMBER(38) not null,
+  referenced_column_id NUMBER(38) not null,
+  referenced_object_id NUMBER(38) not null
+)
+on commit preserve rows;
+create index IT.S_SS2K5_F_K_C_DBID_GEN_FK on IT.STAGE_SS2K5_FN_KEY_COLUMNS (DBID_GEN_FK);
+create index IT.S_SS2K5_F_K_C_PARENT_OT_ID on IT.STAGE_SS2K5_FN_KEY_COLUMNS (PARENT_OBJECT_ID);
+create index IT.S_SS2K5_F_K_C_R_O_ID on IT.STAGE_SS2K5_FN_KEY_COLUMNS (REFERENCED_OBJECT_ID);
+

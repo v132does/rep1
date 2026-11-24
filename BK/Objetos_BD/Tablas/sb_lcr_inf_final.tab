@@ -1,0 +1,38 @@
+-- Create table
+create table IT.SB_LCR_INF_FINAL
+(
+  fec_proceso       DATE,
+  nro_item          NUMBER(10) not null,
+  id_padre          NUMBER(10),
+  nro_agrupador     NUMBER(10),
+  nro_orden         NUMBER(10),
+  grupo             VARCHAR2(200),
+  sub_grupo         VARCHAR2(200),
+  sal_guaranies     NUMBER(18,2),
+  sal_extranjera    NUMBER(18,2),
+  sal_gua_ponderado NUMBER(18,2),
+  sal_ext_ponderado NUMBER(18,2),
+  sal_total         NUMBER(18,2),
+  sal_tot_ponderado NUMBER(18,2),
+  usu_insercion     VARCHAR2(10) default USER,
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default USER,
+  fec_modificacion  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.SB_LCR_INF_FINAL
+  is 'Informe final de proceso de liquidez de ratio';
+-- Add comments to the columns 
+comment on column IT.SB_LCR_INF_FINAL.id_padre
+  is 'IDENTIFICADOR DE ITEM AL CUAL PERTENECE';

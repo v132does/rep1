@@ -1,0 +1,73 @@
+create table IT.CJ_ACU_IMP_TRANSACCIONES_HIS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_modulo       NUMBER(3),
+  cod_transaccion  NUMBER(4),
+  cod_usuario      VARCHAR2(10),
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  impreso          VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR (USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR (USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_ACU_IMP_TRANSACCIONES_HIS
+  is 'Se registraran los montos de transacciones diarias que sean de caja.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.nro_cuenta
+  is 'Número de cuenta del cliente que realiza la transacción.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.cod_persona
+  is 'Código de persona del cliente.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.cod_modulo
+  is 'Módulo desde el cual se está realizando la transacción.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.cod_transaccion
+  is 'Código de la Transacción (Debe ser transacción de caja).';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.cod_usuario
+  is 'Usuario.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.fecha
+  is 'Fecha';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.hora
+  is 'Hora en que se realiza la transaccion.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.cod_moneda
+  is 'Moneda';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.monto
+  is 'Monto de la Transacción (Debe ser en USD).';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.impreso
+  is '(N/S) Indicador de Impresión. Se imprimió?';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.usu_insercion
+  is 'Usuario que realiza la Inserción.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.fec_insercion
+  is 'Fecha en que realiza la Inserción.';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.usu_modificacion
+  is 'Usuario que realiza la modificacion';
+comment on column IT.CJ_ACU_IMP_TRANSACCIONES_HIS.fec_modificacion
+  is 'Fecha en que se realiza la Modificación.';
+alter table IT.CJ_ACU_IMP_TRANSACCIONES_HIS
+  add constraint PK_CJ_ACU_IMP_TRANSACC_HIS primary key (NRO_CUENTA, COD_PERSONA, FECHA, HORA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

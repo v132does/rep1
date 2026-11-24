@@ -1,0 +1,73 @@
+create table IT.GE_REP_FATCA
+(
+  cod_persona       VARCHAR2(10),
+  pai_destino       NUMBER(3),
+  pai_origen        NUMBER(3),
+  per_reporte       DATE,
+  pro_sustancial    VARCHAR2(1),
+  sal_cuenta        NUMBER(18,2),
+  ind_generacion    VARCHAR2(1),
+  ind_generado      VARCHAR2(1),
+  nro_ref_corregida NUMBER(20),
+  nro_ref_lote      NUMBER(20),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REP_FATCA
+  is 'Se registra en esta tabla todas las personas que tienen asignado un estado FATCA, con los indicadores si fueron incluidos en los reportes FATCA para IRS.';
+comment on column IT.GE_REP_FATCA.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_REP_FATCA.pai_destino
+  is 'Código de país destino';
+comment on column IT.GE_REP_FATCA.pai_origen
+  is 'Código de país origen';
+comment on column IT.GE_REP_FATCA.per_reporte
+  is 'Periodo del Reporte';
+comment on column IT.GE_REP_FATCA.pro_sustancial
+  is 'Indica si el cliente es Propietario Sustancial';
+comment on column IT.GE_REP_FATCA.sal_cuenta
+  is 'Saldo de Cuentas Informado';
+comment on column IT.GE_REP_FATCA.ind_generacion
+  is 'Indica si la persona esta marcada para generar Si o No.';
+comment on column IT.GE_REP_FATCA.ind_generado
+  is 'Indica si el archivo fue generado para envío a la IRS.';
+comment on column IT.GE_REP_FATCA.nro_ref_corregida
+  is 'Número de Referencia Corregida, secuencial y único.';
+comment on column IT.GE_REP_FATCA.nro_ref_lote
+  is 'Número de Referencia lote, secuencial y único.';
+comment on column IT.GE_REP_FATCA.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_REP_FATCA.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_REP_FATCA.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_REP_FATCA.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_REP_FATCA
+  add constraint UK_GREFA_NRO_REF_LOTE unique (COD_PERSONA, NRO_REF_LOTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

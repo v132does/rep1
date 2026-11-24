@@ -1,0 +1,67 @@
+create table IT.CR_PER_PUNTAJES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_puntaje      NUMBER(3) not null,
+  puntaje          NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  pro_riesgo       NUMBER(5,3),
+  rie_sugerido     NUMBER(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_PUNTAJES
+  is 'Scoring por Persona.';
+comment on column IT.CR_PER_PUNTAJES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_PUNTAJES.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PER_PUNTAJES.puntaje
+  is 'Puntaje.';
+comment on column IT.CR_PER_PUNTAJES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_PUNTAJES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_PUNTAJES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PUNTAJES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PUNTAJES.pro_riesgo
+  is 'Promedio de Riesgo.';
+comment on column IT.CR_PER_PUNTAJES.rie_sugerido
+  is 'Riesgo Sugerido.';
+alter table IT.CR_PER_PUNTAJES
+  add constraint PK_CR_PER_PUNTAJES primary key (COD_PERSONA, COD_PUNTAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PER_PUNTAJES
+  add constraint FK_RPPUN_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PER_PUNTAJES
+  add constraint FK_RPPUN_COD_PUNTAJE foreign key (COD_PUNTAJE)
+  references IT.CR_PUNTAJES (COD_PUNTAJE);
+alter table IT.CR_PER_PUNTAJES
+  add constraint AVCON_1080843837_COD_P_001
+  check (COD_PUNTAJE BETWEEN 1 AND 999);
+

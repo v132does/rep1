@@ -1,0 +1,61 @@
+create table IT.CR_MAR_VEHICULOS
+(
+  cod_marca        NUMBER(5) not null,
+  descripcion      VARCHAR2(100) not null,
+  cod_pais         NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_MAR_VEHICULOS
+  is 'Marcas de Vehiculos.';
+comment on column IT.CR_MAR_VEHICULOS.cod_marca
+  is 'Marca de Vehiculo.';
+comment on column IT.CR_MAR_VEHICULOS.descripcion
+  is 'Descripcion de la Marca del Vehiculo.';
+comment on column IT.CR_MAR_VEHICULOS.cod_pais
+  is 'Codigo de Pais.';
+comment on column IT.CR_MAR_VEHICULOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_MAR_VEHICULOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_MAR_VEHICULOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_MAR_VEHICULOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_MAR_VEHICULOS
+  add constraint PK_CR_MAR_VEHICULOS primary key (COD_MARCA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_MAR_VEHICULOS
+  add constraint FK_RMARC_COD_PAIS foreign key (COD_PAIS)
+  references IT.BA_PAISES (COD_PAIS);
+alter table IT.CR_MAR_VEHICULOS
+  add constraint AVCON_1080843837_COD_P_000
+  check (COD_PAIS BETWEEN 1 AND 999);
+alter table IT.CR_MAR_VEHICULOS
+  add constraint CK_COD_MARCA
+  check (cod_marca between 1 and 99999);
+

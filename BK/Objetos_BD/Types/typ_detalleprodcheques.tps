@@ -1,0 +1,3 @@
+CREATE OR REPLACE TYPE IT."TYP_DETALLEPRODCHEQUES"                                          AS TABLE OF TYP_PRODCHEQUES
+/
+

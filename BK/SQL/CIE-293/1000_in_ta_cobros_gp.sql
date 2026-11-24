@@ -1,0 +1,11 @@
+﻿CREATE INDEX it.IN_TCOBRGP_VAL_EST_CTA ON it.ta_cobros_gp (fec_valor, estado, nro_cuenta)
+  TABLESPACE IT_IND
+  PCTFREE 10
+  INITRANS 2
+  MAXTRANS 255
+  STORAGE (
+    INITIAL 128K
+    NEXT 1M
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+  );

@@ -1,0 +1,85 @@
+create table IT.GE_TAS_RANGOS_TMP
+(
+  cod_tasa          NUMBER(3) not null,
+  fec_vigencia      DATE not null,
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  nro_cuenta        VARCHAR2(15),
+  val_hasta         NUMBER(18,2) default 0 not null,
+  val_tasa          NUMBER(20,4),
+  cod_sub_modalidad NUMBER(3),
+  no_actualizable   VARCHAR2(1),
+  val_extension     NUMBER(20,4),
+  cod_persona       VARCHAR2(10),
+  observaciones     VARCHAR2(100),
+  fec_vencimiento   DATE,
+  cod_ente          NUMBER(5),
+  val_has_siguiente NUMBER(18,2),
+  val_tas_siguiente NUMBER(20,4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TAS_RANGOS_TMP
+  is 'Tasas por Rango.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.GE_TAS_RANGOS_TMP.fec_vigencia
+  is 'Fecha de vigencia.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_moneda
+  is 'Moneda.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_modalidad
+  is 'Codigo de la Modalidad.';
+comment on column IT.GE_TAS_RANGOS_TMP.nro_cuenta
+  is 'Numero de cuenta a ser personalizada.';
+comment on column IT.GE_TAS_RANGOS_TMP.val_hasta
+  is 'Valor hasta.';
+comment on column IT.GE_TAS_RANGOS_TMP.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+comment on column IT.GE_TAS_RANGOS_TMP.no_actualizable
+  is 'Indicador de Tasa no Actualizable por el proceso que calculo las tasas por moneda diferentes a la base.';
+comment on column IT.GE_TAS_RANGOS_TMP.val_extension
+  is 'Valor de extension o Spread.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_persona
+  is 'Codigo de la persona cuya tasa sera personalizada.';
+comment on column IT.GE_TAS_RANGOS_TMP.observaciones
+  is 'Observaciones.';
+comment on column IT.GE_TAS_RANGOS_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_TAS_RANGOS_TMP.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_TAS_RANGOS_TMP.val_has_siguiente
+  is 'Rango siguiente - valor hasta siguiente';
+comment on column IT.GE_TAS_RANGOS_TMP.val_tas_siguiente
+  is 'Valor Tasa del rago siguiente';
+alter table IT.GE_TAS_RANGOS_TMP
+  add constraint UK_GE_TAS_RANGOS_TMP unique (COD_TASA, FEC_VIGENCIA, COD_OFICINA, COD_MONEDA, COD_MODULO, COD_MODALIDAD, NRO_CUENTA, VAL_HASTA, COD_PERSONA, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

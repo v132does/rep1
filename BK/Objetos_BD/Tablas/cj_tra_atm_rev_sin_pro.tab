@@ -1,0 +1,71 @@
+create table IT.CJ_TRA_ATM_REV_SIN_PRO
+(
+  fec_sistema      DATE,
+  pedido           VARCHAR2(4000),
+  respuesta        VARCHAR2(4000),
+  msj_error        VARCHAR2(4000),
+  nro_transaccion  NUMBER(15),
+  procesado        VARCHAR2(1) default 'N',
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CJ_TRA_ATM_REV_SIN_PRO
+  is 'Transacciones atm revertidas sin procesar.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.fec_sistema
+  is 'Fecha real del mensaje.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.pedido
+  is 'Pedido Recibido de Infonet.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.respuesta
+  is 'Respuesta enviada a Infonet.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.msj_error
+  is 'Error de la Base de Datos.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.nro_transaccion
+  is 'Numero unico de Transaccion';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.procesado
+  is 'Procesado (S/N).';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CJ_TRA_ATM_REV_SIN_PRO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_JTARS_FEC_SISTEMA on IT.CJ_TRA_ATM_REV_SIN_PRO (FEC_SISTEMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_JTARS_PROCESADO on IT.CJ_TRA_ATM_REV_SIN_PRO (PROCESADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,85 @@
+create table IT.CR_AGE_AUTORIZACIONES
+(
+  cod_grupo         VARCHAR2(5),
+  cod_usuario       VARCHAR2(10) not null,
+  cod_usu_encargado VARCHAR2(10),
+  inserta           VARCHAR2(1) default 'N' not null,
+  elimina           VARCHAR2(1) default 'N' not null,
+  actualiza         VARCHAR2(1) default 'N' not null,
+  consulta          VARCHAR2(1) default 'N' not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_AGE_AUTORIZACIONES
+  is 'Autorizaciones por Agenda.';
+comment on column IT.CR_AGE_AUTORIZACIONES.cod_grupo
+  is 'Grupo de Agenda al que se le da el acceso.';
+comment on column IT.CR_AGE_AUTORIZACIONES.cod_usuario
+  is 'Usuario al que se da acceso.';
+comment on column IT.CR_AGE_AUTORIZACIONES.cod_usu_encargado
+  is 'Codigo de encargado de la agenda.';
+comment on column IT.CR_AGE_AUTORIZACIONES.inserta
+  is 'Permite insertar en la agenda (S=SI / N=NO).';
+comment on column IT.CR_AGE_AUTORIZACIONES.elimina
+  is 'Permite eliminar de la agenda (S=SI / N=NO).';
+comment on column IT.CR_AGE_AUTORIZACIONES.actualiza
+  is 'Permite actualizar la agenda (S=SI/N=NO).';
+comment on column IT.CR_AGE_AUTORIZACIONES.consulta
+  is 'Permite consultar la agenda (S=SI / N=NO).';
+comment on column IT.CR_AGE_AUTORIZACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_AGE_AUTORIZACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_AGE_AUTORIZACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_AGE_AUTORIZACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint UK_CR_AGE_AUTORIZACIONES unique (COD_USUARIO, COD_GRUPO, COD_USU_ENCARGADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint FK_RAGEA_COD_GRUPO foreign key (COD_GRUPO)
+  references IT.CR_AGE_GRUPOS (COD_GRUPO);
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint FK_RAGEA_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint FK_RAGEA_COD_USU_ENCARGADO foreign key (COD_USU_ENCARGADO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint AVCON_1080843837_ACTUA_000
+  check (ACTUALIZA IN ('S', 'N'));
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint AVCON_1080843837_CONSU_000
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint AVCON_1080843837_ELIMI_000
+  check (ELIMINA IN ('S', 'N'));
+alter table IT.CR_AGE_AUTORIZACIONES
+  add constraint AVCON_1080843837_INSER_000
+  check (INSERTA IN ('S', 'N'));
+

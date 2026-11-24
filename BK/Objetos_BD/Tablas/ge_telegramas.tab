@@ -1,0 +1,142 @@
+create table IT.GE_TELEGRAMAS
+(
+  cod_telegrama       NUMBER(7) not null,
+  cod_causa           NUMBER(3) not null,
+  zona                VARCHAR2(1),
+  fec_generacion      DATE,
+  fec_impresion       DATE,
+  tip_entrega         VARCHAR2(1),
+  fec_entrega         DATE,
+  fec_ent_oficial     DATE,
+  cod_persona         VARCHAR2(10) not null,
+  estado              VARCHAR2(1),
+  acta                VARCHAR2(1) default 'N',
+  cobrado             VARCHAR2(1) default 'N',
+  cod_usu_impresion   VARCHAR2(10),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  ref_cuentas         VARCHAR2(1000) not null,
+  monto               NUMBER(18,2),
+  saldo               NUMBER(18,2),
+  cod_moneda          VARCHAR2(3),
+  direccion           VARCHAR2(100),
+  nro_casa            VARCHAR2(8),
+  telefono            VARCHAR2(20),
+  cod_cau_cancelacion NUMBER(3),
+  localidad           VARCHAR2(50),
+  nro_lote            NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TELEGRAMAS
+  is 'Telegramas.';
+comment on column IT.GE_TELEGRAMAS.cod_telegrama
+  is 'Codigo del Telegrama.';
+comment on column IT.GE_TELEGRAMAS.cod_causa
+  is 'Motivos del Telegrama.';
+comment on column IT.GE_TELEGRAMAS.zona
+  is 'Zonas por Tipo.';
+comment on column IT.GE_TELEGRAMAS.fec_generacion
+  is 'Fecha de Generacon.';
+comment on column IT.GE_TELEGRAMAS.fec_impresion
+  is 'Fecha de Impresion.';
+comment on column IT.GE_TELEGRAMAS.tip_entrega
+  is 'Tipo Entrega.';
+comment on column IT.GE_TELEGRAMAS.fec_entrega
+  is 'Fecha de Entrega.';
+comment on column IT.GE_TELEGRAMAS.fec_ent_oficial
+  is 'Fecha de entrega al oficial.';
+comment on column IT.GE_TELEGRAMAS.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.GE_TELEGRAMAS.estado
+  is 'Estado del Telegrama: G-Generado I-Impreso O-Ent.al Oficial C-Ent.al cliente N-Cancelado.';
+comment on column IT.GE_TELEGRAMAS.acta
+  is 'Tiene Acta?.';
+comment on column IT.GE_TELEGRAMAS.cobrado
+  is 'Cobrado?.';
+comment on column IT.GE_TELEGRAMAS.cod_usu_impresion
+  is 'Impreso por.';
+comment on column IT.GE_TELEGRAMAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TELEGRAMAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TELEGRAMAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TELEGRAMAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TELEGRAMAS.ref_cuentas
+  is 'Cuenta o cuentas referenciadas.';
+comment on column IT.GE_TELEGRAMAS.monto
+  is 'Multa o Monto a cobrar.';
+comment on column IT.GE_TELEGRAMAS.saldo
+  is 'Saldo en Cuenta/s.';
+comment on column IT.GE_TELEGRAMAS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_TELEGRAMAS.direccion
+  is 'Dirección a la que se enviará el telegrama.';
+comment on column IT.GE_TELEGRAMAS.nro_casa
+  is 'Número de casa.';
+comment on column IT.GE_TELEGRAMAS.telefono
+  is 'Número de teléfono.';
+comment on column IT.GE_TELEGRAMAS.cod_cau_cancelacion
+  is 'Código de causa que se utilizará para la cancelación.';
+comment on column IT.GE_TELEGRAMAS.localidad
+  is 'Ciudad.';
+comment on column IT.GE_TELEGRAMAS.nro_lote
+  is 'Número de Lote del Proceso';
+alter table IT.GE_TELEGRAMAS
+  add constraint PK_GE_TELEGRAMAS primary key (COD_TELEGRAMA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TELEGRAMAS
+  add constraint FK_GTELE_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_TELEGRAMAS
+  add constraint FK_GTELE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_TELEGRAMAS
+  add constraint FK_GTELE_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_TELEGRAMAS
+  add constraint FK_GTELE_COD_USU_IMPRESION foreign key (COD_USU_IMPRESION)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_TELEGRAMAS
+  add constraint AVCON_1117722380_ACTA_000
+  check (ACTA IN ('S', 'N'));
+alter table IT.GE_TELEGRAMAS
+  add constraint AVCON_1117722380_COBRA_000
+  check (COBRADO IN ('S', 'N'));
+alter table IT.GE_TELEGRAMAS
+  add constraint AVCON_1117722380_COD_C_000
+  check (COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.GE_TELEGRAMAS
+  add constraint AVCON_1117722380_ESTAD_000
+  check (ESTADO IN ('G', 'I', 'O', 'C','N'));
+alter table IT.GE_TELEGRAMAS
+  add constraint AVCON_1117722380_TIP_E_000
+  check (TIP_ENTREGA IN ('O', 'C'));
+alter table IT.GE_TELEGRAMAS
+  add constraint AVCON_1117722380_ZONA_000
+  check (ZONA IN ('U', 'R'));
+

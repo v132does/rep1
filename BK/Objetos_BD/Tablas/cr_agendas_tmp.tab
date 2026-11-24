@@ -1,0 +1,36 @@
+create table IT.CR_AGENDAS_TMP
+(
+  fecha                     DATE,
+  hora                      VARCHAR2(6),
+  cliente                   VARCHAR2(10) not null,
+  obligacion                VARCHAR2(20),
+  usu_gestion               VARCHAR2(30),
+  usu_owner                 VARCHAR2(30),
+  ges_realizada             VARCHAR2(4),
+  ges_realizada_desc        VARCHAR2(100),
+  ges_realizada_figura      VARCHAR2(3),
+  ges_realizada_costo       VARCHAR2(18),
+  usu_ges_perfil            NUMBER(9),
+  usu_ges_perfil_rol        VARCHAR2(6),
+  usu_ges_perfil_rol_desc   VARCHAR2(100),
+  ges_realizada_nota        VARCHAR2(255),
+  ges_realizada_automatica  VARCHAR2(20),
+  ges_realizada_contacto    VARCHAR2(8),
+  ges_realizada_mensaje     VARCHAR2(1),
+  usu_ges_perfil_turno      VARCHAR2(6),
+  usu_ges_perfil_turno_desc VARCHAR2(100),
+  ges_realizada_pp_fecpago  DATE,
+  ges_realiada_pp_importe   VARCHAR2(18)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

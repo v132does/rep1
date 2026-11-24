@@ -1,0 +1,44 @@
+create table IT.BW_AUDITORIAS
+(
+  tabla          VARCHAR2(40),
+  clave          VARCHAR2(100),
+  usuario        VARCHAR2(30),
+  fec_sistema    DATE,
+  fec_calendario DATE,
+  tip_novedad    VARCHAR2(1),
+  terminal       VARCHAR2(40),
+  detalle        VARCHAR2(2000),
+  origen         VARCHAR2(40)
+)
+tablespace IT_AUD
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_AUDITORIAS
+  is 'Registra la auditoría de operaciones o novedades sobre los registros.';
+comment on column IT.BW_AUDITORIAS.tabla
+  is 'Nombre de la tabla auditada.';
+comment on column IT.BW_AUDITORIAS.clave
+  is 'Clave primaria correspondiente al registro auditado a ser identificado.';
+comment on column IT.BW_AUDITORIAS.usuario
+  is 'Usuario responsable por la novedad ocurrida sobre los datos.';
+comment on column IT.BW_AUDITORIAS.fec_sistema
+  is 'Fecha del sistema en que se realizó la operación.';
+comment on column IT.BW_AUDITORIAS.fec_calendario
+  is 'Fecha calendario del módulo en el momento de realizarse la operación.';
+comment on column IT.BW_AUDITORIAS.tip_novedad
+  is 'Tipo de novedad u operación realizada con el dato.';
+comment on column IT.BW_AUDITORIAS.terminal
+  is 'Nombre de la terminal en la que ser ejecutó la operación.';
+comment on column IT.BW_AUDITORIAS.detalle
+  is 'Detalle de modificaciones realizadas.';
+comment on column IT.BW_AUDITORIAS.origen
+  is 'Nombre del programa o aplicación desde el cual se ejecutó la operació.';
+

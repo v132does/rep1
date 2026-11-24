@@ -1,0 +1,70 @@
+create table IT.CC_CHE_COMPENSACIONES
+(
+  fecha                DATE not null,
+  cod_banco            NUMBER(3) not null,
+  cod_moneda           VARCHAR2(3) not null,
+  tot_che_enviado      NUMBER(18,2) default 0 not null,
+  tot_che_env_devuelto NUMBER(18,2) default 0 not null,
+  tot_che_recibido     NUMBER(18,2) default 0 not null,
+  tot_che_rec_devuelto NUMBER(18,2) default 0 not null,
+  saldo                NUMBER(18,2) default 0 not null,
+  fec_transferencia    DATE,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_COMPENSACIONES
+  is 'Compensación de Cheques Bancos del País.';
+comment on column IT.CC_CHE_COMPENSACIONES.fecha
+  is 'Fecha de la Operación.';
+comment on column IT.CC_CHE_COMPENSACIONES.cod_banco
+  is 'Código del Banco.';
+comment on column IT.CC_CHE_COMPENSACIONES.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.CC_CHE_COMPENSACIONES.tot_che_enviado
+  is 'Total de Cheques Enviados.';
+comment on column IT.CC_CHE_COMPENSACIONES.tot_che_env_devuelto
+  is 'Total de Cheques Enviados Devueltos.';
+comment on column IT.CC_CHE_COMPENSACIONES.tot_che_recibido
+  is 'Total de Cheques Recibidos.';
+comment on column IT.CC_CHE_COMPENSACIONES.tot_che_rec_devuelto
+  is 'Total de Cheques Recibidos Devuelto.';
+comment on column IT.CC_CHE_COMPENSACIONES.saldo
+  is 'Saldo de Compensación = (Recibidos - Enviados) - rec_devueltos + env_devuelto.';
+comment on column IT.CC_CHE_COMPENSACIONES.fec_transferencia
+  is 'Fecha de la Transferencia';
+comment on column IT.CC_CHE_COMPENSACIONES.usu_insercion
+  is 'Usuario de insercion.';
+comment on column IT.CC_CHE_COMPENSACIONES.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.CC_CHE_COMPENSACIONES.usu_modificacion
+  is 'Usuario de modificacion.';
+comment on column IT.CC_CHE_COMPENSACIONES.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.CC_CHE_COMPENSACIONES
+  add constraint PK_CC_CHE_COMPENSACIONES primary key (FECHA, COD_BANCO, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,30 @@
+create global temporary table IT.STAGE_SYB12_SYSOBJECTS
+(
+  svrid_fk    NUMBER,
+  dbid_gen_fk NUMBER,
+  objid_gen   NUMBER,
+  suid_gen_fk NUMBER,
+  name        VARCHAR2(256),
+  id          NUMBER not null,
+  db_uid      NUMBER,
+  db_type     VARCHAR2(256),
+  userstat    NUMBER,
+  sysstat     NUMBER,
+  indexdel    NUMBER,
+  schematacnt NUMBER,
+  sysstat2    NUMBER,
+  crdate      VARCHAR2(255),
+  expdate     VARCHAR2(255),
+  deltrig     NUMBER,
+  instrig     NUMBER,
+  updtrig     NUMBER,
+  seltrig     NUMBER,
+  ckfirst     NUMBER,
+  db_cache    NUMBER,
+  audflags    NUMBER,
+  objspare    NUMBER,
+  versionts   RAW(255),
+  loginname   VARCHAR2(255)
+)
+on commit preserve rows;
+

@@ -1,0 +1,64 @@
+create table IT.AP_CLASIFICACIONES
+(
+  cod_clasificacion NUMBER(3) not null,
+  descripcion       VARCHAR2(60) not null,
+  tipo              VARCHAR2(1) default 'U' not null,
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_CLASIFICACIONES
+  is 'Clasificaciones de Herramientas.';
+comment on column IT.AP_CLASIFICACIONES.cod_clasificacion
+  is ' Clasificacion de la Herramienta.';
+comment on column IT.AP_CLASIFICACIONES.descripcion
+  is 'Descripcion de la clasificacion.';
+comment on column IT.AP_CLASIFICACIONES.tipo
+  is 'Tipo de Herramienta.';
+comment on column IT.AP_CLASIFICACIONES.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_CLASIFICACIONES.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AP_CLASIFICACIONES.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_CLASIFICACIONES.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.AP_CLASIFICACIONES
+  add constraint PK_AP_CLASIFICACIONES primary key (COD_CLASIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_CLASIFICACIONES
+  add constraint AVCON_1077111591_COD_C_005
+  check (COD_CLASIFICACION BETWEEN 1 AND 999);
+alter table IT.AP_CLASIFICACIONES
+  add constraint AVCON_1080847569_COD_C_005
+  check (COD_CLASIFICACION BETWEEN 1 AND 999);
+alter table IT.AP_CLASIFICACIONES
+  add constraint AVCON_1081349332_COD_C_005
+  check (COD_CLASIFICACION BETWEEN 1 AND 999);
+alter table IT.AP_CLASIFICACIONES
+  add constraint AVCON_1081349332_TIPO_001
+  check (TIPO IN ('B', 'D', 'L', 'U'));
+

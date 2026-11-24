@@ -1,0 +1,39 @@
+create table IT.GE_TAS_FECHAS_RENOMBRAR
+(
+  cod_tasa          NUMBER(3) not null,
+  fec_vigencia      DATE not null,
+  cod_oficina       NUMBER(3),
+  cod_moneda        VARCHAR2(3),
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  nro_cuenta        VARCHAR2(15),
+  val_maximo        NUMBER(18,2),
+  val_minimo        NUMBER(18,2),
+  val_base          NUMBER(18,2),
+  val_tasa          NUMBER(20,4),
+  aplicar           VARCHAR2(2) not null,
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null,
+  fec_vencimiento   DATE,
+  observaciones     VARCHAR2(100),
+  val_extension     NUMBER(20,4),
+  tip_iva           VARCHAR2(2),
+  cod_persona       VARCHAR2(10),
+  cod_sub_modalidad NUMBER(3),
+  no_actualizable   VARCHAR2(1),
+  cod_ente          NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

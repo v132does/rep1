@@ -1,0 +1,49 @@
+create table IT.SB_CRC_VTA_CODEUDORIA
+(
+  fecha                 DATE not null,
+  nom_referencia        VARCHAR2(10) not null,
+  nro_formulario        VARCHAR2(3),
+  nro_registro          NUMBER(9) not null,
+  tip_documento         VARCHAR2(3),
+  nro_documento         VARCHAR2(20),
+  fec_nacimiento        DATE,
+  nombres               VARCHAR2(120),
+  apellidos             VARCHAR2(60),
+  cat_riesgo            VARCHAR2(2),
+  cat_subjetiva         VARCHAR2(2),
+  cat_rie_fideicomiso   VARCHAR2(1),
+  por_prevision         NUMBER(5,2),
+  mto_rie_contingente   NUMBER(18,2),
+  mto_riesgo            NUMBER(18,2),
+  sal_cap_vencido       NUMBER(18,2),
+  sal_int_vencido       NUMBER(18,2),
+  tot_garantia          NUMBER(18,2),
+  tot_cap_pri_prevision NUMBER(18,2),
+  tot_cap_seg_prevision NUMBER(18,2),
+  tot_int_pri_prevision NUMBER(18,2),
+  tot_int_seg_prevision NUMBER(18,2),
+  tot_tc                NUMBER(18,2),
+  tot_dc                NUMBER(18,2),
+  tot_tr                NUMBER(18,2),
+  tot_dr                NUMBER(18,2),
+  tot_er                NUMBER(18,2),
+  tot_sr                NUMBER(18,2),
+  cod_persona           VARCHAR2(10),
+  cat_rie_vta_cartera   VARCHAR2(1),
+  tot_tf                NUMBER(18,2),
+  mto_vta_cartera       NUMBER(18,2),
+  mto_deu_incobrable    NUMBER(18,2),
+  estado                VARCHAR2(2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

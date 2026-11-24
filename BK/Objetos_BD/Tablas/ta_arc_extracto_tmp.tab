@@ -1,0 +1,38 @@
+create table IT.TA_ARC_EXTRACTO_TMP
+(
+  nro_linea        NUMBER,
+  linea            VARCHAR2(1500),
+  ref_archivo      VARCHAR2(30) default 'PBEXTDET' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ARC_EXTRACTO_TMP
+  is 'Archivo enviado por Bancard - Detalle de Extracto (PBEXTDET).';
+comment on column IT.TA_ARC_EXTRACTO_TMP.nro_linea
+  is 'Nro de linea en el archivo';
+comment on column IT.TA_ARC_EXTRACTO_TMP.linea
+  is 'Datos en bruto de la linea del archivo.';
+comment on column IT.TA_ARC_EXTRACTO_TMP.ref_archivo
+  is 'Referencia del Archivo de Importación.';
+comment on column IT.TA_ARC_EXTRACTO_TMP.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.TA_ARC_EXTRACTO_TMP.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_ARC_EXTRACTO_TMP.usu_modificacion
+  is 'Usuario que realizó la última modificación.';
+comment on column IT.TA_ARC_EXTRACTO_TMP.fec_modificacion
+  is 'Ultima fecha en que se modificó el registro.';
+

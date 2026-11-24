@@ -1,0 +1,22 @@
+create table IT.TM_PER_REFERIDOS
+(
+  nro_documento  VARCHAR2(20) not null,
+  nombre         VARCHAR2(120) not null,
+  apellido       VARCHAR2(120) not null,
+  fec_nacimiento DATE not null,
+  nacionalidad   VARCHAR2(30) not null,
+  sexo           VARCHAR2(1) not null,
+  est_civil      VARCHAR2(1) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,24 @@
+create table IT.GE_MOV_COB_TIGO_TMP
+(
+  fec_pago        TIMESTAMP(6),
+  transaccion     VARCHAR2(20),
+  nro_comprobante VARCHAR2(30),
+  nro_doc_cliente VARCHAR2(20),
+  token           VARCHAR2(100),
+  referencia      VARCHAR2(20),
+  mto_comision    NUMBER(18,2),
+  monto           NUMBER(18,2),
+  estado          VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

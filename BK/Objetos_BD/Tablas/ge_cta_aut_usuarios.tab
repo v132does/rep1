@@ -1,0 +1,48 @@
+create table IT.GE_CTA_AUT_USUARIOS
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_estado         VARCHAR2(1),
+  usu_autorizador    VARCHAR2(10),
+  fec_autorizacion   DATE,
+  nro_linea          NUMBER(7),
+  nro_solicitud      NUMBER(15),
+  campanha           NUMBER(3),
+  campanha_origen    NUMBER(3),
+  usu_insercion      VARCHAR2(10),
+  fec_insercion      DATE,
+  usu_modificacion   VARCHAR2(10),
+  fec_modificacion   DATE,
+  cod_usu_apr_cuenta VARCHAR2(10),
+  nom_usu_apr_cuenta VARCHAR2(60),
+  fec_apr_cuenta     DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_AUT_USUARIOS
+  is 'Tabla para verificar usuarios autorizadores de linea.';
+alter table IT.GE_CTA_AUT_USUARIOS
+  add constraint PK_GE_CTA_AUT_USUARIOS primary key (NRO_CUENTA, COD_MODULO, COD_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

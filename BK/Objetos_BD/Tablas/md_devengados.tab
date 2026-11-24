@@ -1,0 +1,85 @@
+create table IT.MD_DEVENGADOS
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  fecha             DATE not null,
+  fec_inicio        DATE not null,
+  fec_ult_devengado DATE,
+  cod_moneda        VARCHAR2(3) not null,
+  estado            VARCHAR2(1) not null,
+  capital           NUMBER(18,2) default 0 not null,
+  val_tasa          NUMBER(20,4) default 0 not null,
+  can_dia_interes   NUMBER(6) default 0 not null,
+  mto_dev_actual    NUMBER(18,2) default 0 not null,
+  can_dia_anterior  NUMBER(6) default 0,
+  mto_dev_anterior  NUMBER(18,2) default 0,
+  mto_ajuste        NUMBER(18,2) default 0,
+  mto_dev_acumulado NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_DEVENGADOS
+  is ' Detalle de Devengados de mesa de dinero';
+comment on column IT.MD_DEVENGADOS.nro_cuenta
+  is 'Numero de cuenta';
+comment on column IT.MD_DEVENGADOS.fecha
+  is 'Fecha del proceso del devengamiento.';
+comment on column IT.MD_DEVENGADOS.fec_inicio
+  is 'Fecha de inicio del devengamiento';
+comment on column IT.MD_DEVENGADOS.fec_ult_devengado
+  is 'Fecha de ultimo devengado.';
+comment on column IT.MD_DEVENGADOS.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.MD_DEVENGADOS.estado
+  is 'Estado en que se encontraba el prestamo en el momento del devengado.';
+comment on column IT.MD_DEVENGADOS.capital
+  is 'Monto de Capital sobre el cual se devenga';
+comment on column IT.MD_DEVENGADOS.val_tasa
+  is 'Valor de la tasa con la cual se devenga';
+comment on column IT.MD_DEVENGADOS.can_dia_interes
+  is 'Dias de devengamiento';
+comment on column IT.MD_DEVENGADOS.mto_dev_actual
+  is 'Monto del devengado actual';
+comment on column IT.MD_DEVENGADOS.can_dia_anterior
+  is 'Cantidad de dias devengados anteriormente.';
+comment on column IT.MD_DEVENGADOS.mto_dev_anterior
+  is 'Monto del devengado anterior';
+comment on column IT.MD_DEVENGADOS.mto_ajuste
+  is 'Monto del ajuste del devengado, en el momento del vencimiento de la cuota.';
+comment on column IT.MD_DEVENGADOS.mto_dev_acumulado
+  is 'Monto total devengado de la cuota.';
+comment on column IT.MD_DEVENGADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.MD_DEVENGADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.MD_DEVENGADOS.usu_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.MD_DEVENGADOS.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+alter table IT.MD_DEVENGADOS
+  add constraint PK_MD_DEVENGADOS primary key (NRO_CUENTA, COD_MONEDA, ESTADO, CAPITAL, VAL_TASA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

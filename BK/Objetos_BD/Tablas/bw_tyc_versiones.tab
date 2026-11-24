@@ -1,0 +1,53 @@
+create table IT.BW_TYC_VERSIONES
+(
+  cod_version      NUMBER not null,
+  aplicacion       VARCHAR2(30) not null,
+  version          VARCHAR2(10) not null,
+  terminos         CLOB not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_TYC_VERSIONES.cod_version
+  is 'clave primaria para terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.aplicacion
+  is 'aplicacion en la que se utiliza el terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.version
+  is 'version del terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.terminos
+  is 'texto completo del terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.fec_insercion
+  is 'fecha de insersion del terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.usu_insercion
+  is 'usuario de insersion del terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.fec_modificacion
+  is 'fecha de modificacion del terminos y condiciones';
+comment on column IT.BW_TYC_VERSIONES.usu_modificacion
+  is 'usuario de modificacion del terminos y condiciones';
+alter table IT.BW_TYC_VERSIONES
+  add constraint PK_BW_TYC_VERSIONES primary key (COD_VERSION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

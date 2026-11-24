@@ -1,0 +1,95 @@
+create table IT.GE_EXT_SWIFT
+(
+  nro_ref_externa  VARCHAR2(50) not null,
+  cod_swi_origen   VARCHAR2(20) not null,
+  cod_swi_destino  VARCHAR2(20) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_mensaje      NUMBER(10),
+  nro_secuencia    NUMBER(10),
+  tip_saldo        VARCHAR2(1),
+  fec_mensaje      DATE,
+  cod_moneda       VARCHAR2(3) not null,
+  sal_anterior     NUMBER(18,2) default 0 not null,
+  sal_actual       NUMBER(18,2) default 0 not null,
+  sal_disponible   NUMBER(18,2) default 0 not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_SWIFT
+  is 'Extracto Swift';
+comment on column IT.GE_EXT_SWIFT.nro_ref_externa
+  is 'Número de Referencia Externa del Mensaje.
+';
+comment on column IT.GE_EXT_SWIFT.cod_swi_origen
+  is 'Codigo Swift Banco Remitente del Mensaje MT 940.
+';
+comment on column IT.GE_EXT_SWIFT.cod_swi_destino
+  is 'Codigo Swift del Banco Destinatario del Mensaje MT 940.
+';
+comment on column IT.GE_EXT_SWIFT.nro_cuenta
+  is 'Número de Cuenta relacionada al Extracto (MT 940).
+';
+comment on column IT.GE_EXT_SWIFT.nro_mensaje
+  is 'Número del Mensaje.
+';
+comment on column IT.GE_EXT_SWIFT.nro_secuencia
+  is 'Número del Secuencia del Mensaje.
+';
+comment on column IT.GE_EXT_SWIFT.tip_saldo
+  is 'Tipo de Movimiento (Débito/Crédito).
+';
+comment on column IT.GE_EXT_SWIFT.fec_mensaje
+  is 'Fecha del Mensaje.
+';
+comment on column IT.GE_EXT_SWIFT.cod_moneda
+  is 'Código de la Moneda.
+';
+comment on column IT.GE_EXT_SWIFT.sal_anterior
+  is 'Saldo del día anterior.
+';
+comment on column IT.GE_EXT_SWIFT.sal_actual
+  is 'Saldo Actual de la Cuenta según Extracto.';
+comment on column IT.GE_EXT_SWIFT.sal_disponible
+  is 'Saldo Disponible de la Cuenta según Extracto.';
+comment on column IT.GE_EXT_SWIFT.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.GE_EXT_SWIFT.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_EXT_SWIFT.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.GE_EXT_SWIFT.fec_modificacion
+  is 'Fecha en que se realizo la última modificación en el registro.';
+alter table IT.GE_EXT_SWIFT
+  add constraint PK_GE_EXT_SWIFT primary key (NRO_REF_EXTERNA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EXT_SWIFT
+  add constraint FK_GESWI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_EXT_SWIFT
+  add constraint FK_GESWI_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

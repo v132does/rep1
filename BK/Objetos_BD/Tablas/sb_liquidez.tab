@@ -1,0 +1,62 @@
+create table IT.SB_LIQUIDEZ
+(
+  fecha            DATE,
+  cod_moneda       VARCHAR2(3),
+  cuenta           VARCHAR2(15),
+  descripcion      VARCHAR2(60),
+  plz_vista        NUMBER(18,2) default 0,
+  men_30_dias      NUMBER(18,2) default 0,
+  men_90_dias      NUMBER(18,2) default 0,
+  men_180_dias     NUMBER(18,2) default 0,
+  men_1_ano        NUMBER(18,2) default 0,
+  men_3_anos       NUMBER(18,2) default 0,
+  may_3_anos       NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_LIQUIDEZ
+  is 'Datos de Liquidez.';
+comment on column IT.SB_LIQUIDEZ.fecha
+  is 'Fecha.';
+comment on column IT.SB_LIQUIDEZ.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_LIQUIDEZ.cuenta
+  is 'Cuenta.';
+comment on column IT.SB_LIQUIDEZ.descripcion
+  is 'Descripcion.';
+comment on column IT.SB_LIQUIDEZ.plz_vista
+  is 'Monto de los A la Vista.';
+comment on column IT.SB_LIQUIDEZ.men_30_dias
+  is 'Monto de los menores a 30 dias.';
+comment on column IT.SB_LIQUIDEZ.men_90_dias
+  is 'Monto de los mayores a 30 y menores a 90 dias.';
+comment on column IT.SB_LIQUIDEZ.men_180_dias
+  is 'Monto de los mayores a 90 y menores a 180 dias.';
+comment on column IT.SB_LIQUIDEZ.men_1_ano
+  is 'Monto de los mayores a 180 dias y menores a 1 año.';
+comment on column IT.SB_LIQUIDEZ.men_3_anos
+  is 'Monto de los mayores a 1 año y menores a 3 años.';
+comment on column IT.SB_LIQUIDEZ.may_3_anos
+  is 'Monto de los mayores a 3 años.';
+comment on column IT.SB_LIQUIDEZ.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_LIQUIDEZ.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_LIQUIDEZ.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_LIQUIDEZ.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

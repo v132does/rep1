@@ -1,0 +1,56 @@
+create table IT.PR_SEC_CRE_MODALIDADES
+(
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_sec_credito  NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_SEC_CRE_MODALIDADES.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.PR_SEC_CRE_MODALIDADES.cod_modalidad
+  is 'Código de Modalidad.';
+comment on column IT.PR_SEC_CRE_MODALIDADES.cod_sec_credito
+  is 'Código de Sector de Crédito.';
+comment on column IT.PR_SEC_CRE_MODALIDADES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SEC_CRE_MODALIDADES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SEC_CRE_MODALIDADES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SEC_CRE_MODALIDADES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.PR_SEC_CRE_MODALIDADES
+  add constraint PK_PR_SEC_CRE_MODALIDADES primary key (COD_MODULO, COD_MODALIDAD, COD_SEC_CREDITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SEC_CRE_MODALIDADES
+  add constraint FK_PSCMO_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_SEC_CRE_MODALIDADES
+  add constraint FK_PSCMO_COD_SEC_CREDITO foreign key (COD_SEC_CREDITO)
+  references IT.PR_SEC_CREDITOS (COD_SEC_CREDITO);
+

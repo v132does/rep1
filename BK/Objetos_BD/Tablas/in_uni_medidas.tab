@@ -1,0 +1,72 @@
+create table IT.IN_UNI_MEDIDAS
+(
+  cod_uni_medida    NUMBER(3) not null,
+  descripcion       VARCHAR2(35) not null,
+  cod_uni_med_padre NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IN_UNI_MEDIDAS
+  is 'Unidades de Medidas.';
+comment on column IT.IN_UNI_MEDIDAS.cod_uni_medida
+  is 'Codigo de la Unidad de Medida.';
+comment on column IT.IN_UNI_MEDIDAS.descripcion
+  is 'Descripcion de la Unidad de Medida.';
+comment on column IT.IN_UNI_MEDIDAS.cod_uni_med_padre
+  is 'Codigo padre de la Unidad de Medida.';
+comment on column IT.IN_UNI_MEDIDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IN_UNI_MEDIDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IN_UNI_MEDIDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IN_UNI_MEDIDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IN_UNI_MEDIDAS
+  add constraint PK_IN_UNI_MEDIDAS primary key (COD_UNI_MEDIDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IN_UNI_MEDIDAS
+  add constraint UK_ZUME_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IN_UNI_MEDIDAS
+  add constraint FK_ZUME_COD_UNI_MEDIDA foreign key (COD_UNI_MED_PADRE)
+  references IT.IN_UNI_MEDIDAS (COD_UNI_MEDIDA);
+alter table IT.IN_UNI_MEDIDAS
+  add constraint AVCON_1203019635_COD_U_000
+  check (COD_UNI_MEDIDA BETWEEN 0 AND 999);
+

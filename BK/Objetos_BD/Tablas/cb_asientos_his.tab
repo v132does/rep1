@@ -1,0 +1,187 @@
+create table IT.CB_ASIENTOS_HIS
+(
+  fecha              DATE not null,
+  cod_oficina        NUMBER(3) not null,
+  nro_asiento        NUMBER(6) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  tot_control        NUMBER(18,2) default 0 not null,
+  actualizado        VARCHAR2(1) default 'N' not null,
+  reversado          VARCHAR2(1) default 'N' not null,
+  ofi_integrada      VARCHAR2(1) default 'N' not null,
+  confirmado         VARCHAR2(1) default 'N' not null,
+  cod_ofi_origen     NUMBER(3),
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE not null,
+  fec_valor          DATE,
+  nro_asi_automatico NUMBER(6),
+  nro_asi_futuro     NUMBER(6),
+  cod_cargo          NUMBER(10)
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_ASIENTOS_HIS
+  is 'Cabecera De Los Asientos Contables - Historico.';
+comment on column IT.CB_ASIENTOS_HIS.fecha
+  is 'Fecha de los movimientos que genera el asiento.';
+comment on column IT.CB_ASIENTOS_HIS.cod_oficina
+  is 'Codigo de oficina del asiento.';
+comment on column IT.CB_ASIENTOS_HIS.nro_asiento
+  is 'numero del asiento.';
+comment on column IT.CB_ASIENTOS_HIS.cod_usuario
+  is 'Codigo del usuario que genero el asiento.';
+comment on column IT.CB_ASIENTOS_HIS.cod_modulo
+  is 'Codigo de modulo del asiento.';
+comment on column IT.CB_ASIENTOS_HIS.cod_modalidad
+  is 'Codigo de modalidad del asiento.';
+comment on column IT.CB_ASIENTOS_HIS.tot_control
+  is 'Suma de debitos y creditos para control.';
+comment on column IT.CB_ASIENTOS_HIS.actualizado
+  is 'Asiento actualizado? S=El asiento ya actualizs el saldo de la cuenta. N=El asiento no actualizs el saldo de la cuenta.';
+comment on column IT.CB_ASIENTOS_HIS.reversado
+  is 'Si el asiento fue reversado: S=Asiento reversado N=Asiento no reversado.';
+comment on column IT.CB_ASIENTOS_HIS.ofi_integrada
+  is 'Oficina integrada? S=Oficina integrada N=Oficina no integrada.';
+comment on column IT.CB_ASIENTOS_HIS.confirmado
+  is 'Asiento confirmado Ok? S=Confirmado, puede actualizar saldo. N=No confirmado, no puede actualizar saldo.';
+comment on column IT.CB_ASIENTOS_HIS.cod_ofi_origen
+  is 'Codigo de la oficina ormgen del asiento.';
+comment on column IT.CB_ASIENTOS_HIS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_ASIENTOS_HIS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_ASIENTOS_HIS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_HIS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_ASIENTOS_HIS.fec_valor
+  is 'Fecha valor del movimiento que genera el asiento.';
+comment on column IT.CB_ASIENTOS_HIS.nro_asi_automatico
+  is 'Número de Asiento Automático que generó el asiento definitivo en caso que el origen se de por esta vía.';
+comment on column IT.CB_ASIENTOS_HIS.nro_asi_futuro
+  is 'Número de Asiento Futuro que generó el asiento definitivo en caso que el origen se de por esta vía.';
+comment on column IT.CB_ASIENTOS_HIS.cod_cargo
+  is 'Código de Cargo en caso que el asiento tenga origen en un asiento futuro.';
+create index IT.CB_ASIENTOS_HIS_JJ1 on IT.CB_ASIENTOS_HIS (FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_ASIENTOS_HIS
+  add constraint PK_CB_ASIENTOS_HIS primary key (FECHA, COD_OFICINA, NRO_ASIENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_ASIENTOS_HIS
+  add constraint FK_BAHIS_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint FK_BAHIS_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint FK_BAHIS_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint FK_BAHIS_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_ACTUA_002
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_COD_M_003
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_COD_M_004
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_COD_O_004
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_COD_O_005
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_CONFI_001
+  check (CONFIRMADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_OFI_I_000
+  check (OFI_INTEGRADA IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1082384743_REVER_001
+  check (REVERSADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_ACTUA_001
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_COD_O_003
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_COD_O_004
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_CONFI_001
+  check (CONFIRMADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_OFI_I_000
+  check (OFI_INTEGRADA IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1085418068_REVER_001
+  check (REVERSADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_ACTUA_002
+  check (ACTUALIZADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_COD_M_003
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_COD_M_004
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_COD_O_004
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_COD_O_005
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_CONFI_001
+  check (CONFIRMADO IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_OFI_I_000
+  check (OFI_INTEGRADA IN ('S', 'N'));
+alter table IT.CB_ASIENTOS_HIS
+  add constraint AVCON_1086033593_REVER_001
+  check (REVERSADO IN ('S', 'N'));
+

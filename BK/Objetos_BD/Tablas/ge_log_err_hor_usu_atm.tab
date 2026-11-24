@@ -1,0 +1,41 @@
+create table IT.GE_LOG_ERR_HOR_USU_ATM
+(
+  fecha       DATE,
+  hora        VARCHAR2(8),
+  cod_usuario VARCHAR2(10),
+  det_error   VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_ERR_HOR_USU_ATM
+  is 'Tabla de Log de Alertas por horas utilizadas de ATM';
+comment on column IT.GE_LOG_ERR_HOR_USU_ATM.fecha
+  is 'Fecha de Error.';
+comment on column IT.GE_LOG_ERR_HOR_USU_ATM.hora
+  is 'Hora de Error.';
+comment on column IT.GE_LOG_ERR_HOR_USU_ATM.cod_usuario
+  is 'Usuario de Movimiento.';
+comment on column IT.GE_LOG_ERR_HOR_USU_ATM.det_error
+  is 'Detalle del error';
+create index IT.LOG_ERR_HOR_USU_ATM on IT.GE_LOG_ERR_HOR_USU_ATM (FECHA, HORA, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

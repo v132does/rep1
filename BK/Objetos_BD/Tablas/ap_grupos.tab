@@ -1,0 +1,82 @@
+create table IT.AP_GRUPOS
+(
+  cod_grupo        NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  estado           VARCHAR2(1) default 'A' not null,
+  principal        VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_GRUPOS
+  is 'Grupos.';
+comment on column IT.AP_GRUPOS.cod_grupo
+  is 'Codigo del Grupo.';
+comment on column IT.AP_GRUPOS.descripcion
+  is 'Descripcion.';
+comment on column IT.AP_GRUPOS.estado
+  is 'Estado del grupo.';
+comment on column IT.AP_GRUPOS.principal
+  is 'Es un grupo principal(s/N).';
+comment on column IT.AP_GRUPOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_GRUPOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_GRUPOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_GRUPOS.fec_modificacion
+  is 'Fecha de modificacion.';
+alter table IT.AP_GRUPOS
+  add constraint PK_AP_GRUPOS primary key (COD_GRUPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_GRUPOS
+  add constraint UK_YGRUP_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_GRUPOS
+  add constraint AVCON_1081349332_COD_G_004
+  check (COD_GRUPO BETWEEN 1 AND 999);
+alter table IT.AP_GRUPOS
+  add constraint AVCON_1081349332_ESTAD_005
+  check (ESTADO IN ('A', 'I'));
+alter table IT.AP_GRUPOS
+  add constraint AVCON_1081349332_PRINC_000
+  check (PRINCIPAL IN ('S', 'N'));
+alter table IT.AP_GRUPOS
+  add constraint CK_GRU_PRINCIPAL
+  check ((ESTADO = 'A'
+and PRINCIPAL = 'S') or (PRINCIPAL = 'N' and ESTADO in('A','I')));
+

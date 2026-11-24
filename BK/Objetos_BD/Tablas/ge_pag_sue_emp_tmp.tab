@@ -1,0 +1,159 @@
+create table IT.GE_PAG_SUE_EMP_TMP
+(
+  cod_empresa       NUMBER(5),
+  nro_cedula        VARCHAR2(20) not null,
+  pri_nombre        VARCHAR2(30),
+  seg_nombre        VARCHAR2(30),
+  pri_apellido      VARCHAR2(30),
+  seg_apellido      VARCHAR2(30),
+  fec_nacimiento    DATE not null,
+  sexo              VARCHAR2(1) default 'M' not null,
+  est_civil         VARCHAR2(20) not null,
+  direccion         VARCHAR2(100),
+  ciudad            VARCHAR2(100),
+  telefono          VARCHAR2(20),
+  sueldo            NUMBER(18,2) default 0,
+  mto_ant_sueldo    NUMBER(18,2),
+  mto_ant_aguinaldo NUMBER(18,2),
+  generar           VARCHAR2(1) default 'N',
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  nro_cta_ahorro    VARCHAR2(15),
+  fec_ingreso       DATE,
+  tip_documento     VARCHAR2(3) default 'CI',
+  tip_tarjeta       VARCHAR2(1),
+  fec_vto_documento DATE,
+  nro_direccion     NUMBER(6),
+  error             VARCHAR2(60),
+  ape_casada        VARCHAR2(15),
+  nro_solicitud     NUMBER(8),
+  gen_cuenta        VARCHAR2(1) default 'N',
+  cod_pai_fatca     NUMBER(3),
+  dir_fiscal        VARCHAR2(80),
+  cod_pai_fiscal    NUMBER(3),
+  celular           VARCHAR2(20),
+  mail              VARCHAR2(319),
+  pais              VARCHAR2(35),
+  profesion         VARCHAR2(35),
+  cod_sec_contable  VARCHAR2(1),
+  sobregiro         VARCHAR2(1),
+  tip_contrato      VARCHAR2(1),
+  direc_kit         VARCHAR2(200),
+  nro_lote          NUMBER(10),
+  estado            VARCHAR2(1),
+  doc_pais          VARCHAR2(60)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_SUE_EMP_TMP.cod_empresa
+  is 'Codigo de la Empresa';
+comment on column IT.GE_PAG_SUE_EMP_TMP.nro_cedula
+  is 'Numero de Cedula';
+comment on column IT.GE_PAG_SUE_EMP_TMP.pri_nombre
+  is 'Primer Nombre';
+comment on column IT.GE_PAG_SUE_EMP_TMP.seg_nombre
+  is 'Segundo Nombre';
+comment on column IT.GE_PAG_SUE_EMP_TMP.pri_apellido
+  is 'Primer apellido';
+comment on column IT.GE_PAG_SUE_EMP_TMP.seg_apellido
+  is 'Segundo Apellido';
+comment on column IT.GE_PAG_SUE_EMP_TMP.fec_nacimiento
+  is 'Fecha de Nacimiento';
+comment on column IT.GE_PAG_SUE_EMP_TMP.sexo
+  is 'Sexo';
+comment on column IT.GE_PAG_SUE_EMP_TMP.est_civil
+  is 'Estado Civil';
+comment on column IT.GE_PAG_SUE_EMP_TMP.direccion
+  is 'Direccion';
+comment on column IT.GE_PAG_SUE_EMP_TMP.ciudad
+  is 'Ciudad';
+comment on column IT.GE_PAG_SUE_EMP_TMP.telefono
+  is 'Telefono';
+comment on column IT.GE_PAG_SUE_EMP_TMP.sueldo
+  is 'Sueldo';
+comment on column IT.GE_PAG_SUE_EMP_TMP.mto_ant_sueldo
+  is 'Monto Anticipo de Sueldo';
+comment on column IT.GE_PAG_SUE_EMP_TMP.mto_ant_aguinaldo
+  is 'Monto Anticipo de Aguinaldo';
+comment on column IT.GE_PAG_SUE_EMP_TMP.generar
+  is 'Generar como cliente';
+comment on column IT.GE_PAG_SUE_EMP_TMP.usu_insercion
+  is 'Usuario que realizo la insercion';
+comment on column IT.GE_PAG_SUE_EMP_TMP.fec_insercion
+  is 'Fecha de la insercion';
+comment on column IT.GE_PAG_SUE_EMP_TMP.usu_modificacion
+  is 'Usuario que realizo la modificacion';
+comment on column IT.GE_PAG_SUE_EMP_TMP.fec_modificacion
+  is 'Fecha de la modificacion';
+comment on column IT.GE_PAG_SUE_EMP_TMP.nro_cta_ahorro
+  is 'Nro de cuenta de ahorro para combinar con la nueva cuenta';
+comment on column IT.GE_PAG_SUE_EMP_TMP.fec_ingreso
+  is 'Fecha de ingreso ';
+comment on column IT.GE_PAG_SUE_EMP_TMP.tip_documento
+  is 'Tipo de Documento';
+comment on column IT.GE_PAG_SUE_EMP_TMP.tip_tarjeta
+  is 'Tipo de Tarjeta de Debito';
+comment on column IT.GE_PAG_SUE_EMP_TMP.fec_vto_documento
+  is 'Fecha de Vencimiento del Documento';
+comment on column IT.GE_PAG_SUE_EMP_TMP.nro_direccion
+  is 'Nro. de Dirección.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.error
+  is 'Registro de Error.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.ape_casada
+  is 'Apellido de Casada.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.nro_solicitud
+  is 'Numero de Solicitud de Alta.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.gen_cuenta
+  is 'Generar solo las cuentas, no las personas';
+comment on column IT.GE_PAG_SUE_EMP_TMP.cod_pai_fatca
+  is 'Indica el País de quién solicita.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.dir_fiscal
+  is 'Indica el nombre de la calle o dirección fiscal del cliente.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.cod_pai_fiscal
+  is 'Indica el País asociado a la dirección fiscal del cliente.';
+comment on column IT.GE_PAG_SUE_EMP_TMP.celular
+  is 'Celular';
+comment on column IT.GE_PAG_SUE_EMP_TMP.mail
+  is 'E-mail';
+comment on column IT.GE_PAG_SUE_EMP_TMP.pais
+  is 'País Origen';
+comment on column IT.GE_PAG_SUE_EMP_TMP.profesion
+  is 'Profesion';
+comment on column IT.GE_PAG_SUE_EMP_TMP.cod_sec_contable
+  is 'Sector Contable';
+comment on column IT.GE_PAG_SUE_EMP_TMP.sobregiro
+  is 'Sobregiro (S/N)';
+comment on column IT.GE_PAG_SUE_EMP_TMP.tip_contrato
+  is 'Indefinido o Temporal (I/T)';
+comment on column IT.GE_PAG_SUE_EMP_TMP.direc_kit
+  is 'Dirección del Kit';
+comment on column IT.GE_PAG_SUE_EMP_TMP.nro_lote
+  is 'Número de Lote desde la Web';
+comment on column IT.GE_PAG_SUE_EMP_TMP.estado
+  is 'Estado de la solicitud. (P: Pendiente, N:Procesado, C:Autorizado)';
+comment on column IT.GE_PAG_SUE_EMP_TMP.doc_pais
+  is 'Pais del documento.';
+create index IT.IN_GPSET_COD_EMPRESA on IT.GE_PAG_SUE_EMP_TMP (COD_EMPRESA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

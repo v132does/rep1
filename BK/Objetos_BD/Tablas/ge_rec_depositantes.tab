@@ -1,0 +1,73 @@
+create table IT.GE_REC_DEPOSITANTES
+(
+  cod_ente          NUMBER(5) not null,
+  cod_depositante   NUMBER(18) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nro_documento     VARCHAR2(20) not null,
+  nom_depositante   VARCHAR2(120) not null,
+  activo            VARCHAR2(1) default 'S' not null,
+  usu_insercion     VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  nro_doc_adicional VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_REC_DEPOSITANTES
+  is 'Guarda la relación entre entes recaudadores y su clientes (depositantes).';
+comment on column IT.GE_REC_DEPOSITANTES.cod_ente
+  is 'Código de Ente Recaudador.';
+comment on column IT.GE_REC_DEPOSITANTES.cod_depositante
+  is 'Código de Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES.cod_tip_documento
+  is 'Código del tipo de Documento del Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES.nro_documento
+  is 'Número de Documento del Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES.nom_depositante
+  is 'Nombre del Cliente Depositante.';
+comment on column IT.GE_REC_DEPOSITANTES.activo
+  is 'Indicador del Estado del Depositante. S/N.';
+comment on column IT.GE_REC_DEPOSITANTES.usu_insercion
+  is 'Usuario que realizó la Inserción.';
+comment on column IT.GE_REC_DEPOSITANTES.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_REC_DEPOSITANTES.usu_modificacion
+  is 'Usuario que realizó la última Modificación.';
+comment on column IT.GE_REC_DEPOSITANTES.fec_modificacion
+  is 'Fecha de última Modificación.';
+comment on column IT.GE_REC_DEPOSITANTES.nro_doc_adicional
+  is 'Número de Documento Adicional del Depositante.';
+alter table IT.GE_REC_DEPOSITANTES
+  add constraint PK_GE_REC_DEPOSITANTES primary key (COD_ENTE, COD_DEPOSITANTE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_REC_DEPOSITANTES
+  add constraint FK_GRECD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.GE_REC_DEPOSITANTES
+  add constraint FK_GRECD_TIP_DOCUMENTO foreign key (COD_TIP_DOCUMENTO)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+alter table IT.GE_REC_DEPOSITANTES
+  add constraint CK_ACTIVO
+  check (activo in ('S','N'));
+

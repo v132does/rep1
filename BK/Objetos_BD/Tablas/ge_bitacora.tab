@@ -1,0 +1,66 @@
+create table IT.GE_BITACORA
+(
+  nro_cuenta    VARCHAR2(15) not null,
+  nro_cheque    NUMBER(15),
+  nro_caja      NUMBER(5),
+  origen        VARCHAR2(10),
+  tipo          VARCHAR2(1) not null,
+  procesa       VARCHAR2(1),
+  monto         NUMBER(18,2),
+  mensaje       VARCHAR2(4000),
+  cod_respuesta VARCHAR2(50),
+  respuesta     VARCHAR2(4000),
+  error         VARCHAR2(4000),
+  fec_insercion DATE default sysdate not null,
+  usu_insercion VARCHAR2(10) default substr(USER,0,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_BITACORA.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.GE_BITACORA.nro_cheque
+  is 'Nro de Cheque';
+comment on column IT.GE_BITACORA.nro_caja
+  is 'Numero de Caja';
+comment on column IT.GE_BITACORA.origen
+  is 'Origen de la peticion: desde ITGF o BT';
+comment on column IT.GE_BITACORA.tipo
+  is 'Tipo de peticion: Validacion o Confirmacion';
+comment on column IT.GE_BITACORA.procesa
+  is 'Si o No o Pendiente';
+comment on column IT.GE_BITACORA.monto
+  is 'Monto Operacion';
+comment on column IT.GE_BITACORA.mensaje
+  is 'Mensaje recibido de BT o enviado a BT';
+comment on column IT.GE_BITACORA.cod_respuesta
+  is 'Codigo de Respuesta a la peticion';
+comment on column IT.GE_BITACORA.respuesta
+  is 'Respuesta recibida';
+comment on column IT.GE_BITACORA.error
+  is 'ERR: errror del proceso';
+comment on column IT.GE_BITACORA.fec_insercion
+  is 'Fecha en que se inserto el registro';
+comment on column IT.GE_BITACORA.usu_insercion
+  is 'Usuario que realizo la insercion del registro';
+create index IT.IN_GE_BITACORA on IT.GE_BITACORA (NRO_CUENTA, ORIGEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,36 @@
+create table IT.INV_GAR_TMP
+(
+  rubro              VARCHAR2(15) not null,
+  des_asiento        VARCHAR2(100),
+  oficina            NUMBER(3),
+  sec_contable       VARCHAR2(35),
+  res                VARCHAR2(1) not null,
+  cod_persona        VARCHAR2(10) not null,
+  cod_garantia       NUMBER(3) not null,
+  des_garantia       VARCHAR2(35) not null,
+  nro_garantia       NUMBER(7) not null,
+  estado_garantia    VARCHAR2(4000),
+  fec_inicio         DATE not null,
+  fec_vencimiento    DATE,
+  moneda             VARCHAR2(3) not null,
+  valor              NUMBER(18,2) not null,
+  val_tasacion       NUMBER(18,2),
+  fec_ult_tasacion   DATE,
+  nro_escritura      NUMBER(10),
+  des_escribano      VARCHAR2(60),
+  situacion          VARCHAR2(1),
+  situacion_garantia VARCHAR2(4000),
+  referencia         NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

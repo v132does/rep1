@@ -1,0 +1,92 @@
+create table IT.PR_SOL_CUOTAS
+(
+  nro_solicitud      NUMBER(7) not null,
+  nro_cuota          NUMBER(3) not null,
+  mto_capital        NUMBER(18,2) default 0 not null,
+  fec_vto_habil      DATE,
+  fec_vto_exacto     DATE,
+  val_interes        NUMBER(20,4) default 0,
+  sal_capital        NUMBER(18,2) default 0,
+  sal_cap_anterior   NUMBER(18,2) default 0,
+  dia_periodo        NUMBER(4),
+  dia_transcurridos  NUMBER(4),
+  dia_interes        NUMBER(4),
+  tip_calculo        VARCHAR2(1),
+  val_int_original   NUMBER(20,4) default 0,
+  val_int_adelantado NUMBER(20,4) default 0,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  val_iva_interes    NUMBER(20,4) default 0,
+  val_seguro         NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SOL_CUOTAS
+  is 'Contiene datos de las Cuotas de las Solicitudes de Prestamos.';
+comment on column IT.PR_SOL_CUOTAS.nro_solicitud
+  is 'Número de propuesta.';
+comment on column IT.PR_SOL_CUOTAS.nro_cuota
+  is 'Número de cuota.';
+comment on column IT.PR_SOL_CUOTAS.mto_capital
+  is 'Monto de capital a amortizar.';
+comment on column IT.PR_SOL_CUOTAS.fec_vto_habil
+  is 'Fecha de vencimiento hábil.';
+comment on column IT.PR_SOL_CUOTAS.fec_vto_exacto
+  is 'Fecha de vencimiento exacto.';
+comment on column IT.PR_SOL_CUOTAS.val_interes
+  is 'Valor del interés a amortizar.';
+comment on column IT.PR_SOL_CUOTAS.sal_capital
+  is 'Valor del saldo del capital.';
+comment on column IT.PR_SOL_CUOTAS.sal_cap_anterior
+  is 'Valor del saldo del capital anterior.';
+comment on column IT.PR_SOL_CUOTAS.dia_periodo
+  is 'Cantidad de dias del periodo.';
+comment on column IT.PR_SOL_CUOTAS.dia_transcurridos
+  is 'Cantidad de dias transcurridos desde el inicio.';
+comment on column IT.PR_SOL_CUOTAS.dia_interes
+  is 'Cantidad de dias del interés.';
+comment on column IT.PR_SOL_CUOTAS.tip_calculo
+  is 'Tipo de cálculo del interés.';
+comment on column IT.PR_SOL_CUOTAS.val_int_original
+  is 'Valor original del interés.';
+comment on column IT.PR_SOL_CUOTAS.val_int_adelantado
+  is 'Valor del interés adelantado.';
+comment on column IT.PR_SOL_CUOTAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SOL_CUOTAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SOL_CUOTAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SOL_CUOTAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_SOL_CUOTAS.val_seguro
+  is 'Valor del seguro que fue calculado por WF. Este campo se utiliza para los reportes.';
+alter table IT.PR_SOL_CUOTAS
+  add constraint PK_PR_SOL_CUOTAS primary key (NRO_SOLICITUD, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SOL_CUOTAS
+  add constraint FK_PSCUO_NRO_PROPUESTA foreign key (NRO_SOLICITUD)
+  references IT.PR_SOLICITUDES (NRO_SOLICITUD);
+

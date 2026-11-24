@@ -1,0 +1,51 @@
+create table IT.CB_APU_MASIVOS_TMP
+(
+  cod_ofi_operacion NUMBER(3),
+  cod_ofi_destino   NUMBER(3),
+  cod_rubro         VARCHAR2(15),
+  descripcion       VARCHAR2(100),
+  nro_cuenta        VARCHAR2(15),
+  tip_mov_rubro     VARCHAR2(1),
+  cotizacion        NUMBER(14,8),
+  monto             NUMBER(18,2),
+  cod_moneda        VARCHAR2(3),
+  nro_referencia    NUMBER(15),
+  cod_transaccion   NUMBER(4),
+  cod_usuario       VARCHAR2(10) default user not null,
+  referencia        VARCHAR2(15),
+  cod_area          NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_APU_MASIVOS_TMP.referencia
+  is 'Número de Cuenta de Referencia - Inventario de Resultado.';
+comment on column IT.CB_APU_MASIVOS_TMP.cod_area
+  is 'Código de Centro de Costo,';
+create index IT.IDX_APU_MAS_TMP_USER on IT.CB_APU_MASIVOS_TMP (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_APU_MASIVOS_TMP
+  add constraint FK_COD_RUBRO foreign key (COD_RUBRO)
+  references IT.CB_RUBROS (COD_RUBRO);
+alter table IT.CB_APU_MASIVOS_TMP
+  add constraint FK_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

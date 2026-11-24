@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_TRA_GNB
+minvalue 10000
+maxvalue 4999999999
+start with 13769
+increment by 1
+cache 20;
+

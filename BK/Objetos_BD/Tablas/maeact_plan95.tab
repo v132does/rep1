@@ -1,0 +1,47 @@
+create table IT.MAEACT_PLAN95
+(
+  planseq    NUMBER(6),
+  clavebcp1  NUMBER(6),
+  clavebcp2  NUMBER(6),
+  clavebex   NUMBER(12),
+  clavevie   NUMBER(12),
+  plantitulo VARCHAR2(80),
+  plandivisa NUMBER(2),
+  filler     VARCHAR2(26)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_CLAVE_BCP1 on IT.MAEACT_PLAN95 (CLAVEBCP1)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_CLAVEBEX_PLAN on IT.MAEACT_PLAN95 (CLAVEBEX)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

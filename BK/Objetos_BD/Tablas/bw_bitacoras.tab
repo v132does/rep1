@@ -1,0 +1,63 @@
+create table IT.BW_BITACORAS
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_canal         VARCHAR2(3) not null,
+  cod_sesion        VARCHAR2(32),
+  cod_tip_mensaje   VARCHAR2(3) not null,
+  cod_per_vinculada VARCHAR2(10),
+  dato              VARCHAR2(4000),
+  dato2             CLOB,
+  tipo              VARCHAR2(3),
+  fec_insercion     DATE default sysdate not null,
+  usu_insercion     VARCHAR2(10) default substr(USER,0,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(USER,0,10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_BITACORAS.cod_persona
+  is 'Código de la persona que está operando.';
+comment on column IT.BW_BITACORAS.cod_canal
+  is 'Código del canal.';
+comment on column IT.BW_BITACORAS.cod_sesion
+  is 'Código de la sesión del usuario.';
+comment on column IT.BW_BITACORAS.cod_tip_mensaje
+  is 'Tipo de mensaje (BW_TIP_MENSAJES).';
+comment on column IT.BW_BITACORAS.cod_per_vinculada
+  is 'Código de la empresa si la persona está vinculada.';
+comment on column IT.BW_BITACORAS.dato
+  is 'Contenido de la Bitácora.';
+comment on column IT.BW_BITACORAS.dato2
+  is 'Contiene de los atributos y valores de los types.';
+comment on column IT.BW_BITACORAS.tipo
+  is 'ERR: errror, INF: Información.';
+comment on column IT.BW_BITACORAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_BITACORAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_BITACORAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_BITACORAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+create index IT.IN_WBITA_COD_PERSONA on IT.BW_BITACORAS (COD_PERSONA, FEC_INSERCION DESC)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

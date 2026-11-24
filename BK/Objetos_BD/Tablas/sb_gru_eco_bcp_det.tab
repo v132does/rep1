@@ -1,0 +1,72 @@
+create table IT.SB_GRU_ECO_BCP_DET
+(
+  formulario       NUMBER(2),
+  numero           NUMBER(6),
+  grupo            VARCHAR2(10),
+  fec_alta         VARCHAR2(8),
+  fec_baja         VARCHAR2(8),
+  tip_documento    VARCHAR2(3),
+  doc_numero       VARCHAR2(15),
+  nombre           VARCHAR2(60),
+  apellido         VARCHAR2(30),
+  per_fec_alta     VARCHAR2(8),
+  per_fec_baja     VARCHAR2(8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_GRU_ECO_BCP_DET.formulario
+  is 'Tipo de Formulario. Siempre es 12.';
+comment on column IT.SB_GRU_ECO_BCP_DET.numero
+  is 'Numero del grupo.';
+comment on column IT.SB_GRU_ECO_BCP_DET.grupo
+  is 'Nombre del grupo.';
+comment on column IT.SB_GRU_ECO_BCP_DET.fec_alta
+  is 'Fecha Alta del grupo.';
+comment on column IT.SB_GRU_ECO_BCP_DET.fec_baja
+  is 'Fecha Baja del grupo.';
+comment on column IT.SB_GRU_ECO_BCP_DET.tip_documento
+  is 'Tipo de identidad de la persona.';
+comment on column IT.SB_GRU_ECO_BCP_DET.doc_numero
+  is 'Numero de identidad de la persona.';
+comment on column IT.SB_GRU_ECO_BCP_DET.nombre
+  is 'Nombre de la persona.';
+comment on column IT.SB_GRU_ECO_BCP_DET.apellido
+  is 'Apellido de la persona.';
+comment on column IT.SB_GRU_ECO_BCP_DET.per_fec_alta
+  is 'Fecha Alta de la persona.';
+comment on column IT.SB_GRU_ECO_BCP_DET.per_fec_baja
+  is 'Fecha Baja de la persona.';
+comment on column IT.SB_GRU_ECO_BCP_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_GRU_ECO_BCP_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_GRU_ECO_BCP_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_GRU_ECO_BCP_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IDNJJGRUECO on IT.SB_GRU_ECO_BCP_DET (TIP_DOCUMENTO, DOC_NUMERO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

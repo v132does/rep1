@@ -1,0 +1,64 @@
+create table IT.CV_NIVELES
+(
+  cod_nivel        NUMBER(5) not null,
+  descripcion      VARCHAR2(50),
+  cod_sector       NUMBER(3),
+  estado           VARCHAR2(1),
+  abreviatura      VARCHAR2(10),
+  val_incluidos    VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CV_NIVELES
+  is 'Nivel del Sector(meses) del Mueble del Archivo Físico.';
+comment on column IT.CV_NIVELES.cod_nivel
+  is 'Código del Nivel de Custodia.';
+comment on column IT.CV_NIVELES.descripcion
+  is 'Descripción del Nivel de Custodia.';
+comment on column IT.CV_NIVELES.cod_sector
+  is 'Sector del Nivel de Custodia.';
+comment on column IT.CV_NIVELES.estado
+  is 'Estado del Sector. A=Activo,I=Inactivo.';
+comment on column IT.CV_NIVELES.abreviatura
+  is 'Abreviatura para Código de Barras.';
+comment on column IT.CV_NIVELES.val_incluidos
+  is 'Valores que corresponden al sector(meses).';
+comment on column IT.CV_NIVELES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CV_NIVELES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CV_NIVELES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CV_NIVELES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.CV_NIVELES
+  add constraint PK_CV_NIVELES primary key (COD_NIVEL)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CV_NIVELES
+  add constraint FK_CVNIV_COD_SECTOR foreign key (COD_SECTOR)
+  references IT.CV_SECTORES (COD_SECTOR);
+

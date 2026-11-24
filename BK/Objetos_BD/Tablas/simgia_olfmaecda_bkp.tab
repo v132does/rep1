@@ -1,0 +1,40 @@
+create table IT.SIMGIA_OLFMAECDA_BKP
+(
+  riesgo                  VARCHAR2(10),
+  sucursal                NUMBER,
+  numero                  NUMBER,
+  nro_cuenta              VARCHAR2(15),
+  pagado                  VARCHAR2(1),
+  serie                   VARCHAR2(6),
+  cupon                   NUMBER,
+  monto                   NUMBER,
+  fecha                   VARCHAR2(6),
+  plazo                   NUMBER,
+  vencto                  VARCHAR2(8),
+  tasa                    NUMBER,
+  formpago                NUMBER,
+  clase                   NUMBER,
+  cuenta                  VARCHAR2(4000),
+  cuenta_rub_transaccion  VARCHAR2(4000),
+  ctaprev                 VARCHAR2(4000),
+  ctaprev_rub_transaccion VARCHAR2(4000),
+  tipodep                 NUMBER,
+  conjind                 VARCHAR2(4000),
+  estado                  NUMBER,
+  pignorado               NUMBER,
+  ctarespig               NUMBER,
+  usuariopr               VARCHAR2(10),
+  fecha_his               DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,39 @@
+create table IT.TM_CONT_SALDOS
+(
+  fecha            DATE not null,
+  tip_control      VARCHAR2(2) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  sal_total        NUMBER(18,2),
+  sal_retenido     NUMBER(18,2),
+  sal_bloqueado    NUMBER(18,2),
+  sal_ult_extracto NUMBER(18,2),
+  debito           NUMBER(18,2),
+  credito          NUMBER(18,2),
+  saldo_calculado  NUMBER(18,2),
+  diferencia       NUMBER(18,2),
+  fec_insercion    DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IDX_TM_CONT_SALDOS on IT.TM_CONT_SALDOS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

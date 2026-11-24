@@ -1,0 +1,493 @@
+create table IT.PR_SAL_MENSUALES
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  ano               NUMBER(4) not null,
+  mes               NUMBER(2) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_oficina       NUMBER(3) not null,
+  sal_cap_actual    NUMBER(18,2) default 0 not null,
+  sal_int_actual    NUMBER(18,2) default 0 not null,
+  tot_cap_acumulado NUMBER(18,2) default 0 not null,
+  tot_int_acumulado NUMBER(18,2) default 0 not null,
+  usu_insercion     VARCHAR2(35) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  can_dia_acumulado NUMBER(3) not null,
+  mto_dev_dia_01    NUMBER(18,2),
+  tip_dev_dia_01    VARCHAR2(1),
+  mto_dev_dia_02    NUMBER(18,2),
+  tip_dev_dia_02    VARCHAR2(1),
+  mto_dev_dia_03    NUMBER(18,2),
+  tip_dev_dia_03    VARCHAR2(1),
+  mto_dev_dia_04    NUMBER(18,2),
+  tip_dev_dia_04    VARCHAR2(1),
+  mto_dev_dia_05    NUMBER(18,2),
+  tip_dev_dia_05    VARCHAR2(1),
+  mto_dev_dia_06    NUMBER(18,2),
+  tip_dev_dia_06    VARCHAR2(1),
+  mto_dev_dia_07    NUMBER(18,2),
+  tip_dev_dia_07    VARCHAR2(1),
+  mto_dev_dia_08    NUMBER(18,2),
+  tip_dev_dia_08    VARCHAR2(1),
+  mto_dev_dia_09    NUMBER(18,2),
+  tip_dev_dia_09    VARCHAR2(1),
+  mto_dev_dia_10    NUMBER(18,2),
+  tip_dev_dia_10    VARCHAR2(1),
+  mto_dev_dia_11    NUMBER(18,2),
+  tip_dev_dia_11    VARCHAR2(1),
+  mto_dev_dia_12    NUMBER(18,2),
+  tip_dev_dia_12    VARCHAR2(1),
+  mto_dev_dia_13    NUMBER(18,2),
+  tip_dev_dia_13    VARCHAR2(1),
+  mto_dev_dia_14    NUMBER(18,2),
+  tip_dev_dia_14    VARCHAR2(1),
+  mto_dev_dia_15    NUMBER(18,2),
+  tip_dev_dia_15    VARCHAR2(1),
+  mto_dev_dia_16    NUMBER(18,2),
+  tip_dev_dia_16    VARCHAR2(1),
+  mto_dev_dia_17    NUMBER(18,2),
+  tip_dev_dia_17    VARCHAR2(1),
+  mto_dev_dia_18    NUMBER(18,2),
+  tip_dev_dia_18    VARCHAR2(1),
+  mto_dev_dia_19    NUMBER(18,2),
+  tip_dev_dia_19    VARCHAR2(1),
+  mto_dev_dia_20    NUMBER(18,2),
+  tip_dev_dia_20    VARCHAR2(1),
+  mto_dev_dia_21    NUMBER(18,2),
+  tip_dev_dia_21    VARCHAR2(1),
+  mto_dev_dia_22    NUMBER(18,2),
+  tip_dev_dia_22    VARCHAR2(1),
+  mto_dev_dia_23    NUMBER(18,2),
+  tip_dev_dia_23    VARCHAR2(1),
+  mto_dev_dia_24    NUMBER(18,2),
+  tip_dev_dia_24    VARCHAR2(1),
+  mto_dev_dia_25    NUMBER(18,2),
+  tip_dev_dia_25    VARCHAR2(1),
+  mto_dev_dia_26    NUMBER(18,2),
+  tip_dev_dia_26    VARCHAR2(1),
+  mto_dev_dia_27    NUMBER(18,2),
+  tip_dev_dia_27    VARCHAR2(1),
+  mto_dev_dia_28    NUMBER(18,2),
+  tip_dev_dia_28    VARCHAR2(1),
+  mto_dev_dia_29    NUMBER(18,2),
+  tip_dev_dia_29    VARCHAR2(1),
+  mto_dev_dia_30    NUMBER(18,2),
+  tip_dev_dia_30    VARCHAR2(1),
+  mto_dev_dia_31    NUMBER(18,2),
+  tip_dev_dia_31    VARCHAR2(1),
+  dev_nco_dia_01    NUMBER(18,2),
+  dev_sus_dia_01    NUMBER(18,2),
+  dev_nco_dia_02    NUMBER(18,2),
+  dev_sus_dia_02    NUMBER(18,2),
+  dev_nco_dia_03    NUMBER(18,2),
+  dev_sus_dia_03    NUMBER(18,2),
+  dev_nco_dia_04    NUMBER(18,2),
+  dev_sus_dia_04    NUMBER(18,2),
+  dev_nco_dia_05    NUMBER(18,2),
+  dev_sus_dia_05    NUMBER(18,2),
+  dev_nco_dia_06    NUMBER(18,2),
+  dev_sus_dia_06    NUMBER(18,2),
+  dev_nco_dia_07    NUMBER(18,2),
+  dev_sus_dia_07    NUMBER(18,2),
+  dev_nco_dia_08    NUMBER(18,2),
+  dev_sus_dia_08    NUMBER(18,2),
+  dev_nco_dia_09    NUMBER(18,2),
+  dev_sus_dia_09    NUMBER(18,2),
+  dev_nco_dia_10    NUMBER(18,2),
+  dev_sus_dia_10    NUMBER(18,2),
+  dev_nco_dia_11    NUMBER(18,2),
+  dev_sus_dia_11    NUMBER(18,2),
+  dev_nco_dia_12    NUMBER(18,2),
+  dev_sus_dia_12    NUMBER(18,2),
+  dev_nco_dia_13    NUMBER(18,2),
+  dev_sus_dia_13    NUMBER(18,2),
+  dev_nco_dia_14    NUMBER(18,2),
+  dev_sus_dia_14    NUMBER(18,2),
+  dev_nco_dia_15    NUMBER(18,2),
+  dev_sus_dia_15    NUMBER(18,2),
+  dev_nco_dia_16    NUMBER(18,2),
+  dev_sus_dia_16    NUMBER(18,2),
+  dev_nco_dia_17    NUMBER(18,2),
+  dev_sus_dia_17    NUMBER(18,2),
+  dev_nco_dia_18    NUMBER(18,2),
+  dev_sus_dia_18    NUMBER(18,2),
+  dev_nco_dia_19    NUMBER(18,2),
+  dev_sus_dia_19    NUMBER(18,2),
+  dev_nco_dia_20    NUMBER(18,2),
+  dev_sus_dia_20    NUMBER(18,2),
+  dev_nco_dia_21    NUMBER(18,2),
+  dev_sus_dia_21    NUMBER(18,2),
+  dev_nco_dia_22    NUMBER(18,2),
+  dev_sus_dia_22    NUMBER(18,2),
+  dev_nco_dia_23    NUMBER(18,2),
+  dev_sus_dia_23    NUMBER(18,2),
+  dev_nco_dia_24    NUMBER(18,2),
+  dev_sus_dia_24    NUMBER(18,2),
+  dev_nco_dia_25    NUMBER(18,2),
+  dev_sus_dia_25    NUMBER(18,2),
+  dev_nco_dia_26    NUMBER(18,2),
+  dev_sus_dia_26    NUMBER(18,2),
+  dev_nco_dia_27    NUMBER(18,2),
+  dev_sus_dia_27    NUMBER(18,2),
+  dev_nco_dia_28    NUMBER(18,2),
+  dev_sus_dia_28    NUMBER(18,2),
+  dev_nco_dia_29    NUMBER(18,2),
+  dev_sus_dia_29    NUMBER(18,2),
+  dev_nco_dia_30    NUMBER(18,2),
+  dev_sus_dia_30    NUMBER(18,2),
+  dev_nco_dia_31    NUMBER(18,2),
+  dev_sus_dia_31    NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SAL_MENSUALES
+  is 'Contiene los saldos promedios de prestamos ** Mantener un año completo **.';
+comment on column IT.PR_SAL_MENSUALES.nro_cuenta
+  is 'Número de préstamo.';
+comment on column IT.PR_SAL_MENSUALES.ano
+  is 'Año del saldo mensual.';
+comment on column IT.PR_SAL_MENSUALES.mes
+  is 'Mes del saldo mensual.';
+comment on column IT.PR_SAL_MENSUALES.cod_modulo
+  is 'Código del módulo del préstamo.';
+comment on column IT.PR_SAL_MENSUALES.cod_modalidad
+  is 'Código de modalidad del préstamo.';
+comment on column IT.PR_SAL_MENSUALES.cod_oficina
+  is 'Código de oficina del préstamo.';
+comment on column IT.PR_SAL_MENSUALES.sal_cap_actual
+  is 'Saldo del capital actual.';
+comment on column IT.PR_SAL_MENSUALES.sal_int_actual
+  is 'Saldo del interés actual.';
+comment on column IT.PR_SAL_MENSUALES.tot_cap_acumulado
+  is 'Acumulado del saldo del capital.';
+comment on column IT.PR_SAL_MENSUALES.tot_int_acumulado
+  is 'Acumulado del saldo del interés.';
+comment on column IT.PR_SAL_MENSUALES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SAL_MENSUALES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SAL_MENSUALES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SAL_MENSUALES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_SAL_MENSUALES.can_dia_acumulado
+  is 'Cantidad de dias acumulado.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_01
+  is 'Monto devengado del dia 01 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_01
+  is 'Tipo de devengado del dia 01 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_02
+  is 'Monto devengado del dia 02 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_02
+  is 'Tipo de devengado del dia 02 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_03
+  is 'Monto devengado del dia 03 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_03
+  is 'Tipo de devengado del dia 03 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_04
+  is 'Monto devengado del dia 04 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_04
+  is 'Tipo de devengado del dia 04 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_05
+  is 'Monto devengado del dia 05 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_05
+  is 'Tipo de devengado del dia 05 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_06
+  is 'Monto devengado del dia 06 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_06
+  is 'Tipo de devengado del dia 06 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_07
+  is 'Monto devengado del dia 07 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_07
+  is 'Tipo de devengado del dia 07 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_08
+  is 'Monto devengado del dia 08 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_08
+  is 'Tipo de devengado del dia 08 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_09
+  is 'Monto devengado del dia 09 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_09
+  is 'Tipo de devengado del dia 09 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_10
+  is 'Monto devengado del dia 10 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_10
+  is 'Tipo de devengado del dia 10 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_11
+  is 'Monto devengado del dia 11 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_11
+  is 'Tipo de devengado del dia 11 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_12
+  is 'Monto devengado del dia 12 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_12
+  is 'Tipo de devengado del dia 12 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_13
+  is 'Monto devengado del dia 13 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_13
+  is 'Tipo de devengado del dia 13 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_14
+  is 'Monto devengado del dia 14 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_14
+  is 'Tipo de devengado del dia 14 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_15
+  is 'Monto devengado del dia 15 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_15
+  is 'Tipo de devengado del dia 15 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_16
+  is 'Monto devengado del dia 16 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_16
+  is 'Tipo de devengado del dia 16 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_17
+  is 'Monto devengado del dia 17 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_17
+  is 'Tipo de devengado del dia 17 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_18
+  is 'Monto devengado del dia 18 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_18
+  is 'Tipo de devengado del dia 18 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_19
+  is 'Monto devengado del dia 19 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_19
+  is 'Tipo de devengado del dia 19 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_20
+  is 'Monto devengado del dia 20 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_20
+  is 'Tipo de devengado del dia 20 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_21
+  is 'Monto devengado del dia 21 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_21
+  is 'Tipo de devengado del dia 21 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_22
+  is 'Monto devengado del dia 22 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_22
+  is 'Tipo de devengado del dia 22 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_23
+  is 'Monto devengado del dia 23 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_23
+  is 'Tipo de devengado del dia 23 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_24
+  is 'Monto devengado del dia 24 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_24
+  is 'Tipo de devengado del dia 24 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_25
+  is 'Monto devengado del dia 25 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_25
+  is 'Tipo de devengado del dia 25 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_26
+  is 'Monto devengado del dia 26 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_26
+  is 'Tipo de devengado del dia 26 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_27
+  is 'Monto devengado del dia 27 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_27
+  is 'Tipo de devengado del dia 27 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_28
+  is 'Monto devengado del dia 28 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_28
+  is 'Tipo de devengado del dia 28 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_29
+  is 'Monto devengado del dia 29 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_29
+  is 'Tipo de devengado del dia 29 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_30
+  is 'Monto devengado del dia 30 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_30
+  is 'Tipo de devengado del dia 30 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.mto_dev_dia_31
+  is 'Monto devengado del dia 31 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.tip_dev_dia_31
+  is 'Tipo de devengado del dia 31 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_01
+  is 'Monto devengado no cobrado del dia 01 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_01
+  is 'Monto devengado en suspenso del dia 01 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_02
+  is 'Monto devengado no cobrado del dia 02 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_02
+  is 'Monto devengado en suspenso del dia 02 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_03
+  is 'Monto devengado no cobrado del dia 03 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_03
+  is 'Monto devengado en suspenso del dia 03 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_04
+  is 'Monto devengado no cobrado del dia 04 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_04
+  is 'Monto devengado en suspenso del dia 04 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_05
+  is 'Monto devengado no cobrado del dia 05 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_05
+  is 'Monto devengado en suspenso del dia 05 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_06
+  is 'Monto devengado no cobrado del dia 06 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_06
+  is 'Monto devengado en suspenso del dia 06 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_07
+  is 'Monto devengado no cobrado del dia 07 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_07
+  is 'Monto devengado en suspenso del dia 07 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_08
+  is 'Monto devengado no cobrado del dia 08 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_08
+  is 'Monto devengado en suspenso del dia 08 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_09
+  is 'Monto devengado no cobrado del dia 09 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_09
+  is 'Monto devengado en suspenso del dia 09 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_10
+  is 'Monto devengado no cobrado del dia 10 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_10
+  is 'Monto devengado en suspenso del dia 10 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_11
+  is 'Monto devengado no cobrado del dia 11 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_11
+  is 'Monto devengado en suspenso del dia 11 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_12
+  is 'Monto devengado no cobrado del dia 12 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_12
+  is 'Monto devengado en suspenso del dia 12 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_13
+  is 'Monto devengado no cobrado del dia 13 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_13
+  is 'Monto devengado en suspenso del dia 13 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_14
+  is 'Monto devengado no cobrado del dia 14 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_14
+  is 'Monto devengado en suspenso del dia 14 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_15
+  is 'Monto devengado no cobrado del dia 15 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_15
+  is 'Monto devengado en suspenso del dia 15 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_16
+  is 'Monto devengado no cobrado del dia 16 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_16
+  is 'Monto devengado en suspenso del dia 16 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_17
+  is 'Monto devengado no cobrado del dia 17 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_17
+  is 'Monto devengado en suspenso del dia 17 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_18
+  is 'Monto devengado no cobrado del dia 18 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_18
+  is 'Monto devengado en suspenso del dia 18 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_19
+  is 'Monto devengado no cobrado del dia 19 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_19
+  is 'Monto devengado en suspenso del dia 19 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_20
+  is 'Monto devengado no cobrado del dia 20 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_20
+  is 'Monto devengado en suspenso del dia 20 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_21
+  is 'Monto devengado no cobrado del dia 21 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_21
+  is 'Monto devengado en suspenso del dia 21 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_22
+  is 'Monto devengado no cobrado del dia 22 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_22
+  is 'Monto devengado en suspenso del dia 22 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_23
+  is 'Monto devengado no cobrado del dia 23 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_23
+  is 'Monto devengado en suspenso del dia 23 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_24
+  is 'Monto devengado no cobrado del dia 24 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_24
+  is 'Monto devengado en suspenso del dia 24 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_25
+  is 'Monto devengado no cobrado del dia 25 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_25
+  is 'Monto devengado en suspenso del dia 25 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_26
+  is 'Monto devengado no cobrado del dia 26 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_26
+  is 'Monto devengado en suspenso del dia 26 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_27
+  is 'Monto devengado no cobrado del dia 27 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_27
+  is 'Monto devengado en suspenso del dia 27 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_28
+  is 'Monto devengado no cobrado del dia 28 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_28
+  is 'Monto devengado en suspenso del dia 28 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_29
+  is 'Monto devengado no cobrado del dia 29 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_29
+  is 'Monto devengado en suspenso del dia 29 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_30
+  is 'Monto devengado no cobrado del dia 30 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_30
+  is 'Monto devengado en suspenso del dia 30 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_nco_dia_31
+  is 'Monto devengado no cobrado del dia 31 del mes y año.';
+comment on column IT.PR_SAL_MENSUALES.dev_sus_dia_31
+  is 'Monto devengado en suspenso del dia 31 del mes y año.';
+create index IT.IN_PSMEN_COD_MODALIDAD on IT.PR_SAL_MENSUALES (COD_MODALIDAD, COD_MODULO, COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 384K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SAL_MENSUALES
+  add constraint PK_PR_SAL_MENSUALES primary key (NRO_CUENTA, ANO, MES)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SAL_MENSUALES
+  add constraint FK_PSMEN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.PR_SAL_MENSUALES
+  add constraint FK_PSMEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1080845005_COD_M_017
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1080845005_COD_M_018
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1080845005_COD_O_004
+  check (COD_OFICINA BETWEEN 1 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1085418277_COD_M_016
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1085418277_COD_M_017
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1085418277_COD_O_005
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1086034078_COD_M_017
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1086034078_COD_M_018
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.PR_SAL_MENSUALES
+  add constraint AVCON_1086034078_COD_O_005
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

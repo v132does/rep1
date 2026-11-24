@@ -1,0 +1,8 @@
+create sequence IT.S_HOR_MOV_SNP_SIPAP3
+minvalue 1
+maxvalue 99999999999999999999999
+start with 5787
+increment by 1
+nocache
+cycle;
+

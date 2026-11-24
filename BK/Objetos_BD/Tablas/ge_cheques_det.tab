@@ -1,0 +1,147 @@
+create table IT.GE_CHEQUES_DET
+(
+  cod_banco        NUMBER(3) not null,
+  nro_cheque       NUMBER(15) not null,
+  cta_libradora    VARCHAR2(20),
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  nro_cuenta       VARCHAR2(15),
+  nro_cuota        NUMBER(3),
+  estado           VARCHAR2(1) default 'I' not null,
+  fec_ingreso      DATE not null,
+  nro_documento    NUMBER(15),
+  cod_ofi_camara   NUMBER(3) not null,
+  fec_deposito     DATE,
+  cod_ban_deposito NUMBER(3),
+  nro_bol_deposito NUMBER(10),
+  cod_causa        NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_retencion    NUMBER(3) not null,
+  lib_posterior    VARCHAR2(1) default 'N' not null,
+  liberado         VARCHAR2(1) default 'N' not null,
+  nro_caja         NUMBER(3),
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CHEQUES_DET
+  is 'Detalle de los cheques cargo otros Bancos.';
+comment on column IT.GE_CHEQUES_DET.cod_banco
+  is 'Codigo de Banco del Cheque.';
+comment on column IT.GE_CHEQUES_DET.nro_cheque
+  is 'Nro. del Cheque.';
+comment on column IT.GE_CHEQUES_DET.cta_libradora
+  is 'Cuenta libradora del cheque.';
+comment on column IT.GE_CHEQUES_DET.cod_moneda
+  is 'Moneda del Importe.';
+comment on column IT.GE_CHEQUES_DET.monto
+  is 'importe del cheque.';
+comment on column IT.GE_CHEQUES_DET.nro_cuenta
+  is 'Nro de Cuenta relacionada al cheque (Cuenta en la cual se deposito o prestamo/tarjeta pagada).';
+comment on column IT.GE_CHEQUES_DET.nro_cuota
+  is 'Nro de cuota, si es prestamo.';
+comment on column IT.GE_CHEQUES_DET.estado
+  is 'I-Ingresado R-remitido a Deposito, D-devuelto.';
+comment on column IT.GE_CHEQUES_DET.fec_ingreso
+  is 'Fecha en que ingreso el cheque.';
+comment on column IT.GE_CHEQUES_DET.nro_documento
+  is 'Nro de Documento por el cual ingreso el Cheque.';
+comment on column IT.GE_CHEQUES_DET.cod_ofi_camara
+  is 'Codigo de Oficina de camara donde se realiza el deposito.';
+comment on column IT.GE_CHEQUES_DET.fec_deposito
+  is 'Fecha en la cual se debe depositar el codigo.';
+comment on column IT.GE_CHEQUES_DET.cod_ban_deposito
+  is 'Banco en el cual se deposito el Cheque.';
+comment on column IT.GE_CHEQUES_DET.nro_bol_deposito
+  is 'Boleta en el que se registro el Deposito.';
+comment on column IT.GE_CHEQUES_DET.cod_causa
+  is 'Causa de Devolucion.';
+comment on column IT.GE_CHEQUES_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CHEQUES_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CHEQUES_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CHEQUES_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CHEQUES_DET.cod_retencion
+  is 'Codigo de Retencion.';
+comment on column IT.GE_CHEQUES_DET.lib_posterior
+  is 'Marca de Liberación Posterior.';
+comment on column IT.GE_CHEQUES_DET.liberado
+  is 'Liberado. SI/NO';
+comment on column IT.GE_CHEQUES_DET.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.GE_CHEQUES_DET.hora
+  is 'Hora.';
+comment on column IT.GE_CHEQUES_DET.cod_usuario
+  is 'Codigo del Usuario.';
+alter table IT.GE_CHEQUES_DET
+  add constraint PK_CHEQUES_DET primary key (COD_BANCO, NRO_CHEQUE, FEC_INGRESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_COD_BANCO foreign key (COD_BANCO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_COD_BAN_DEPOSITO foreign key (COD_BAN_DEPOSITO)
+  references IT.GE_BANCOS (COD_BANCO);
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_COD_OFI_CAMARA foreign key (COD_OFI_CAMARA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.GE_CHEQUES_DET
+  add constraint FK_GCDET_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA)
+  disable
+  novalidate;
+alter table IT.GE_CHEQUES_DET
+  add constraint AVCON_1085757492_COD_B_000
+  check (COD_BANCO BETWEEN 0 AND 999);
+alter table IT.GE_CHEQUES_DET
+  add constraint AVCON_1085757492_COD_B_001
+  check (COD_BAN_DEPOSITO BETWEEN 0 AND 999);
+alter table IT.GE_CHEQUES_DET
+  add constraint AVCON_1085757492_COD_C_000
+  check (COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.GE_CHEQUES_DET
+  add constraint AVCON_1085757492_COD_O_000
+  check (COD_OFI_CAMARA BETWEEN 0 AND 999);
+alter table IT.GE_CHEQUES_DET
+  add constraint AVCON_1085757492_NRO_C_000
+  check (NRO_CUOTA BETWEEN 0 AND 999);
+alter table IT.GE_CHEQUES_DET
+  add constraint AVCON_1093528760_ESTAD_000
+  check (ESTADO IN ('I', 'R', 'D'));
+

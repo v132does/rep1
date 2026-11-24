@@ -1,0 +1,175 @@
+create table IT.PSA059
+(
+  psa059fin VARCHAR2(8) not null,
+  psa059ffi VARCHAR2(8) not null,
+  psa059pai NUMBER(3) not null,
+  psa059tdo NUMBER(4) not null,
+  psa059ndo VARCHAR2(25) not null,
+  psa059cju VARCHAR2(25) not null,
+  psa059nju VARCHAR2(40),
+  psa059ent NUMBER(3),
+  psa059den VARCHAR2(40),
+  psa059vsl NUMBER(9),
+  psa059toc NUMBER(18,2),
+  psa059coc NUMBER(10),
+  psa059tod NUMBER(18,2),
+  psa059cod NUMBER(10),
+  psa059tts NUMBER(18,2),
+  psa059cts NUMBER(10),
+  psa059fei VARCHAR2(8),
+  psa059vfj NUMBER(9),
+  psa059n01 NUMBER(18,2),
+  psa059n02 NUMBER(18,2),
+  psa059n03 NUMBER(18,2),
+  psa059n04 NUMBER(18,2),
+  psa059n05 NUMBER(18,2),
+  psa059n06 NUMBER(18,2),
+  psa059n07 NUMBER(18,2),
+  psa059n08 NUMBER(18,2),
+  psa059n09 NUMBER(18,2),
+  psa059n10 NUMBER(18,2),
+  psa059c01 VARCHAR2(100),
+  psa059c02 VARCHAR2(100),
+  psa059c03 VARCHAR2(100),
+  psa059c04 VARCHAR2(100),
+  psa059c05 VARCHAR2(100),
+  psa059c06 VARCHAR2(100),
+  psa059c07 VARCHAR2(100),
+  psa059c08 VARCHAR2(100),
+  psa059c09 VARCHAR2(100),
+  psa059c10 VARCHAR2(100),
+  psa059f01 VARCHAR2(8),
+  psa059f02 VARCHAR2(8),
+  psa059f03 VARCHAR2(8),
+  psa059f04 VARCHAR2(8),
+  psa059f05 VARCHAR2(8),
+  psa059f06 VARCHAR2(8),
+  psa059f07 VARCHAR2(8),
+  psa059f08 VARCHAR2(8),
+  psa059f09 VARCHAR2(8),
+  psa059f10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA059
+  is 'TABLA Base de Jurisdicciones (Sucursales) de PIC';
+comment on column IT.PSA059.psa059fin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA059.psa059ffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA059.psa059pai
+  is 'Pais del documento.';
+comment on column IT.PSA059.psa059tdo
+  is 'Tipo de documento.';
+comment on column IT.PSA059.psa059ndo
+  is 'Numero de documento.';
+comment on column IT.PSA059.psa059cju
+  is 'Codigo de Jurisdiccion.';
+comment on column IT.PSA059.psa059nju
+  is 'Nombre de Jurisdiccion.';
+comment on column IT.PSA059.psa059ent
+  is 'Entidad.';
+comment on column IT.PSA059.psa059den
+  is 'Descripcion Entidad.';
+comment on column IT.PSA059.psa059vsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA059.psa059toc
+  is 'Volumen Total de las Operaciones Credito.';
+comment on column IT.PSA059.psa059coc
+  is 'Cantidad de Operaciones Credito.';
+comment on column IT.PSA059.psa059tod
+  is 'Volumen Total de las Operaciones Debito.';
+comment on column IT.PSA059.psa059cod
+  is 'Cantidad de Operaciones Debito.';
+comment on column IT.PSA059.psa059tts
+  is 'Monto Total de Transacciones Superiores a 10 Millones.';
+comment on column IT.PSA059.psa059cts
+  is 'Cantidad Total de Transacciones Superiores a 10 Millones.';
+comment on column IT.PSA059.psa059fei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA059.psa059vfj
+  is 'Vulnerabilidad del Factor Jurisdicciones.';
+comment on column IT.PSA059.psa059n01
+  is 'Auxiliar Numerico 01.';
+comment on column IT.PSA059.psa059n02
+  is 'Auxiliar Numerico 02.';
+comment on column IT.PSA059.psa059n03
+  is 'Auxiliar Numerico 03.';
+comment on column IT.PSA059.psa059n04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA059.psa059n05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA059.psa059n06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA059.psa059n07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA059.psa059n08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA059.psa059n09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA059.psa059n10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA059.psa059c01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA059.psa059c02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA059.psa059c03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA059.psa059c04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA059.psa059c05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA059.psa059c06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA059.psa059c07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA059.psa059c08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA059.psa059c09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA059.psa059c10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA059.psa059f01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA059.psa059f02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA059.psa059f03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA059.psa059f04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA059.psa059f05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA059.psa059f06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA059.psa059f07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA059.psa059f08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA059.psa059f09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA059.psa059f10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA059
+  add constraint PK_PSA059 primary key (PSA059FIN, PSA059FFI, PSA059PAI, PSA059TDO, PSA059NDO, PSA059CJU)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

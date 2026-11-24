@@ -1,0 +1,48 @@
+create table IT.TA_LOG_PRONET
+(
+  fec_envio   DATE not null,
+  hor_envio   VARCHAR2(8),
+  nom_proceso VARCHAR2(50),
+  nom_archivo VARCHAR2(200),
+  nro_lote    NUMBER(6),
+  nro_boleta  NUMBER(6),
+  nro_tarjeta VARCHAR2(30),
+  comentario  VARCHAR2(4000),
+  nro_linea   NUMBER(4),
+  nro_error   NUMBER(5),
+  men_error   VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_LOG_PRONET
+  is 'Registro de errores de datos ProNet importados automaticamente.';
+comment on column IT.TA_LOG_PRONET.fec_envio
+  is 'Fecha de importacion del archivo.';
+comment on column IT.TA_LOG_PRONET.hor_envio
+  is 'Hora de importacion del archivo.';
+comment on column IT.TA_LOG_PRONET.nom_archivo
+  is 'Nombre del archivo que se importo.';
+comment on column IT.TA_LOG_PRONET.nro_lote
+  is 'Numero de lote importado.';
+comment on column IT.TA_LOG_PRONET.nro_boleta
+  is 'Numero de boleta importado.';
+comment on column IT.TA_LOG_PRONET.nro_tarjeta
+  is 'Numero de tarjeta importada.';
+comment on column IT.TA_LOG_PRONET.comentario
+  is 'Comentario del error provocado al importar el archivo o registro.';
+comment on column IT.TA_LOG_PRONET.nro_linea
+  is 'Numero de linea del registro con error.';
+comment on column IT.TA_LOG_PRONET.nro_error
+  is 'Codigo del error Oracle.';
+comment on column IT.TA_LOG_PRONET.men_error
+  is 'Mensaje de Error Oracle.';
+

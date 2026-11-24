@@ -1,0 +1,254 @@
+create table IT.CR_VTA_CRUZADAS
+(
+  ano                     NUMBER(4),
+  mes                     NUMBER(2),
+  dia                     NUMBER(2),
+  cod_persona             VARCHAR2(10),
+  nom_completo            VARCHAR2(120),
+  tipo                    VARCHAR2(1),
+  cod_tip_documento       NUMBER(3),
+  nro_documento           VARCHAR2(20),
+  nom_comercial           VARCHAR2(65),
+  des_oficina             VARCHAR2(35),
+  cat_automatica          NUMBER(3,2),
+  cat_sistema             NUMBER(1),
+  des_seg_cliente         VARCHAR2(35),
+  fec_ape_cc_gs           CLOB,
+  des_est_cc_gs           CLOB,
+  sal_tot_cc_gs           CLOB,
+  mto_lin_sob_gs          CLOB,
+  fec_ape_cc_usd          CLOB,
+  des_est_cc_usd          CLOB,
+  sal_tot_cc_usd          CLOB,
+  mto_lin_sob_usd         CLOB,
+  fec_ape_cc_eur          CLOB,
+  des_est_cc_eur          CLOB,
+  sal_tot_cc_eur          CLOB,
+  mto_lin_sob_eur         CLOB,
+  fec_ape_av_gs           CLOB,
+  des_est_av_gs           CLOB,
+  sal_tot_av_gs           CLOB,
+  fec_ape_av_usd          CLOB,
+  des_est_av_usd          CLOB,
+  sal_tot_av_usd          CLOB,
+  fec_ape_av_eur          CLOB,
+  des_est_av_eur          CLOB,
+  sal_tot_av_eur          CLOB,
+  fec_ape_cda_gs          CLOB,
+  des_est_cda_gs          CLOB,
+  sal_tot_cda_gs          CLOB,
+  fec_ape_cda_usd         CLOB,
+  des_est_cda_usd         CLOB,
+  sal_tot_cda_usd         CLOB,
+  fec_ape_cda_eur         CLOB,
+  des_est_cda_eur         CLOB,
+  sal_tot_cda_eur         CLOB,
+  fec_ini_pre_gs          CLOB,
+  des_mad_pre_gs          CLOB,
+  sal_tot_pre_gs          CLOB,
+  fec_ini_pre_usd         CLOB,
+  des_mad_pre_usd         CLOB,
+  sal_tot_pre_usd         CLOB,
+  fec_ini_pre_eur         CLOB,
+  des_mad_pre_eur         CLOB,
+  sal_tot_pre_eur         CLOB,
+  fec_ape_tar_credito     CLOB,
+  des_mad_tar_credito     CLOB,
+  sal_tot_tar_credito     CLOB,
+  des_est_tar_credito     CLOB,
+  lin_credito             CLOB,
+  fec_ape_adi_tar_credito CLOB,
+  des_mad_adi_tar_credito CLOB,
+  sal_tot_adi_tar_credito CLOB,
+  fec_ape_tar_debito      CLOB,
+  deb_automatico          VARCHAR2(1),
+  fec_ape_paquete         DATE,
+  des_paquete             VARCHAR2(35),
+  cli_nomina              VARCHAR2(1),
+  mto_ult_sueldo          NUMBER(18,2),
+  fec_ult_sueldo          DATE,
+  des_ente                VARCHAR2(60),
+  fec_ape_hom_banking     DATE,
+  cli_hom_banking         VARCHAR2(1),
+  fec_ape_pag_salario     DATE,
+  nro_cta_nomina          VARCHAR2(15),
+  tip_nomina              VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CR_VTA_CRUZADAS.ano
+  is 'Año de la Venta Cruzada.';
+comment on column IT.CR_VTA_CRUZADAS.mes
+  is 'Mes de la Venta Cruzada.';
+comment on column IT.CR_VTA_CRUZADAS.dia
+  is 'Día de la Venta Cruzada.';
+comment on column IT.CR_VTA_CRUZADAS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.CR_VTA_CRUZADAS.nom_completo
+  is 'Nombre Completo de la Persona.';
+comment on column IT.CR_VTA_CRUZADAS.tipo
+  is 'Tipo de Persona (F=Fisica, J=Juridica).';
+comment on column IT.CR_VTA_CRUZADAS.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.CR_VTA_CRUZADAS.nro_documento
+  is 'Número de Documento.';
+comment on column IT.CR_VTA_CRUZADAS.nom_comercial
+  is 'Nombre Comercial.';
+comment on column IT.CR_VTA_CRUZADAS.des_oficina
+  is 'Nombre de la Oficina.';
+comment on column IT.CR_VTA_CRUZADAS.cat_automatica
+  is 'Categoria Ponderada.';
+comment on column IT.CR_VTA_CRUZADAS.cat_sistema
+  is 'Categoria Final del Sistema Financiero.(ultima informacion).';
+comment on column IT.CR_VTA_CRUZADAS.des_seg_cliente
+  is 'Segmento del Cliente.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_cc_gs
+  is 'Fecha de Apertura de la Cuenta Corriente en GS.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_cc_gs
+  is 'Descripción del Estado de la Cuenta Corriente en GS.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_cc_gs
+  is 'Saldo Total de la Cuenta Corriente en GS.';
+comment on column IT.CR_VTA_CRUZADAS.mto_lin_sob_gs
+  is 'Valor del Acuerdo de Sobregiro en GS.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_cc_usd
+  is 'Fecha de Apertura de la Cuenta Corriente en USD.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_cc_usd
+  is 'Descripción del Estado de la Cuenta Corriente en USD.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_cc_usd
+  is 'Saldo Total de la Cuenta Corriente en USD.';
+comment on column IT.CR_VTA_CRUZADAS.mto_lin_sob_usd
+  is 'Valor del Acuerdo de Sobregiro en USD.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_cc_eur
+  is 'Fecha de Apertura de la Cuenta Corriente en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_cc_eur
+  is 'Descripción del Estado de la Cuenta Corriente en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_cc_eur
+  is 'Saldo Total de la Cuenta Corriente en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.mto_lin_sob_eur
+  is 'Valor del Acuerdo de Sobregiro en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_av_gs
+  is 'Fecha de Apertura del Ahorro Vista en GS.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_av_gs
+  is 'Descripción del Estado del Ahorro Vista en GS.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_av_gs
+  is 'Saldo Total del Ahorro Vista en GS.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_av_usd
+  is 'Fecha de Apertura del Ahorro Vista en USD.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_av_usd
+  is 'Descripción del Estado del Ahorro Vista en USD.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_av_usd
+  is 'Saldo Total del Ahorro Vista en USD.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_av_eur
+  is 'Fecha de Apertura del Ahorro Vista en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_av_eur
+  is 'Descripción del Estado del Ahorro Vista en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_av_eur
+  is 'Saldo Total del Ahorro Vista en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_cda_gs
+  is 'Fecha de Apertura del CDA en GS.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_cda_gs
+  is 'Descripción del Estado del CDA en GS.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_cda_gs
+  is 'Saldo Total del CDA en GS.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_cda_usd
+  is 'Fecha de Apertura del CDA en USD.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_cda_usd
+  is 'Descripción del Estado del CDA en USD.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_cda_usd
+  is 'Saldo Total del CDA en USD.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_cda_eur
+  is 'Fecha de Apertura del CDA en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_cda_eur
+  is 'Descripción del Estado del CDA en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_cda_eur
+  is 'Saldo Total del CDA en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ini_pre_gs
+  is 'Fecha de Inicio del Préstamo en GS.';
+comment on column IT.CR_VTA_CRUZADAS.des_mad_pre_gs
+  is 'Descripción de la Modalidad del Préstamo en GS.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_pre_gs
+  is 'Saldo Total del Prestamo en GS: Saldo Capital + Saldo del Interés.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ini_pre_usd
+  is 'Fecha de Inicio del Préstamo en USD.';
+comment on column IT.CR_VTA_CRUZADAS.des_mad_pre_usd
+  is 'Descripción de la Modalidad del Préstamo en USD.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_pre_usd
+  is 'Saldo Total del Prestamo en USD: Saldo Capital + Saldo del Interés.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ini_pre_eur
+  is 'Fecha de Inicio del Préstamo en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.des_mad_pre_eur
+  is 'Descripción de la Modalidad del Préstamo en EUR.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_pre_eur
+  is 'Saldo Total del Prestamo en EUR: Saldo Capital + Saldo del Interés.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_tar_credito
+  is 'Fecha de Apertura de la TC.';
+comment on column IT.CR_VTA_CRUZADAS.des_mad_tar_credito
+  is 'Descripción de la Modalidad de la TC.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_tar_credito
+  is 'Saldo Total de la TC: SAL_FACTURAR + SAL_FACTURADO + SAL_FINANCIADO + SAL_CUO_PENDIENTES.';
+comment on column IT.CR_VTA_CRUZADAS.des_est_tar_credito
+  is 'Descripción del Estado de la TC.';
+comment on column IT.CR_VTA_CRUZADAS.lin_credito
+  is 'Línea de Crédito de la TC.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_adi_tar_credito
+  is 'Fecha de Apertura del Adicional de la TC.';
+comment on column IT.CR_VTA_CRUZADAS.des_mad_adi_tar_credito
+  is 'Descripción de la Modalidad del Adicional de la TC.';
+comment on column IT.CR_VTA_CRUZADAS.sal_tot_adi_tar_credito
+  is 'Saldo del Adiconal de la TC. Siempre es cero (0).';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_tar_debito
+  is 'Fecha de Apertura de la Tarjeta de Débito.';
+comment on column IT.CR_VTA_CRUZADAS.deb_automatico
+  is 'Indica si el Cliente tiene Débitos Automáticos para Pago de Servicios. S/Si, N/No.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_paquete
+  is 'Fecha de Apertura del Paquete.';
+comment on column IT.CR_VTA_CRUZADAS.des_paquete
+  is 'Descripción del Paquete.';
+comment on column IT.CR_VTA_CRUZADAS.cli_nomina
+  is 'Indica si el Cliente percibe Pago de Salarios en una de sus Cuentas. S/Si, N/No.';
+comment on column IT.CR_VTA_CRUZADAS.mto_ult_sueldo
+  is 'Monto del Ultimo Salario Percibido.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ult_sueldo
+  is 'Fecha del Ultimo Salario Percibido.';
+comment on column IT.CR_VTA_CRUZADAS.des_ente
+  is 'Descripción del Ente (Empresa Pagadora).';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_hom_banking
+  is 'Fecha de Inicio del Servicio HomeBanking.';
+comment on column IT.CR_VTA_CRUZADAS.cli_hom_banking
+  is 'Indica si el Cliente posee el Servicio HomeBanking. S/Si, N/No.';
+comment on column IT.CR_VTA_CRUZADAS.fec_ape_pag_salario
+  is 'Fecha de Inicio del Servicio Pago de Salarios.';
+create index IT.IN_RVCRU_COD_PERSONA on IT.CR_VTA_CRUZADAS (ANO, MES, DIA, COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_RVCRU_TIP_NOMINA on IT.CR_VTA_CRUZADAS (ANO, MES, DIA, CLI_NOMINA, TIP_NOMINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,45 @@
+create table IT.SIMGIA_MAEICPC_BKP
+(
+  riesgo                    VARCHAR2(10),
+  vto                       VARCHAR2(8),
+  docnro                    NUMBER,
+  sucursal                  NUMBER(3),
+  interes                   NUMBER(18,2),
+  feini                     VARCHAR2(8),
+  intdev                    NUMBER,
+  intnodev                  NUMBER,
+  fechcont                  VARCHAR2(6),
+  periodo                   CHAR(1),
+  rubrocr                   VARCHAR2(4000),
+  rubrocr_rub_transaccion   VARCHAR2(4000),
+  inddocum                  CHAR(1),
+  ctaactivo                 VARCHAR2(4000),
+  ctaactivo_rub_transaccion VARCHAR2(4000),
+  ctaordat                  CHAR(1),
+  ctapasivo                 VARCHAR2(4000),
+  ctapasivo_rub_transaccion VARCHAR2(4000),
+  cobadl                    CHAR(1),
+  propuesta                 VARCHAR2(6),
+  estado                    CHAR(1),
+  indpago                   CHAR(1),
+  servicio                  CHAR(2),
+  filler                    CHAR(4),
+  nro_cuenta                VARCHAR2(15),
+  cod_modalidad             NUMBER(3),
+  cod_sit_contable          VARCHAR2(20),
+  estado_it                 VARCHAR2(1),
+  estado_det                VARCHAR2(1),
+  fecha_his                 DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

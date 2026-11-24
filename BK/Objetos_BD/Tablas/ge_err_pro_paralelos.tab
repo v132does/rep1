@@ -1,0 +1,58 @@
+CREATE TABLE it.GE_ERR_PRO_PARALELOS (
+   COD_PROCESO       NUMBER(3,0),
+   COD_PROGRAMA      VARCHAR2(30),
+   ERROR             VARCHAR2(50),
+   ACTIVO	         VARCHAR2(1) default 'S',
+   USU_INSERCION     VARCHAR2(10) default SUBSTR(USER,1,10),
+   FEC_INSERCION     DATE default SYSDATE,
+   USU_MODIFICACION  VARCHAR2(10) default SUBSTR(USER,1,10),
+   FEC_MODIFICACION  DATE default SYSDATE
+)
+tablespace IT_DATA
+pctfree 10
+initrans 1
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+COMMENT ON TABLE it.GE_ERR_PRO_PARALELOS IS 'Errores clasificados para reintentar la ejecución en Contexto Paralelo.';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.COD_PROCESO IS 'Codigo de Proceso.';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.COD_PROGRAMA IS 'Nombre del Programa, o el comodín TODOS.';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.ERROR IS 'Texto de búsqueda para identificar un Error, o el comodín TODOS. El texto de búsqueda (por ejemplo: ORA-00054 ó ORA-00001) se utilizará como patrón de coincidencia parcial entre comodines (LIKE %patrón%) para su localización dentro del mensaje de error que informa un programa al finalizar (campo ERROR de la Tabla GE_PROCESOS_DET).';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.ACTIVO IS 'Indica si la clasificación de error está activa o inactiva.';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.USU_INSERCION IS 'Usuario que realizo la insercion del registro';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.FEC_INSERCION IS 'Fecha en que se inserto el registro';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.USU_MODIFICACION IS 'Usuario que realizo la ultima modificacion en el registro';
+
+COMMENT ON COLUMN it.GE_ERR_PRO_PARALELOS.FEC_MODIFICACION IS 'Fecha en que se realizo la ultima modificacion en el registro';
+
+ALTER TABLE it.GE_ERR_PRO_PARALELOS
+add constraint PK_GE_ERR_PRO_PARALELOS primary key (COD_PROCESO, COD_PROGRAMA, ERROR)
+using index 
+tablespace IT_IND
+pctfree 10
+initrans 2
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+CREATE PUBLIC SYNONYM GE_ERR_PRO_PARALELOS FOR it.GE_ERR_PRO_PARALELOS;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT on it.GE_ERR_PRO_PARALELOS to IT_TEMPORAL;

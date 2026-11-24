@@ -1,0 +1,73 @@
+create table IT.PR_SEC_CREDITOS
+(
+  cod_sec_credito  NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  preferencial     VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_sec_padre    NUMBER(3),
+  cod_bco_central  NUMBER(3),
+  cod_sec_rubro    VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_SEC_CREDITOS
+  is 'Sectores de Creditos.';
+comment on column IT.PR_SEC_CREDITOS.cod_sec_credito
+  is 'Código de Sector de Crédito.';
+comment on column IT.PR_SEC_CREDITOS.descripcion
+  is 'Nombre del sector.';
+comment on column IT.PR_SEC_CREDITOS.preferencial
+  is 'Preferencial. (N=NO / S=SI).';
+comment on column IT.PR_SEC_CREDITOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_SEC_CREDITOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_SEC_CREDITOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_SEC_CREDITOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_SEC_CREDITOS.cod_sec_padre
+  is 'Código de Sector de Crédito Padre.';
+comment on column IT.PR_SEC_CREDITOS.cod_bco_central
+  is 'Código de Sector para informar a BCP.';
+comment on column IT.PR_SEC_CREDITOS.cod_sec_rubro
+  is 'Código de Sector para Rubro.';
+alter table IT.PR_SEC_CREDITOS
+  add constraint PK_PR_SEC_CREDITOS primary key (COD_SEC_CREDITO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_SEC_CREDITOS
+  add constraint AVCON_1080845005_COD_S_003
+  check (COD_SEC_CREDITO BETWEEN 1 AND 999);
+alter table IT.PR_SEC_CREDITOS
+  add constraint AVCON_1080845005_PREFE_000
+  check (PREFERENCIAL IN ('S', 'N'));
+alter table IT.PR_SEC_CREDITOS
+  add constraint AVCON_1090942942_COD_S_001
+  check (COD_SEC_CREDITO BETWEEN 0 AND 999);
+alter table IT.PR_SEC_CREDITOS
+  add constraint AVCON_1090942942_PREFE_000
+  check (PREFERENCIAL IN ('S', 'N'));
+

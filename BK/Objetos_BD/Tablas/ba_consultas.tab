@@ -1,0 +1,62 @@
+create table IT.BA_CONSULTAS
+(
+  cod_consulta     VARCHAR2(10) not null,
+  descripcion      VARCHAR2(100),
+  cod_usuario      VARCHAR2(10),
+  tipo             VARCHAR2(1) default 'G',
+  permiso          VARCHAR2(2000),
+  observacion      VARCHAR2(300),
+  det_sql          LONG,
+  filtros          VARCHAR2(3000),
+  col_cortes       VARCHAR2(30),
+  col_sumas        VARCHAR2(40),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_CONSULTAS
+  is 'Definicion de Consultas SQL.';
+comment on column IT.BA_CONSULTAS.cod_consulta
+  is 'Codigo de la consulta.';
+comment on column IT.BA_CONSULTAS.descripcion
+  is 'Descripcion de la consulta.';
+comment on column IT.BA_CONSULTAS.cod_usuario
+  is 'Usuario dueño de la consulta sql.';
+comment on column IT.BA_CONSULTAS.tipo
+  is 'Tipo de consulta G=General o P=Particular.';
+comment on column IT.BA_CONSULTAS.permiso
+  is 'Roles a quienes se da permiso.';
+comment on column IT.BA_CONSULTAS.observacion
+  is 'Observaciones sobre esta consulta.';
+comment on column IT.BA_CONSULTAS.det_sql
+  is 'detalle de la Sentencia Sql.';
+comment on column IT.BA_CONSULTAS.filtros
+  is 'Detalle de los filtros.';
+comment on column IT.BA_CONSULTAS.col_cortes
+  is 'Columnas de cortes, separados por comas: Ej: 1,2,3.';
+comment on column IT.BA_CONSULTAS.col_sumas
+  is 'Columnas a sumar, en los cortes inferiores, sep por comas Ej: 6,7.';
+comment on column IT.BA_CONSULTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_CONSULTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_CONSULTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_CONSULTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_CONSULTAS
+  add constraint AVCON_1085585653_TIPO_001
+  check (TIPO IN ('G', 'P'));
+

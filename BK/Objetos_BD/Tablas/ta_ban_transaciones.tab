@@ -1,0 +1,72 @@
+create table IT.TA_BAN_TRANSACIONES
+(
+  id_transaccion       NUMBER(20) not null,
+  insert_datetime      DATE not null,
+  ticket_number        NUMBER(18),
+  transaction_date     DATE,
+  commerce_name        VARCHAR2(50),
+  authorization_number VARCHAR2(20),
+  entity_code          VARCHAR2(5),
+  card_number          VARCHAR2(25),
+  currency_code        NUMBER(6),
+  country_code         NUMBER(6),
+  transaction_amount   NUMBER(15,2),
+  response_code        VARCHAR2(5),
+  origin_code          VARCHAR2(5),
+  device_type          VARCHAR2(50),
+  service_code         VARCHAR2(5),
+  provide_service_code VARCHAR2(50),
+  mcc_code             NUMBER(6),
+  transaction_type     VARCHAR2(27),
+  payment_source       VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_BAN_TRANSACIONES.ticket_number
+  is 'Numero de boleta';
+comment on column IT.TA_BAN_TRANSACIONES.transaction_date
+  is 'Fecha hora de la transaccion';
+comment on column IT.TA_BAN_TRANSACIONES.commerce_name
+  is 'Razon social del comercio';
+comment on column IT.TA_BAN_TRANSACIONES.authorization_number
+  is 'Codigo de autorizacion';
+comment on column IT.TA_BAN_TRANSACIONES.entity_code
+  is 'Codigo de entidad';
+comment on column IT.TA_BAN_TRANSACIONES.card_number
+  is 'Numero de tarjeta';
+comment on column IT.TA_BAN_TRANSACIONES.currency_code
+  is 'Codigo de moneda';
+comment on column IT.TA_BAN_TRANSACIONES.country_code
+  is 'Código de pais';
+comment on column IT.TA_BAN_TRANSACIONES.transaction_amount
+  is 'Importe de la transaccion';
+comment on column IT.TA_BAN_TRANSACIONES.response_code
+  is 'Codigo de respuesta';
+comment on column IT.TA_BAN_TRANSACIONES.origin_code
+  is 'Identificador de origen';
+comment on column IT.TA_BAN_TRANSACIONES.device_type
+  is 'Tipo de dispositivo';
+comment on column IT.TA_BAN_TRANSACIONES.service_code
+  is 'Codigo del servicio';
+comment on column IT.TA_BAN_TRANSACIONES.provide_service_code
+  is 'Codigo servicio de prestacion';
+comment on column IT.TA_BAN_TRANSACIONES.mcc_code
+  is 'Codigo MCC (Merchant Category Code)';
+comment on column IT.TA_BAN_TRANSACIONES.transaction_type
+  is 'Codigo de tipo de transaccion';
+comment on column IT.TA_BAN_TRANSACIONES.payment_source
+  is 'Codigo de origen de pago';
+

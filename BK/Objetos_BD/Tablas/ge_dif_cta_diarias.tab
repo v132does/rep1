@@ -1,0 +1,84 @@
+CREATE TABLE IT.GE_DIF_CTA_DIARIAS (
+    FECHA                         DATE            NOT NULL,
+    COD_MONEDA                    VARCHAR2(3 BYTE) NOT NULL,
+    DIF_CUADRAN                   NUMBER           NOT NULL,
+    DIF_SIN_CUADRAR               NUMBER           NOT NULL,
+    DIF_SENTIDO_CONTRARIO         NUMBER           NOT NULL,
+    DIF_SIN_IDENTIFICAR           NUMBER           NOT NULL,
+    TOT_CUENTAS_DIF               NUMBER           NOT NULL,
+    CANT_CUADRAN                  NUMBER           NOT NULL,
+    CANT_SIN_CUADRAR              NUMBER           NOT NULL,
+    CANT_SENTIDO_CONTRARIO        NUMBER           NOT NULL,
+    CANT_SIN_IDENTIFICAR          NUMBER           NOT NULL,
+    PCT_CUADRAN                   NUMBER(5,2)      NOT NULL,
+    PCT_SIN_CUADRAR               NUMBER(5,2)      NOT NULL,
+    PCT_SENTIDO_CONTRARIO         NUMBER(5,2)      NOT NULL,
+    PCT_SIN_IDENTIFICAR           NUMBER(5,2)      NOT NULL,
+    PCT_CANT_CUADRAN              NUMBER(5,2)      NOT NULL,
+    PCT_CANT_SIN_CUADRAR          NUMBER(5,2)      NOT NULL,
+    PCT_CANT_SENTIDO_CONTRARIO    NUMBER(5,2)      NOT NULL,
+    PCT_CANT_SIN_IDENTIFICAR      NUMBER(5,2)      NOT NULL,
+
+        CONSTRAINT pk_ge_dif_cta_diarias
+        PRIMARY KEY (FECHA, COD_MONEDA)
+)
+TABLESPACE it_data; 
+
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.FECHA IS
+'Fecha del proceso diario de conciliación de diferencias de cuentas.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.COD_MONEDA IS
+'Código de moneda de la cuenta (ej: PYG, USD).';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.DIF_CUADRAN IS
+'Monto total de diferencias que cuadran directamente.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.DIF_SIN_CUADRAR IS
+'Monto total de diferencias que no cuadran directamente.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.DIF_SENTIDO_CONTRARIO IS
+'Monto total de diferencias registradas en sentido contrario.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.DIF_SIN_IDENTIFICAR IS
+'Monto total de diferencias sin identificación.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.TOT_CUENTAS_DIF IS
+'Monto total general de diferencias de cuentas para la fecha y moneda.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.CANT_CUADRAN IS
+'Cantidad de cuentas cuyas diferencias cuadran directamente.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.CANT_SIN_CUADRAR IS
+'Cantidad de cuentas con diferencias que no cuadran directamente.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.CANT_SENTIDO_CONTRARIO IS
+'Cantidad de cuentas con diferencias en sentido contrario.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.CANT_SIN_IDENTIFICAR IS
+'Cantidad de cuentas con diferencias sin identificar.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_CUADRAN IS
+'Porcentaje del monto de diferencias que cuadran directamente sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_SIN_CUADRAR IS
+'Porcentaje del monto de diferencias que no cuadran directamente sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_SENTIDO_CONTRARIO IS
+'Porcentaje del monto de diferencias en sentido contrario sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_SIN_IDENTIFICAR IS
+'Porcentaje del monto de diferencias sin identificar sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_CANT_CUADRAN IS
+'Porcentaje de la cantidad de cuentas que cuadran directamente sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_CANT_SIN_CUADRAR IS
+'Porcentaje de la cantidad de cuentas que no cuadran directamente sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_CANT_SENTIDO_CONTRARIO IS
+'Porcentaje de la cantidad de cuentas con diferencias en sentido contrario sobre el total.';
+
+COMMENT ON COLUMN IT.GE_DIF_CTA_DIARIAS.PCT_CANT_SIN_IDENTIFICAR IS
+'Porcentaje de la cantidad de cuentas con diferencias sin identificar sobre el total.';
+

@@ -1,0 +1,37 @@
+-- Create table
+create table IT.ta_con_tra_dia_cab_gp
+(
+  nro_car_dia    NUMBER(18),
+  tip_registro   NUMBER(1),
+  cod_entidad    VARCHAR2(5),
+  cod_id_archivo VARCHAR2(20),
+  des_archivo    VARCHAR2(60),
+  fec_proceso    VARCHAR2(10),
+  filler         VARCHAR2(1806)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate indexes 
+create index IT.IN_TADIA_FEC_PROCESO on IT.TA_CON_TRA_DIA_CAB_GP (FEC_PROCESO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.TA_CON_TRA_DIA_CAB_GP to IT_TEMPORAL;

@@ -1,0 +1,67 @@
+create table IT.RH_ASISTENCIAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  hor_normal       NUMBER(8,2),
+  hor_30por        NUMBER(8,2),
+  hor_50por        NUMBER(8,2),
+  hor_100por       NUMBER(8,2),
+  hor_130por       NUMBER(8,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_ASISTENCIAS
+  is 'Asistencias de los Empleados.';
+comment on column IT.RH_ASISTENCIAS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_ASISTENCIAS.fecha
+  is 'Fecha de asistencia.';
+comment on column IT.RH_ASISTENCIAS.hor_normal
+  is 'Cantidad de horas trabajadas donde su remuneracion es normal.';
+comment on column IT.RH_ASISTENCIAS.hor_30por
+  is 'Cantidad de horas trabajadas donde su remuneracion corresponde al 30%.';
+comment on column IT.RH_ASISTENCIAS.hor_50por
+  is 'Cantidad de horas trabajadas donde su remuneracion corresponde al 50%.';
+comment on column IT.RH_ASISTENCIAS.hor_100por
+  is 'Cantidad de horas trabajadas donde su remuneracion corresponde al 100%.';
+comment on column IT.RH_ASISTENCIAS.hor_130por
+  is 'Cantidad de horas trabajadas donde su remuneracion corresponde al 130%.';
+comment on column IT.RH_ASISTENCIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_ASISTENCIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_ASISTENCIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_ASISTENCIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.RH_ASISTENCIAS
+  add constraint PK_RH_ASISTENCIAS primary key (COD_PERSONA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_ASISTENCIAS
+  add constraint FK_HASIS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+

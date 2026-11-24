@@ -1,0 +1,6 @@
+create sequence IT.S_GE_ONB_VER_PER
+minvalue 1
+maxvalue 999999999999999
+start with 1
+increment by 1
+nocache;

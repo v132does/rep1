@@ -1,0 +1,61 @@
+create table IT.PSA004
+(
+  psa004co NUMBER(9),
+  psa004cv NUMBER(9) not null,
+  psa004da VARCHAR2(25) not null,
+  psa004db VARCHAR2(25) not null,
+  psa004er VARCHAR2(1),
+  psa004pa NUMBER(9) not null,
+  psa004pb NUMBER(9) not null,
+  psa004ta NUMBER(9) not null,
+  psa004tb NUMBER(9) not null,
+  psa004br CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA004
+  is 'TABLA Relaciones';
+comment on column IT.PSA004.psa004co
+  is 'csConsecutivointerno';
+comment on column IT.PSA004.psa004cv
+  is 'Codigo Vinculo';
+comment on column IT.PSA004.psa004da
+  is 'Persona';
+comment on column IT.PSA004.psa004db
+  is 'idCliente Relacionado';
+comment on column IT.PSA004.psa004er
+  is ' Estado de Relacion';
+comment on column IT.PSA004.psa004pa
+  is 'Pais';
+comment on column IT.PSA004.psa004pb
+  is 'Pais';
+comment on column IT.PSA004.psa004ta
+  is 'Tdoc';
+comment on column IT.PSA004.psa004tb
+  is 'Tdoc';
+comment on column IT.PSA004.psa004br
+  is 'Banco Remitente';
+alter table IT.PSA004
+  add constraint PK_PSA004 primary key (PSA004CV, PSA004DA, PSA004DB, PSA004PA, PSA004PB, PSA004TA, PSA004TB)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

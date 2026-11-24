@@ -1,0 +1,42 @@
+-- =====================================================================
+-- TABLA: IT.SB_ANX_RES_TOTALES
+-- Descripción: Totales por moneda para los anexos
+-- =====================================================================
+
+CREATE TABLE IT.SB_ANX_RES_TOTALES (
+    id_anexo              NUMBER,
+    fecha_anexo           DATE                NOT NULL,
+    cod_moneda            VARCHAR2(3),
+    MONTO_GS              NUMBER(20,2)        NOT NULL,
+    MONTO_USD             NUMBER,
+    fuente_datos          VARCHAR2(100)       NOT NULL,
+    fecha_creacion        TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    fecha_actualizacion   TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+-- Estándar D.E.01 §1.6: IN_<abrev_tabla>_<campo>
+CREATE INDEX IT.IN_ANX_TOT_FECHA  ON IT.SB_ANX_RES_TOTALES(fecha_anexo) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_ANX_RES_TOTALES IS 'Totales por moneda de los anexos de garantias de solvencia';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.id_anexo IS 'Identificador unico del registro de totales';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.fecha_anexo IS 'Fecha de corte del anexo';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.cod_moneda IS 'Codigo de moneda (ISO 4217)';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.MONTO_GS IS 'Monto total en guaranies';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.MONTO_USD IS 'Monto total en dolares americanos';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.fuente_datos IS 'Fuente de datos utilizada';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.fecha_creacion IS 'Fecha de creacion del registro';
+COMMENT ON COLUMN IT.SB_ANX_RES_TOTALES.fecha_actualizacion IS 'Fecha de ultima actualizacion del registro';

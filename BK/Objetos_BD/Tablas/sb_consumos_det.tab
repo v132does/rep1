@@ -1,0 +1,115 @@
+create table IT.SB_CONSUMOS_DET
+(
+  nom_archivo             VARCHAR2(10) not null,
+  fecha                   DATE not null,
+  nro_registro            NUMBER(6) not null,
+  cod_persona             VARCHAR2(10) not null,
+  tip_formulario          NUMBER(2) not null,
+  tip_identificador       VARCHAR2(3) not null,
+  nro_identificador       VARCHAR2(15) not null,
+  nro_operacion           VARCHAR2(20) not null,
+  tip_operacion           NUMBER(6) not null,
+  mto_ori_credito         NUMBER(17) not null,
+  fec_operacion           DATE,
+  cod_moneda              NUMBER(4) not null,
+  tas_interes             NUMBER(7,2) not null,
+  fec_pri_vencimiento     DATE,
+  fec_vto_cuo_pen_antigua DATE,
+  fec_ult_vencimiento     DATE,
+  dia_atraso              NUMBER(4) not null,
+  nro_cuo_canceladas      NUMBER(3) not null,
+  sal_deu_cons_activo     NUMBER(17) not null,
+  mto_cuo_atrasadas       NUMBER(17) not null,
+  usu_insercion           VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion           DATE default SYSDATE not null,
+  usu_modificacion        VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion        DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CONSUMOS_DET
+  is 'Detalle de consumo.';
+comment on column IT.SB_CONSUMOS_DET.nom_archivo
+  is 'Nombre del archivo.';
+comment on column IT.SB_CONSUMOS_DET.fecha
+  is 'Fecha.';
+comment on column IT.SB_CONSUMOS_DET.nro_registro
+  is 'Nro de registro.';
+comment on column IT.SB_CONSUMOS_DET.cod_persona
+  is 'Cliente.';
+comment on column IT.SB_CONSUMOS_DET.tip_formulario
+  is 'Tipo  de formulario.';
+comment on column IT.SB_CONSUMOS_DET.tip_identificador
+  is 'Tipo identificador.';
+comment on column IT.SB_CONSUMOS_DET.nro_identificador
+  is 'Nro identificador.';
+comment on column IT.SB_CONSUMOS_DET.nro_operacion
+  is 'Nro de operacion.';
+comment on column IT.SB_CONSUMOS_DET.tip_operacion
+  is 'Tipo de operacion.';
+comment on column IT.SB_CONSUMOS_DET.mto_ori_credito
+  is 'Monto original del credito.';
+comment on column IT.SB_CONSUMOS_DET.fec_operacion
+  is 'Fecha de operacion.';
+comment on column IT.SB_CONSUMOS_DET.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.SB_CONSUMOS_DET.tas_interes
+  is 'Tasa de interes.';
+comment on column IT.SB_CONSUMOS_DET.fec_pri_vencimiento
+  is 'primer vencimiento.';
+comment on column IT.SB_CONSUMOS_DET.fec_vto_cuo_pen_antigua
+  is 'Fecha de vencimiento de la cuota pendiente antigua.';
+comment on column IT.SB_CONSUMOS_DET.fec_ult_vencimiento
+  is 'Fecha ultimo vencimiento.';
+comment on column IT.SB_CONSUMOS_DET.dia_atraso
+  is 'Dias de atraso.';
+comment on column IT.SB_CONSUMOS_DET.nro_cuo_canceladas
+  is 'Nro de cuotas canceladas.';
+comment on column IT.SB_CONSUMOS_DET.sal_deu_cons_activo
+  is 'Saldo deuda consumo activo.';
+comment on column IT.SB_CONSUMOS_DET.mto_cuo_atrasadas
+  is 'Monto cuotas atrasadas.';
+comment on column IT.SB_CONSUMOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_CONSUMOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_CONSUMOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_CONSUMOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_SCDET_COD_PERSONA on IT.SB_CONSUMOS_DET (COD_PERSONA, NRO_OPERACION, TIP_OPERACION, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CONSUMOS_DET
+  add constraint SCDET_PK primary key (FECHA, NOM_ARCHIVO, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

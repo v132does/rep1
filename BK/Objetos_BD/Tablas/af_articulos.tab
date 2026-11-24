@@ -1,0 +1,192 @@
+create table IT.AF_ARTICULOS
+(
+  cod_articulo          NUMBER(10) not null,
+  cod_tip_articulo      NUMBER(10) not null,
+  descripcion           VARCHAR2(35) not null,
+  ano_depreciacion      NUMBER(3),
+  cod_modalidad         NUMBER(3) not null,
+  cod_modulo            NUMBER(3) not null,
+  cod_tra_depreciacion  NUMBER(4),
+  cod_tra_dep_acumulada NUMBER(4),
+  cod_tra_revaluo       NUMBER(4),
+  ind_depreciacion      VARCHAR2(1) default 'N',
+  ind_revaluo           VARCHAR2(1) default 'N',
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  cod_tra_dep_baja      NUMBER(4),
+  cod_tra_rev_baja      NUMBER(4),
+  cod_tra_alta          NUMBER(4),
+  ind_act_fijo          VARCHAR2(1) default 'N',
+  tip_impuesto          NUMBER(5,2) default 0,
+  ind_suministro        VARCHAR2(1),
+  can_total             NUMBER,
+  can_critica           NUMBER,
+  can_minima            NUMBER,
+  can_maxima            NUMBER,
+  can_opt_compra        NUMBER,
+  cod_uni_medida        NUMBER(3),
+  uni_paquete           NUMBER,
+  fec_ult_movimiento    DATE,
+  hor_ult_movimiento    VARCHAR2(8),
+  ano_dep_acelerado     NUMBER(3),
+  cod_tra_dep_acelerada NUMBER(4),
+  por_val_residual      NUMBER(3),
+  por_val_depreciable   NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AF_ARTICULOS
+  is 'Artículos del Activo Fijo.';
+comment on column IT.AF_ARTICULOS.cod_articulo
+  is 'Código del Artículo.';
+comment on column IT.AF_ARTICULOS.cod_tip_articulo
+  is 'Código del Tipo de Artículo.';
+comment on column IT.AF_ARTICULOS.descripcion
+  is 'Descripción del Artículo.';
+comment on column IT.AF_ARTICULOS.ano_depreciacion
+  is 'Años de vida util del artículo.';
+comment on column IT.AF_ARTICULOS.cod_modalidad
+  is 'Modalidad de la Transacción.';
+comment on column IT.AF_ARTICULOS.cod_modulo
+  is 'Módulo de la Transacción.';
+comment on column IT.AF_ARTICULOS.cod_tra_depreciacion
+  is 'Transacción por Depreciación del Ejercicio.';
+comment on column IT.AF_ARTICULOS.cod_tra_dep_acumulada
+  is 'Transacción por Depreciación Acumulada.';
+comment on column IT.AF_ARTICULOS.cod_tra_revaluo
+  is 'Transacción por Revaluo.';
+comment on column IT.AF_ARTICULOS.ind_depreciacion
+  is 'Indica si el artículo deperecia o no.';
+comment on column IT.AF_ARTICULOS.ind_revaluo
+  is 'Indica si el artículo revalua o no';
+comment on column IT.AF_ARTICULOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.AF_ARTICULOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.AF_ARTICULOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.AF_ARTICULOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.AF_ARTICULOS.cod_tra_dep_baja
+  is 'Transacción de la baja por Depreciación.';
+comment on column IT.AF_ARTICULOS.cod_tra_rev_baja
+  is 'Transacción de la baja por Revaluo.';
+comment on column IT.AF_ARTICULOS.cod_tra_alta
+  is 'Transacción del Alta.';
+comment on column IT.AF_ARTICULOS.ind_act_fijo
+  is 'Indica si forma parte del Activo Fijo.';
+comment on column IT.AF_ARTICULOS.tip_impuesto
+  is 'Tipo de Impuesto.';
+comment on column IT.AF_ARTICULOS.ind_suministro
+  is 'Indica si forma parte de Suministros.';
+comment on column IT.AF_ARTICULOS.can_total
+  is 'Existencia Total.';
+comment on column IT.AF_ARTICULOS.can_critica
+  is 'Existencia Crítica.';
+comment on column IT.AF_ARTICULOS.can_minima
+  is 'Existencia Mínima.';
+comment on column IT.AF_ARTICULOS.can_maxima
+  is 'Existencia Máxima.';
+comment on column IT.AF_ARTICULOS.can_opt_compra
+  is 'Cantidad Optima de Compra.';
+comment on column IT.AF_ARTICULOS.cod_uni_medida
+  is 'Código de la Unidad de Medida.';
+comment on column IT.AF_ARTICULOS.uni_paquete
+  is 'Unidad por Paquete.';
+comment on column IT.AF_ARTICULOS.fec_ult_movimiento
+  is 'Fecha de último movimiento';
+comment on column IT.AF_ARTICULOS.hor_ult_movimiento
+  is 'Hora de ultimo movimiento';
+comment on column IT.AF_ARTICULOS.ano_dep_acelerado
+  is 'Años de Vida Util acelerado del artículo.';
+comment on column IT.AF_ARTICULOS.cod_tra_dep_acelerada
+  is 'Transacción de Depreciación acelerada.';
+comment on column IT.AF_ARTICULOS.por_val_residual
+  is 'Porc. Valor Residual';
+comment on column IT.AF_ARTICULOS.por_val_depreciable
+  is 'Porc. Valor Depreciable';
+alter table IT.AF_ARTICULOS
+  add constraint PK_AF_ARTICULOS primary key (COD_ARTICULO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_ARTICULOS
+  add constraint UK_FARTI_DESCRIPCION unique (DESCRIPCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TIP_ARTICULO foreign key (COD_TIP_ARTICULO)
+  references IT.AF_TIP_ARTICULOS (COD_TIP_ARTICULO);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TRA_ALTA foreign key (COD_TRA_ALTA, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TRA_DEP_ACUMULADA foreign key (COD_TRA_DEP_ACUMULADA, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TRA_DEP_BAJA foreign key (COD_TRA_DEP_BAJA, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TRA_DEPRECIACION foreign key (COD_TRA_DEPRECIACION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TRA_REVALUO foreign key (COD_TRA_REVALUO, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_TRA_REV_BAJA foreign key (COD_TRA_REV_BAJA, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.AF_ARTICULOS
+  add constraint FK_FARTI_COD_UNI_MEDIDA foreign key (COD_UNI_MEDIDA)
+  references IT.IN_UNI_MEDIDAS (COD_UNI_MEDIDA);
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1191859885_ANO_D_000
+  check (ANO_DEPRECIACION BETWEEN 0 AND 999);
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1191859885_COD_A_000
+  check (COD_ARTICULO BETWEEN 0 AND 999999999);
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1191859885_COD_T_001
+  check (COD_TIP_ARTICULO BETWEEN 0 AND 999999999);
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1191859885_IND_D_000
+  check (IND_DEPRECIACION IN ('S', 'N'));
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1191859885_IND_R_000
+  check (IND_REVALUO IN ('S', 'N'));
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1203019753_CAN_T_000
+  check (CAN_TOTAL BETWEEN 0 AND 999999999);
+alter table IT.AF_ARTICULOS
+  add constraint AVCON_1203019753_IND_A_000
+  check (IND_ACT_FIJO IN ('S', 'N'));
+

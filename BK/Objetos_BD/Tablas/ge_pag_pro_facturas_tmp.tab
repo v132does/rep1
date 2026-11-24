@@ -1,0 +1,53 @@
+create table IT.GE_PAG_PRO_FACTURAS_TMP
+(
+  nro_orden        NUMBER(12) not null,
+  fec_carga        DATE,
+  nro_factura      VARCHAR2(20),
+  mto_total        NUMBER(18,2),
+  concepto         VARCHAR2(35),
+  cod_ente         NUMBER(5),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_archivo      NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAG_PRO_FACTURAS_TMP
+  is 'Temporal de facturas a pagar a proveedores.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.nro_orden
+  is 'Nro Orden.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.fec_carga
+  is 'Fecha Carga.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.nro_factura
+  is 'Nro Factura.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.mto_total
+  is 'Monto Total.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.concepto
+  is 'Concepto.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.cod_ente
+  is 'Codigo Ente.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.usu_insercion
+  is 'insertado por.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.fec_insercion
+  is 'en fecha.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.usu_modificacion
+  is 'modificado por.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.fec_modificacion
+  is 'en fecha.';
+comment on column IT.GE_PAG_PRO_FACTURAS_TMP.nro_archivo
+  is 'Nro. de proceso del dia';
+alter table IT.GE_PAG_PRO_FACTURAS_TMP
+  add constraint AVCON_1118266014_NRO_O_000
+  check (NRO_ORDEN BETWEEN 0 AND 999999999999);
+

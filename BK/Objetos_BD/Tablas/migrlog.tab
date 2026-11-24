@@ -1,0 +1,53 @@
+create table IT.MIGRLOG
+(
+  id               NUMBER not null,
+  parent_log_id    NUMBER,
+  log_date         TIMESTAMP(6) not null,
+  severity         NUMBER(4) not null,
+  logtext          VARCHAR2(4000),
+  phase            VARCHAR2(100),
+  ref_object_id    NUMBER,
+  ref_object_type  VARCHAR2(4000),
+  connection_id_fk NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.MIGRLOG_PERF_IDX on IT.MIGRLOG (REF_OBJECT_ID, SEVERITY)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MIGRLOG
+  add constraint MIGRLOG_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MIGRLOG
+  add constraint MIGR_MIGRLOG_FK foreign key (PARENT_LOG_ID)
+  references IT.MIGRLOG (ID);
+

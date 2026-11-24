@@ -1,0 +1,82 @@
+create table IT.BA_ACC_PORTADOR
+(
+  cod_persona        VARCHAR2(10) not null,
+  ind_acc_portador   VARCHAR2(1),
+  cod_moneda         VARCHAR2(3),
+  cap_suscrito       NUMBER(18,2),
+  cap_integrado      NUMBER(18,2),
+  can_acc_portador   NUMBER(18,2),
+  can_acc_nominativa NUMBER(18,2),
+  usu_insercion      VARCHAR2(10),
+  fec_insercion      DATE,
+  usu_modificacion   VARCHAR2(10),
+  fec_modificacion   DATE,
+  cod_mon_ant        VARCHAR2(3),
+  cap_sus_ant        NUMBER(18,2),
+  cap_int_ant        NUMBER(18,2),
+  can_acc_por_ant    NUMBER(18,2),
+  can_acc_nom_ant    NUMBER(18,2),
+  informado          VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ACC_PORTADOR
+  is 'Acciones al Portador de Personas Jurídicas';
+comment on column IT.BA_ACC_PORTADOR.cod_persona
+  is 'Código de Persona';
+comment on column IT.BA_ACC_PORTADOR.ind_acc_portador
+  is 'Ind. Emisión de Acciones al Portador S/N';
+comment on column IT.BA_ACC_PORTADOR.cod_moneda
+  is 'Código de Moneda';
+comment on column IT.BA_ACC_PORTADOR.cap_suscrito
+  is 'Capital Suscrito';
+comment on column IT.BA_ACC_PORTADOR.cap_integrado
+  is 'Capital Integrado';
+comment on column IT.BA_ACC_PORTADOR.can_acc_portador
+  is 'Cantidad acciones al portador';
+comment on column IT.BA_ACC_PORTADOR.can_acc_nominativa
+  is 'Cantidad acciones nominativa';
+comment on column IT.BA_ACC_PORTADOR.usu_insercion
+  is 'Usuario de Inserción';
+comment on column IT.BA_ACC_PORTADOR.fec_insercion
+  is 'Fecha de Inserción';
+comment on column IT.BA_ACC_PORTADOR.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.BA_ACC_PORTADOR.fec_modificacion
+  is 'Fecha de Modificacion';
+comment on column IT.BA_ACC_PORTADOR.cod_mon_ant
+  is 'Indica si hubo cambios en el código de la moneda.';
+comment on column IT.BA_ACC_PORTADOR.cap_sus_ant
+  is 'Indica si hubo cambios en el capital suscrito.';
+comment on column IT.BA_ACC_PORTADOR.cap_int_ant
+  is 'Indica si hubo cambios en el capital integrado.';
+comment on column IT.BA_ACC_PORTADOR.can_acc_por_ant
+  is 'Indica si hubo cambios en la cantidad de acciones al portador.';
+comment on column IT.BA_ACC_PORTADOR.can_acc_nom_ant
+  is 'Indica si hubo cambios en la cantidad de acciones nominativas.';
+comment on column IT.BA_ACC_PORTADOR.informado
+  is 'Indica si fue o no informado en el informe de Sociedades.';
+alter table IT.BA_ACC_PORTADOR
+  add constraint PK_BA_ACC_PORTADOR primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

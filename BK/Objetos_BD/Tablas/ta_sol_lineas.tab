@@ -1,0 +1,124 @@
+create table IT.TA_SOL_LINEAS
+(
+  nro_solicitud    NUMBER(15) not null,
+  tip_solicitud    VARCHAR2(1) not null,
+  nro_cuenta       VARCHAR2(15),
+  cod_persona      VARCHAR2(10),
+  cod_moneda       VARCHAR2(3),
+  mto_lin_anterior NUMBER(18,2),
+  lin_credito      NUMBER(18,2),
+  fec_aprobacion   DATE,
+  fec_ingreso      DATE not null,
+  cod_usu_autoriza VARCHAR2(10),
+  cod_usu_promotor VARCHAR2(10),
+  cod_usu_oficial  VARCHAR2(10),
+  cod_causa        NUMBER(3),
+  observacion      VARCHAR2(4000),
+  niv_aprobacion   VARCHAR2(3),
+  nro_acta         NUMBER(10),
+  cod_estado       VARCHAR2(3) default 'PAN' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_canal        NUMBER(3),
+  cod_campana      NUMBER(3),
+  env_bancard      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_SOL_LINEAS
+  is 'Contiene los Datos de Solicitudes de Líneas de Tarjetas.';
+comment on column IT.TA_SOL_LINEAS.nro_solicitud
+  is 'Numero de Solicitud.';
+comment on column IT.TA_SOL_LINEAS.tip_solicitud
+  is 'Tipo de Solicitud.';
+comment on column IT.TA_SOL_LINEAS.nro_cuenta
+  is 'Numero de Cuenta del titular.';
+comment on column IT.TA_SOL_LINEAS.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.TA_SOL_LINEAS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.TA_SOL_LINEAS.mto_lin_anterior
+  is 'Monto de Línea Anterior.';
+comment on column IT.TA_SOL_LINEAS.lin_credito
+  is 'Línea de Crédito.';
+comment on column IT.TA_SOL_LINEAS.fec_aprobacion
+  is 'Fecha de Aprobacion.';
+comment on column IT.TA_SOL_LINEAS.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.TA_SOL_LINEAS.cod_usu_autoriza
+  is 'Operador de Autorizacion.';
+comment on column IT.TA_SOL_LINEAS.cod_usu_promotor
+  is 'Promotor.';
+comment on column IT.TA_SOL_LINEAS.cod_usu_oficial
+  is 'Oficial de Cuenta.';
+comment on column IT.TA_SOL_LINEAS.cod_causa
+  is 'Causa de Rechazo.';
+comment on column IT.TA_SOL_LINEAS.observacion
+  is 'Observaciones.';
+comment on column IT.TA_SOL_LINEAS.niv_aprobacion
+  is 'Niveles de Aprobacion.';
+comment on column IT.TA_SOL_LINEAS.nro_acta
+  is 'Numero de Acta. ';
+comment on column IT.TA_SOL_LINEAS.cod_estado
+  is 'Estado.';
+comment on column IT.TA_SOL_LINEAS.usu_insercion
+  is 'Usuario que realizo la insercion del Registro.';
+comment on column IT.TA_SOL_LINEAS.fec_insercion
+  is 'Fecha en que se inserto el Registro.';
+comment on column IT.TA_SOL_LINEAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el Registro.';
+comment on column IT.TA_SOL_LINEAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el Registro.';
+comment on column IT.TA_SOL_LINEAS.cod_canal
+  is 'Codigo de Canal';
+comment on column IT.TA_SOL_LINEAS.cod_campana
+  is 'Codigo de Campana';
+comment on column IT.TA_SOL_LINEAS.env_bancard
+  is 'Enviado a Bancard S/N';
+alter table IT.TA_SOL_LINEAS
+  add constraint PK_TA_SOL_LINEAS primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_COD_USU_AUTORIZA foreign key (COD_USU_AUTORIZA)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_COD_USU_SUPERVISOR foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.TA_SOL_LINEAS
+  add constraint FK_TSAMP_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.TA_CTA_TARJETAS (NRO_CUENTA);
+

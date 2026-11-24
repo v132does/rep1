@@ -1,0 +1,24 @@
+create table IT.ENTIDAD
+(
+  cdentid  NUMBER(6),
+  pathroot VARCHAR2(10),
+  estado   VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.ENTIDAD.cdentid
+  is 'Código de Entidad';
+comment on column IT.ENTIDAD.pathroot
+  is 'Path Root';
+comment on column IT.ENTIDAD.estado
+  is 'Estado de Entidad';
+

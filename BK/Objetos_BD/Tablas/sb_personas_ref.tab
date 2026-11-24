@@ -1,0 +1,76 @@
+create table IT.SB_PERSONAS_REF
+(
+  rf_tipo_ident VARCHAR2(3),
+  rf_numero     VARCHAR2(15),
+  rf_pais_swift VARCHAR2(3),
+  rf_nombre     VARCHAR2(255),
+  rf_apellido   VARCHAR2(100),
+  rf_tipo_per   NUMBER(3),
+  rf_fecha_nac  DATE,
+  rf_ajuste_nac CHAR(1),
+  rf_version    NUMBER(4,1),
+  rf_fecha_ver  DATE,
+  rf_fecha_alta DATE,
+  rf_fecha_baja DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 408M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_SBPER_RF_NUMERO on IT.SB_PERSONAS_REF (RF_NUMERO, RF_TIPO_IDENT)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PERSONAS_REF_APELLIDO on IT.SB_PERSONAS_REF (RF_APELLIDO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PERSONAS_REF_FECHA_NAC on IT.SB_PERSONAS_REF (RF_FECHA_NAC)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PERSONAS_REF_NOMBRE on IT.SB_PERSONAS_REF (RF_NOMBRE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+grant select on IT.SB_PERSONAS_REF to PUBLIC;
+

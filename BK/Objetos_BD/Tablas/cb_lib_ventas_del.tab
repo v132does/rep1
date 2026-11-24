@@ -1,0 +1,142 @@
+create table IT.CB_LIB_VENTAS_DEL
+(
+  nro_factura        VARCHAR2(20) not null,
+  nro_timbrado       VARCHAR2(20) not null,
+  fecha              DATE not null,
+  cod_oficina        NUMBER(3) not null,
+  tip_comprobante    VARCHAR2(1),
+  tip_venta          VARCHAR2(2),
+  cod_persona        VARCHAR2(10),
+  nom_completo       VARCHAR2(120) not null,
+  nro_documento      VARCHAR2(20) not null,
+  mto_exento         NUMBER(18,2),
+  mto_gravado_5      NUMBER(18,2),
+  mto_gravado_10     NUMBER(18,2),
+  impuesto_5         NUMBER(18,2),
+  impuesto_10        NUMBER(18,2),
+  dig_verificador    NUMBER(1),
+  nro_fac_referencia VARCHAR2(20),
+  nro_tim_referencia VARCHAR2(20),
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) not null,
+  fec_modificacion   DATE not null,
+  impreso            VARCHAR2(1) not null,
+  procesado          VARCHAR2(1) not null,
+  direccion          VARCHAR2(200),
+  telefono           VARCHAR2(50),
+  fec_vig_timbrado   DATE,
+  cod_moneda         VARCHAR2(3),
+  mto_exento_gs      NUMBER(18,2),
+  mto_gravado_5_gs   NUMBER(18,2),
+  impuesto_5_gs      NUMBER(18,2),
+  impuesto_10_gs     NUMBER(18,2),
+  mto_gravado_10_gs  NUMBER(18,2),
+  can_cuota          NUMBER(3),
+  fec_ini_timbrado   DATE,
+  nro_aut_timbrado   VARCHAR2(20),
+  tip_origen         VARCHAR2(1),
+  nro_fac_nueva      VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_LIB_VENTAS_DEL
+  is 'Libro Venta Cabecera Borrado.';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_factura
+  is 'Numero de Factura.';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_timbrado
+  is 'Numero de Timbrado.';
+comment on column IT.CB_LIB_VENTAS_DEL.fecha
+  is 'Fecha de la Factura.';
+comment on column IT.CB_LIB_VENTAS_DEL.cod_oficina
+  is 'Oficina del Cliente.';
+comment on column IT.CB_LIB_VENTAS_DEL.tip_comprobante
+  is 'Tipo de Comprobante.';
+comment on column IT.CB_LIB_VENTAS_DEL.tip_venta
+  is 'Condicion de Venta(COntado, Credito).';
+comment on column IT.CB_LIB_VENTAS_DEL.cod_persona
+  is 'Codigo Persona del Cliente.';
+comment on column IT.CB_LIB_VENTAS_DEL.nom_completo
+  is 'Razon Social del Cliente.';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_documento
+  is 'Numero de Documento del Cliente.';
+comment on column IT.CB_LIB_VENTAS_DEL.mto_exento
+  is 'Monto total Exento.';
+comment on column IT.CB_LIB_VENTAS_DEL.mto_gravado_5
+  is 'Monto total Gravado 5%.';
+comment on column IT.CB_LIB_VENTAS_DEL.mto_gravado_10
+  is 'Monto total Gravado 10%.';
+comment on column IT.CB_LIB_VENTAS_DEL.impuesto_5
+  is 'Monto total Impuesto 5%.';
+comment on column IT.CB_LIB_VENTAS_DEL.impuesto_10
+  is 'Monto total Impuesto 10%';
+comment on column IT.CB_LIB_VENTAS_DEL.dig_verificador
+  is 'Digito Verificador del Cliente.';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_fac_referencia
+  is 'Numero de Factura Referencia.';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_tim_referencia
+  is 'Numero de Timbrado Referencia.';
+comment on column IT.CB_LIB_VENTAS_DEL.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_LIB_VENTAS_DEL.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_LIB_VENTAS_DEL.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LIB_VENTAS_DEL.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_LIB_VENTAS_DEL.impreso
+  is 'Indica si ya fue impresa o no la factura.';
+comment on column IT.CB_LIB_VENTAS_DEL.procesado
+  is 'Indica si ya fue procesado para Hechauka';
+comment on column IT.CB_LIB_VENTAS_DEL.direccion
+  is 'Direccion del cliente';
+comment on column IT.CB_LIB_VENTAS_DEL.telefono
+  is 'Telefono del cliente';
+comment on column IT.CB_LIB_VENTAS_DEL.fec_vig_timbrado
+  is 'Fecha de validez del Timbrado.';
+comment on column IT.CB_LIB_VENTAS_DEL.cod_moneda
+  is 'Moneda de Facturacion.';
+comment on column IT.CB_LIB_VENTAS_DEL.mto_exento_gs
+  is 'Monto exento en Guaranies';
+comment on column IT.CB_LIB_VENTAS_DEL.mto_gravado_5_gs
+  is 'Monto gravado al 5% en Guaranies';
+comment on column IT.CB_LIB_VENTAS_DEL.impuesto_5_gs
+  is 'Impuesto al 5% en Gs';
+comment on column IT.CB_LIB_VENTAS_DEL.impuesto_10_gs
+  is 'Impuesto al 10% en Gs.';
+comment on column IT.CB_LIB_VENTAS_DEL.mto_gravado_10_gs
+  is 'Monto gravado al 10% en Gs.';
+comment on column IT.CB_LIB_VENTAS_DEL.can_cuota
+  is 'Cantidad de cuotas';
+comment on column IT.CB_LIB_VENTAS_DEL.fec_ini_timbrado
+  is 'Fecha de inicio de vigencia del timbrado';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_aut_timbrado
+  is 'Número de autorización del timbrado';
+comment on column IT.CB_LIB_VENTAS_DEL.tip_origen
+  is 'Origen de la Factura. N=Normal, C=Operación de Cambios';
+comment on column IT.CB_LIB_VENTAS_DEL.nro_fac_nueva
+  is 'Numero de Factura Nueva.';
+alter table IT.CB_LIB_VENTAS_DEL
+  add constraint PK_CB_LIB_VENTAS_DEL primary key (NRO_FACTURA, NRO_TIMBRADO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

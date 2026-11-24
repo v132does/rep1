@@ -1,0 +1,121 @@
+create table IT.CB_SAL_OFICINAS_DIA
+(
+  cod_oficina            NUMBER(3) not null,
+  cod_rubro              VARCHAR2(15) not null,
+  fecha                  DATE not null,
+  sal_mon_loc_ant        NUMBER(18,2) default 0,
+  deb_mon_local          NUMBER(18,2) default 0,
+  cre_mon_local          NUMBER(18,2) default 0,
+  sal_ini_mes_mon_local  NUMBER(18,2) default 0,
+  sal_mon_rub_ant        NUMBER(18,2) default 0,
+  deb_mon_rubro          NUMBER(18,2) default 0,
+  cre_mon_rubro          NUMBER(18,2) default 0,
+  sal_ini_mes_mon_rubro  NUMBER(18,2) default 0,
+  sal_ini_mes_mon_fuerte NUMBER(18,2) default 0,
+  protegido              VARCHAR2(1) default 'N' not null,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  sal_equ_loc_ant        NUMBER(18,2) default 0,
+  deb_equ_local          NUMBER(18,2) default 0,
+  cre_equ_local          NUMBER(18,2) default 0,
+  sal_ini_mes_equ_local  NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_SAL_OFICINAS_DIA
+  is 'Contiene los registros de saldos contables por oficina.';
+comment on column IT.CB_SAL_OFICINAS_DIA.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.CB_SAL_OFICINAS_DIA.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.CB_SAL_OFICINAS_DIA.fecha
+  is 'Fecha.';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_mon_loc_ant
+  is 'Saldo total de ayer en moneda local(incluye sal_equ_loc_ant).';
+comment on column IT.CB_SAL_OFICINAS_DIA.deb_mon_local
+  is 'Debitos total de hoy en moneda local(deb_equ_local).';
+comment on column IT.CB_SAL_OFICINAS_DIA.cre_mon_local
+  is 'Creditos total de hoy en moneda local(cre_equ_local).';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_ini_mes_mon_local
+  is 'Saldo total de inicio del mes en moneda local.';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_mon_rub_ant
+  is 'Saldo de ayer en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.deb_mon_rubro
+  is 'Debitos de hoy en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.cre_mon_rubro
+  is 'Creditos de hoy en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_ini_mes_mon_rubro
+  is 'Saldo de inicio del mes en moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_ini_mes_mon_fuerte
+  is 'Saldo inicial en moneda fuerte.';
+comment on column IT.CB_SAL_OFICINAS_DIA.protegido
+  is 'Registro protegido ? ( S=Registro protegido, no puede ser borrado, N=Registro no protegido, puede ser borrado ).';
+comment on column IT.CB_SAL_OFICINAS_DIA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_SAL_OFICINAS_DIA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_SAL_OFICINAS_DIA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_OFICINAS_DIA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_equ_loc_ant
+  is 'Saldo anterior del equivalente en gs de la moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.deb_equ_local
+  is 'Total de debitos del equivalente en gs de la moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.cre_equ_local
+  is 'Total de creditos del equivalente en gs de la moneda extranjera.';
+comment on column IT.CB_SAL_OFICINAS_DIA.sal_ini_mes_equ_local
+  is 'Saldo inicial del mes equivalente en gs de la moneda extranjera.';
+create index IT.CB_SAL_OFICINAS_DIA_JJ1 on IT.CB_SAL_OFICINAS_DIA (COD_RUBRO, FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BSOFD_COD_RUBRO on IT.CB_SAL_OFICINAS_DIA (FECHA, COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_OFICINAS_DIA
+  add constraint PK_CB_SAL_OFICINAS_DIA primary key (FECHA, COD_OFICINA, COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_SAL_OFICINAS_DIA
+  add constraint FK_BSOFD_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

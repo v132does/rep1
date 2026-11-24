@@ -1,0 +1,64 @@
+create table IT.MD_SCHEMAS
+(
+  id                NUMBER not null,
+  catalog_id_fk     NUMBER not null,
+  name              VARCHAR2(4000),
+  type              CHAR(1),
+  character_set     VARCHAR2(4000),
+  version_tag       VARCHAR2(40),
+  native_sql        CLOB,
+  native_key        VARCHAR2(4000),
+  comments          VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_SCHEMAS
+  is 'This is the holder for schemas';
+comment on column IT.MD_SCHEMAS.id
+  is 'Primary Key';
+comment on column IT.MD_SCHEMAS.catalog_id_fk
+  is 'Catalog to which this schema blongs //PARENTFIELD';
+comment on column IT.MD_SCHEMAS.name
+  is 'Name of the schema //OBJECTNAME';
+comment on column IT.MD_SCHEMAS.type
+  is 'Type of this schema.  Eaxamples are ''CAPTURED'' OR ''CONVERTED''';
+comment on column IT.MD_SCHEMAS.character_set
+  is 'The characterset of this schema';
+comment on column IT.MD_SCHEMAS.version_tag
+  is 'A version string that can be used for tagging/baseling a schema';
+comment on column IT.MD_SCHEMAS.native_sql
+  is 'The native SQL used to create this schema';
+comment on column IT.MD_SCHEMAS.native_key
+  is 'A unique identifier that this schema is known as in its source state.';
+alter table IT.MD_SCHEMAS
+  add constraint MD_SCHEMAS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_SCHEMAS
+  add constraint MD_SCHEMAS_MD_CATALOGS_FK1 foreign key (CATALOG_ID_FK)
+  references IT.MD_CATALOGS (ID) on delete cascade;
+

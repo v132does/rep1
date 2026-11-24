@@ -1,0 +1,28 @@
+begin pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end;
+/
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_CAP_CTA_PARALLEL','EJEC PARALELA UPDATE AH_CTA_VIS','GE_PAR_DINAMICOS','Activa la actualización de Cuentas en Paralelo en AH_CTA_VISTAS','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_CAP_CTA_PARALLEL','PARALLEL_EXECUTE');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_CAP_CTA_TAM_FRAG','TAM FRAGMENTO UPDATE AH_CTA_VIS','GE_PAR_DINAMICOS','Cantidad de registros por fragmento (chunk) al realizar la actualización de Cuentas en Paralelo en AH_CTA_VISTAS','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_CAP_CTA_TAM_FRAG','100');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_CAP_CTA_JOB_CANT','CANT JOBS PARA UPDATE AH_CTA_VIS','GE_PAR_DINAMICOS','Cantidad de Jobs (workers) que se ejecutan al mismo tiempo para procesar los fragmentos (chunks) en la actualización de Cuentas en Paralelo en AH_CTA_VISTAS','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_CAP_CTA_JOB_CANT','10');
+
+Insert into GE_PARAMETROS (PARAMETRO,DESCRIPCION,TAB_RELACION,OBSERVACION,MODIFICABLE,VAL_DEFECTO)
+values ('PRA_CTA_VIS_NO_CAP_PARALLEL','ACT. PRA_CAP_CTA_VIS_NO_CAPITALIZAN','GE_PAR_DINAMICOS','Sirve para activar o desactivar el lanzamiento del PRA_CAP_CTA_VIS_NO_CAPITALIZAN desde el PRA_CAP_CTA_VISTA','S',null);
+
+Insert into GE_PAR_DINAMICOS (PARAMETRO,VAL_PARAMETRO)
+values ('PRA_CTA_VIS_NO_CAP_PARALLEL','SI');
+
+COMMIT;

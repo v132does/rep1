@@ -1,0 +1,104 @@
+create table IT.GE_EST_TRA_HORA
+(
+  ano              NUMBER(4) not null,
+  mes              NUMBER(2) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  cod_oficina      NUMBER(3) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cantidad         NUMBER(10) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  hora             VARCHAR2(10) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_mod_padre    NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EST_TRA_HORA
+  is 'Estadistica de Transacciones por hora.';
+comment on column IT.GE_EST_TRA_HORA.ano
+  is 'Año.';
+comment on column IT.GE_EST_TRA_HORA.mes
+  is 'Mes.';
+comment on column IT.GE_EST_TRA_HORA.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.GE_EST_TRA_HORA.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_EST_TRA_HORA.cod_tra_padre
+  is 'Codigo de transaccion.';
+comment on column IT.GE_EST_TRA_HORA.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_EST_TRA_HORA.cantidad
+  is 'Cantidad de Transacciones.';
+comment on column IT.GE_EST_TRA_HORA.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_EST_TRA_HORA.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_EST_TRA_HORA.monto
+  is 'Monto total de transaccion.';
+comment on column IT.GE_EST_TRA_HORA.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_EST_TRA_HORA.cod_mad_padre
+  is 'Codigo de modalidad.';
+comment on column IT.GE_EST_TRA_HORA.cod_mod_padre
+  is 'Codigo de modulo.';
+comment on column IT.GE_EST_TRA_HORA.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EST_TRA_HORA.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EST_TRA_HORA.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EST_TRA_HORA.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IND_ANO_MES on IT.GE_EST_TRA_HORA (ANO, MES, COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_COD_USUARIO on IT.GE_EST_TRA_HORA (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EST_TRA_HORA
+  add constraint AVCON_1096405591_COD_M_000
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_EST_TRA_HORA
+  add constraint AVCON_1096405591_COD_M_001
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_EST_TRA_HORA
+  add constraint AVCON_1096405591_COD_O_000
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.GE_EST_TRA_HORA
+  add constraint AVCON_1096405591_COD_T_000
+  check (COD_TRA_PADRE BETWEEN 0 AND 9999);
+

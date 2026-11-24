@@ -1,0 +1,71 @@
+create table IT.MD_VIEWS
+(
+  id                NUMBER not null,
+  schema_id_fk      NUMBER not null,
+  view_name         VARCHAR2(4000),
+  native_sql        CLOB,
+  native_key        VARCHAR2(4000),
+  language          VARCHAR2(40) not null,
+  comments          VARCHAR2(4000),
+  linecount         NUMBER,
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255),
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_VIEWS
+  is 'For storing information on views.';
+comment on column IT.MD_VIEWS.id
+  is 'Primary Key';
+comment on column IT.MD_VIEWS.schema_id_fk
+  is 'The schema to which this obect blongs. //PARENTFIELD';
+comment on column IT.MD_VIEWS.view_name
+  is 'The name of the view //OBJECTNAME';
+comment on column IT.MD_VIEWS.native_sql
+  is 'The SQL used to create this object at source';
+comment on column IT.MD_VIEWS.native_key
+  is 'An identifier for this object at source.';
+comment on column IT.MD_VIEWS.language
+  is '//PUBLIC';
+create index IT.MD_TABLES_PERF_IDX2 on IT.MD_VIEWS (UPPER(VIEW_NAME), SCHEMA_ID_FK)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 166
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_VIEWS
+  add constraint MD_VIEWS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_VIEWS
+  add constraint MD_VIEWS_MD_SCHEMAS_FK1 foreign key (SCHEMA_ID_FK)
+  references IT.MD_SCHEMAS (ID) on delete cascade;
+

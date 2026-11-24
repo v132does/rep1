@@ -1,0 +1,29 @@
+create table IT.GE_DEU_COM_CLIENTES
+(
+  fec_operacion    DATE,
+  nro_cta_debito   VARCHAR2(15),
+  beneficiario     VARCHAR2(100),
+  nro_lote         NUMBER(12),
+  tip_documento    VARCHAR2(3),
+  nro_documento    VARCHAR2(20),
+  cod_moneda       VARCHAR2(3),
+  mto_tot_pend     NUMBER(18,2),
+  estado           VARCHAR2(1) default 'N',
+  cod_ente         NUMBER(5),
+  fec_insercion    DATE,
+  usu_insercion    VARCHAR2(10),
+  fec_modificacion DATE,
+  usu_modificacion VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

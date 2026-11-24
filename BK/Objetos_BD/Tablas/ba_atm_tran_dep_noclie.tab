@@ -1,0 +1,47 @@
+create table IT.BA_ATM_TRAN_DEP_NOCLIE
+(
+  nro_documento    VARCHAR2(20) not null,
+  nro_transaccion  NUMBER(15) not null,
+  atm_nom          VARCHAR2(10) not null,
+  fec_transaccion  DATE not null,
+  tip_deposito     VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ATM_TRAN_DEP_NOCLIE
+  is 'Registrar los datos de las transacciones que realizar las personas no Clientes';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.nro_documento
+  is 'Nro. de documento.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.nro_transaccion
+  is 'Nro. de transacción.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.atm_nom
+  is 'Nombre del cajero/ATM TED.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.fec_transaccion
+  is 'Fecha que se realizó transacción.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.tip_deposito
+  is 'Tipo deposito discriminado por moneda.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_ATM_TRAN_DEP_NOCLIE.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_ATM_TRAN_DEP_NOCLIE
+  add constraint FK_BA_PER_ATM_NRO_DOCUMENTO foreign key (NRO_DOCUMENTO)
+  references IT.BA_PER_ATM_NO_CLIENTES (NRO_DOCUMENTO);
+

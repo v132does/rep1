@@ -1,0 +1,48 @@
+create table IT.GE_SPI_RES_REPORTES
+(
+  nro_referencia   NUMBER(15),
+  id_peticion      VARCHAR2(50),
+  estado           VARCHAR2(20),
+  respuesta        BLOB,
+  fec_ult_consulta DATE,
+  error            VARCHAR2(2000),
+  formato          VARCHAR2(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SPI_RES_REPORTES
+  is 'Tabla para almacenar los datos de reportes recibidos desde la API de reportes.';
+comment on column IT.GE_SPI_RES_REPORTES.nro_referencia
+  is 'Numero de referencia única del registro.';
+comment on column IT.GE_SPI_RES_REPORTES.id_peticion
+  is 'Id que devuelve el BCP por el envio de solicitud de reporte.';
+comment on column IT.GE_SPI_RES_REPORTES.estado
+  is 'Estado que responde el BCP por el envio de solicitud de reporte.';
+comment on column IT.GE_SPI_RES_REPORTES.respuesta
+  is 'Archivo recibido como respuesta.';
+comment on column IT.GE_SPI_RES_REPORTES.fec_ult_consulta
+  is 'Fecha de la ultima consulta por parte del servicio.';
+comment on column IT.GE_SPI_RES_REPORTES.error
+  is 'Campo donde se guarda algun tipo de error.';
+comment on column IT.GE_SPI_RES_REPORTES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SPI_RES_REPORTES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SPI_RES_REPORTES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SPI_RES_REPORTES.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+

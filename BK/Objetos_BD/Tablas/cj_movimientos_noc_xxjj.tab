@@ -1,0 +1,39 @@
+create table IT.CJ_MOVIMIENTOS_NOC_XXJJ
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  nro_secuencia      NUMBER(3) not null,
+  cod_tra_padre      NUMBER(4) not null,
+  cod_mod_padre      NUMBER(3) not null,
+  cod_mad_padre      NUMBER(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  nro_caja           NUMBER(3) not null,
+  nro_cuenta         VARCHAR2(15),
+  monto              NUMBER(18,2) not null,
+  tip_monto          VARCHAR2(1) not null,
+  tot_detallado      NUMBER(18,2),
+  tipo               VARCHAR2(1),
+  nro_documento      NUMBER(15),
+  nro_doc_referencia NUMBER(15),
+  cod_rubro          VARCHAR2(15),
+  cod_ofi_rubro      NUMBER(3),
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) not null,
+  fec_modificacion   DATE not null,
+  estado             VARCHAR2(1) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

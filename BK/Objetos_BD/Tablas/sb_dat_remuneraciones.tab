@@ -1,0 +1,91 @@
+create table IT.SB_DAT_REMUNERACIONES
+(
+  mes                       NUMBER(2) not null,
+  ano                       NUMBER(4) not null,
+  can_tot_cuenta            NUMBER(8),
+  sal_tot_cuenta            NUMBER(18,2),
+  can_tot_ente              NUMBER(8),
+  can_ext_sin_cos_prom      NUMBER(8),
+  can_tot_extraccion        NUMBER(8),
+  nro_tot_pag_electronico   NUMBER(8),
+  cos_min_exc_uso_atm       NUMBER(18,2),
+  cos_max_exc_uso_atm       NUMBER(18,2),
+  cos_exc_uso_atm_prom      NUMBER(18,2),
+  can_max_tra_atm_sin_costo NUMBER(8),
+  can_min_tra_atm_sin_costo NUMBER(8),
+  can_tra_atm_sin_cos_prom  NUMBER(8),
+  usu_insercion             VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion             DATE default SYSDATE not null,
+  usu_modificacion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion          DATE default SYSDATE not null,
+  can_tot_ext_sin_costo     NUMBER(8),
+  can_tot_cliente           NUMBER(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_DAT_REMUNERACIONES
+  is 'Datos de pago de cuentas de Remuneraciones.';
+comment on column IT.SB_DAT_REMUNERACIONES.mes
+  is 'Mes de Proceso.';
+comment on column IT.SB_DAT_REMUNERACIONES.ano
+  is 'Año de Proceso.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_tot_cuenta
+  is 'Cantidad Total de cuentas.';
+comment on column IT.SB_DAT_REMUNERACIONES.sal_tot_cuenta
+  is 'Saldo Total de Cuentas.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_tot_ente
+  is 'Cantidad Total de Entes.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_ext_sin_cos_prom
+  is 'Cantidad Promedio de Extracciones sin costo.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_tot_extraccion
+  is 'Cantidad total de Extracciones.';
+comment on column IT.SB_DAT_REMUNERACIONES.nro_tot_pag_electronico
+  is 'Número total de pagos electrónicos.';
+comment on column IT.SB_DAT_REMUNERACIONES.cos_min_exc_uso_atm
+  is 'Costo Mínimo por exceso uso de ATM.';
+comment on column IT.SB_DAT_REMUNERACIONES.cos_max_exc_uso_atm
+  is 'Costo Máximo por exceso uso de ATM.';
+comment on column IT.SB_DAT_REMUNERACIONES.cos_exc_uso_atm_prom
+  is 'Costo promedio por exceso uso de ATM.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_max_tra_atm_sin_costo
+  is 'Cantidad máxima de transacciones ATM sin costo.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_min_tra_atm_sin_costo
+  is 'Cantidad mínima de transacciones ATM sin costo.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_tra_atm_sin_cos_prom
+  is 'Cantidad promedio de transacciones ATM sin costo.';
+comment on column IT.SB_DAT_REMUNERACIONES.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.SB_DAT_REMUNERACIONES.fec_insercion
+  is 'fecha de inserción.';
+comment on column IT.SB_DAT_REMUNERACIONES.usu_modificacion
+  is 'Usuario de modificación.';
+comment on column IT.SB_DAT_REMUNERACIONES.fec_modificacion
+  is 'Fecha de modificación.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_tot_ext_sin_costo
+  is 'Cantidad Total de Extracciones sin costo.';
+comment on column IT.SB_DAT_REMUNERACIONES.can_tot_cliente
+  is 'Cantidad Total de Clientes.';
+alter table IT.SB_DAT_REMUNERACIONES
+  add constraint PK_SB_DAT_REMUNERACIONES primary key (MES, ANO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

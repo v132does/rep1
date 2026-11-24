@@ -1,0 +1,14 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_VIEWS
+(
+  index      NUMBER,
+  dbname     VARCHAR2(256),
+  viewname   VARCHAR2(256),
+  colname    VARCHAR2(256),
+  typename   CHAR(2),
+  length     NUMBER,
+  scale      NUMBER,
+  nulls      CHAR(1),
+  defaultval VARCHAR2(2048)
+)
+on commit preserve rows;
+

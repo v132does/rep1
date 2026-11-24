@@ -1,0 +1,125 @@
+create table IT.SB_TRANSFERENCIAS_DET
+(
+  fecha                     DATE not null,
+  nom_referencia            VARCHAR2(10) not null,
+  nro_registro              NUMBER(9) not null,
+  nro_formulario            VARCHAR2(3),
+  cod_oficina               NUMBER(4),
+  tip_movimiento            NUMBER(3),
+  nro_operacion             VARCHAR2(60),
+  cod_mon_iso               VARCHAR2(3),
+  fec_operacion             DATE,
+  tip_doc_ordenante         VARCHAR2(3),
+  nro_doc_ordenante         VARCHAR2(30),
+  nro_cta_ordenante         VARCHAR2(30),
+  monto                     NUMBER(20,2),
+  val_conversion            NUMBER(10,2),
+  cod_swi_bco_intermediario VARCHAR2(15),
+  cod_pai_iso_origen        VARCHAR2(3),
+  des_ciu_iso_origen        VARCHAR2(60),
+  cod_swi_bco_beneficiario  VARCHAR2(15),
+  cod_pai_iso_destino       VARCHAR2(3),
+  des_ciu_iso_destino       VARCHAR2(60),
+  tip_fondo                 NUMBER(2),
+  tip_motivo                NUMBER(2),
+  tip_financiacion          NUMBER(2),
+  tip_doc_transportadora    VARCHAR2(3),
+  nro_doc_transportadora    VARCHAR2(30),
+  tip_doc_beneficiario      VARCHAR2(4),
+  nro_doc_beneficiario      VARCHAR2(30),
+  nro_cta_beneficiario      VARCHAR2(30),
+  autorizado                VARCHAR2(1),
+  cod_modulo                NUMBER(3),
+  cod_modalidad             NUMBER(3),
+  tip_operacion             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_TRANSFERENCIAS_DET.fecha
+  is 'Fecha de Periodo del envío del Archivo. (Formato: AAAAMMDD)';
+comment on column IT.SB_TRANSFERENCIAS_DET.nom_referencia
+  is 'Nombre del Archivo de Generación de Operaciones (Archivo: Transferencia).';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_registro
+  is 'Número correlativo de Registros.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_formulario
+  is 'Nro. de Formulario correspondiente al Archivo de Transferencia. Este número es fijo para identificar el archivo.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_movimiento
+  is 'Tipo de Movimiento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_operacion
+  is 'Número de Operación.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_mon_iso
+  is 'Código de la Moneda Formato ISO 4217.';
+comment on column IT.SB_TRANSFERENCIAS_DET.fec_operacion
+  is 'Fecha de la Operación AAAAMMDD.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_doc_ordenante
+  is 'Ordenante - Tipo de Documento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_doc_ordenante
+  is 'Ordenante - Número de Documento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_cta_ordenante
+  is 'Ordenante - Número de Cuenta.';
+comment on column IT.SB_TRANSFERENCIAS_DET.monto
+  is 'Monto - Valor de la Transacción en la Moneda Informada.';
+comment on column IT.SB_TRANSFERENCIAS_DET.val_conversion
+  is 'Cotización - Tipo de Cambio.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_swi_bco_intermediario
+  is 'Código Swift - Banco Intermediario.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_pai_iso_origen
+  is 'Ordenante Remisión - Código País Orígen ISO 3166.';
+comment on column IT.SB_TRANSFERENCIAS_DET.des_ciu_iso_origen
+  is 'Plaza de Remisión - Ciudad Orígen.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_swi_bco_beneficiario
+  is 'Código Swift - Banco del Beneficiario.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_pai_iso_destino
+  is 'Destino - Código País Destino ISO 3166.';
+comment on column IT.SB_TRANSFERENCIAS_DET.des_ciu_iso_destino
+  is 'Plaza Destino - Ciudad Destino.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_fondo
+  is 'Procedencia o Naturaleza de los Fondos.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_motivo
+  is 'Motivo de la Transacción.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_financiacion
+  is 'Financiamiento de la Transacción.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_doc_transportadora
+  is 'Empresa Transportadora - Tipo de Documento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_doc_transportadora
+  is 'Empresa Transportadora - Número Documento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_doc_beneficiario
+  is 'Beneficiario - Tipo de Documento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_doc_beneficiario
+  is 'Beneficiario - Número de Documento.';
+comment on column IT.SB_TRANSFERENCIAS_DET.nro_cta_beneficiario
+  is 'Beneficiario - Número de Cuenta.';
+comment on column IT.SB_TRANSFERENCIAS_DET.autorizado
+  is 'Autorizado - Valores(S: SI, N: NO). Se informa el valor según la autorización del cliente, para compartir sus datos con el MH y la DNA.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_modulo
+  is 'Código de Módulo de la Operación Origen de la Transferencia.';
+comment on column IT.SB_TRANSFERENCIAS_DET.cod_modalidad
+  is 'Código de Modalidad de la Operación Origen de la Transferencia.';
+comment on column IT.SB_TRANSFERENCIAS_DET.tip_operacion
+  is 'Tipo de Operación de la Transferencia. Valores posibles: ''E''mitidas - ''R''ecibidas - ''X''Exportación de Divisas - ''I''mportación de Divisas - ''N''Transferencias en el Exterior - ''L''Transferencias Locales Interdepartamentales.';
+alter table IT.SB_TRANSFERENCIAS_DET
+  add constraint PK_SB_TRANSFERENCIAS_DET primary key (FECHA, NOM_REFERENCIA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

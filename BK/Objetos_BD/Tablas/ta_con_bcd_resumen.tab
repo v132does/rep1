@@ -1,0 +1,66 @@
+create table IT.TA_CON_BCD_RESUMEN
+(
+  cod_gru_servicio       NUMBER(3),
+  fec_valor              DATE,
+  cod_ent_credito        NUMBER(5),
+  cod_ent_debito         NUMBER(5),
+  mto_cre_mon_local      NUMBER(18,2),
+  mto_deb_mon_local      NUMBER(18,2),
+  mto_cre_mon_extranjera NUMBER(18,2),
+  mto_deb_mon_extranjera NUMBER(18,2),
+  fec_credito            DATE,
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_CON_BCD_RESUMEN.cod_gru_servicio
+  is 'Código de Agrupación de Servicio (01 = POS, 02 = ATM, 03 = TIC, 04 = TC).';
+comment on column IT.TA_CON_BCD_RESUMEN.fec_valor
+  is 'Fecha valor de la operación.';
+comment on column IT.TA_CON_BCD_RESUMEN.cod_ent_credito
+  is 'Código de la Entidad Crédito.';
+comment on column IT.TA_CON_BCD_RESUMEN.cod_ent_debito
+  is 'Código de la Entidad Débito.';
+comment on column IT.TA_CON_BCD_RESUMEN.mto_cre_mon_local
+  is 'Importe Crédito en Moneda Local.';
+comment on column IT.TA_CON_BCD_RESUMEN.mto_deb_mon_local
+  is 'Importe Débito en Moneda Local.';
+comment on column IT.TA_CON_BCD_RESUMEN.mto_cre_mon_extranjera
+  is 'Importe Crédito en Moneda Extranjera.';
+comment on column IT.TA_CON_BCD_RESUMEN.mto_deb_mon_extranjera
+  is 'Importe Débito en Moneda Extranjera.';
+comment on column IT.TA_CON_BCD_RESUMEN.fec_credito
+  is 'Fecha de Credito';
+comment on column IT.TA_CON_BCD_RESUMEN.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.TA_CON_BCD_RESUMEN.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.TA_CON_BCD_RESUMEN.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.TA_CON_BCD_RESUMEN.fec_modificacion
+  is 'Fecha en que se realizó la ultima modificación en el registro.';
+create index IT.IN_TCBRE_FEC_VALOR on IT.TA_CON_BCD_RESUMEN (FEC_VALOR, COD_GRU_SERVICIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

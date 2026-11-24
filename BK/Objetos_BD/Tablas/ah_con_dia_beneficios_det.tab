@@ -1,0 +1,67 @@
+create table IT.AH_CON_DIA_BENEFICIOS_DET
+(
+  nro_comprobante               VARCHAR2(23) null,
+  fec_operacion                 DATE not null,
+  confirmacion_reintegro        NUMBER(1) null,
+  usu_insercion                 VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion                 DATE default SYSDATE not null,
+  usu_modificacion              VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion              DATE default SYSDATE not null,
+  id                            VARCHAR2(10) null,
+  auto_id                       VARCHAR2(30) null,
+  origen_transaccion            VARCHAR2(20) null,
+  estado                        VARCHAR2(10) null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+alter table IT.AH_CON_DIA_BENEFICIOS_DET
+add primary key (id)
+using index
+tablespace IT_DATA
+pctfree 10
+initrans 2
+maxtrans 255
+storage
+(
+  initial 64K
+  next 1M
+  minextents 1
+  maxextents unlimited
+);
+
+comment on table IT.AH_CON_DIA_BENEFICIOS_DET
+  is 'BENEFICIOS - AH_CON_DIA_DET procesados';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.nro_comprobante
+  is 'Identificador de la operacion';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.fec_operacion
+  is 'Fecha de la transaccion';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.confirmacion_reintegro
+  is 'Confirmacion reintegro';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.id
+  is 'Id de registro';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.auto_id
+  is 'Identificador por el cual se relaciona las notificaciones, autorizaciones y confirmaciones';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.origen_transaccion
+  is 'Origen de la transaccion';
+comment on column IT.AH_CON_DIA_BENEFICIOS_DET.estado
+  is 'Estado de la transaccion';
+  -- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.AH_CON_DIA_BENEFICIOS_DET to IT_TEMPORAL;

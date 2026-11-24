@@ -1,0 +1,34 @@
+-- Create table
+create table IT.ta_cta_mig_entrada
+(
+  cod_persona         VARCHAR2(10) not null,
+  tip_producto        VARCHAR2(10) not null,
+  nro_lote	      NUMBER(5),
+  msj_proceso         VARCHAR2(4000),
+  estado       VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.ta_cta_mig_entrada
+  add constraint PK_ta_cta_mig_entrada primary key (cod_persona,tip_producto,nro_lote)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

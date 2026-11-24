@@ -1,0 +1,55 @@
+create table IT.PR_TIP_OPERACIONES_DET
+(
+  cod_tip_operacion VARCHAR2(3) not null,
+  cod_periodo       VARCHAR2(10) not null,
+  descripcion       VARCHAR2(100),
+  cod_moneda        VARCHAR2(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_TIP_OPERACIONES_DET
+  is 'Contiene los datos de Detalle de Tipos de Operaciones de Tasa Variable';
+comment on column IT.PR_TIP_OPERACIONES_DET.cod_tip_operacion
+  is 'Codigo de Tipo de Operacion';
+comment on column IT.PR_TIP_OPERACIONES_DET.cod_periodo
+  is 'Codigo de Periodo';
+comment on column IT.PR_TIP_OPERACIONES_DET.descripcion
+  is 'Descripcion de Periodo';
+comment on column IT.PR_TIP_OPERACIONES_DET.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.PR_TIP_OPERACIONES_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_TIP_OPERACIONES_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_TIP_OPERACIONES_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_TIP_OPERACIONES_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.PR_TIP_OPERACIONES_DET
+  add constraint PK_PR_TIP_OPERACIONES_DET primary key (COD_TIP_OPERACION, COD_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

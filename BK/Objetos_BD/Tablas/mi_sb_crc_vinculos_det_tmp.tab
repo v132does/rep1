@@ -1,0 +1,33 @@
+create table IT.MI_SB_CRC_VINCULOS_DET_TMP
+(
+  fecha           DATE not null,
+  nom_referencia  VARCHAR2(10) not null,
+  nro_formulario  VARCHAR2(3),
+  cod_oficina     NUMBER(3),
+  tip_operacion   NUMBER(3),
+  cta_con_capital VARCHAR2(18),
+  nro_operacion   VARCHAR2(60),
+  tip_documento   VARCHAR2(3),
+  nro_documento   VARCHAR2(30),
+  fec_nacimiento  DATE,
+  nombres         VARCHAR2(255),
+  apellidos       VARCHAR2(100),
+  tip_vinculo     NUMBER(3),
+  per_vinculada   VARCHAR2(1),
+  nro_registro    NUMBER(9) not null,
+  cod_mon_iso     VARCHAR2(3),
+  cod_persona     VARCHAR2(10),
+  cod_modulo      NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

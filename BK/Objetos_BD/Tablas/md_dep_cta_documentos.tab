@@ -1,0 +1,253 @@
+create table IT.MD_DEP_CTA_DOCUMENTOS
+(
+  cod_modulo           NUMBER(3),
+  nro_cuenta           VARCHAR2(15),
+  cod_modalidad        NUMBER(3),
+  cod_oficina          NUMBER(3),
+  cod_moneda           VARCHAR2(3),
+  cod_persona          VARCHAR2(10),
+  nro_documento        VARCHAR2(20),
+  denominacion         VARCHAR2(65),
+  fec_inicio           DATE,
+  fec_vencimiento      DATE,
+  monto                NUMBER(18,2),
+  val_tasa             NUMBER(12,6),
+  cantidad             NUMBER(10),
+  estado               VARCHAR2(1),
+  fec_cam_estado       DATE,
+  fec_cancelacion      VARCHAR2(240),
+  mto_interes          NUMBER(18,2),
+  val_presente         NUMBER(18,2),
+  sal_interes          NUMBER(18,2),
+  est_batch            VARCHAR2(1),
+  sal_val_pre_batch    NUMBER(18,2),
+  sal_int_batch        NUMBER(18,2),
+  fec_ult_devengado    DATE,
+  beneficiario         VARCHAR2(200),
+  dev_acumulado        NUMBER(18,2),
+  tip_calculo          VARCHAR2(1),
+  cod_causa            NUMBER(3),
+  nro_cta_padre        VARCHAR2(15),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  com_doc_relacionados VARCHAR2(1) default 'N',
+  sal_val_presente     NUMBER(18,2),
+  val_int_devengar     NUMBER(20,4),
+  cod_instruccion      VARCHAR2(1),
+  observacion          VARCHAR2(1000),
+  cod_per_adquirido    VARCHAR2(10),
+  for_pago             VARCHAR2(1),
+  nro_ref_credito      VARCHAR2(15),
+  cod_per_vendido      VARCHAR2(10),
+  mto_venta            NUMBER(18,2),
+  mto_int_venta        NUMBER(18,2),
+  dia_ano              NUMBER(3),
+  comision             NUMBER(18,2),
+  sal_batch            NUMBER(18,2),
+  mto_dev_dia          NUMBER(18,2),
+  dia_devengado        NUMBER(10),
+  mto_impuesto         NUMBER(18,2),
+  sal_capital          NUMBER(18,2),
+  tot_int_descontado   NUMBER(18,2),
+  cod_ofi_credito      NUMBER(3),
+  cod_ofi_interes      NUMBER(3),
+  mto_ofi_interes      NUMBER(18,2),
+  cod_sec_credito      NUMBER(3),
+  cod_bco_central      VARCHAR2(3),
+  tip_cob_interes      VARCHAR2(1),
+  tip_amortizacion     VARCHAR2(1),
+  fec_ult_pago         DATE,
+  per_adquirido        VARCHAR2(120),
+  fec_ini_repo         DATE,
+  fec_ven_repo         DATE,
+  val_tas_repo         NUMBER(10,4),
+  val_bas_repo         NUMBER(18,2),
+  cod_sit_contable     VARCHAR2(20),
+  mer_secundario       VARCHAR2(1),
+  nro_cta_repo         VARCHAR2(15),
+  nro_linea            NUMBER(7),
+  cod_rub_economico    VARCHAR2(6),
+  tip_documento        VARCHAR2(1),
+  cod_tip_operacion    NUMBER(3),
+  sal_disponible       NUMBER(18,2),
+  nro_referencia       VARCHAR2(20) not null,
+  des_operacion        VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_DEP_CTA_DOCUMENTOS
+  is 'Permite el registro de las compra de papeles realizados por el Banco.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_documento
+  is 'Numero del Documento.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.denominacion
+  is 'Nombre de la cuenta.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_inicio
+  is 'Fecha de Inicio de la operacion.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_vencimiento
+  is 'Fecha de Vencimiento del documento.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.monto
+  is 'Valor nominal del documento.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.val_tasa
+  is 'Tasa pactada de la operacion.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cantidad
+  is 'Cantidad de documentos.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.estado
+  is 'Estado de la Operacion.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_cam_estado
+  is 'Fecha de cambio de estado de la operacion.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_cancelacion
+  is 'Fecha de cancelacion de la operacion.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mto_interes
+  is 'Monto de Interes pactado resultado de aplicar la tasa al valor nominal.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.val_presente
+  is 'Valor presentte de la operacion.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_interes
+  is 'Saldo de interes pactado.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.est_batch
+  is 'Estado Batch.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_val_pre_batch
+  is 'Saldo Batch.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_int_batch
+  is 'Saldo Interes Batch.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_ult_devengado
+  is 'Fecha de ultimo devengado.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.beneficiario
+  is 'Beneficiario del documento.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.dev_acumulado
+  is 'Monto devengado acumulado.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.tip_calculo
+  is 'Tipo de Calculo.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_causa
+  is 'Codigo de causa.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_cta_padre
+  is 'Numero de cuenta padre.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.com_doc_relacionados
+  is 'Compra de Documentos Relacionados.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_val_presente
+  is 'Saldo del Valor presente.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.val_int_devengar
+  is 'Valor del interes a devengar.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_instruccion
+  is 'Codigo de Instruccion ( Custodia, Retiro )';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.observacion
+  is 'Observacion';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_per_adquirido
+  is 'Codigo de Persona de quien se adquirio el documento';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.for_pago
+  is 'Forma de Pago (E)fectivo Cheque (G)erencia (C)redito en Cuenta';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_ref_credito
+  is 'Numero de referencia de credito';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_per_vendido
+  is 'Codigo de Persona de quien se vendio el documento';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mto_venta
+  is 'Monto de Venta del Documento';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mto_int_venta
+  is 'Interes de Venta del Documento';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.dia_ano
+  is 'Dias por Año';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.comision
+  is 'Total de la Comision + IVA';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_batch
+  is 'Saldo Batch.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mto_dev_dia
+  is 'Monto Devengado.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.dia_devengado
+  is 'Dias devengados.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mto_impuesto
+  is 'Monto del Impuesto.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_capital
+  is 'Saldo del Capital actual';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.tot_int_descontado
+  is 'Total del interes descontado (perdonado)';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_ofi_credito
+  is 'Oficina de credito';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_ofi_interes
+  is 'Oficina en la que contabiliza la porcion de interes.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mto_ofi_interes
+  is 'Monto del interes que contabiliza en la oficina especifica.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_sec_credito
+  is 'Sector del credito';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_bco_central
+  is 'Codigo del Banco Central';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.tip_cob_interes
+  is 'Tipo de Pago del interes: C-Cobro o D-Desembolso';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.tip_amortizacion
+  is 'Tipo de Amortizacion: P-Price, F-Flexible-C-Constante';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_ult_pago
+  is 'Fecha de ultimo pago';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.per_adquirido
+  is 'Persona de quien se adquirio (puede ser una persona no registrada en el sistema)';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_ini_repo
+  is 'Fecha de Inicio del Repo.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.fec_ven_repo
+  is 'Fecha de Vencimiento del Repo.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.val_tas_repo
+  is 'Valor de la Tasa del Repo.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.val_bas_repo
+  is 'Valor Base del Repo.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_sit_contable
+  is 'Indica la Situación Contable actual de la operación. ';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.mer_secundario
+  is 'Mercado Secundario (Si/No)';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_cta_repo
+  is 'Número de Cta. Repo';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_linea
+  is 'Número de Línea';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_rub_economico
+  is 'Código de Rubro Económico.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.tip_documento
+  is 'Indica el Tipo de Operación O-torgado, R-ecibido, I-nstrumento.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.cod_tip_operacion
+  is 'Código del tipo de REPO. ';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.sal_disponible
+  is 'Saldo disponible de la cuenta para negociación en REPO (este monto debe coincidir con el monto de la/s cuotas disponibles de la tabla md_cta_cuotas.';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.nro_referencia
+  is 'Nro, de Referencia relacionada a GE_SNP_TRANSFERENCIAS';
+comment on column IT.MD_DEP_CTA_DOCUMENTOS.des_operacion
+  is 'Descripcion de la Operacion enviada a BCP';
+alter table IT.MD_DEP_CTA_DOCUMENTOS
+  add constraint PK_MD_CTA_DOC_DEPO primary key (NRO_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,62 @@
+create table IT.SB_DESENCAJES
+(
+  nro_cuenta    VARCHAR2(15) not null,
+  fec_proceso   DATE not null,
+  mto_bruto     NUMBER(18,2) not null,
+  sal_capital   NUMBER(18,2) default 0 not null,
+  mto_prevision NUMBER(18,2) default 0 not null,
+  sal_total     NUMBER(18,2) default 0 not null,
+  porcentaje    NUMBER(20,4) default 0 not null,
+  monto         NUMBER(18,2) default 0 not null,
+  cod_moneda    VARCHAR2(3) not null,
+  usu_insercion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_DESENCAJES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.SB_DESENCAJES.fec_proceso
+  is 'Fecha de Proceso.';
+comment on column IT.SB_DESENCAJES.mto_bruto
+  is 'Monto Bruto.';
+comment on column IT.SB_DESENCAJES.sal_capital
+  is 'Saldo del Capital on line.';
+comment on column IT.SB_DESENCAJES.mto_prevision
+  is 'Monto de la Prevision del Capital.';
+comment on column IT.SB_DESENCAJES.sal_total
+  is 'Saldo Total.';
+comment on column IT.SB_DESENCAJES.porcentaje
+  is 'Porcentaje.';
+comment on column IT.SB_DESENCAJES.monto
+  is 'Monto del Desencaje.';
+comment on column IT.SB_DESENCAJES.cod_moneda
+  is 'Cod_moneda';
+comment on column IT.SB_DESENCAJES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_DESENCAJES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+alter table IT.SB_DESENCAJES
+  add constraint PK_SB_DESENCAJES primary key (NRO_CUENTA, FEC_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

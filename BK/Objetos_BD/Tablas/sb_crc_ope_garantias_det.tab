@@ -1,0 +1,102 @@
+create table IT.SB_CRC_OPE_GARANTIAS_DET
+(
+  fecha                 DATE not null,
+  nom_referencia        VARCHAR2(10) not null,
+  nro_registro          NUMBER(9) not null,
+  nro_formulario        VARCHAR2(3),
+  cod_ofi_operacion     NUMBER(3),
+  tip_operacion         NUMBER(3),
+  nro_operacion         VARCHAR2(60),
+  cod_mon_iso_operacion VARCHAR2(3),
+  cod_ofi_garantia      NUMBER(4),
+  cod_mon_iso_garantia  VARCHAR2(3),
+  nro_garantia          NUMBER(7),
+  cod_ref_bco_central   NUMBER(2),
+  rub_con_garantia      VARCHAR2(18),
+  mto_utilizado         NUMBER(18,2),
+  mto_equ_utilizado     NUMBER(18,2),
+  tip_gar_especifica    VARCHAR2(1),
+  cod_modulo            NUMBER(3),
+  cod_modalidad         NUMBER(3),
+  cod_persona           VARCHAR2(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_CRC_OPE_GARANTIAS_DET
+  is 'Datos de Garantías de las Operaciones para la generación del Archivo Garantías por Operación para envío a CRC.';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.fecha
+  is 'Fecha de Periodo de envío del Archivo OPEGARAN.';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.nom_referencia
+  is 'Nombre del Archivo a generarse a la CRC (Archivo OPEGARAN).';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.nro_registro
+  is 'Nro. de Registro Único.';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.nro_formulario
+  is 'Nro. de Formulario correspondiente al Archivo OPEGARAN. Este nro. es fijo para identificar dicho Archivo.';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_ofi_operacion
+  is 'Código de Oficina de la Garantía. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.tip_operacion
+  is 'Tipo de Operación correspondiente al Rubro Contable de la Operación (Rubro Contable: Posición 6 al 8). ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.nro_operacion
+  is 'Nro. de Cuenta de la Operación relacionada a la Garantía. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_mon_iso_operacion
+  is 'Código de Moneda ISO de la Operación relacionada a la Garantía. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_ofi_garantia
+  is 'Código de Oficina de la Garantía.';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_mon_iso_garantia
+  is 'Código de Moneda ISO de la Garantía. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.nro_garantia
+  is 'Nro. de la Garantía.';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_ref_bco_central
+  is 'Código de Referencia de Bco. Central equivalente al Código de Garantía. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.rub_con_garantia
+  is 'Rubro Contable de la Garantía. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.mto_utilizado
+  is 'Mto. Utilizado computable de la Operación. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.mto_equ_utilizado
+  is 'Mto. Utilizado de la Operación convertido a Moneda Local. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.tip_gar_especifica
+  is 'Tipo de Garantía (Específica = ''E'' - Genérica = ''G'').';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_modulo
+  is 'Código de Módulo correspondiente a la Operación. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_modalidad
+  is 'Código de Modalidad correspondiente a la Operación. ';
+comment on column IT.SB_CRC_OPE_GARANTIAS_DET.cod_persona
+  is 'Código de Persona Titular de la Operación/Cuenta.';
+alter table IT.SB_CRC_OPE_GARANTIAS_DET
+  add constraint PK_SB_CRC_OPE_GARANTIAS_DET primary key (FECHA, NOM_REFERENCIA, NRO_REGISTRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_CRC_OPE_GARANTIAS_DET
+  add constraint UK_SCOGD_NRO_OPERACION unique (NRO_OPERACION, NRO_GARANTIA, TIP_OPERACION, NOM_REFERENCIA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,32 @@
+create table IT.GE_DIF_CRECOM_TMP
+(
+  fecha         DATE,
+  cod_ente      NUMBER(7),
+  cod_modulo    NUMBER(3),
+  cod_modalidad NUMBER(3),
+  nro_cuenta    VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DIF_CRECOM_TMP
+  is 'Tabla temporal que guarda diferencias de totales de CRECOM.';
+comment on column IT.GE_DIF_CRECOM_TMP.fecha
+  is 'Fecha.';
+comment on column IT.GE_DIF_CRECOM_TMP.cod_ente
+  is 'Código del ente.';
+comment on column IT.GE_DIF_CRECOM_TMP.cod_modulo
+  is 'Código de modulo.';
+comment on column IT.GE_DIF_CRECOM_TMP.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.GE_DIF_CRECOM_TMP.nro_cuenta
+  is 'Nro. de cuenta.';
+

@@ -1,0 +1,43 @@
+create table IT.PSA005
+(
+  psa005ct NUMBER(9) not null,
+  psa005le NUMBER(18,2),
+  psa005ls NUMBER(18,2),
+  psa005br CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA005
+  is 'Tabla Declaraciones';
+comment on column IT.PSA005.psa005ct
+  is 'Numero de Cuenta';
+comment on column IT.PSA005.psa005le
+  is 'LOA ENTRANTE';
+comment on column IT.PSA005.psa005ls
+  is 'LOA SALIENTE';
+comment on column IT.PSA005.psa005br
+  is 'Banco Remitente';
+alter table IT.PSA005
+  add constraint PK_PSA005 primary key (PSA005CT)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

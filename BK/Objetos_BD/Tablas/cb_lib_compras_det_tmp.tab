@@ -1,0 +1,149 @@
+create table IT.CB_LIB_COMPRAS_DET_TMP
+(
+  cod_persona      VARCHAR2(10),
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  cod_usuario      VARCHAR2(10) not null,
+  nro_secuencia    NUMBER(3) not null,
+  cod_ofi_origen   NUMBER(3) not null,
+  tip_comprobante  VARCHAR2(1),
+  tip_compra       VARCHAR2(2),
+  cod_tra_padre    NUMBER(4) not null,
+  nro_documento    NUMBER(15),
+  descripcion      VARCHAR2(35),
+  cod_moneda       VARCHAR2(3) not null,
+  mto_exento       NUMBER(18,2),
+  mto_exento_gs    NUMBER(18,2),
+  mto_gravado_5    NUMBER(18,2),
+  mto_gra_5_gs     NUMBER(18,2),
+  mto_gravado_10   NUMBER(18,2),
+  mto_gra_10_gs    NUMBER(18,2),
+  impuesto_5       NUMBER(18,2),
+  impuesto_5_gs    NUMBER(18,2),
+  impuesto_10      NUMBER(18,2),
+  impuesto_10_gs   NUMBER(18,2),
+  cotizacion       NUMBER(14,4),
+  reversado        VARCHAR2(1),
+  nom_completo     VARCHAR2(120),
+  nro_doc_persona  VARCHAR2(20),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  nro_cuenta       VARCHAR2(15),
+  nro_factura      VARCHAR2(20),
+  nro_timbrado     VARCHAR2(20),
+  error            VARCHAR2(300),
+  aju_impuesto_5   NUMBER(5),
+  aju_impuesto_10  NUMBER(5),
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  can_cuota        NUMBER(3),
+  cod_transaccion  NUMBER(4),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  referencia       VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_LIB_COMPRAS_DET_TMP.referencia
+  is 'Para referencia de movimientos';
+create index IT.IN_BLCDT_COD_MONEDA on IT.CB_LIB_COMPRAS_DET_TMP (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BLCDT_COD_OFI_ORIGEN on IT.CB_LIB_COMPRAS_DET_TMP (COD_OFI_ORIGEN)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BLCDT_COD_PERSONA on IT.CB_LIB_COMPRAS_DET_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BLCDT_COD_TRA_PADRE on IT.CB_LIB_COMPRAS_DET_TMP (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BLCDT_COD_USUARIO on IT.CB_LIB_COMPRAS_DET_TMP (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_LIB_COMPRAS_DET_TMP
+  add constraint PK_CB_LIB_COMPRAS_DET_TMP primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_LIB_COMPRAS_DET_TMP
+  add constraint FK_BLCDT_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CB_LIB_COMPRAS_DET_TMP
+  add constraint FK_BLCDT_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.CB_LIB_COMPRAS_DET_TMP
+  add constraint FK_BLCDT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CB_LIB_COMPRAS_DET_TMP
+  add constraint FK_BLCDT_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.CB_LIB_COMPRAS_DET_TMP
+  add constraint FK_BLCDT_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

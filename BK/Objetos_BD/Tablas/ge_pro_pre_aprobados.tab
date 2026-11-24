@@ -1,0 +1,211 @@
+create table IT.GE_PRO_PRE_APROBADOS
+(
+  cod_persona         VARCHAR2(10) not null,
+  lote                NUMBER(5) not null,
+  cod_oficina         NUMBER(3),
+  cod_usu_oficial     VARCHAR2(10),
+  estado              VARCHAR2(1) default 'V' not null,
+  lin_vigente_tc      NUMBER(18,2),
+  lin_nueva_tc        NUMBER(18,2),
+  mto_max_cuota       NUMBER(18,2),
+  plz_12_meses        NUMBER(18,2),
+  plz_18_meses        NUMBER(18,2),
+  plz_24_meses        NUMBER(18,2),
+  plz_30_meses        NUMBER(18,2),
+  plz_36_meses        NUMBER(18,2),
+  plz_42_meses        NUMBER(18,2),
+  plz_48_meses        NUMBER(18,2),
+  plz_54_meses        NUMBER(18,2),
+  plz_60_meses        NUMBER(18,2),
+  cod_segmento        VARCHAR2(10),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  val_min_tasa        NUMBER(20,4),
+  val_max_tasa        NUMBER(20,4),
+  cod_campana         NUMBER(3),
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3),
+  min_monto           NUMBER(18,2),
+  max_monto           NUMBER(18,2),
+  min_plazo           NUMBER(4),
+  max_plazo           NUMBER(4),
+  ind_evaluacion      VARCHAR2(1) default 'S',
+  cod_causa           NUMBER(3),
+  cod_usu_cancelacion VARCHAR2(10),
+  nro_solicitud       NUMBER(7),
+  ind_hab_atm         VARCHAR2(1),
+  nro_cta_renovada    VARCHAR2(15),
+  ind_hab_hb          VARCHAR2(1),
+  pun_scoring         NUMBER(17,9),
+  pro_mora            NUMBER(17,9),
+  nro_secuencia       NUMBER(3) default 1,
+  denominacion        VARCHAR2(100),
+  fec_vto_campana     DATE,
+  cod_sub_modalidad   NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PRO_PRE_APROBADOS
+  is 'Productos Preaprobados';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.GE_PRO_PRE_APROBADOS.lote
+  is 'Código del Lote Pre-Aprobado.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_oficina
+  is 'Código de la Oficina';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_usu_oficial
+  is 'Código del Oficial.';
+comment on column IT.GE_PRO_PRE_APROBADOS.estado
+  is 'Estado: V/Vigente, C/Cancelado.';
+comment on column IT.GE_PRO_PRE_APROBADOS.lin_vigente_tc
+  is 'Línea Vigente de la Tarjeta de Crédito.';
+comment on column IT.GE_PRO_PRE_APROBADOS.lin_nueva_tc
+  is 'Línea Nueva o Ampliación de la Tarjeta de Crédito.';
+comment on column IT.GE_PRO_PRE_APROBADOS.mto_max_cuota
+  is 'Monto Máximo de la Cuota de Préstamos.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_12_meses
+  is 'Monto del Plazo a 12 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_18_meses
+  is 'Monto del Plazo a 18 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_24_meses
+  is 'Monto del Plazo a 24 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_30_meses
+  is 'Monto del Plazo a 30 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_36_meses
+  is 'Monto del Plazo a 36 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_42_meses
+  is 'Monto del Plazo a 42 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_48_meses
+  is 'Monto del Plazo a 48 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_54_meses
+  is 'Monto del Plazo a 54 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.plz_60_meses
+  is 'Monto del Plazo a 60 meses.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_segmento
+  is 'Código del Grupo de Segmentación.';
+comment on column IT.GE_PRO_PRE_APROBADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_PRO_PRE_APROBADOS.val_min_tasa
+  is 'Valor de Tasa Mínima.';
+comment on column IT.GE_PRO_PRE_APROBADOS.val_max_tasa
+  is 'Valor de Tasa Máxima.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_campana
+  is 'Código de la Campaña.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_modulo
+  is 'Código de Módulo.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_modalidad
+  is 'Código de la Modalidad.';
+comment on column IT.GE_PRO_PRE_APROBADOS.min_monto
+  is 'Monto Mínimo.';
+comment on column IT.GE_PRO_PRE_APROBADOS.max_monto
+  is 'Monto Máximo.';
+comment on column IT.GE_PRO_PRE_APROBADOS.min_plazo
+  is 'Plazo Mínimo.';
+comment on column IT.GE_PRO_PRE_APROBADOS.max_plazo
+  is 'Plazo Máximo.';
+comment on column IT.GE_PRO_PRE_APROBADOS.ind_evaluacion
+  is 'Indica si una solicitud debe pasar por el Motor de Evaluación de Riesgos.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_causa
+  is 'Motivo de Cancelación del Pre-Aprobado.';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_usu_cancelacion
+  is 'Usuario que Canceló el Producto Pre-Aprobado.';
+comment on column IT.GE_PRO_PRE_APROBADOS.nro_solicitud
+  is 'Número de la Solicitud de la Propuesta de Crédito/Tarjeta.';
+comment on column IT.GE_PRO_PRE_APROBADOS.ind_hab_atm
+  is 'Indica que el Pre-Aprobado está habilitado para desembolso en ATM, S=Si, N=Null=No.';
+comment on column IT.GE_PRO_PRE_APROBADOS.nro_cta_renovada
+  is 'Número de Cuenta a ser renovada con los prestamos pre-aprobados REKUTU otorgados a los clientes.';
+comment on column IT.GE_PRO_PRE_APROBADOS.ind_hab_hb
+  is 'Indica que el Pre-Aprobado está habilitado para desembolso en HB, S=Si, N=Null=No.';
+comment on column IT.GE_PRO_PRE_APROBADOS.pun_scoring
+  is 'Puntaje de Scoring del Interviniente proveniente de la herramienta externa.';
+comment on column IT.GE_PRO_PRE_APROBADOS.pro_mora
+  is 'Probabilidad de Mora. (PD)';
+comment on column IT.GE_PRO_PRE_APROBADOS.nro_secuencia
+  is 'Número de Secuencia del registro del Pre-aprobado. El registro origen será el 1. Se incrementará el valor de la secuencia a medida que sean generados otros registros originados por un pre-aprobado que no se ha utilizado totalmente. Parte del identificador del registro de la tabla (UK_GE_PRO_PRE_APROBADOS)';
+comment on column IT.GE_PRO_PRE_APROBADOS.denominacion
+  is 'Denominacion de CP';
+comment on column IT.GE_PRO_PRE_APROBADOS.fec_vto_campana
+  is 'Fecha de Vencimiento de Campaña';
+comment on column IT.GE_PRO_PRE_APROBADOS.cod_sub_modalidad
+  is 'Código de la Sub-Modalidad.';
+create index IT.IN_GPPAP_COD_PERSONA on IT.GE_PRO_PRE_APROBADOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPPAP_LOTE on IT.GE_PRO_PRE_APROBADOS (LOTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint UK_GE_PRO_PRE_APROBADOS unique (COD_PERSONA, LOTE, COD_MODULO, COD_MODALIDAD, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint FK_GPPAP_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint FK_GPPAP_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint FK_GPPAP_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint FK_GPPAP_COD_SEGMENTO foreign key (COD_SEGMENTO)
+  references IT.CR_SEGMENTOS (COD_SEGMENTO);
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint FK_GPPAP_COD_SUBMODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint FK_GPPAP_COD_USU_OFICIAL foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint CHK_EST_PRE_APR
+  check (ESTADO IN( 'V','C' ));
+alter table IT.GE_PRO_PRE_APROBADOS
+  add constraint CHK_NRO_SEC_PRE_APR
+  check (NRO_SECUENCIA > 0);
+

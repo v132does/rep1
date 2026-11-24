@@ -1,0 +1,38 @@
+create table IT.CB_RUBROS_TMP
+(
+  cod_rubro   VARCHAR2(15) not null,
+  cod_area    NUMBER(4),
+  cod_are_ant NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_RUBROS_TMP.cod_rubro
+  is 'Código de rubro';
+comment on column IT.CB_RUBROS_TMP.cod_area
+  is 'Código de Área';
+comment on column IT.CB_RUBROS_TMP.cod_are_ant
+  is 'Código de Área Anterior';
+alter table IT.CB_RUBROS_TMP
+  add constraint PK_CB_RUBROS_TMP primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

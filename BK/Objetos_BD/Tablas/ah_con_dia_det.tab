@@ -1,0 +1,433 @@
+-- Create table
+create table it.ah_con_dia_det
+(
+  nro_con_dia           NUMBER(18),
+  tip_registro          VARCHAR2(1),
+  nro_tarjeta           VARCHAR2(16),
+  cod_marca             NUMBER(5),
+  cod_ent_emisora       NUMBER(5),
+  cod_oficina           NUMBER(5),
+  nro_cuenta            VARCHAR2(10),
+  tip_socio             VARCHAR2(2),
+  cod_gru_cta_cte       NUMBER(3),
+  cod_tip_transaccion   NUMBER(3),
+  cod_comercio          VARCHAR2(15),
+  nom_comercio          VARCHAR2(22),
+  cod_pos_comercio      VARCHAR2(10),
+  cod_autorizacion      VARCHAR2(6),
+  cod_ica_adquiriente   NUMBER(11),
+  cod_movimiento        NUMBER(5),
+  des_movimiento        VARCHAR2(30),
+  nro_comprobante       VARCHAR2(23),
+  cod_tip_plan          NUMBER(2),
+  can_pla_cuotas        NUMBER(3),
+  nro_cuo_vigente       NUMBER(3),
+  fec_operacion         DATE,
+  hor_operacion         VARCHAR2(8),
+  fec_presentacion      DATE,
+  fec_cie_cta_cte       DATE,
+  fec_clearing          DATE,
+  fec_diferimiento      DATE,
+  mcc                   NUMBER(5),
+  cod_mon_movimiento    NUMBER(3),
+  imp_mon_movimiento    NUMBER(15,4),
+  cod_mon_original      NUMBER(3),
+  imp_mon_original      NUMBER(19,4),
+  imp_interes           NUMBER(19,4),
+  imp_iva               NUMBER(19,4),
+  imp_tot_movimiento    NUMBER(19,4),
+  imp_desc_fin_otorgado NUMBER(19,4),
+  imp_desc_fin_oto_iva  NUMBER(19,4),
+  imp_cuota             NUMBER(19,4),
+  imp_int_cuota         NUMBER(19,4),
+  imp_iva_cuota         NUMBER(19,4),
+  imp_tot_cuota         NUMBER(19,4),
+  cod_deb_cre           NUMBER(1),
+  tip_amortizacion      VARCHAR2(1),
+  tip_tarjeta           NUMBER(1),
+  tna                   NUMBER(9,5),
+  tae                   NUMBER(9,5),
+  tai                   NUMBER(9,5),
+  imp_ara_emisor        NUMBER(17,4),
+  sig_iva_arancel       VARCHAR2(1),
+  imp_iva_ara_emisor    NUMBER(17,4),
+  sig_iva_arancel2      VARCHAR2(1),
+  mot_mensaje           NUMBER(4),
+  imp_compensacion      NUMBER(17,4),
+  sig_imp_compensacion  VARCHAR2(1),
+  imp_percep            NUMBER(17,4),
+  sig_percep            VARCHAR2(1),
+  tip_producto          NUMBER(3),
+  fec_cie_comercios     DATE,
+  plan                  NUMBER(3),
+  mon_compensacion      NUMBER(3),
+  imp_autorizacion      NUMBER(17,4),
+  sig_imp_autorizacion  VARCHAR2(1),
+  mon_autorizacion      NUMBER(3),
+  imp_aut_convenio      NUMBER(17,4),
+  sig_imp_aut_convenio  VARCHAR2(1),
+  mon_aut_convenio      NUMBER(3),
+  imp_ipm_de6           NUMBER(17,4),
+  sig_imp_ipm           VARCHAR2(1),
+  mon_ipm               NUMBER(3),
+  id_auto               NUMBER(10),
+  id_cod_auto           VARCHAR2(10),
+  cta_externa           VARCHAR2(500),
+  request_id            VARCHAR2(50),
+  imp_percep_27         NUMBER(17,4),
+  sig_percep_27         VARCHAR2(1),
+  imp_iva_ser_digitales NUMBER(17,4),
+  sig_imp_iva_ser_dig   VARCHAR2(1),
+  imp_iibb              NUMBER(17,4),
+  sig_imp_iibb          VARCHAR2(1),
+  cod_pcia_iibb         NUMBER(2),
+  estado                VARCHAR2(20),
+  filter                VARCHAR2(317),
+  usu_insercion         VARCHAR2(10) default (SUBSTR(USER,1,10)),
+  fec_insercion         DATE default SYSDATE,
+  usu_modificacion      VARCHAR2(10) default (SUBSTR(USER,1,10)),
+  fec_modificacion      DATE,
+  procesado             VARCHAR2(1),
+  error                 VARCHAR2(500),
+  fec_proceso           DATE default TRUNC(SYSDATE),
+  cod_usuario           VARCHAR2(10) default SUBSTR(USER,1,10),
+  imp_rg4815            NUMBER(18,4),
+  sig_rg4815            VARCHAR2(1),
+  extracash             NUMBER(1),
+  imp_extracash         NUMBER(18,4),
+  sig_extracash         VARCHAR2(1),
+  tra_tokenizada        VARCHAR2(1),
+  tas_isa               NUMBER(18,2),
+  tra_origen            VARCHAR2(1),
+  imp_rg5272            NUMBER(18,4),
+  sig_imp_rg5272        VARCHAR2(1),
+  fec_transferencia     VARCHAR2(20),
+  ref_adquiriente       VARCHAR2(23),
+  id_adquiriente        VARCHAR2(11),
+  nro_ref_recupero      VARCHAR2(12),
+  id_terminal           VARCHAR2(8),
+  nom_terminal          VARCHAR2(99),
+  id_transaccion        VARCHAR2(16),
+  token                 VARCHAR2(11),
+  billetera             VARCHAR2(3),
+  per_tra_fondos        VARCHAR2(286)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.AH_CON_DIA_DET.tip_registro
+  is 'Tipo de Registro (2-Detalle)';
+comment on column IT.AH_CON_DIA_DET.nro_tarjeta
+  is 'Numero de Tarjeta';
+comment on column IT.AH_CON_DIA_DET.cod_marca
+  is 'Codigo de Marca';
+comment on column IT.AH_CON_DIA_DET.cod_ent_emisora
+  is 'Codigo asignado a la entidad otorgante.';
+comment on column IT.AH_CON_DIA_DET.cod_oficina
+  is 'Codigo asignado a la Sucursal';
+comment on column IT.AH_CON_DIA_DET.nro_cuenta
+  is 'Nro. de Cuenta';
+comment on column IT.AH_CON_DIA_DET.tip_socio
+  is 'Tipo de Socio 0:Titular 1..9 Adicional';
+comment on column IT.AH_CON_DIA_DET.cod_gru_cta_cte
+  is 'Grupo de Cuenta Corriente del socio.';
+comment on column IT.AH_CON_DIA_DET.cod_tip_transaccion
+  is 'Tipo de aplicacion 0: consumo  1 cuotas 2: consumo en cuotas  3: cobranzas 1: adelanto  8: adelanto en cuotas  4: Devolucion movimiento contado 5: Devolucion movimiento en cuotas ';
+comment on column IT.AH_CON_DIA_DET.cod_comercio
+  is 'Codigo de Comercio';
+comment on column IT.AH_CON_DIA_DET.nom_comercio
+  is 'Nombre del Comercio';
+comment on column IT.AH_CON_DIA_DET.cod_pos_comercio
+  is 'Codigo postal del comercio.';
+comment on column IT.AH_CON_DIA_DET.cod_autorizacion
+  is 'Codigo de Autorizacion';
+comment on column IT.AH_CON_DIA_DET.cod_ica_adquiriente
+  is 'Codigo de identificacion del adquirente otorgado por MasterCard DE33 ';
+comment on column IT.AH_CON_DIA_DET.cod_movimiento
+  is 'Para consumos y adelantos: codigo de movimiento. Los posibles codigos de movimientos seran informados mediante interfase adicional Cobranzas: 0 Ajustes: Codigo del ajuste';
+comment on column IT.AH_CON_DIA_DET.des_movimiento
+  is 'Descripcion del movimiento.';
+comment on column IT.AH_CON_DIA_DET.nro_comprobante
+  is 'Para Consumos: Numero de Cupon / Referencia de la transaccion (DE 31) Cobranzas/Ajustes: numero de comprobante enviado o generado por Infinitus ';
+comment on column IT.AH_CON_DIA_DET.cod_tip_plan
+  is 'Mastercard :  PDS 1001. Valores posibles: 20: Financiacion Otorgante. 21: Finaciacion Comercio 22: Financiacion Adquirente 23: Financiacion a Plazo Promedio 24: Prestamo de Consumo 25: Prestamo de Financiacion Marca Privada: Informara el Codigo de Plan de la transaccion ';
+comment on column IT.AH_CON_DIA_DET.can_pla_cuotas
+  is 'Cantidad de cuotas del movimento';
+comment on column IT.AH_CON_DIA_DET.nro_cuo_vigente
+  is 'Cuota que se liquido en el periodo ';
+comment on column IT.AH_CON_DIA_DET.fec_operacion
+  is 'Fecha en la que se realizo el movimiento';
+comment on column IT.AH_CON_DIA_DET.hor_operacion
+  is 'Hora de la Operacion';
+comment on column IT.AH_CON_DIA_DET.fec_presentacion
+  is 'Fecha de presentacion';
+comment on column IT.AH_CON_DIA_DET.fec_cie_cta_cte
+  is 'Fecha de cierre del grupo de cierre liquidado';
+comment on column IT.AH_CON_DIA_DET.fec_clearing
+  is 'Fecha de Clearing';
+comment on column IT.AH_CON_DIA_DET.fec_diferimiento
+  is 'Fecha de diferimiento';
+comment on column IT.AH_CON_DIA_DET.mcc
+  is 'Codigo de Ramo (Viene el MCC en el IPM DE26) ';
+comment on column IT.AH_CON_DIA_DET.cod_mon_movimiento
+  is 'Moneda del movimiento';
+comment on column IT.AH_CON_DIA_DET.imp_mon_movimiento
+  is 'Importe en moneda de movimiento';
+comment on column IT.AH_CON_DIA_DET.cod_mon_original
+  is 'Moneda de origen del movimiento';
+comment on column IT.AH_CON_DIA_DET.imp_mon_original
+  is 'Importe de la moneda de origen del movimiento';
+comment on column IT.AH_CON_DIA_DET.imp_interes
+  is 'Importe de Interes total';
+comment on column IT.AH_CON_DIA_DET.imp_iva
+  is 'Importe del IVA';
+comment on column IT.AH_CON_DIA_DET.imp_tot_movimiento
+  is 'Importe movimiento + importe interes + importe iva';
+comment on column IT.AH_CON_DIA_DET.imp_desc_fin_otorgado
+  is 'Importe de descuento de financiacion otorgante';
+comment on column IT.AH_CON_DIA_DET.imp_desc_fin_oto_iva
+  is 'Importe de descuento financiacion otorgante IVA';
+comment on column IT.AH_CON_DIA_DET.imp_cuota
+  is 'Importe de la cuota';
+comment on column IT.AH_CON_DIA_DET.imp_int_cuota
+  is 'Importe de interes de la cuota';
+comment on column IT.AH_CON_DIA_DET.imp_iva_cuota
+  is 'Importe de iva de la cuota';
+comment on column IT.AH_CON_DIA_DET.imp_tot_cuota
+  is 'Importe de la cuota + interes + iva';
+comment on column IT.AH_CON_DIA_DET.cod_deb_cre
+  is '0:Debito / 1:Credito';
+comment on column IT.AH_CON_DIA_DET.tip_amortizacion
+  is ' 1 : Fances promediado         2 : Americano         3: Frances Diario         4: Frances ';
+comment on column IT.AH_CON_DIA_DET.tip_tarjeta
+  is '1 - Banda 2 - EMV 3 - EMV + Contactless ';
+comment on column IT.AH_CON_DIA_DET.tna
+  is 'Tasa Nominal';
+comment on column IT.AH_CON_DIA_DET.tae
+  is 'Tasa Efectiva';
+comment on column IT.AH_CON_DIA_DET.tai
+  is 'Tasa de Intercambio';
+comment on column IT.AH_CON_DIA_DET.imp_ara_emisor
+  is 'Arancel emisor (Viene en el IPM  PDS146 sc 5) ';
+comment on column IT.AH_CON_DIA_DET.sig_iva_arancel
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.imp_iva_ara_emisor
+  is 'Importe IVA Arancel emisor';
+comment on column IT.AH_CON_DIA_DET.sig_iva_arancel2
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.mot_mensaje
+  is 'Motivo de la contrapartida. DE 25 Function code > 2000 para chargeback o segunda presentacion';
+comment on column IT.AH_CON_DIA_DET.imp_compensacion
+  is 'Importe de compensacion';
+comment on column IT.AH_CON_DIA_DET.sig_imp_compensacion
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.imp_percep
+  is 'Importe de la percecpcion por el RG4240';
+comment on column IT.AH_CON_DIA_DET.sig_percep
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.tip_producto
+  is 'Tipo de Producto';
+comment on column IT.AH_CON_DIA_DET.fec_cie_comercios
+  is 'Fecha de cierre de comercios';
+comment on column IT.AH_CON_DIA_DET.plan
+  is 'Plan';
+comment on column IT.AH_CON_DIA_DET.mon_compensacion
+  is 'Moneda de la compensacion';
+comment on column IT.AH_CON_DIA_DET.imp_autorizacion
+  is 'Importe de Autorizacion';
+comment on column IT.AH_CON_DIA_DET.sig_imp_autorizacion
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.mon_autorizacion
+  is 'Moneda de la autorizacion';
+comment on column IT.AH_CON_DIA_DET.imp_aut_convenio
+  is 'Importe autorizacion convenio';
+comment on column IT.AH_CON_DIA_DET.sig_imp_aut_convenio
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.mon_aut_convenio
+  is 'Moneda autorizacion convenio';
+comment on column IT.AH_CON_DIA_DET.imp_ipm_de6
+  is 'Importe IPM';
+comment on column IT.AH_CON_DIA_DET.sig_imp_ipm
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.mon_ipm
+  is 'Moneda IPM';
+comment on column IT.AH_CON_DIA_DET.id_auto
+  is 'Clave de autorizacion';
+comment on column IT.AH_CON_DIA_DET.id_cod_auto
+  is 'Codigo de autorizacion';
+comment on column IT.AH_CON_DIA_DET.cta_externa
+  is 'Cuenta Externa';
+comment on column IT.AH_CON_DIA_DET.request_id
+  is 'Codigo invoca autorizacion';
+comment on column IT.AH_CON_DIA_DET.imp_percep_27
+  is 'Importe de la percecpcion por la Ley 27.541';
+comment on column IT.AH_CON_DIA_DET.sig_percep_27
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.imp_iva_ser_digitales
+  is 'Importe IVA servicios digitales';
+comment on column IT.AH_CON_DIA_DET.sig_imp_iva_ser_dig
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.imp_iibb
+  is 'Importe IIBB';
+comment on column IT.AH_CON_DIA_DET.sig_imp_iibb
+  is '+ o -';
+comment on column IT.AH_CON_DIA_DET.cod_pcia_iibb
+  is 'Codigo Pcia con la que se haya calculado el IIBB';
+comment on column IT.AH_CON_DIA_DET.estado
+  is 'identificar las transacciones que infinitus fuerza porqueno puede relacionar con una autorizacion';
+comment on column IT.AH_CON_DIA_DET.filter
+  is 'Filtros/Filler';
+comment on column IT.AH_CON_DIA_DET.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.AH_CON_DIA_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.AH_CON_DIA_DET.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.AH_CON_DIA_DET.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.AH_CON_DIA_DET.procesado
+  is 'Indice que indica que esta transaccion fue procesada';
+comment on column IT.AH_CON_DIA_DET.error
+  is 'Registo de error en el caso que lo hubiera.';
+comment on column IT.AH_CON_DIA_DET.fec_proceso
+  is 'fecha de procesamiento de archivo(sysdate)';
+comment on column IT.AH_CON_DIA_DET.cod_usuario
+  is 'usuario';
+comment on column IT.AH_CON_DIA_DET.imp_rg4815
+  is 'Importe de RG4815';
+comment on column IT.AH_CON_DIA_DET.sig_rg4815
+  is 'Signo del Importe RG4815. Valores posibles: "-", "+"';
+comment on column IT.AH_CON_DIA_DET.extracash
+  is '0-NO / 1-SI';
+comment on column IT.AH_CON_DIA_DET.imp_extracash
+  is 'Importe Extracash';
+comment on column IT.AH_CON_DIA_DET.sig_extracash
+  is 'Signo del Importe Extracash. Valores posibles: "-", "+"';
+comment on column IT.AH_CON_DIA_DET.tra_tokenizada
+  is 'Identifica las transacciones que llegarian por una tarjeta Tokenizada opciones 0- No tokenizada, 1- Tokenizada';
+comment on column IT.AH_CON_DIA_DET.tas_isa
+  is 'Tasa ISA';
+comment on column IT.AH_CON_DIA_DET.tra_origen
+  is 'Indica el origen de la Transaccion. Local o Internacional';
+comment on column IT.AH_CON_DIA_DET.imp_rg5272
+  is 'Importe RG 5272';
+comment on column IT.AH_CON_DIA_DET.sig_imp_rg5272
+  is 'Signo del Importe RG 5272. Valores posibles: "-", "+"';
+comment on column IT.AH_CON_DIA_DET.fec_transferencia
+  is 'Fecha de transferencia / ID del ciclo de vida
+';
+comment on column IT.AH_CON_DIA_DET.ref_adquiriente
+  is 'Datos de referencia del adquirente';
+comment on column IT.AH_CON_DIA_DET.id_adquiriente
+  is 'ID de la institución adquirente';
+comment on column IT.AH_CON_DIA_DET.nro_ref_recupero
+  is 'Número de referencia de recuperacion';
+comment on column IT.AH_CON_DIA_DET.id_terminal
+  is 'Identificacion del terminal';
+comment on column IT.AH_CON_DIA_DET.nom_terminal
+  is 'Nombre/localizacion del terminal
+';
+comment on column IT.AH_CON_DIA_DET.id_transaccion
+  is 'ID del ciclo de vida de la transaccion';
+comment on column IT.AH_CON_DIA_DET.token
+  is 'Token';
+comment on column IT.AH_CON_DIA_DET.billetera
+  is 'Billetera';
+comment on column IT.AH_CON_DIA_DET.per_tra_fondos
+  is 'Persona que envia la Transferencia de Fondos';
+-- Create/Recreate indexes 
+create index IT.IN_ACONDIDET_NRO_CUENTA on IT.AH_CON_DIA_DET (NRO_CUENTA, FEC_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACOTA_BIN_TARJETA on IT.AH_CON_DIA_DET (SUBSTR(NRO_TARJETA,1,6))
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACOTA_FEC_CLEARING on IT.AH_CON_DIA_DET (FEC_CLEARING)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACOTA_FEC_OPERACION on IT.AH_CON_DIA_DET (FEC_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACOTA_NRO_CUENTA on IT.AH_CON_DIA_DET (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_AH_CON_DIA_DET on IT.AH_CON_DIA_DET (NRO_CON_DIA, NRO_COMPROBANTE, NRO_CUENTA, FEC_OPERACION, COD_MOVIMIENTO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_ACOTA_NRO_CON_DIA on IT.AH_CON_DIA_DET (NRO_CON_DIA, FEC_PROCESO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.AH_CON_DIA_DET to IT_TEMPORAL;

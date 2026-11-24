@@ -1,0 +1,172 @@
+create table IT.LC_TOT_POS_CAMBIOS
+(
+  cod_oficina      NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  cotizacion       NUMBER(14,8),
+  pos_ini_me       NUMBER(18,2),
+  pos_ini_gs       NUMBER(18,2),
+  compra_spot_me   NUMBER(18,2),
+  compra_spot_gs   NUMBER(18,2),
+  compra_fut_me    NUMBER(18,2),
+  compra_fut_gs    NUMBER(18,2),
+  venta_spot_me    NUMBER(18,2),
+  venta_spot_gs    NUMBER(18,2),
+  venta_fut_me     NUMBER(18,2),
+  venta_fut_gs     NUMBER(18,2),
+  pos_spot_me      NUMBER(18,2),
+  pos_fut_me       NUMBER(18,2),
+  pos_neta_me      NUMBER(18,2),
+  compra_spot_pond NUMBER(33,15),
+  compra_fut_pond  NUMBER(33,15),
+  venta_spot_pond  NUMBER(33,15),
+  venta_fut_pond   NUMBER(33,15),
+  utilidad_compra  NUMBER(18,2),
+  utilidad_venta   NUMBER(18,2),
+  valuacion_ini    NUMBER(18,2),
+  valuacion_spot   NUMBER(18,2),
+  valuacion_fut    NUMBER(18,2),
+  valuacion_neta   NUMBER(18,2),
+  rend_tc          NUMBER(22,20),
+  volatilidad      NUMBER(22,20),
+  valor_riesgo     NUMBER(18,2),
+  pos_suspenso_me  NUMBER(18,2),
+  limite_var       NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TOT_POS_CAMBIOS
+  is 'Tabla de totales por segmento de límites VaR.';
+comment on column IT.LC_TOT_POS_CAMBIOS.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.LC_TOT_POS_CAMBIOS.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.LC_TOT_POS_CAMBIOS.fecha
+  is 'Fecha del cálculo de totales.';
+comment on column IT.LC_TOT_POS_CAMBIOS.cotizacion
+  is 'Cotización en GS. de la moneda extranjera.';
+comment on column IT.LC_TOT_POS_CAMBIOS.pos_ini_me
+  is 'Posición inicial de la moneda.';
+comment on column IT.LC_TOT_POS_CAMBIOS.pos_ini_gs
+  is 'Posición inicial convertida a GS.';
+comment on column IT.LC_TOT_POS_CAMBIOS.compra_spot_me
+  is 'Total COMPRA SPOT en la moneda.';
+comment on column IT.LC_TOT_POS_CAMBIOS.compra_spot_gs
+  is 'Total de COMPRA SPOT en GS.';
+comment on column IT.LC_TOT_POS_CAMBIOS.compra_fut_me
+  is 'Total de COMPRA FUTURA en la moneda.';
+comment on column IT.LC_TOT_POS_CAMBIOS.compra_fut_gs
+  is 'Total de COMPRA FUTURA en GS.';
+comment on column IT.LC_TOT_POS_CAMBIOS.venta_spot_me
+  is 'Total de VENTA SPOT en la moneda.';
+comment on column IT.LC_TOT_POS_CAMBIOS.venta_spot_gs
+  is 'Total de VENTA SPOT en GS.';
+comment on column IT.LC_TOT_POS_CAMBIOS.venta_fut_me
+  is 'Total de VENTA FUTURA en la moneda.';
+comment on column IT.LC_TOT_POS_CAMBIOS.venta_fut_gs
+  is 'Total de VENTA FUTURA en GS.';
+comment on column IT.LC_TOT_POS_CAMBIOS.pos_spot_me
+  is 'POSICIÓN SPOT en la moneda';
+comment on column IT.LC_TOT_POS_CAMBIOS.pos_fut_me
+  is 'POSICIÓN FUTURA en la moneda';
+comment on column IT.LC_TOT_POS_CAMBIOS.pos_neta_me
+  is 'POSICION NETA en la moneda';
+comment on column IT.LC_TOT_POS_CAMBIOS.compra_spot_pond
+  is 'COMPRA SPOT PONDERADA';
+comment on column IT.LC_TOT_POS_CAMBIOS.compra_fut_pond
+  is 'COMPRA FUTURA PONDERADA';
+comment on column IT.LC_TOT_POS_CAMBIOS.venta_spot_pond
+  is 'VENTA SPOT PONDERADA';
+comment on column IT.LC_TOT_POS_CAMBIOS.venta_fut_pond
+  is 'VENTA FUTURA PONDERADA';
+comment on column IT.LC_TOT_POS_CAMBIOS.utilidad_compra
+  is 'UTILIDAD DE COMPRA';
+comment on column IT.LC_TOT_POS_CAMBIOS.utilidad_venta
+  is 'UTILIDAD DE VENTA';
+comment on column IT.LC_TOT_POS_CAMBIOS.valuacion_ini
+  is 'VALUACIÓN INICIAL';
+comment on column IT.LC_TOT_POS_CAMBIOS.valuacion_spot
+  is 'VALUACIÓN SPOT';
+comment on column IT.LC_TOT_POS_CAMBIOS.valuacion_fut
+  is 'VALUACIÓN FUTURA';
+comment on column IT.LC_TOT_POS_CAMBIOS.valuacion_neta
+  is 'VALUACION NETA';
+comment on column IT.LC_TOT_POS_CAMBIOS.rend_tc
+  is 'RENDIMIENTO DE TIPO DE CAMBIO';
+comment on column IT.LC_TOT_POS_CAMBIOS.volatilidad
+  is 'VOLATILIDAD';
+comment on column IT.LC_TOT_POS_CAMBIOS.valor_riesgo
+  is 'VALOR DE RIESGO (LIM VaR)';
+comment on column IT.LC_TOT_POS_CAMBIOS.pos_suspenso_me
+  is 'Posicion en Suspenso de la Moneda';
+comment on column IT.LC_TOT_POS_CAMBIOS.limite_var
+  is 'Limite de Valor de Riesgo definido al momento del cálculo.';
+comment on column IT.LC_TOT_POS_CAMBIOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.LC_TOT_POS_CAMBIOS.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.LC_TOT_POS_CAMBIOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.LC_TOT_POS_CAMBIOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+create index IT.IN_LTPC_COD_MONEDA on IT.LC_TOT_POS_CAMBIOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LTPC_COD_OFICINA on IT.LC_TOT_POS_CAMBIOS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TOT_POS_CAMBIOS
+  add constraint PK_LC_TOT_CAMBIOS primary key (FECHA, COD_MONEDA, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TOT_POS_CAMBIOS
+  add constraint FK_LTPC_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_TOT_POS_CAMBIOS
+  add constraint FK_LTPC_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_TOT_POS_CAMBIOS
+  add constraint CK_LTPC_FECHA
+  check (fecha = TRUNC(fecha));
+

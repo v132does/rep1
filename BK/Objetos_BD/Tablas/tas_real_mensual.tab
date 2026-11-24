@@ -1,0 +1,59 @@
+create table IT.TAS_REAL_MENSUAL
+(
+  nro_cuenta      VARCHAR2(15) not null,
+  cod_modulo      NUMBER(3) not null,
+  cod_modalidad   NUMBER(3) not null,
+  fec_apertura    DATE,
+  fec_vencimiento DATE,
+  cant_dias       NUMBER,
+  semana          VARCHAR2(8) not null,
+  desde           DATE not null,
+  hasta           DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TAS_REAL_MENSUAL
+  is 'Plazos de cuentas a generar mensualmente al BCP - Se puede borrar mensualmente';
+comment on column IT.TAS_REAL_MENSUAL.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.TAS_REAL_MENSUAL.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.TAS_REAL_MENSUAL.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.TAS_REAL_MENSUAL.fec_apertura
+  is 'Fecha de apertura de la cuenta';
+comment on column IT.TAS_REAL_MENSUAL.fec_vencimiento
+  is 'Fecha de vencimiento de la cuenta';
+comment on column IT.TAS_REAL_MENSUAL.cant_dias
+  is 'Plazo';
+comment on column IT.TAS_REAL_MENSUAL.semana
+  is 'Semana';
+comment on column IT.TAS_REAL_MENSUAL.desde
+  is 'Fecha Inicial de la Semana.';
+comment on column IT.TAS_REAL_MENSUAL.hasta
+  is 'Fecha Final de la Semana.';
+alter table IT.TAS_REAL_MENSUAL
+  add constraint PK_CTA_SEMANA primary key (NRO_CUENTA, SEMANA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.PK_CTA_SEMANA nologging;
+

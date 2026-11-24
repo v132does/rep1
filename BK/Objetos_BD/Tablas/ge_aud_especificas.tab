@@ -1,0 +1,44 @@
+create table IT.GE_AUD_ESPECIFICAS
+(
+  tabla          VARCHAR2(40) not null,
+  clave          VARCHAR2(100) not null,
+  usuario        VARCHAR2(30) not null,
+  fec_sistema    DATE not null,
+  fec_calendario DATE not null,
+  tip_novedad    VARCHAR2(1) not null,
+  terminal       VARCHAR2(40),
+  detalle        VARCHAR2(2000) not null,
+  origen         VARCHAR2(40)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AUD_ESPECIFICAS
+  is 'Registra la auditorÍa de operaciones específicas.';
+comment on column IT.GE_AUD_ESPECIFICAS.tabla
+  is 'Nombre de tabla o programa.';
+comment on column IT.GE_AUD_ESPECIFICAS.clave
+  is 'Clave.';
+comment on column IT.GE_AUD_ESPECIFICAS.usuario
+  is 'Usuario.';
+comment on column IT.GE_AUD_ESPECIFICAS.fec_sistema
+  is 'Fecha de sistema.';
+comment on column IT.GE_AUD_ESPECIFICAS.fec_calendario
+  is 'Fecha calendario.';
+comment on column IT.GE_AUD_ESPECIFICAS.tip_novedad
+  is 'Tipo novedad o acción.';
+comment on column IT.GE_AUD_ESPECIFICAS.terminal
+  is 'Terminal.';
+comment on column IT.GE_AUD_ESPECIFICAS.detalle
+  is 'Detalle o condición.';
+comment on column IT.GE_AUD_ESPECIFICAS.origen
+  is 'Programa origen,';
+

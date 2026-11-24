@@ -1,0 +1,142 @@
+﻿-- Create table
+create table IT.CB_RECIBOS_DET
+(
+  nro_recibo       NUMBER(15) not null,
+  nro_item         NUMBER(15) not null,
+  nro_timbrado     VARCHAR2(20),
+  nro_factura      VARCHAR2(20),
+  monto            NUMBER(18,2),
+  nro_cuenta       VARCHAR2(15),
+  fec_movimiento   DATE,
+  hor_movimiento   VARCHAR2(8),
+  usu_movimiento   VARCHAR2(10),
+  sec_movimiento   NUMBER(3),
+  nro_referencia   NUMBER(15),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  cod_transaccion  NUMBER(4),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  cod_oficina      NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_RECIBOS_DET
+  is 'Detalle de Recibos de Facturas a Crédito';
+-- Add comments to the columns 
+comment on column IT.CB_RECIBOS_DET.nro_recibo
+  is 'Número de Recibo';
+comment on column IT.CB_RECIBOS_DET.nro_item
+  is 'Número Item';
+comment on column IT.CB_RECIBOS_DET.nro_timbrado
+  is 'Número de Timbrado';
+comment on column IT.CB_RECIBOS_DET.nro_factura
+  is 'Número de Factura';
+comment on column IT.CB_RECIBOS_DET.monto
+  is 'Monto';
+comment on column IT.CB_RECIBOS_DET.nro_cuenta
+  is 'Número de Cuenta';
+comment on column IT.CB_RECIBOS_DET.fec_movimiento
+  is 'Fecha del Movimiento';
+comment on column IT.CB_RECIBOS_DET.hor_movimiento
+  is 'Hora del Movimiento';
+comment on column IT.CB_RECIBOS_DET.usu_movimiento
+  is 'Usuario del Movimiento';
+comment on column IT.CB_RECIBOS_DET.sec_movimiento
+  is 'Secuencia del Movimiento';
+comment on column IT.CB_RECIBOS_DET.nro_referencia
+  is 'Nro referencia mt202';
+comment on column IT.CB_RECIBOS_DET.cod_modulo
+  is 'Código Módulo';
+comment on column IT.CB_RECIBOS_DET.cod_modalidad
+  is 'Código Modalidad';
+comment on column IT.CB_RECIBOS_DET.cod_transaccion
+  is 'Código Transacción';
+comment on column IT.CB_RECIBOS_DET.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.CB_RECIBOS_DET.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.CB_RECIBOS_DET.usu_modificacion
+  is 'Usuario Modificación';
+comment on column IT.CB_RECIBOS_DET.fec_modificacion
+  is 'Fecha Modificación';
+comment on column IT.CB_RECIBOS_DET.cod_oficina
+  is 'Código de Oficina';
+-- Create/Recreate indexes 
+create index IT.IN_BRECD_FACTURA on IT.CB_RECIBOS_DET (NRO_TIMBRADO, NRO_FACTURA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BRECD_MOVIMIENTO on IT.CB_RECIBOS_DET (FEC_MOVIMIENTO, HOR_MOVIMIENTO, USU_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BRECD_NRO_REFERENCIA on IT.CB_RECIBOS_DET (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BRECD_TRANSACCION on IT.CB_RECIBOS_DET (COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_RECIBOS_DET
+  add constraint PK_CB_RECIBOS_DET primary key (NRO_RECIBO, NRO_ITEM)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CB_RECIBOS_DET to IT_TEMPORAL;

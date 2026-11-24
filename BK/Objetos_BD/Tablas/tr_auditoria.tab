@@ -1,0 +1,20 @@
+create table IT.TR_AUDITORIA
+(
+  username  VARCHAR2(15) not null,
+  userhost  VARCHAR2(15) not null,
+  timestamp DATE not null,
+  os_user   VARCHAR2(15),
+  novedad   VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

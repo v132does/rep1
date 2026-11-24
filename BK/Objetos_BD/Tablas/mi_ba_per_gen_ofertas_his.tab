@@ -1,0 +1,34 @@
+create table IT.MI_BA_PER_GEN_OFERTAS_HIS
+(
+  cod_registro       NUMBER not null,
+  fec_consulta       DATE not null,
+  cod_persona        VARCHAR2(10) not null,
+  mto_lim_prestable  NUMBER,
+  cod_cat_crc        VARCHAR2(1),
+  tot_deu_crc        NUMBER,
+  mto_cuo_aproximado NUMBER,
+  faja               VARCHAR2(1),
+  fec_ing_set        DATE,
+  ant_infomercio     VARCHAR2(2),
+  mto_oferta         NUMBER,
+  can_cuotas         NUMBER,
+  cod_moneda         VARCHAR2(3),
+  rta_servicio       VARCHAR2(10),
+  rta_rrnn           VARCHAR2(10),
+  est_servicios      VARCHAR2(1),
+  est_rrnn           VARCHAR2(1),
+  error              VARCHAR2(100),
+  mto_ingreso        NUMBER
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

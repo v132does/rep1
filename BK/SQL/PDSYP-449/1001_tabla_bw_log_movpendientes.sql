@@ -1,0 +1,8 @@
+-- Grants y Sinonimos para Tabla BW_LOG_MOVPENDIENTES
+-- PDSYP-449: Log de movimientos pendientes
+-- Create synonym for table
+CREATE PUBLIC SYNONYM BW_LOG_MOVPENDIENTES FOR IT.BW_LOG_MOVPENDIENTES;
+
+-- Grant table privileges
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.BW_LOG_MOVPENDIENTES TO IT_TEMPORAL;
+

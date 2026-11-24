@@ -1,0 +1,92 @@
+create table IT.MD_CONNECTIONS
+(
+  id                          NUMBER not null,
+  project_id_fk               NUMBER not null,
+  type                        VARCHAR2(4000),
+  host                        VARCHAR2(4000),
+  port                        NUMBER,
+  username                    VARCHAR2(4000),
+  password                    VARCHAR2(4000),
+  dburl                       VARCHAR2(4000),
+  name                        VARCHAR2(255),
+  native_sql                  CLOB,
+  status                      VARCHAR2(30),
+  num_catalogs                NUMBER,
+  num_columns                 NUMBER,
+  num_constraints             NUMBER,
+  num_groups                  NUMBER,
+  num_roles                   NUMBER,
+  num_indexes                 NUMBER,
+  num_other_objects           NUMBER,
+  num_packages                NUMBER,
+  num_privileges              NUMBER,
+  num_schemas                 NUMBER,
+  num_sequences               NUMBER,
+  num_stored_programs         NUMBER,
+  num_synonyms                NUMBER,
+  num_tables                  NUMBER,
+  num_tablespaces             NUMBER,
+  num_triggers                NUMBER,
+  num_user_defined_data_types NUMBER,
+  num_users                   NUMBER,
+  num_views                   NUMBER,
+  comments                    VARCHAR2(4000),
+  security_group_id           NUMBER default 0 not null,
+  created_on                  DATE default sysdate not null,
+  created_by                  VARCHAR2(255),
+  last_updated_on             DATE,
+  last_updated_by             VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_CONNECTIONS
+  is 'This table is used to store connection information.  For example, in migrations, we could be carrying out a consolidation which occurs across many connections.';
+comment on column IT.MD_CONNECTIONS.id
+  is 'Primary key';
+comment on column IT.MD_CONNECTIONS.project_id_fk
+  is 'The project to which this connection belongs //PARENTFIELD';
+comment on column IT.MD_CONNECTIONS.type
+  is 'The type of the connection - For example it could be used to store "ORACLE" or "MYSQL"';
+comment on column IT.MD_CONNECTIONS.host
+  is 'The host to which this connection connects.';
+comment on column IT.MD_CONNECTIONS.port
+  is 'The port to which this connection connects';
+comment on column IT.MD_CONNECTIONS.username
+  is 'The username used to make the connection';
+comment on column IT.MD_CONNECTIONS.password
+  is 'The password used to make this connection';
+comment on column IT.MD_CONNECTIONS.dburl
+  is 'The database url used to make this connection';
+comment on column IT.MD_CONNECTIONS.name
+  is '//OBJECTNAME';
+comment on column IT.MD_CONNECTIONS.native_sql
+  is 'The native sql used to create this connection';
+comment on column IT.MD_CONNECTIONS.status
+  is 'Status of Migration, = captured,converted,generated,datamoved';
+alter table IT.MD_CONNECTIONS
+  add constraint MD_CONNECTIONS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_CONNECTIONS
+  add constraint MD_CONNECTIONS_MD_PROJECT_FK1 foreign key (PROJECT_ID_FK)
+  references IT.MD_PROJECTS (ID) on delete cascade;
+

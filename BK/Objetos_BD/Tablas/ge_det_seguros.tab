@@ -1,0 +1,86 @@
+create table IT.GE_DET_SEGUROS
+(
+  cod_tipo         NUMBER(5) not null,
+  mto_asegurado    NUMBER(18) not null,
+  mto_cuota        NUMBER(18) not null,
+  seg_cliente      NUMBER,
+  texto            VARCHAR2(302),
+  tex_lin1         VARCHAR2(38),
+  tex_lin2         VARCHAR2(38),
+  tex_lin3         VARCHAR2(38),
+  tex_lin4         VARCHAR2(38),
+  tex_lin5         VARCHAR2(38),
+  tex_lin6         VARCHAR2(38),
+  tex_lin7         VARCHAR2(38),
+  tex_lin8         VARCHAR2(36),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  secuencia        NUMBER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DET_SEGUROS.cod_tipo
+  is 'Codigo del tipo de Seguro';
+comment on column IT.GE_DET_SEGUROS.mto_asegurado
+  is 'Monto asegurado';
+comment on column IT.GE_DET_SEGUROS.mto_cuota
+  is 'Monto de la cuota';
+comment on column IT.GE_DET_SEGUROS.seg_cliente
+  is 'Segmento del cliente(VIP-1, Premiun-2, Nomina-3, Normal-4)';
+comment on column IT.GE_DET_SEGUROS.texto
+  is 'Texto para ofrecimiento';
+comment on column IT.GE_DET_SEGUROS.tex_lin1
+  is 'Texto para ATM linea 1';
+comment on column IT.GE_DET_SEGUROS.tex_lin2
+  is 'Texto para ATM linea 2';
+comment on column IT.GE_DET_SEGUROS.tex_lin3
+  is 'Texto para ATM linea 3';
+comment on column IT.GE_DET_SEGUROS.tex_lin4
+  is 'Texto para ATM linea 4';
+comment on column IT.GE_DET_SEGUROS.tex_lin5
+  is 'Texto para ATM linea 5';
+comment on column IT.GE_DET_SEGUROS.tex_lin6
+  is 'Texto para ATM linea 6';
+comment on column IT.GE_DET_SEGUROS.tex_lin7
+  is 'Texto para ATM linea 7';
+comment on column IT.GE_DET_SEGUROS.tex_lin8
+  is 'Texto para ATM linea 8';
+comment on column IT.GE_DET_SEGUROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.GE_DET_SEGUROS.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.GE_DET_SEGUROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.GE_DET_SEGUROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+comment on column IT.GE_DET_SEGUROS.secuencia
+  is 'Secuencia de tipo de seguros';
+alter table IT.GE_DET_SEGUROS
+  add constraint PK_GE_DET_SEGUROS primary key (COD_TIPO, SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_DET_SEGUROS
+  add constraint FK_GDSEG_COD_TIPO foreign key (COD_TIPO)
+  references IT.GE_TIP_SEGUROS (COD_TIPO);
+

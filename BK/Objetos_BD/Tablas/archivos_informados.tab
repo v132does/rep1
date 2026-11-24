@@ -1,0 +1,24 @@
+create table IT.ARCHIVOS_INFORMADOS
+(
+  cdentid     NUMBER(6),
+  archivo     VARCHAR2(30),
+  fecha_baja  DATE,
+  fecha_desde DATE,
+  modulo      VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.ARCHIVOS_INFORMADOS.cdentid
+  is 'Código de Entidad';
+comment on column IT.ARCHIVOS_INFORMADOS.archivo
+  is 'Archivos informados';
+

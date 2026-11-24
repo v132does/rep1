@@ -1,0 +1,7 @@
+create sequence IT.S_COD_CAMPANA
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 64
+increment by 1
+nocache;
+

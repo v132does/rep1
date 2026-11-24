@@ -1,0 +1,19 @@
+-- Create table
+create table IT.GE_PER_CUMPLIMIENTO_TMP
+(
+  cod_persona VARCHAR2(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.GE_PER_CUMPLIMIENTO_TMP.cod_persona
+  is 'CODIGO DE PERSONA';

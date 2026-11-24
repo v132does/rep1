@@ -1,0 +1,72 @@
+create table IT.AH_TAR_DEB_SOL_WS
+(
+  registro         VARCHAR2(4000),
+  nro_cuenta       VARCHAR2(15),
+  nro_fila         VARCHAR2(50),
+  cod_persona      VARCHAR2(7),
+  relacion         VARCHAR2(3),
+  nro_emision      NUMBER(5),
+  det_error        VARCHAR2(4000),
+  fec_envio        VARCHAR2(20),
+  hor_envio        VARCHAR2(15),
+  fec_hor_cierre   VARCHAR2(20),
+  cod_procesadora  VARCHAR2(10),
+  nom_archivo      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  nro_lote         NUMBER(6),
+  ide_reg_lote     VARCHAR2(20),
+  nro_cta_ficticia VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_TAR_DEB_SOL_WS
+  is 'Tabla de solicitud de pines de TDD a través de Webservices';
+comment on column IT.AH_TAR_DEB_SOL_WS.registro
+  is 'Registro de datos que se envía a bancard';
+comment on column IT.AH_TAR_DEB_SOL_WS.nro_cuenta
+  is 'Cuenta de la tarjeta';
+comment on column IT.AH_TAR_DEB_SOL_WS.nro_fila
+  is 'rowID de dónde proviene el dato (Ah_tar_debitos)';
+comment on column IT.AH_TAR_DEB_SOL_WS.cod_persona
+  is 'Cod Persona, cod cliente';
+comment on column IT.AH_TAR_DEB_SOL_WS.det_error
+  is 'Descripción del error de envío del archivo';
+comment on column IT.AH_TAR_DEB_SOL_WS.fec_envio
+  is 'fecha real de envío';
+comment on column IT.AH_TAR_DEB_SOL_WS.hor_envio
+  is 'hora real de envío';
+comment on column IT.AH_TAR_DEB_SOL_WS.cod_procesadora
+  is 'cod procesador (Bancard, Bepsa, etc)';
+comment on column IT.AH_TAR_DEB_SOL_WS.nom_archivo
+  is 'Nombre del archivo generado.';
+comment on column IT.AH_TAR_DEB_SOL_WS.nro_lote
+  is 'Nro. de Lote';
+comment on column IT.AH_TAR_DEB_SOL_WS.ide_reg_lote
+  is 'Identificador del registro del lote';
+comment on column IT.AH_TAR_DEB_SOL_WS.nro_cta_ficticia
+  is 'Nro de Cta Ficticia Mastercard - Ah_tar_cta_ficticias';
+create index IT.IN_CRDWS_NRO_LOTE on IT.AH_TAR_DEB_SOL_WS (NRO_LOTE, IDE_REG_LOTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,87 @@
+-- Crear tabla
+CREATE TABLE IT.SB_ENTES_PUBLICOS_DET (
+    ID                        NUMBER(10),
+	FECHA                     DATE,
+    ENTE                      VARCHAR2(100)   NOT NULL,
+    CATEGORIA                 VARCHAR2(100)   NOT NULL,
+    CTA_CTE                   NUMBER(18,2),
+    AHORRO_A_LA_VISTA         NUMBER(18,2),
+    CDA                       NUMBER(18,2),
+    CTA_CTE_USD               NUMBER(18,2),
+    AHORRO_A_LA_VISTA_USD     NUMBER(18,2),
+    CDA_USD                   NUMBER(18,2),
+    TOTAL_GS                  NUMBER(18,2),
+    TOTAL_USD                 NUMBER(18,2),
+    CAT_CTA_CTE               NUMBER(18,2),
+    CAT_AHORRO_A_LA_VISTA     NUMBER(18,2),
+    CAT_CDA                   NUMBER(18,2),
+    CAT_CTA_CTE_USD           NUMBER(18,2),
+    CAT_AHORRO_A_LA_VISTA_USD NUMBER(18,2),
+    CAT_CDA_USD               NUMBER(18,2),
+    CAT_TOTAL_GS              NUMBER(18,2),
+    CAT_TOTAL_USD             NUMBER(18,2),
+    ORDEN                     NUMBER(3),
+    -- Columnas de Auditoría
+    USU_CREACION              VARCHAR2(30)    NOT NULL,
+    FEC_CREACION              DATE            NOT NULL,
+    USU_MODIFICACION          VARCHAR2(30),
+    FEC_MODIFICACION          DATE
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+COMMENT ON TABLE IT.SB_ENTES_PUBLICOS_DET 
+    IS 'Tabla que contiene los saldos detallados de entes del sector público por modalidad de cuenta y moneda';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.ID 
+    IS 'Identificador único del registro';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.ENTE 
+    IS 'Nombre de la entidad pública';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.CATEGORIA 
+    IS 'Categoría a la que pertenece la entidad (EMPRESAS PUBLICAS, ENTIDADES DESCENTRALIZADAS, FONDO DE SEGURIDAD SOCIAL, GOBIERNO CENTRAL, SECTOR PUBLICO FINANCIERO)';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.USU_CREACION 
+    IS 'Usuario que realizó la creación del registro';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.FEC_CREACION 
+    IS 'Fecha de creación del registro';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.USU_MODIFICACION 
+    IS 'Usuario que realizó la última modificación';
+COMMENT ON COLUMN IT.SB_ENTES_PUBLICOS_DET.FEC_MODIFICACION 
+    IS 'Fecha de la última modificación';
+
+-- =====================================================================
+-- INDICES
+-- =====================================================================
+
+CREATE INDEX IT.IDX_SB_ENTES_PUBLICOS_DET_CATEGORIA 
+    ON IT.SB_ENTES_PUBLICOS_DET(CATEGORIA) TABLESPACE IT_IND;
+
+CREATE INDEX IT.IDX_SB_ENTES_PUBLICOS_DET_ENTE 
+    ON IT.SB_ENTES_PUBLICOS_DET(ENTE) TABLESPACE IT_IND;
+	
+-- =====================================================================
+-- SINONIMOS PUBLICOS
+-- =====================================================================
+
+CREATE OR REPLACE PUBLIC SYNONYM SB_ENTES_PUBLICOS_DET 
+    FOR IT.SB_ENTES_PUBLICOS_DET;
+
+CREATE OR REPLACE PUBLIC SYNONYM S_ID_ENTES_PUBLICOS_DET 
+    FOR IT.S_ID_ENTES_PUBLICOS_DET;
+
+-- =====================================================================
+-- GRANTS (Permisos según estándares de la empresa)
+-- =====================================================================
+
+GRANT ALL ON IT.SB_ENTES_PUBLICOS_DET TO IT_TEMPORAL;
+GRANT ALL ON IT.SB_ENTES_PUBLICOS_DET TO IT_CONSULTAS;

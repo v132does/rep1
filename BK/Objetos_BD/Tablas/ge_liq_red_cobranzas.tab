@@ -1,0 +1,46 @@
+create table IT.GE_LIQ_RED_COBRANZAS
+(
+  id_proceso         NUMBER(10),
+  red_cobranza       VARCHAR2(50),
+  fec_proceso        TIMESTAMP(6),
+  usu_proceso        VARCHAR2(10) default substr(USER,1,10),
+  tot_reg_archivo    NUMBER(10),
+  tot_reg_encontrado NUMBER(10),
+  tot_monto          NUMBER(18,2),
+  tot_comision       NUMBER(18,2),
+  bco_emisor         VARCHAR2(10),
+  producto           VARCHAR2(50),
+  moneda             VARCHAR2(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_LIQ_RED_COBRANZAS.id_proceso
+  is 'Id de proceso';
+comment on column IT.GE_LIQ_RED_COBRANZAS.red_cobranza
+  is 'Red de proceso';
+comment on column IT.GE_LIQ_RED_COBRANZAS.fec_proceso
+  is 'Fecha de proceso';
+comment on column IT.GE_LIQ_RED_COBRANZAS.usu_proceso
+  is 'Usuario de proceso';
+comment on column IT.GE_LIQ_RED_COBRANZAS.tot_reg_archivo
+  is 'Total de registros del archivo';
+comment on column IT.GE_LIQ_RED_COBRANZAS.tot_reg_encontrado
+  is 'Total de registros encontrados';
+comment on column IT.GE_LIQ_RED_COBRANZAS.tot_monto
+  is 'Total de monto';
+comment on column IT.GE_LIQ_RED_COBRANZAS.tot_comision
+  is 'Total de comsion';
+comment on column IT.GE_LIQ_RED_COBRANZAS.bco_emisor
+  is 'Banco emisor ';
+comment on column IT.GE_LIQ_RED_COBRANZAS.producto
+  is 'Producto';
+

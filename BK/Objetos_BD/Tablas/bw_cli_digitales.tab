@@ -1,0 +1,79 @@
+create table IT.BW_CLI_DIGITALES
+(
+  anho             NUMBER(4) not null,
+  mes              NUMBER(2) not null,
+  cod_persona      VARCHAR2(10) not null,
+  fec_ult_acc_mob  DATE,
+  fec_ult_acc_web  DATE,
+  fec_ult_acc_mic  DATE,
+  fec_ult_acc_tas  DATE,
+  fec_ult_acc_ivr  DATE,
+  fec_ult_acc_atm  DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fec_ult_acc_ema  DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CLI_DIGITALES
+  is 'Tabla para reporte de Clientes Digitales';
+comment on column IT.BW_CLI_DIGITALES.anho
+  is 'Año en números de la generacion de datos';
+comment on column IT.BW_CLI_DIGITALES.mes
+  is 'Mes en números de la generacion de datos';
+comment on column IT.BW_CLI_DIGITALES.cod_persona
+  is 'Código de la Persona Principal de Cuenta.';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_mob
+  is 'Fecha de ultimo acceso en canal MOBILE en el mes';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_web
+  is 'Fecha de ultimo acceso en canal WEB en el mes';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_mic
+  is 'Fecha de ultimo acceso en canal MICROSITIO (Beneficios BBVA / Canje de Puntos) en el mes';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_tas
+  is 'Fecha de ultimo acceso en canal TAS en el mes';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_ivr
+  is 'Fecha de ultimo acceso en canal IVR en el mes';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_atm
+  is 'Fecha de ultimo acceso en canal ATM en el mes';
+comment on column IT.BW_CLI_DIGITALES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_CLI_DIGITALES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_CLI_DIGITALES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_CLI_DIGITALES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_CLI_DIGITALES.fec_ult_acc_ema
+  is 'Fecha de ultimo acceso en canal EMA en el mes';
+alter table IT.BW_CLI_DIGITALES
+  add constraint PK_BW_CLI_DIGITALES primary key (ANHO, MES, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CLI_DIGITALES
+  add constraint CHK_ANHO_CLI_DIG
+  check (ANHO>0);
+alter table IT.BW_CLI_DIGITALES
+  add constraint CHK_MES_CLI_DIG
+  check (MES>0 AND MES<=12);
+

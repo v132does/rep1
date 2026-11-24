@@ -1,0 +1,52 @@
+create table IT.PSA002
+(
+  psa002cl NUMBER(9) not null,
+  psa002do VARCHAR2(25) not null,
+  psa002fb VARCHAR2(8),
+  psa002fs VARCHAR2(8),
+  psa002pa NUMBER(9) not null,
+  psa002to NUMBER(9) not null,
+  psa002br CHAR(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA002
+  is 'TABLA Clientes en listas';
+comment on column IT.PSA002.psa002cl
+  is 'Cod Lista';
+comment on column IT.PSA002.psa002do
+  is 'Doc Cliente';
+comment on column IT.PSA002.psa002fb
+  is 'FEC. INGRESO BANTOTAL';
+comment on column IT.PSA002.psa002fs
+  is 'FECHA INGRESO SISTEMA';
+comment on column IT.PSA002.psa002pa
+  is 'Pais';
+comment on column IT.PSA002.psa002to
+  is 'Tipo doc';
+comment on column IT.PSA002.psa002br
+  is 'Banco Remitente';
+alter table IT.PSA002
+  add constraint PK_PSA002 primary key (PSA002CL, PSA002DO, PSA002PA, PSA002TO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

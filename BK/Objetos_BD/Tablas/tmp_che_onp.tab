@@ -1,0 +1,17 @@
+create table IT.TMP_CHE_ONP
+(
+  nro_cuenta VARCHAR2(10),
+  nro_cheque NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,45 @@
+create table IT.TA_TAR_REGRABACIONES
+(
+  cod_motivo        VARCHAR2(3) not null,
+  cod_persona       VARCHAR2(10) not null,
+  nro_cuenta        VARCHAR2(15) not null,
+  nro_tarjeta       VARCHAR2(19) not null,
+  nro_tarjeta_nueva VARCHAR2(19),
+  fec_vencimiento   VARCHAR2(6),
+  monto             VARCHAR2(19) default '0',
+  costo             VARCHAR2(1) default 'S',
+  fec_envio         DATE,
+  usu_bancard       VARCHAR2(10) default user,
+  nom_plastico      VARCHAR2(26),
+  tip_plastico      VARCHAR2(1),
+  estado            VARCHAR2(1) default 'P',
+  error             VARCHAR2(4000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_TAR_REGRABACIONES.cod_persona
+  is 'Codigo de Cliente.';
+comment on column IT.TA_TAR_REGRABACIONES.nro_cuenta
+  is 'Numero de la Cuenta.';
+comment on column IT.TA_TAR_REGRABACIONES.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_TAR_REGRABACIONES.tip_plastico
+  is 'Tipo del plastico: N-Normal C-Chip';
+comment on column IT.TA_TAR_REGRABACIONES.estado
+  is 'Estado P-Pendiente, E-Enviado, R-Rechazado.';
+comment on column IT.TA_TAR_REGRABACIONES.error
+  is 'Descripcion del Error ';
+

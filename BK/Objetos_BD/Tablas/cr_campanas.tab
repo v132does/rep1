@@ -1,0 +1,211 @@
+create table IT.CR_CAMPANAS
+(
+  cod_campana       NUMBER(3) not null,
+  descripcion       VARCHAR2(60) not null,
+  cod_segmento      VARCHAR2(10),
+  detalle           VARCHAR2(500),
+  fec_inicio        DATE,
+  fec_vencimiento   DATE,
+  det_sugerencia    VARCHAR2(2000),
+  estado            NUMBER(2),
+  age_generada      VARCHAR2(1) default 'N' not null,
+  car_generada      VARCHAR2(1) default 'N' not null,
+  ema_enviado       VARCHAR2(1),
+  not_generada      VARCHAR2(1) default 'N' not null,
+  usu_insercion     VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  tip_responsable   VARCHAR2(1),
+  responsables      VARCHAR2(1000),
+  fec_ini_actividad DATE,
+  fec_fin_actividad DATE,
+  cod_actividad     NUMBER(3),
+  cod_mot_actividad VARCHAR2(5),
+  can_act_diario    NUMBER(8),
+  inh_cod_causa     NUMBER(3),
+  inh_origen        VARCHAR2(60),
+  inh_detalle       VARCHAR2(500),
+  not_tipo          VARCHAR2(1),
+  not_medio         VARCHAR2(1),
+  gen_inhibicion    VARCHAR2(1) default 'N',
+  inh_generada      VARCHAR2(1) default 'N',
+  automatico        VARCHAR2(1) default 'N',
+  frecuencia        VARCHAR2(1) default 'M',
+  gen_agenda        VARCHAR2(1) default 'N',
+  gen_carta         VARCHAR2(1) default 'N',
+  gen_nota          VARCHAR2(1) default 'N',
+  gen_mail          VARCHAR2(1) default 'N',
+  ema_asunto        VARCHAR2(255),
+  ema_detalle       VARCHAR2(2000),
+  not_detalle       VARCHAR2(500),
+  car_detalle       VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_CAMPANAS
+  is 'Campañas.';
+comment on column IT.CR_CAMPANAS.cod_campana
+  is 'Codigo de campaña.';
+comment on column IT.CR_CAMPANAS.descripcion
+  is 'Descripcion de la campaña.';
+comment on column IT.CR_CAMPANAS.cod_segmento
+  is 'Codigo de segmento.';
+comment on column IT.CR_CAMPANAS.detalle
+  is 'Detalle de la campaña.';
+comment on column IT.CR_CAMPANAS.fec_inicio
+  is 'Inicio de la campaña.';
+comment on column IT.CR_CAMPANAS.fec_vencimiento
+  is 'Vencimiento de la campaña.';
+comment on column IT.CR_CAMPANAS.det_sugerencia
+  is 'Detalle del Speach de la campaña.';
+comment on column IT.CR_CAMPANAS.estado
+  is 'Estado Actual de la campaña.';
+comment on column IT.CR_CAMPANAS.age_generada
+  is 'Ha sido generada la Agenda (s/n).';
+comment on column IT.CR_CAMPANAS.car_generada
+  is 'Ha sido generadas las cartas (s/n).';
+comment on column IT.CR_CAMPANAS.ema_enviado
+  is 'Ha sido enviado los mails (s/n).';
+comment on column IT.CR_CAMPANAS.not_generada
+  is 'Ha sido generada las notas (s/n).';
+comment on column IT.CR_CAMPANAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_CAMPANAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_CAMPANAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_CAMPANAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_CAMPANAS.tip_responsable
+  is 'Tipo de responsable que realizara el seguimiento (G-Grupos / U-Usuarios).';
+comment on column IT.CR_CAMPANAS.responsables
+  is 'Lista de responsables.';
+comment on column IT.CR_CAMPANAS.fec_ini_actividad
+  is 'Fecha de inicio de la automatizacion de tareas.';
+comment on column IT.CR_CAMPANAS.fec_fin_actividad
+  is 'Fecha de finalizacion de la automatizacion de tareas.';
+comment on column IT.CR_CAMPANAS.cod_actividad
+  is 'Codigo de actividad.';
+comment on column IT.CR_CAMPANAS.cod_mot_actividad
+  is 'Codigo de motivo de actividad.';
+comment on column IT.CR_CAMPANAS.can_act_diario
+  is 'Cantidad de actividades por dia.';
+comment on column IT.CR_CAMPANAS.inh_cod_causa
+  is 'Codigo de causal de la inhibicion.';
+comment on column IT.CR_CAMPANAS.inh_origen
+  is 'Origen de la Inhibicion.';
+comment on column IT.CR_CAMPANAS.inh_detalle
+  is 'Origen de la Inhibicion.';
+comment on column IT.CR_CAMPANAS.not_tipo
+  is 'Tipo de nota a generar.';
+comment on column IT.CR_CAMPANAS.not_medio
+  is 'Medio por el cual se le hara llegar la nota al cliente.';
+comment on column IT.CR_CAMPANAS.gen_inhibicion
+  is 'Han sido generadas las Inhibiciones mediante el proceso automatico (s/n).';
+comment on column IT.CR_CAMPANAS.inh_generada
+  is 'Ha sido generada las Inhibiciones (s/n).';
+comment on column IT.CR_CAMPANAS.automatico
+  is 'Se generara automaticamente esta campa?a (s/n).';
+comment on column IT.CR_CAMPANAS.frecuencia
+  is 'Cada cuanto tiempo se generara la campa?a (D-Dia / M-Mes).';
+comment on column IT.CR_CAMPANAS.gen_agenda
+  is 'Ha sido generada la Agenda mediante el proceso automatico (s/n).';
+comment on column IT.CR_CAMPANAS.gen_carta
+  is 'Han sido generadas las Cartas mediante el proceso automatico (s/n).';
+comment on column IT.CR_CAMPANAS.gen_nota
+  is 'Han sido generadas las Notas mediante el proceso automatico (s/n).';
+comment on column IT.CR_CAMPANAS.gen_mail
+  is 'Han sido generadas los Mails mediante el proceso automatico (s/n).';
+comment on column IT.CR_CAMPANAS.ema_asunto
+  is 'Asunto del email.';
+comment on column IT.CR_CAMPANAS.ema_detalle
+  is 'Cuerpo del mensaje de email.';
+comment on column IT.CR_CAMPANAS.not_detalle
+  is 'Detalle de Nota.';
+comment on column IT.CR_CAMPANAS.car_detalle
+  is 'Detalle de Carta.';
+create index IT.IN_BBVA_SEGCAMP on IT.CR_CAMPANAS (COD_SEGMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CAMPANAS
+  add constraint PK_CR_CAMPANAS primary key (COD_CAMPANA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_CAMPANAS
+  add constraint FK_RCAMP_COD_SEGMENTO foreign key (COD_SEGMENTO)
+  references IT.CR_SEGMENTOS (COD_SEGMENTO);
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1080843837_AGE_G_000
+  check (AGE_GENERADA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1080843837_CAR_G_000
+  check (CAR_GENERADA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1080843837_NOT_G_000
+  check (NOT_GENERADA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1084457524_COD_C_002
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118067539_COD_A_000
+  check (COD_ACTIVIDAD BETWEEN 0 AND 999);
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118145003_AUTOM_000
+  check (AUTOMATICO IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118145003_GEN_A_000
+  check (GEN_AGENDA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118145003_GEN_C_000
+  check (GEN_CARTA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118145003_GEN_M_000
+  check (GEN_MAIL IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118145003_GEN_N_000
+  check (GEN_NOTA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118779914_GEN_I_000
+  check (GEN_INHIBICION IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118779914_INH_C_000
+  check (INH_COD_CAUSA BETWEEN 0 AND 999);
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1118779914_INH_G_000
+  check (INH_GENERADA IN ('S', 'N'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1119033641_NOT_M_000
+  check (NOT_MEDIO IN ('G', 'A', 'C', 'T', 'S', 'I', 'O'));
+alter table IT.CR_CAMPANAS
+  add constraint AVCON_1119033641_NOT_T_000
+  check (NOT_TIPO IN ('A', 'C', 'M','O'));
+

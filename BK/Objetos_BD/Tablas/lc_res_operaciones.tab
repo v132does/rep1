@@ -1,0 +1,142 @@
+create table IT.LC_RES_OPERACIONES
+(
+  cod_ofi_cambio      NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  cod_mon_numerico    NUMBER(3) not null,
+  cod_modulo          NUMBER(3) not null,
+  cot_anterior        NUMBER(14,8) default 0 not null,
+  cot_actual          NUMBER(14,8) default 0 not null,
+  cod_actividad       NUMBER(3),
+  mto_pos_anterior    NUMBER(18,2) default 0 not null,
+  mto_sob_com_ant     NUMBER(18,2),
+  mto_sob_vta_ant     NUMBER(18,2) default 0 not null,
+  mto_sob_com_loc_ant NUMBER(18,2),
+  mto_sob_vta_loc_ant NUMBER(18,2) default 0 not null,
+  mto_compra          NUMBER(18,2) default 0 not null,
+  cot_compra          NUMBER(14,8) not null,
+  mto_com_local       NUMBER(18,2) not null,
+  mto_venta           NUMBER(18,2) not null,
+  cot_venta           NUMBER(14,8) not null,
+  mto_vta_local       NUMBER(18,2) not null,
+  mto_pos_actual      NUMBER(18,2) not null,
+  mto_pos_compra      NUMBER(18,2) not null,
+  mto_pos_venta       NUMBER(18,2),
+  mto_pos_dia_real    NUMBER(18,2),
+  mto_pos_com_neto    NUMBER(18,2),
+  mto_pos_vta_neto    NUMBER(18,2),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  tip_moneda          VARCHAR2(5) not null,
+  cod_rub_economico   VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_RES_OPERACIONES
+  is 'Contiene de los Saldos Diarios Generados por las Operaciones de Cambios.';
+comment on column IT.LC_RES_OPERACIONES.cod_ofi_cambio
+  is 'Codigo de oficina.';
+comment on column IT.LC_RES_OPERACIONES.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_RES_OPERACIONES.cod_mon_numerico
+  is 'Codigo de moneda numerico.';
+comment on column IT.LC_RES_OPERACIONES.cod_modulo
+  is 'Codigo modulo.';
+comment on column IT.LC_RES_OPERACIONES.cot_anterior
+  is 'Cotizacion anterior.';
+comment on column IT.LC_RES_OPERACIONES.cot_actual
+  is 'Cotizacion actual.';
+comment on column IT.LC_RES_OPERACIONES.cod_actividad
+  is 'Codigo actividad del cliente.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_anterior
+  is 'Monto de posicion anterior.';
+comment on column IT.LC_RES_OPERACIONES.mto_sob_com_ant
+  is 'Monto de sobre compra anterior.';
+comment on column IT.LC_RES_OPERACIONES.mto_sob_vta_ant
+  is 'Monto de sobre venta anterior.';
+comment on column IT.LC_RES_OPERACIONES.mto_sob_com_loc_ant
+  is 'Monto de sobre compra moneda local anterior.';
+comment on column IT.LC_RES_OPERACIONES.mto_sob_vta_loc_ant
+  is 'Monto de sobre venta moneda local anterior.';
+comment on column IT.LC_RES_OPERACIONES.mto_compra
+  is 'Monto de compra.';
+comment on column IT.LC_RES_OPERACIONES.cot_compra
+  is 'Cotizacion de compra.';
+comment on column IT.LC_RES_OPERACIONES.mto_com_local
+  is 'Monto de compra moneda local.';
+comment on column IT.LC_RES_OPERACIONES.mto_venta
+  is 'Monto de venta.';
+comment on column IT.LC_RES_OPERACIONES.cot_venta
+  is 'Cotizacion de venta.';
+comment on column IT.LC_RES_OPERACIONES.mto_vta_local
+  is 'Monto de venta moneda local.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_actual
+  is 'Monto de posicion actual.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_compra
+  is 'Monto de posicion de compra.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_venta
+  is 'Monto de posicion de venta.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_dia_real
+  is 'Monto de posicion real diaria.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_com_neto
+  is 'Monto neto de posicion de compra.';
+comment on column IT.LC_RES_OPERACIONES.mto_pos_vta_neto
+  is 'Monto neto de posicion de venta.';
+comment on column IT.LC_RES_OPERACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_RES_OPERACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_RES_OPERACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_RES_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_RES_OPERACIONES.tip_moneda
+  is 'Indica la Moneda y el tipo Efectivo o No Efectivo.';
+comment on column IT.LC_RES_OPERACIONES.cod_rub_economico
+  is 'Código de Rubro Económico.';
+create index IT.IN_LROPE_COD_RUB_ECONOMICO on IT.LC_RES_OPERACIONES (COD_RUB_ECONOMICO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_RES_OPERACIONES
+  add constraint PK_LC_RES_OPERACIONES primary key (COD_OFI_CAMBIO, COD_MONEDA, TIP_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_RES_OPERACIONES
+  add constraint FK_LROPE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_RES_OPERACIONES
+  add constraint FK_LROPE_COD_OFICINA foreign key (COD_OFI_CAMBIO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_RES_OPERACIONES
+  add constraint FK_LROPE_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+

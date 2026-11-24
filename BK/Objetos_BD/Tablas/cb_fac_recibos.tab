@@ -1,0 +1,116 @@
+create table IT.CB_FAC_RECIBOS
+(
+  nro_timbrado     VARCHAR2(20) not null,
+  nro_factura      VARCHAR2(20) not null,
+  fec_movimiento   DATE not null,
+  hor_movimiento   VARCHAR2(8) not null,
+  usu_movimiento   VARCHAR2(10) not null,
+  fecha            DATE not null,
+  cod_persona      VARCHAR2(10),
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  cod_transaccion  NUMBER(4),
+  cod_oficina      NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  nro_cuenta       VARCHAR2(15),
+  cotizacion       NUMBER(14,4),
+  monto            NUMBER,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default sysdate not null,
+  nro_cuota        NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_FAC_RECIBOS
+  is 'Datos de Facturas para la generación de Recibos.';
+comment on column IT.CB_FAC_RECIBOS.nro_timbrado
+  is 'Número de Timbrado.';
+comment on column IT.CB_FAC_RECIBOS.nro_factura
+  is 'Número de Factura.';
+comment on column IT.CB_FAC_RECIBOS.fec_movimiento
+  is 'Fecha del movimiento.';
+comment on column IT.CB_FAC_RECIBOS.hor_movimiento
+  is 'Hora del movimiento.';
+comment on column IT.CB_FAC_RECIBOS.usu_movimiento
+  is 'Usuario del movimiento.';
+comment on column IT.CB_FAC_RECIBOS.fecha
+  is 'Fecha de Factura.';
+comment on column IT.CB_FAC_RECIBOS.cod_persona
+  is 'Código de Persona.';
+comment on column IT.CB_FAC_RECIBOS.cod_mod_padre
+  is 'Código de Módulo Padre.';
+comment on column IT.CB_FAC_RECIBOS.cod_mad_padre
+  is 'Código de Modalidad Padre.';
+comment on column IT.CB_FAC_RECIBOS.cod_tra_padre
+  is 'Código de Transacción.';
+comment on column IT.CB_FAC_RECIBOS.cod_transaccion
+  is 'Código de Transacción.';
+comment on column IT.CB_FAC_RECIBOS.cod_oficina
+  is 'Código de Oficina.';
+comment on column IT.CB_FAC_RECIBOS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.CB_FAC_RECIBOS.nro_cuenta
+  is 'Número de la Cuenta.';
+comment on column IT.CB_FAC_RECIBOS.cotizacion
+  is 'Monto de la Cotización.';
+comment on column IT.CB_FAC_RECIBOS.monto
+  is 'Monto del Recibo.';
+comment on column IT.CB_FAC_RECIBOS.usu_insercion
+  is 'Usuario Inserción.';
+comment on column IT.CB_FAC_RECIBOS.fec_insercion
+  is 'Fecha Inserción.';
+comment on column IT.CB_FAC_RECIBOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CB_FAC_RECIBOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.CB_FAC_RECIBOS.nro_cuota
+  is 'Numero de documento3 de ge_movimientos indica número cuota si es préstamos.';
+create index IT.IND_CBFR_COD_TRANSACCION on IT.CB_FAC_RECIBOS (COD_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_CBFR_COD_TRA_PADRE on IT.CB_FAC_RECIBOS (COD_TRA_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_CBFR_FECHA on IT.CB_FAC_RECIBOS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

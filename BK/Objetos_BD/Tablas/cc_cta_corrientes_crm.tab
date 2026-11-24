@@ -1,0 +1,191 @@
+create table IT.CC_CTA_CORRIENTES_CRM
+(
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  cod_oficina         NUMBER(3),
+  nro_cuenta          VARCHAR2(15) not null,
+  dig_verificador     NUMBER(1),
+  cod_moneda          VARCHAR2(3),
+  denominacion        VARCHAR2(65),
+  can_fir_requeridas  NUMBER(2),
+  can_fir_registradas NUMBER(2),
+  fec_apertura        DATE,
+  ret_personalizada   VARCHAR2(1),
+  tas_personalizada   VARCHAR2(1),
+  sal_minimo          NUMBER(18,2),
+  aut_pendiente       VARCHAR2(1),
+  acu_sobregiro       VARCHAR2(1),
+  tra_prohibida       VARCHAR2(1),
+  cta_combinada       VARCHAR2(1),
+  cod_usu_promotor    VARCHAR2(10),
+  estado              VARCHAR2(1),
+  fec_ult_extracto    DATE,
+  sal_ult_extracto    NUMBER(18,2),
+  nro_folio           NUMBER(7),
+  fec_cam_estado      DATE,
+  fec_ult_movimiento  DATE,
+  hor_ult_movimiento  VARCHAR2(8),
+  sal_ret_batch       NUMBER(18,2),
+  sal_retenido        NUMBER(18,2),
+  sal_blo_batch       NUMBER(18,2),
+  sal_bloqueado       NUMBER(18,2),
+  sal_tot_batch       NUMBER(18,2),
+  sal_total           NUMBER(18,2),
+  nom_chequera        VARCHAR2(60),
+  mto_apertura        NUMBER(18,2),
+  cod_canal           NUMBER(3),
+  cod_campana         NUMBER(3),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    TIMESTAMP(6) default current_timestamp not null,
+  est_batch           VARCHAR2(1),
+  fre_extracto        VARCHAR2(1),
+  mto_cre_pendientes  NUMBER(18,2),
+  mto_cre_a_confirmar NUMBER(18,2),
+  cod_ente            NUMBER(5),
+  mto_deb_pendientes  NUMBER(18,2),
+  reg_firma           VARCHAR2(600),
+  en_juicio           VARCHAR2(1),
+  fec_juicio          DATE,
+  cod_ent_juicio      NUMBER(5),
+  cod_cau_cancelacion NUMBER(3),
+  dia_atraso          NUMBER(5),
+  max_atraso          NUMBER(5),
+  pro_atraso          NUMBER(5),
+  mto_mora            NUMBER(18,2),
+  mto_sob_suspenso    NUMBER(18,2),
+  cod_banco           NUMBER(3),
+  cod_sub_modalidad   NUMBER(3),
+  tip_accion          VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CTA_CORRIENTES_CRM
+  is 'Maestro de Cuentas Corrientes.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_modulo
+  is 'Codigo de modulo de la Cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_modalidad
+  is 'Codigo de modalidad de la Cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_oficina
+  is 'Codigo de oficina de la Cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.dig_verificador
+  is 'Digito verificador de la Cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_moneda
+  is 'Codigo de la moneda con que opera la Cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.denominacion
+  is 'Rubro o Nombre de la cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.can_fir_requeridas
+  is 'Cantidad de firmas requeridas.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.can_fir_registradas
+  is 'Cantidad de firmas registradas en la ficha de la cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_apertura
+  is 'Fecha de apertura de la cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.ret_personalizada
+  is 'Retencion personalizada.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.tas_personalizada
+  is 'Tasa Personalizada.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_minimo
+  is 'Saldo minimo pactado.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.aut_pendiente
+  is 'Tiene autorizacion. (N=NO / S=SI).';
+comment on column IT.CC_CTA_CORRIENTES_CRM.acu_sobregiro
+  is ' Indica si la Cuenta Tiene Acuerdo de Sobregiro  Vigente. (S = SI / N = NO).';
+comment on column IT.CC_CTA_CORRIENTES_CRM.tra_prohibida
+  is 'Tiene transaccion prohibida. (N=NO / S=SI).';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cta_combinada
+  is 'Indicador de si participa en una Cuenta Combinada.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_usu_promotor
+  is 'Codigo de promotor de la cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.estado
+  is 'Estado de cuenta on line ( A=abierta falta depositar, N=normal, C=cancelada, I=inactiva, T=totalmente bloqueada ).';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_ult_extracto
+  is 'Fecha de ultimo extracto.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_ult_extracto
+  is 'Saldo del ultimo extracto.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.nro_folio
+  is 'Numero de folio.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_cam_estado
+  is 'Fecha de cambio de Estado.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_ult_movimiento
+  is 'Fecha de ultimo movimiento.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.hor_ult_movimiento
+  is 'Hora del ultimo movimiento.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_ret_batch
+  is 'Saldo retenido batch.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_retenido
+  is 'Saldo retenido on line.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_blo_batch
+  is 'Saldo bloqueado batch.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_bloqueado
+  is 'Saldo bloqueado on line.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_tot_batch
+  is 'Saldo total batch.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.sal_total
+  is 'Saldo total on line.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.nom_chequera
+  is 'Nombre a ser impreso en la Chequera.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.mto_apertura
+  is 'Monto de apertura pactado con el clientes.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_campana
+  is 'Codigo de Campaña.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.est_batch
+  is 'Estado de cuenta batch. ( ).';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fre_extracto
+  is 'Frecuencia de Extracto (D=Diaria /S=Semanal/Q=Quincenal/M=Mensual).';
+comment on column IT.CC_CTA_CORRIENTES_CRM.mto_cre_pendientes
+  is 'Creditos fuera de hora.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.mto_cre_a_confirmar
+  is 'ATM.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_ente
+  is 'Codigo de empresa.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.mto_deb_pendientes
+  is 'Debitos fuera de hora.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.reg_firma
+  is 'Regimen de firmas.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.en_juicio
+  is 'Indica si la cuenta se encuentra en juicio.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.fec_juicio
+  is 'Fecha en la cual paso a juicio.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_ent_juicio
+  is 'Ente al cual se derivo el juicio.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_cau_cancelacion
+  is 'Causa de cancelacion de la cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.dia_atraso
+  is 'Dias de atraso actual, por sobregiros.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.max_atraso
+  is 'Maximo de dias de atraso, por sobregiros.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.pro_atraso
+  is 'Promedio de Dias de atraso, por sobregiros.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.mto_mora
+  is 'Monto en mora de la cuenta.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.mto_sob_suspenso
+  is 'Monto de Sobregiros en suspenso.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_banco
+  is 'Codigo del Banco - Operaciones Swift.';
+comment on column IT.CC_CTA_CORRIENTES_CRM.cod_sub_modalidad
+  is 'Codigo de Sub Modalidad';
+comment on column IT.CC_CTA_CORRIENTES_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+

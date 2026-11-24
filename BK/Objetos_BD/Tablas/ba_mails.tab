@@ -1,0 +1,76 @@
+create table IT.BA_MAILS
+(
+  cod_persona      VARCHAR2(10) not null,
+  tipo             VARCHAR2(1) not null,
+  dir_correo       VARCHAR2(319) not null,
+  principal        VARCHAR2(1) default 'N' not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_MAILS
+  is 'EMails.';
+comment on column IT.BA_MAILS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.BA_MAILS.tipo
+  is 'Tipo de Mail (L=Laboral / P= Particular / C= Canales).';
+comment on column IT.BA_MAILS.dir_correo
+  is 'Direccion de Correo Electronico.';
+comment on column IT.BA_MAILS.principal
+  is 'Indica si el telefono es default (S=SI / N=NO).';
+comment on column IT.BA_MAILS.observacion
+  is 'Observacion.';
+comment on column IT.BA_MAILS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_MAILS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_MAILS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MAILS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_BBVA_BA_MAILS on IT.BA_MAILS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MAILS
+  add constraint PK_BA_MAILS primary key (COD_PERSONA, DIR_CORREO, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 5M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MAILS
+  add constraint FK_EMAILS_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BA_MAILS
+  add constraint AVCON_10808428391_PRINC_000
+  check (PRINCIPAL IN ('S', 'N'));
+

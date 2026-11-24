@@ -1,0 +1,50 @@
+create table IT.TA_BAN_TRANSACIONES_HIS
+(
+  id_transaccion       NUMBER(20) not null,
+  insert_datetime      DATE not null,
+  ticket_number        NUMBER(18),
+  transaction_date     DATE,
+  commerce_name        VARCHAR2(50),
+  authorization_number VARCHAR2(20),
+  entity_code          VARCHAR2(5),
+  card_number          VARCHAR2(25),
+  currency_code        NUMBER(6),
+  country_code         NUMBER(6),
+  transaction_amount   NUMBER(15,2),
+  response_code        VARCHAR2(5),
+  origin_code          VARCHAR2(5),
+  device_type          VARCHAR2(50),
+  service_code         VARCHAR2(5),
+  provide_service_code VARCHAR2(50),
+  mcc_code             NUMBER(6),
+  transaction_type     VARCHAR2(27),
+  payment_source       VARCHAR2(10),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CARD_DATE on IT.TA_BAN_TRANSACIONES_HIS (CARD_NUMBER, USU_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

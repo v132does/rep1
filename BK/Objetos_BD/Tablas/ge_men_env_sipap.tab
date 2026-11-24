@@ -1,0 +1,61 @@
+-- Create table
+create table IT.GE_MEN_ENV_SIPAP
+(
+  id_mensaje       NUMBER(15) default it.S_NRO_MEN_ENV_SIPAP.nextval not null,
+  nro_referencia   VARCHAR2(20),
+  estado           VARCHAR2(32) not null,
+  msj_resultado    VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  msj_swift        CLOB
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_MEN_ENV_SIPAP
+  is 'Contiene los mensajes que se deben enviar al BCP vía SOCKET SIPAP.';
+-- Add comments to the columns 
+comment on column IT.GE_MEN_ENV_SIPAP.id_mensaje
+  is 'Nro de identificador de la tabla ';
+comment on column IT.GE_MEN_ENV_SIPAP.nro_referencia
+  is 'Nro de referencia que identifica a la transferencia';
+comment on column IT.GE_MEN_ENV_SIPAP.estado
+  is 'Estado del mensaje';
+comment on column IT.GE_MEN_ENV_SIPAP.msj_resultado
+  is 'Mensaje de resutado del proceso';
+comment on column IT.GE_MEN_ENV_SIPAP.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.GE_MEN_ENV_SIPAP.fec_insercion
+  is 'Fecha de insercion';
+comment on column IT.GE_MEN_ENV_SIPAP.usu_modificacion
+  is 'Usuario que modifico el registro';
+comment on column IT.GE_MEN_ENV_SIPAP.fec_modificacion
+  is 'Fecha de modificacion';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_MEN_ENV_SIPAP
+  add constraint PK_MEN_ENV_SIPAP primary key (ID_MENSAJE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.GE_MEN_ENV_SIPAP to IT_TEMPORAL;

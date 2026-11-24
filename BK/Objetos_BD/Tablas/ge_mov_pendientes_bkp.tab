@@ -1,0 +1,48 @@
+create table IT.GE_MOV_PENDIENTES_BKP
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_transaccion    NUMBER(4) not null,
+  cod_mod_padre      NUMBER(3) not null,
+  cod_mad_padre      NUMBER(3) not null,
+  cod_tra_padre      NUMBER(4) not null,
+  monto              NUMBER(18,2) not null,
+  usu_insercion      VARCHAR2(10) not null,
+  fec_insercion      DATE not null,
+  usu_modificacion   VARCHAR2(10) not null,
+  fec_modificacion   DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_movimiento     NUMBER(20) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_error          VARCHAR2(10),
+  estado             VARCHAR2(1),
+  cod_ofi_origen     NUMBER(3) not null,
+  concepto           VARCHAR2(35),
+  cod_tasa           NUMBER(3),
+  val_tasa           NUMBER(20,4),
+  nro_documento      NUMBER(15),
+  saldo              NUMBER(18,2),
+  mto_exonerado      NUMBER(18,2),
+  cod_usu_exonerador VARCHAR2(10),
+  motivo             VARCHAR2(100),
+  observacion        VARCHAR2(500),
+  cod_persona        VARCHAR2(10),
+  referencia         VARCHAR2(20),
+  car_manual         VARCHAR2(1) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

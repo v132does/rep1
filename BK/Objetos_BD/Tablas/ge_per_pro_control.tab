@@ -1,0 +1,64 @@
+create table IT.GE_PER_PRO_CONTROL
+(
+  fecha            DATE not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_pro_control  VARCHAR2(10) not null,
+  estado           VARCHAR2(1) default 'P',
+  usu_insercion    VARCHAR2(10) default SUBSTR (USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR (USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  url_crm          VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PER_PRO_CONTROL
+  is 'Guarda los Procesos de Control provenientes de RBAKYC, relacionados a las Personas de Alto Riesgo.';
+comment on column IT.GE_PER_PRO_CONTROL.fecha
+  is 'Fecha de Ingreso al Proceso de Control.';
+comment on column IT.GE_PER_PRO_CONTROL.cod_persona
+  is 'Código de Persona que ingresó al Proceso de Control.';
+comment on column IT.GE_PER_PRO_CONTROL.cod_pro_control
+  is 'Código del Proceso de Control al cual ingresó.';
+comment on column IT.GE_PER_PRO_CONTROL.estado
+  is 'Estado del Proceso de Control (Pendiente, Autorizado, Rechazado).';
+comment on column IT.GE_PER_PRO_CONTROL.usu_insercion
+  is 'Usuario que realiza la Inserción.';
+comment on column IT.GE_PER_PRO_CONTROL.fec_insercion
+  is 'Fecha en que realiza la Inserción.';
+comment on column IT.GE_PER_PRO_CONTROL.usu_modificacion
+  is 'Usuario que realiza la modificacion';
+comment on column IT.GE_PER_PRO_CONTROL.fec_modificacion
+  is 'Fecha en que se realiza la Modificación.';
+comment on column IT.GE_PER_PRO_CONTROL.url_crm
+  is 'Url del caso en CRM.';
+alter table IT.GE_PER_PRO_CONTROL
+  add constraint PK_GE_PER_PRO_CONTROL primary key (FECHA, COD_PERSONA, COD_PRO_CONTROL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PER_PRO_CONTROL
+  add constraint FK_GPPC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.GE_CLIENTES (COD_PERSONA);
+alter table IT.GE_PER_PRO_CONTROL
+  add constraint CK_GEPERP_ESTADO
+  check (estado in ('P','A','R'));
+

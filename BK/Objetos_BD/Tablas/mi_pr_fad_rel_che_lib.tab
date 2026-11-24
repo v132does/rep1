@@ -1,0 +1,27 @@
+create table IT.MI_PR_FAD_REL_CHE_LIB
+(
+  nro_solicitud     NUMBER(7) not null,
+  nro_cuota         NUMBER(3) not null,
+  cod_banco         NUMBER(3) not null,
+  nro_cheque        NUMBER(15) not null,
+  cta_libradora     VARCHAR2(20) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nro_documento     VARCHAR2(20) not null,
+  relacion          VARCHAR2(20) not null,
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

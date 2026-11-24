@@ -1,0 +1,70 @@
+create table IT.GE_PARAMETROS
+(
+  parametro        VARCHAR2(30) not null,
+  descripcion      VARCHAR2(35) not null,
+  tab_relacion     VARCHAR2(30) not null,
+  referencia       VARCHAR2(30),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observacion      VARCHAR2(4000),
+  pro_verificacion VARCHAR2(30),
+  permiso          VARCHAR2(2000),
+  modificable      VARCHAR2(1) default 'N',
+  val_defecto      VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PARAMETROS
+  is 'Define los parametros a utilizarse en el Sistema.';
+comment on column IT.GE_PARAMETROS.parametro
+  is 'Nombre del parametro a ser utilizado.';
+comment on column IT.GE_PARAMETROS.descripcion
+  is 'Descripcion del parametro a ser utilizado.';
+comment on column IT.GE_PARAMETROS.tab_relacion
+  is 'Tabla en la cual se utiliza el parametro.';
+comment on column IT.GE_PARAMETROS.referencia
+  is 'Referencia para filtrar las diferentes listas de valores.';
+comment on column IT.GE_PARAMETROS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PARAMETROS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PARAMETROS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PARAMETROS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PARAMETROS.observacion
+  is 'Observacion sobre la utilidad y funcionalidad del parametro dentro del Sistema.';
+comment on column IT.GE_PARAMETROS.pro_verificacion
+  is 'Procedimiento de verificacion de datos cargados.';
+comment on column IT.GE_PARAMETROS.permiso
+  is 'Roles a quienes se da permiso.';
+comment on column IT.GE_PARAMETROS.modificable
+  is 'Indica si el usuario podrá modificar el valor S/N.';
+comment on column IT.GE_PARAMETROS.val_defecto
+  is 'Indica el valor inicial del parámetro';
+alter table IT.GE_PARAMETROS
+  add constraint PK_GE_PARAMETROS primary key (PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

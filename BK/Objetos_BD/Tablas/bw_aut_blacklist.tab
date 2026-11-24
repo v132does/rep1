@@ -1,0 +1,44 @@
+create table IT.BW_AUT_BLACKLIST
+(
+  cod_persona      VARCHAR2(10) not null,
+  estado           VARCHAR2(1) default 'A' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observaciones    VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_AUT_BLACKLIST
+  is 'Blacklist de autenticacion en canales digitales';
+comment on column IT.BW_AUT_BLACKLIST.cod_persona
+  is 'Persona en el bloqueo';
+comment on column IT.BW_AUT_BLACKLIST.estado
+  is 'Activo: la persona no podra ingresar a los canales digitales';
+comment on column IT.BW_AUT_BLACKLIST.observaciones
+  is 'Comentarios del bloqueo';
+alter table IT.BW_AUT_BLACKLIST
+  add constraint PK_BE_AITH_BLACKLIST primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,32 @@
+create table IT.BA_PER_AFECCIONES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_afeccion     NUMBER(5) not null,
+  observacion      VARCHAR2(50),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  constraint PK_BPAFE primary key (COD_PERSONA, COD_AFECCION)
+)
+organization index;
+comment on table IT.BA_PER_AFECCIONES
+  is 'Personas con Afecciones.';
+comment on column IT.BA_PER_AFECCIONES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.BA_PER_AFECCIONES.cod_afeccion
+  is 'Codigo de la Afeccion.';
+comment on column IT.BA_PER_AFECCIONES.observacion
+  is 'Observacion de la Afeccion de la Persona.';
+comment on column IT.BA_PER_AFECCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PER_AFECCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PER_AFECCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_AFECCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_PER_AFECCIONES
+  add constraint FK_BPAFE_AFECCIONES foreign key (COD_AFECCION)
+  references IT.BA_AFECCIONES (COD_AFECCION);
+

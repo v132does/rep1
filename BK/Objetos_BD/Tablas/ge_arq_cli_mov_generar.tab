@@ -1,0 +1,205 @@
+create table IT.GE_ARQ_CLI_MOV_GENERAR
+(
+  fecha               DATE not null,
+  hora                VARCHAR2(8) not null,
+  cod_usuario         VARCHAR2(10) not null,
+  nro_secuencia       NUMBER(3) not null,
+  fec_valor           DATE,
+  monto               NUMBER(18,2),
+  nro_cuenta          VARCHAR2(15),
+  cod_moneda          VARCHAR2(3) not null,
+  cod_oficina         NUMBER(3),
+  cod_error           VARCHAR2(10),
+  cod_retencion       NUMBER(3),
+  fec_fin_retencion   DATE,
+  est_cuenta          VARCHAR2(1),
+  estado              VARCHAR2(1) not null,
+  cod_causa           NUMBER(3),
+  cod_banco           NUMBER(3),
+  cod_ofi_origen      NUMBER(3) not null,
+  concepto            VARCHAR2(100),
+  cod_tasa            NUMBER(3),
+  val_tasa            NUMBER(20,4),
+  cod_rubro           VARCHAR2(15),
+  cod_ref_cambio      VARCHAR2(3),
+  reversado           VARCHAR2(1) not null,
+  cod_usu_reversion   VARCHAR2(10),
+  hor_reversion       VARCHAR2(8),
+  emi_aviso           VARCHAR2(1),
+  cod_tra_padre       NUMBER(4) not null,
+  cod_mod_padre       NUMBER(3) not null,
+  cod_mad_padre       NUMBER(3) not null,
+  cod_transaccion     NUMBER(4),
+  cod_modulo          NUMBER(3),
+  cod_modalidad       NUMBER(3),
+  mto_equ_local       NUMBER(18,2),
+  nro_caja            NUMBER(3),
+  cotizacion          NUMBER(14,8),
+  cod_bco_central     VARCHAR2(6),
+  nro_documento       NUMBER(15),
+  nro_documento2      NUMBER(15),
+  nro_documento3      NUMBER(15),
+  nro_documento4      NUMBER(15),
+  protegido           VARCHAR2(1),
+  cod_autorizacion    NUMBER(10),
+  cod_usu_autorizador VARCHAR2(10),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  tip_mov_rubro       VARCHAR2(1),
+  cod_tip_ope_cambio  VARCHAR2(3),
+  nro_folio           NUMBER(7),
+  referencia          VARCHAR2(20),
+  cod_persona         VARCHAR2(10),
+  cod_sit_contable    NUMBER(20),
+  nro_conciliacion    NUMBER(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_ARQ_CLI_MOV_GENERAR
+  is 'Movimientos mensuales de las cuentas de Extractos de todo el mes, actualizado en proceso prg_gen_extractos.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.fecha
+  is 'Fecha de la transacción.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.hora
+  is 'hora del movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_usuario
+  is 'Código de operador.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_secuencia
+  is 'Número de secuencia.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.fec_valor
+  is 'Fecha valor de la transacción.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.monto
+  is 'Importe de la transacción.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_moneda
+  is 'Código de moneda.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_oficina
+  is 'Código de oficina.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_error
+  is 'Código de error.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_retencion
+  is 'Código de retención.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.fec_fin_retencion
+  is 'Fecha fin de la retención.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.est_cuenta
+  is 'Estado de la cuenta. (en caso de que se haga cambio de estado).';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.estado
+  is 'Estado del movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_causa
+  is 'Código de causa de bloqueo.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_banco
+  is 'Código de banco.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_ofi_origen
+  is 'Código de oficina origen.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_tasa
+  is 'Código de tasa.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.val_tasa
+  is 'Importe de la tasa.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_rubro
+  is 'Código de cuenta contable.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_ref_cambio
+  is 'Código de referencia.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.reversado
+  is 'Reversado. (n=no / s=si).';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_usu_reversion
+  is 'Operador de reversión.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.hor_reversion
+  is 'Hora de reversión.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.emi_aviso
+  is 'Emitir aviso. (n=no / s=si).';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_tra_padre
+  is 'Código de transacción padre.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_mod_padre
+  is 'Código de modulo padre.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_mad_padre
+  is 'Código de modalidad padre.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_transaccion
+  is 'Código de transacción hijo.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_modulo
+  is 'Código de modulo.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_modalidad
+  is 'Código de modalidad.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.mto_equ_local
+  is 'Importe equivalente en gs.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_caja
+  is 'Número de caja.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cotizacion
+  is 'Cotización';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_bco_central
+  is 'Código en el BCP.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_documento
+  is 'Número de documento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_documento2
+  is 'Número de documento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_documento3
+  is 'Número de documento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_documento4
+  is 'Número de documento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.protegido
+  is 'Protegido. (n=no / s=si).';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_autorizacion
+  is 'Número de autorizacion.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_usu_autorizador
+  is 'Código de autorización.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.usu_modificacion
+  is 'Usuario que realizo la ultima modificación en el registro.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificación en el registro.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.tip_mov_rubro
+  is 'Tipo de movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_tip_ope_cambio
+  is 'Código de tipo de operacion de cambio.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_folio
+  is 'Número de folio para extractos.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.referencia
+  is 'Referencia general.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_persona
+  is 'Persona asociada al movimiento.';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.cod_sit_contable
+  is 'Indica la situación contable actual de la operacion. ';
+comment on column IT.GE_ARQ_CLI_MOV_GENERAR.nro_conciliacion
+  is 'Número secuencia extracto swift.';
+create index IT.IN_GEXMV_NRO_CUENTA on IT.GE_ARQ_CLI_MOV_GENERAR (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_ARQ_CLI_MOV_GENERAR
+  add constraint PK_GE_ARQ_CLI_MOV_GENERAR primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

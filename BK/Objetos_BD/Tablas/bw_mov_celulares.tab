@@ -1,0 +1,67 @@
+create table IT.BW_MOV_CELULARES
+(
+  nro_operacion       NUMBER(20) not null,
+  fec_hora            DATE not null,
+  cod_tip_transaccion NUMBER(3) not null,
+  nro_ref_externo     VARCHAR2(20),
+  nro_celular         VARCHAR2(30),
+  det_parametros      VARCHAR2(500),
+  cod_respuesta       VARCHAR2(3),
+  msj_respuesta       VARCHAR2(1000),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_MOV_CELULARES
+  is 'Movimientos del Celulares';
+comment on column IT.BW_MOV_CELULARES.nro_operacion
+  is 'Numero de identificacion ';
+comment on column IT.BW_MOV_CELULARES.fec_hora
+  is 'Fecha y Hora de la Operacion.';
+comment on column IT.BW_MOV_CELULARES.cod_tip_transaccion
+  is 'Codigo del Tipo de Transaccion 1..9';
+comment on column IT.BW_MOV_CELULARES.nro_ref_externo
+  is 'Nro. de identificacion de la cuenta ';
+comment on column IT.BW_MOV_CELULARES.nro_celular
+  is 'Nro. del celular origen de la operacion';
+comment on column IT.BW_MOV_CELULARES.det_parametros
+  is 'Detalle de parametros de la operacion recibida';
+comment on column IT.BW_MOV_CELULARES.cod_respuesta
+  is 'Respuesta.';
+comment on column IT.BW_MOV_CELULARES.msj_respuesta
+  is 'Mensaje de Respuesta';
+comment on column IT.BW_MOV_CELULARES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_MOV_CELULARES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_MOV_CELULARES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_MOV_CELULARES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BW_MOV_CELULARES
+  add constraint UK_WMCEL_NRO_OPERACION unique (NRO_OPERACION, FEC_HORA, COD_TIP_TRANSACCION, NRO_REF_EXTERNO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

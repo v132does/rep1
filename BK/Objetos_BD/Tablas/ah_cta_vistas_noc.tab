@@ -1,0 +1,253 @@
+create table IT.AH_CTA_VISTAS_NOC
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1) default 0,
+  cod_modulo             NUMBER(3) not null,
+  cod_modalidad          NUMBER(3) not null,
+  cod_oficina            NUMBER(3) not null,
+  cod_moneda             VARCHAR2(3) not null,
+  denominacion           VARCHAR2(65) not null,
+  fre_extracto           VARCHAR2(1) default 'M' not null,
+  can_fir_requeridas     NUMBER(2),
+  can_fir_registradas    NUMBER(2),
+  fec_apertura           DATE not null,
+  tip_capitalizacion     NUMBER(2) not null,
+  tas_personalizada      VARCHAR2(1) default 'N' not null,
+  cod_tasa               NUMBER(3) not null,
+  ret_personalizada      VARCHAR2(1) default 'N' not null,
+  sal_minimo             NUMBER(18,2) default 0,
+  cod_usu_promotor       VARCHAR2(10),
+  est_batch              VARCHAR2(1),
+  estado                 VARCHAR2(1) not null,
+  nro_folio              NUMBER(7),
+  fec_ult_extracto       DATE,
+  sal_ult_extracto       NUMBER(16,2),
+  fec_cam_estado         DATE,
+  fec_ult_movimiento     DATE,
+  hor_ult_movimiento     VARCHAR2(8),
+  fec_ult_capitalizacion DATE,
+  sal_ult_capitalizacion NUMBER(18,2) default 0,
+  sal_ret_batch          NUMBER(18,2) default 0,
+  sal_retenido           NUMBER(18,2) default 0,
+  sal_blo_batch          NUMBER(18,2) default 0,
+  sal_bloqueado          NUMBER(18,2) default 0,
+  sal_tot_batch          NUMBER(18,2) default 0,
+  sal_total              NUMBER(18,2) default 0,
+  tra_prohibida          VARCHAR2(1) default 'N' not null,
+  cta_combinada          VARCHAR2(1) default 'N' not null,
+  aut_pendiente          VARCHAR2(1) default 'N' not null,
+  mto_deb_pendientes     NUMBER(18,2) default 0,
+  mto_cre_pendientes     NUMBER(18,2) default 0,
+  mto_cre_a_confirmar    NUMBER(18,2) default 0,
+  cod_ente               NUMBER(5),
+  mto_apertura           NUMBER(18,2) default 0,
+  cod_canal              NUMBER(3),
+  cod_campana            NUMBER(3),
+  reg_firma              VARCHAR2(4000),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  cod_cau_cancelacion    NUMBER(3),
+  cod_sub_modalidad      NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CTA_VISTAS_NOC
+  is 'Contiene datos de los Ahorros a la Vista (Fuera de hora).';
+comment on column IT.AH_CTA_VISTAS_NOC.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.AH_CTA_VISTAS_NOC.dig_verificador
+  is 'Digito Verificador.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_modulo
+  is 'Codigo de Modulo.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_modalidad
+  is 'Codigo de Modalidad.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.AH_CTA_VISTAS_NOC.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.AH_CTA_VISTAS_NOC.fre_extracto
+  is 'Frecuencia de Extracto (D=Diaria /S=Semanal/M=Mensual).';
+comment on column IT.AH_CTA_VISTAS_NOC.can_fir_requeridas
+  is 'Cantidad de Firmas requeridas.';
+comment on column IT.AH_CTA_VISTAS_NOC.can_fir_registradas
+  is 'Cantidad de Firmas registradas.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.AH_CTA_VISTAS_NOC.tip_capitalizacion
+  is 'Tipo de Capitalizacion. (1/2/3).';
+comment on column IT.AH_CTA_VISTAS_NOC.tas_personalizada
+  is 'Tiene Tasa Personalizada(S/N).';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_tasa
+  is 'Codigo de Tasa Asignado.';
+comment on column IT.AH_CTA_VISTAS_NOC.ret_personalizada
+  is 'Tiene Retencion Personalizada(N=NO / S=SI).';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_minimo
+  is 'Saldo Minimo Pactado.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_usu_promotor
+  is 'Codigo de Promotor.';
+comment on column IT.AH_CTA_VISTAS_NOC.est_batch
+  is 'Estado de Cuenta Batch.';
+comment on column IT.AH_CTA_VISTAS_NOC.estado
+  is 'Estado de Cuenta On line.';
+comment on column IT.AH_CTA_VISTAS_NOC.nro_folio
+  is 'Ultimo Numero de Folio del extracto impreso.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_ult_extracto
+  is 'Fecha de Ultimo Extracto.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_ult_extracto
+  is 'Saldo de Ultimo Extracto.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_cam_estado
+  is 'Fecha de Cambio de Estado.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_ult_movimiento
+  is 'Fecha de Ultimo Movimiento.';
+comment on column IT.AH_CTA_VISTAS_NOC.hor_ult_movimiento
+  is 'Hora de Ultimo Movimiento.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_ult_capitalizacion
+  is 'Fecha de Ultima Capitalizacion.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_ult_capitalizacion
+  is 'Saldo de Ultima Capitalizacion.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_ret_batch
+  is 'Saldo Retenido Batch.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_retenido
+  is 'Saldo Retenido On line.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_blo_batch
+  is 'Saldo Bloqueado Batch.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_bloqueado
+  is 'Saldo Bloqueado On line.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_tot_batch
+  is 'Saldo Total Batch.';
+comment on column IT.AH_CTA_VISTAS_NOC.sal_total
+  is 'Saldo Total On line.';
+comment on column IT.AH_CTA_VISTAS_NOC.tra_prohibida
+  is 'Tiene Transaccion Prohibida. (N=NO / S=SI).';
+comment on column IT.AH_CTA_VISTAS_NOC.cta_combinada
+  is 'Tiene Cuenta Combinada (S/N).';
+comment on column IT.AH_CTA_VISTAS_NOC.aut_pendiente
+  is 'Posee Autorizacion Pendiente (S/N).';
+comment on column IT.AH_CTA_VISTAS_NOC.mto_deb_pendientes
+  is 'Importe de Debitos en ATM.';
+comment on column IT.AH_CTA_VISTAS_NOC.mto_cre_pendientes
+  is 'Importe de Creditos en ATM.';
+comment on column IT.AH_CTA_VISTAS_NOC.mto_cre_a_confirmar
+  is 'Importe de Creditos Confirmados en ATM.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_ente
+  is 'Codigo de Empresa de Pago de Sueldo asociado.';
+comment on column IT.AH_CTA_VISTAS_NOC.mto_apertura
+  is 'Monto de Apertura Pactado con el cliente.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.AH_CTA_VISTAS_NOC.reg_firma
+  is 'Regimen de Firmas.';
+comment on column IT.AH_CTA_VISTAS_NOC.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CTA_VISTAS_NOC.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_VISTAS_NOC.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_cau_cancelacion
+  is 'Motivo de Cancelacion.';
+comment on column IT.AH_CTA_VISTAS_NOC.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+create index IT.IN_ACVNO_COD_CAMPANA on IT.AH_CTA_VISTAS_NOC (COD_CAMPANA, COD_CANAL, COD_CAU_CANCELACION, COD_ENTE, COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_TASA, COD_USU_PROMOTOR, ESTADO, EST_BATCH)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_BBVA_CRCAMPANANOC on IT.AH_CTA_VISTAS_NOC (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint PK_AH_CTA_VISTAS_NOC primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 640K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_CAU_CANCELACION foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint FK_AVNOC_EST_BATCH foreign key (COD_MODULO, COD_MODALIDAD, EST_BATCH)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint AVCON_1084457524_AUT_P_001
+  check (AUT_PENDIENTE IN ('S', 'N'));
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint AVCON_1085580883_COD_C_007
+  check (COD_CANAL BETWEEN 0 AND 999);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint AVCON_1116017623_COD_C_001
+  check (COD_CAU_CANCELACION BETWEEN 0 AND 999);
+alter table IT.AH_CTA_VISTAS_NOC
+  add constraint CK_AVNOC_SAL_TOTAL
+  check (nvl(sal_total,0) >= 0);
+

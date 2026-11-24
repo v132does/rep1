@@ -1,0 +1,52 @@
+create table IT.CR_TIP_CARGOS
+(
+  cod_tip_cargo    VARCHAR2(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  tip_empleo       VARCHAR2(2),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_TIP_CARGOS
+  is 'Tipos de Cargos o Puestos Laborales.';
+comment on column IT.CR_TIP_CARGOS.cod_tip_cargo
+  is 'Código del tipo Cargo o Puesto Laboral.';
+comment on column IT.CR_TIP_CARGOS.descripcion
+  is 'Descripción del tipo de Cargo.';
+comment on column IT.CR_TIP_CARGOS.tip_empleo
+  is 'Código del tipo Empleo, Ref Dominio: ''TIP_EMPLEO''.';
+comment on column IT.CR_TIP_CARGOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.CR_TIP_CARGOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.CR_TIP_CARGOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.CR_TIP_CARGOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.CR_TIP_CARGOS
+  add constraint PK_CR_TIP_CARGOS primary key (COD_TIP_CARGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

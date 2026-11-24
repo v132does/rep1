@@ -1,0 +1,59 @@
+create table IT.GE_INV_DOC_ANULADOS
+(
+  nro_secuencia    NUMBER(10) not null,
+  nro_documento    NUMBER(6) not null,
+  cod_causa        NUMBER(3) not null,
+  est_anterior     VARCHAR2(1) not null,
+  observacion      VARCHAR2(1000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_INV_DOC_ANULADOS.nro_secuencia
+  is 'Número de secuencia.';
+comment on column IT.GE_INV_DOC_ANULADOS.nro_documento
+  is 'Número de Documento Anulado.';
+comment on column IT.GE_INV_DOC_ANULADOS.cod_causa
+  is 'Código de Causa.';
+comment on column IT.GE_INV_DOC_ANULADOS.est_anterior
+  is 'Estado Anterior del Documento.';
+comment on column IT.GE_INV_DOC_ANULADOS.observacion
+  is 'Observación.';
+comment on column IT.GE_INV_DOC_ANULADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_INV_DOC_ANULADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_INV_DOC_ANULADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_INV_DOC_ANULADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.GE_INV_DOC_ANULADOS
+  add constraint PK_GE_INV_DOC_ANULADOS primary key (NRO_SECUENCIA, NRO_DOCUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_INV_DOC_ANULADOS
+  add constraint FK_GIDAN_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+

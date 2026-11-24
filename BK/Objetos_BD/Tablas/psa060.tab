@@ -1,0 +1,193 @@
+create table IT.PSA060
+(
+  psa060fin VARCHAR2(8) not null,
+  psa060ffi VARCHAR2(8) not null,
+  psa060pai NUMBER(3) not null,
+  psa060tdo NUMBER(4) not null,
+  psa060ndo VARCHAR2(25) not null,
+  psa060ent NUMBER(3),
+  psa060den VARCHAR2(40),
+  psa060ncl VARCHAR2(70),
+  psa060tpe VARCHAR2(8),
+  psa060sba VARCHAR2(40),
+  psa060sla NUMBER(9),
+  psa060vsl NUMBER(9),
+  psa060fab VARCHAR2(8),
+  psa060cpn NUMBER(3),
+  psa060pnc VARCHAR2(30),
+  psa060ocu VARCHAR2(40),
+  psa060aec NUMBER(9),
+  psa060osl NUMBER(1),
+  psa060fid NUMBER(1),
+  psa060pep NUMBER(1),
+  psa060lre NUMBER(1),
+  psa060faf VARCHAR2(8),
+  psa060fei VARCHAR2(8),
+  psa060vju NUMBER(9),
+  psa060vpr NUMBER(9),
+  psa060vca NUMBER(9),
+  psa060n01 NUMBER(18,2),
+  psa060n02 NUMBER(18,2),
+  psa060n03 NUMBER(18,2),
+  psa060n04 NUMBER(18,2),
+  psa060n05 NUMBER(18,2),
+  psa060n06 NUMBER(18,2),
+  psa060n07 NUMBER(18,2),
+  psa060n08 NUMBER(18,2),
+  psa060n09 NUMBER(18,2),
+  psa060n10 NUMBER(18,2),
+  psa060c01 VARCHAR2(100),
+  psa060c02 VARCHAR2(100),
+  psa060c03 VARCHAR2(100),
+  psa060c04 VARCHAR2(100),
+  psa060c05 VARCHAR2(100),
+  psa060c06 VARCHAR2(100),
+  psa060c07 VARCHAR2(100),
+  psa060c08 VARCHAR2(100),
+  psa060c09 VARCHAR2(100),
+  psa060c10 VARCHAR2(100),
+  psa060f01 VARCHAR2(8),
+  psa060f02 VARCHAR2(8),
+  psa060f03 VARCHAR2(8),
+  psa060f04 VARCHAR2(8),
+  psa060f05 VARCHAR2(8),
+  psa060f06 VARCHAR2(8),
+  psa060f07 VARCHAR2(8),
+  psa060f08 VARCHAR2(8),
+  psa060f09 VARCHAR2(8),
+  psa060f10 VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PSA060
+  is 'TABLA Clientes de PIC';
+comment on column IT.PSA060.psa060fin
+  is 'Fecha inicial del informe.';
+comment on column IT.PSA060.psa060ffi
+  is 'Fecha final del informe.';
+comment on column IT.PSA060.psa060pai
+  is 'Pais del documento.';
+comment on column IT.PSA060.psa060tdo
+  is 'Tipo de documento.';
+comment on column IT.PSA060.psa060ndo
+  is 'Numero de documento.';
+comment on column IT.PSA060.psa060ent
+  is 'Entidad.';
+comment on column IT.PSA060.psa060den
+  is 'Descripcion Entidad.';
+comment on column IT.PSA060.psa060ncl
+  is 'Nombre Cliente.';
+comment on column IT.PSA060.psa060tpe
+  is 'Tipo de Persona.';
+comment on column IT.PSA060.psa060sba
+  is 'Segmento de Banca.';
+comment on column IT.PSA060.psa060sla
+  is 'Segmento LAFT.';
+comment on column IT.PSA060.psa060vsl
+  is 'Vulnerabilidad de Segmento LAFT.';
+comment on column IT.PSA060.psa060fab
+  is 'Fecha de Actualizacion Basica.';
+comment on column IT.PSA060.psa060cpn
+  is 'Codigo Pais de Nacimiento - Constitucion.';
+comment on column IT.PSA060.psa060pnc
+  is 'Ocupacion Persona Natural.';
+comment on column IT.PSA060.psa060aec
+  is 'Actividad Economica Cliente (CIIU).';
+comment on column IT.PSA060.psa060osl
+  is 'Cliente con Actividad de Organizaciones Sin Fines de Lucro.';
+comment on column IT.PSA060.psa060fid
+  is 'Clasificacion del Cliente como Fideicomiso.';
+comment on column IT.PSA060.psa060pep
+  is 'PEP.';
+comment on column IT.PSA060.psa060lre
+  is 'Cliente en Lista Restrictiva.';
+comment on column IT.PSA060.psa060faf
+  is 'Fecha Actualizacion Financiera.';
+comment on column IT.PSA060.psa060fei
+  is 'Fecha de Emision del Informe.';
+comment on column IT.PSA060.psa060vju
+  is 'Vulnerabilidad Jurisdicciones.';
+comment on column IT.PSA060.psa060vpr
+  is 'Vulnerabilidad Productos.';
+comment on column IT.PSA060.psa060vca
+  is 'Vulnerabilidad Canales.';
+comment on column IT.PSA060.psa060n03
+  is 'Auxiliar Numerico 03.';
+comment on column IT.PSA060.psa060n04
+  is 'Auxiliar Numerico 04.';
+comment on column IT.PSA060.psa060n05
+  is 'Auxiliar Numerico 05.';
+comment on column IT.PSA060.psa060n06
+  is 'Auxiliar Numerico 06.';
+comment on column IT.PSA060.psa060n07
+  is 'Auxiliar Numerico 07.';
+comment on column IT.PSA060.psa060n08
+  is 'Auxiliar Numerico 08.';
+comment on column IT.PSA060.psa060n09
+  is 'Auxiliar Numerico 09.';
+comment on column IT.PSA060.psa060n10
+  is 'Auxiliar Numerico 10.';
+comment on column IT.PSA060.psa060c01
+  is 'Auxiliar Caracter 01.';
+comment on column IT.PSA060.psa060c02
+  is 'Auxiliar Caracter 02.';
+comment on column IT.PSA060.psa060c03
+  is 'Auxiliar Caracter 03.';
+comment on column IT.PSA060.psa060c04
+  is 'Auxiliar Caracter 04.';
+comment on column IT.PSA060.psa060c05
+  is 'Auxiliar Caracter 05.';
+comment on column IT.PSA060.psa060c06
+  is 'Auxiliar Caracter 06.';
+comment on column IT.PSA060.psa060c07
+  is 'Auxiliar Caracter 07.';
+comment on column IT.PSA060.psa060c08
+  is 'Auxiliar Caracter 08.';
+comment on column IT.PSA060.psa060c09
+  is 'Auxiliar Caracter 09.';
+comment on column IT.PSA060.psa060c10
+  is 'Auxiliar Caracter 10.';
+comment on column IT.PSA060.psa060f01
+  is 'Auxiliar Fecha 01.';
+comment on column IT.PSA060.psa060f02
+  is 'Auxiliar Fecha 02.';
+comment on column IT.PSA060.psa060f03
+  is 'Auxiliar Fecha 03.';
+comment on column IT.PSA060.psa060f04
+  is 'Auxiliar Fecha 04.';
+comment on column IT.PSA060.psa060f05
+  is 'Auxiliar Fecha 05.';
+comment on column IT.PSA060.psa060f06
+  is 'Auxiliar Fecha 06.';
+comment on column IT.PSA060.psa060f07
+  is 'Auxiliar Fecha 07.';
+comment on column IT.PSA060.psa060f08
+  is 'Auxiliar Fecha 08.';
+comment on column IT.PSA060.psa060f09
+  is 'Auxiliar Fecha 09.';
+comment on column IT.PSA060.psa060f10
+  is 'Auxiliar Fecha 10.';
+alter table IT.PSA060
+  add constraint PK_PSA060 primary key (PSA060FIN, PSA060FFI, PSA060PAI, PSA060NDO, PSA060TDO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

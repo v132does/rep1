@@ -1,0 +1,65 @@
+create table IT.SB_ENC_CIRCULAR254
+(
+  fecha            DATE not null,
+  nro_registro     NUMBER(4) not null,
+  cod_moneda       NUMBER(4) not null,
+  cod_cuenta       NUMBER(3) not null,
+  cod_subcuenta    NUMBER(2) not null,
+  plazo            NUMBER(2) not null,
+  rango            NUMBER(2) not null,
+  can_cuenta       NUMBER(9) not null,
+  importe          NUMBER(15,2) not null,
+  cta_departamento NUMBER(2) not null,
+  enc_exonerado    NUMBER(1) not null,
+  nro_referencia   NUMBER(15),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ENC_CIRCULAR254
+  is 'Planilla de Encaje Legal Diaria.';
+comment on column IT.SB_ENC_CIRCULAR254.fecha
+  is 'Fecha de generación de datos.';
+comment on column IT.SB_ENC_CIRCULAR254.nro_registro
+  is 'Indica el número de línea de cada registro.';
+comment on column IT.SB_ENC_CIRCULAR254.cod_moneda
+  is 'Código de la moneda empleada en CRC.';
+comment on column IT.SB_ENC_CIRCULAR254.cod_cuenta
+  is 'Indica los tres dígitos de las cuentas contables especificadas en la resolución 11.';
+comment on column IT.SB_ENC_CIRCULAR254.cod_subcuenta
+  is 'Indica los dos dígitos de las sub. cuentas contables especificadas en la resolución 11.';
+comment on column IT.SB_ENC_CIRCULAR254.plazo
+  is 'Plazo estipulado de las operaciones.';
+comment on column IT.SB_ENC_CIRCULAR254.rango
+  is 'Indica el rango de estratificación de depósitos al que corresponde los saldos sujetos al encaje.';
+comment on column IT.SB_ENC_CIRCULAR254.can_cuenta
+  is 'Cantidad de cuentas que cumplen con las mismas condiciones y que fueron incluidas para la sumatoria del campo monto.';
+comment on column IT.SB_ENC_CIRCULAR254.importe
+  is 'Sumatoria del saldo de las cuentas.';
+comment on column IT.SB_ENC_CIRCULAR254.cta_departamento
+  is 'Indica ubicación geográfica de las cuentas por departamento, con la misma condicion empleada en CRC.';
+comment on column IT.SB_ENC_CIRCULAR254.enc_exonerado
+  is 'Indica exclusión del encaje legal (0 exonerado 1 no exonerado).';
+comment on column IT.SB_ENC_CIRCULAR254.nro_referencia
+  is ' Número de referencia del mensaje correspondiente al Saldo Actual informado.';
+comment on column IT.SB_ENC_CIRCULAR254.usu_insercion
+  is 'Usuario que realizo la inserción.';
+comment on column IT.SB_ENC_CIRCULAR254.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.SB_ENC_CIRCULAR254.usu_modificacion
+  is 'Usuario que realizo la modificación.';
+comment on column IT.SB_ENC_CIRCULAR254.fec_modificacion
+  is 'Fecha de modificación.';
+

@@ -1,0 +1,181 @@
+create table IT.TA_CTA_TARJETAS_NOV
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  fecha                DATE not null,
+  lin_cuotas           NUMBER(18,2),
+  lin_credito          NUMBER(18,2),
+  tip_cobro            VARCHAR2(1),
+  deb_automatico       VARCHAR2(1),
+  nro_cta_debito       VARCHAR2(15),
+  dir_envio            VARCHAR2(250),
+  tel_principal        VARCHAR2(20),
+  enviado              VARCHAR2(1) default 'N',
+  usu_insercion        VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  localidad            VARCHAR2(35),
+  niv_aprobacion       VARCHAR2(3),
+  nro_acta             NUMBER(10),
+  fec_aprobacion       DATE,
+  observacion          VARCHAR2(4000),
+  aprobado             VARCHAR2(1) default 'N',
+  cod_estado           NUMBER(2),
+  nom_embozar          VARCHAR2(26),
+  cod_usu_oficial      VARCHAR2(10),
+  cod_sexo             VARCHAR2(1),
+  nom_completo         VARCHAR2(120),
+  nro_documento        VARCHAR2(20),
+  cod_pai_nacionalidad NUMBER(3),
+  cod_profesion        NUMBER(3),
+  est_civil            VARCHAR2(1),
+  fec_nacimiento       DATE,
+  nro_tarjeta          VARCHAR2(25),
+  cod_tip_cierre       NUMBER(2),
+  cat_riesgo           VARCHAR2(1),
+  gas_no_aplicar       VARCHAR2(30),
+  pla_ope_por_contado  NUMBER(18,2),
+  pla_ope_mto_contado  NUMBER(18,2),
+  pla_ope_mto_adelanto NUMBER(18,2),
+  pla_ope_por_adelanto NUMBER(18,2),
+  mto_fij_pag_minimo   NUMBER(18,2),
+  mto_min_pag_minimo   NUMBER(18,2),
+  tas_int_corriente    NUMBER(18,2),
+  tas_int_compra       NUMBER(18,2),
+  tas_int_mora         NUMBER(18,2),
+  por_pag_minimo       NUMBER(18,2),
+  tas_mora             NUMBER(18,2),
+  tip_relacion         VARCHAR2(1),
+  cob_cargo            VARCHAR2(1),
+  ret_extracto         VARCHAR2(1),
+  mot_ret_extracto     NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_CTA_TARJETAS_NOV
+  is 'Novedades de Tarjetas. Aqui se guardan las variaciones que tuvieron las cuentas para luego informar a la procesadora.';
+comment on column IT.TA_CTA_TARJETAS_NOV.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.TA_CTA_TARJETAS_NOV.fecha
+  is 'Fecha en que se produjo la novedad.';
+comment on column IT.TA_CTA_TARJETAS_NOV.lin_cuotas
+  is 'Monto de Linea para Cuotas.';
+comment on column IT.TA_CTA_TARJETAS_NOV.lin_credito
+  is 'Monto de Linea Credito.';
+comment on column IT.TA_CTA_TARJETAS_NOV.tip_cobro
+  is 'Tipo de Cobro (Minimo o Total).';
+comment on column IT.TA_CTA_TARJETAS_NOV.deb_automatico
+  is 'Debito Automatico (S / N).';
+comment on column IT.TA_CTA_TARJETAS_NOV.nro_cta_debito
+  is 'Numero de Cuenta para Debito Automatico.';
+comment on column IT.TA_CTA_TARJETAS_NOV.dir_envio
+  is 'Direccion de Envio para extractos.';
+comment on column IT.TA_CTA_TARJETAS_NOV.tel_principal
+  is 'Telefono Principal del Titular.';
+comment on column IT.TA_CTA_TARJETAS_NOV.enviado
+  is 'Enviado a la Procesadora (S/N).';
+comment on column IT.TA_CTA_TARJETAS_NOV.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_CTA_TARJETAS_NOV.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_CTA_TARJETAS_NOV.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.TA_CTA_TARJETAS_NOV.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_CTA_TARJETAS_NOV.localidad
+  is 'Nombre de Ciudad.';
+comment on column IT.TA_CTA_TARJETAS_NOV.niv_aprobacion
+  is 'Niveles de aprobacion.';
+comment on column IT.TA_CTA_TARJETAS_NOV.nro_acta
+  is 'Nro. de Acta.';
+comment on column IT.TA_CTA_TARJETAS_NOV.fec_aprobacion
+  is 'Fecha de Aprobacion.';
+comment on column IT.TA_CTA_TARJETAS_NOV.observacion
+  is 'Observaciones.';
+comment on column IT.TA_CTA_TARJETAS_NOV.aprobado
+  is 'Aprobado para enviar a la Procesadora (S/N).';
+comment on column IT.TA_CTA_TARJETAS_NOV.cod_estado
+  is 'Codigo de Estado de la Tarjeta.';
+comment on column IT.TA_CTA_TARJETAS_NOV.nom_embozar
+  is 'Nombre a Embozar.';
+comment on column IT.TA_CTA_TARJETAS_NOV.cod_usu_oficial
+  is 'Codigo de Oficial de la Cuenta.';
+comment on column IT.TA_CTA_TARJETAS_NOV.cod_sexo
+  is 'Codigo del Sexo de la persona.';
+comment on column IT.TA_CTA_TARJETAS_NOV.nom_completo
+  is 'Nombre completo de la Persona.';
+comment on column IT.TA_CTA_TARJETAS_NOV.nro_documento
+  is 'Nro. Documento de la Persona.';
+comment on column IT.TA_CTA_TARJETAS_NOV.cod_pai_nacionalidad
+  is 'Codigo del Pais de la Nacionalidad.';
+comment on column IT.TA_CTA_TARJETAS_NOV.cod_profesion
+  is 'Codigo de Profesion de la Persona.';
+comment on column IT.TA_CTA_TARJETAS_NOV.est_civil
+  is 'Codigo del Estado Civil.';
+comment on column IT.TA_CTA_TARJETAS_NOV.fec_nacimiento
+  is 'Fecha de Nacimiento de la Persona.';
+comment on column IT.TA_CTA_TARJETAS_NOV.nro_tarjeta
+  is 'Numero de Tarjeta.';
+comment on column IT.TA_CTA_TARJETAS_NOV.cod_tip_cierre
+  is 'Código del Tipo de Cierre.';
+comment on column IT.TA_CTA_TARJETAS_NOV.cat_riesgo
+  is 'Categoria de Riesgo (1- Normal ; 2- Potencial; 3- Real ; 4-Alto Riesgo; 5- Moroso; 6-Irrecuperable).';
+comment on column IT.TA_CTA_TARJETAS_NOV.gas_no_aplicar
+  is 'Costos a no aplicar.';
+comment on column IT.TA_CTA_TARJETAS_NOV.pla_ope_por_contado
+  is 'Plan Contado. Operador Porcentaje Contado';
+comment on column IT.TA_CTA_TARJETAS_NOV.pla_ope_mto_contado
+  is 'Plan Contado. Operador Monto Contado';
+comment on column IT.TA_CTA_TARJETAS_NOV.pla_ope_mto_adelanto
+  is 'Plan Adelanto. Operador Monto Adelanto';
+comment on column IT.TA_CTA_TARJETAS_NOV.pla_ope_por_adelanto
+  is 'Plan Adelanto. Operador Porcentaje Adelanto';
+comment on column IT.TA_CTA_TARJETAS_NOV.mto_fij_pag_minimo
+  is 'Monto Fijo de Pago Mínimo';
+comment on column IT.TA_CTA_TARJETAS_NOV.mto_min_pag_minimo
+  is 'Monto Mínimo de Pago Mínimo';
+comment on column IT.TA_CTA_TARJETAS_NOV.tas_int_corriente
+  is 'Tasa de Interes Corriente';
+comment on column IT.TA_CTA_TARJETAS_NOV.tas_int_compra
+  is 'Tasa de Interes de Compra';
+comment on column IT.TA_CTA_TARJETAS_NOV.tas_int_mora
+  is 'Tasa de Interes Moratorio';
+comment on column IT.TA_CTA_TARJETAS_NOV.por_pag_minimo
+  is 'Porcentaje Pago Mínimo';
+comment on column IT.TA_CTA_TARJETAS_NOV.tas_mora
+  is 'Tasa de Mora';
+comment on column IT.TA_CTA_TARJETAS_NOV.tip_relacion
+  is 'Tipo de Relación P=Principal; A=Adicional';
+comment on column IT.TA_CTA_TARJETAS_NOV.cob_cargo
+  is 'Cobra Cargos (''S'',''N'').';
+comment on column IT.TA_CTA_TARJETAS_NOV.ret_extracto
+  is 'Retención Extracto (''S'', ''N'')';
+comment on column IT.TA_CTA_TARJETAS_NOV.mot_ret_extracto
+  is 'Motivo de Retención Extracto';
+alter table IT.TA_CTA_TARJETAS_NOV
+  add constraint PK_TA_CTA_TARJETAS_NOV primary key (NRO_CUENTA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 192K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_CTA_TARJETAS_NOV
+  add constraint FK_TCTTA_COD_TIP_CIERRE foreign key (COD_TIP_CIERRE)
+  references IT.TA_TIP_CIERRES (COD_TIP_CIERRE);
+

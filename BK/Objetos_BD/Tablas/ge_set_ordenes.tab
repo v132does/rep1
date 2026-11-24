@@ -1,0 +1,78 @@
+create table IT.GE_SET_ORDENES
+(
+  fec_orden        DATE not null,
+  nro_secuencia    NUMBER(10) not null,
+  nro_orden        VARCHAR2(15) not null,
+  fec_pago         DATE not null,
+  nro_cta_bcp      VARCHAR2(5) not null,
+  monto            NUMBER(18) not null,
+  tip_orden        VARCHAR2(3) not null,
+  cod_error        VARCHAR2(15),
+  msg_error        VARCHAR2(150),
+  estado           VARCHAR2(1) not null,
+  cod_set          NUMBER(10),
+  fec_renvio       DATE,
+  nro_sec_renvio   NUMBER(10),
+  usu_insercion    VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SET_ORDENES
+  is 'Orden de transferencia a la set.';
+comment on column IT.GE_SET_ORDENES.fec_orden
+  is 'Fecha del proceso';
+comment on column IT.GE_SET_ORDENES.nro_secuencia
+  is 'Nro. de secuencia';
+comment on column IT.GE_SET_ORDENES.nro_orden
+  is 'Nro. de la orden de transferencia.';
+comment on column IT.GE_SET_ORDENES.fec_pago
+  is 'Fecha de los Pagos relacionado a esta OT';
+comment on column IT.GE_SET_ORDENES.nro_cta_bcp
+  is 'Número de Cuenta en el BCP';
+comment on column IT.GE_SET_ORDENES.monto
+  is 'Monto a Transferir';
+comment on column IT.GE_SET_ORDENES.tip_orden
+  is 'Tipo de Orden de Transferencia 1=OT de Impuestos 2=OT  Otros Conceptos';
+comment on column IT.GE_SET_ORDENES.cod_error
+  is '0= Sin error, distinto a cero=Error en la set';
+comment on column IT.GE_SET_ORDENES.msg_error
+  is 'Mensaje de Error retornado por la SET';
+comment on column IT.GE_SET_ORDENES.estado
+  is 'Estado de final P= Procesado sin Error, E=error, R=renviado';
+comment on column IT.GE_SET_ORDENES.cod_set
+  is 'Identificador retornado por la SET cuando la OT fue aceptada';
+comment on column IT.GE_SET_ORDENES.fec_renvio
+  is 'Fecha de renvío de la OT';
+comment on column IT.GE_SET_ORDENES.nro_sec_renvio
+  is 'Nro. de secuencia renviada';
+comment on column IT.GE_SET_ORDENES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SET_ORDENES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+alter table IT.GE_SET_ORDENES
+  add constraint PK_GE_SET_ORDENES primary key (NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,67 @@
+create table IT.SB_SNP_LIM_DEPO
+(
+  cod_moneda       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  monto            NUMBER(18,2) not null,
+  tasa             NUMBER(18,5) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  transaccion      VARCHAR2(30),
+  val_parametro    VARCHAR2(100),
+  estado           VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_SNP_LIM_DEPO
+  is 'Tabla histórica de mantenimiento de límite máximo por fecha.';
+comment on column IT.SB_SNP_LIM_DEPO.cod_moneda
+  is 'Código de moneda';
+comment on column IT.SB_SNP_LIM_DEPO.fecha
+  is 'Fecha vigente.';
+comment on column IT.SB_SNP_LIM_DEPO.monto
+  is 'Monto límite máximo.';
+comment on column IT.SB_SNP_LIM_DEPO.tasa
+  is 'Tasa para DEPO.';
+comment on column IT.SB_SNP_LIM_DEPO.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_SNP_LIM_DEPO.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_SNP_LIM_DEPO.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_LIM_DEPO.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_LIM_DEPO.transaccion
+  is 'Transacción.';
+comment on column IT.SB_SNP_LIM_DEPO.val_parametro
+  is 'Valor del parametro.';
+comment on column IT.SB_SNP_LIM_DEPO.estado
+  is 'Estado del registro. S/N.';
+alter table IT.SB_SNP_LIM_DEPO
+  add constraint PK_SB_SNP_LIM_DEPO primary key (COD_MONEDA, FECHA, MONTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.SB_SNP_LIM_DEPO
+  add constraint FK_SSLDE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+

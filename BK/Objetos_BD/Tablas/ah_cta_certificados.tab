@@ -1,0 +1,298 @@
+﻿-- Create table
+create table IT.AH_CTA_CERTIFICADOS
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1) default 0,
+  cod_modulo             NUMBER(3) not null,
+  cod_modalidad          NUMBER(3) not null,
+  cod_oficina            NUMBER(3) not null,
+  cod_moneda             VARCHAR2(3) not null,
+  denominacion           VARCHAR2(65) not null,
+  tipo                   VARCHAR2(1) not null,
+  serie                  VARCHAR2(5),
+  nro_certificado        NUMBER(7),
+  beneficiario           VARCHAR2(200),
+  tas_personalizada      VARCHAR2(1) default 'N' not null,
+  cod_tasa               NUMBER(3) not null,
+  fec_apertura           DATE not null,
+  fec_vencimiento        DATE,
+  capital                NUMBER(18,2) default 0 not null,
+  cod_usu_promotor       VARCHAR2(10),
+  fec_pago               DATE,
+  est_batch              VARCHAR2(1) not null,
+  estado                 VARCHAR2(1) not null,
+  est_cer_batch          VARCHAR2(1) not null,
+  est_certificado        VARCHAR2(1) not null,
+  fec_ult_movimiento     DATE,
+  hor_ult_movimiento     VARCHAR2(8),
+  fec_cam_estado         DATE,
+  aut_pendiente          VARCHAR2(1) default 'N' not null,
+  sal_blo_batch          NUMBER(18,2) default 0,
+  sal_bloqueado          NUMBER(18,2) default 0,
+  sal_ret_batch          NUMBER(18,2) default 0,
+  sal_retenido           NUMBER(18,2) default 0,
+  sal_tot_batch          NUMBER(18,2) default 0,
+  sal_total              NUMBER(18,2) default 0,
+  tra_prohibida          VARCHAR2(1) default 'N' not null,
+  fec_ult_capitalizacion DATE,
+  cod_canal              NUMBER(5),
+  cod_campana            NUMBER(3),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       DATE default SYSDATE not null,
+  tip_capitalizacion     NUMBER(2) not null,
+  nro_cta_renovada       VARCHAR2(15),
+  cod_cau_cancelacion    NUMBER(3),
+  fec_hor_emision        DATE,
+  cod_usu_emision        VARCHAR2(10),
+  bloqueado              VARCHAR2(1) default 'N',
+  nro_cta_credito        VARCHAR2(15),
+  cre_automatico         VARCHAR2(1) default 'N' not null,
+  ser_titulo             VARCHAR2(5),
+  nro_titulo             VARCHAR2(10),
+  reg_firma              VARCHAR2(4000),
+  can_fir_requeridas     NUMBER(2),
+  can_fir_registradas    NUMBER(2),
+  cod_isin               VARCHAR2(12)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.AH_CTA_CERTIFICADOS
+  is 'Contiene datos de los Certificados de Depósitos de Ahorro.';
+-- Add comments to the columns 
+comment on column IT.AH_CTA_CERTIFICADOS.nro_cuenta
+  is 'Número de Cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.dig_verificador
+  is 'Dígito Verificador de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_modulo
+  is 'Código del Módulo de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_modalidad
+  is 'Código de Modalidad de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_oficina
+  is 'Código de Oficina de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_moneda
+  is 'Código de Moneda de la cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.AH_CTA_CERTIFICADOS.tipo
+  is 'Tipo de Certificado (O/P).';
+comment on column IT.AH_CTA_CERTIFICADOS.serie
+  is 'Serie.';
+comment on column IT.AH_CTA_CERTIFICADOS.nro_certificado
+  is 'Número de Certificado de Depósito.';
+comment on column IT.AH_CTA_CERTIFICADOS.beneficiario
+  is 'Apellido del Beneficiario.';
+comment on column IT.AH_CTA_CERTIFICADOS.tas_personalizada
+  is 'Tiene Tasa Personalizada (S/N).';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_tasa
+  is 'Código de Tasa Asignado.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_apertura
+  is 'Fecha de Apertura del CDA.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_vencimiento
+  is 'Fecha de Vencimiento del CDA.';
+comment on column IT.AH_CTA_CERTIFICADOS.capital
+  is 'Importe del Capital pactado.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_usu_promotor
+  is 'Código del Promotor.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_pago
+  is 'Fecha de Pago del Certificado.';
+comment on column IT.AH_CTA_CERTIFICADOS.est_batch
+  is 'Estado de la Cuenta Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS.estado
+  is 'Estado de la Cuenta On-line (B=Bloqueada / N=Normal / T=Totalmente Pagado / V=Vencido).';
+comment on column IT.AH_CTA_CERTIFICADOS.est_cer_batch
+  is 'Estado del Certificado de Depósito Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS.est_certificado
+  is 'Estado del Certificado de Depósito On-line.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_ult_movimiento
+  is 'Fecha del Ultimo Movimiento.';
+comment on column IT.AH_CTA_CERTIFICADOS.hor_ult_movimiento
+  is 'Hora del Ultimo Movimiento.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_cam_estado
+  is 'Fecha del Ultimo Cambio del Estado.';
+comment on column IT.AH_CTA_CERTIFICADOS.aut_pendiente
+  is 'Tiene Autorización Pendiente(S/N).';
+comment on column IT.AH_CTA_CERTIFICADOS.sal_blo_batch
+  is 'Saldo Bloqueado Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS.sal_bloqueado
+  is 'Saldo Bloqueado On line.';
+comment on column IT.AH_CTA_CERTIFICADOS.sal_ret_batch
+  is 'Saldo Retenido Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS.sal_retenido
+  is 'Saldo Retenido On line.';
+comment on column IT.AH_CTA_CERTIFICADOS.sal_tot_batch
+  is 'Saldo Total Batch.';
+comment on column IT.AH_CTA_CERTIFICADOS.sal_total
+  is 'Saldo Total On line.';
+comment on column IT.AH_CTA_CERTIFICADOS.tra_prohibida
+  is 'Tiene Transacción Prohibida (S/N).';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_ult_capitalizacion
+  is 'Fecha de Ultima Capitalización.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_canal
+  is 'Codigo de Canal.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_campana
+  is 'Código de Campaña.';
+comment on column IT.AH_CTA_CERTIFICADOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.AH_CTA_CERTIFICADOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.AH_CTA_CERTIFICADOS.tip_capitalizacion
+  is 'Forma de Pago.';
+comment on column IT.AH_CTA_CERTIFICADOS.nro_cta_renovada
+  is 'Número de Cuenta que esta Renovando.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_cau_cancelacion
+  is 'Motivo de Cancelación.';
+comment on column IT.AH_CTA_CERTIFICADOS.fec_hor_emision
+  is 'Fecha de Emisión.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_usu_emision
+  is 'Usuario de Emision.';
+comment on column IT.AH_CTA_CERTIFICADOS.bloqueado
+  is 'Bloqueado(Si/No).';
+comment on column IT.AH_CTA_CERTIFICADOS.nro_cta_credito
+  is 'Cuenta para Crédito de Cupones.';
+comment on column IT.AH_CTA_CERTIFICADOS.cre_automatico
+  is 'Tiene Crédito Automático de Cupones.';
+comment on column IT.AH_CTA_CERTIFICADOS.ser_titulo
+  is 'Serie del Título Representativo.';
+comment on column IT.AH_CTA_CERTIFICADOS.nro_titulo
+  is 'Código del Título Representativo.';
+comment on column IT.AH_CTA_CERTIFICADOS.reg_firma
+  is 'Regimen de Firmas.';
+comment on column IT.AH_CTA_CERTIFICADOS.can_fir_requeridas
+  is 'Cantidad de Firmas requeridas.';
+comment on column IT.AH_CTA_CERTIFICADOS.can_fir_registradas
+  is 'Cantidad de Firmas registradas.';
+comment on column IT.AH_CTA_CERTIFICADOS.cod_isin
+  is 'Código ISIN BCP del certificado financiero.';
+-- Create/Recreate indexes 
+create index IT.IN_BBVA_AH_COD_CAPANAS on IT.AH_CTA_CERTIFICADOS (COD_CAMPANA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint PK_AH_CTA_CERTIFICADOS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_COD_CAMPANA foreign key (COD_CAMPANA)
+  references IT.CR_CAMPANAS (COD_CAMPANA);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_COD_CAU_CANCELACION foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_COD_USU_PROMOTOR foreign key (COD_USU_PROMOTOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_ESTADO foreign key (COD_MODULO, COD_MODALIDAD, ESTADO)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_EST_BATCH foreign key (COD_MODULO, COD_MODALIDAD, EST_BATCH)
+  references IT.GE_EST_CUENTAS (COD_MODULO, COD_MODALIDAD, ESTADO);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_NRO_CTA_CREDITO foreign key (NRO_CTA_CREDITO)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_NRO_CTA_RENOVADA foreign key (NRO_CTA_RENOVADA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint FK_ACCDA_TITULOS foreign key (SER_TITULO, NRO_TITULO)
+  references IT.AH_TITULOS (SERIE, NRO_TITULO);
+-- Create/Recreate check constraints 
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1080844426_AUT_P_001
+  check (AUT_PENDIENTE IN ('S', 'N'));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1080844426_TAS_P_001
+  check (TAS_PERSONALIZADA IN ('S', 'N'));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1080844426_TIPO_001
+  check (TIPO IN ('O', 'P'));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1080844426_TRA_P_001
+  check (TRA_PROHIBIDA IN ('S', 'N'));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1082657936_COD_C_001
+  check (COD_CAMPANA BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1082657936_COD_M_004
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1082657936_COD_M_005
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1082657936_COD_O_001
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1082657936_COD_T_001
+  check (COD_TASA BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1085403970_TIP_C_001
+  check (TIP_CAPITALIZACION IN (1, 2, 3, 4, 6, 12, 99));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1085580883_COD_C_002
+  check (COD_CANAL BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1116011855_COD_C_000
+  check (COD_CAU_CANCELACION BETWEEN 0 AND 999);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1118255856_EST_C_001
+  check (EST_CERTIFICADO IN ('C', 'E', 'V', 'P'));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint AVCON_1118269956_BLOQU_000
+  check (BLOQUEADO IN ('S', 'N'));
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint CK_ACCDA_SAL_BLOQUEADO
+  check (NVL(SAL_BLOQUEADO,0) >= 0);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint CK_ACCDA_SAL_RETENIDO
+  check (NVL(SAL_RETENIDO,0) >= 0);
+alter table IT.AH_CTA_CERTIFICADOS
+  add constraint CK_ACCDA_SAL_TOTAL
+  check (nvl(sal_total,0) >= 0);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.AH_CTA_CERTIFICADOS to IT_TEMPORAL;
+grant select on IT.AH_CTA_CERTIFICADOS to SGR_ROLE;
+grant select on IT.AH_CTA_CERTIFICADOS to SIR_ROLE;

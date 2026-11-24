@@ -1,0 +1,103 @@
+create table IT.GE_SNP_MENSAJES
+(
+  nro_referencia   VARCHAR2(33),
+  nro_ref_externa  VARCHAR2(33),
+  cod_msj_swift    NUMBER(3),
+  fec_valor        DATE,
+  msj_swift        VARCHAR2(4000),
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  error            VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_recepcion    DATE,
+  msj_swi_original CLOB,
+  situacion        VARCHAR2(1) default 'R'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_MENSAJES
+  is 'Contiene las Respuestas de los Mensajes SWIFT procesados en el BCP.';
+comment on column IT.GE_SNP_MENSAJES.nro_referencia
+  is 'Nro. de Referencia del MT sobre el cual se está registrando una RESPUESTA. Ej: 213804.';
+comment on column IT.GE_SNP_MENSAJES.nro_ref_externa
+  is 'Referencia Externa del SWIFT enviado por BCP y sobre el cual se está registrando una RESPUESTA. Ej: 213804/001, 213804/002, etc.';
+comment on column IT.GE_SNP_MENSAJES.cod_msj_swift
+  is 'Tipo de MT recibido de la Operación.';
+comment on column IT.GE_SNP_MENSAJES.fec_valor
+  is 'Fecha Valor para cada operación del Participante.';
+comment on column IT.GE_SNP_MENSAJES.msj_swift
+  is 'Mensaje SWIFT enviado por BCP.';
+comment on column IT.GE_SNP_MENSAJES.cod_moneda
+  is 'Código de la Moneda para cada operación del Participante.';
+comment on column IT.GE_SNP_MENSAJES.monto
+  is 'Monto para cada operación del Participante.';
+comment on column IT.GE_SNP_MENSAJES.error
+  is 'Descripción del Error generado al procesar el Mensaje.';
+comment on column IT.GE_SNP_MENSAJES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_SNP_MENSAJES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SNP_MENSAJES.usu_modificacion
+  is 'Usuario que realizó la ultima modificación en el registro.';
+comment on column IT.GE_SNP_MENSAJES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_SNP_MENSAJES.fec_recepcion
+  is 'Fecha de recepción del mensaje.';
+comment on column IT.GE_SNP_MENSAJES.msj_swi_original
+  is 'Mensaje SWIFT completo recibido/enviado a/desde el socket.';
+comment on column IT.GE_SNP_MENSAJES.situacion
+  is 'Situación del Mensaje. V-Enviado al BCP, P-Pendiente de Envío al BCP, R-Recibido.';
+create index IT.IN_GSMEN_COD_MONEDA on IT.GE_SNP_MENSAJES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SNP_MENSAJES
+  add constraint UK_GSMEN_NRO_REFERENCIA unique (NRO_REFERENCIA, NRO_REF_EXTERNA, COD_MSJ_SWIFT, FEC_VALOR)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSMEN_COD_FEC_VALOR on IT.GE_SNP_MENSAJES("COD_MSJ_SWIFT","FEC_VALOR")
+ONLINE                                                                                   
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  LOCAL 
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

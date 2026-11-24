@@ -1,0 +1,68 @@
+-- Create table
+create table IT.SB_EXT_MT940
+(
+  mt_campos            VARCHAR2(1000),
+  fecha                DATE,
+  moneda               VARCHAR2(3),
+  tipo                 VARCHAR2(2),
+  importe              VARCHAR2(20),
+  referencia_bcp       VARCHAR2(40),
+  tipo_mt              VARCHAR2(3),
+  referencia           VARCHAR2(40),
+  ref_consolidada      VARCHAR2(40),
+  plataforma           VARCHAR2(2),
+  estado               VARCHAR2(1),
+  sal_inicial          VARCHAR2(20),
+  sal_final            VARCHAR2(20),
+  nro_ref_rev_recibida NUMBER(15),
+  nro_ref_rev_enviada  NUMBER(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.SB_EXT_MT940
+  is 'Contiene el detalle de operaciones MT940';
+-- Add comments to the columns 
+comment on column IT.SB_EXT_MT940.mt_campos
+  is 'Identificador del registro.';
+comment on column IT.SB_EXT_MT940.fecha
+  is 'Fecha de la operación.';
+  comment on column IT.SB_EXT_MT940.moneda
+  is 'Moneda de la operación.';
+comment on column IT.SB_EXT_MT940.tipo
+  is 'Tipo de Movimiento: D-Débito, C-Crédito.';
+  comment on column IT.SB_EXT_MT940.importe
+  is 'Importe de la operación.';
+comment on column IT.SB_EXT_MT940.referencia_bcp
+  is 'Referencia del BCP.';
+  comment on column IT.SB_EXT_MT940.tipo_mt
+  is 'Código Swift del MT.';
+comment on column IT.SB_EXT_MT940.referencia
+  is 'Referencia.';
+  comment on column IT.SB_EXT_MT940.ref_consolidada
+  is 'Referencia Consolidada.';
+comment on column IT.SB_EXT_MT940.plataforma
+  is 'Plataforma: X-X Adapter.';
+  comment on column IT.SB_EXT_MT940.estado
+  is 'Estado de la Operación: Situación del Mensaje. C- Cancelado, D-En Demora,E-Error,L-Operación Liquidada,O-Pre-Proceso OK,P-Pendiente de Envío al BCP,R-Recibido,S-Pre-Proceso Pendiente,T-Reversion Automatica,V-Enviado al BCP.';
+comment on column IT.SB_EXT_MT940.sal_inicial
+  is 'Saldo Inicial Contable.';
+  comment on column IT.SB_EXT_MT940.sal_final
+  is 'Saldo Final Contable.';
+comment on column it.sb_ext_mt940.nro_ref_rev_recibida 
+  is 'Referencia de Reversión Recibida';
+comment on column it.sb_ext_mt940.nro_ref_rev_enviada 
+  is 'Referencia de Reversión Enviada';
+-- Create/Recreate indexes 
+create index IN_SBMT9_FECHA on IT.SB_EXT_MT940(FECHA);
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.SB_EXT_MT940 to IT_TEMPORAL;

@@ -1,0 +1,123 @@
+create table IT.GE_COB_SER_CUENTAS
+(
+  cod_servicio     NUMBER(3) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  fec_inicio       DATE not null,
+  fec_vencimiento  DATE,
+  tipo             VARCHAR2(1) default 'P',
+  monto            NUMBER(18,2) default 0,
+  frecuencia       VARCHAR2(1) default 'M',
+  fre_dia          VARCHAR2(5),
+  can_cuotas       NUMBER(3),
+  autorizado       VARCHAR2(1) default 'N',
+  usu_insercion    VARCHAR2(10) default substr( user, 1, 10 ) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr( user, 1, 10 ) not null,
+  fec_modificacion DATE default sysdate not null,
+  referencia       VARCHAR2(20) not null,
+  can_cuo_pagadas  NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_COB_SER_CUENTAS
+  is 'Cuentas por Cobros de Servicios.';
+comment on column IT.GE_COB_SER_CUENTAS.cod_servicio
+  is 'Codigo de servicio.';
+comment on column IT.GE_COB_SER_CUENTAS.nro_cuenta
+  is 'Numero de cuenta del cliente.';
+comment on column IT.GE_COB_SER_CUENTAS.fec_inicio
+  is 'Fecha de inicio del cobro de servicio.';
+comment on column IT.GE_COB_SER_CUENTAS.fec_vencimiento
+  is 'Fecha de vencimiento del cobro de servicio.';
+comment on column IT.GE_COB_SER_CUENTAS.tipo
+  is 'Tipo de procesamiento (F= Fijo, P= Periodico, M= Manual).';
+comment on column IT.GE_COB_SER_CUENTAS.monto
+  is 'Monto a cobrar.';
+comment on column IT.GE_COB_SER_CUENTAS.frecuencia
+  is 'Fecuencia de cobro (D= Diario, S= Semanal, M= Mensual, A= Anual).';
+comment on column IT.GE_COB_SER_CUENTAS.fre_dia
+  is 'Dia de cobro de acuerdo a la frecuencia. Puede ser el dia de la semana, el dia del mes, o el dia y mes.';
+comment on column IT.GE_COB_SER_CUENTAS.can_cuotas
+  is 'Cantidad de cuotas si es que es de tipo Fijo.';
+comment on column IT.GE_COB_SER_CUENTAS.autorizado
+  is 'Indica si existe la autorizacion de la cuenta.';
+comment on column IT.GE_COB_SER_CUENTAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_COB_SER_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_COB_SER_CUENTAS.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.GE_COB_SER_CUENTAS.fec_modificacion
+  is 'Fecha en que se modifico el registro.';
+comment on column IT.GE_COB_SER_CUENTAS.referencia
+  is 'Referencia del documento en la proveedora del servicio.';
+comment on column IT.GE_COB_SER_CUENTAS.can_cuo_pagadas
+  is 'Cantidad de cuotas pagadas.';
+create index IT.IN_GCSCU_NRO_CUENTA on IT.GE_COB_SER_CUENTAS (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint PK_GE_COB_SER_CUENTAS primary key (COD_SERVICIO, NRO_CUENTA, REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint UK_GCSCU_REFERENCIA unique (COD_SERVICIO, REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint FK_GCSCU_COD_SERVICIO foreign key (COD_SERVICIO)
+  references IT.GE_COB_SER_PARAMETROS (COD_SERVICIO);
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint FK_GCSCU_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint AVCON_1122559685_AUTOR_000
+  check (AUTORIZADO IN ('S', 'N'));
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint AVCON_1122559685_COD_S_000
+  check (COD_SERVICIO BETWEEN 0 AND 999);
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint AVCON_1122559685_FRECU_000
+  check (FRECUENCIA IN ('D', 'S', 'M', 'A'));
+alter table IT.GE_COB_SER_CUENTAS
+  add constraint AVCON_1122559685_TIPO_000
+  check (TIPO IN ('P', 'F', 'M'));
+

@@ -1,0 +1,323 @@
+-- Create table
+create table IT.LC_OPE_PENDIENTES
+(
+  nro_operacion       NUMBER(7) not null,
+  cod_tip_operacion   VARCHAR2(3) not null,
+  referenciado        VARCHAR2(1) default 'N' not null,
+  cod_tip_referencia  VARCHAR2(3),
+  nro_referencia      NUMBER(10) default 0,
+  cod_tip_ope_bcp     VARCHAR2(6),
+  cod_moneda          VARCHAR2(3) not null,
+  cod_persona         VARCHAR2(10),
+  cod_oficina         NUMBER(3) not null,
+  fec_operacion       DATE not null,
+  monto               NUMBER(18,2) default 0 not null,
+  cotizacion          NUMBER(14,8) not null,
+  mto_equ_local       NUMBER(18,2) default 0 not null,
+  cta_referencia      VARCHAR2(35),
+  cod_tra_cargo1      NUMBER(4),
+  mto_cargo1          NUMBER(18,2) default 0,
+  cod_tra_cargo2      NUMBER(4),
+  mto_cargo2          NUMBER(18,2) default 0,
+  cod_tra_cargo3      NUMBER(4),
+  mto_cargo3          NUMBER(18,2) default 0,
+  cod_tra_cargo4      NUMBER(4),
+  mto_cargo4          NUMBER(18,2) default 0,
+  cta_ref_contra1     VARCHAR2(15),
+  mto_contra1         NUMBER(18,2) default 0,
+  cta_ref_contra2     VARCHAR2(15),
+  mto_contra2         NUMBER(18,2) default 0,
+  cta_ref_contra3     VARCHAR2(15),
+  mto_contra3         NUMBER(18,2) default 0,
+  cta_ref_contra4     VARCHAR2(15),
+  mto_contra4         NUMBER(18,2) default 0,
+  nro_cuenta          VARCHAR2(15) not null,
+  nro_cta_bancaria    VARCHAR2(15),
+  nro_cheque          VARCHAR2(15),
+  nro_boleta          NUMBER(15),
+  concepto            VARCHAR2(35),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  nro_documento       VARCHAR2(20) not null,
+  liquidado           VARCHAR2(1) default 'N' not null,
+  cod_usu_liquidacion VARCHAR2(10),
+  fec_liquidacion     DATE,
+  cta_ref_contra5     VARCHAR2(15),
+  mto_contra5         NUMBER(18,2) default 0,
+  cod_retencion       NUMBER(3),
+  nro_diario          NUMBER(3) default 0,
+  ope_homebanking     VARCHAR2(1) default 'N',
+  cod_mon_destino     VARCHAR2(3),
+  ind_ser_digital     VARCHAR2(1) default 'N',
+  mto_cargo7          NUMBER(18,2) default 0,
+  cod_tra_cargo7      NUMBER(4),
+  mto_cargo6          NUMBER(18,2) default 0,
+  cod_tra_cargo6      NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.LC_OPE_PENDIENTES
+  is 'Operaciones Pendientes de Cambios.';
+-- Add comments to the columns 
+comment on column IT.LC_OPE_PENDIENTES.nro_operacion
+  is 'Numero de operacion identificadora.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tip_operacion
+  is 'Codigo del tipo de operacion de cambios.';
+comment on column IT.LC_OPE_PENDIENTES.referenciado
+  is 'Referenciado por otra operacion S/N.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tip_referencia
+  is 'Codigo del tipo de referencia de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.nro_referencia
+  is 'Numero del tipo referencia.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tip_ope_bcp
+  is 'Codigo de BCP asignado al Tipo de Operacion.';
+comment on column IT.LC_OPE_PENDIENTES.cod_moneda
+  is 'Codigo de moneda de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.cod_persona
+  is 'Codigo del cliente  de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.LC_OPE_PENDIENTES.fec_operacion
+  is 'Fecha de emision de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.monto
+  is 'Monto de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.cotizacion
+  is 'Cotizacion de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.mto_equ_local
+  is 'Monto equivalente en moneda local.';
+comment on column IT.LC_OPE_PENDIENTES.cta_referencia
+  is 'Cuenta Debito/Credito a la que hace referencia la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tra_cargo1
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PENDIENTES.mto_cargo1
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tra_cargo2
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PENDIENTES.mto_cargo2
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tra_cargo3
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PENDIENTES.mto_cargo3
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tra_cargo4
+  is 'Codigo de cargo.';
+comment on column IT.LC_OPE_PENDIENTES.mto_cargo4
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PENDIENTES.cta_ref_contra1
+  is 'Contra cuenta de la operacion (efectivo).';
+comment on column IT.LC_OPE_PENDIENTES.mto_contra1
+  is 'Monto o valor de la contra cuenta (efectivo).';
+comment on column IT.LC_OPE_PENDIENTES.cta_ref_contra2
+  is 'Contra cuenta de la operacion (cheque).';
+comment on column IT.LC_OPE_PENDIENTES.mto_contra2
+  is 'Monto o valor de la contra cuenta (cheque).';
+comment on column IT.LC_OPE_PENDIENTES.cta_ref_contra3
+  is 'Contra cuenta de la operacion (Cuenta Cliente).';
+comment on column IT.LC_OPE_PENDIENTES.mto_contra3
+  is 'Monto o valor de la contra cuenta (Cuenta Cliente).';
+comment on column IT.LC_OPE_PENDIENTES.cta_ref_contra4
+  is 'Contra cuenta de la operacion (Cuenta Contable).';
+comment on column IT.LC_OPE_PENDIENTES.mto_contra4
+  is 'Monto o valor de la contra cuenta (Cuenta Contable).';
+comment on column IT.LC_OPE_PENDIENTES.nro_cuenta
+  is 'Numero de Cuenta de Cambios.';
+comment on column IT.LC_OPE_PENDIENTES.nro_cta_bancaria
+  is 'Cuenta corriente corresponsal.';
+comment on column IT.LC_OPE_PENDIENTES.nro_cheque
+  is 'Numero de cheque.';
+comment on column IT.LC_OPE_PENDIENTES.nro_boleta
+  is 'Numero deposito.';
+comment on column IT.LC_OPE_PENDIENTES.concepto
+  is 'Concepto.';
+comment on column IT.LC_OPE_PENDIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_OPE_PENDIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_OPE_PENDIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_PENDIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_OPE_PENDIENTES.observacion
+  is 'Observacion sobre la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.nro_documento
+  is 'Numero de documento del cliente.';
+comment on column IT.LC_OPE_PENDIENTES.liquidado
+  is 'Indica si la operacion ya fue liquidada.';
+comment on column IT.LC_OPE_PENDIENTES.cod_usu_liquidacion
+  is 'Usuario que realizo la liquidacion de la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.fec_liquidacion
+  is 'Fecha en que se liquida la operacion.';
+comment on column IT.LC_OPE_PENDIENTES.cta_ref_contra5
+  is 'Contra cuenta de la operacion (cheque nuestro banco).';
+comment on column IT.LC_OPE_PENDIENTES.mto_contra5
+  is 'Monto o valor de la contra cuenta (cheque nuestro banco).';
+comment on column IT.LC_OPE_PENDIENTES.cod_retencion
+  is 'Codigo de retencion. Ver tabla de Codigos de retenciones.';
+comment on column IT.LC_OPE_PENDIENTES.nro_diario
+  is 'El Número de Operación diaria ';
+comment on column IT.LC_OPE_PENDIENTES.ope_homebanking
+  is 'La Operación para retomar vía Home Banking S|N';
+comment on column IT.LC_OPE_PENDIENTES.cod_mon_destino
+  is 'Código de la Moneda destino de la Operación ';
+comment on column IT.LC_OPE_PENDIENTES.ind_ser_digital
+  is 'Indica si es de Serie Digital';
+comment on column IT.LC_OPE_PENDIENTES.mto_cargo7
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tra_cargo7
+  is 'Código de cargo.';
+comment on column IT.LC_OPE_PENDIENTES.mto_cargo6
+  is 'Monto del cargo.';
+comment on column IT.LC_OPE_PENDIENTES.cod_tra_cargo6
+  is 'Código de cargo.';
+-- Create/Recreate indexes 
+create index IT.IN_LOPEN_COD_MONEDA on IT.LC_OPE_PENDIENTES (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_COD_OFICINA on IT.LC_OPE_PENDIENTES (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_COD_PERSONA on IT.LC_OPE_PENDIENTES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_COD_TIP_OPE_BCP on IT.LC_OPE_PENDIENTES (COD_TIP_OPE_BCP)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_COD_TIP_OPERACION on IT.LC_OPE_PENDIENTES (COD_TIP_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_COD_TIP_REFERENCIA on IT.LC_OPE_PENDIENTES (COD_TIP_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_CTA_REF_CONTRA3 on IT.LC_OPE_PENDIENTES (CTA_REF_CONTRA3, LIQUIDADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LOPEN_NRO_CUENTA on IT.LC_OPE_PENDIENTES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.LC_OPE_PENDIENTES
+  add constraint PK_LC_OPE_PENDIENTES primary key (NRO_OPERACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_COD_TIP_OPE_BCP foreign key (COD_TIP_OPE_BCP)
+  references IT.LC_TIP_OPE_BCP (COD_TIP_OPE_BCP);
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_COD_TIP_OPERACION foreign key (COD_TIP_OPERACION)
+  references IT.LC_TIP_OPERACIONES (COD_TIP_OPERACION);
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_COD_TIP_REFERENCIA foreign key (COD_TIP_REFERENCIA)
+  references IT.LC_TIP_REFERENCIAS (COD_TIP_REFERENCIA);
+alter table IT.LC_OPE_PENDIENTES
+  add constraint FK_LOPEN_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.LC_CTA_CAMBIOS (NRO_CUENTA);
+-- Create/Recreate check constraints 
+alter table IT.LC_OPE_PENDIENTES
+  add constraint AVCON_1123594858_REFER_000
+  check (REFERENCIADO IN ('S', 'N'));
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.LC_OPE_PENDIENTES to IT_TEMPORAL;

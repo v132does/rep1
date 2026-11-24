@@ -1,0 +1,101 @@
+create table IT.GE_VAL_CTA_GNB_ERR
+(
+  nro_cuenta       VARCHAR2(100) not null,
+  nro_documento    VARCHAR2(100),
+  cod_moneda       VARCHAR2(100),
+  importe          NUMBER(18,4),
+  nro_referencia   VARCHAR2(50),
+  fecha            DATE,
+  error_dev        VARCHAR2(4000),
+  nro_ref_bcp      VARCHAR2(50),
+  tipo             VARCHAR2(10),
+  hor_ini          VARCHAR2(30),
+  hor_fin          VARCHAR2(30),
+  observacion      VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_VAL_CTA_GNB_ERR
+  is 'Validacion de Cuentas GNB';
+comment on column IT.GE_VAL_CTA_GNB_ERR.nro_cuenta
+  is 'Numero de Cuenta';
+comment on column IT.GE_VAL_CTA_GNB_ERR.nro_documento
+  is 'Nro Documento de Cliente';
+comment on column IT.GE_VAL_CTA_GNB_ERR.cod_moneda
+  is 'Moneda';
+comment on column IT.GE_VAL_CTA_GNB_ERR.importe
+  is 'Importe';
+comment on column IT.GE_VAL_CTA_GNB_ERR.nro_referencia
+  is 'Nro de Referencia de la operacion';
+comment on column IT.GE_VAL_CTA_GNB_ERR.fecha
+  is 'Fecha';
+comment on column IT.GE_VAL_CTA_GNB_ERR.error_dev
+  is 'Error devuelto';
+comment on column IT.GE_VAL_CTA_GNB_ERR.nro_ref_bcp
+  is 'Nro de Referencia BCP';
+comment on column IT.GE_VAL_CTA_GNB_ERR.tipo
+  is 'Tipo';
+comment on column IT.GE_VAL_CTA_GNB_ERR.hor_ini
+  is 'Hora Inicio Llamado';
+comment on column IT.GE_VAL_CTA_GNB_ERR.hor_fin
+  is 'Hora Fin Llamado';
+comment on column IT.GE_VAL_CTA_GNB_ERR.observacion
+  is 'Respuesta GNB';
+comment on column IT.GE_VAL_CTA_GNB_ERR.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.GE_VAL_CTA_GNB_ERR.fec_insercion
+  is 'Fecha de Insercion del Registro';
+comment on column IT.GE_VAL_CTA_GNB_ERR.usu_modificacion
+  is 'Usuario Modificación';
+comment on column IT.GE_VAL_CTA_GNB_ERR.fec_modificacion
+  is 'Fecha de Modificación';
+create index IT.IND_FEC_ERROR on IT.GE_VAL_CTA_GNB_ERR (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_GE_VAL_CTA_GNB_ERR on IT.GE_VAL_CTA_GNB_ERR (NRO_CUENTA, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IND_NRO_REF_ERR on IT.GE_VAL_CTA_GNB_ERR (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

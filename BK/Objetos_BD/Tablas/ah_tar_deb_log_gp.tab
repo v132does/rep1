@@ -1,0 +1,143 @@
+create table it.ah_tar_deb_log_gp
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  tar_activa          VARCHAR2(1) default 'N',
+  fec_ingreso         DATE,
+  cod_persona         VARCHAR2(10) not null,
+  embozado            VARCHAR2(26),
+  cod_usuario         VARCHAR2(10) not null,
+  fec_grabacion       DATE,
+  adherente           VARCHAR2(2) default '00' not null,
+  nro_emision         VARCHAR2(2) not null,
+  cod_causa           NUMBER(3),
+  cod_ofi_origen      NUMBER(3) not null,
+  fec_recepcion       DATE,
+  fec_entrega         DATE,
+  fec_ult_impresion   DATE,
+  fec_vencimiento     DATE,
+  fec_cancelacion     DATE,
+  nro_planilla        NUMBER(8),
+  tip_planilla        NUMBER(2),
+  nro_pla_anterior    NUMBER(8),
+  tip_envio           VARCHAR2(1),
+  referencia          VARCHAR2(35) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_est_solicitud   NUMBER(3),
+  fec_envio           DATE,
+  motivo              VARCHAR2(40),
+  fec_activacion      DATE,
+  cod_ent_procesadora NUMBER(5) not null,
+  tip_tar_debito      VARCHAR2(2),
+  nro_tarjeta         VARCHAR2(19),
+  cod_est_pin         VARCHAR2(1),
+  nro_bin             VARCHAR2(6) not null,
+  renovacion          VARCHAR2(1),
+  fec_ult_mov_pos     DATE,
+  fec_ult_mov_atm     DATE,
+  obs_tip_tdd         VARCHAR2(2000),
+  nro_lote            NUMBER(6),
+  ide_reg_lote        VARCHAR2(20),
+  nro_cta_global      VARCHAR2(16),
+  id_producto         VARCHAR2(6),
+  men_error           varchar2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+   
+  comment on table it.ah_tar_deb_log_gp
+  is 'Tarjetas de Debito.';
+-- Add comments to the columns 
+comment on column it.ah_tar_deb_log_gp.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column it.ah_tar_deb_log_gp.tar_activa
+  is 'Tiene Tarjeta Activa (S/N).';
+comment on column it.ah_tar_deb_log_gp.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column it.ah_tar_deb_log_gp.cod_persona
+  is 'Cliente.';
+comment on column it.ah_tar_deb_log_gp.embozado
+  is 'Embozado.';
+comment on column it.ah_tar_deb_log_gp.cod_usuario
+  is 'Usuario.';
+comment on column it.ah_tar_deb_log_gp.fec_grabacion
+  is 'Fecha de Grabacion.';
+comment on column it.ah_tar_deb_log_gp.adherente
+  is '(00) Es Principal o (01...) Adicional.';
+comment on column it.ah_tar_deb_log_gp.nro_emision
+  is 'Nro. de Emision.';
+comment on column it.ah_tar_deb_log_gp.cod_causa
+  is 'Motivo de Cancelacion.';
+comment on column it.ah_tar_deb_log_gp.cod_ofi_origen
+  is 'Oficina Origen.';
+comment on column it.ah_tar_deb_log_gp.fec_recepcion
+  is 'Fecha de Recepcion.';
+comment on column it.ah_tar_deb_log_gp.fec_entrega
+  is 'Fecha de Entrega.';
+comment on column it.ah_tar_deb_log_gp.fec_ult_impresion
+  is 'Fecha Ultima Impresion.';
+comment on column it.ah_tar_deb_log_gp.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column it.ah_tar_deb_log_gp.fec_cancelacion
+  is 'Fecha de Cancelacion.';
+comment on column it.ah_tar_deb_log_gp.nro_planilla
+  is 'Nro. de Planilla.';
+comment on column it.ah_tar_deb_log_gp.tip_planilla
+  is 'Tipo de Planilla.';
+comment on column it.ah_tar_deb_log_gp.nro_pla_anterior
+  is 'Nro. de Planilla Anterior.';
+comment on column it.ah_tar_deb_log_gp.tip_envio
+  is 'Tipo de Envio.';
+comment on column it.ah_tar_deb_log_gp.referencia
+  is 'Codigo de Direccion.';
+comment on column it.ah_tar_deb_log_gp.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column it.ah_tar_deb_log_gp.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column it.ah_tar_deb_log_gp.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column it.ah_tar_deb_log_gp.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column it.ah_tar_deb_log_gp.cod_est_solicitud
+  is 'Estado de la Tarjeta.';
+comment on column it.ah_tar_deb_log_gp.fec_envio
+  is 'fecha de Proceso.';
+comment on column it.ah_tar_deb_log_gp.motivo
+  is 'Motivo de Cancelacion.';
+comment on column it.ah_tar_deb_log_gp.fec_activacion
+  is 'Fecha de Envio a Activacion.';
+comment on column it.ah_tar_deb_log_gp.cod_ent_procesadora
+  is 'Entidad Procesadora de la Tarjeta.';
+comment on column it.ah_tar_deb_log_gp.tip_tar_debito
+  is 'Tipo de Tarjeta de Debito.';
+comment on column it.ah_tar_deb_log_gp.nro_tarjeta
+  is 'Nro. de Tarjeta';
+comment on column it.ah_tar_deb_log_gp.cod_est_pin
+  is 'Estado del Pin.';
+comment on column it.ah_tar_deb_log_gp.nro_bin
+  is 'Numero de Bin.';
+comment on column it.ah_tar_deb_log_gp.renovacion
+  is 'Indicador de Renovacion.';
+comment on column it.ah_tar_deb_log_gp.fec_ult_mov_pos
+  is 'Fecha de Ultimo Movimiento POS.';
+comment on column it.ah_tar_deb_log_gp.fec_ult_mov_atm
+  is 'Fecha de Ultimo Movimiento ATM.';
+comment on column it.ah_tar_deb_log_gp.obs_tip_tdd
+  is 'Observación,  El usuario debe escribir el motivo por el cual hizo la selección de tipo de tarjeta de débito INFONET';
+comment on column it.ah_tar_deb_log_gp.nro_lote
+  is 'Nro. de Lote';
+comment on column it.ah_tar_deb_log_gp.ide_reg_lote
+  is 'Identificador del registro del lote';
+  comment on column it.ah_tar_deb_log_gp.men_error
+  is 'Mensaje de error capturado';

@@ -1,0 +1,44 @@
+create table IT.WF_LIMITES
+(
+  cod_grupo        VARCHAR2(5),
+  cod_usuario      VARCHAR2(10),
+  cod_tip_circuito NUMBER(3),
+  cot_tip_tarea    NUMBER(3),
+  lim_maximo       NUMBER(25,6),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.WF_LIMITES
+  is 'Definicion de los limites por Grupo, usuarios, tipo de circuito, tareas';
+comment on column IT.WF_LIMITES.cod_grupo
+  is 'Codigo de grupo al cual aplica este limite. Opcional. Si es nulo aplica a todos.';
+comment on column IT.WF_LIMITES.cod_usuario
+  is 'Codigo de usuario al cual aplica este limite.Opcional. Si es nulo aplica a todos.';
+comment on column IT.WF_LIMITES.cod_tip_circuito
+  is 'Tipo de circuito al cual aplica este limite. Opcional. Si es nulo aplica a todos.';
+comment on column IT.WF_LIMITES.cot_tip_tarea
+  is 'Tipo de Tarea del circuito al cual aplica este limite. Opcional. Si es nulo aplica a todo el circuito. Si este dato se ingresa es obligatorio el circuito.';
+comment on column IT.WF_LIMITES.lim_maximo
+  is 'Limite maximo. Puede ser monto, punto de tasa, punto de cotizacion, etc.';
+comment on column IT.WF_LIMITES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.WF_LIMITES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.WF_LIMITES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.WF_LIMITES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

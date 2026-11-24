@@ -1,0 +1,41 @@
+create table IT.TM_MAILS
+(
+  env_por     VARCHAR2(100),
+  env_para    VARCHAR2(500),
+  asunto      VARCHAR2(500),
+  detalles    VARCHAR2(4000),
+  fec_sistema DATE,
+  nom_maquina VARCHAR2(20),
+  cod_usuario VARCHAR2(10),
+  sid_base    VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_MAILS
+  is 'Prueba de Mails.';
+comment on column IT.TM_MAILS.env_por
+  is 'Remitente. ';
+comment on column IT.TM_MAILS.env_para
+  is 'Destinatario.';
+comment on column IT.TM_MAILS.asunto
+  is 'Asunto.';
+comment on column IT.TM_MAILS.detalles
+  is 'Detalles.';
+comment on column IT.TM_MAILS.fec_sistema
+  is 'Fecha del Sistema.';
+comment on column IT.TM_MAILS.nom_maquina
+  is 'Nombre de la Maquina.';
+comment on column IT.TM_MAILS.cod_usuario
+  is 'Codigo del Usuario.';
+comment on column IT.TM_MAILS.sid_base
+  is 'Identificador de la Base.';
+

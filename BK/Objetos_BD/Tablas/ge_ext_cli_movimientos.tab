@@ -1,0 +1,114 @@
+create table IT.GE_EXT_CLI_MOVIMIENTOS
+(
+  mto_debito       NUMBER(18,2) default 0,
+  mto_credito      NUMBER(18,2) default 0,
+  ind_acumula      VARCHAR2(1),
+  cod_tra_padre    NUMBER(4),
+  cod_persona      VARCHAR2(10),
+  fec_extracto     DATE,
+  cod_extracto     NUMBER(5),
+  nro_cuenta       VARCHAR2(15),
+  fec_movimiento   DATE,
+  fec_valor        DATE,
+  hor_movimiento   VARCHAR2(8),
+  nro_documento    NUMBER(15),
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fre_extracto     VARCHAR2(1),
+  nro_secuencia    NUMBER(3),
+  cod_ofi_origen   NUMBER(3),
+  concepto         VARCHAR2(100),
+  ind_bloqueo      VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_CLI_MOVIMIENTOS
+  is 'Detalle de Cuentas del Extracto Unico ** Mantener seis meses **';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.mto_debito
+  is 'Importe del Debito.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.mto_credito
+  is 'Importe del Credito.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.ind_acumula
+  is 'Indicador de acumlacion (S= SI / N= NO).';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.cod_tra_padre
+  is 'Codigo de Transaccion Padre.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.cod_persona
+  is 'Codigo del Cliente.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.fec_extracto
+  is 'Fecha del Extracto.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.cod_extracto
+  is 'Codigo de Extracto.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.fec_movimiento
+  is 'Fecha del Movimiento.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.fec_valor
+  is 'Fecha Valor.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.hor_movimiento
+  is 'Hora del Movimiento.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.nro_documento
+  is 'Numero de Documento.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.cod_modulo
+  is 'Modulo de la Cuenta.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.fre_extracto
+  is 'Frecuencia de Extracto (D, S, M).';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.cod_ofi_origen
+  is 'Codigo de oficina origen del movimiento.';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.concepto
+  is 'Concepto';
+comment on column IT.GE_EXT_CLI_MOVIMIENTOS.ind_bloqueo
+  is 'Indica si corresponde a movimiento de Bloqueo.';
+create index IT.IN_GECMO_COD_PERSONA on IT.GE_EXT_CLI_MOVIMIENTOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 51M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECMO_NRO_CUENTA on IT.GE_EXT_CLI_MOVIMIENTOS (NRO_CUENTA, FEC_EXTRACTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 49M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EXT_CLI_MOVIMIENTOS
+  add constraint FK_GECMO_NRO_CUENTA foreign key (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA)
+  references IT.GE_EXT_CLI_CUENTAS (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA)
+  novalidate;
+

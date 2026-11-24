@@ -1,0 +1,195 @@
+create table IT.GE_MOV_RES_CLIENTES
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_persona        VARCHAR2(10),
+  fec_valor          DATE,
+  monto              NUMBER(18,2) default 0,
+  nro_cuenta         VARCHAR2(15),
+  cod_moneda         VARCHAR2(3) not null,
+  cod_banco          NUMBER(3),
+  cod_ofi_origen     NUMBER(3) not null,
+  cod_tra_padre      NUMBER(4) not null,
+  cod_mod_padre      NUMBER(3) not null,
+  cod_mad_padre      NUMBER(3) not null,
+  mto_equ_local      NUMBER(18,2) default 0,
+  mto_equ_mon_fuerte NUMBER(18,2) default 0,
+  cod_modulo         NUMBER(3),
+  cotizacion         NUMBER(14,4) default 0,
+  nro_documento      NUMBER(15) not null,
+  tip_mov_rubro      VARCHAR2(1),
+  informado          VARCHAR2(1) default 'N',
+  ano                NUMBER(4),
+  mes                NUMBER(2),
+  cod_modalidad      NUMBER(3),
+  nro_dec_jurada     NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_RES_CLIENTES
+  is 'Movimientos Resumido por Cliente, solo se carga el movimiento con la transaccion del monto total de la operacion.';
+comment on column IT.GE_MOV_RES_CLIENTES.fecha
+  is 'Fecha de la Transacción.';
+comment on column IT.GE_MOV_RES_CLIENTES.hora
+  is 'Hora del Movimiento.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_usuario
+  is 'Código de Operador.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_MOV_RES_CLIENTES.fec_valor
+  is 'Fecha Valor de la Transacción.';
+comment on column IT.GE_MOV_RES_CLIENTES.monto
+  is 'Importe de la Transacción.';
+comment on column IT.GE_MOV_RES_CLIENTES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_banco
+  is 'Código de Banco.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_ofi_origen
+  is 'Código de Oficina Origen.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_tra_padre
+  is 'Código de Transaccion Padre.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_mod_padre
+  is 'Código de Modulo Padre.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_mad_padre
+  is 'Código de Modalidad Padre.';
+comment on column IT.GE_MOV_RES_CLIENTES.mto_equ_local
+  is 'Importe Equivalente en GS.';
+comment on column IT.GE_MOV_RES_CLIENTES.mto_equ_mon_fuerte
+  is 'Monto Equivalente en Moneda Fuerte.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_modulo
+  is 'Modulo de la Cuenta.';
+comment on column IT.GE_MOV_RES_CLIENTES.cotizacion
+  is 'Cotización.';
+comment on column IT.GE_MOV_RES_CLIENTES.nro_documento
+  is 'Número de Documento.';
+comment on column IT.GE_MOV_RES_CLIENTES.tip_mov_rubro
+  is 'Tipo de Movimiento.';
+comment on column IT.GE_MOV_RES_CLIENTES.informado
+  is 'Estado Informado.';
+comment on column IT.GE_MOV_RES_CLIENTES.ano
+  is 'Año.';
+comment on column IT.GE_MOV_RES_CLIENTES.mes
+  is 'Mes.';
+comment on column IT.GE_MOV_RES_CLIENTES.cod_modalidad
+  is 'Modalidad de la Cuenta.';
+create index IT.IN_GMRCL_COD_MAD_PADRE on IT.GE_MOV_RES_CLIENTES (COD_MAD_PADRE, COD_MOD_PADRE, COD_MONEDA, COD_TRA_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMRCL_COD_PERSONA on IT.GE_MOV_RES_CLIENTES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMRCL_FECHA on IT.GE_MOV_RES_CLIENTES (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMRCL_MES on IT.GE_MOV_RES_CLIENTES (ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMRCL_NRO_CUENTA on IT.GE_MOV_RES_CLIENTES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMRCL_NRO_DOCUMENTO on IT.GE_MOV_RES_CLIENTES (FECHA, HORA, COD_USUARIO, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.PK_GE_MOV_RES_CLIENTES on IT.GE_MOV_RES_CLIENTES (FECHA, HORA, COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint FK_GMRCL_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint FK_GMRCL_COD_OFI_ORIGEN foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint FK_GMRCL_COD_TRA_PADRE foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint FK_GMRCL_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint FK_GMRCL_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint AVCON_1185995347_COD_M_002
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint AVCON_1185995347_COD_O_004
+  check (COD_OFI_ORIGEN BETWEEN 0 AND 999);
+alter table IT.GE_MOV_RES_CLIENTES
+  add constraint AVCON_1185995347_INFOR_000
+  check (INFORMADO IN ('S', 'N'));
+

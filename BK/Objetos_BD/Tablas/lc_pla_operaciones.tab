@@ -1,0 +1,106 @@
+create table IT.LC_PLA_OPERACIONES
+(
+  cod_ofi_cambio    NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_actividad     NUMBER(3) not null,
+  cod_mad_padre     NUMBER(3) not null,
+  cod_bcp_cliente   NUMBER(3) not null,
+  mto_compra        NUMBER(18,2) default 0,
+  cot_compra        NUMBER(14,8) default 0,
+  tot_compra        NUMBER(18,2) default 0,
+  mto_venta         NUMBER(18,2) default 0,
+  cot_venta         NUMBER(14,8) default 0,
+  tot_venta         NUMBER(18,2) default 0,
+  cod_usuario       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fecha             DATE default SYSDATE not null,
+  hora              VARCHAR2(8) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  nro_cuenta        VARCHAR2(15),
+  cod_rub_economico VARCHAR2(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_PLA_OPERACIONES
+  is 'Contiene de los Saldos Diarios Generados por las Operaciones de Cambios.';
+comment on column IT.LC_PLA_OPERACIONES.cod_ofi_cambio
+  is 'Codigo de oficina.';
+comment on column IT.LC_PLA_OPERACIONES.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_PLA_OPERACIONES.cod_modalidad
+  is 'Codigo modalidad.';
+comment on column IT.LC_PLA_OPERACIONES.cod_actividad
+  is 'Codigo actividad del cliente.';
+comment on column IT.LC_PLA_OPERACIONES.cod_mad_padre
+  is 'Codigo modalidad padre.';
+comment on column IT.LC_PLA_OPERACIONES.cod_bcp_cliente
+  is 'Codigo del BCP.';
+comment on column IT.LC_PLA_OPERACIONES.mto_compra
+  is 'Monto de compras.';
+comment on column IT.LC_PLA_OPERACIONES.cot_compra
+  is 'Cotizacion de compra.';
+comment on column IT.LC_PLA_OPERACIONES.tot_compra
+  is 'Monto total de compras.';
+comment on column IT.LC_PLA_OPERACIONES.mto_venta
+  is 'Monto de ventas.';
+comment on column IT.LC_PLA_OPERACIONES.cot_venta
+  is 'Cotizacion de venta.';
+comment on column IT.LC_PLA_OPERACIONES.tot_venta
+  is 'Monto total de ventas.';
+comment on column IT.LC_PLA_OPERACIONES.cod_usuario
+  is 'Usuario que realizo la operacion.';
+comment on column IT.LC_PLA_OPERACIONES.fecha
+  is 'Fecha.';
+comment on column IT.LC_PLA_OPERACIONES.hora
+  is 'Hora.';
+comment on column IT.LC_PLA_OPERACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_PLA_OPERACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_PLA_OPERACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_PLA_OPERACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.LC_PLA_OPERACIONES.nro_cuenta
+  is 'Nro de cuenta de cambios.';
+comment on column IT.LC_PLA_OPERACIONES.cod_rub_economico
+  is 'Código de rubro económico.';
+alter table IT.LC_PLA_OPERACIONES
+  add constraint PK_LC_PLA_POSICIONES primary key (COD_OFI_CAMBIO, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_PLA_OPERACIONES
+  add constraint FK_LPOPE_COD_RUB_ECONOMICO foreign key (COD_RUB_ECONOMICO)
+  references IT.PR_RUB_ECONOMICOS (COD_RUB_ECONOMICO);
+alter table IT.LC_PLA_OPERACIONES
+  add constraint FK_LPPOS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_PLA_OPERACIONES
+  add constraint FK_LPPOS_COD_OFICINA foreign key (COD_OFI_CAMBIO)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.LC_PLA_OPERACIONES
+  add constraint FK_LPPOS_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

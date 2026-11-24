@@ -1,0 +1,38 @@
+create table IT.SIMGIA_ARDEUPEND_BKP
+(
+  dpsuc       NUMBER(2),
+  dpcta       NUMBER(6),
+  dpsub       NUMBER(6),
+  dpprior     NUMBER(1),
+  dpseq       NUMBER(2),
+  dptipor     CHAR(1),
+  dpriesgo    NUMBER(6),
+  dpprop      NUMBER(6),
+  dpcongru    NUMBER(12),
+  dpvencim    NUMBER(8),
+  dpdocnro    NUMBER(6),
+  dpmonto     NUMBER(13,2),
+  dptasa      NUMBER(4,2),
+  dpsuctrp    NUMBER(2),
+  dpctatrp    NUMBER(6),
+  dpsubtrp    NUMBER(6),
+  dpblqado    NUMBER(13,2),
+  dpiva       NUMBER(13,2),
+  fec_proceso DATE,
+  cod_persona VARCHAR2(10),
+  nro_cuenta  VARCHAR2(15),
+  respuesta   VARCHAR2(4000),
+  est_proceso VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

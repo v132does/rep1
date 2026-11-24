@@ -1,0 +1,48 @@
+create table IT.SB_SNP_EST_CATASTROS
+(
+  nro_orden        NUMBER(15) not null,
+  cod_estado       VARCHAR2(3) not null,
+  fecha            DATE not null,
+  cod_usuario      VARCHAR2(10) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  observacion      VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.SB_SNP_EST_CATASTROS.nro_orden
+  is 'Identificador del Catastro.';
+comment on column IT.SB_SNP_EST_CATASTROS.cod_estado
+  is 'Estado del Catastro.
+P - Pendiente de Aprobación.
+A - Aprobado (Luego de la recepción de Confirmación).
+O - Pendiente de Autoriz.-Entidad Debitante..
+R - Rechazado (Luego de la recepción de Confirmación).
+N - Pendiente de Cancelación (Recepción de Solicitud de Cancelación).
+C - Cancelado (Solicitud de Cancelación aprobada).';
+comment on column IT.SB_SNP_EST_CATASTROS.fecha
+  is 'Fecha del cambio de estado';
+comment on column IT.SB_SNP_EST_CATASTROS.cod_usuario
+  is 'Usuario que cambio de estado';
+comment on column IT.SB_SNP_EST_CATASTROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_SNP_EST_CATASTROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_SNP_EST_CATASTROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_EST_CATASTROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.SB_SNP_EST_CATASTROS.observacion
+  is 'Observacion del cambio de estado';
+

@@ -1,0 +1,85 @@
+create table IT.BW_TD_CONFIGURACIONES
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_per_vinculo  VARCHAR2(10) not null,
+  tipo             VARCHAR2(2) not null,
+  autorizador      VARCHAR2(1) default 'N',
+  telefono         VARCHAR2(50),
+  enviado          VARCHAR2(1) default 'N',
+  referencia       VARCHAR2(3000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  sin_verificar    VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_TD_CONFIGURACIONES
+  is 'Vinculos entre Personas.';
+comment on column IT.BW_TD_CONFIGURACIONES.cod_persona
+  is 'Código de Persona(Empresa).';
+comment on column IT.BW_TD_CONFIGURACIONES.cod_per_vinculo
+  is 'Código de la Persona Vinculada.';
+comment on column IT.BW_TD_CONFIGURACIONES.tipo
+  is 'Tipo de Vinculacion';
+comment on column IT.BW_TD_CONFIGURACIONES.autorizador
+  is 'Autorizador de TD';
+comment on column IT.BW_TD_CONFIGURACIONES.telefono
+  is 'Numero de Teléfono';
+comment on column IT.BW_TD_CONFIGURACIONES.enviado
+  is 'Mensaje de Token Digital Enviado';
+comment on column IT.BW_TD_CONFIGURACIONES.referencia
+  is 'Referendia';
+comment on column IT.BW_TD_CONFIGURACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BW_TD_CONFIGURACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BW_TD_CONFIGURACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BW_TD_CONFIGURACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BW_TD_CONFIGURACIONES.sin_verificar
+  is 'Sin verificar (S/N)';
+create index IT.IN_EVINW_COD_PER_VINCULO on IT.BW_TD_CONFIGURACIONES (COD_PER_VINCULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TD_CONFIGURACIONES
+  add constraint PK_BW_TD_CONFIGURACIONES primary key (COD_PERSONA, COD_PER_VINCULO, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 2M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TD_CONFIGURACIONES
+  add constraint FK_EVINW_COD_PER_VINCULO foreign key (COD_PER_VINCULO)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.BW_TD_CONFIGURACIONES
+  add constraint FK_EVINW_COD_TIP_VINCULO foreign key (TIPO)
+  references IT.BA_TIP_VINCULOS (COD_TIP_VINCULO);
+

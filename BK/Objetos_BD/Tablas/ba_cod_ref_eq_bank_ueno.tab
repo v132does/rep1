@@ -1,0 +1,22 @@
+create table IT.BA_COD_REF_EQ_BANK_UENO
+(
+  dominio      VARCHAR2(240) not null,
+  significado  VARCHAR2(240),
+  val_minimo   VARCHAR2(240) not null,
+  val_maximo   VARCHAR2(240),
+  abreviatura  VARCHAR2(240),
+  activo       VARCHAR2(1),
+  val_bankitti VARCHAR2(240) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

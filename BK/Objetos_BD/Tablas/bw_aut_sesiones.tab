@@ -1,0 +1,74 @@
+create table IT.BW_AUT_SESIONES
+(
+  cod_sesion        VARCHAR2(32) not null,
+  cod_persona       VARCHAR2(10) not null,
+  cod_perfil        VARCHAR2(20),
+  cod_canal         VARCHAR2(3) not null,
+  fec_ult_actividad DATE not null,
+  cod_per_vinculada VARCHAR2(10),
+  fec_insercion     DATE default sysdate not null,
+  usu_insercion     VARCHAR2(10) default substr(USER,0,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default substr(USER,0,10) not null,
+  nro_telefono      VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_AUT_SESIONES.cod_sesion
+  is 'HASH de sesión del usuario';
+comment on column IT.BW_AUT_SESIONES.cod_persona
+  is 'Código de Persona';
+comment on column IT.BW_AUT_SESIONES.cod_perfil
+  is 'Código del perfil (GE_CLIENTES o Perfil del Vinculo)';
+comment on column IT.BW_AUT_SESIONES.cod_canal
+  is 'Código del Canal';
+comment on column IT.BW_AUT_SESIONES.fec_ult_actividad
+  is 'Fecha de la última operación del Cliente';
+comment on column IT.BW_AUT_SESIONES.cod_per_vinculada
+  is 'Código de la empresa en caso de ser persona vinculada';
+comment on column IT.BW_AUT_SESIONES.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.BW_AUT_SESIONES.usu_insercion
+  is 'Usuario que insertó el registro';
+comment on column IT.BW_AUT_SESIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación';
+comment on column IT.BW_AUT_SESIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación';
+alter table IT.BW_AUT_SESIONES
+  add constraint PK_BW_AUT_SESIONES primary key (COD_SESION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_AUT_SESIONES
+  add constraint UK_BW_AUT_SESIONES unique (COD_PERSONA, COD_CANAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

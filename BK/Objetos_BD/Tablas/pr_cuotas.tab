@@ -1,0 +1,125 @@
+-- Create table
+create table IT.PR_CUOTAS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  nro_cuota           NUMBER(3) not null,
+  mto_capital         NUMBER(18,2) default 0 not null,
+  fec_vencimiento     DATE not null,
+  mto_interes         NUMBER(18,2) default 0 not null,
+  estado              VARCHAR2(1) not null,
+  sal_capital         NUMBER(18,2) default 0 not null,
+  sal_interes         NUMBER(18,2) default 0 not null,
+  prioridad           VARCHAR2(1) not null,
+  fec_ult_pago        DATE,
+  val_recargo         NUMBER(18,2) default 0,
+  mto_int_documentado NUMBER(18,2) default 0,
+  nro_documento       NUMBER(8),
+  sal_int_documentado NUMBER(18,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  dev_no_cobrado      NUMBER(18,2) default 0,
+  dev_suspenso        NUMBER(18,2) default 0,
+  dev_acumulado       NUMBER(18,2) default 0,
+  mto_int_descontado  NUMBER(18,2) default 0,
+  mto_cap_adelantado  NUMBER(18,2),
+  mto_iva_imponible   NUMBER(18,2),
+  fec_ven_reca        DATE
+)
+tablespace IT_DATA
+  pctfree 40
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.PR_CUOTAS
+  is 'Contiene los datos del Plan de Pagos de Prestamos.';
+-- Add comments to the columns 
+comment on column IT.PR_CUOTAS.nro_cuenta
+  is 'Número de Préstamo.';
+comment on column IT.PR_CUOTAS.nro_cuota
+  is 'Número de Cuota del Préstamo.';
+comment on column IT.PR_CUOTAS.mto_capital
+  is 'Monto de Capital a Amortizar.';
+comment on column IT.PR_CUOTAS.fec_vencimiento
+  is 'Fecha de Vencimiento de la Cuota.';
+comment on column IT.PR_CUOTAS.mto_interes
+  is 'Monto del Interés no Documentado de la Cuota.';
+comment on column IT.PR_CUOTAS.estado
+  is 'Estado de la Cuota (C=Vigente / A=Vigente Atrasada / V=Vencida / G=En Gestion / M=Morosa / N=Cancelada).';
+comment on column IT.PR_CUOTAS.sal_capital
+  is 'Saldo de Capital de la Cuota.';
+comment on column IT.PR_CUOTAS.sal_interes
+  is 'Saldo de Interés no Documentado de la Cuota.';
+comment on column IT.PR_CUOTAS.prioridad
+  is 'Prioridad de Cobro. (C=Capital / I=Interes).';
+comment on column IT.PR_CUOTAS.fec_ult_pago
+  is 'Fecha de Último Pago.';
+comment on column IT.PR_CUOTAS.val_recargo
+  is 'Valor de Recargo.';
+comment on column IT.PR_CUOTAS.mto_int_documentado
+  is 'Valor del Interés Documentado de la Cuota.';
+comment on column IT.PR_CUOTAS.nro_documento
+  is 'Número de Documento.';
+comment on column IT.PR_CUOTAS.sal_int_documentado
+  is 'Saldo del Interés Documentado.';
+comment on column IT.PR_CUOTAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_CUOTAS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_CUOTAS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_CUOTAS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_CUOTAS.dev_no_cobrado
+  is 'Devengado No Cobrado.';
+comment on column IT.PR_CUOTAS.dev_suspenso
+  is 'Devengado en Suspenso.';
+comment on column IT.PR_CUOTAS.dev_acumulado
+  is 'Devengado Acumulado.';
+comment on column IT.PR_CUOTAS.mto_int_descontado
+  is 'Monto de Interés descontado.';
+comment on column IT.PR_CUOTAS.mto_cap_adelantado
+  is 'Monto de capital adelantado por cancelacion anticipada.';
+comment on column IT.PR_CUOTAS.mto_iva_imponible
+  is 'Monto Imponible del Iva sobre Saldo de Interes de cuota vencida.';
+-- Create/Recreate indexes 
+create index IN_PCUOT_NRO_CUENTA on PR_CUOTAS (NRO_CUENTA, NRO_CUOTA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.PR_CUOTAS
+  add constraint PK_PR_CUOTAS primary key (NRO_CUENTA, NRO_CUOTA)
+  using index
+  tablespace IT_IND
+  pctfree 10
+  initrans 40
+  maxtrans 255
+  storage
+  (
+    initial 16M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CUOTAS
+  add constraint FK_PCUOT_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.PR_CTA_PRESTAMOS (NRO_CUENTA);
+-- Grant/Revoke object privileges
+grant select, insert, update, delete on IT.PR_CUOTAS to IT_TEMPORAL;

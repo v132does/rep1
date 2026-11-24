@@ -1,0 +1,38 @@
+create table IT.BW_NOT_PRO_ENVIADOS
+(
+  cod_promocion NUMBER(10) not null,
+  cod_persona   VARCHAR2(15) not null,
+  fec_insercion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_PRO_ENVIADOS.cod_promocion
+  is 'Codigo de la promocion';
+comment on column IT.BW_NOT_PRO_ENVIADOS.cod_persona
+  is 'Codigo persona';
+comment on column IT.BW_NOT_PRO_ENVIADOS.fec_insercion
+  is 'Fecha de envio';
+alter table IT.BW_NOT_PRO_ENVIADOS
+  add constraint PK_BW_NOT_PRO_ENVIADOS primary key (COD_PROMOCION, COD_PERSONA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

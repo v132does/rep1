@@ -1,0 +1,64 @@
+create table IT.BA_MANUALES
+(
+  cod_manual       VARCHAR2(20) not null,
+  descripcion      VARCHAR2(200) not null,
+  cod_man_padre    VARCHAR2(20),
+  activo           VARCHAR2(1) default 'S' not null,
+  detalle          VARCHAR2(1000),
+  tipo             VARCHAR2(300),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_MANUALES
+  is 'Manuales del Sistema en estructura de Arbol';
+comment on column IT.BA_MANUALES.cod_manual
+  is 'Codigo de manual. Estructura: 99.99.99.99.99. ';
+comment on column IT.BA_MANUALES.descripcion
+  is 'Descripcion del Manual.';
+comment on column IT.BA_MANUALES.cod_man_padre
+  is 'Codigo Padre de este manual.';
+comment on column IT.BA_MANUALES.activo
+  is 'Si esta activa o no la opcion.';
+comment on column IT.BA_MANUALES.detalle
+  is 'Detalle del manual.';
+comment on column IT.BA_MANUALES.tipo
+  is 'Vinculo (link) si la opcion es la ultima.';
+comment on column IT.BA_MANUALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_MANUALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_MANUALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_MANUALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_MANUALES
+  add constraint PK_BA_MANUALES primary key (COD_MANUAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_MANUALES
+  add constraint FK_BMANU_COD_MAN_PADRE foreign key (COD_MAN_PADRE)
+  references IT.BA_MANUALES (COD_MANUAL);
+

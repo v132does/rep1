@@ -1,0 +1,62 @@
+create table IT.TA_LOG_SEC_FINTRARES
+(
+  cod_fintransac   VARCHAR2(36) not null,
+  est_respuesta    VARCHAR2(20),
+  cod_error        NUMBER,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_alta         DATE,
+  fec_modificacion DATE,
+  cod_persona      VARCHAR2(10),
+  cod_respuesta    NUMBER not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LOG_SEC_FINTRARES.cod_fintransac
+  is 'StepupRequestId';
+comment on column IT.TA_LOG_SEC_FINTRARES.est_respuesta
+  is 'Status';
+comment on column IT.TA_LOG_SEC_FINTRARES.cod_error
+  is 'ErrorReferenceNumber';
+comment on column IT.TA_LOG_SEC_FINTRARES.usu_insercion
+  is 'Usuario Creacion';
+comment on column IT.TA_LOG_SEC_FINTRARES.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.TA_LOG_SEC_FINTRARES.fec_alta
+  is 'Fecha Alta';
+comment on column IT.TA_LOG_SEC_FINTRARES.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.TA_LOG_SEC_FINTRARES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.TA_LOG_SEC_FINTRARES.cod_respuesta
+  is 'Codigo autogenerado';
+alter table IT.TA_LOG_SEC_FINTRARES
+  add constraint PK_TA_LOG_SEC_FINTRARES primary key (COD_RESPUESTA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_LOG_SEC_FINTRARES
+  add constraint FK_TLSECERR_COD_ERROR2 foreign key (COD_ERROR)
+  references IT.TA_LOG_SEC_ERRORES (COD_ERROR);
+alter table IT.TA_LOG_SEC_FINTRARES
+  add constraint FK_TLSECFINTRA_COD_FINTRANSAC foreign key (COD_FINTRANSAC)
+  references IT.TA_LOG_SEC_FINTRA (COD_FINTRANSAC);
+

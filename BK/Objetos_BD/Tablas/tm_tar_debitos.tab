@@ -1,0 +1,89 @@
+create table IT.TM_TAR_DEBITOS
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  adherente          VARCHAR2(2),
+  nro_emision        VARCHAR2(2),
+  cod_sucursal       VARCHAR2(2) not null,
+  estado             VARCHAR2(1),
+  clave              VARCHAR2(3),
+  embozado           VARCHAR2(35),
+  vencimiento        VARCHAR2(6),
+  moneda             VARCHAR2(2),
+  fec_ingreso        VARCHAR2(8),
+  fec_ult_movimiento VARCHAR2(8),
+  fec_ult_embozado   VARCHAR2(8),
+  nro_documento      VARCHAR2(15),
+  fec_proceso        VARCHAR2(26),
+  usu_ingreso        VARCHAR2(3),
+  usu_mod            VARCHAR2(3),
+  fecha_insercion    DATE,
+  fecha_modif        DATE,
+  usu_solicito       VARCHAR2(3),
+  fec_entrega_plast  DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_TAR_DEBITOS
+  is 'Datos de las Tarjetas de Debito recibidos de INFONET.';
+comment on column IT.TM_TAR_DEBITOS.nro_cuenta
+  is 'Numero de Cuenta Principal.';
+comment on column IT.TM_TAR_DEBITOS.adherente
+  is 'Adherente: 00-Principal, 01...Adicional.';
+comment on column IT.TM_TAR_DEBITOS.nro_emision
+  is 'Numero de Emision.';
+comment on column IT.TM_TAR_DEBITOS.cod_sucursal
+  is 'Codigo de la Sucursal de las Tarjetas de Debito.';
+comment on column IT.TM_TAR_DEBITOS.estado
+  is 'Estado de la Cuenta (1-Activo 2-Inactivo).';
+comment on column IT.TM_TAR_DEBITOS.clave
+  is 'Clave encriptada.';
+comment on column IT.TM_TAR_DEBITOS.embozado
+  is 'Nombre embozado del Cliente.';
+comment on column IT.TM_TAR_DEBITOS.vencimiento
+  is 'Fecha de Vencimento (mmyyyy).';
+comment on column IT.TM_TAR_DEBITOS.moneda
+  is 'Codigo de Moneda (0-GS, 1-USD).';
+comment on column IT.TM_TAR_DEBITOS.fec_ingreso
+  is 'Fecha de Ingreso al Sistema Infonet (ddmmyyyy).';
+comment on column IT.TM_TAR_DEBITOS.fec_ult_movimiento
+  is 'Fecha de ultimo Movimiento (ddmmyyyy).';
+comment on column IT.TM_TAR_DEBITOS.fec_ult_embozado
+  is 'Fecha de ultimo Embozado (ddmmyyyy).';
+comment on column IT.TM_TAR_DEBITOS.nro_documento
+  is 'Numero de Documento de Identidad.';
+comment on column IT.TM_TAR_DEBITOS.fec_proceso
+  is 'Fecha de proceso o generacion de Datos.';
+comment on column IT.TM_TAR_DEBITOS.usu_ingreso
+  is 'Usuario que realizo la insercion del Registro.';
+comment on column IT.TM_TAR_DEBITOS.usu_mod
+  is 'Usuario que realizo la ultima modificacion en el Registro.';
+comment on column IT.TM_TAR_DEBITOS.fecha_insercion
+  is 'Fecha en que se inserto el Registro.';
+comment on column IT.TM_TAR_DEBITOS.fecha_modif
+  is 'Fecha en que se realizo la ultima modificacion en el Registro.';
+comment on column IT.TM_TAR_DEBITOS.usu_solicito
+  is 'Usuario Solicitante.';
+comment on column IT.TM_TAR_DEBITOS.fec_entrega_plast
+  is 'Fecha de Entrega del Plastico.';
+create index IT.IN_TAR_DEB_CTA on IT.TM_TAR_DEBITOS (NRO_CUENTA, ADHERENTE, NRO_EMISION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 576K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

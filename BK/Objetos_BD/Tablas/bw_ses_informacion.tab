@@ -1,0 +1,60 @@
+create table IT.BW_SES_INFORMACION
+(
+  cod_ses_informacion NUMBER not null,
+  nro_sesion          VARCHAR2(40),
+  cod_per_dispositivo VARCHAR2(80),
+  ip                  VARCHAR2(40),
+  latitud             NUMBER,
+  longitud            NUMBER,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_SES_INFORMACION.nro_sesion
+  is 'Nro de la sesion';
+comment on column IT.BW_SES_INFORMACION.cod_per_dispositivo
+  is 'Persona y Dispositivo del cual se inicio la sesion';
+comment on column IT.BW_SES_INFORMACION.ip
+  is 'Ip del incio de sesion';
+comment on column IT.BW_SES_INFORMACION.latitud
+  is 'Latitud de la ubicacion';
+comment on column IT.BW_SES_INFORMACION.longitud
+  is 'Longitud de la ubicacion';
+comment on column IT.BW_SES_INFORMACION.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BW_SES_INFORMACION.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_SES_INFORMACION.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.BW_SES_INFORMACION.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+alter table IT.BW_SES_INFORMACION
+  add constraint BW_SES_INFORMACION_PK primary key (COD_SES_INFORMACION)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_SES_INFORMACION
+  add constraint BW_SES_INF_DIS_FK1 foreign key (COD_PER_DISPOSITIVO)
+  references IT.BW_PER_DISPOSITIVOS (COD_RELACION);
+

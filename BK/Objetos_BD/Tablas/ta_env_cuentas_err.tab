@@ -1,0 +1,329 @@
+create table IT.TA_ENV_CUENTAS_ERR
+(
+  nro_documento           VARCHAR2(240),
+  tip_per_titular         VARCHAR2(240),
+  cod_tip_doc_titular     VARCHAR2(240),
+  pri_nom_titular         VARCHAR2(240),
+  seg_nom_titular         VARCHAR2(240),
+  pri_ape_titular         VARCHAR2(240),
+  seg_ape_titular         VARCHAR2(240),
+  raz_social              VARCHAR2(240),
+  nom_comercial           VARCHAR2(240),
+  cod_pai_titular         VARCHAR2(240),
+  cod_sex_titular         VARCHAR2(240),
+  fec_nac_titular         VARCHAR2(240),
+  lug_nac_titular         VARCHAR2(240),
+  ruc_titular             VARCHAR2(240),
+  est_civ_titular         VARCHAR2(240),
+  act_titular             VARCHAR2(240),
+  dir_cor_titular         VARCHAR2(240),
+  cod_tip_doc_nvo_titular VARCHAR2(240),
+  nro_doc_nvo_titular     VARCHAR2(240),
+  sec_env_datos           VARCHAR2(240),
+  nro_cuenta              VARCHAR2(240),
+  cod_afinidad            VARCHAR2(240),
+  tip_cuenta              VARCHAR2(240),
+  dir_recibo              VARCHAR2(240),
+  direccion               VARCHAR2(240),
+  dir_ext_2               VARCHAR2(240),
+  dir_ext_3               VARCHAR2(240),
+  cod_departamento        VARCHAR2(240),
+  cod_ciudad              VARCHAR2(240),
+  cod_zona                VARCHAR2(240),
+  telefono                VARCHAR2(240),
+  nro_tel_movil           VARCHAR2(240),
+  dir_correo              VARCHAR2(240),
+  cod_sucursal            VARCHAR2(240),
+  nro_doc_oficial         VARCHAR2(240),
+  cod_tip_doc_oficial     VARCHAR2(240),
+  cta_vip                 VARCHAR2(240),
+  franqueo                VARCHAR2(240),
+  seg_vida                VARCHAR2(240),
+  cob_cargo               VARCHAR2(240),
+  tip_costo               VARCHAR2(240),
+  ret_extracto            VARCHAR2(240),
+  cau_retencion           VARCHAR2(240),
+  cod_tip_cierre          VARCHAR2(240),
+  emp_adherida            VARCHAR2(240),
+  bcp_calificacion        VARCHAR2(240),
+  situacion               VARCHAR2(240),
+  cod_cli_entidad         VARCHAR2(240),
+  nro_socio               VARCHAR2(240),
+  bonos                   VARCHAR2(240),
+  tip_lin_normal          VARCHAR2(240),
+  lin_cre_normal          VARCHAR2(240),
+  tip_lin_cuota           VARCHAR2(240),
+  lin_cre_cuota           VARCHAR2(240),
+  tas_personalizada       VARCHAR2(240),
+  cod_tasa                VARCHAR2(240),
+  val_tasa                VARCHAR2(240),
+  cod_tas_moratorio       VARCHAR2(240),
+  val_tas_moratorio       VARCHAR2(240),
+  cod_tas_compra          VARCHAR2(240),
+  val_tas_compra          VARCHAR2(240),
+  pag_min_personalizado   VARCHAR2(240),
+  por_pag_minimo          VARCHAR2(240),
+  pag_minimo              VARCHAR2(240),
+  pag_min_fijo            VARCHAR2(240),
+  cod_for_pago            VARCHAR2(240),
+  tip_cta_bancaria        VARCHAR2(240),
+  cta_bancaria            VARCHAR2(240),
+  tip_pago                VARCHAR2(240),
+  val_cgf                 VARCHAR2(240),
+  tip_tasa                VARCHAR2(240),
+  vip_fac_multiplicador   VARCHAR2(240),
+  cobranding              VARCHAR2(240),
+  nro_doc_codeudor        VARCHAR2(240),
+  tip_per_codeudor        VARCHAR2(240),
+  cod_tip_doc_codeudor    VARCHAR2(240),
+  pri_nom_codeudor        VARCHAR2(240),
+  seg_nom_codeudor        VARCHAR2(240),
+  pri_ape_codeudor        VARCHAR2(240),
+  seg_ape_codeudor        VARCHAR2(240),
+  cod_sex_codeudor        VARCHAR2(240),
+  fec_nac_codeudor        VARCHAR2(240),
+  lug_nac_codeudor        VARCHAR2(240),
+  est_civ_codeudor        VARCHAR2(240),
+  act_codeudor            VARCHAR2(240),
+  dir_cor_codeudor        VARCHAR2(240),
+  nro_doc_gestor          VARCHAR2(240),
+  tip_per_oficial         VARCHAR2(240),
+  cod_tip_gestor          VARCHAR2(240),
+  pri_nom_oficial         VARCHAR2(240),
+  seg_nom_oficial         VARCHAR2(240),
+  pri_ape_oficial         VARCHAR2(240),
+  seg_ape_oficial         VARCHAR2(240),
+  cod_sex_oficial         VARCHAR2(240),
+  fec_nac_oficial         VARCHAR2(240),
+  lug_nac_oficial         VARCHAR2(240),
+  est_civ_oficial         VARCHAR2(240),
+  act_oficial             VARCHAR2(240),
+  dir_cor_oficial         VARCHAR2(240),
+  gas_no_aplicar          VARCHAR2(240),
+  apl_impuesto            VARCHAR2(240),
+  usu_actualizacion       VARCHAR2(240),
+  mot_nov_cuenta          VARCHAR2(240),
+  pro_cup_alterado        VARCHAR2(240)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_ENV_CUENTAS_ERR
+  is 'Envios de alta de cuentas.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_documento
+  is 'Nro. Documento Titular.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_per_titular
+  is 'Tipo de Persona(''F'' o ''J'') - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tip_doc_titular
+  is 'Tipo de Documento(''CAD'',''CIP'',''PAS'',''CIE'',''RUC'')- Requerido si Tipo Persona=''F'' - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pri_nom_titular
+  is 'Primer Nombre- Requerido si Tipo Persona=''F'' - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_nom_titular
+  is 'Segundo Nombre Titular.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pri_ape_titular
+  is 'Primer Apellido-Requerido si Tipo Persona=''F'' - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_ape_titular
+  is 'Segundo Apellido Titular.';
+comment on column IT.TA_ENV_CUENTAS_ERR.raz_social
+  is 'Razón Social-Requerido si Tipo Persona=''J'' - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nom_comercial
+  is 'Denominación Comercial-Requerido si Tipo Persona=''J'' - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_pai_titular
+  is 'Nro. de Documento de Pais -Requerido si Tipo Persona=''F'' - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_sex_titular
+  is 'Sexo(''M'',''F'') - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.fec_nac_titular
+  is 'Fecha de Nacimiento - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.lug_nac_titular
+  is 'Lugar de Nacimiento - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.ruc_titular
+  is 'RUC para Extracto - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.est_civ_titular
+  is 'Estado Civil - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.act_titular
+  is 'Ocupación - Titular de la Cuenta (Ref_externa BA_PROFESIONES).';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_cor_titular
+  is 'Dirección Electrónica - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tip_doc_nvo_titular
+  is 'Tipo de Documento Nuevo - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_doc_nvo_titular
+  is 'Número de Documento Nuevo - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.sec_env_datos
+  is 'Secuencia de Envio de Archivos.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_afinidad
+  is 'Código de afinidad. Ver ba_cod_referencias.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_cuenta
+  is 'Tipo de cuenta (P=Personal, E=Empresa).';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_recibo
+  is 'Dirección de Recibo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.direccion
+  is 'Dirección del titular.';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_ext_2
+  is 'Dirección 2.';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_ext_3
+  is 'Dirección 3.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_departamento
+  is 'Departamento.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_ciudad
+  is 'Ciudad.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_zona
+  is 'Codigo de Zona.';
+comment on column IT.TA_ENV_CUENTAS_ERR.telefono
+  is 'Teléfono del titular.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_tel_movil
+  is 'Nro. de Celular del Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_correo
+  is 'Dirección Electrónica - Titular de la Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_sucursal
+  is 'Código de Sucursal Procesadora (00=Por Defecto Bancard).';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_doc_oficial
+  is 'Nro. De Documento de Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tip_doc_oficial
+  is 'Tipo de documento de Oficial de Cuenta - Requerido si Nro.Doc.Ofi <> Nulo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cta_vip
+  is 'Es cuenta vip (S/N).';
+comment on column IT.TA_ENV_CUENTAS_ERR.franqueo
+  is 'Código de franqueo (0=SI, 1=NO).';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_vida
+  is 'Aplica Seguro de Vida (''S'',''N'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.cob_cargo
+  is 'Cobra Cargos (''S'',''N'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_costo
+  is 'Tipo de Costo (''N'',''P'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.ret_extracto
+  is 'Retener Extracto (''S'',''N'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.cau_retencion
+  is 'Motivo de Retención.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tip_cierre
+  is 'Codigo del Tipo de Cierre.';
+comment on column IT.TA_ENV_CUENTAS_ERR.emp_adherida
+  is 'Empresa Adherida.';
+comment on column IT.TA_ENV_CUENTAS_ERR.bcp_calificacion
+  is 'Calificación del BCP.';
+comment on column IT.TA_ENV_CUENTAS_ERR.situacion
+  is 'Situación (''A'',''I'',''B'')-Requerido en Cambio de Estado.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_cli_entidad
+  is 'Código Cliente Entidad.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_socio
+  is 'Nro. De Socio.';
+comment on column IT.TA_ENV_CUENTAS_ERR.bonos
+  is 'Bonos Cobranding.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_lin_normal
+  is 'Tipo de Linea 1 Normal.';
+comment on column IT.TA_ENV_CUENTAS_ERR.lin_cre_normal
+  is 'Linea de Crédito Normal - Requerido si Tipo Linea 1 <> Nulo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_lin_cuota
+  is 'Tipo de Linea 2 Cuota.';
+comment on column IT.TA_ENV_CUENTAS_ERR.lin_cre_cuota
+  is 'Linea de Crédito Cuota- Requerido si Tipo Linea 2 <> Nulo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tas_personalizada
+  is 'Personaliza Tipo Tasa Interes (TTI) (S/N).';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tasa
+  is 'Código TTI Corriente 1.';
+comment on column IT.TA_ENV_CUENTAS_ERR.val_tasa
+  is 'Tasa de Interés Corriente.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tas_moratorio
+  is 'Código TTI  Moratorio.';
+comment on column IT.TA_ENV_CUENTAS_ERR.val_tas_moratorio
+  is 'Tasa de Interés Moratorio.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tas_compra
+  is 'Código TTI Compra.';
+comment on column IT.TA_ENV_CUENTAS_ERR.val_tas_compra
+  is 'Tasa de Interés Compra.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pag_min_personalizado
+  is 'Personaliza Pago Minimo(''S'',''N'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.por_pag_minimo
+  is 'Porcentaje de Pago Mínimo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pag_minimo
+  is 'Importe de Pago Mínimo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pag_min_fijo
+  is 'Importe Fijo de Pago Minimo.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_for_pago
+  is 'Forma de Pago (0=En Ventanilla, 1=Debito Automático).';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_cta_bancaria
+  is 'Tipo de Cta. Bancaria(1-CA/2-CC).';
+comment on column IT.TA_ENV_CUENTAS_ERR.cta_bancaria
+  is 'Cuenta Bancaria.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_pago
+  is 'Tipo de Pago.';
+comment on column IT.TA_ENV_CUENTAS_ERR.val_cgf
+  is 'Valor de CGF.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_tasa
+  is 'Tipo de Tasa de Financiación (0=Preferencial, 1=Normal).';
+comment on column IT.TA_ENV_CUENTAS_ERR.vip_fac_multiplicador
+  is 'Factor Multiplicador VIP.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cobranding
+  is 'Cobranding Id. (0= no tiene Cobranding, 1= Si tiene).';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_doc_codeudor
+  is 'Número de Documento del Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_per_codeudor
+  is 'Tipo de Persona Codeudor (''F'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tip_doc_codeudor
+  is 'Tipo de Documento Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pri_nom_codeudor
+  is 'Nombre 1 de Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_nom_codeudor
+  is 'Nombre 2 de Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pri_ape_codeudor
+  is 'Primer Apellido del Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_ape_codeudor
+  is 'Segundo Apellido del Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_sex_codeudor
+  is 'Sexo(''M'',''F'')- Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.fec_nac_codeudor
+  is 'Fecha de Nacimiento- Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.lug_nac_codeudor
+  is 'Lugar de Nacimiento- Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.est_civ_codeudor
+  is 'Estado Civil- Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.act_codeudor
+  is 'Ocupación- Codeudor (Ref_externa BA_PROFESIONES).';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_cor_codeudor
+  is 'Dirección Electrónica- Codeudor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.nro_doc_gestor
+  is 'Número de Documento del Gestor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.tip_per_oficial
+  is 'Tipo de Persona Oficial de Cuenta(''F'').';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_tip_gestor
+  is 'Tipo de Documento Gestor.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pri_nom_oficial
+  is 'Nombre 1-Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_nom_oficial
+  is 'Nombre 2 -Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pri_ape_oficial
+  is 'Apellido 1 -Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.seg_ape_oficial
+  is 'Apellido 2 -Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.cod_sex_oficial
+  is 'Sexo(''M'',''F'') -Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.fec_nac_oficial
+  is 'Fecha de Nacimiento-Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.lug_nac_oficial
+  is 'Lugar de Nacimiento-Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.est_civ_oficial
+  is 'Estado Civil-Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.act_oficial
+  is 'Ocupación-Oficial de Cuenta (Ref_externa BA_PROFESIONES).';
+comment on column IT.TA_ENV_CUENTAS_ERR.dir_cor_oficial
+  is 'Dirección de Correo del Oficial de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.gas_no_aplicar
+  is 'Costos a no Aplicar.';
+comment on column IT.TA_ENV_CUENTAS_ERR.apl_impuesto
+  is 'Aplica Impuestos.';
+comment on column IT.TA_ENV_CUENTAS_ERR.usu_actualizacion
+  is 'Usuario de Actualización.';
+comment on column IT.TA_ENV_CUENTAS_ERR.mot_nov_cuenta
+  is 'Motivo de Novedad de Cuenta.';
+comment on column IT.TA_ENV_CUENTAS_ERR.pro_cup_alterado
+  is 'Permitir Promoción Cupón Alterado.';
+

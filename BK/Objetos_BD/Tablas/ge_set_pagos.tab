@@ -1,0 +1,130 @@
+create table IT.GE_SET_PAGOS
+(
+  nro_secuencia    NUMBER(10) not null,
+  fec_pago         DATE not null,
+  fec_documento    DATE not null,
+  hora             VARCHAR2(8) not null,
+  tip_orden        VARCHAR2(1) not null,
+  ruc              VARCHAR2(11) not null,
+  dig_verificador  VARCHAR2(1) not null,
+  nro_orden        VARCHAR2(15) not null,
+  nro_operacion    NUMBER(15) not null,
+  nro_boleta       VARCHAR2(20) not null,
+  monto            NUMBER(18,2) not null,
+  nro_impuesto     NUMBER(3) default 0 not null,
+  nro_consecutivo  NUMBER(8) not null,
+  nro_resolucion   VARCHAR2(12),
+  periodo          VARCHAR2(6),
+  cod_token        VARCHAR2(300) not null,
+  cod_set          NUMBER(10),
+  cod_error        VARCHAR2(15),
+  msg_error        VARCHAR2(150),
+  est_respuesta    VARCHAR2(30),
+  estado           VARCHAR2(1) default 'N' not null,
+  nro_cta_debito   VARCHAR2(15) not null,
+  fec_renvio       DATE,
+  cant_renvio      NUMBER(2) default 0,
+  usu_insercion    VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr( USER, 1, 10 ) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_canal        NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SET_PAGOS
+  is 'Operaciones de pago realizado en la set.';
+comment on column IT.GE_SET_PAGOS.nro_secuencia
+  is 'Nro. de secuencia de la tabla.';
+comment on column IT.GE_SET_PAGOS.fec_pago
+  is 'Fecha de Pago.';
+comment on column IT.GE_SET_PAGOS.fec_documento
+  is 'Fecha del Documento.';
+comment on column IT.GE_SET_PAGOS.hora
+  is 'Hora de Pago en el sitema (hh24:mi:ss).';
+comment on column IT.GE_SET_PAGOS.tip_orden
+  is 'Tipo de OT: 1-Impuestos, 2:Instrumentos de control .';
+comment on column IT.GE_SET_PAGOS.ruc
+  is 'RUC del Contribuyente.';
+comment on column IT.GE_SET_PAGOS.dig_verificador
+  is 'Digito verificador del RUC.';
+comment on column IT.GE_SET_PAGOS.nro_orden
+  is 'Valor de OT para el dia.';
+comment on column IT.GE_SET_PAGOS.nro_operacion
+  is 'Número de comprobante del movimiento.';
+comment on column IT.GE_SET_PAGOS.nro_boleta
+  is 'Número de Boleta de Pago de la SET.';
+comment on column IT.GE_SET_PAGOS.monto
+  is 'Monto Total de la Boleta.';
+comment on column IT.GE_SET_PAGOS.nro_impuesto
+  is 'Código de Impuesto a Pagar, 0 cuando son varios.';
+comment on column IT.GE_SET_PAGOS.nro_consecutivo
+  is 'Consecutivo del dia.';
+comment on column IT.GE_SET_PAGOS.nro_resolucion
+  is 'Número de Resolución del Impuesto.';
+comment on column IT.GE_SET_PAGOS.periodo
+  is 'Periodo del Impuesto.';
+comment on column IT.GE_SET_PAGOS.cod_token
+  is 'Token de Pago.';
+comment on column IT.GE_SET_PAGOS.cod_set
+  is 'Identificador retornado por la SET cuando el pago fue aceptado.';
+comment on column IT.GE_SET_PAGOS.cod_error
+  is '0=Sin error, distinto a cero=Error en la SET.';
+comment on column IT.GE_SET_PAGOS.msg_error
+  is 'Mensaje de Error retornado por la SET.';
+comment on column IT.GE_SET_PAGOS.est_respuesta
+  is 'Respuesta del Pago en la SET.';
+comment on column IT.GE_SET_PAGOS.estado
+  is 'Estado de final P: Procesado en la SET, E: Procesado con Error, N: Pendiente envio a la SET, C: Conciliado.';
+comment on column IT.GE_SET_PAGOS.nro_cta_debito
+  is 'Cuenta a la que se debito el importe total de la boleta.';
+comment on column IT.GE_SET_PAGOS.fec_renvio
+  is 'Fecha de reenvío del pago.';
+comment on column IT.GE_SET_PAGOS.cant_renvio
+  is 'Cantidad de veces renviada.';
+comment on column IT.GE_SET_PAGOS.cod_canal
+  is 'Código del canal';
+alter table IT.GE_SET_PAGOS
+  add constraint PK_GE_SET_PAGOS primary key (NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SET_PAGOS
+  add constraint UK_GSPAG_NRO_BOLETA unique (FEC_PAGO, NRO_BOLETA, COD_TOKEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SET_PAGOS
+  add constraint FK_GSPAG_COD_CANAL foreign key (COD_CANAL)
+  references IT.GE_CANALES (COD_CANAL);
+alter table IT.GE_SET_PAGOS
+  add constraint FK_GSPAG_NRO_CTA_DEBITO foreign key (NRO_CTA_DEBITO)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

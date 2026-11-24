@@ -1,0 +1,83 @@
+-- Create table
+create table IT.GE_INF_REMUNERACIONES
+(
+  periodo               VARCHAR2(6) not null,
+  saldo                 NUMBER(18,2),
+  nro_can_cuenta        NUMBER(18),
+  nro_can_extr          NUMBER(18),
+  nro_pag_elect         NUMBER(18),
+  nro_can_instituciones NUMBER(18),
+  mto_min_com_atm       NUMBER(18),
+  mto_max_com_atm       NUMBER(18),
+  mto_pro_com_atm       NUMBER(18),
+  can_tra_min_atm       NUMBER(18),
+  can_tra_max_atm       NUMBER(18),
+  can_tra_pro_atm       NUMBER(18),
+  usu_insercion         VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion         DATE default SYSDATE not null,
+  usu_modificacion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion      DATE default SYSDATE not null,
+  can_pro_ext_sin_costo NUMBER(18)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column IT.GE_INF_REMUNERACIONES.periodo
+  is 'Periodo informado(aaaamm)';
+comment on column IT.GE_INF_REMUNERACIONES.saldo
+  is 'Monto disponible en las cuentas de pago de remuneraciones';
+comment on column IT.GE_INF_REMUNERACIONES.nro_can_cuenta
+  is 'Cantidad de cuentas para el pago de remuneracion';
+comment on column IT.GE_INF_REMUNERACIONES.nro_can_extr
+  is 'Cantidad total de extraciones en los ATMs, de las cuentas de pago de remuneraciones';
+comment on column IT.GE_INF_REMUNERACIONES.nro_pag_elect
+  is 'Cantidad de pagos electronicos, incluyendo transferencias realizadas en el mes, de estas cuentas';
+comment on column IT.GE_INF_REMUNERACIONES.nro_can_instituciones
+  is 'Cantidad de instituciones que pagan a traves de estas cuentas';
+comment on column IT.GE_INF_REMUNERACIONES.mto_min_com_atm
+  is 'Monto de comision minima mensual cobrado a clientes por exceso de transacciones en ATMs';
+comment on column IT.GE_INF_REMUNERACIONES.mto_max_com_atm
+  is 'Monto de comision maxima mensual cobrado a clientes por exceso de transacciones en ATMs';
+comment on column IT.GE_INF_REMUNERACIONES.mto_pro_com_atm
+  is 'Monto de comision promedio mensual cobrado a clientes por exceso de transacciones en ATMs';
+comment on column IT.GE_INF_REMUNERACIONES.can_tra_min_atm
+  is 'Cantidad minima mensual de transacciones sin costo en ATM (propios y de otras entidades)';
+comment on column IT.GE_INF_REMUNERACIONES.can_tra_max_atm
+  is 'Cantidad maxima mensual de transacciones sin costo en ATM (propios y de otras entidades)';
+comment on column IT.GE_INF_REMUNERACIONES.can_tra_pro_atm
+  is 'Cantidad promedio mensual de transacciones sin costo en ATM (propios y de otras entidades)';
+comment on column IT.GE_INF_REMUNERACIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_INF_REMUNERACIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_INF_REMUNERACIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_INF_REMUNERACIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_INF_REMUNERACIONES.can_pro_ext_sin_costo
+  is 'Cantidad en promedio de extracciones sin costo para cliente entes';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_INF_REMUNERACIONES
+  add constraint GE_INF_REMUNERACIONES primary key (PERIODO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

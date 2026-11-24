@@ -1,0 +1,112 @@
+create table IT.GE_SAL_DIARIOS
+(
+  fecha          DATE not null,
+  nro_cuenta     VARCHAR2(15) not null,
+  cod_moneda     VARCHAR2(3) not null,
+  estado         VARCHAR2(1),
+  sal_tot_cap    NUMBER(18,2) default 0,
+  sal_blo_int    NUMBER(18,2) default 0,
+  sal_ret_ade    NUMBER(18,2) default 0,
+  dev_acumulado  NUMBER(18,2) default 0,
+  dev_dia        NUMBER(18,2) default 0,
+  dev_no_cobrado NUMBER(18,2) default 0,
+  dev_suspenso   NUMBER(18,2) default 0,
+  val_suspenso   NUMBER(18,2) default 0,
+  cat_riesgo     VARCHAR2(1) default 1,
+  dia_atraso     NUMBER(10) default 0,
+  sal_mon_local  NUMBER(18,2) default 0,
+  val_cotizacion NUMBER(14,8),
+  mto_linea      NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SAL_DIARIOS
+  is 'Saldos diarios de Cuentas.';
+comment on column IT.GE_SAL_DIARIOS.fecha
+  is 'Fecha del Saldo.';
+comment on column IT.GE_SAL_DIARIOS.nro_cuenta
+  is 'Nro de cuenta.';
+comment on column IT.GE_SAL_DIARIOS.cod_moneda
+  is 'Codigo de moneda de la cuenta.';
+comment on column IT.GE_SAL_DIARIOS.estado
+  is 'Estado de la cuenta en esta fecha.';
+comment on column IT.GE_SAL_DIARIOS.sal_tot_cap
+  is 'Saldo Total (AV, CDA, CC, CB), Saldo de Capital (PR), Deuda total (TJ), Sal. Confirmado (CX).';
+comment on column IT.GE_SAL_DIARIOS.sal_blo_int
+  is 'Saldo Bloqueado (AV, CDA, CC, CB), Saldo Interes no doc (PR), sin valor (TJ), No Confirmado (CX).';
+comment on column IT.GE_SAL_DIARIOS.sal_ret_ade
+  is 'Saldo Retenido (AV, CDA, CC, CB), Saldo de Int. Doc. (PR), sin valor (TJ), Monto (CX).';
+comment on column IT.GE_SAL_DIARIOS.dev_acumulado
+  is 'Total devengado acumulado a la fecha.';
+comment on column IT.GE_SAL_DIARIOS.dev_dia
+  is 'Devengado de la fecha.';
+comment on column IT.GE_SAL_DIARIOS.dev_no_cobrado
+  is 'Devengado no cobrado (solo valido para prestamos).';
+comment on column IT.GE_SAL_DIARIOS.dev_suspenso
+  is 'Monto total de devengado suspendido (solo para pr).';
+comment on column IT.GE_SAL_DIARIOS.val_suspenso
+  is 'Total de valuacion en suspenso(solo para pr).';
+comment on column IT.GE_SAL_DIARIOS.cat_riesgo
+  is 'Categoria de Riesgo (1...6).';
+comment on column IT.GE_SAL_DIARIOS.dia_atraso
+  is 'Dias de mora para las operaciones que correspondan(PR,SG, TJ).';
+comment on column IT.GE_SAL_DIARIOS.sal_mon_local
+  is 'Saldo en Moneda Local (Modal 45=Corresponsales).';
+comment on column IT.GE_SAL_DIARIOS.val_cotizacion
+  is 'Cotizacion del dia de la moneda.';
+comment on column IT.GE_SAL_DIARIOS.mto_linea
+  is 'Monto de la línea de crédito o sobregiro.';
+create index IT.IN_GSDIA_COD_MONEDA on IT.GE_SAL_DIARIOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 7M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.IN_GSDIA_NRO_CUENTA on IT.GE_SAL_DIARIOS (NRO_CUENTA, FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 12M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SAL_DIARIOS
+  add constraint PK_GE_SAL_DIARIOS primary key (FECHA, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 6M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SAL_DIARIOS
+  add constraint FK_GSDIA_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_SAL_DIARIOS
+  add constraint FK_GSDIA_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

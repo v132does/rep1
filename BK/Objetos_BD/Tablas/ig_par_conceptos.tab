@@ -1,0 +1,88 @@
+create table IT.IG_PAR_CONCEPTOS
+(
+  cod_periodo      NUMBER(3) not null,
+  cod_concepto     NUMBER(3) not null,
+  cod_sub_concepto NUMBER(4),
+  ponderacion      NUMBER(5,2),
+  tip_meta         VARCHAR2(1) not null,
+  tip_logro        VARCHAR2(1) not null,
+  adicional        NUMBER(5,2),
+  por_superado     NUMBER(5,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_PAR_CONCEPTOS
+  is 'Parametros por Conceptos y Periodos del Sistema de Gratificacion Periodica (SGP).';
+comment on column IT.IG_PAR_CONCEPTOS.cod_periodo
+  is 'Codigo del periodo de calculo.';
+comment on column IT.IG_PAR_CONCEPTOS.cod_concepto
+  is 'Codigo de concepto para el Sist. de Gratificacion Periodica (SGP).';
+comment on column IT.IG_PAR_CONCEPTOS.cod_sub_concepto
+  is 'Codigo de sub concepto.';
+comment on column IT.IG_PAR_CONCEPTOS.ponderacion
+  is 'Ponderacion en porcentaje.';
+comment on column IT.IG_PAR_CONCEPTOS.tip_meta
+  is 'Tipo de Meta: M-Monto, P-Porcentaje.';
+comment on column IT.IG_PAR_CONCEPTOS.tip_logro
+  is 'Tipo de Logro: A-Alcanzar, N-No superar.';
+comment on column IT.IG_PAR_CONCEPTOS.adicional
+  is 'Adicional expresado en porcentaje por superar la meta.';
+comment on column IT.IG_PAR_CONCEPTOS.por_superado
+  is 'Porcentaje a partir del cual se pagara el adicional.';
+comment on column IT.IG_PAR_CONCEPTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_PAR_CONCEPTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_PAR_CONCEPTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_PAR_CONCEPTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint UK_IG_PAR_CONCEPTOS unique (COD_PERIODO, COD_CONCEPTO, COD_SUB_CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint FK_IPCON_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.IG_CONCEPTOS (COD_CONCEPTO);
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint FK_IPCON_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint FK_IPCON_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint AVCON_1180382031_TIP_L_000
+  check (TIP_LOGRO IN ('A', 'N'));
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint AVCON_1180382032_TIP_M_000
+  check (TIP_META IN ('M', 'P'));
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint AVCON_1180382033_COD_C_008
+  check (COD_CONCEPTO BETWEEN 0 AND 999);
+alter table IT.IG_PAR_CONCEPTOS
+  add constraint CK_IPCON_ADICIONAL
+  check ((NVL(ADICIONAL,0) > 0 AND NVL(POR_SUPERADO,0) > 0) OR (NVL(ADICIONAL,0) = 0 AND NVL(POR_SUPERADO,0) = 0));
+

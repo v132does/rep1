@@ -1,0 +1,31 @@
+CREATE MATERIALIZED VIEW IT.PV_CAT_TARJETAS
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT b.cod_persona,
+       a.nro_cuenta,
+       a.cod_modulo,
+       a.cod_modalidad,
+       a.cod_oficina,
+       a.cod_moneda,
+       (CASE WHEN NVL(a.sal_procesadora,0) < 0 THEN 0
+             ELSE NVL(a.sal_procesadora,0)
+             END) saldo,
+        NVL(A.lin_credito,0)+NVL(a.lin_cuotas,0) lin_credito,
+        NVL(A.dia_mora,0) dia_mora,
+        a.estado,
+        nvl(tp.monto,0) mto_prevision
+   FROM ge_cta_clientes b,
+        ta_cta_tarjetas a,
+        (SELECT pr.monto,
+                pr.nro_cuenta
+           FROM ta_previsiones pr
+          WHERE pr.fecha = (select max(pv.fecha)
+                              FROM ta_previsiones pv
+                             WHERE pr.nro_cuenta = pv.nro_cuenta))tp
+
+  WHERE b.nro_cuenta = a.nro_cuenta
+    AND a.estado <> 'C'
+    AND a.cod_modalidad != 55
+    AND b.relacion ='P'
+    AND tp.nro_cuenta(+)= a.nro_cuenta;
+

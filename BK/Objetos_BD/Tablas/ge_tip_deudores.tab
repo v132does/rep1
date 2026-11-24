@@ -1,0 +1,76 @@
+create table IT.GE_TIP_DEUDORES
+(
+  cod_tip_deudor   NUMBER(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  cod_sec_contable VARCHAR2(1) not null,
+  ind_residente    VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TIP_DEUDORES
+  is 'Tipos de Deudores para Plan de Cuentas BCP.';
+comment on column IT.GE_TIP_DEUDORES.cod_tip_deudor
+  is 'Tipo de deudor.';
+comment on column IT.GE_TIP_DEUDORES.descripcion
+  is 'Descripción del Tipo Deudor.';
+comment on column IT.GE_TIP_DEUDORES.cod_sec_contable
+  is 'Código de sector.';
+comment on column IT.GE_TIP_DEUDORES.ind_residente
+  is 'Residente? (N=NO / S=SI).';
+comment on column IT.GE_TIP_DEUDORES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_TIP_DEUDORES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_TIP_DEUDORES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_TIP_DEUDORES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_GTDEU_COD_IND_RESIDENTE on IT.GE_TIP_DEUDORES (COD_SEC_CONTABLE, IND_RESIDENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TIP_DEUDORES
+  add constraint PK_GE_TIP_DEUDORES primary key (COD_TIP_DEUDOR, COD_SEC_CONTABLE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TIP_DEUDORES
+  add constraint FK_GTDEU_COD_SEC_CONTABLE foreign key (COD_SEC_CONTABLE)
+  references IT.GE_SEC_CONTABLES (COD_SEC_CONTABLE);
+alter table IT.GE_TIP_DEUDORES
+  add constraint AVCON_1080843414_COD_T_003
+  check (COD_TIP_DEUDOR BETWEEN 1 AND 999);
+alter table IT.GE_TIP_DEUDORES
+  add constraint AVCON_1080843414_IND_R_001
+  check (IND_RESIDENTE IN ('S', 'N'));
+

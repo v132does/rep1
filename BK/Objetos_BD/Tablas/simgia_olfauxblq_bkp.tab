@@ -1,0 +1,41 @@
+create table IT.SIMGIA_OLFAUXBLQ_BKP
+(
+  suc       NUMBER,
+  cta       NUMBER,
+  subcta    NUMBER,
+  filler    CHAR(1),
+  contianl  NUMBER,
+  autor1    VARCHAR2(4000),
+  monto1    NUMBER,
+  venci1    NUMBER,
+  fecha1    NUMBER,
+  estado1   NUMBER,
+  autor2    NUMBER,
+  monto2    NUMBER,
+  venci2    NUMBER,
+  fecha2    NUMBER,
+  estado2   NUMBER,
+  autor3    NUMBER,
+  monto3    NUMBER,
+  venci3    NUMBER,
+  fecha3    NUMBER,
+  estado3   NUMBER,
+  autor4    NUMBER,
+  monto4    NUMBER,
+  venci4    NUMBER,
+  fecha4    NUMBER,
+  estado4   NUMBER,
+  fecha_his DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,85 @@
+create table IT.CR_PIZ_VAL_CONDICION
+(
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cod_condicion     NUMBER(5) not null,
+  monto             NUMBER(18,2) default 0,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_sub_modalidad NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PIZ_VAL_CONDICION
+  is 'Pizarra de Valores por Condicion.';
+comment on column IT.CR_PIZ_VAL_CONDICION.cod_modulo
+  is 'Modulo.';
+comment on column IT.CR_PIZ_VAL_CONDICION.cod_modalidad
+  is 'Modalidad.';
+comment on column IT.CR_PIZ_VAL_CONDICION.cod_moneda
+  is 'Moneda.';
+comment on column IT.CR_PIZ_VAL_CONDICION.cod_condicion
+  is 'Codigo de Condicion.';
+comment on column IT.CR_PIZ_VAL_CONDICION.monto
+  is 'Valor de la Condicion.';
+comment on column IT.CR_PIZ_VAL_CONDICION.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PIZ_VAL_CONDICION.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PIZ_VAL_CONDICION.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_VAL_CONDICION.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PIZ_VAL_CONDICION.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint UK_CR_PIZ_VAL_CONDICION unique (COD_MODULO, COD_MODALIDAD, COD_MONEDA, COD_CONDICION, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint FK_RPIZV_COD_CONDICION foreign key (COD_CONDICION)
+  references IT.CR_PIZ_CONDICIONES (COD_CONDICION);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint FK_RPIZV_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint FK_RPIZV_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint FK_RPIZV_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint AVCON_1080843837_COD_M_000
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint AVCON_1080843837_COD_M_001
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint AVCON_1080852479_COD_M_000
+  check (COD_MODULO BETWEEN 1 AND 999);
+alter table IT.CR_PIZ_VAL_CONDICION
+  add constraint AVCON_1080852479_COD_M_001
+  check (COD_MODALIDAD BETWEEN 1 AND 999);
+

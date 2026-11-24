@@ -1,0 +1,93 @@
+create table IT.GE_EQF_CHK_INHABILITACIONES
+(
+  nro_solicitud      NUMBER(10) not null,
+  nro_secuencia      NUMBER(5) not null,
+  cod_persona        VARCHAR2(10) not null,
+  fec_consulta       DATE,
+  hor_consulta       VARCHAR2(10),
+  nom_ser_webservice VARCHAR2(50),
+  nom_banco          VARCHAR2(100),
+  cod_banco          VARCHAR2(100),
+  falta              VARCHAR2(100),
+  tiempo             VARCHAR2(100),
+  fec_inhabilitacion VARCHAR2(100),
+  nro_inh_circular   VARCHAR2(100),
+  fec_inh_circular   VARCHAR2(100),
+  ind_historico      VARCHAR2(100) not null,
+  msg_error          VARCHAR2(4000),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.nro_secuencia
+  is 'Nro de secuencia por solicitud';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.fec_consulta
+  is 'Fecha de la consulta al servicio web';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.hor_consulta
+  is 'Hora de la consulta al servicio web';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.nom_ser_webservice
+  is 'Nombre del servicio web consultado';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.nom_banco
+  is 'Nombre del Banco';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.cod_banco
+  is 'Código del Banco';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.falta
+  is 'Descripción de la falta';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.tiempo
+  is 'Tiempo de duración de la inhabilitación';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.fec_inhabilitacion
+  is 'Fecha inhabilitación';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.nro_inh_circular
+  is 'Nro de circular de la inhabilitación';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.fec_inh_circular
+  is 'Fecha de circular de la inhabilitación';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.ind_historico
+  is 'Indica si es histórico S= SI, N= NO';
+comment on column IT.GE_EQF_CHK_INHABILITACIONES.msg_error
+  is 'Mensaje de error del webservice si lo hubiere';
+create index IT.IN_CHKINH_PER_SOL_FEC on IT.GE_EQF_CHK_INHABILITACIONES (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_CHK_INHABILITACIONES
+  add constraint PK_GE_EQF_CHK_INHABILIT primary key (NRO_SOLICITUD, IND_HISTORICO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_CHK_INHABILITACIONES
+  add constraint FK_CHKIN_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_EQF_SOLICITUDES (NRO_SOLICITUD) on delete cascade;
+

@@ -1,0 +1,95 @@
+create table IT.GE_PAG_SUELDOS_ERR
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_ente         NUMBER(5) not null,
+  fec_proceso      DATE not null,
+  nro_secuencia    NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3),
+  monto            NUMBER(18,2),
+  tipo             VARCHAR2(1),
+  cod_error        NUMBER(3),
+  msj_error        VARCHAR2(200),
+  observacion      VARCHAR2(2000),
+  fec_insercion    DATE default SYSDATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_SUELDOS_ERR.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_PAG_SUELDOS_ERR.cod_ente
+  is 'Código de Ente.';
+comment on column IT.GE_PAG_SUELDOS_ERR.fec_proceso
+  is 'Fecha de proceso.';
+comment on column IT.GE_PAG_SUELDOS_ERR.nro_secuencia
+  is 'Número de Secuencia.';
+comment on column IT.GE_PAG_SUELDOS_ERR.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_PAG_SUELDOS_ERR.monto
+  is 'Monto.';
+comment on column IT.GE_PAG_SUELDOS_ERR.tipo
+  is 'Tipo de Movimiento(Débito/Crédito)';
+comment on column IT.GE_PAG_SUELDOS_ERR.cod_error
+  is 'Código de Error.';
+comment on column IT.GE_PAG_SUELDOS_ERR.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.GE_PAG_SUELDOS_ERR.observacion
+  is 'Observación.';
+comment on column IT.GE_PAG_SUELDOS_ERR.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.GE_PAG_SUELDOS_ERR.usu_insercion
+  is 'Usuario de inserción del registro.';
+comment on column IT.GE_PAG_SUELDOS_ERR.fec_modificacion
+  is 'Fecha de modificación del registro.';
+comment on column IT.GE_PAG_SUELDOS_ERR.usu_modificacion
+  is 'Usuario de modificación del registro.';
+create index IT.IN_GPSER_COD_ENTE on IT.GE_PAG_SUELDOS_ERR (COD_ENTE, FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPSER_NRO_CUENTA on IT.GE_PAG_SUELDOS_ERR (NRO_CUENTA, FEC_PROCESO, COD_ENTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAG_SUELDOS_ERR
+  add constraint PK_GE_PAG_SUELDOS_ERR primary key (NRO_CUENTA, COD_ENTE, FEC_PROCESO, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

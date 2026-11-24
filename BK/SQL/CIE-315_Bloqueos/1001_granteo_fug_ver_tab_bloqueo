@@ -1,0 +1,2 @@
+grant execute on it.fug_ver_tab_bloqueo to it_temporal;
+

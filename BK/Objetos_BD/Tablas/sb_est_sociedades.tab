@@ -1,0 +1,70 @@
+create table IT.SB_EST_SOCIEDADES
+(
+  fecha            DATE not null,
+  cod_persona      VARCHAR2(10) not null,
+  tip_accion       VARCHAR2(2) not null,
+  pos_loc_activo   NUMBER(18,2),
+  pos_ext_activo   NUMBER(18,2),
+  pos_loc_pasivo   NUMBER(18,2),
+  pos_ext_pasivo   NUMBER(18,2),
+  mod_loc_prestamo NUMBER(18,2),
+  mod_ext_prestamo NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_EST_SOCIEDADES
+  is 'Tabla que contendrá por fecha los datos estadisticos de las Sociedades con Acciones.';
+comment on column IT.SB_EST_SOCIEDADES.fecha
+  is 'Fecha de Trimestre.';
+comment on column IT.SB_EST_SOCIEDADES.cod_persona
+  is 'Codigo persona de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.tip_accion
+  is 'Tipo de Titulo (accion) de la Sociedad. TP: Titulo al Portador / TN: Titulo Nominativo.';
+comment on column IT.SB_EST_SOCIEDADES.pos_loc_activo
+  is 'Monto en Moneda Local de la Posición Activa de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.pos_ext_activo
+  is 'Monto en Moneda Extranjera de la Posición Activa de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.pos_loc_pasivo
+  is 'Monto en Moneda Local de la Posición Pasiva de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.pos_ext_pasivo
+  is 'Monto en Moneda Extranjera de la Posición Pasiva de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.mod_loc_prestamo
+  is 'Monto en Moneda Local de Prestamo de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.mod_ext_prestamo
+  is 'Monto en Moneda Extranjera de Prestamo de la Sociedad.';
+comment on column IT.SB_EST_SOCIEDADES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.SB_EST_SOCIEDADES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.SB_EST_SOCIEDADES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.SB_EST_SOCIEDADES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+alter table IT.SB_EST_SOCIEDADES
+  add constraint PK_SB_EST_SOCIEDADES primary key (FECHA, COD_PERSONA, TIP_ACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

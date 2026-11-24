@@ -1,0 +1,166 @@
+create table IT.AF_BIENES
+(
+  cod_bien             NUMBER(10) not null,
+  cod_articulo         NUMBER(10) not null,
+  descripcion          VARCHAR2(250),
+  cod_oficina          NUMBER(3) not null,
+  cod_area             NUMBER(3) not null,
+  nro_serie            NUMBER(20),
+  val_compra           NUMBER(18,2) default 0 not null,
+  cod_moneda           VARCHAR2(3) not null,
+  fec_compra           DATE not null,
+  cod_ent_proveedor    NUMBER(5),
+  nro_factura          VARCHAR2(20),
+  tipo                 VARCHAR2(1),
+  coeficiente          NUMBER(20,4) default 0,
+  fec_vto_depreciacion DATE,
+  rev_anterior         NUMBER(18,2) default 0,
+  rev_actual           NUMBER(18,2) default 0,
+  dep_anterior         NUMBER(18,2) default 0,
+  dep_anual            NUMBER(18,2) default 0,
+  dep_mensual          NUMBER(18,2) default 0,
+  rev_depreciacion     NUMBER(18,2) default 0,
+  dep_actual           NUMBER(18,2) default 0,
+  dep_acumulada        NUMBER(18,2) default 0,
+  val_neto             NUMBER(18,2) default 0,
+  fec_proceso          DATE,
+  tip_proceso          VARCHAR2(1),
+  estado               VARCHAR2(1) default 'A' not null,
+  fec_enajenacion      DATE,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  fec_baja             DATE,
+  cod_compra           NUMBER(10),
+  dep_mensual_normal   NUMBER(18,2) default 0,
+  rev_ano_anterior     NUMBER(18,2) default 0,
+  rev_ano_acumulado    NUMBER(18,2) default 0,
+  dep_ano_acu_anterior NUMBER(18,2) default 0,
+  por_val_res_bien     NUMBER(3),
+  por_val_dep_bien     NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AF_BIENES
+  is 'Bienes del Activo Fijo.';
+comment on column IT.AF_BIENES.cod_bien
+  is 'Codigo del Bien.';
+comment on column IT.AF_BIENES.cod_articulo
+  is 'Codigo del Articulo.';
+comment on column IT.AF_BIENES.descripcion
+  is 'Descripcion del Bien.';
+comment on column IT.AF_BIENES.cod_oficina
+  is 'Oficina a la que pertenece el Bien.';
+comment on column IT.AF_BIENES.cod_area
+  is 'Area a la que pertenece el Bien.';
+comment on column IT.AF_BIENES.nro_serie
+  is 'Numero de serie del bien.';
+comment on column IT.AF_BIENES.val_compra
+  is 'Monto de la compra.';
+comment on column IT.AF_BIENES.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.AF_BIENES.fec_compra
+  is 'Fecha de la compra.';
+comment on column IT.AF_BIENES.cod_ent_proveedor
+  is 'Codigo de entidad del Proveedor.';
+comment on column IT.AF_BIENES.nro_factura
+  is 'Numero de la factura de compra.';
+comment on column IT.AF_BIENES.tipo
+  is 'Tipo de Comprobante: F / Factura o B / Boleta de Venta.';
+comment on column IT.AF_BIENES.coeficiente
+  is 'Ultimo Coeficiente de Revaluo.';
+comment on column IT.AF_BIENES.fec_vto_depreciacion
+  is 'Fecha de vigencia hasta.';
+comment on column IT.AF_BIENES.rev_anterior
+  is 'Revaluo anterior.';
+comment on column IT.AF_BIENES.rev_actual
+  is 'Valor Revaluado.';
+comment on column IT.AF_BIENES.dep_anterior
+  is 'Depreciacion Anterior.';
+comment on column IT.AF_BIENES.dep_anual
+  is 'Depreciacion Anual.';
+comment on column IT.AF_BIENES.dep_mensual
+  is 'Depreciacion Mensual.';
+comment on column IT.AF_BIENES.rev_depreciacion
+  is 'Revaluo de depreciacion.';
+comment on column IT.AF_BIENES.dep_actual
+  is 'Ultima Depreciacion.';
+comment on column IT.AF_BIENES.dep_acumulada
+  is 'Depreciacion Acumulada.';
+comment on column IT.AF_BIENES.val_neto
+  is 'Valor Neto.';
+comment on column IT.AF_BIENES.fec_proceso
+  is 'Fecha de Proceso de la Depreciacion y el Revaluo.';
+comment on column IT.AF_BIENES.tip_proceso
+  is 'Tipo del Coeficiente de Revaluo (A / Anual, M / Mensual)';
+comment on column IT.AF_BIENES.estado
+  is 'Estado del Bien.';
+comment on column IT.AF_BIENES.fec_enajenacion
+  is 'Fecha de enajenacion del Bien.';
+comment on column IT.AF_BIENES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AF_BIENES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AF_BIENES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AF_BIENES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.AF_BIENES.fec_baja
+  is 'Fecha en la que se da de baja el bien, tener en cuenta que no existe reversion';
+comment on column IT.AF_BIENES.cod_compra
+  is 'Codigo de la Compra';
+comment on column IT.AF_BIENES.dep_mensual_normal
+  is 'Depreciación Normal. Aquí se guarda la Dep. Normal en el caso de tener Dep. Acelerada de Bienes.';
+comment on column IT.AF_BIENES.rev_ano_anterior
+  is 'Revalúo al mes de Diciembre del Año anterior.';
+comment on column IT.AF_BIENES.rev_ano_acumulado
+  is 'Porción de Revalúo Acumulado durante el Año.';
+comment on column IT.AF_BIENES.dep_ano_acu_anterior
+  is 'Depreciación Acumulada del Año anterior.';
+comment on column IT.AF_BIENES.por_val_res_bien
+  is 'Porcentaje Valor Residual';
+comment on column IT.AF_BIENES.por_val_dep_bien
+  is 'Porcentaje Valor Depreciable';
+alter table IT.AF_BIENES
+  add constraint PK_AF_BIENES primary key (COD_BIEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AF_BIENES
+  add constraint FK_FBIEN_COD_AREA foreign key (COD_AREA, COD_OFICINA)
+  references IT.BA_AREAS (COD_AREA, COD_OFICINA);
+alter table IT.AF_BIENES
+  add constraint FK_FBIEN_COD_ARTICULO foreign key (COD_ARTICULO)
+  references IT.AF_ARTICULOS (COD_ARTICULO);
+alter table IT.AF_BIENES
+  add constraint FK_FBIEN_COD_ENT_PROVEEDOR foreign key (COD_ENT_PROVEEDOR)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.AF_BIENES
+  add constraint FK_FBIEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AF_BIENES
+  add constraint FK_FBIEN_FEC_PROCESO foreign key (FEC_PROCESO, TIP_PROCESO)
+  references IT.AF_COE_REVALUOS (FEC_PROCESO, TIPO);
+alter table IT.AF_BIENES
+  add constraint AVCON_1191859908_COD_B_000
+  check (COD_BIEN BETWEEN 0 AND 999999999);
+

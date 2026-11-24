@@ -1,0 +1,34 @@
+create table IT.PR_VTA_CARTERA
+(
+  cod_persona VARCHAR2(10),
+  nro_cuenta  VARCHAR2(15),
+  tipo_deuda  VARCHAR2(1) default 'P'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_VTA_CARTERA
+  is 'Se utiliza para cargar temporalmente las cuentas a cancelar en una venta de cartera, tambien para el proceso de regenerar cartera.';
+comment on column IT.PR_VTA_CARTERA.tipo_deuda
+  is 'P=Prestamos';
+create index IT.IN_PCART_NRO_CUENTA on IT.PR_VTA_CARTERA (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

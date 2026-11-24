@@ -1,0 +1,25 @@
+create table IT.SIMGIA_ARPAQUETE_BKP
+(
+  pqcliente VARCHAR2(10),
+  pqclase   NUMBER,
+  pqseq     NUMBER,
+  pqfeini   VARCHAR2(6),
+  pqvto     VARCHAR2(6),
+  pqsuc     NUMBER,
+  pqcta     NUMBER,
+  pqsub     NUMBER,
+  pqfprich  NUMBER,
+  fecha_his DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

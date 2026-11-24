@@ -1,0 +1,14 @@
+create index IT.IN_GSIN_FECHA on IT.GE_SPI_INFORMES("FECHA") ONLINE
+  tablespace IT_IND
+  NOLOGGING
+  COMPUTE STATISTICS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

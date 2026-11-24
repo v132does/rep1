@@ -1,0 +1,10 @@
+create global temporary table IT.SS2K5_SCHEMATA
+(
+  db_id        NUMBER(10),
+  schema_owner VARCHAR2(256) not null,
+  schema_name  VARCHAR2(256) not null
+)
+on commit preserve rows;
+create index IT.SS2K5_SCHEMATA_DB_ID on IT.SS2K5_SCHEMATA (DB_ID);
+create index IT.SS2K5_SCHEMATA_SCHEMA_NAME on IT.SS2K5_SCHEMATA (SCHEMA_NAME);
+

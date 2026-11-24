@@ -1,0 +1,67 @@
+create table IT.CR_PUN_PERSONAS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_puntaje      NUMBER(3) not null,
+  cod_campo        VARCHAR2(10) not null,
+  val_campo        VARCHAR2(30),
+  puntaje          NUMBER(3),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  cod_gru_concepto VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PUN_PERSONAS
+  is 'Puntajes de Scoring por Concepto por Persona.';
+comment on column IT.CR_PUN_PERSONAS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PUN_PERSONAS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PUN_PERSONAS.cod_campo
+  is 'Codigo de Campo.';
+comment on column IT.CR_PUN_PERSONAS.val_campo
+  is 'Valor del campo.';
+comment on column IT.CR_PUN_PERSONAS.puntaje
+  is 'Puntaje.';
+comment on column IT.CR_PUN_PERSONAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PUN_PERSONAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PUN_PERSONAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_PERSONAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PUN_PERSONAS.cod_gru_concepto
+  is 'Codigo de Grupo de Concepto.';
+alter table IT.CR_PUN_PERSONAS
+  add constraint PK_CR_PUN_PERSONAS primary key (COD_PERSONA, COD_PUNTAJE, COD_CAMPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_PUN_PERSONAS
+  add constraint FK_RPPER_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_PUN_PERSONAS
+  add constraint AVCON_1084887902_COD_P_000
+  check (COD_PUNTAJE BETWEEN 0 AND 999);
+

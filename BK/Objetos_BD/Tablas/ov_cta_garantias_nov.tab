@@ -1,0 +1,59 @@
+create table IT.OV_CTA_GARANTIAS_NOV
+(
+  fecha              DATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_garantia       NUMBER(7),
+  cod_garantia       NUMBER(3) not null,
+  mto_aplicado       NUMBER(18,2) default 0 not null,
+  usu_insercion      VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion      DATE default sysdate not null,
+  usu_modificacion   VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion   DATE default sysdate not null,
+  mto_apl_total      NUMBER(18,2) default 0,
+  mto_apl_computable NUMBER(18,2),
+  mto_apl_modificado NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.OV_CTA_GARANTIAS_NOV
+  is 'Novedades de garantias de operaciones vencidas.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.fecha
+  is 'Fecha.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.hora
+  is 'Hora.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.cod_usuario
+  is 'Usuario que realizo el cobro.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.nro_garantia
+  is 'Numero de la Garantia.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.cod_garantia
+  is 'Tipo de Garantia.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.mto_aplicado
+  is 'Monto de Garantia.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.mto_apl_total
+  is 'Monto total de la garantia aplicada a la cuenta.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.mto_apl_computable
+  is 'Monto aplicado de la garantia computable.';
+comment on column IT.OV_CTA_GARANTIAS_NOV.mto_apl_modificado
+  is 'Monto aplicados despues de la modificacion.';
+

@@ -1,0 +1,103 @@
+create table IT.GE_CTA_IMP_ASSIST
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(10) not null,
+  fec_proceso      DATE,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion    DATE default SYSDATE,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion DATE default SYSDATE,
+  fec_env_perfil   DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CTA_IMP_ASSIST
+  is 'Tabla de Cuentas a Importar en ASSIST.';
+comment on column IT.GE_CTA_IMP_ASSIST.nro_cuenta
+  is 'Nro de Cuenta.';
+comment on column IT.GE_CTA_IMP_ASSIST.cod_persona
+  is 'Código de Persona.';
+comment on column IT.GE_CTA_IMP_ASSIST.fec_proceso
+  is 'Fecha calendario de proceso.';
+comment on column IT.GE_CTA_IMP_ASSIST.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CTA_IMP_ASSIST.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CTA_IMP_ASSIST.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_IMP_ASSIST.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CTA_IMP_ASSIST.fec_env_perfil
+  is 'Fecha de Envio del perfil a ASSIST';
+create index IT.IN_GCIASS_COD_PERSONA on IT.GE_CTA_IMP_ASSIST (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCIASS_FEC_INSERCION on IT.GE_CTA_IMP_ASSIST (FEC_INSERCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCIASS_FEC_PROCESO on IT.GE_CTA_IMP_ASSIST (FEC_PROCESO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GCIASS_NRO_CUENTA on IT.GE_CTA_IMP_ASSIST (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CTA_IMP_ASSIST
+  add constraint PK_GE_CTA_IMP_ASSIST primary key (NRO_CUENTA, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

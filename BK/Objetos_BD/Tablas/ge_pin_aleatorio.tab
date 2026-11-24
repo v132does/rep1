@@ -1,0 +1,44 @@
+create table IT.GE_PIN_ALEATORIO
+(
+  cod_persona      VARCHAR2(10) not null,
+  nro_pin          NUMBER(4) not null,
+  nro_celular      VARCHAR2(10) not null,
+  est_pin          VARCHAR2(10) not null,
+  intentos         NUMBER(30) not null,
+  usu_insercion    VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PIN_ALEATORIO
+  is 'Guarda PIN aleatorio';
+comment on column IT.GE_PIN_ALEATORIO.cod_persona
+  is 'Codigo de persona';
+comment on column IT.GE_PIN_ALEATORIO.nro_pin
+  is 'PIN aleatorio generado';
+comment on column IT.GE_PIN_ALEATORIO.nro_celular
+  is 'Numero de celular de la persona';
+comment on column IT.GE_PIN_ALEATORIO.est_pin
+  is 'Estado (Activo, Pendiente, Inactivo)';
+comment on column IT.GE_PIN_ALEATORIO.intentos
+  is 'Intentos';
+comment on column IT.GE_PIN_ALEATORIO.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_PIN_ALEATORIO.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_PIN_ALEATORIO.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_PIN_ALEATORIO.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

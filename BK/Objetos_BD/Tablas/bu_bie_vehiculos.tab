@@ -1,0 +1,74 @@
+create table IT.BU_BIE_VEHICULOS
+(
+  cod_bien         NUMBER(4) not null,
+  cod_marca        NUMBER(5) not null,
+  nro_motor        VARCHAR2(20) not null,
+  nro_chasis       VARCHAR2(20) not null,
+  modelo           VARCHAR2(50) not null,
+  ano              NUMBER(4) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BU_BIE_VEHICULOS.cod_bien
+  is 'Codigo del Bien Adjudicado (autonumerico).';
+comment on column IT.BU_BIE_VEHICULOS.cod_marca
+  is 'Marca de Vehiculo.';
+comment on column IT.BU_BIE_VEHICULOS.nro_motor
+  is 'Numero de Motor.';
+comment on column IT.BU_BIE_VEHICULOS.nro_chasis
+  is 'Numero de Chasis.';
+comment on column IT.BU_BIE_VEHICULOS.modelo
+  is 'Modelo del Vehiculo.';
+comment on column IT.BU_BIE_VEHICULOS.ano
+  is 'Año del Vehiculo.';
+comment on column IT.BU_BIE_VEHICULOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BU_BIE_VEHICULOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BU_BIE_VEHICULOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BU_BIE_VEHICULOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_UBVEH_COD_MARCA on IT.BU_BIE_VEHICULOS (COD_MARCA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_VEHICULOS
+  add constraint PK_BU_BIE_VEHICULOS primary key (COD_BIEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_VEHICULOS
+  add constraint FK_UBVEH_COD_MARCA foreign key (COD_MARCA)
+  references IT.CR_MAR_VEHICULOS (COD_MARCA);
+

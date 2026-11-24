@@ -1,0 +1,56 @@
+create table IT.SB_ESTRATIFICACIONES_DEP
+(
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  cod_sec_contable VARCHAR2(1) not null,
+  mto_hasta        NUMBER(18,2) default 0 not null,
+  secuencia        NUMBER(2) not null,
+  concepto         VARCHAR2(60) not null,
+  cantidad         NUMBER(10) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  plz_hasta        VARCHAR2(60) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_ESTRATIFICACIONES_DEP
+  is 'Estratificaciones de depositos.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.fecha
+  is 'Fecha.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.cod_sec_contable
+  is 'Sector Contable.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.mto_hasta
+  is 'Monto Hasta.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.secuencia
+  is 'Secuencia.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.concepto
+  is 'Concepto.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.cantidad
+  is 'Cantidad.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.monto
+  is 'Monto.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.plz_hasta
+  is 'Plazo Hasta.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.SB_ESTRATIFICACIONES_DEP.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

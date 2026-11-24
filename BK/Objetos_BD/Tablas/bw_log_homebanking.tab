@@ -1,0 +1,24 @@
+create table IT.BW_LOG_HOMEBANKING
+(
+  fecha     DATE default sysdate,
+  pedido    VARCHAR2(2000),
+  respuesta CLOB
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_LOG_HOMEBANKING.fecha
+  is 'Fecha de la solicitud y respuesta al servicio.';
+comment on column IT.BW_LOG_HOMEBANKING.pedido
+  is 'Pedido del WS: Nombre de la Función y lista de parámetros.';
+comment on column IT.BW_LOG_HOMEBANKING.respuesta
+  is 'Respuesta al WS: se documenta el type retornado.';
+

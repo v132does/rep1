@@ -1,0 +1,74 @@
+-- Create table
+create table IT.GE_ONB_CTA_LOG
+(
+  id               VARCHAR2(32) not null,
+  cod_persona      VARCHAR2(10) not null,
+  cod_canal        NUMBER(3) not null,
+  estado           VARCHAR2(1) not null,
+  nro_intento      NUMBER(10),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10) not null,
+  fec_insercion    DATE default sysdate not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default sysdate not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_ONB_CTA_LOG
+  is 'Tabla para registros de reintentos de creación de cuentas desde el onboarding.';
+-- Add comments to the columns 
+comment on column IT.GE_ONB_CTA_LOG.id
+  is 'Corresponde a identificador';
+comment on column IT.GE_ONB_CTA_LOG.cod_persona
+  is 'Codigo de persona';
+comment on column IT.GE_ONB_CTA_LOG.cod_canal
+  is 'Codigo del canal de origen';
+comment on column IT.GE_ONB_CTA_LOG.estado
+  is 'Contiene el estado';
+comment on column IT.GE_ONB_CTA_LOG.nro_intento
+  is 'Contiene numero de intento';
+comment on column IT.GE_ONB_CTA_LOG.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_ONB_CTA_LOG.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.GE_ONB_CTA_LOG.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.GE_ONB_CTA_LOG.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+-- Create/Recreate indexes 
+create index IT.IN_GONBLOG_COD_PERSONA on IT.GE_ONB_CTA_LOG (COD_PERSONA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_ONB_CTA_LOG
+  add constraint PK_GE_ONB_CTA_LOG primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

@@ -1,0 +1,62 @@
+create table IT.GE_CONTROLES
+(
+  nro_cuenta       VARCHAR2(15),
+  cod_tip_control  NUMBER(5) not null,
+  observacion      VARCHAR2(200),
+  cod_persona      VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_insercion    VARCHAR2(10),
+  fec_modificacion DATE,
+  usu_modificacion VARCHAR2(10),
+  estado           VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CONTROLES
+  is 'Log de controles de inconsistencia del sistema.';
+comment on column IT.GE_CONTROLES.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_CONTROLES.cod_tip_control
+  is 'Codigo de tipo de control.';
+comment on column IT.GE_CONTROLES.observacion
+  is 'Observacion.';
+comment on column IT.GE_CONTROLES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_CONTROLES.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.GE_CONTROLES.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.GE_CONTROLES.fec_modificacion
+  is 'Fecha de modificacion del registro.';
+comment on column IT.GE_CONTROLES.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.GE_CONTROLES.estado
+  is 'Estado de la Cuenta.';
+create index IT.IN_GCONT_NRO_CUENTA on IT.GE_CONTROLES (NRO_CUENTA, COD_TIP_CONTROL, COD_PERSONA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CONTROLES
+  add constraint FK_GCONT_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_CONTROLES
+  add constraint FK_GCONT_COD_TIP_CONTROL foreign key (COD_TIP_CONTROL)
+  references IT.GE_TIP_CONTROLES (COD_TIP_CONTROL);
+

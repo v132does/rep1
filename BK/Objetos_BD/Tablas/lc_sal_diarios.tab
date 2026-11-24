@@ -1,0 +1,106 @@
+create table IT.LC_SAL_DIARIOS
+(
+  cod_oficina         NUMBER(3) not null,
+  cod_moneda          VARCHAR2(3) not null,
+  fecha               DATE not null,
+  mto_uti_efe_real    NUMBER(18,2) default 0 not null,
+  mto_uti_efe_neta    NUMBER(18,2) default 0 not null,
+  mto_uti_nef_real    NUMBER(18,2) default 0 not null,
+  mto_uti_nef_neta    NUMBER(18,2) default 0 not null,
+  mto_pos_com_efe_ant NUMBER(18,2) default 0 not null,
+  mto_pos_com_nef_ant NUMBER(18,2) default 0 not null,
+  mto_pos_com_efe_act NUMBER(18,2) default 0 not null,
+  mto_pos_com_nef_act NUMBER(18,2) default 0 not null,
+  mto_pos_vta_efe_ant NUMBER(18,2) default 0 not null,
+  mto_pos_vta_nef_ant NUMBER(18,2) default 0 not null,
+  mto_pos_vta_efe_act NUMBER(18,2) default 0 not null,
+  mto_pos_vta_nef_act NUMBER(18,2) default 0 not null,
+  mto_pos_com_efe_loc NUMBER(18,2) default 0 not null,
+  mto_pos_vta_efe_loc NUMBER(18,2) default 0 not null,
+  mto_pos_com_nef_loc NUMBER(18,2) default 0 not null,
+  mto_pos_vta_nef_loc NUMBER(18,2) default 0 not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_SAL_DIARIOS
+  is 'Contiene de los Saldos Diarios Generados por las Operaciones de Cambios.';
+comment on column IT.LC_SAL_DIARIOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.LC_SAL_DIARIOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_SAL_DIARIOS.fecha
+  is 'Fecha de saldos.';
+comment on column IT.LC_SAL_DIARIOS.mto_uti_efe_real
+  is 'Importe de la utilidad real en efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_uti_efe_neta
+  is 'Importe de la utilidad neta en efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_uti_nef_real
+  is 'Importe de la utilidad real no efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_uti_nef_neta
+  is 'Importe de la utilidad neta no efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_com_efe_ant
+  is 'Importe de la posicion por Compra efectivo(anterior).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_com_nef_ant
+  is 'Importe de la posicion por Compra no efectivo(anterior).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_com_efe_act
+  is 'Importe de la posicion por Compra efectivo(hoy).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_com_nef_act
+  is 'Importe de la posicion por Compra no efectivo(hoy).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_vta_efe_ant
+  is 'Importe de la posicion por Venta efectivo(anterior).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_vta_nef_ant
+  is 'Importe de la posicion por Venta no efectivo(anterior).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_vta_efe_act
+  is 'Importe de la posicion por Venta efectivo(hoy).';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_vta_nef_act
+  is 'Importe de la posicion por Venta no efectivo(hoy.';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_com_efe_loc
+  is 'Importe de la posicion en Gs por compra en efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_vta_efe_loc
+  is 'Importe de la posicion en Gs por venta en efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_com_nef_loc
+  is 'Importe de la posicion en Gs por compra no efectivo.';
+comment on column IT.LC_SAL_DIARIOS.mto_pos_vta_nef_loc
+  is 'Importe de la posicion en Gs por venta no efectivo.';
+comment on column IT.LC_SAL_DIARIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_SAL_DIARIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_SAL_DIARIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_SAL_DIARIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_SAL_DIARIOS
+  add constraint PK_LC_SAL_DIARIOS primary key (COD_OFICINA, COD_MONEDA, FECHA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_SAL_DIARIOS
+  add constraint FK_LSADI_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_SAL_DIARIOS
+  add constraint FK_LSADI_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+

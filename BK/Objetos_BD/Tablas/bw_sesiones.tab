@@ -1,0 +1,65 @@
+create table IT.BW_SESIONES
+(
+  nro_sesion        VARCHAR2(32) not null,
+  nro_ip            VARCHAR2(15),
+  cod_persona       VARCHAR2(10) not null,
+  hor_inicio        VARCHAR2(8),
+  fec_inicio        DATE,
+  cod_per_vinculada VARCHAR2(10),
+  nro_cuenta        VARCHAR2(15),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  can_operaciones   NUMBER(3) default 0 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_SESIONES.nro_sesion
+  is 'Nro de Session';
+comment on column IT.BW_SESIONES.nro_ip
+  is 'Nro de IP del equipo del cliente';
+comment on column IT.BW_SESIONES.cod_persona
+  is 'Codigo de Persona (del cliente que paga a travez de la web)';
+comment on column IT.BW_SESIONES.hor_inicio
+  is 'Hora de Inicio de Session';
+comment on column IT.BW_SESIONES.fec_inicio
+  is 'Fecha de Inicio de Session';
+comment on column IT.BW_SESIONES.cod_per_vinculada
+  is 'Código de la Empresa Asociada.';
+comment on column IT.BW_SESIONES.nro_cuenta
+  is 'Cuenta elegida para el débito del servicio';
+comment on column IT.BW_SESIONES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_SESIONES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_SESIONES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_SESIONES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_SESIONES.can_operaciones
+  is 'Cantidad máxima de operaciones por sesión';
+alter table IT.BW_SESIONES
+  add constraint UK_BW_SESIONES unique (COD_PERSONA, COD_PER_VINCULADA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,223 @@
+create table IT.BA_USUARIOS
+(
+  cod_usuario          VARCHAR2(10) not null,
+  nombre               VARCHAR2(60) not null,
+  cod_oficina          NUMBER(3) not null,
+  cod_area             NUMBER(3) not null,
+  categoria            VARCHAR2(2) default 'US',
+  oficial              VARCHAR2(1) default 'N' not null,
+  ver_cta_empleados    VARCHAR2(1) default 'N' not null,
+  promotor             VARCHAR2(1) default 'N' not null,
+  atn_publico          VARCHAR2(1) default 'N' not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cod_persona          VARCHAR2(10),
+  fec_ingreso          DATE not null,
+  cargo                VARCHAR2(60),
+  telefono             VARCHAR2(35),
+  nro_interno          NUMBER(5),
+  dir_correo           VARCHAR2(60),
+  gru_agenda           VARCHAR2(5),
+  fec_exp_clave        DATE,
+  cod_banca            NUMBER(3),
+  estado               VARCHAR2(1) default 'I' not null,
+  cod_usu_supervisor   VARCHAR2(10),
+  ver_cli_confidencial VARCHAR2(1) default 'N' not null,
+  cod_unidad           NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 50
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_USUARIOS
+  is 'Usuarios.';
+comment on column IT.BA_USUARIOS.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.BA_USUARIOS.nombre
+  is 'Nombre del usuario.';
+comment on column IT.BA_USUARIOS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.BA_USUARIOS.cod_area
+  is 'Codigo de Area al que pertenece.';
+comment on column IT.BA_USUARIOS.categoria
+  is 'Categoria que puede tener el usuario.';
+comment on column IT.BA_USUARIOS.oficial
+  is 'Indica si es Oficial o no.';
+comment on column IT.BA_USUARIOS.ver_cta_empleados
+  is 'Si puede ver cuenta de empleados. (S = SI / N = NO).';
+comment on column IT.BA_USUARIOS.promotor
+  is 'Indica si es promotor o no (S = SI / N= NO).';
+comment on column IT.BA_USUARIOS.atn_publico
+  is 'Indica si atiende al publico.';
+comment on column IT.BA_USUARIOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_USUARIOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_USUARIOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_USUARIOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.BA_USUARIOS.cod_persona
+  is 'Codigo de la persona.';
+comment on column IT.BA_USUARIOS.fec_ingreso
+  is 'Fecha de Ingreso.';
+comment on column IT.BA_USUARIOS.cargo
+  is 'Cargo del usuario.';
+comment on column IT.BA_USUARIOS.telefono
+  is 'Numero de Telefono.';
+comment on column IT.BA_USUARIOS.nro_interno
+  is 'Interno.';
+comment on column IT.BA_USUARIOS.dir_correo
+  is 'Direccion de Mail.';
+comment on column IT.BA_USUARIOS.gru_agenda
+  is 'Grupo de Agenda a la cual pertenece.';
+comment on column IT.BA_USUARIOS.fec_exp_clave
+  is 'Fecha de Expiracion de Clave.';
+comment on column IT.BA_USUARIOS.cod_banca
+  is 'Codigo de Banca.';
+comment on column IT.BA_USUARIOS.estado
+  is 'Estado del usuario.';
+comment on column IT.BA_USUARIOS.cod_usu_supervisor
+  is 'Usuario supervisor.';
+comment on column IT.BA_USUARIOS.ver_cli_confidencial
+  is 'Si puede ver cuenta de cliente confidencial. (S = SI / N = NO).';
+comment on column IT.BA_USUARIOS.cod_unidad
+  is 'Unidad de Negocios a la que pertenece el usuario.';
+create index IT.IN_EUSUA_COD_AREA on IT.BA_USUARIOS (COD_AREA, COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EUSUA_COD_BANCA on IT.BA_USUARIOS (COD_BANCA)
+  tablespace it_ind
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64k
+    next 1m
+    minextents 1
+    maxextents unlimited
+  );
+create INDEX IT.IN_EUSUA_COD_UNIDAD on IT.BA_USUARIOS (COD_UNIDAD)
+  tablespace it_ind
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64k
+    next 1m
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EUSUA_COD_OFICINA on IT.BA_USUARIOS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_EUSUA_COD_PERSONA on IT.BA_USUARIOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  
+ create index IT.IN_COD_PERSONA_ESTADO on BA_USUARIOS (COD_PERSONA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  ); 
+  
+alter table IT.BA_USUARIOS
+  add constraint PK_BA_USUARIOS primary key (COD_USUARIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BA_USUARIOS
+  add constraint FK_EUSUA_COD_AREA foreign key (COD_AREA, COD_OFICINA)
+  references IT.BA_AREAS (COD_AREA, COD_OFICINA)
+  disable
+  novalidate;
+alter table IT.BA_USUARIOS
+  add constraint FK_EUSUA_COD_BANCA foreign key (COD_BANCA)
+  references IT.GE_BANCAS (COD_BANCA);
+alter table IT.BA_USUARIOS
+  add constraint FK_EUSUA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA)
+  disable
+  novalidate;
+alter table IT.BA_USUARIOS
+  add constraint FK_EUSUA_COD_UNIDAD foreign key (COD_UNIDAD)
+  references IT.IG_UNI_NEGOCIOS (COD_UNIDAD);
+alter table IT.BA_USUARIOS
+  add constraint FK_EUSUA_COD_USU_SUPERVISOR foreign key (COD_USU_SUPERVISOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1080842839_ATN_P_000
+  check (ATN_PUBLICO IN ('S', 'N'));
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1080842839_OFICI_000
+  check (OFICIAL IN ('S', 'N'));
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1080842839_PROMO_000
+  check (PROMOTOR IN ('S', 'N'));
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1080842839_VER_C_000
+  check (VER_CTA_EMPLEADOS IN ('S', 'N'));
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1082384226_COD_A_000
+  check (COD_AREA BETWEEN 0 AND 999);
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1082384226_COD_B_001
+  check (COD_BANCA BETWEEN 0 AND 999);
+alter table IT.BA_USUARIOS
+  add constraint AVCON_1082384226_COD_O_006
+  check (COD_OFICINA BETWEEN 0 AND 999);
+

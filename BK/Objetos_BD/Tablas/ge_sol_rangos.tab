@@ -1,0 +1,64 @@
+create table IT.GE_SOL_RANGOS
+(
+  cod_rango        NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  mto_inicial      NUMBER(18,2) default 0 not null,
+  mto_final        NUMBER(18,2) default 0 not null,
+  cod_moneda       VARCHAR2(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SOL_RANGOS
+  is 'Rangos de montos de solicitudes para distribucion.';
+comment on column IT.GE_SOL_RANGOS.cod_rango
+  is 'Codigo del Rango.';
+comment on column IT.GE_SOL_RANGOS.descripcion
+  is 'Descripcion del Rango.';
+comment on column IT.GE_SOL_RANGOS.mto_inicial
+  is 'Monto inicial del rango.';
+comment on column IT.GE_SOL_RANGOS.mto_final
+  is 'Monto final del rango.';
+comment on column IT.GE_SOL_RANGOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.GE_SOL_RANGOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_RANGOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_RANGOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_RANGOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_SOL_RANGOS
+  add constraint PK_GE_SOL_RANGOS primary key (COD_RANGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_RANGOS
+  add constraint FK_GSRAN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_SOL_RANGOS
+  add constraint AVCON_1083264899_COD_R_003
+  check (COD_RANGO BETWEEN 0 AND 999);
+

@@ -1,0 +1,37 @@
+create table IT.LC_DIR_EMA_CLIENTES
+(
+  cod_persona VARCHAR2(10) not null,
+  dir_email   VARCHAR2(100) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_DIR_EMA_CLIENTES
+  is 'Direccion de email de clientes';
+comment on column IT.LC_DIR_EMA_CLIENTES.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.LC_DIR_EMA_CLIENTES.dir_email
+  is 'Direccion de Mail';
+alter table IT.LC_DIR_EMA_CLIENTES
+  add constraint PK_LC_DIR_EMA_CLIENTES primary key (COD_PERSONA, DIR_EMAIL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

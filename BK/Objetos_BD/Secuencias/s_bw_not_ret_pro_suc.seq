@@ -1,0 +1,7 @@
+create sequence IT.S_BW_NOT_RET_PRO_SUC
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 5407
+increment by 1
+cache 20;
+

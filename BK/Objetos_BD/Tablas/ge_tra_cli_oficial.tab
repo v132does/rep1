@@ -1,0 +1,100 @@
+create table IT.GE_TRA_CLI_OFICIAL
+(
+  nro_traspaso     NUMBER(15) not null,
+  nro_orden        NUMBER(15) not null,
+  fecha            DATE,
+  cod_persona      VARCHAR2(10),
+  cod_usu_ofi_des  VARCHAR2(10),
+  cod_usu_ofi_ori  VARCHAR2(10),
+  cod_programa     VARCHAR2(30),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRA_CLI_OFICIAL
+  is 'Registro de Transpaso de Clientes a Oficial';
+comment on column IT.GE_TRA_CLI_OFICIAL.nro_traspaso
+  is 'Nro. Traspaso';
+comment on column IT.GE_TRA_CLI_OFICIAL.nro_orden
+  is 'Nro. Orden';
+comment on column IT.GE_TRA_CLI_OFICIAL.fecha
+  is 'Fecha';
+comment on column IT.GE_TRA_CLI_OFICIAL.cod_persona
+  is 'Código de Persona';
+comment on column IT.GE_TRA_CLI_OFICIAL.cod_usu_ofi_des
+  is 'Código Usuario Destino';
+comment on column IT.GE_TRA_CLI_OFICIAL.cod_usu_ofi_ori
+  is 'Código Usuario Original';
+comment on column IT.GE_TRA_CLI_OFICIAL.cod_programa
+  is 'Código de Programa';
+comment on column IT.GE_TRA_CLI_OFICIAL.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.GE_TRA_CLI_OFICIAL.fec_insercion
+  is 'Fecha de Inserción';
+comment on column IT.GE_TRA_CLI_OFICIAL.usu_modificacion
+  is 'Usuario Modificación';
+comment on column IT.GE_TRA_CLI_OFICIAL.fec_modificacion
+  is 'Fecha de Modificación';
+create index IT.IN_GTROF_FECHA on IT.GE_TRA_CLI_OFICIAL (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GTROF_OFI_DES on IT.GE_TRA_CLI_OFICIAL (COD_USU_OFI_DES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GTROF_OFI_ORI on IT.GE_TRA_CLI_OFICIAL (COD_USU_OFI_ORI)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRA_CLI_OFICIAL
+  add constraint PK_GE_TRA_CLI_OFICIAL primary key (NRO_TRASPASO, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

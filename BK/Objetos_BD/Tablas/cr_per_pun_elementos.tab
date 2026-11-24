@@ -1,0 +1,58 @@
+create table IT.CR_PER_PUN_ELEMENTOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_puntaje      NUMBER(3) not null,
+  cod_elemento     VARCHAR2(3) not null,
+  pun_elemento     NUMBER(10,3),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  rie_elemento     NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_PER_PUN_ELEMENTOS
+  is 'Puntajes por Persona y Elementos.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.cod_puntaje
+  is 'Codigo de Scoring.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.cod_elemento
+  is 'Codigo del elemento.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.pun_elemento
+  is 'Puntaje.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CR_PER_PUN_ELEMENTOS.rie_elemento
+  is 'Riesgo.';
+alter table IT.CR_PER_PUN_ELEMENTOS
+  add constraint PK_CR_PER_PUN_ELEMENTOS primary key (COD_PERSONA, COD_PUNTAJE, COD_ELEMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,57 @@
+create table IT.AH_CON_DIA_CAB_HIS
+(
+  nro_con_dia     NUMBER(18) not null,
+  tip_registro    VARCHAR2(1),
+  cod_marca       VARCHAR2(5),
+  cod_ent_emisora VARCHAR2(5),
+  fec_proceso     VARCHAR2(8),
+  hor_proceso     VARCHAR2(8),
+  archivo         VARCHAR2(8),
+  des_archivo     VARCHAR2(30),
+  filtros         VARCHAR2(1735)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CON_DIA_CAB_HIS
+  is 'Conciliacion de transacciones diarias Cabecera - historico';
+comment on column IT.AH_CON_DIA_CAB_HIS.nro_con_dia
+  is 'Nro. Conciliacion diaria';
+comment on column IT.AH_CON_DIA_CAB_HIS.tip_registro
+  is 'Tipo de Registro (2-Detalle)';
+comment on column IT.AH_CON_DIA_CAB_HIS.cod_marca
+  is 'Codigo de Marca';
+comment on column IT.AH_CON_DIA_CAB_HIS.cod_ent_emisora
+  is 'Codigo asignado a la entidad otorgante.';
+comment on column IT.AH_CON_DIA_CAB_HIS.fec_proceso
+  is 'Fecha de Proceso del Archivo';
+comment on column IT.AH_CON_DIA_CAB_HIS.hor_proceso
+  is 'Hora de proceso del archivo';
+comment on column IT.AH_CON_DIA_CAB_HIS.archivo
+  is 'Nombre del Archivo';
+comment on column IT.AH_CON_DIA_CAB_HIS.des_archivo
+  is 'Descripcion del Archivo';
+comment on column IT.AH_CON_DIA_CAB_HIS.filtros
+  is 'Filtros.';
+alter table IT.AH_CON_DIA_CAB_HIS
+  add constraint PK_AH_CON_DIA_CAB_HIS primary key (NRO_CON_DIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

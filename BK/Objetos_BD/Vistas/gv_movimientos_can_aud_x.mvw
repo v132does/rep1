@@ -1,0 +1,39 @@
+create materialized view IT.GV_MOVIMIENTOS_CAN_AUD_X
+refresh force on demand
+as
+select j.cod_oficina oficina, d.cod_persona persona2, h."FECHA",h."HORA",h."COD_USUARIO",h."NRO_SECUENCIA",h."FEC_VALOR",h."MONTO",h."NRO_CUENTA",h."COD_MONEDA",h."COD_OFICINA",h."COD_OFI_ORIGEN",h."CONCEPTO",h."COD_TRA_PADRE",h."COD_MOD_PADRE",h."COD_MAD_PADRE",h."COD_TRANSACCION",h."COD_MODULO",h."COD_MODALIDAD",h."MTO_EQU_LOCAL",h."NRO_CAJA",h."COTIZACION",h."TIP_MOV_RUBRO",h."COD_AUTORIZACION",h."COD_USU_AUTORIZADOR",h."USU_INSERCION",h."FEC_INSERCION",h."USU_MODIFICACION",h."FEC_MODIFICACION",h."REVERSADO",j.cod_usu_oficial cod_usu_oficial2
+                                                                     from ((select
+                                                                     MOV.FECHA, MOV.HORA, MOV.COD_USUARIO, MOV.NRO_SECUENCIA, MOV.FEC_VALOR,
+                                                                              MOV.MONTO, MOV.NRO_CUENTA, MOV.COD_MONEDA, MOV.COD_OFICINA, MOV.COD_OFI_ORIGEN, MOV.CONCEPTO,
+                                                                              MOV.COD_TRA_PADRE, MOV.COD_MOD_PADRE, MOV.COD_MAD_PADRE,
+                                                                              MOV.COD_TRANSACCION, MOV.COD_MODULO, MOV.COD_MODALIDAD, MOV.MTO_EQU_LOCAL, MOV.NRO_CAJA,
+                                                                              MOV.COTIZACION, MOV.TIP_MOV_RUBRO, MOV.COD_AUTORIZACION, MOV.COD_USU_AUTORIZADOR,
+                                                                              MOV.USU_INSERCION, MOV.FEC_INSERCION, MOV.USU_MODIFICACION, MOV.FEC_MODIFICACION,mov.reversado FROM(
+                                                                           select MO.FECHA, MO.HORA, MO.COD_USUARIO, MO.NRO_SECUENCIA, MO.FEC_VALOR,
+                                                                                  MO.MONTO, MO.NRO_CUENTA, MO.COD_MONEDA, MO.COD_OFICINA, MO.COD_OFI_ORIGEN, MO.CONCEPTO,
+                                                                                  MO.COD_TRA_PADRE, MO.COD_MOD_PADRE, MO.COD_MAD_PADRE,
+                                                                                  MO.COD_TRANSACCION, MO.COD_MODULO, MO.COD_MODALIDAD, MO.MTO_EQU_LOCAL, MO.NRO_CAJA,
+                                                                                  MO.COTIZACION, MO.TIP_MOV_RUBRO, MO.COD_AUTORIZACION, MO.COD_USU_AUTORIZADOR,
+                                                                                  MO.USU_INSERCION, MO.FEC_INSERCION, MO.USU_MODIFICACION, MO.FEC_MODIFICACION,mo.reversado
+
+                                                                           FROM AH_MOVIMIENTOS_HIS MO
+                                                                           WHERE  mo.fecha between '01/jan/2018' and '31/dec/2018'
+                                                                           and mo.cod_oficina=14
+                                                                           UNION ALL
+                                                                           select  MO.FECHA, MO.HORA, MO.COD_USUARIO, MO.NRO_SECUENCIA, MO.FEC_VALOR,
+                                                                                  MO.MONTO, MO.NRO_CUENTA, MO.COD_MONEDA, MO.COD_OFICINA, MO.COD_OFI_ORIGEN, MO.CONCEPTO,
+                                                                                  MO.COD_TRA_PADRE, MO.COD_MOD_PADRE, MO.COD_MAD_PADRE,
+                                                                                  MO.COD_TRANSACCION, MO.COD_MODULO, MO.COD_MODALIDAD, MO.MTO_EQU_LOCAL, MO.NRO_CAJA,
+                                                                                  MO.COTIZACION, MO.TIP_MOV_RUBRO, MO.COD_AUTORIZACION, MO.COD_USU_AUTORIZADOR,
+                                                                                  MO.USU_INSERCION, MO.FEC_INSERCION, MO.USU_MODIFICACION, MO.FEC_MODIFICACION,mo.reversado
+                                                                           FROM CC_MOVIMIENTOS_HIS MO
+                                                                           WHERE  mo.fecha between '01/jan/2018' and '31/dec/2018'
+                                                                           and mo.cod_oficina=14
+                                                      ) MOV)) h, ge_cta_clientes d , ge_clientes j
+                                                                       where h.nro_cuenta=d.nro_cuenta
+                                                                       and h.COD_TRA_PADRE =358
+                                                                       and h.cod_transaccion=602
+                                                                       and h.cod_modalidad in(41,31)
+                                                                       and d.cod_persona=j.cod_persona
+                                                                       and d.relacion='P';
+

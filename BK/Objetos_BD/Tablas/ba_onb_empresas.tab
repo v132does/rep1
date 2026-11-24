@@ -1,0 +1,101 @@
+create table IT.BA_ONB_EMPRESAS
+(
+  cod_onb_emp      VARCHAR2(10) not null,
+  fec_registro     DATE,
+  empresa          VARCHAR2(4000),
+  dat_persona      VARCHAR2(4000),
+  firmantes        VARCHAR2(4000),
+  documentos       VARCHAR2(4000),
+  usuarios         VARCHAR2(4000),
+  productos        VARCHAR2(4000),
+  cod_pantalla     VARCHAR2(30),
+  onb_finalizado   VARCHAR2(1),
+  cta_creada       VARCHAR2(1) default 'N',
+  fec_insercion    DATE default SYSDATE not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  telefono         VARCHAR2(30),
+  ruc_empresa      VARCHAR2(20),
+  cta_guaranies    VARCHAR2(15),
+  cta_dolares      VARCHAR2(15),
+  tip_cliente      VARCHAR2(20),
+  origen           VARCHAR2(100),
+  adj_documento    VARCHAR2(1),
+  tyc_aprobado     VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_ONB_EMPRESAS
+  is 'Datos Recolectados en Onboarding Empresas';
+comment on column IT.BA_ONB_EMPRESAS.cod_onb_emp
+  is 'Código de Onboarding generado';
+comment on column IT.BA_ONB_EMPRESAS.fec_registro
+  is 'Fecha de Registro';
+comment on column IT.BA_ONB_EMPRESAS.empresa
+  is 'Datos Empresa';
+comment on column IT.BA_ONB_EMPRESAS.dat_persona
+  is 'Datos de la Persona';
+comment on column IT.BA_ONB_EMPRESAS.firmantes
+  is 'Firmantes de la empresa';
+comment on column IT.BA_ONB_EMPRESAS.documentos
+  is 'Documentos de la Empresa';
+comment on column IT.BA_ONB_EMPRESAS.usuarios
+  is 'Usuarios de la empresa';
+comment on column IT.BA_ONB_EMPRESAS.productos
+  is 'Productos de la empresa';
+comment on column IT.BA_ONB_EMPRESAS.cod_pantalla
+  is 'Pantalla hasta la que avanzó el usuario';
+comment on column IT.BA_ONB_EMPRESAS.onb_finalizado
+  is 'Finalización del Onboarding S=Si/N=No';
+comment on column IT.BA_ONB_EMPRESAS.cta_creada
+  is 'Cuenta de ahorro creada S=Si / N=No';
+comment on column IT.BA_ONB_EMPRESAS.fec_insercion
+  is 'Fecha en la que se insertó el registro';
+comment on column IT.BA_ONB_EMPRESAS.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BA_ONB_EMPRESAS.fec_modificacion
+  is 'Fecha en la que se realizó la última modificación del registro';
+comment on column IT.BA_ONB_EMPRESAS.usu_modificacion
+  is 'Fecha en la que se realizó la última modificación del registro';
+comment on column IT.BA_ONB_EMPRESAS.telefono
+  is 'Nro. de teléfono del solicitante';
+comment on column IT.BA_ONB_EMPRESAS.ruc_empresa
+  is 'Ruc de la empresa';
+comment on column IT.BA_ONB_EMPRESAS.cta_guaranies
+  is 'Cuenta en GS generada';
+comment on column IT.BA_ONB_EMPRESAS.cta_dolares
+  is 'Cuenta en USD generada';
+comment on column IT.BA_ONB_EMPRESAS.tip_cliente
+  is 'Nuevo / Existente.';
+comment on column IT.BA_ONB_EMPRESAS.origen
+  is 'Origen.';
+comment on column IT.BA_ONB_EMPRESAS.adj_documento
+  is 'Adjunta documento.';
+comment on column IT.BA_ONB_EMPRESAS.tyc_aprobado
+  is 'Check de aprobación de términos y condiciones';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.BA_ONB_EMPRESAS
+  add constraint PK_BA_ONB_EMPRESAS primary key (COD_ONB_EMP)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

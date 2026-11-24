@@ -1,0 +1,14 @@
+create global temporary table IT.SB_CRC_OPE_CAT_CLIENTE_TMP
+(
+  nom_referencia VARCHAR2(10),
+  fecha          DATE,
+  nro_operacion  VARCHAR2(60),
+  cod_modulo     NUMBER(3),
+  cod_modalidad  NUMBER(3),
+  tip_operacion  NUMBER(3),
+  nro_documento  VARCHAR2(30),
+  sal_capital    NUMBER(20,2),
+  cla_riesgo     VARCHAR2(2)
+)
+on commit delete rows;
+

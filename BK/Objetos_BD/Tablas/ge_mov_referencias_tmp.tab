@@ -1,0 +1,53 @@
+create table IT.GE_MOV_REFERENCIAS_TMP
+(
+  fecha              DATE,
+  hora               VARCHAR2(8),
+  cod_usuario        VARCHAR2(10),
+  nro_secuencia      NUMBER(3),
+  fec_referencia     DATE,
+  hor_referencia     VARCHAR2(8),
+  cod_usu_referencia VARCHAR2(10),
+  nro_sec_referencia NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_REFERENCIAS_TMP
+  is 'Almacena las referencias de los movimientos de cargos con relación al movimiento del IVA';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.fecha
+  is 'Fecha de la transaccion.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.nro_secuencia
+  is 'Numero de secuencia.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.fec_referencia
+  is 'Fecha de la transaccion de referencia.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.hor_referencia
+  is 'Hora del movimiento de referencia.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.cod_usu_referencia
+  is 'Codigo de operador de referencia.';
+comment on column IT.GE_MOV_REFERENCIAS_TMP.nro_sec_referencia
+  is 'Numero de secuencia de referencia.';
+create index IT.IN_MOVREFENCIAS on IT.GE_MOV_REFERENCIAS_TMP (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 80K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

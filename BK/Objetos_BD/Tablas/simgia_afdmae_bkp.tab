@@ -1,0 +1,29 @@
+create table IT.SIMGIA_AFDMAE_BKP
+(
+  afdnro     VARCHAR2(4000),
+  afdtipor   CHAR(1),
+  afdmoneda  VARCHAR2(2),
+  afdvto     VARCHAR2(8),
+  afdmonto   NUMBER,
+  afdsuc     NUMBER,
+  afdcuenta  VARCHAR2(4000),
+  afdfeini   VARCHAR2(8),
+  afddeveng  NUMBER,
+  afdfchcont VARCHAR2(8),
+  afdtasa    NUMBER,
+  doc_estado VARCHAR2(1),
+  det_estado VARCHAR2(1),
+  fecha_his  DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

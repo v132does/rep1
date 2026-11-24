@@ -1,0 +1,66 @@
+create table IT.CC_CTA_BANCARIAS_NOC
+(
+  nro_cuenta           VARCHAR2(15) not null,
+  cod_modulo           NUMBER(3) not null,
+  cod_modalidad        NUMBER(3) not null,
+  cod_oficina          NUMBER(3) not null,
+  dig_verificador      NUMBER(1),
+  cod_moneda           VARCHAR2(3) not null,
+  denominacion         VARCHAR2(100) not null,
+  fec_apertura         DATE,
+  sal_minimo           NUMBER(18,2),
+  mto_acuerdo          NUMBER(18,2),
+  est_batch            VARCHAR2(1),
+  estado               VARCHAR2(1) not null,
+  fec_ult_conciliacion DATE,
+  sal_ult_conciliacion NUMBER(16,2),
+  nro_folio            NUMBER(7),
+  fec_cam_estado       DATE,
+  fec_ult_movimiento   DATE,
+  hor_ult_movimiento   VARCHAR2(8),
+  sal_ret_batch        NUMBER(18,2),
+  sal_retenido         NUMBER(18,2),
+  sal_blo_batch        NUMBER(18,2),
+  sal_bloqueado        NUMBER(18,2),
+  sal_tot_batch        NUMBER(18,2),
+  sal_total            NUMBER(18,2),
+  cod_banco            NUMBER(3),
+  nro_cta_bancaria     VARCHAR2(30),
+  cod_programa         VARCHAR2(30),
+  usu_insercion        VARCHAR2(10) not null,
+  fec_insercion        DATE not null,
+  usu_modificacion     VARCHAR2(10) not null,
+  fec_modificacion     DATE not null,
+  cod_rubro            VARCHAR2(15),
+  fec_ult_extracto     DATE,
+  sal_ult_extracto     NUMBER(16,2),
+  fre_extracto         VARCHAR2(1),
+  mto_deb_pendientes   NUMBER(18,2),
+  mto_cre_pendientes   NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CTA_BANCARIAS_NOC
+  add constraint PK_CC_CTA_BANCARIAS_NOC primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

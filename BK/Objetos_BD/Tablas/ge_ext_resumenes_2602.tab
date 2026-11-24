@@ -1,0 +1,33 @@
+create table IT.GE_EXT_RESUMENES_2602
+(
+  nro_cuenta       VARCHAR2(20),
+  cod_persona      VARCHAR2(10),
+  fec_extracto     DATE,
+  tipo             VARCHAR2(1),
+  mto_capital      NUMBER(18,2),
+  mto_interes      NUMBER(18,2),
+  fec_vencimiento  DATE,
+  cod_extracto     NUMBER(5),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  fre_extracto     VARCHAR2(1),
+  fec_inicio       DATE,
+  beneficiario     VARCHAR2(200),
+  sal_disponible   NUMBER(18,2),
+  cod_moneda       VARCHAR2(3),
+  cod_modalidad    NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

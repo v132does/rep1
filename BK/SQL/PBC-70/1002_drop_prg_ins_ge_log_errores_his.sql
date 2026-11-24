@@ -1,0 +1,1 @@
+DROP PROCEDURE IT.prg_ins_ge_log_errores_his;

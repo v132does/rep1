@@ -1,0 +1,86 @@
+create table IT.TA_LOG_SEC_FINTRA
+(
+  cod_fintransac    VARCHAR2(36) not null,
+  cod_procesadora   VARCHAR2(36),
+  cod_origen        VARCHAR2(100),
+  cod_verificacion  VARCHAR2(10),
+  cod_comprador     VARCHAR2(15),
+  cod_comercio      VARCHAR2(15),
+  des_comercio      VARCHAR2(80),
+  dir_url           VARCHAR2(250),
+  tipo_comercio     VARCHAR2(4),
+  cod_pais          VARCHAR2(3),
+  fec_transaccion   TIMESTAMP(6),
+  mto_transaccion   NUMBER(20,2),
+  cod_mon_tra       VARCHAR2(5),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_alta          DATE,
+  fec_modificacion  DATE,
+  cod_autenticacion VARCHAR2(36)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_LOG_SEC_FINTRA.cod_fintransac
+  is 'StepupRequestId';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_procesadora
+  is 'ProcessorId';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_origen
+  is 'SourceId';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_verificacion
+  is 'VerificationToken';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_comprador
+  is 'AcquirerId';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_comercio
+  is 'MerchantId';
+comment on column IT.TA_LOG_SEC_FINTRA.des_comercio
+  is 'MerchantName';
+comment on column IT.TA_LOG_SEC_FINTRA.dir_url
+  is 'MerchantURL';
+comment on column IT.TA_LOG_SEC_FINTRA.tipo_comercio
+  is 'MerchantCategoryCode';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_pais
+  is 'MerchantCountryCode';
+comment on column IT.TA_LOG_SEC_FINTRA.fec_transaccion
+  is 'TransactionTimeStamp';
+comment on column IT.TA_LOG_SEC_FINTRA.mto_transaccion
+  is 'TransactionAmount';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_mon_tra
+  is 'TransactionCurrency';
+comment on column IT.TA_LOG_SEC_FINTRA.usu_insercion
+  is 'Usuario Creacion';
+comment on column IT.TA_LOG_SEC_FINTRA.usu_modificacion
+  is 'Usuario Modificacion';
+comment on column IT.TA_LOG_SEC_FINTRA.fec_alta
+  is 'Fecha Alta';
+comment on column IT.TA_LOG_SEC_FINTRA.fec_modificacion
+  is 'Fecha Modificacion';
+comment on column IT.TA_LOG_SEC_FINTRA.cod_autenticacion
+  is 'FK de TA_LOG_SEC_FINTRA';
+alter table IT.TA_LOG_SEC_FINTRA
+  add constraint PK_TA_LOG_SEC_FINTRA primary key (COD_FINTRANSAC)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.TA_LOG_SEC_FINTRA
+  add constraint FK_TLSECFINTRA_COD_AUTEN foreign key (COD_AUTENTICACION)
+  references IT.TA_LOG_SEC_INITRAN (COD_AUTENTICACION);
+

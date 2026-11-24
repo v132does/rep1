@@ -1,0 +1,44 @@
+create table IT.BA_PER_DOC_LEGALES
+(
+  cod_persona       VARCHAR2(10) not null,
+  cod_tip_documento NUMBER(3) not null,
+  fec_recepcion     DATE default SYSDATE,
+  estado            VARCHAR2(3),
+  observaciones     VARCHAR2(300),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_DOC_LEGALES
+  is 'Registro de documentos legales de personas.';
+comment on column IT.BA_PER_DOC_LEGALES.cod_persona
+  is 'Código de Persona.';
+comment on column IT.BA_PER_DOC_LEGALES.cod_tip_documento
+  is 'Tipo de Documento de Identidad.';
+comment on column IT.BA_PER_DOC_LEGALES.fec_recepcion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_PER_DOC_LEGALES.estado
+  is 'Estado del documento.';
+comment on column IT.BA_PER_DOC_LEGALES.observaciones
+  is 'Observaciones sobre los documentos.';
+comment on column IT.BA_PER_DOC_LEGALES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BA_PER_DOC_LEGALES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BA_PER_DOC_LEGALES.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.BA_PER_DOC_LEGALES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+

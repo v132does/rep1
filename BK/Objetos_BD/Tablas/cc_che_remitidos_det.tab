@@ -1,0 +1,56 @@
+create table IT.CC_CHE_REMITIDOS_DET
+(
+  fecha            DATE not null,
+  cod_oficina      NUMBER(3) not null,
+  nro_caja         NUMBER(3) not null,
+  nro_lote         NUMBER(3) not null,
+  tip_dato         NUMBER(3),
+  cod_banco        NUMBER(3),
+  nro_cheque       NUMBER(15),
+  monto            NUMBER(18,2),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nro_cuenta       VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_REMITIDOS_DET
+  is 'Detalle de cheques remitidos.';
+comment on column IT.CC_CHE_REMITIDOS_DET.fecha
+  is 'Fecha.';
+comment on column IT.CC_CHE_REMITIDOS_DET.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.CC_CHE_REMITIDOS_DET.nro_caja
+  is 'Numero de Caja.';
+comment on column IT.CC_CHE_REMITIDOS_DET.nro_lote
+  is 'Numero de Lote.';
+comment on column IT.CC_CHE_REMITIDOS_DET.tip_dato
+  is 'Tipo de Dato.';
+comment on column IT.CC_CHE_REMITIDOS_DET.cod_banco
+  is 'Codigo de Bando.';
+comment on column IT.CC_CHE_REMITIDOS_DET.nro_cheque
+  is 'Numero de Cheque.';
+comment on column IT.CC_CHE_REMITIDOS_DET.monto
+  is 'Valor del Cheque.';
+comment on column IT.CC_CHE_REMITIDOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_REMITIDOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_REMITIDOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_REMITIDOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_REMITIDOS_DET.nro_cuenta
+  is 'Numero de Cuenta.';
+

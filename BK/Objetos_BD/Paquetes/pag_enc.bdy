@@ -1,0 +1,31 @@
+CREATE OR REPLACE PACKAGE BODY IT.PAG_ENC wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+54c 268
+jxxTbHdQwigC3sG3e9swYSQ09fwwg/DDLtAVyi9VA/S1NxN5CfDsfgYnaEbhKwkaRiVVMPze
+lhz+itCarwkOo3jxoJA4Ilj+TRUa20SEQulyWu5RAfHKca5JVebn8xAr6D3O/ZEwSR5DwFi5
+6K/D/bKbHzxd4zJ+Ya76/99ji8XAQqquxPgxQ5tOmJK02Gi/YYS2LJ8RFH808cpTuB03WkRj
+cmFgPiVHIaODuUg7jAXThWLRstV1YAUA01lvi3Wi3nEKPM3/mv2O6L5NWkKqI9qmr3uvE8hi
+6wQ4W2HKU987JthuRjXOpW6UcUCbL1NYT8Xs4363Iiuq8Xh72YHlr9qogJClIYaTSRqoH9eu
+MrpDB+gbtNwfwMNRXck1k3kDpuyhu20VV8MLrEW10mIBKLy4hVRED3VQjBMKlREMLa94eK7C
+UDuEKnV7mbeORilX6o/KFKXpsoHzl86kxv3z7InXPruTj1IcynN7PLOkngiurLv+km9i+FvG
+oV549/vQ+Wp1wpx/vJYznjyGcJhR87SMEQeq+oVx5HTPkeeOs5UzoUFdzbmAnbf0reK9waFV
+XQ7UQM48dDDnPHVApbm17JjEJAWNgjM=
+/
+

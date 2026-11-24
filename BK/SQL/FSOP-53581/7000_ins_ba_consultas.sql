@@ -1,0 +1,16 @@
+BEGIN pre_ini_aplicacion; pae_cnf.g_cod_modulo := 1; end; 
+/
+
+INSERT  INTO ba_consultas (COD_CONSULTA, DESCRIPCION, COD_USUARIO,TIPO,OBSERVACION, DET_SQL)
+VALUES ('CD_FE_LOG','Factury - Log de errores de procesamiento','IT','G','Utilizar rangos de fechas como mayor menor o entre',
+'SELECT DET_ERROR, FEC_INSERCION
+ FROM GE_LOG_ERRORES GLE
+ WHERE GLE.COD_PROGRAMA = ''PRB_INS_FAC_ELECTRONICA'' AND (&'||'P_FILTROS) ORDER BY FEC_INSERCION DESC');
+
+INSERT  INTO ba_consultas (COD_CONSULTA, DESCRIPCION, COD_USUARIO,TIPO,OBSERVACION, DET_SQL)
+VALUES ('CD_FE_REC','Factury - Listado de comprobantes con error','IT','G',null,
+'SELECT NRO_FACTURA, FECHA, COD_PERSONA, NOM_COMPLETO, TIP_COMPROBANTE 
+ FROM CB_LIB_VENTAS CLV
+ WHERE CLV.ESTADO = ''X'' AND (&'||'P_FILTROS) ORDER BY CLV.NRO_FACTURA DESC');
+
+commit;

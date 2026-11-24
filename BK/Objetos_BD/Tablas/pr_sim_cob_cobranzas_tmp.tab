@@ -1,0 +1,58 @@
+create table IT.PR_SIM_COB_COBRANZAS_TMP
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  nro_cuota              NUMBER(3) not null,
+  fec_valor              DATE not null,
+  fec_vencimiento        DATE not null,
+  estado                 VARCHAR2(1) not null,
+  sal_capital_pre        NUMBER(18,2),
+  sal_interes_pre        NUMBER(18,2),
+  sal_capital_cuo        NUMBER(18,2),
+  sal_interes_cuo        NUMBER(18,2),
+  sal_int_documentado    NUMBER(18,2),
+  fec_ult_pago           DATE,
+  dia_mora               NUMBER,
+  mto_capital            NUMBER(18,2),
+  mto_interes            NUMBER(18,2),
+  mto_int_documentado    NUMBER(18,2),
+  mto_int_moratorio      NUMBER(18,2),
+  mto_int_mor_interes    NUMBER(18,2),
+  mto_int_mor_adelantado NUMBER(18,2),
+  mto_int_punitorio      NUMBER(18,2),
+  mto_cargo              NUMBER(18,2),
+  mto_cargo_iva          NUMBER(18,2),
+  mto_impuesto           NUMBER(18,2),
+  mto_int_descontado     NUMBER(18,2),
+  nro_documento          NUMBER(15),
+  mto_int_mor_cal        NUMBER(18,2),
+  mto_int_mor_int_cal    NUMBER(18,2),
+  mto_int_mor_ade_cal    NUMBER(18,2),
+  mto_int_pun_cal        NUMBER(18,2),
+  mto_cargo_cal          NUMBER(18,2),
+  mto_car_iva_cal        NUMBER(18,2),
+  mto_impuesto_cal       NUMBER(18,2),
+  usu_insercion          VARCHAR2(10) not null,
+  fec_insercion          DATE not null,
+  usu_modificacion       VARCHAR2(10) not null,
+  fec_modificacion       DATE not null,
+  mto_int_mor_des        NUMBER(18,2),
+  mto_int_mor_int_des    NUMBER(18,2),
+  mto_int_mor_ade_des    NUMBER(18,2),
+  mto_int_pun_des        NUMBER(18,2),
+  mto_car_des            NUMBER(18,2),
+  dev_no_cobrado         NUMBER(18,2),
+  dev_suspenso           NUMBER(18,2),
+  dev_acumulado          NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

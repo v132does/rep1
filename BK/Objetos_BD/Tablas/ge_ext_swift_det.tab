@@ -1,0 +1,87 @@
+create table IT.GE_EXT_SWIFT_DET
+(
+  nro_ref_externa  VARCHAR2(50) not null,
+  nro_orden        NUMBER not null,
+  fec_generacion   DATE not null,
+  fec_envio        VARCHAR2(4),
+  tip_movimiento   VARCHAR2(1) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) default 0 not null,
+  ref_movimiento   VARCHAR2(40),
+  nro_documento    VARCHAR2(40),
+  descripcion      VARCHAR2(100),
+  nro_conciliacion NUMBER(20),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  observacion      VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_SWIFT_DET
+  is 'Detalle Extracto Swift';
+comment on column IT.GE_EXT_SWIFT_DET.nro_ref_externa
+  is 'Número de Referencia Externa del Mensaje.';
+comment on column IT.GE_EXT_SWIFT_DET.nro_orden
+  is 'Número de Orden.';
+comment on column IT.GE_EXT_SWIFT_DET.fec_generacion
+  is 'Fecha de Generación del Mensaje.';
+comment on column IT.GE_EXT_SWIFT_DET.fec_envio
+  is 'Fecha de Envío del Mensaje.';
+comment on column IT.GE_EXT_SWIFT_DET.tip_movimiento
+  is 'Tipo de Movimiento (Debito/Credito).';
+comment on column IT.GE_EXT_SWIFT_DET.cod_moneda
+  is 'Código de la Moneda.
+';
+comment on column IT.GE_EXT_SWIFT_DET.monto
+  is 'Monto.';
+comment on column IT.GE_EXT_SWIFT_DET.ref_movimiento
+  is 'Referencia del Movimiento.';
+comment on column IT.GE_EXT_SWIFT_DET.nro_documento
+  is 'Nro. de Documento del Movimiento. Ej. Nro. de Cheque.';
+comment on column IT.GE_EXT_SWIFT_DET.descripcion
+  is 'Descripción del Movimiento.';
+comment on column IT.GE_EXT_SWIFT_DET.nro_conciliacion
+  is 'Secuencia numérica de Conciliación entre Movimientos.
+';
+comment on column IT.GE_EXT_SWIFT_DET.usu_insercion
+  is 'Usuario que realizo la inserción del registro.';
+comment on column IT.GE_EXT_SWIFT_DET.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_EXT_SWIFT_DET.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.GE_EXT_SWIFT_DET.fec_modificacion
+  is 'Fecha en que se realizo la última modificación en el registro.';
+comment on column IT.GE_EXT_SWIFT_DET.observacion
+  is 'Corresponde al tag :86:';
+alter table IT.GE_EXT_SWIFT_DET
+  add constraint PK_GE_EXT_SWIFT_DET primary key (NRO_REF_EXTERNA, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EXT_SWIFT_DET
+  add constraint FK_GESWDE_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_EXT_SWIFT_DET
+  add constraint FK_GESWDE_NRO_REF_EXTERNA foreign key (NRO_REF_EXTERNA)
+  references IT.GE_EXT_SWIFT (NRO_REF_EXTERNA);
+

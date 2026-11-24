@@ -1,0 +1,38 @@
+create table IT.GE_PAG_SUELDOS_ORIG
+(
+  cod_usuario      VARCHAR2(10),
+  cod_ente         NUMBER(5),
+  fec_proceso      DATE,
+  nro_secuencia    NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  nro_cuenta       VARCHAR2(15),
+  cod_moneda       VARCHAR2(3),
+  fec_envio        DATE,
+  tipo             VARCHAR2(1),
+  monto            NUMBER(18,2),
+  estado           VARCHAR2(1),
+  cod_proceso      NUMBER(3),
+  cod_modulo       NUMBER(3),
+  fec_insercion    DATE not null,
+  usu_insercion    VARCHAR2(10) not null,
+  fec_modificacion DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  tip_remuneracion VARCHAR2(1),
+  nombre           VARCHAR2(40),
+  ano              NUMBER(4),
+  nivel            NUMBER(2),
+  entidad          NUMBER(3),
+  observacion      VARCHAR2(15)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

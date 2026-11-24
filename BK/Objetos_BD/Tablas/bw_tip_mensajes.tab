@@ -1,0 +1,86 @@
+create table IT.BW_TIP_MENSAJES
+(
+  cod_tip_mensaje  VARCHAR2(3) not null,
+  descripcion      VARCHAR2(60) not null,
+  consulta         VARCHAR2(1) default 'N' not null,
+  ingresa          VARCHAR2(1) default 'N' not null,
+  autoriza         VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default USER not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default USER not null,
+  fec_modificacion DATE default SYSDATE not null,
+  dir_mail         VARCHAR2(100),
+  nom_funcion      VARCHAR2(60),
+  interno          VARCHAR2(1),
+  afe_web          VARCHAR2(1),
+  afe_tas          VARCHAR2(1),
+  afe_ivr          VARCHAR2(1),
+  afe_movil        VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_TIP_MENSAJES
+  is 'Tipos de Mensajes.';
+comment on column IT.BW_TIP_MENSAJES.cod_tip_mensaje
+  is 'Código de Tipo de Mensaje.';
+comment on column IT.BW_TIP_MENSAJES.descripcion
+  is 'Descripcion de Tipo de Mensaje.';
+comment on column IT.BW_TIP_MENSAJES.consulta
+  is 'Indica si la operación es de Consulta.';
+comment on column IT.BW_TIP_MENSAJES.ingresa
+  is 'Indica si la operación es de Ingreso de datos.';
+comment on column IT.BW_TIP_MENSAJES.autoriza
+  is 'Indica si la operación necesita autorización.';
+comment on column IT.BW_TIP_MENSAJES.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_TIP_MENSAJES.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_TIP_MENSAJES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.BW_TIP_MENSAJES.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.BW_TIP_MENSAJES.nom_funcion
+  is 'Nombre de la Función en el PAW_BEL.';
+comment on column IT.BW_TIP_MENSAJES.interno
+  is 'Indica si el mensaje es interno o no.';
+comment on column IT.BW_TIP_MENSAJES.afe_web
+  is 'Indica si el mensaje es utilizado en aplicaciones WEB.';
+comment on column IT.BW_TIP_MENSAJES.afe_tas
+  is 'Indica si el mensaje es utilizado en aplicaciones Java (Terminales de Auto Servicio).';
+comment on column IT.BW_TIP_MENSAJES.afe_ivr
+  is 'Indica si el mensaje es utilizado en aplicaciones de Banca  Telefónica(IVR).';
+comment on column IT.BW_TIP_MENSAJES.afe_movil
+  is 'Indica si el mensaje es utilizado en aplicaciones de Mobile Banking.';
+alter table IT.BW_TIP_MENSAJES
+  add constraint PK_BW_TIP_MENSAJES primary key (COD_TIP_MENSAJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_TIP_MENSAJES
+  add constraint AVCON_1189176853_AUTOR_000
+  check (AUTORIZA IN ('S', 'N'));
+alter table IT.BW_TIP_MENSAJES
+  add constraint AVCON_1189176853_CONSU_000
+  check (CONSULTA IN ('S', 'N'));
+alter table IT.BW_TIP_MENSAJES
+  add constraint AVCON_1189176853_INGRE_000
+  check (INGRESA IN ('S', 'N'));
+

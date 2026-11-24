@@ -1,0 +1,8 @@
+create sequence IT.S_HOR_MOVIMI5
+minvalue 1
+maxvalue 999999999
+start with 381301
+increment by 1
+nocache
+cycle;
+

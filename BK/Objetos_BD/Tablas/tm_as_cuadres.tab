@@ -1,0 +1,22 @@
+create table IT.TM_AS_CUADRES
+(
+  cod_oficina     NUMBER(4),
+  cod_rub_externo VARCHAR2(20),
+  fec_as          VARCHAR2(10),
+  tip_movimiento  NUMBER(1),
+  nro_asiento     NUMBER(10),
+  monto           NUMBER(18,2),
+  referencia      VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

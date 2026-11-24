@@ -1,0 +1,71 @@
+create table IT.PR_CTA_GARANTIAS_DET
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  nro_garantia       NUMBER(7) not null,
+  cod_garantia       NUMBER(3) not null,
+  cod_modulo         NUMBER(3),
+  cod_modalidad      NUMBER(3),
+  cod_persona        VARCHAR2(10),
+  cod_moneda         VARCHAR2(3),
+  mto_apl_computable NUMBER(18,2),
+  mto_apl_com_ml     NUMBER(18,2),
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion      DATE default SYSDATE,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion   DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_CTA_GARANTIAS_DET.nro_cuenta
+  is 'Nro de Cuenta';
+comment on column IT.PR_CTA_GARANTIAS_DET.fecha
+  is 'Fecha de Generacion';
+comment on column IT.PR_CTA_GARANTIAS_DET.nro_garantia
+  is 'Nro. de Garantia';
+comment on column IT.PR_CTA_GARANTIAS_DET.cod_garantia
+  is 'Codigo de Garantia';
+comment on column IT.PR_CTA_GARANTIAS_DET.cod_modulo
+  is 'Codigo de Modulo';
+comment on column IT.PR_CTA_GARANTIAS_DET.cod_modalidad
+  is 'Codigo de Modalidad';
+comment on column IT.PR_CTA_GARANTIAS_DET.cod_persona
+  is 'Codigo de Persona';
+comment on column IT.PR_CTA_GARANTIAS_DET.cod_moneda
+  is 'Codigo de Moneda';
+comment on column IT.PR_CTA_GARANTIAS_DET.mto_apl_computable
+  is 'Monto Aplicado Computable (En Moneda de la Cuenta)';
+comment on column IT.PR_CTA_GARANTIAS_DET.mto_apl_com_ml
+  is 'Monto Aplicado Computable (En Moneda Local)';
+comment on column IT.PR_CTA_GARANTIAS_DET.usu_insercion
+  is 'Usuario de Insercion';
+comment on column IT.PR_CTA_GARANTIAS_DET.fec_insercion
+  is 'Fecha de Insercion';
+comment on column IT.PR_CTA_GARANTIAS_DET.usu_modificacion
+  is 'Usuario de Modificacion';
+comment on column IT.PR_CTA_GARANTIAS_DET.fec_modificacion
+  is 'Fecha de Modificacion';
+alter table IT.PR_CTA_GARANTIAS_DET
+  add constraint PK_PR_CTA_GARANTIAS_DET primary key (NRO_CUENTA, FECHA, NRO_GARANTIA, COD_GARANTIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

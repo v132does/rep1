@@ -1,0 +1,97 @@
+create table IT.CC_CHE_CERTIFICADOS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  nro_cheque          NUMBER(15) not null,
+  nro_cta_certificado VARCHAR2(15) not null,
+  monto               NUMBER(18,2) default 0,
+  fecha               DATE,
+  fec_pago            DATE,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cod_cau_devolucion  NUMBER(3),
+  estado              VARCHAR2(1) default 'C',
+  beneficiario        VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_CERTIFICADOS
+  is 'Cheques Certificados.';
+comment on column IT.CC_CHE_CERTIFICADOS.nro_cuenta
+  is 'Numero de cuenta a la que pertenece el cheque.';
+comment on column IT.CC_CHE_CERTIFICADOS.nro_cheque
+  is 'Numero de cheque certificado.';
+comment on column IT.CC_CHE_CERTIFICADOS.nro_cta_certificado
+  is 'Codigo de oficina de la cuenta Cheque Certificado.';
+comment on column IT.CC_CHE_CERTIFICADOS.monto
+  is 'Valor del cheque certificado.';
+comment on column IT.CC_CHE_CERTIFICADOS.fecha
+  is 'Fecha de la certificacion.';
+comment on column IT.CC_CHE_CERTIFICADOS.fec_pago
+  is 'Fecha de pago del cheque.';
+comment on column IT.CC_CHE_CERTIFICADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CC_CHE_CERTIFICADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CC_CHE_CERTIFICADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_CERTIFICADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CC_CHE_CERTIFICADOS.cod_cau_devolucion
+  is 'Codigo de la causa de devolucion del cheque.';
+comment on column IT.CC_CHE_CERTIFICADOS.estado
+  is 'Estado.';
+comment on column IT.CC_CHE_CERTIFICADOS.beneficiario
+  is 'Beneficiario.';
+create index IT.IN_CCCER_COD_CAU_DEVOLUCION on IT.CC_CHE_CERTIFICADOS (COD_CAU_DEVOLUCION, NRO_CTA_CERTIFICADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_CERTIFICADOS
+  add constraint PK_CC_CHE_CERTIFICADOS primary key (NRO_CUENTA, NRO_CHEQUE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_CHE_CERTIFICADOS
+  add constraint FK_CCCER_COD_CAU_DEVOLUCION foreign key (COD_CAU_DEVOLUCION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.CC_CHE_CERTIFICADOS
+  add constraint FK_CCCER_NRO_CTA_CERTIFICADO foreign key (NRO_CTA_CERTIFICADO)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_CHE_CERTIFICADOS
+  add constraint FK_CCCER_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.CC_CHE_CERTIFICADOS
+  add constraint AVCON_1100005921_COD_C_000
+  check (COD_CAU_DEVOLUCION BETWEEN 0 AND 999);
+alter table IT.CC_CHE_CERTIFICADOS
+  add constraint AVCON_1100709760_ESTAD_000
+  check (ESTADO IN ('C', 'X', 'P', 'A', 'D'));
+

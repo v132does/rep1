@@ -1,0 +1,70 @@
+create table IT.GE_PAR_ENTES
+(
+  cod_ente         NUMBER(5) not null,
+  parametro        VARCHAR2(30) not null,
+  val_parametro    VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PAR_ENTES
+  is 'Parametros dinamicos por Entes.';
+comment on column IT.GE_PAR_ENTES.cod_ente
+  is 'Codigo de Empresa.';
+comment on column IT.GE_PAR_ENTES.parametro
+  is 'Campo del Parametro.';
+comment on column IT.GE_PAR_ENTES.val_parametro
+  is 'Valor del Parametro.';
+comment on column IT.GE_PAR_ENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PAR_ENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PAR_ENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PAR_ENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_GPARE_PARAMETRO on IT.GE_PAR_ENTES (PARAMETRO, VAL_PARAMETRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAR_ENTES
+  add constraint PK_GE_PAR_ENTES primary key (COD_ENTE, PARAMETRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PAR_ENTES
+  add constraint FK_GPARE_COD_ENTE foreign key (COD_ENTE)
+  references IT.GE_ENTES (COD_ENTE);
+alter table IT.GE_PAR_ENTES
+  add constraint FK_GPARE_PARAMETRO foreign key (PARAMETRO)
+  references IT.GE_PARAMETROS (PARAMETRO);
+

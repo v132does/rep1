@@ -1,0 +1,124 @@
+create table IT.AP_REQ_CAMBIOS
+(
+  cod_requerimiento  NUMBER(10) not null,
+  cod_cambio         NUMBER(10) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_usu_supervisor VARCHAR2(10),
+  fecha              DATE not null,
+  descripcion        VARCHAR2(60) not null,
+  des_jus_cambio     VARCHAR2(2000) not null,
+  estado             VARCHAR2(1) default 'P' not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  observacion        VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_REQ_CAMBIOS
+  is 'Cambios de Requerimientos.';
+comment on column IT.AP_REQ_CAMBIOS.cod_requerimiento
+  is 'Codigo del Requerimiento.';
+comment on column IT.AP_REQ_CAMBIOS.cod_cambio
+  is 'Identificador del Cambio.';
+comment on column IT.AP_REQ_CAMBIOS.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.AP_REQ_CAMBIOS.cod_usu_supervisor
+  is 'Codigo de usuario Supervisor.';
+comment on column IT.AP_REQ_CAMBIOS.fecha
+  is 'Fecha de la solicitud de cambio de requerimiento.';
+comment on column IT.AP_REQ_CAMBIOS.descripcion
+  is 'Descripcion.';
+comment on column IT.AP_REQ_CAMBIOS.des_jus_cambio
+  is 'Justificacion del Cambio.';
+comment on column IT.AP_REQ_CAMBIOS.estado
+  is 'Estado de la Solicitud de Cambio.';
+comment on column IT.AP_REQ_CAMBIOS.usu_insercion
+  is 'Usuario que inserta.';
+comment on column IT.AP_REQ_CAMBIOS.fec_insercion
+  is 'Fecha de insercion.';
+comment on column IT.AP_REQ_CAMBIOS.usu_modificacion
+  is 'Usuario que modifica.';
+comment on column IT.AP_REQ_CAMBIOS.fec_modificacion
+  is 'Fecha de modificacion.';
+comment on column IT.AP_REQ_CAMBIOS.observacion
+  is 'Observacion.';
+create index IT.IN_YRCAM_COD_USUARIO on IT.AP_REQ_CAMBIOS (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YRCAM_COD_USU_SUPERVISOR on IT.AP_REQ_CAMBIOS (COD_USU_SUPERVISOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_REQ_CAMBIOS
+  add constraint PK_AP_REQ_CAMBIOS primary key (COD_REQUERIMIENTO, COD_CAMBIO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_REQ_CAMBIOS
+  add constraint FK_YRCAM_COD_REQUERIMIENTO foreign key (COD_REQUERIMIENTO)
+  references IT.AP_REQUERIMIENTOS (COD_REQUERIMIENTO);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint FK_YRCAM_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint FK_YRCAM_COD_USU_SUPERVISOR foreign key (COD_USU_SUPERVISOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1081349332_COD_C_004
+  check (COD_CAMBIO BETWEEN 1 AND 999999999);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1081349332_COD_R_005
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1081349332_ESTAD_003
+  check (ESTADO IN ('P', 'A', 'C'));
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1084197539_COD_C_000
+  check (COD_CAMBIO BETWEEN 1 AND 999999999);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1084197539_COD_R_001
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1084215714_COD_C_000
+  check (COD_CAMBIO BETWEEN 1 AND 999999999);
+alter table IT.AP_REQ_CAMBIOS
+  add constraint AVCON_1084215714_COD_R_001
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+

@@ -1,0 +1,64 @@
+create table IT.CS_CAJ_SEGURIDAD_TMP
+(
+  cod_caj_seguridad VARCHAR2(5) not null,
+  cod_oficina       NUMBER(3) not null,
+  tipo              VARCHAR2(1),
+  valor             NUMBER(18,2),
+  estado            VARCHAR2(1),
+  observaciones     VARCHAR2(100),
+  descripcion       VARCHAR2(50),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_CAJ_SEGURIDAD_TMP
+  is 'Catalogo de las Cajas de Seguridad.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.cod_caj_seguridad
+  is 'Codigo de la Caja de Seguridad.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.tipo
+  is 'Tipo de Caja (G= Grande y C=Chica).';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.valor
+  is 'Monto de la Caja.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.estado
+  is 'Estado de la Caja: (L)ibre, (D)esactivado, (R)eservado, (O)cupado.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.observaciones
+  is 'Comentario de la Caja.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.descripcion
+  is 'Descripcion de la Caja.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CAJ_SEGURIDAD_TMP.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+alter table IT.CS_CAJ_SEGURIDAD_TMP
+  add constraint PK_CS_CAJ_SEGURIDAD_TMP primary key (COD_CAJ_SEGURIDAD, COD_OFICINA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,216 @@
+-- Create table
+create table IT.GE_SOL_VER_LABORALES
+(
+  nro_solicitud       NUMBER(7) not null,
+  nom_propietario     VARCHAR2(120),
+  existe              VARCHAR2(1) default 'N' not null,
+  funciona            VARCHAR2(1) default 'N' not null,
+  ing_clientes        VARCHAR2(1) default 'N' not null,
+  cartel              VARCHAR2(1) default 'N' not null,
+  tip_fachada         VARCHAR2(1) default 'B' not null,
+  tip_construccion    VARCHAR2(1) default 'B' not null,
+  tip_local           VARCHAR2(1) default 'P' not null,
+  tip_mobiliario      VARCHAR2(1) default 'B' not null,
+  mercaderias         VARCHAR2(100),
+  representacion      VARCHAR2(200),
+  tip_acceso          VARCHAR2(1) default 'F' not null,
+  tip_zona            VARCHAR2(1) default 'R' not null,
+  ruc                 VARCHAR2(20),
+  patente             VARCHAR2(20),
+  hor_atencion        VARCHAR2(35),
+  can_empleados       NUMBER(5),
+  trabaja             VARCHAR2(1) default 'N' not null,
+  nom_jefe            VARCHAR2(120),
+  hor_trabajo         VARCHAR2(35),
+  nom_per_informo     VARCHAR2(120),
+  car_per_informo     VARCHAR2(35),
+  per_presente        VARCHAR2(1) default 'N' not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  observacion         VARCHAR2(1000),
+  cod_persona         VARCHAR2(10) not null,
+  cod_inf_laboral     NUMBER(5) not null,
+  cod_usu_verificador VARCHAR2(10) not null,
+  fecha               DATE,
+  tip_ubicacion       VARCHAR2(1) default 'C' not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_SOL_VER_LABORALES
+  is 'Verificacion IN SITU laboral.';
+-- Add comments to the columns 
+comment on column IT.GE_SOL_VER_LABORALES.nro_solicitud
+  is 'Numero de Solicitud.';
+comment on column IT.GE_SOL_VER_LABORALES.nom_propietario
+  is 'Nombre del propietario de la empresa.';
+comment on column IT.GE_SOL_VER_LABORALES.existe
+  is 'Indica si existe la Empresa de la persona.';
+comment on column IT.GE_SOL_VER_LABORALES.funciona
+  is 'Indica si la Empresa se encuentra en funcionamiento.';
+comment on column IT.GE_SOL_VER_LABORALES.ing_clientes
+  is 'Indica si ingresaron Clientes en el momento en que estaba el verificador.';
+comment on column IT.GE_SOL_VER_LABORALES.cartel
+  is 'Indica si la empresa posee cartel.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_fachada
+  is 'Tipo de fachada. Buena / Mala / Regular.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_construccion
+  is 'Tipo de construccion. Buena / Mala / Regular.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_local
+  is 'Tipo de Local: Propio / Alquilado.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_mobiliario
+  is 'Indica el tipo de mobiliario: Buena / Mala / Regular.';
+comment on column IT.GE_SOL_VER_LABORALES.mercaderias
+  is 'Mercaderias en existencia a la vista.';
+comment on column IT.GE_SOL_VER_LABORALES.representacion
+  is 'Definir empresas a las que representa la entidad.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_acceso
+  is 'Tipo de acceso: Facill / Dificil / Inaccesible.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_zona
+  is 'Tipo de zona: Residencial / Comercial / Rural.';
+comment on column IT.GE_SOL_VER_LABORALES.ruc
+  is 'Registro unico del contribuyente de la empresa.';
+comment on column IT.GE_SOL_VER_LABORALES.patente
+  is 'Patente comercial.';
+comment on column IT.GE_SOL_VER_LABORALES.hor_atencion
+  is 'Horario de atencion.';
+comment on column IT.GE_SOL_VER_LABORALES.can_empleados
+  is 'Cantidad de empleados.';
+comment on column IT.GE_SOL_VER_LABORALES.trabaja
+  is 'Indicar si la persona trabaja en la empresa.';
+comment on column IT.GE_SOL_VER_LABORALES.nom_jefe
+  is 'Nombre del jefe de la persona.';
+comment on column IT.GE_SOL_VER_LABORALES.hor_trabajo
+  is 'Horario de trabajo de la persona.';
+comment on column IT.GE_SOL_VER_LABORALES.nom_per_informo
+  is 'Nombre de la persona que proporciono la informacion.';
+comment on column IT.GE_SOL_VER_LABORALES.car_per_informo
+  is 'Cargo de la persona que informo.';
+comment on column IT.GE_SOL_VER_LABORALES.per_presente
+  is 'Indica si estaba la persona presente a la hora de la verificacion.';
+comment on column IT.GE_SOL_VER_LABORALES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SOL_VER_LABORALES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SOL_VER_LABORALES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_VER_LABORALES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SOL_VER_LABORALES.observacion
+  is 'Observacion sobre la verificacion.';
+comment on column IT.GE_SOL_VER_LABORALES.cod_persona
+  is 'Codigo de Persona.';
+comment on column IT.GE_SOL_VER_LABORALES.cod_inf_laboral
+  is 'Codigo de Informacion Laboral.';
+comment on column IT.GE_SOL_VER_LABORALES.cod_usu_verificador
+  is 'Usuario asignado a la verificacion de la direccion.';
+comment on column IT.GE_SOL_VER_LABORALES.fecha
+  is 'Fecha en que se verifico.';
+comment on column IT.GE_SOL_VER_LABORALES.tip_ubicacion
+  is 'Tipo de Ubicacion: Centro / Barrio / Cerca Ruta / Lejos Ruta.';
+-- Create/Recreate indexes 
+create index IT.IN_GSVLA_COD_INF_LABORAL on IT.GE_SOL_VER_LABORALES (COD_PERSONA, COD_INF_LABORAL)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSVLA_COD_PERSONA on IT.GE_SOL_VER_LABORALES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSVLA_COD_USU_VERIFICADOR on IT.GE_SOL_VER_LABORALES (COD_USU_VERIFICADOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GSVLA_NRO_SOLICITUD on IT.GE_SOL_VER_LABORALES (NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint PK_GE_SOL_VER_LABORALES primary key (NRO_SOLICITUD, COD_INF_LABORAL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint FK_GSVLA_COD_INF_LABORAL foreign key (COD_PERSONA, COD_INF_LABORAL)
+  references IT.CR_INF_LABORALES (COD_PERSONA, NRO_SECUENCIA);
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint FK_GSVLA_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint FK_GSVLA_COD_USU_VERIFICADOR foreign key (COD_USU_VERIFICADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint FK_GSVLA_NRO_SOLICITUD foreign key (NRO_SOLICITUD)
+  references IT.GE_SOLICITUDES (NRO_SOLICITUD);
+-- Create/Recreate check constraints 
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint AVCON_1083264899_CARTE_000
+  check (CARTEL IN ('S', 'N'));
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint AVCON_1083264899_EXIST_001
+  check (EXISTE IN ('S', 'N'));
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint AVCON_1083264899_FUNCI_000
+  check (FUNCIONA IN ('S', 'N'));
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint AVCON_1083264899_ING_C_000
+  check (ING_CLIENTES IN ('S', 'N'));
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint AVCON_1083264899_PER_P_000
+  check (PER_PRESENTE IN ('S', 'N'));
+alter table IT.GE_SOL_VER_LABORALES
+  add constraint AVCON_1083264899_TRABA_000
+  check (TRABAJA IN ('S', 'N'));

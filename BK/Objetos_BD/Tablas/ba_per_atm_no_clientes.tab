@@ -1,0 +1,64 @@
+create table IT.BA_PER_ATM_NO_CLIENTES
+(
+  nro_documento     VARCHAR2(20) not null,
+  cod_tip_documento NUMBER(3) not null,
+  nom_ape           VARCHAR2(120),
+  direccion         VARCHAR2(120),
+  telefono          VARCHAR2(20),
+  email             VARCHAR2(80),
+  fec_actualizacion DATE not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_PER_ATM_NO_CLIENTES
+  is 'Registrar los datos de las personas no clientes que realizan la transacción';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.nro_documento
+  is 'Nro. de documento.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.cod_tip_documento
+  is 'Tipo de documento.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.nom_ape
+  is 'Nombre y Apellido del no cliente.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.direccion
+  is 'Dirección del no cliente.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.telefono
+  is 'Teléfono.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.email
+  is 'Email.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.fec_actualizacion
+  is 'Fecha de actualización.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_PER_ATM_NO_CLIENTES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_PER_ATM_NO_CLIENTES
+  add constraint PK_BA_PER_ATM_NOCLIE primary key (NRO_DOCUMENTO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,64 @@
+create table IT.LC_CHE_VIA_EMISORES
+(
+  cod_usu_emisor   VARCHAR2(10) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  nombre           VARCHAR2(60) not null,
+  cod_rub_debito   VARCHAR2(15) not null,
+  cod_rub_credito  VARCHAR2(15) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_CHE_VIA_EMISORES
+  is 'Datos de los Emisores de los Cheques de Viajeros.';
+comment on column IT.LC_CHE_VIA_EMISORES.cod_usu_emisor
+  is 'Usuario emisor del cheque.';
+comment on column IT.LC_CHE_VIA_EMISORES.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.LC_CHE_VIA_EMISORES.nombre
+  is 'Nombre del emisor del cheque.';
+comment on column IT.LC_CHE_VIA_EMISORES.cod_rub_debito
+  is 'Rubro para operaciones de debito.';
+comment on column IT.LC_CHE_VIA_EMISORES.cod_rub_credito
+  is 'Rubro para operaciones de credito.';
+comment on column IT.LC_CHE_VIA_EMISORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_CHE_VIA_EMISORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_CHE_VIA_EMISORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CHE_VIA_EMISORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.LC_CHE_VIA_EMISORES
+  add constraint PK_LC_CHE_VIA_EMISORES primary key (COD_USU_EMISOR, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_CHE_VIA_EMISORES
+  add constraint FK_LCHEM_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_CHE_VIA_EMISORES
+  add constraint FK_LCHEM_COD_USUARIO foreign key (COD_USU_EMISOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

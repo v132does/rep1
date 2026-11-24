@@ -1,0 +1,12 @@
+create global temporary table IT.STAGE_SS2K5_SCHEMATA
+(
+  svrid_fk     NUMBER(38),
+  dbid_gen_fk  NUMBER(38),
+  suid_gen     NUMBER(38),
+  schema_owner VARCHAR2(256 CHAR) not null,
+  schema_name  VARCHAR2(256 CHAR) not null
+)
+on commit preserve rows;
+create index IT.S_SS2K5_SCHEMATA_DBID_GEN_FK on IT.STAGE_SS2K5_SCHEMATA (DBID_GEN_FK);
+create index IT.S_SS2K5_SCHEMATA_SCHEMA_NAME on IT.STAGE_SS2K5_SCHEMATA (SCHEMA_NAME);
+

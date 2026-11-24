@@ -1,0 +1,76 @@
+create table IT.PR_GRU_LINEAS_HIS
+(
+  nro_linea           NUMBER(7),
+  cod_gru_economico   NUMBER(5),
+  cod_moneda          VARCHAR2(3),
+  monto               NUMBER(18,2),
+  fec_vencimiento     DATE,
+  fec_otorgamiento    DATE not null,
+  mto_aplicado        NUMBER(18,2),
+  descripcion         VARCHAR2(60),
+  estado              VARCHAR2(1),
+  observacion         VARCHAR2(1000),
+  niv_aprobacion      VARCHAR2(3),
+  cotizacion          NUMBER(14,8),
+  fec_aprobacion      DATE,
+  nro_acta            NUMBER(10),
+  mto_ope_especificas NUMBER(18,2),
+  cod_campana         NUMBER(3),
+  usu_insercion       VARCHAR2(10),
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10),
+  fec_modificacion    DATE not null,
+  nro_secuencia       NUMBER(18) not null
+)
+tablespace IT_HIS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.PR_GRU_LINEAS_HIS.nro_linea
+  is 'Número de la Línea.';
+comment on column IT.PR_GRU_LINEAS_HIS.cod_gru_economico
+  is 'Grupo Económico.';
+comment on column IT.PR_GRU_LINEAS_HIS.cod_moneda
+  is 'Código de la Moneda.';
+comment on column IT.PR_GRU_LINEAS_HIS.monto
+  is 'Monto de Límite Global.';
+comment on column IT.PR_GRU_LINEAS_HIS.fec_vencimiento
+  is 'Fecha de Validez desde.';
+comment on column IT.PR_GRU_LINEAS_HIS.fec_otorgamiento
+  is 'Fecha de Otorgamiento.';
+comment on column IT.PR_GRU_LINEAS_HIS.mto_aplicado
+  is 'Valor ya aplicado del límite global.';
+comment on column IT.PR_GRU_LINEAS_HIS.descripcion
+  is 'Descripción de Límite Global.';
+comment on column IT.PR_GRU_LINEAS_HIS.estado
+  is 'Estado del Límite Global (P=Pendiente, A=Aprobado, V=Vencido, B=Bloqueado, C=Cancelado).';
+comment on column IT.PR_GRU_LINEAS_HIS.observacion
+  is 'Observaciones.';
+comment on column IT.PR_GRU_LINEAS_HIS.niv_aprobacion
+  is 'Niveles de aprobación.';
+comment on column IT.PR_GRU_LINEAS_HIS.cotizacion
+  is 'Cotización.';
+comment on column IT.PR_GRU_LINEAS_HIS.fec_aprobacion
+  is 'Fecha de Aprobación.';
+comment on column IT.PR_GRU_LINEAS_HIS.nro_acta
+  is 'Número de Acta.';
+comment on column IT.PR_GRU_LINEAS_HIS.mto_ope_especificas
+  is 'Monto de Operaciones Especificas';
+comment on column IT.PR_GRU_LINEAS_HIS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_GRU_LINEAS_HIS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_GRU_LINEAS_HIS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_GRU_LINEAS_HIS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.PR_GRU_LINEAS_HIS.nro_secuencia
+  is 'Secuencia de inserción en el histórico de Límites Globales.';
+

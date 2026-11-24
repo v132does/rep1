@@ -1,0 +1,9 @@
+create sequence IT.S_SIG_HOR_BBVAIPS
+minvalue 0
+maxvalue 99999999999
+start with 215101
+increment by 1
+cache 20
+cycle
+order;
+

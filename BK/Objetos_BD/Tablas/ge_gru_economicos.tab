@@ -1,0 +1,73 @@
+create table IT.GE_GRU_ECONOMICOS
+(
+  cod_gru_economico   NUMBER(5) not null,
+  descripcion         VARCHAR2(60) not null,
+  cat_subjetiva       VARCHAR2(1),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  cat_automatica      NUMBER(3,2),
+  tot_deu_real        NUMBER(18,2) default 0,
+  tot_deu_contingente NUMBER(18,2) default 0,
+  tot_prevision       NUMBER(18,2) default 0,
+  tot_gar_computables NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_GRU_ECONOMICOS
+  is 'Grupos Economicos.';
+comment on column IT.GE_GRU_ECONOMICOS.cod_gru_economico
+  is 'Codigo de grupo economico.';
+comment on column IT.GE_GRU_ECONOMICOS.descripcion
+  is 'Descripcion del Grupo Economico.';
+comment on column IT.GE_GRU_ECONOMICOS.cat_subjetiva
+  is 'Tipo de categoria. ( ).';
+comment on column IT.GE_GRU_ECONOMICOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_GRU_ECONOMICOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_GRU_ECONOMICOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_GRU_ECONOMICOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_GRU_ECONOMICOS.cat_automatica
+  is 'Categoria Automatica del Grupo Economico.';
+comment on column IT.GE_GRU_ECONOMICOS.tot_deu_real
+  is 'Total de la deuda real.';
+comment on column IT.GE_GRU_ECONOMICOS.tot_deu_contingente
+  is 'Total de la deuda contingente.';
+comment on column IT.GE_GRU_ECONOMICOS.tot_prevision
+  is 'Monto total de la Prevision.';
+comment on column IT.GE_GRU_ECONOMICOS.tot_gar_computables
+  is 'Monto total de la garantias computables.';
+alter table IT.GE_GRU_ECONOMICOS
+  add constraint PK_GE_GRU_ECONOMICOS primary key (COD_GRU_ECONOMICO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_GRU_ECONOMICOS
+  add constraint AVCON_1080843414_CAT_S_000
+  check (CAT_SUBJETIVA IN ('1', '2', '3', '4', '5'));
+alter table IT.GE_GRU_ECONOMICOS
+  add constraint AVCON_1100117746_COD_G_000
+  check (COD_GRU_ECONOMICO BETWEEN 0 AND  99999);
+

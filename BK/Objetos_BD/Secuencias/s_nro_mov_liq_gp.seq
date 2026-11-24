@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_MOV_LIQ_GP
+minvalue 1
+maxvalue 999999999999999999
+start with 106
+increment by 1
+nocache;
+

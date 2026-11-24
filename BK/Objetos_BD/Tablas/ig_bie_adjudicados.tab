@@ -1,0 +1,121 @@
+create table IT.IG_BIE_ADJUDICADOS
+(
+  cod_bien          NUMBER(7) not null,
+  fecha             DATE not null,
+  cod_concepto      NUMBER(3) not null,
+  cod_sub_concepto  NUMBER(4) not null,
+  cod_periodo       NUMBER(3) not null,
+  cod_persona       VARCHAR2(10) not null,
+  cod_oficina       NUMBER(3) not null,
+  estado            VARCHAR2(1) not null,
+  fec_adjudicacion  DATE,
+  fec_venta         DATE,
+  cod_moneda        VARCHAR2(3) not null,
+  val_contable      NUMBER(18,2) default 0,
+  con_val_contable  NUMBER(18,2) default 0,
+  mto_prevision     NUMBER(18,2) default 0,
+  con_mto_prevision NUMBER(18,2) default 0,
+  logro             NUMBER(18,2) default 0,
+  con_logro         NUMBER(18,2) default 0,
+  cod_usu_oficial   VARCHAR2(10),
+  cod_unidad        NUMBER(3),
+  dias              NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_BIE_ADJUDICADOS
+  is 'Detalle de los Bienes adjudicados.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_bien
+  is 'Codigo del Bien.';
+comment on column IT.IG_BIE_ADJUDICADOS.fecha
+  is 'Fecha de proceso.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_concepto
+  is 'Codigo de Concepto.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_sub_concepto
+  is 'Codigo de Sub-Concepto.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_periodo
+  is 'Codigo del periodo.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_persona
+  is 'Codigo de Cliente dueño del Bien.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.IG_BIE_ADJUDICADOS.estado
+  is 'Estado del bien.';
+comment on column IT.IG_BIE_ADJUDICADOS.fec_adjudicacion
+  is 'Fecha de adjudicacion.';
+comment on column IT.IG_BIE_ADJUDICADOS.fec_venta
+  is 'Fecha de Venta.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.IG_BIE_ADJUDICADOS.val_contable
+  is 'Valor contable.';
+comment on column IT.IG_BIE_ADJUDICADOS.con_val_contable
+  is 'Valor contable en moneda de consolidacion.';
+comment on column IT.IG_BIE_ADJUDICADOS.mto_prevision
+  is 'Monto previsionado a la fecha.';
+comment on column IT.IG_BIE_ADJUDICADOS.con_mto_prevision
+  is 'Monto previsionado en la moneda de consolidacion.';
+comment on column IT.IG_BIE_ADJUDICADOS.logro
+  is 'Monto del logro.';
+comment on column IT.IG_BIE_ADJUDICADOS.con_logro
+  is 'Monto del logro en moneda de consolidacion.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_usu_oficial
+  is 'Codigo de usuario del oficial.';
+comment on column IT.IG_BIE_ADJUDICADOS.cod_unidad
+  is 'Codigo de unidad de negocio.';
+comment on column IT.IG_BIE_ADJUDICADOS.dias
+  is 'Dias de vigencia de estos datos(fecha_proxima_habil - fecha_de_hoy).';
+comment on column IT.IG_BIE_ADJUDICADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_BIE_ADJUDICADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_BIE_ADJUDICADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_BIE_ADJUDICADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint PK_IG_BIE_ADJUDICADOS primary key (COD_BIEN, FECHA, COD_CONCEPTO, COD_SUB_CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint FK_IBIEN_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.IG_CONCEPTOS (COD_CONCEPTO);
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint FK_IBIEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint FK_IBIEN_COD_PERIODO foreign key (COD_PERIODO)
+  references IT.IG_PARAMETROS (COD_PERIODO);
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint FK_IBIEN_COD_SUB_CONCEPTO foreign key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  references IT.IG_SUB_CONCEPTOS (COD_CONCEPTO, COD_SUB_CONCEPTO);
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint FK_IBIEN_COD_UNIDAD foreign key (COD_UNIDAD)
+  references IT.IG_UNI_NEGOCIOS (COD_UNIDAD);
+alter table IT.IG_BIE_ADJUDICADOS
+  add constraint FK_IBIEN_COD_USUARIO foreign key (COD_USU_OFICIAL)
+  references IT.BA_USUARIOS (COD_USUARIO);
+

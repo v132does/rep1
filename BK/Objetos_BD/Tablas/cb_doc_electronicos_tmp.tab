@@ -1,0 +1,18 @@
+create table IT.CB_DOC_ELECTRONICOS_TMP
+(
+  nro_documento   VARCHAR2(50),
+  nro_timbrado    VARCHAR2(50),
+  tip_comprobante VARCHAR2(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

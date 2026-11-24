@@ -1,0 +1,57 @@
+create table IT.GE_SEP_TRANSACCIONES
+(
+  ref_archivo      VARCHAR2(30) not null,
+  ref_dat_reportar VARCHAR2(30) not null,
+  cod_tra_padre    NUMBER(4) not null,
+  cod_mod_padre    NUMBER(3) not null,
+  cod_mad_padre    NUMBER(3) not null,
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  observacion      VARCHAR2(120),
+  mto_reportar     NUMBER(18),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_SEP_TRANSACCIONES.ref_archivo
+  is 'Corresponde a la referencia del archivo Seprelad a reportar.';
+comment on column IT.GE_SEP_TRANSACCIONES.ref_dat_reportar
+  is 'Corresponde a la referencia del tipo de operación a reportar.';
+comment on column IT.GE_SEP_TRANSACCIONES.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_SEP_TRANSACCIONES.cod_mod_padre
+  is 'Codigo de modulo padre.';
+comment on column IT.GE_SEP_TRANSACCIONES.cod_mad_padre
+  is 'Codigo de modalidad padre.';
+comment on column IT.GE_SEP_TRANSACCIONES.cod_transaccion
+  is 'Codigo de transaccion hijo.';
+comment on column IT.GE_SEP_TRANSACCIONES.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_SEP_TRANSACCIONES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_SEP_TRANSACCIONES.observacion
+  is 'Observación sobre transacciones a reportar.';
+comment on column IT.GE_SEP_TRANSACCIONES.mto_reportar
+  is 'Monto en USD apartir del cual se debe reportar a Seprelad.';
+comment on column IT.GE_SEP_TRANSACCIONES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SEP_TRANSACCIONES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SEP_TRANSACCIONES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEP_TRANSACCIONES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+

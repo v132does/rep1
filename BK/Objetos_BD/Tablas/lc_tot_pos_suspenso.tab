@@ -1,0 +1,70 @@
+create table IT.LC_TOT_POS_SUSPENSO
+(
+  fecha            DATE not null,
+  cod_moneda       VARCHAR2(3) not null,
+  monto            NUMBER(18,2) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER, 1, 10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_TOT_POS_SUSPENSO
+  is 'Tabla para registrar la Posicion en Suspenso por día.';
+comment on column IT.LC_TOT_POS_SUSPENSO.fecha
+  is 'Fecha de la Posicion en Suspenso.';
+comment on column IT.LC_TOT_POS_SUSPENSO.cod_moneda
+  is 'Código de moneda. Moneda para la Posicion en Suspenso. En principio solo USD.';
+comment on column IT.LC_TOT_POS_SUSPENSO.monto
+  is 'Monto de la Posicion en Suspenso en la Fecha para la Moneda.';
+comment on column IT.LC_TOT_POS_SUSPENSO.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.LC_TOT_POS_SUSPENSO.fec_insercion
+  is 'Fecha en que se insertó el registro';
+comment on column IT.LC_TOT_POS_SUSPENSO.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.LC_TOT_POS_SUSPENSO.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro';
+create index IT.IN_LTPS_COD_MONEDA on IT.LC_TOT_POS_SUSPENSO (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TOT_POS_SUSPENSO
+  add constraint PK_LC_TOT_POS_SUSPENSO primary key (FECHA, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_TOT_POS_SUSPENSO
+  add constraint FK_LTPS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.LC_TOT_POS_SUSPENSO
+  add constraint CK_LTPS_FECHA
+  check (fecha = TRUNC(fecha));
+

@@ -1,0 +1,10 @@
+create global temporary table IT.STAGE_TERADATA_DATABASES
+(
+  svrid         NUMBER,
+  mdid          NUMBER,
+  databasename  VARCHAR2(128 CHAR),
+  commentstring VARCHAR2(255 CHAR),
+  ownername     VARCHAR2(128 CHAR)
+)
+on commit preserve rows;
+

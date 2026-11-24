@@ -1,0 +1,20 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_TABLES
+(
+  index         NUMBER,
+  dbname        VARCHAR2(256),
+  tabname       VARCHAR2(256),
+  colname       VARCHAR2(256),
+  typename      CHAR(2),
+  chartype      CHAR(1),
+  length        NUMBER,
+  scale         NUMBER,
+  dtotdigits    NUMBER,
+  dfracdigits   NUMBER,
+  nulls         CHAR(1),
+  check         VARCHAR2(4000),
+  columnudtname VARCHAR2(256),
+  defaultval    VARCHAR2(2048)
+)
+on commit preserve rows;
+create index IT.STAGE_TERADATA_OFFLINE_TABIND on IT.STAGE_TERADATA_OFFLINE_TABLES (DBNAME);
+

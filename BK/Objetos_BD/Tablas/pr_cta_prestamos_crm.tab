@@ -1,0 +1,230 @@
+create table IT.PR_CTA_PRESTAMOS_CRM
+(
+  nro_cuenta             VARCHAR2(15) not null,
+  dig_verificador        NUMBER(1),
+  cod_modulo             NUMBER(3),
+  cod_modalidad          NUMBER(3),
+  cod_oficina            NUMBER(3),
+  nro_cta_debito         VARCHAR2(15),
+  nro_cta_renovada       VARCHAR2(15),
+  fec_cancelacion        DATE,
+  estado                 VARCHAR2(1),
+  mto_capital            NUMBER(18,2),
+  sal_capital            NUMBER(18,2),
+  sal_interes            NUMBER(18,2),
+  val_int_devengar       NUMBER(20,4),
+  nro_solicitud          NUMBER(7),
+  est_batch              VARCHAR2(1),
+  sal_cap_batch          NUMBER(18,2),
+  sal_int_batch          NUMBER(18,2),
+  nro_documento          NUMBER(7),
+  est_anterior           VARCHAR2(1),
+  dev_acumulado          NUMBER(18,2),
+  tip_documento          VARCHAR2(1),
+  nro_sol_renovada       NUMBER(7),
+  cob_automatico         VARCHAR2(1),
+  sal_int_adelantado     NUMBER(18,2),
+  fec_ult_devengado      DATE,
+  dev_no_cobrado         NUMBER(18,2),
+  nro_linea              NUMBER(7),
+  cod_moneda             VARCHAR2(3),
+  monto                  NUMBER(18,2),
+  fec_inicio             DATE,
+  fec_vencimiento        DATE,
+  tipo                   VARCHAR2(1),
+  val_tasa               NUMBER(20,4),
+  can_cuotas             NUMBER(5),
+  can_cuo_pagadas        NUMBER(5),
+  dia_atraso             NUMBER(5),
+  max_atraso             NUMBER(5),
+  pro_atraso             NUMBER(5),
+  exo_impuestos          VARCHAR2(1),
+  cod_causa              NUMBER(3),
+  cod_canal              NUMBER(3),
+  cod_campana            NUMBER(3),
+  cod_sec_credito        NUMBER(3),
+  usu_insercion          VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion          DATE default SYSDATE not null,
+  usu_modificacion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion       TIMESTAMP(6) default current_timestamp not null,
+  descripcion            VARCHAR2(35),
+  tip_destino            NUMBER(2),
+  tip_renovacion         VARCHAR2(1),
+  cod_ori_fondo          NUMBER(3),
+  mto_lin_aplicado       NUMBER(18,2),
+  sal_int_ade_batch      NUMBER(18,2),
+  per_vto_capital        NUMBER(4),
+  per_vto_interes        NUMBER(4),
+  dev_suspenso           NUMBER(18,2),
+  tip_interes            VARCHAR2(1),
+  fec_juicio             DATE,
+  cod_ent_juicio         NUMBER(5),
+  cat_renovaciones       NUMBER(1),
+  en_juicio              VARCHAR2(1),
+  cod_banca              NUMBER(3),
+  mto_mora               NUMBER(18,2),
+  por_ori_fondo          NUMBER(7,4),
+  fec_ren_tas_orig       DATE,
+  fec_ren_tas            DATE,
+  cod_sub_modalidad      NUMBER(3),
+  cod_rub_economico      VARCHAR2(6),
+  nro_cta_novada         VARCHAR2(15),
+  fec_ult_categorizacion DATE,
+  tip_accion             VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_CTA_PRESTAMOS_CRM
+  is 'Contiene los datos principales de los Prestamos.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_cuenta
+  is 'Numero de Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.dig_verificador
+  is 'Digito Verificador.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_modulo
+  is 'Codigo de Modulo del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_modalidad
+  is 'Codigo de Modalidad del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_oficina
+  is 'Codigo de Oficina del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_cta_debito
+  is 'Numero de la Cuenta de Debito.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_cta_renovada
+  is 'Numero de Prestamo que fue renovado (en el nuevo), Numero de prestamo al que fue renovado (en el viejo).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_cancelacion
+  is 'Fecha de Cancelacion del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.estado
+  is 'Estado de Cuenta on line (C=Vigente, V=Vencido, G=En Gestion, M=Moroso, I=Irrecuperable, N=Cancelado).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.mto_capital
+  is 'Monto Capital.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.sal_capital
+  is 'Saldo del Capital on line.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.sal_interes
+  is 'Saldo del Interes on line.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.val_int_devengar
+  is 'Valor del Interes a Devengar.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_solicitud
+  is 'Numero de Propuesta.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.est_batch
+  is 'Estado de Cuenta Batch.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.sal_cap_batch
+  is 'Saldo del Capital Batch.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.sal_int_batch
+  is 'Saldo del Interes Batch.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_documento
+  is 'Numero de Documento.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.est_anterior
+  is 'Estado Anterior.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.dev_acumulado
+  is 'Devengado Acumulado.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.tip_documento
+  is 'Tipo de Documento de credito (1=Vista / 2=Vencimiento).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_sol_renovada
+  is 'Numero de Propuesta renovada.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cob_automatico
+  is 'Cobro Automatico. (S=SI / N=NO).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.sal_int_adelantado
+  is 'Saldo Total Interes Documento on line.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_ult_devengado
+  is 'Fecha Ultimo Devengado.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.dev_no_cobrado
+  is 'Devengado No Cobrado.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_linea
+  is 'Numero de Linea.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.monto
+  is 'Monto Desembolsado.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_inicio
+  is 'Fecha de Inicio del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_vencimiento
+  is 'Fecha de Vencimiento del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.tipo
+  is 'Tipo de Prestamo (Amortizable, Plazo Fijo, Descto. de Documentos).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.val_tasa
+  is 'Valor de la Tasa de Interes.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.can_cuotas
+  is 'Cantidad de Cuotas.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.can_cuo_pagadas
+  is 'Cantidad de Cuotas pagadas.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.dia_atraso
+  is 'Dias de Atraso.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.max_atraso
+  is 'Maximo Dias de Atraso.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.pro_atraso
+  is 'Promedio de Atraso.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.exo_impuestos
+  is 'Tiene Exoneracion de Impuestos (S/N).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_causa
+  is 'Codigo de Causa de Cancelacion del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_canal
+  is 'Codigo de Canal por donde ingreso la operacion.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_campana
+  is 'Codigo de Campaña por el cual ingreso la operacion.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_sec_credito
+  is 'Codigo de Sector de Credito.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.descripcion
+  is 'Descripcion del Prestamo.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.tip_destino
+  is 'Destino del Credito (1=Grandes Deudores-2=Pequeños Deudores-3=Vivienda-4=Consumo-5=Microcreditos).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.tip_renovacion
+  is 'Tipo de Renovacion: Refinanciado, rEstructurado, reNovado.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_ori_fondo
+  is 'Codigo del Origen de Fondos.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.mto_lin_aplicado
+  is 'Monto de la Linea Aplicado.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.sal_int_ade_batch
+  is 'Saldo Total Interes Documento Batch.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.per_vto_capital
+  is 'Periodo de Vencimiento del Capital.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.per_vto_interes
+  is 'Periodo de Vencimiento del Interes.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.dev_suspenso
+  is 'Devengado en Suspenso.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.tip_interes
+  is 'Tipo de Interes (A=Adelantado / V=Vencido).';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_juicio
+  is 'Fecha en la cual paso a Juicio.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_ent_juicio
+  is 'Ente al cual se derivo el Juicio.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cat_renovaciones
+  is 'Categoria de las Renovaciones, Refinanciaciones o Restructuraciones.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.en_juicio
+  is 'Indica si el Prestamo se encuentra en estado Judicial.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_banca
+  is 'Codigo de Banca.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.mto_mora
+  is 'Monto en Mora.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.por_ori_fondo
+  is 'Porcentaje correspondiente al Origen de Fondos.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_ren_tas_orig
+  is 'Fecha de Renegociacion de la Tasa Original.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_ren_tas
+  is 'Fecha de Renegociacion de la Tasa Pactada con el Cliente.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_sub_modalidad
+  is 'Codigo de Sub-Modalidad.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.cod_rub_economico
+  is 'Codigo de Rubro Economico.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.nro_cta_novada
+  is 'Registra el numero de cuenta renovada correspondiente a operaciones Nuevas.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.fec_ult_categorizacion
+  is 'Registra la ultima fecha que mejoro la categoria.';
+comment on column IT.PR_CTA_PRESTAMOS_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+

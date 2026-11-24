@@ -1,0 +1,18 @@
+create table IT.GE_CLI_SEGUROS_TMP
+(
+  cod_persona VARCHAR2(10) not null,
+  nro_seguro  NUMBER not null,
+  error       VARCHAR2(300)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

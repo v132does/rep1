@@ -1,0 +1,35 @@
+create table IT.GE_DNA_COD_ERROR
+(
+  codigo  VARCHAR2(2) not null,
+  mensaje VARCHAR2(200)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DNA_COD_ERROR.codigo
+  is 'Codigo de Error. ';
+comment on column IT.GE_DNA_COD_ERROR.mensaje
+  is 'Mensaje de la DNA.';
+alter table IT.GE_DNA_COD_ERROR
+  add constraint PK_GE_DNA_COD_ERROR primary key (CODIGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

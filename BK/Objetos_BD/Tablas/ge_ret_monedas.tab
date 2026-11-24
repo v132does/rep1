@@ -1,0 +1,61 @@
+create table IT.GE_RET_MONEDAS
+(
+  cod_retencion    NUMBER(3) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  can_dias         NUMBER(3) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RET_MONEDAS
+  is 'Retenciones por Monedas.';
+comment on column IT.GE_RET_MONEDAS.cod_retencion
+  is 'Codigo de Retencion.';
+comment on column IT.GE_RET_MONEDAS.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.GE_RET_MONEDAS.can_dias
+  is 'Cantidad de dias.';
+comment on column IT.GE_RET_MONEDAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_RET_MONEDAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_RET_MONEDAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_RET_MONEDAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.GE_RET_MONEDAS
+  add constraint PK_GE_RET_MONEDAS primary key (COD_RETENCION, COD_MONEDA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RET_MONEDAS
+  add constraint FK_GRMON_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_RET_MONEDAS
+  add constraint FK_GRMON_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.GE_RET_MONEDAS
+  add constraint AVCON_1080843414_COD_R_002
+  check (COD_RETENCION BETWEEN 0 AND 999);
+

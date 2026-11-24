@@ -1,0 +1,61 @@
+create table IT.CB_CIF_INF_DETALLE
+(
+  fecha                    DATE not null,
+  cod_rubro                VARCHAR2(15) not null,
+  descripcion              VARCHAR2(60) not null,
+  mto_asientos             NUMBER(18,2) default 0,
+  mto_movimientos          NUMBER(18,2) default 0,
+  mto_mov_rev_do           NUMBER(18,2) default 0,
+  mto_mov_rev_dr           NUMBER(18,2) default 0,
+  mto_mov_rev_mo           NUMBER(18,2) default 0,
+  mto_mov_rev_mr           NUMBER(18,2) default 0,
+  mto_mov_rev_his          NUMBER(18,2) default 0,
+  mto_mov_rev_ver          NUMBER(18,2) default 0,
+  mto_asi_sin_mov          NUMBER(18,2) default 0,
+  mto_factura              NUMBER(18,2) default 0,
+  mto_ncredito             NUMBER(18,2) default 0,
+  mto_fac_eli_reversiones  NUMBER(18,2) default 0,
+  mto_fac_eli_diferencias  NUMBER(18,2) default 0,
+  dif_mov_asientos         NUMBER(18,2) default 0,
+  dif_fac_asi_basica       NUMBER(18,2) default 0,
+  dif_fac_asi_automatica   NUMBER(18,2) default 0,
+  dif_por_automatica       NUMBER(18,2) default 0,
+  mto_fac_fal_asi_directos NUMBER(18,2) default 0,
+  mto_fac_fal_automatico   NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_DET_FECHA on IT.CB_CIF_INF_DETALLE (FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CIF_DET_RUBRO on IT.CB_CIF_INF_DETALLE (COD_RUBRO)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

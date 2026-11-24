@@ -1,0 +1,50 @@
+create table IT.PR_CTA_PRE_CAN_RES4_2003
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_persona      VARCHAR2(15) not null,
+  cod_moneda       VARCHAR2(3),
+  dia_atraso       NUMBER(5),
+  sal_capital      NUMBER(18,2),
+  sal_interes      NUMBER(18,2),
+  mto_cargo        NUMBER(18,2),
+  mto_impuesto     NUMBER(18,2),
+  mto_mora         NUMBER(18,2),
+  mto_mor_int      NUMBER(18,2),
+  mto_punitorio    NUMBER(18,2),
+  tot_deuda        NUMBER(18,2),
+  tot_deu_200320   NUMBER(18,2),
+  mto_devengado    NUMBER(18,2),
+  mto_dev_suspenso NUMBER(18,2),
+  nro_sol_nueva    NUMBER(7),
+  nro_cta_nueva    VARCHAR2(15),
+  usu_insercion    VARCHAR2(10) not null,
+  fec_insercion    DATE not null,
+  usu_modificacion VARCHAR2(10) not null,
+  fec_modificacion DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_PRE_CAN_RES4_2003
+  add constraint PK_CTA_PRE_RES4_2003 primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

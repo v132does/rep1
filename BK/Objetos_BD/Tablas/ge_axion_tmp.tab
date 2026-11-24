@@ -1,0 +1,29 @@
+create table IT.GE_AXION_TMP
+(
+  nro_linea     NUMBER,
+  dato          CLOB,
+  nro_secuencia NUMBER,
+  cod_moneda    VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_AXION_TMP
+  is 'Tabla temporal utilizada en prg_gen_arc_axion.';
+comment on column IT.GE_AXION_TMP.nro_linea
+  is 'Número de Linea.';
+comment on column IT.GE_AXION_TMP.dato
+  is 'Linea de Registro.';
+comment on column IT.GE_AXION_TMP.nro_secuencia
+  is 'Número Secuencial.';
+comment on column IT.GE_AXION_TMP.cod_moneda
+  is 'Código de Moneda.';
+

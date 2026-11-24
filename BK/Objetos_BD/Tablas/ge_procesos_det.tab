@@ -1,0 +1,136 @@
+create table IT.GE_PROCESOS_DET
+(
+  cod_proceso      NUMBER(3) not null,
+  nro_orden        NUMBER(3) not null,
+  descripcion      VARCHAR2(35) not null,
+  cod_programa     VARCHAR2(30) not null,
+  obligatorio      VARCHAR2(1) default 'N' not null,
+  frecuencia       VARCHAR2(1) default 'M' not null,
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  cod_usuario      VARCHAR2(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  error            VARCHAR2(1000),
+  dir_destinatario VARCHAR2(300),
+  activo           VARCHAR2(1) default 'S',
+  formato          VARCHAR2(10),
+  clave            VARCHAR2(30),
+  con_copia        VARCHAR2(300),
+  nom_archivo      VARCHAR2(1000),
+  con_cabecera     VARCHAR2(1) default 'S',
+  sep_campos       VARCHAR2(1) default ',',
+  sep_texto        VARCHAR2(1) default '"',
+  var_sustitucion  VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PROCESOS_DET
+  is 'Control de Ejecucion de Procesos Detalles.';
+comment on column IT.GE_PROCESOS_DET.cod_proceso
+  is 'Codigo del proceso padre.';
+comment on column IT.GE_PROCESOS_DET.nro_orden
+  is 'Numero de orden.';
+comment on column IT.GE_PROCESOS_DET.descripcion
+  is 'Nombre del proceso.';
+comment on column IT.GE_PROCESOS_DET.cod_programa
+  is 'Nombre del programa.';
+comment on column IT.GE_PROCESOS_DET.obligatorio
+  is 'obligatorio ? (N=NO / S=SI).';
+comment on column IT.GE_PROCESOS_DET.frecuencia
+  is 'Frecuencia del proceso.';
+comment on column IT.GE_PROCESOS_DET.hor_inicio
+  is 'Hora de inicio de ejecucion.';
+comment on column IT.GE_PROCESOS_DET.hor_fin
+  is 'Hora de fin de ejecucion.';
+comment on column IT.GE_PROCESOS_DET.cod_usuario
+  is 'Codigo  de usuario que ejecuto el proceso.';
+comment on column IT.GE_PROCESOS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_PROCESOS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_PROCESOS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PROCESOS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_PROCESOS_DET.error
+  is 'Descripcion del error que genero el proceso.';
+comment on column IT.GE_PROCESOS_DET.dir_destinatario
+  is 'Destinatario del mail, en los casos de reportes.';
+comment on column IT.GE_PROCESOS_DET.activo
+  is 'Indica si el proceso esta activo o inactivo';
+comment on column IT.GE_PROCESOS_DET.formato
+  is 'Formato y extension del archivo para archivo generados: XLS-Excel, TXT-Ascii';
+comment on column IT.GE_PROCESOS_DET.clave
+  is 'Clave del Archivo zipeado.';
+comment on column IT.GE_PROCESOS_DET.con_copia
+  is 'Destinatario de la copia del mail.';
+comment on column IT.GE_PROCESOS_DET.nom_archivo
+  is 'Nombre del archivo físico en el caso de archivos ascii.';
+comment on column IT.GE_PROCESOS_DET.con_cabecera
+  is 'Generar o no la cabecera S/N.';
+comment on column IT.GE_PROCESOS_DET.sep_campos
+  is 'Separador de campos.';
+comment on column IT.GE_PROCESOS_DET.sep_texto
+  is 'Delimitador de los campos de texto.';
+comment on column IT.GE_PROCESOS_DET.var_sustitucion
+  is 'Variables de sustitución. Formato: variable = sentencia sql.';
+create index IT.IN_GPDET_COD_PROGRAMA on IT.GE_PROCESOS_DET (COD_PROGRAMA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PROCESOS_DET
+  add constraint PK_GE_PROCESOS_DET primary key (COD_PROCESO, NRO_ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PROCESOS_DET
+  add constraint FK_GPDET_COD_PROCESO foreign key (COD_PROCESO)
+  references IT.GE_PROCESOS (COD_PROCESO);
+alter table IT.GE_PROCESOS_DET
+  add constraint FK_GPDET_COD_PROGRAMA foreign key (COD_PROGRAMA)
+  references IT.BA_PROGRAMAS (COD_PROGRAMA);
+alter table IT.GE_PROCESOS_DET
+  add constraint FK_GPDET_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_PROCESOS_DET
+  add constraint AVCON_1080843414_FRECU_000
+  check (FRECUENCIA IN ('M', 'D'));
+alter table IT.GE_PROCESOS_DET
+  add constraint AVCON_1080843414_OBLIG_000
+  check (OBLIGATORIO IN ('S', 'N'));
+alter table IT.GE_PROCESOS_DET
+  add constraint AVCON_1083360724_COD_P_000
+  check (COD_PROCESO BETWEEN 0 AND 999);
+alter table IT.GE_PROCESOS_DET
+  add constraint AVCON_1083360724_NRO_O_000
+  check (NRO_ORDEN BETWEEN 0 AND 999);
+

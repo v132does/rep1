@@ -1,0 +1,44 @@
+create table IT.SB_RESOLUCION_TMP
+(
+  orden       NUMBER(2),
+  descripcion VARCHAR2(100),
+  uno         NUMBER(18,2) default 0,
+  dos         NUMBER(18,2) default 0,
+  tres        NUMBER(18,2) default 0,
+  cuatro      NUMBER(18,2) default 0,
+  cinco       NUMBER(18,2) default 0,
+  seis        NUMBER(18,2) default 0,
+  total       NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_RESOLUCION_TMP
+  is 'Datos de la Resolucion.';
+comment on column IT.SB_RESOLUCION_TMP.orden
+  is 'Orden.';
+comment on column IT.SB_RESOLUCION_TMP.descripcion
+  is 'Descripcion.';
+comment on column IT.SB_RESOLUCION_TMP.uno
+  is 'Uno.';
+comment on column IT.SB_RESOLUCION_TMP.dos
+  is 'Dos.';
+comment on column IT.SB_RESOLUCION_TMP.tres
+  is 'Tres.';
+comment on column IT.SB_RESOLUCION_TMP.cuatro
+  is 'Cuatro.';
+comment on column IT.SB_RESOLUCION_TMP.cinco
+  is 'Cinco.';
+comment on column IT.SB_RESOLUCION_TMP.seis
+  is 'Seis.';
+comment on column IT.SB_RESOLUCION_TMP.total
+  is 'Total.';
+

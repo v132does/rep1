@@ -1,0 +1,42 @@
+create table IT.GE_DNA_RPT_DEP_FECHAS
+(
+  iddeposito     VARCHAR2(19),
+  tipooperacion  VARCHAR2(3),
+  idbroker       VARCHAR2(11),
+  fecharecepcion VARCHAR2(14),
+  fechaoperacion VARCHAR2(14),
+  monto          VARCHAR2(20),
+  status         VARCHAR2(1),
+  codigoerror    VARCHAR2(2),
+  brokername     VARCHAR2(150)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.iddeposito
+  is 'Identificador del Deposito.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.tipooperacion
+  is 'Tipo de Operacion.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.idbroker
+  is 'Identificador del Broker.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.fecharecepcion
+  is 'Fecha de Recepcion.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.fechaoperacion
+  is 'Fecha de Operacion.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.monto
+  is 'Monto.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.status
+  is 'Estado.';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.codigoerror
+  is 'Codigo de Error. ';
+comment on column IT.GE_DNA_RPT_DEP_FECHAS.brokername
+  is 'Nombre del Broker. ';
+

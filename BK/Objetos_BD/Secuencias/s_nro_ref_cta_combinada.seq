@@ -1,0 +1,7 @@
+create sequence IT.S_NRO_REF_CTA_COMBINADA
+minvalue 1
+maxvalue 999999999
+start with 38174
+increment by 1
+nocache;
+

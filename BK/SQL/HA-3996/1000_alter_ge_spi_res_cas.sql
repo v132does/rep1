@@ -1,0 +1,1 @@
+alter table IT.GE_SPI_RES_CAS modify val_identificador VARCHAR2(80);

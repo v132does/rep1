@@ -1,0 +1,151 @@
+create table IT.AP_PAGOS
+(
+  cod_pago          NUMBER(10) not null,
+  cod_proveedor     NUMBER(10) not null,
+  cod_requerimiento NUMBER(10) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  descripcion       VARCHAR2(60) not null,
+  mto_ejecutado     NUMBER(18,2) default 0 not null,
+  mto_factura       NUMBER(18,2) default 0 not null,
+  mto_cot_factura   NUMBER(14,8) default 0 not null,
+  mto_cot_dolar     NUMBER(14,8) default 0 not null,
+  nro_factura       VARCHAR2(35),
+  observacion       VARCHAR2(250),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  fecha             DATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AP_PAGOS
+  is 'Pagos.';
+comment on column IT.AP_PAGOS.cod_pago
+  is 'Codigo del Pago.';
+comment on column IT.AP_PAGOS.cod_proveedor
+  is 'Identificador del proveedor.';
+comment on column IT.AP_PAGOS.cod_requerimiento
+  is 'Identificador del Requerimiento.';
+comment on column IT.AP_PAGOS.cod_usuario
+  is 'Codigo de usuario.';
+comment on column IT.AP_PAGOS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.AP_PAGOS.descripcion
+  is 'Nombre del Pago.';
+comment on column IT.AP_PAGOS.mto_ejecutado
+  is 'Monto ejecutado en el pago (USD).';
+comment on column IT.AP_PAGOS.mto_factura
+  is 'Monto de la factura.';
+comment on column IT.AP_PAGOS.mto_cot_factura
+  is 'Cotizacion de la moneda de la factura.';
+comment on column IT.AP_PAGOS.mto_cot_dolar
+  is 'Cotizacion del Dolar.';
+comment on column IT.AP_PAGOS.nro_factura
+  is 'Numero de la factura.';
+comment on column IT.AP_PAGOS.observacion
+  is 'Observaciones.';
+comment on column IT.AP_PAGOS.usu_insercion
+  is 'Usuario que modifica.';
+comment on column IT.AP_PAGOS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.AP_PAGOS.usu_modificacion
+  is 'Usuario que inserta.';
+comment on column IT.AP_PAGOS.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.AP_PAGOS.fecha
+  is 'Fecha de Pago.';
+create index IT.IN_YPAGO_COD_MONEDA on IT.AP_PAGOS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YPAGO_COD_PROVEEDOR on IT.AP_PAGOS (COD_PROVEEDOR)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YPAGO_COD_REQUERIMIENTO on IT.AP_PAGOS (COD_REQUERIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_YPAGO_COD_USUARIO on IT.AP_PAGOS (COD_USUARIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_PAGOS
+  add constraint PK_AP_PAGOS primary key (COD_PAGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AP_PAGOS
+  add constraint FK_YPAGO_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.AP_PAGOS
+  add constraint FK_YPAGO_COD_PROVEEDOR foreign key (COD_PROVEEDOR)
+  references IT.AP_PROVEEDORES (COD_PROVEEDOR);
+alter table IT.AP_PAGOS
+  add constraint FK_YPAGO_COD_REQUERIMIENTO foreign key (COD_REQUERIMIENTO)
+  references IT.AP_REQUERIMIENTOS (COD_REQUERIMIENTO);
+alter table IT.AP_PAGOS
+  add constraint FK_YPAGO_COD_USUARIO foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.AP_PAGOS
+  add constraint AVCON_1081349332_COD_P_003
+  check (COD_PAGO BETWEEN 1 AND 999999999);
+alter table IT.AP_PAGOS
+  add constraint AVCON_1081349332_COD_P_004
+  check (COD_PROVEEDOR BETWEEN 1 AND 999999999);
+alter table IT.AP_PAGOS
+  add constraint AVCON_1081349332_COD_R_001
+  check (COD_REQUERIMIENTO BETWEEN 1 AND 999999999);
+

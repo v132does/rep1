@@ -1,0 +1,82 @@
+create table IT.GE_SEG_PAR_COM_ATM
+(
+  cod_seg_cliente   NUMBER(3) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_transaccion   NUMBER(4) not null,
+  can_permitido     NUMBER(4) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_sub_modalidad NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SEG_PAR_COM_ATM
+  is 'Parametros de segmentos de cuentas.';
+comment on column IT.GE_SEG_PAR_COM_ATM.cod_seg_cliente
+  is 'Codigo de segmento del cliente.';
+comment on column IT.GE_SEG_PAR_COM_ATM.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_SEG_PAR_COM_ATM.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_SEG_PAR_COM_ATM.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_SEG_PAR_COM_ATM.can_permitido
+  is 'Cantidad permitida.';
+comment on column IT.GE_SEG_PAR_COM_ATM.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SEG_PAR_COM_ATM.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SEG_PAR_COM_ATM.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_PAR_COM_ATM.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_PAR_COM_ATM.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint PK_GE_SEG_PAR_COM_ATM primary key (COD_SEG_CLIENTE, COD_MODULO, COD_MODALIDAD, COD_TRANSACCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint FK_GSPCA_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint FK_GSPCA_COD_SEG_CLIENTE foreign key (COD_SEG_CLIENTE)
+  references IT.GE_SEG_CLIENTES (COD_SEG_CLIENTE);
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint FK_GSPCA_COD_SUB_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  references IT.GE_SUB_MODALIDADES (COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD);
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint FK_GSPCA_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint AVCON_1102361023_COD_M_005
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint AVCON_1102361023_COD_M_006
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_COM_ATM
+  add constraint AVCON_1102361023_COD_S_002
+  check (COD_SEG_CLIENTE BETWEEN 0 AND 999);
+

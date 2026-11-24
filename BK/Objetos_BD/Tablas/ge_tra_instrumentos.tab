@@ -1,0 +1,48 @@
+create table IT.GE_TRA_INSTRUMENTOS
+(
+  cod_tra_instrumento VARCHAR2(10) not null,
+  descripcion         VARCHAR2(100) not null,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion       DATE default SYSDATE,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion    DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_TRA_INSTRUMENTOS.cod_tra_instrumento
+  is 'Codigo de Instruménto relacionado a las transacciones.';
+comment on column IT.GE_TRA_INSTRUMENTOS.descripcion
+  is 'Descripción del Instrumento.';
+comment on column IT.GE_TRA_INSTRUMENTOS.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_TRA_INSTRUMENTOS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.GE_TRA_INSTRUMENTOS.usu_modificacion
+  is 'Usuario de Modificación.';
+comment on column IT.GE_TRA_INSTRUMENTOS.fec_modificacion
+  is 'Fecha de Modificación.';
+alter table IT.GE_TRA_INSTRUMENTOS
+  add constraint PK_GE_TRA_INSTRUMENTOS primary key (COD_TRA_INSTRUMENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter index IT.PK_GE_TRA_INSTRUMENTOS nologging;
+

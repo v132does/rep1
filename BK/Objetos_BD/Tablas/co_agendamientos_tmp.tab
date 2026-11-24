@@ -1,0 +1,35 @@
+create table IT.CO_AGENDAMIENTOS_TMP
+(
+  cod_usuario       VARCHAR2(30),
+  rol               VARCHAR2(6),
+  cod_cliente       VARCHAR2(20),
+  fec_recomendacion DATE,
+  tar_recomendado   VARCHAR2(4),
+  est_barrido       VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CO_AGENDAMIENTOS_TMP
+  is 'Registros de Agendamientos del día proveniente del Recovery Strategy.';
+comment on column IT.CO_AGENDAMIENTOS_TMP.cod_usuario
+  is 'Código de usuario.';
+comment on column IT.CO_AGENDAMIENTOS_TMP.rol
+  is 'Código de Rol.';
+comment on column IT.CO_AGENDAMIENTOS_TMP.cod_cliente
+  is 'Código de Cliente.';
+comment on column IT.CO_AGENDAMIENTOS_TMP.fec_recomendacion
+  is 'Fecha de Recomendación.';
+comment on column IT.CO_AGENDAMIENTOS_TMP.tar_recomendado
+  is 'TAR recomendado.';
+comment on column IT.CO_AGENDAMIENTOS_TMP.est_barrido
+  is 'Estado de la agenda (P Pendiente, R Realizada)';
+

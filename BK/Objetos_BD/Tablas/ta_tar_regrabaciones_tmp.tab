@@ -1,0 +1,31 @@
+create table IT.TA_TAR_REGRABACIONES_TMP
+(
+  cod_registro      VARCHAR2(6) not null,
+  cod_motivo        VARCHAR2(3) not null,
+  nro_tarjeta       VARCHAR2(19) not null,
+  nro_tarjeta_nueva VARCHAR2(19),
+  fec_vencimiento   VARCHAR2(6),
+  monto             VARCHAR2(19) default '0',
+  costo             VARCHAR2(1) default 'S',
+  fec_envio         DATE,
+  usu_bancard       VARCHAR2(10) default user,
+  nom_plastico      VARCHAR2(26),
+  tip_plastico      VARCHAR2(1) default 'N',
+  estado            VARCHAR2(1) default 'P'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_TAR_REGRABACIONES_TMP.tip_plastico
+  is 'Tipo del plastico: N-Normal C-Chip';
+comment on column IT.TA_TAR_REGRABACIONES_TMP.estado
+  is 'Estado P-Pendiente, E-Enviado, R-Rechazado.';
+

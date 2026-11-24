@@ -1,0 +1,91 @@
+create table IT.AH_CUP_BLOQUEADOS
+(
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cupon        NUMBER(7) not null,
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  cod_usuario      VARCHAR2(10) not null,
+  cod_causa        NUMBER(3),
+  observacion      VARCHAR2(1000),
+  bloqueado        VARCHAR2(1) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.AH_CUP_BLOQUEADOS
+  is 'Datos de Cupones de CDA bloqueados.';
+comment on column IT.AH_CUP_BLOQUEADOS.nro_cuenta
+  is 'Numero de Cuenta del CDA.';
+comment on column IT.AH_CUP_BLOQUEADOS.nro_cupon
+  is 'Numero de Cupon.';
+comment on column IT.AH_CUP_BLOQUEADOS.fecha
+  is 'Fecha de Notificacion.';
+comment on column IT.AH_CUP_BLOQUEADOS.hora
+  is 'Hora de Notificacion.';
+comment on column IT.AH_CUP_BLOQUEADOS.cod_usuario
+  is 'Codigo de Operador.';
+comment on column IT.AH_CUP_BLOQUEADOS.cod_causa
+  is 'Codigo de Causa de Bloqueo.';
+comment on column IT.AH_CUP_BLOQUEADOS.observacion
+  is 'Observacion.';
+comment on column IT.AH_CUP_BLOQUEADOS.bloqueado
+  is 'Bloqueado (Si/No).';
+comment on column IT.AH_CUP_BLOQUEADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.AH_CUP_BLOQUEADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.AH_CUP_BLOQUEADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.AH_CUP_BLOQUEADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_ACBLO_COD_CAUSA on IT.AH_CUP_BLOQUEADOS (COD_CAUSA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CUP_BLOQUEADOS
+  add constraint PK_AH_CUP_BLOQUEADOS primary key (NRO_CUENTA, NRO_CUPON)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.AH_CUP_BLOQUEADOS
+  add constraint FK_ACUBL_COD_CAUSA foreign key (COD_CAUSA)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.AH_CUP_BLOQUEADOS
+  add constraint FK_ACUBL_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.AH_CUP_BLOQUEADOS
+  add constraint AVCON_1108495439_BLOQU_000
+  check (BLOQUEADO IN ('S', 'N'));
+alter table IT.AH_CUP_BLOQUEADOS
+  add constraint AVCON_1108495439_COD_C_000
+  check (COD_CAUSA BETWEEN 0 AND 999);
+

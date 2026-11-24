@@ -1,0 +1,82 @@
+create table IT.RH_RELOJES
+(
+  cod_persona      VARCHAR2(10) not null,
+  fecha            DATE not null,
+  hora             DATE not null,
+  tipo             VARCHAR2(1) not null,
+  nro_tarjeta      VARCHAR2(20) not null,
+  nro_reloj        VARCHAR2(15),
+  ind_procesado    VARCHAR2(1) default 'N' not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_RELOJES
+  is 'Marcacion de Relojes por Empleados.';
+comment on column IT.RH_RELOJES.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_RELOJES.fecha
+  is 'Fecha en que se produce el movimiento del reloj para el empleado.';
+comment on column IT.RH_RELOJES.hora
+  is 'Hora en que se produce el movimiento del reloj.';
+comment on column IT.RH_RELOJES.tipo
+  is 'Tipo de movimiento.';
+comment on column IT.RH_RELOJES.nro_tarjeta
+  is 'Numero de Tarjeta del Empleado.';
+comment on column IT.RH_RELOJES.nro_reloj
+  is 'Numero de Reloj donde se produjo el movimiento.';
+comment on column IT.RH_RELOJES.ind_procesado
+  is 'Indica si el registro pudo o no ser procesado.';
+comment on column IT.RH_RELOJES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_RELOJES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_RELOJES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_RELOJES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HRELO_COD_PERSONA on IT.RH_RELOJES (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_RELOJES
+  add constraint PK_RH_RELOJES primary key (FECHA, COD_PERSONA, HORA, TIPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_RELOJES
+  add constraint FK_HRELO_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_RELOJES
+  add constraint AVCON_1191539711_IND_P_000
+  check (IND_PROCESADO IN ('S', 'N'));
+

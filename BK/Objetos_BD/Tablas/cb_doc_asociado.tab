@@ -1,0 +1,83 @@
+create table IT.CB_DOC_ASOCIADO
+(
+  de_id            NUMBER(8) not null,
+  itipdocaso       NUMBER(1),
+  ddestipdocaso    VARCHAR2(11),
+  dcdcderef        VARCHAR2(44),
+  dntimdi          NUMBER(8),
+  destdocaso       VARCHAR2(3),
+  dpexpdocaso      VARCHAR2(3),
+  dnumdocaso       VARCHAR2(7),
+  itipodocaso      NUMBER(1),
+  ddtipodocaso     VARCHAR2(16),
+  dfecemidi        DATE,
+  dnumcomret       VARCHAR2(15),
+  dnumrescf        VARCHAR2(15),
+  itipcons         NUMBER(1),
+  ddestipcons      VARCHAR2(34),
+  dnumcons         NUMBER(11),
+  dnumcontrol      NUMBER(8),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  drucfus		   VARCHAR2(8)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 1M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_DOC_ASOCIADO
+  is 'Detalle del documento asociado al DE (Documento Electronico).';
+comment on column IT.CB_DOC_ASOCIADO.de_id
+  is 'ID de la factura';
+comment on column IT.CB_DOC_ASOCIADO.itipdocaso
+  is 'Tipo de documento asociado';
+comment on column IT.CB_DOC_ASOCIADO.ddestipdocaso
+  is 'Descripción del tipo de documento asociado';
+comment on column IT.CB_DOC_ASOCIADO.dcdcderef
+  is 'CDC del DTE referenciado';
+comment on column IT.CB_DOC_ASOCIADO.dntimdi
+  is 'Nro. timbrado documento impreso de referencia';
+comment on column IT.CB_DOC_ASOCIADO.destdocaso
+  is 'Establecimiento';
+comment on column IT.CB_DOC_ASOCIADO.dpexpdocaso
+  is 'Punto de expedición';
+comment on column IT.CB_DOC_ASOCIADO.dnumdocaso
+  is 'Número del documento';
+comment on column IT.CB_DOC_ASOCIADO.itipodocaso
+  is 'Tipo de documento impreso';
+comment on column IT.CB_DOC_ASOCIADO.ddtipodocaso
+  is 'Descripción del tipo de documento impreso';
+comment on column IT.CB_DOC_ASOCIADO.dfecemidi
+  is 'Fecha de emisión del documento impreso de referencia';
+comment on column IT.CB_DOC_ASOCIADO.dnumcomret
+  is 'Número de comprobante de retención';
+comment on column IT.CB_DOC_ASOCIADO.dnumrescf
+  is 'Número de resolución de crédito fiscal';
+comment on column IT.CB_DOC_ASOCIADO.itipcons
+  is 'Tipo de constancia';
+comment on column IT.CB_DOC_ASOCIADO.ddestipcons
+  is 'Descripción del tipo de constancia';
+comment on column IT.CB_DOC_ASOCIADO.dnumcons
+  is 'Número de constancia';
+comment on column IT.CB_DOC_ASOCIADO.dnumcontrol
+  is 'Número de control de la constancia';
+comment on column IT.CB_DOC_ASOCIADO.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.CB_DOC_ASOCIADO.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CB_DOC_ASOCIADO.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.CB_DOC_ASOCIADO.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.CB_DOC_ASOCIADO.drucfus
+  is 'RUC fusionado. Solo se especifica cuando emisor del documento electronico no fue UENO.';
+

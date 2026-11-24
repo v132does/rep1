@@ -1,0 +1,73 @@
+create table IT.CS_CON_CUOTAS_TMP
+(
+  nro_contrato     VARCHAR2(10) not null,
+  nro_cuota        NUMBER(6) not null,
+  fec_desde        DATE not null,
+  fec_hasta        DATE,
+  fec_vencimiento  DATE not null,
+  fec_pago         DATE,
+  monto            NUMBER(18,2),
+  saldo            NUMBER(18,2),
+  estado           VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  fec_pag_ant      DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CS_CON_CUOTAS_TMP
+  is 'Detalle del control de pagos de cajas.';
+comment on column IT.CS_CON_CUOTAS_TMP.nro_contrato
+  is 'Codigo del Contrato.';
+comment on column IT.CS_CON_CUOTAS_TMP.nro_cuota
+  is 'Numero de Cuota.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_desde
+  is 'Periodo desde.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_hasta
+  is 'Periodo hasta.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_pago
+  is 'Fecha de Pago.';
+comment on column IT.CS_CON_CUOTAS_TMP.monto
+  is 'Monto Pagado.';
+comment on column IT.CS_CON_CUOTAS_TMP.saldo
+  is 'Saldo de la Cuota.';
+comment on column IT.CS_CON_CUOTAS_TMP.estado
+  is 'Estado de la Cuota.';
+comment on column IT.CS_CON_CUOTAS_TMP.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.CS_CON_CUOTAS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_modificacion
+  is 'Usuario que realizo la ultima modificacion del registro.';
+comment on column IT.CS_CON_CUOTAS_TMP.fec_pag_ant
+  is 'Fecha del Pago anterior.';
+alter table IT.CS_CON_CUOTAS_TMP
+  add constraint PK_CS_CON_CUOTAS_TMP primary key (NRO_CONTRATO, NRO_CUOTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

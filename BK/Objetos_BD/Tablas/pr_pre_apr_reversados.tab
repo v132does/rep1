@@ -1,0 +1,62 @@
+create table IT.PR_PRE_APR_REVERSADOS
+(
+  cod_apr_reversado NUMBER not null,
+  cod_pre_aprobado  NUMBER,
+  nro_solicitud     NUMBER(7),
+  cod_persona       VARCHAR2(10),
+  nro_cuenta        VARCHAR2(15),
+  monto             NUMBER(18,2),
+  cod_moneda        VARCHAR2(3),
+  fec_reverso       DATE,
+  usu_reverso       VARCHAR2(10) default SUBSTR(USER,1,10),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_insercion     DATE default SYSDATE,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10),
+  fec_modificacion  DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 8M
+    next 1M
+    minextents 1
+  );
+comment on table IT.PR_PRE_APR_REVERSADOS
+  is 'Contiene los datos  de los Prestamos Pre aprobados reversados';
+comment on column IT.PR_PRE_APR_REVERSADOS.cod_apr_reversado
+  is 'Identificador de la base de pre aprobados reversado.';
+comment on column IT.PR_PRE_APR_REVERSADOS.cod_pre_aprobado
+  is 'Identificador de la base de pre aprobados.';
+comment on column IT.PR_PRE_APR_REVERSADOS.nro_solicitud
+  is 'Numero de propuesta.';
+comment on column IT.PR_PRE_APR_REVERSADOS.cod_persona
+  is 'Codigo del cliente.';
+comment on column IT.PR_PRE_APR_REVERSADOS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.PR_PRE_APR_REVERSADOS.monto
+  is 'Monto del pre aprobado';
+comment on column IT.PR_PRE_APR_REVERSADOS.cod_moneda
+  is 'Codigo de moneda';
+comment on column IT.PR_PRE_APR_REVERSADOS.fec_reverso
+  is 'Fehca en que se realizo el reverso.';
+comment on column IT.PR_PRE_APR_REVERSADOS.usu_reverso
+  is 'Usuario que realizo el reverso del registro.';
+comment on column IT.PR_PRE_APR_REVERSADOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.PR_PRE_APR_REVERSADOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.PR_PRE_APR_REVERSADOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.PR_PRE_APR_REVERSADOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.PR_PRE_APR_REVERSADOS
+  add constraint PR_PRE_APR_REVERSADOS primary key (COD_APR_REVERSADO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

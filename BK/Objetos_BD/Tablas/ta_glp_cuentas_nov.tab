@@ -1,0 +1,103 @@
+create table IT.TA_GLP_CUENTAS_NOV
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  nro_cta_global     VARCHAR2(15),
+  dir_correo         VARCHAR2(50),
+  cal_particular     VARCHAR2(80),
+  nro_particular     VARCHAR2(8),
+  pis_particular     VARCHAR2(8),
+  dep_particular     VARCHAR2(35),
+  cod_pos_particular VARCHAR2(10),
+  bar_particular     VARCHAR2(40),
+  cal_laboral        VARCHAR2(80),
+  nro_laboral        VARCHAR2(8),
+  pis_laboral        VARCHAR2(8),
+  dep_laboral        VARCHAR2(35),
+  cod_pos_laboral    VARCHAR2(10),
+  bar_laboral        VARCHAR2(40),
+  tel_celular        VARCHAR2(15),
+  fec_novedad        DATE not null,
+  enviado            VARCHAR2(1) default 'N',
+  det_error          VARCHAR2(4000),
+  fec_envio          DATE,
+  usu_insercion      VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR( USER, 1, 10 ) not null,
+  fec_modificacion   DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_GLP_CUENTAS_NOV
+  is 'Novedades de Tarjetas - GP. Aqui se guardan las variaciones que tuvieron las cuentas para luego informar a la procesadora.';
+comment on column IT.TA_GLP_CUENTAS_NOV.nro_cuenta
+  is 'Numero de Cuenta AH.';
+comment on column IT.TA_GLP_CUENTAS_NOV.nro_cta_global
+  is 'Numero de Cuenta Global Processing.';
+comment on column IT.TA_GLP_CUENTAS_NOV.dir_correo
+  is 'Direccion de mail de la persona.';
+comment on column IT.TA_GLP_CUENTAS_NOV.cal_particular
+  is 'Calle direccion particular.';
+comment on column IT.TA_GLP_CUENTAS_NOV.nro_particular
+  is 'Numero de casa particular.';
+comment on column IT.TA_GLP_CUENTAS_NOV.pis_particular
+  is 'Nro. Piso del edificio particular.';
+comment on column IT.TA_GLP_CUENTAS_NOV.dep_particular
+  is 'Departamento o provincia particular.';
+comment on column IT.TA_GLP_CUENTAS_NOV.cod_pos_particular
+  is 'Codigo postal particular';
+comment on column IT.TA_GLP_CUENTAS_NOV.bar_particular
+  is 'Barrio particular';
+comment on column IT.TA_GLP_CUENTAS_NOV.cal_laboral
+  is 'Calle direccion laboral.';
+comment on column IT.TA_GLP_CUENTAS_NOV.nro_laboral
+  is 'Numero de casa laboral.';
+comment on column IT.TA_GLP_CUENTAS_NOV.pis_laboral
+  is 'Nro. Piso del edificio laboral.';
+comment on column IT.TA_GLP_CUENTAS_NOV.dep_laboral
+  is 'Departamento o provincia laboral.';
+comment on column IT.TA_GLP_CUENTAS_NOV.cod_pos_laboral
+  is 'Codigo postal laboral';
+comment on column IT.TA_GLP_CUENTAS_NOV.bar_laboral
+  is 'Barrio laboral';
+comment on column IT.TA_GLP_CUENTAS_NOV.tel_celular
+  is 'Nro de celular de la persona.';
+comment on column IT.TA_GLP_CUENTAS_NOV.fec_novedad
+  is 'Fecha en que se produjo la novedad.';
+comment on column IT.TA_GLP_CUENTAS_NOV.enviado
+  is 'Estado de envio de la novedad a GP. S -> enviado a GP; N -> pendiente de envio a GP; E -> error en el envio a GP';
+comment on column IT.TA_GLP_CUENTAS_NOV.det_error
+  is 'Detalle del error si el envio tuvo error.';
+comment on column IT.TA_GLP_CUENTAS_NOV.fec_envio
+  is 'Fecha en que se realizo el envio a GP., Si el campo esta vacio aun no fue enviado.';
+comment on column IT.TA_GLP_CUENTAS_NOV.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.TA_GLP_CUENTAS_NOV.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.TA_GLP_CUENTAS_NOV.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.TA_GLP_CUENTAS_NOV.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.TA_GLP_CUENTAS_NOV
+  add constraint PK_TA_GLP_CUENTAS_NOV primary key (NRO_CUENTA, FEC_NOVEDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

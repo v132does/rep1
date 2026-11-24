@@ -1,0 +1,27 @@
+create materialized view IT.GV_MOV_INFONET
+refresh complete on demand
+as
+select distinct MOV.FECHA, MOV.HORA, MOV.COD_USUARIO, MOV.NRO_SECUENCIA, MOV.FEC_VALOR,
+       MOV.MONTO, t.card_number NRO_TAR, MOV.COD_MONEDA, MOV.COD_OFICINA,
+       MOV.COD_ERROR, MOV.COD_RETENCION, MOV.FEC_FIN_RETENCION, MOV.EST_CUENTA,
+       MOV.ESTADO, MOV.COD_CAUSA, MOV.COD_BANCO, MOV.COD_OFI_ORIGEN, MOV.CONCEPTO,
+       MOV.COD_TASA, MOV.VAL_TASA, MOV.COD_RUBRO, MOV.COD_REF_CAMBIO, MOV.REVERSADO,
+       MOV.COD_USU_REVERSION, MOV.HOR_REVERSION, MOV.EMI_AVISO, MOV.COD_TRA_PADRE,
+       MOV.COD_MOD_PADRE, MOV.COD_MAD_PADRE, MOV.COD_TRANSACCION, MOV.COD_MODULO,
+       MOV.COD_MODALIDAD, MOV.MTO_EQU_LOCAL, MOV.NRO_CAJA, MOV.COTIZACION, MOV.COD_BCO_CENTRAL,
+       MOV.NRO_DOCUMENTO, MOV.NRO_DOCUMENTO2, MOV.NRO_DOCUMENTO3, MOV.NRO_DOCUMENTO4,
+       MOV.PROTEGIDO, MOV.TIP_MOV_RUBRO, MOV.COD_AUTORIZACION, MOV.COD_USU_AUTORIZADOR,
+       MOV.USU_INSERCION, MOV.FEC_INSERCION, MOV.USU_MODIFICACION, MOV.FEC_MODIFICACION,
+       MOV.COD_TIP_OPE_CAMBIO, MOV.REFERENCIA, MOV.COD_PERSONA, MOV.COD_SIT_CONTABLE
+  from ta_ban_transaciones_his t,
+       ta_movimientos_his mov,
+       (select regexp_substr(fug_obt_pardinamico('TRN_MOV_INFONET'),'[^,]+', 1, level) cod_transaccion from dual
+       connect by regexp_substr(fug_obt_pardinamico('TRN_MOV_INFONET'), '[^,]+', 1, level) is not null) trn
+ where t.ticket_number = mov.nro_documento3
+   and mov.nro_cuenta is null
+   and mov.cod_rubro = '240402600206099'
+   and mov.cod_tra_padre = trn.cod_transaccion
+   and mov.fecha between pag_cal.FU_OBT_FEC_ACTUAL(1)-7 and pag_cal.FU_OBT_FEC_ACTUAL(1)
+   and not exists (select 1 from ah_tar_debitos tt where tt.nro_tarjeta = t.card_number)
+   and exists (select distinct tip.nro_bin from ta_tipos tip where tip.nro_bin = substr(t.card_number,1,10));
+

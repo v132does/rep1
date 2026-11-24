@@ -1,0 +1,61 @@
+create table IT.MD_SEQUENCES
+(
+  id                NUMBER not null,
+  schema_id_fk      NUMBER not null,
+  name              VARCHAR2(4000) not null,
+  seq_start         NUMBER not null,
+  incr              NUMBER default 1 not null,
+  native_sql        CLOB,
+  native_key        VARCHAR2(4000),
+  comments          VARCHAR2(4000),
+  security_group_id NUMBER default 0 not null,
+  created_on        DATE default sysdate not null,
+  created_by        VARCHAR2(255) default '0' not null,
+  last_updated_on   DATE,
+  last_updated_by   VARCHAR2(255)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_SEQUENCES
+  is 'For storing information on sequences.';
+comment on column IT.MD_SEQUENCES.id
+  is 'Primary Key';
+comment on column IT.MD_SEQUENCES.schema_id_fk
+  is 'The schema to which this object belongs. //PARENTFIELD';
+comment on column IT.MD_SEQUENCES.name
+  is 'Name of this sequence //OBJECTNAME';
+comment on column IT.MD_SEQUENCES.seq_start
+  is 'Starting point of the sequence';
+comment on column IT.MD_SEQUENCES.incr
+  is 'Increment value of the sequence';
+comment on column IT.MD_SEQUENCES.native_sql
+  is 'SQL used to create this object at source';
+comment on column IT.MD_SEQUENCES.native_key
+  is 'Identifier for this object at source.';
+alter table IT.MD_SEQUENCES
+  add constraint MD_SEQUENCES_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_SEQUENCES
+  add constraint MD_SEQUENCES_MD_SCHEMAS_FK1 foreign key (SCHEMA_ID_FK)
+  references IT.MD_SCHEMAS (ID) on delete cascade;
+

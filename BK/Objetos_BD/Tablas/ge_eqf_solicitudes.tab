@@ -1,0 +1,66 @@
+create table IT.GE_EQF_SOLICITUDES
+(
+  nro_solicitud    NUMBER not null,
+  cod_persona      VARCHAR2(10) not null,
+  fec_consulta     DATE not null,
+  hor_consulta     VARCHAR2(10),
+  msg_error        VARCHAR2(4000),
+  tip_servicio     VARCHAR2(500),
+  nom_informe      VARCHAR2(500),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_EQF_SOLICITUDES.nro_solicitud
+  is 'Nro Solicitud al servicio web';
+comment on column IT.GE_EQF_SOLICITUDES.cod_persona
+  is 'Cod de persona que se consulta en los servicios web';
+comment on column IT.GE_EQF_SOLICITUDES.fec_consulta
+  is 'fecha de la consulta';
+comment on column IT.GE_EQF_SOLICITUDES.hor_consulta
+  is 'hora de la consulta';
+comment on column IT.GE_EQF_SOLICITUDES.msg_error
+  is 'Mensaje de error obtenido de los servicios web si los hubiere';
+comment on column IT.GE_EQF_SOLICITUDES.tip_servicio
+  is 'tipo de servicio web';
+comment on column IT.GE_EQF_SOLICITUDES.nom_informe
+  is 'nombre de informe pdf obtenido de Informconf';
+create index IT.IN_SOLIC_PER_SOL_FEC on IT.GE_EQF_SOLICITUDES (COD_PERSONA, FEC_CONSULTA, NRO_SOLICITUD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_EQF_SOLICITUDES
+  add constraint PK_GE_EQF_SOLICITUDES primary key (NRO_SOLICITUD)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

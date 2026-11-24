@@ -1,0 +1,57 @@
+create table IT.GE_MOV_COB_TAR_PRONET
+(
+  terminal        NUMBER(8),
+  fec_pago        DATE,
+  nro_lote        NUMBER(6),
+  nro_boleta      NUMBER(6),
+  referencia      VARCHAR2(30),
+  importe         NUMBER(14,2),
+  tip_pago        NUMBER(1),
+  tip_ingreso     NUMBER(1),
+  comision        NUMBER(14,2),
+  cod_transaccion NUMBER(10),
+  moneda          NUMBER(2),
+  cuota           NUMBER(4),
+  mora            NUMBER(14,2),
+  int_punitorio   NUMBER(14,2),
+  bco_emisor      NUMBER(3),
+  ref_adicional   VARCHAR2(30),
+  fec_vencimiento DATE,
+  liquidado       VARCHAR2(1),
+  fec_liquidacion TIMESTAMP(6),
+  nro_cuenta      VARCHAR2(15),
+  usu_liquidacion VARCHAR2(10) default SUBSTR(USER,1,10),
+  id_proceso      NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_MOV_COB_TAR_PRONET.fec_pago
+  is 'AAAAMMDD';
+comment on column IT.GE_MOV_COB_TAR_PRONET.importe
+  is '2 decimales';
+comment on column IT.GE_MOV_COB_TAR_PRONET.tip_pago
+  is ' 1 – Efectivo, 2- Cheque';
+comment on column IT.GE_MOV_COB_TAR_PRONET.tip_ingreso
+  is ' 1 – Manual, 2- Óptico';
+comment on column IT.GE_MOV_COB_TAR_PRONET.comision
+  is '2 decimales';
+comment on column IT.GE_MOV_COB_TAR_PRONET.moneda
+  is '01 – Guaraníes, 02 – Dólares';
+comment on column IT.GE_MOV_COB_TAR_PRONET.mora
+  is '2 decimales';
+comment on column IT.GE_MOV_COB_TAR_PRONET.int_punitorio
+  is '2 decimales';
+comment on column IT.GE_MOV_COB_TAR_PRONET.fec_vencimiento
+  is 'AAAAMMDD';
+comment on column IT.GE_MOV_COB_TAR_PRONET.id_proceso
+  is 'Id proceso de liquidacion';
+

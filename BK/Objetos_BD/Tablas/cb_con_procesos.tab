@@ -1,0 +1,32 @@
+create table IT.CB_CON_PROCESOS
+(
+  cod_proceso VARCHAR2(50) not null,
+  nom_proceso VARCHAR2(250) not null,
+  descripcion VARCHAR2(250) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CB_CON_PROCESOS
+  add constraint PK_CON_PROC_COD_PROCESO primary key (COD_PROCESO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

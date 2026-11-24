@@ -1,0 +1,69 @@
+create table IT.GE_SNP_MSJ_MT940_TMP
+(
+  cod_mensaje      VARCHAR2(20),
+  mensaje          LONG,
+  linea            VARCHAR2(4000),
+  nro_orden        NUMBER(10),
+  pos_inicial      NUMBER(10),
+  pos_final        NUMBER(10),
+  tipo             VARCHAR2(10),
+  lin_referencia   NUMBER(10),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_MSJ_MT940_TMP
+  is 'Tabla temporal de lectura y desglose de lineas del mensaje MT940';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.cod_mensaje
+  is 'Codigo de Mensaje (Para relacionar con la cabecera y el detalle)';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.mensaje
+  is 'Mensaje swift';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.linea
+  is 'Linea de texto del mensaje';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.nro_orden
+  is 'Nro de orden de la linea de texto dentro del mensaje';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.pos_inicial
+  is 'Posicion inicial de la linea dentro del mensaje';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.pos_final
+  is 'Posicion inicial de la linea dentro del mensaje';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.tipo
+  is 'Tipo de Linea C-Cabecera, D-Detalle';
+comment on column IT.GE_SNP_MSJ_MT940_TMP.lin_referencia
+  is 'Linea de referencia de la cual es detalle una linea';
+create index IT.IN_LIN_REFERENCIA on IT.GE_SNP_MSJ_MT940_TMP (LIN_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TIPO on IT.GE_SNP_MSJ_MT940_TMP (TIPO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

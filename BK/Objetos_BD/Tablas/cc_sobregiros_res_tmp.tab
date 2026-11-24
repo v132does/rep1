@@ -1,0 +1,41 @@
+create table IT.CC_SOBREGIROS_RES_TMP
+(
+  nro_cuenta        VARCHAR2(15) not null,
+  can_dias          NUMBER(6),
+  sit_deuda         VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default sysdate not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default sysdate not null,
+  can_dia_sobregiro NUMBER(6) default 0,
+  max_atraso        NUMBER(6),
+  pro_atraso        NUMBER(6),
+  mto_sob_suspenso  NUMBER(18,2),
+  mto_mora          NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CC_SOBREGIROS_RES_TMP
+  add constraint PK_CC_SOBREGIROS_RES_TMP primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

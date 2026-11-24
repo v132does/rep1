@@ -1,0 +1,8 @@
+BEGIN pre_ini_aplicacion; pae_cnf.G_COD_MODULO := 1; END; 
+/
+INSERT INTO BA_PROGRAMAS (COD_PROGRAMA, DESCRIPCION, COD_TIP_PROGRAMA, COD_MODULO, UBI_EJECUTABLE, UBI_FISICO, DES_DETALLADA, OBSERVACION,OPE_MOD_CERRADO, UBI_MENU, INA_CIERRE)
+VALUES ('PRP_RCH_AUTORIZACIONES', 'ELIMINACION DE AUT. PTES. DE PRESTAMOS', 4, 6, 'BASE DE DATOS', 'BASE DE DATOS', 'Este procedimiento elimina todas las autorizaciones que quedaron pendiente en el dia','Se debe ejecutar en el cierre de día','S', ' ', 'N');
+
+COMMIT;
+
+  

@@ -1,0 +1,76 @@
+create table IT.GE_SNP_HORARIOS
+(
+  cod_periodo        NUMBER(2) not null,
+  descripcion        VARCHAR2(120),
+  estado             VARCHAR2(1),
+  fecha              DATE,
+  hor_inicio         VARCHAR2(8) not null,
+  hor_fin            VARCHAR2(8) not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  tip_horario        VARCHAR2(1),
+  det_sql            CLOB,
+  hor_eje_automatica VARCHAR2(8),
+  error              VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SNP_HORARIOS
+  is 'Contiene los horarios correspondientes a las diferentes transacciones habilitadas por el BCP.';
+comment on column IT.GE_SNP_HORARIOS.cod_periodo
+  is 'Número de Tipo de Operación.';
+comment on column IT.GE_SNP_HORARIOS.descripcion
+  is 'Descripción del horario.';
+comment on column IT.GE_SNP_HORARIOS.estado
+  is 'Estado del horario. A=Abierto, C=Cerrado.';
+comment on column IT.GE_SNP_HORARIOS.fecha
+  is 'Fecha del horario.';
+comment on column IT.GE_SNP_HORARIOS.hor_inicio
+  is 'Hora del Inicio del horario.';
+comment on column IT.GE_SNP_HORARIOS.hor_fin
+  is 'Hora del Fin del horario.';
+comment on column IT.GE_SNP_HORARIOS.usu_insercion
+  is 'Usuario que insertó el registro.';
+comment on column IT.GE_SNP_HORARIOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_SNP_HORARIOS.usu_modificacion
+  is 'Usuario que realizo la última modificación en el registro.';
+comment on column IT.GE_SNP_HORARIOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_SNP_HORARIOS.tip_horario
+  is 'Tipo de horario.';
+comment on column IT.GE_SNP_HORARIOS.det_sql
+  is 'Detalle SQL para configurar acciones a tomar al activar o desactivar horarios.';
+comment on column IT.GE_SNP_HORARIOS.hor_eje_automatica
+  is 'Horario en que se ejecuta el script indicado en el DET_SQL.';
+comment on column IT.GE_SNP_HORARIOS.error
+  is 'Registro de errores que pudieran ocurrir durante la ejecución automática.';
+alter table IT.GE_SNP_HORARIOS
+  add constraint PK_GE_SNP_HORARIOS primary key (COD_PERIODO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SNP_HORARIOS
+  add constraint CK_ESTADO
+  check (ESTADO IN('A','C','E','P'));
+

@@ -1,0 +1,54 @@
+-- Create table
+create table IT.TA_TAR_GLOBAL_TMP
+(
+  nro_cuenta       VARCHAR2(15),
+  cod_persona      VARCHAR2(10),
+  nro_tarjeta      VARCHAR2(4),
+  fec_vencimiento  DATE,
+  tip_tarjeta      VARCHAR2(2),
+  cod_producto     VARCHAR2(3),
+  cod_estado       VARCHAR2(2),
+  fec_insercion    DATE default sysdate not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.TA_TAR_GLOBAL_TMP
+  is 'Contiene los datos del alta de tarjeta de credito que se recibe del sw de GLP.';
+-- Add comments to the columns 
+comment on column IT.TA_TAR_GLOBAL_TMP.nro_cuenta
+  is 'Nro de cuenta global processing -> accountld';
+comment on column IT.TA_TAR_GLOBAL_TMP.cod_persona
+  is 'Cod_Persona del cliente relacionado a la tarjeta';
+comment on column IT.TA_TAR_GLOBAL_TMP.nro_tarjeta
+  is 'Ultimos 4 numeros de tarjeta';
+comment on column IT.TA_TAR_GLOBAL_TMP.fec_vencimiento
+  is 'Fecha vencimiento de tarjeta';
+comment on column IT.TA_TAR_GLOBAL_TMP.tip_tarjeta
+  is 'Tipo Tarjeta --> Fisica o virtual';
+comment on column IT.TA_TAR_GLOBAL_TMP.cod_producto
+  is 'Codigo producto de tarjeta';
+comment on column IT.TA_TAR_GLOBAL_TMP.cod_estado
+  is 'Estado de la tarjeta';
+comment on column IT.TA_TAR_GLOBAL_TMP.fec_insercion
+  is 'Fecha de insercion del registro';
+comment on column IT.TA_TAR_GLOBAL_TMP.usu_insercion
+  is 'Usuario que inserto el registro';
+comment on column IT.TA_TAR_GLOBAL_TMP.fec_modificacion
+  is 'Fecha de modificacion del registro';
+comment on column IT.TA_TAR_GLOBAL_TMP.usu_modificacion
+  is 'Usuario que modifico el registro';
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete, alter, debug, read on IT.TA_TAR_GLOBAL_TMP to IT_TEMPORAL;

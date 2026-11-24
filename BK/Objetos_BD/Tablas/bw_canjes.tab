@@ -1,0 +1,178 @@
+create table IT.BW_CANJES
+(
+  nro_canje            NUMBER(12) not null,
+  nro_tarjeta          VARCHAR2(25),
+  cod_persona          VARCHAR2(10) not null,
+  cat_producto         NUMBER(2) not null,
+  nom_producto         VARCHAR2(255) not null,
+  des_producto         VARCHAR2(4000) not null,
+  tel_contacto         VARCHAR2(10) not null,
+  ema_contacto         VARCHAR2(319) not null,
+  ema_des_notificacion VARCHAR2(319) not null,
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  cantidad             NUMBER,
+  puntos               NUMBER,
+  tel_proveedor        VARCHAR2(10),
+  showroom             VARCHAR2(1),
+  direccion            VARCHAR2(80),
+  rec_autorizada       VARCHAR2(1),
+  per_autorizada       VARCHAR2(120),
+  cod_tip_autorizado   NUMBER(3),
+  nro_doc_autorizado   VARCHAR2(20),
+  hor_inicio           VARCHAR2(5),
+  hor_fin              VARCHAR2(5),
+  ben_titular          VARCHAR2(1),
+  beneficiario         VARCHAR2(120),
+  turno                VARCHAR2(1),
+  sol_ida              VARCHAR2(1),
+  fec_salida           DATE,
+  fec_retorno          DATE,
+  fec_flexible         VARCHAR2(1),
+  cla_servicio         NUMBER(2),
+  can_ninos            NUMBER,
+  can_adultos          NUMBER,
+  lin_aerea            VARCHAR2(100),
+  nro_doc_beneficiario VARCHAR2(20),
+  fec_entrada          DATE,
+  cod_verificador      VARCHAR2(10),
+  estado               VARCHAR2(1) default 'C' not null,
+  cod_canal            VARCHAR2(3),
+  verificado           VARCHAR2(1) default 'N',
+  fec_verificacion     DATE,
+  comercio             VARCHAR2(255),
+  tip_canje            VARCHAR2(2) default 'A' not null,
+  ope_canje            VARCHAR2(12),
+  suc_env_voucher      VARCHAR2(50),
+  suc_cliente          VARCHAR2(50),
+  cod_producto         NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BW_CANJES
+  is 'Tabla principal de canje de puntos en la Web';
+comment on column IT.BW_CANJES.nro_canje
+  is 'Número de identificación del canje de puntos';
+comment on column IT.BW_CANJES.nro_tarjeta
+  is 'Número de tarjeta usada en el canje de puntos';
+comment on column IT.BW_CANJES.cod_persona
+  is 'Código cliente';
+comment on column IT.BW_CANJES.cat_producto
+  is 'Categoría del producto canjeado (1=Tangibles, 2=Servicios, 3=Viajes)';
+comment on column IT.BW_CANJES.nom_producto
+  is 'Nombre del producto canjeado';
+comment on column IT.BW_CANJES.des_producto
+  is 'Descripción del producto canjeado';
+comment on column IT.BW_CANJES.tel_contacto
+  is 'Teléfono de contacto del cliente';
+comment on column IT.BW_CANJES.ema_contacto
+  is 'Dirección de correo de contacto del cliente';
+comment on column IT.BW_CANJES.ema_des_notificacion
+  is 'Dirección de correo al cual notificar sobre el canje de puntos realizado';
+comment on column IT.BW_CANJES.usu_insercion
+  is 'Usuario que realizó la inserción del registro';
+comment on column IT.BW_CANJES.fec_insercion
+  is 'Fecha y hora del sistema en que se insertó el registro';
+comment on column IT.BW_CANJES.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro';
+comment on column IT.BW_CANJES.fec_modificacion
+  is 'Fecha y hora del sistema en que se realizó la última modificación en el registro';
+comment on column IT.BW_CANJES.cantidad
+  is 'Cantidad de productos o servicios canjeados';
+comment on column IT.BW_CANJES.puntos
+  is 'Total de puntos canjeados';
+comment on column IT.BW_CANJES.tel_proveedor
+  is 'Teléfono del proveedor que ofrece el producto o servicio canjeado';
+comment on column IT.BW_CANJES.showroom
+  is 'Retiro del producto canjeado del showroom del comercio (S=SI / N=NO)';
+comment on column IT.BW_CANJES.direccion
+  is 'Dirección a enviar del producto canjeado o proveedor del producto/servicio canjeado.';
+comment on column IT.BW_CANJES.rec_autorizada
+  is 'Recepción o retiro del producto canjeado por una persona autorizada (S=SI / N=NO)';
+comment on column IT.BW_CANJES.per_autorizada
+  is 'Nombre y apellido de la persona autorizada para recepción o retiro del producto canjeado';
+comment on column IT.BW_CANJES.cod_tip_autorizado
+  is 'Tipo de documento de la persona autorizada para la recepción o retiro del producto canjeado';
+comment on column IT.BW_CANJES.nro_doc_autorizado
+  is 'Número de documento de la persona autorizada para la recepción o retiro del producto canjeado';
+comment on column IT.BW_CANJES.hor_inicio
+  is 'Horario a partir de cuando se puede entregar el producto canjeado';
+comment on column IT.BW_CANJES.hor_fin
+  is 'Horario hasta cuando se puede entregar el producto canjeado';
+comment on column IT.BW_CANJES.ben_titular
+  is 'Beneficiario del servicio canjeado es el titular de la tarjeta usada en el canje de puntos (S=SI / N=NO)';
+comment on column IT.BW_CANJES.beneficiario
+  is 'Nombre y apellido del beneficiario del servicio canjeado a el cual se emite el voucher';
+comment on column IT.BW_CANJES.turno
+  is 'Contactar para reservar turno (S=SI / N=NO)';
+comment on column IT.BW_CANJES.sol_ida
+  is 'Pasaje es solo de ida (S=Pasaje de solo ida / N=Pasaje de ida y vuelta)';
+comment on column IT.BW_CANJES.fec_salida
+  is 'Fecha de salida del viaje canjeado';
+comment on column IT.BW_CANJES.fec_retorno
+  is 'Fecha de retorno del viaje canjeado';
+comment on column IT.BW_CANJES.fec_flexible
+  is 'Fechas de salida y retorno son flexibles (S=SI / N=NO)';
+comment on column IT.BW_CANJES.cla_servicio
+  is 'Clase de servicio (1=Turista, 2=Ejecutivo)';
+comment on column IT.BW_CANJES.can_ninos
+  is 'Cantidad de niños para el viaje canjeado';
+comment on column IT.BW_CANJES.can_adultos
+  is 'Cantidad de adultos para el viaje canjeado';
+comment on column IT.BW_CANJES.lin_aerea
+  is 'Línea aérea de preferencia del usuario';
+comment on column IT.BW_CANJES.nro_doc_beneficiario
+  is 'Número de cédula del beneficiario';
+comment on column IT.BW_CANJES.fec_entrada
+  is 'Fecha de entrada del servicio de hospedajes';
+comment on column IT.BW_CANJES.cod_verificador
+  is 'Código verificador del canje';
+comment on column IT.BW_CANJES.estado
+  is 'Estados posibles de los canjes, C confirmado, E con errores, R reversado, X confirmado con errores';
+comment on column IT.BW_CANJES.cod_canal
+  is 'Código del canal del cual se originó el canje';
+comment on column IT.BW_CANJES.verificado
+  is 'Determina si el canje fue verificado por el comercio. S = sÃ­, N = no, NULL para canjes realizados antes de agregar esta columna.';
+comment on column IT.BW_CANJES.fec_verificacion
+  is 'Fecha y hora de verificaciÃ³n del canje.';
+comment on column IT.BW_CANJES.comercio
+  is 'Nombre del comercio o agencia donde debe verificarse el canje.';
+comment on column IT.BW_CANJES.tip_canje
+  is 'Indica el tipo de canje A-Canje Autogestionado; T-Canje telefonico';
+comment on column IT.BW_CANJES.ope_canje
+  is 'El nombre de usuario del operador que realizo el canje telefonico';
+comment on column IT.BW_CANJES.suc_env_voucher
+  is 'La sucursal a la cual se envio el voucher';
+comment on column IT.BW_CANJES.suc_cliente
+  is 'La sucursal al cual el cliente esta registrado';
+comment on column IT.BW_CANJES.cod_producto
+  is 'Codigo del producto';
+alter table IT.BW_CANJES
+  add constraint PK_BW_CANJES primary key (NRO_CANJE)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BW_CANJES
+  add constraint FK_BCANJ_COD_TIP_AUTORIZADO foreign key (COD_TIP_AUTORIZADO)
+  references IT.BA_TIP_DOCUMENTOS (COD_TIP_DOCUMENTO);
+

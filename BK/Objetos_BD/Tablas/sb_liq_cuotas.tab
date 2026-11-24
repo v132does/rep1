@@ -1,0 +1,74 @@
+create table IT.SB_LIQ_CUOTAS
+(
+  fecha            DATE,
+  nro_cuenta       VARCHAR2(15),
+  nro_cuota        NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  fec_vencimiento  DATE,
+  sal_capital      NUMBER(18,2) default 0,
+  dev_no_cobrado   NUMBER(18,2) default 0,
+  mto_prevision    NUMBER(18,2) default 0,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mto_valuacion    NUMBER(18,2) default 0,
+  sal_interes      NUMBER(18,2),
+  val_int_devengar NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_LIQ_CUOTAS
+  is 'Liquidacion de cuotas.';
+comment on column IT.SB_LIQ_CUOTAS.fecha
+  is 'Fecha en que se ejecuto el proceso.';
+comment on column IT.SB_LIQ_CUOTAS.nro_cuenta
+  is 'Numero de Cuenta de prestamos.';
+comment on column IT.SB_LIQ_CUOTAS.nro_cuota
+  is 'Numero de cuota.';
+comment on column IT.SB_LIQ_CUOTAS.cod_moneda
+  is 'Codigo de la moneda.';
+comment on column IT.SB_LIQ_CUOTAS.fec_vencimiento
+  is 'Fecha de vencimiento de la cuota.';
+comment on column IT.SB_LIQ_CUOTAS.sal_capital
+  is 'Saldo capital de la cuota.';
+comment on column IT.SB_LIQ_CUOTAS.dev_no_cobrado
+  is 'Devengado no cobrado de la cuota.';
+comment on column IT.SB_LIQ_CUOTAS.mto_prevision
+  is 'Monto previsionado para la cuota.';
+comment on column IT.SB_LIQ_CUOTAS.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.SB_LIQ_CUOTAS.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.SB_LIQ_CUOTAS.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.SB_LIQ_CUOTAS.fec_modificacion
+  is 'Fecha de modificacion del registro.';
+comment on column IT.SB_LIQ_CUOTAS.mto_valuacion
+  is 'Monto valuado para la cuota.';
+comment on column IT.SB_LIQ_CUOTAS.sal_interes
+  is 'Saldo inter¿s de la cuota';
+comment on column IT.SB_LIQ_CUOTAS.val_int_devengar
+  is 'Monto a devengar de la cuota';
+create index IT.IN_SLCUO_NRO_CUOTA on IT.SB_LIQ_CUOTAS (FECHA, NRO_CUENTA, NRO_CUOTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

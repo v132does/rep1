@@ -1,0 +1,137 @@
+create table IT.GE_EQU_CONSULTA_TMP
+(
+  validado             VARCHAR2(30),
+  cod_cliente          VARCHAR2(15),
+  cod_sucursal         VARCHAR2(5),
+  fecha                DATE,
+  motivo               VARCHAR2(50),
+  operacion            VARCHAR2(50),
+  fec_datos            DATE,
+  pai_documento        VARCHAR2(2),
+  tip_documento        VARCHAR2(3),
+  nro_documento        VARCHAR2(30),
+  nacionalidad         VARCHAR2(3),
+  apellido1            VARCHAR2(50),
+  apellido2            VARCHAR2(50),
+  ape_casada           VARCHAR2(50),
+  nombre1              VARCHAR2(50),
+  nombre2              VARCHAR2(50),
+  fec_nacimiento       DATE,
+  cod_sexo             VARCHAR2(1),
+  est_civil            VARCHAR2(1),
+  fec_dat_dom          DATE,
+  calle                VARCHAR2(255),
+  numero               VARCHAR2(5),
+  apartamento          VARCHAR2(5),
+  piso                 VARCHAR2(5),
+  complemento          VARCHAR2(100),
+  pension_hotel        VARCHAR2(1),
+  prop_inquilino       VARCHAR2(1),
+  ciu_distrito         VARCHAR2(50),
+  local_barrio         VARCHAR2(200),
+  departamento         VARCHAR2(20),
+  telefono             VARCHAR2(85),
+  fec_dat_empleo       DATE,
+  ocup_cargo           VARCHAR2(50),
+  rubro                VARCHAR2(50),
+  empresa              VARCHAR2(120),
+  fec_ingreso          DATE,
+  calle_emp            VARCHAR2(255),
+  numero_emp           VARCHAR2(5),
+  apartamento_emp      VARCHAR2(5),
+  piso_emp             VARCHAR2(5),
+  complemento_emp      VARCHAR2(100),
+  ciudad_distrito_emp  VARCHAR2(50),
+  localidad_barrio_emp VARCHAR2(200),
+  departamento_emp     VARCHAR2(2),
+  telefono_emp         VARCHAR2(85),
+  estado               VARCHAR2(1),
+  observacion          VARCHAR2(2000),
+  consultar            VARCHAR2(1),
+  tip_deudor           VARCHAR2(1),
+  cod_persona          VARCHAR2(10),
+  tip_consulta         VARCHAR2(1),
+  dat_consulta         VARCHAR2(4000),
+  error                VARCHAR2(4000),
+  can_intentos         NUMBER,
+  respuesta            VARCHAR2(4000),
+  usu_insercion        VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion        DATE default SYSDATE not null,
+  usu_modificacion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion     DATE default SYSDATE not null,
+  antiguedad           NUMBER
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EQU_CONSULTA_TMP
+  is 'Tabla temporal de importación de datos para realizar consultas a Equifax';
+comment on column IT.GE_EQU_CONSULTA_TMP.cod_cliente
+  is 'Código de Cliente de BBVA en Equifax';
+comment on column IT.GE_EQU_CONSULTA_TMP.cod_sucursal
+  is 'Código de Oficina de donde se esta genrando la información';
+comment on column IT.GE_EQU_CONSULTA_TMP.fecha
+  is 'Fecha de Generación de la Planilla';
+comment on column IT.GE_EQU_CONSULTA_TMP.motivo
+  is 'Motivo de la Consulta';
+comment on column IT.GE_EQU_CONSULTA_TMP.operacion
+  is 'Tipo de Vinculo';
+comment on column IT.GE_EQU_CONSULTA_TMP.fec_datos
+  is 'Fecha de Generación de los Datos';
+comment on column IT.GE_EQU_CONSULTA_TMP.pai_documento
+  is 'País del Documento';
+comment on column IT.GE_EQU_CONSULTA_TMP.tip_documento
+  is 'Tipo de Documento';
+comment on column IT.GE_EQU_CONSULTA_TMP.nro_documento
+  is 'Número del Documento';
+comment on column IT.GE_EQU_CONSULTA_TMP.nacionalidad
+  is 'Nacionalidad del Cliente';
+comment on column IT.GE_EQU_CONSULTA_TMP.apellido1
+  is 'Primer Apellido';
+comment on column IT.GE_EQU_CONSULTA_TMP.apellido2
+  is 'Segundo Apellido';
+comment on column IT.GE_EQU_CONSULTA_TMP.ape_casada
+  is 'Apellido de Casada/o';
+comment on column IT.GE_EQU_CONSULTA_TMP.nombre1
+  is 'Primer Nombre';
+comment on column IT.GE_EQU_CONSULTA_TMP.nombre2
+  is 'Segundo Nombre';
+comment on column IT.GE_EQU_CONSULTA_TMP.fec_nacimiento
+  is 'Fecha de Nacimiento';
+comment on column IT.GE_EQU_CONSULTA_TMP.cod_sexo
+  is 'Sexo';
+comment on column IT.GE_EQU_CONSULTA_TMP.est_civil
+  is 'Estado Civil';
+comment on column IT.GE_EQU_CONSULTA_TMP.fec_dat_dom
+  is 'Fecha de Fatos del Domicilio';
+comment on column IT.GE_EQU_CONSULTA_TMP.calle
+  is 'Calle';
+comment on column IT.GE_EQU_CONSULTA_TMP.numero
+  is 'Número de Casa';
+comment on column IT.GE_EQU_CONSULTA_TMP.apartamento
+  is 'Apartamento';
+comment on column IT.GE_EQU_CONSULTA_TMP.piso
+  is 'Piso';
+comment on column IT.GE_EQU_CONSULTA_TMP.complemento
+  is 'Información Complementaria';
+comment on column IT.GE_EQU_CONSULTA_TMP.consultar
+  is 'S/N';
+comment on column IT.GE_EQU_CONSULTA_TMP.tip_deudor
+  is 'Tipo de Vínculo con la Cuenta=> BA_COD_REFERENCIAS.TIP_VIN_EQUIFAX';
+comment on column IT.GE_EQU_CONSULTA_TMP.cod_persona
+  is 'Número de Riesgo en el Core';
+comment on column IT.GE_EQU_CONSULTA_TMP.tip_consulta
+  is 'Tipo de la consulta=> BA_COD_REFERENCIAS.TIP_CON_EQUIFAX';
+comment on column IT.GE_EQU_CONSULTA_TMP.can_intentos
+  is 'Cantidad de Intentos de envíos hasta validar los datos.-';
+comment on column IT.GE_EQU_CONSULTA_TMP.antiguedad
+  is 'Se guarda la cantidad de antiguedad a tomar en cuenta en el control para envío masivo equifax';
+

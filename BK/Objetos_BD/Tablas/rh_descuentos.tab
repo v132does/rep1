@@ -1,0 +1,113 @@
+create table IT.RH_DESCUENTOS
+(
+  cod_persona       VARCHAR2(10) not null,
+  numero            NUMBER(5) not null,
+  fecha             DATE not null,
+  cod_tip_descuento NUMBER(3) not null,
+  monto             NUMBER(14,2),
+  cod_moneda        VARCHAR2(3) not null,
+  porcentaje        NUMBER(8,2),
+  ind_automatico    VARCHAR2(1) default 'N' not null,
+  ind_procesado     VARCHAR2(1) default 'N' not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.RH_DESCUENTOS
+  is 'Descuentos en Liquidacion a Empleados.';
+comment on column IT.RH_DESCUENTOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.RH_DESCUENTOS.numero
+  is 'Numero secuencial por empleado que identifica el registro.';
+comment on column IT.RH_DESCUENTOS.fecha
+  is 'Fecha Descuento.';
+comment on column IT.RH_DESCUENTOS.cod_tip_descuento
+  is 'Tipo de Descuento.';
+comment on column IT.RH_DESCUENTOS.monto
+  is 'Monto del descuento.';
+comment on column IT.RH_DESCUENTOS.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.RH_DESCUENTOS.porcentaje
+  is 'Porcentaje de descuento.';
+comment on column IT.RH_DESCUENTOS.ind_automatico
+  is 'Indica si es Automatico o no';
+comment on column IT.RH_DESCUENTOS.ind_procesado
+  is 'Indica si ya fue Procesado o no.';
+comment on column IT.RH_DESCUENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.RH_DESCUENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.RH_DESCUENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.RH_DESCUENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_HDESC_COD_PERSONA on IT.RH_DESCUENTOS (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_HDESC_COD_TIP_DESCUENTO on IT.RH_DESCUENTOS (COD_TIP_DESCUENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_DESCUENTOS
+  add constraint PK_RH_DESCUENTOS primary key (NUMERO, COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.RH_DESCUENTOS
+  add constraint FK_HDESC_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.RH_DESCUENTOS
+  add constraint FK_HDESC_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.RH_EMPLEADOS (COD_PERSONA);
+alter table IT.RH_DESCUENTOS
+  add constraint FK_HDESC_COD_TIP_DESCUENTO foreign key (COD_TIP_DESCUENTO)
+  references IT.RH_TIP_DESCUENTOS (COD_TIP_DESCUENTO);
+alter table IT.RH_DESCUENTOS
+  add constraint AVCON_1191946415_IND_A_000
+  check (IND_AUTOMATICO IN ('S', 'N'));
+alter table IT.RH_DESCUENTOS
+  add constraint AVCON_1191946415_IND_P_000
+  check (IND_PROCESADO IN ('S', 'N'));
+alter table IT.RH_DESCUENTOS
+  add constraint CK_MONTO_PORCENTAJE_DES
+  check ((PORCENTAJE is null
+and MONTO is not null) or (PORCENTAJE is not null and MONTO is null));
+

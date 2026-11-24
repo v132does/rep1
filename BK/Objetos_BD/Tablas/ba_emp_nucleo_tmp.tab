@@ -1,0 +1,45 @@
+create table IT.BA_EMP_NUCLEO_TMP
+(
+  cod_empresa       NUMBER(5),
+  tip_documento     VARCHAR2(3),
+  nro_cedula        VARCHAR2(20) not null,
+  pri_nombre        VARCHAR2(30),
+  seg_nombre        VARCHAR2(30),
+  pri_apellido      VARCHAR2(30),
+  seg_apellido      VARCHAR2(30),
+  fec_nacimiento    DATE not null,
+  sexo              VARCHAR2(1) not null,
+  est_civil         VARCHAR2(20) not null,
+  nacionalidad      NUMBER(3),
+  direccion         VARCHAR2(100),
+  ciudad            VARCHAR2(100),
+  telefono          VARCHAR2(20) not null,
+  dir_correo        VARCHAR2(80),
+  cod_oficial       VARCHAR2(10),
+  cod_oficina       NUMBER(3),
+  sueldo            NUMBER(18,2),
+  mto_ant_sueldo    NUMBER(18,2),
+  mto_ant_aguinaldo NUMBER(18,2),
+  generar           VARCHAR2(1),
+  usu_insercion     VARCHAR2(10) not null,
+  fec_insercion     DATE not null,
+  usu_modificacion  VARCHAR2(10) not null,
+  fec_modificacion  DATE not null,
+  nro_cta_ahorro    VARCHAR2(15),
+  fec_ingreso       DATE,
+  tip_tarjeta       VARCHAR2(1),
+  fec_vto_documento DATE,
+  nro_direccion     NUMBER(6)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_SEC_LOTE
+minvalue 1
+maxvalue 500000
+start with 26927
+increment by 1
+nocache
+cycle;
+

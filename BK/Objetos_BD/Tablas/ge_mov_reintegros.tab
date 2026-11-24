@@ -1,0 +1,134 @@
+create table IT.GE_MOV_REINTEGROS
+(
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  cod_usuario       VARCHAR2(10) not null,
+  nro_secuencia     NUMBER(3) not null,
+  fec_valor         DATE,
+  mto_reintegro     NUMBER(18,2),
+  nro_cuenta        VARCHAR2(15) not null,
+  cod_moneda        VARCHAR2(3),
+  mto_compra        NUMBER(18,2),
+  reversado         VARCHAR2(1) default 'N' not null,
+  cod_tra_padre     NUMBER(4) not null,
+  cod_cli_comercio  VARCHAR2(20) not null,
+  nom_comercio      VARCHAR2(100) not null,
+  cod_comercio      VARCHAR2(20) not null,
+  cod_suc_comercio  NUMBER(10) not null,
+  cod_promocion     VARCHAR2(20),
+  nro_cta_tarjeta   VARCHAR2(15),
+  nro_documento3    NUMBER(15),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  mto_com_reintegro NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_REINTEGROS
+  is 'Contiene solo registros de movimientos de reintegros';
+comment on column IT.GE_MOV_REINTEGROS.fecha
+  is 'Fecha del Reintegro.';
+comment on column IT.GE_MOV_REINTEGROS.hora
+  is 'Hora del Reintegro.';
+comment on column IT.GE_MOV_REINTEGROS.cod_usuario
+  is 'Código usuario que ejecutó el proceso de Reintegro.';
+comment on column IT.GE_MOV_REINTEGROS.nro_secuencia
+  is 'Número de secuencia.';
+comment on column IT.GE_MOV_REINTEGROS.fec_valor
+  is 'Fecha valor del Reintegro.';
+comment on column IT.GE_MOV_REINTEGROS.mto_reintegro
+  is 'Monto del Reintegro.';
+comment on column IT.GE_MOV_REINTEGROS.nro_cuenta
+  is 'Número de Cuenta a la que se reintegró.';
+comment on column IT.GE_MOV_REINTEGROS.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_MOV_REINTEGROS.mto_compra
+  is 'Monto de la Compra.';
+comment on column IT.GE_MOV_REINTEGROS.reversado
+  is 'Indicador si el reintegro fue reversado (S/N).';
+comment on column IT.GE_MOV_REINTEGROS.cod_tra_padre
+  is 'Transacción padre del Reintegro. Identifica si fue TD o TC';
+comment on column IT.GE_MOV_REINTEGROS.cod_cli_comercio
+  is 'Código de Cliente del comercio en la procesadora.';
+comment on column IT.GE_MOV_REINTEGROS.nom_comercio
+  is 'Nombre del Comercio.';
+comment on column IT.GE_MOV_REINTEGROS.cod_comercio
+  is 'Código del Comercio.';
+comment on column IT.GE_MOV_REINTEGROS.cod_suc_comercio
+  is 'Código sucursal del Comercio.';
+comment on column IT.GE_MOV_REINTEGROS.cod_promocion
+  is 'Código de Promoción.';
+comment on column IT.GE_MOV_REINTEGROS.nro_cta_tarjeta
+  is 'Número de Cuenta Tarjeta.';
+comment on column IT.GE_MOV_REINTEGROS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_MOV_REINTEGROS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_MOV_REINTEGROS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_MOV_REINTEGROS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_MOV_REINTEGROS.mto_com_reintegro
+  is 'Monto de compra utilizado para el reintegro.';
+create index IT.IN_GMOVREI_REVTRACUENTA on IT.GE_MOV_REINTEGROS (REVERSADO, COD_TRA_PADRE, NRO_CUENTA, COD_CLI_COMERCIO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMR_CLI_COMERCIO on IT.GE_MOV_REINTEGROS (COD_CLI_COMERCIO, COD_COMERCIO, COD_SUC_COMERCIO, COD_PROMOCION, NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GMR_CLI_RESUMEN on IT.GE_MOV_REINTEGROS (TRUNC(FEC_INSERCION), REVERSADO, COD_TRA_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_REINTEGROS
+  add constraint PK_GE_MOV_REINTEGROS primary key (FECHA, HORA, COD_USUARIO, NRO_SECUENCIA, NRO_CUENTA, COD_TRA_PADRE)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

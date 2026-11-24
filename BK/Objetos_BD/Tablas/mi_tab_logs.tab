@@ -1,0 +1,19 @@
+create table IT.MI_TAB_LOGS
+(
+  tabla VARCHAR2(30),
+  error VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MI_TAB_LOGS
+  is 'Tabla de errores en proceso de pase de parametros de desa a produccion.';
+

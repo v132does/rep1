@@ -1,0 +1,21 @@
+create table IT.TA_PAG_SUE_RUC_TMP
+(
+  ruc_empresa VARCHAR2(20),
+  cod_oficina NUMBER(4)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_PAG_SUE_RUC_TMP.ruc_empresa
+  is 'Ruc de la Empresa';
+comment on column IT.TA_PAG_SUE_RUC_TMP.cod_oficina
+  is 'Código de la Oficina del Oficial para los empleados.';
+

@@ -1,0 +1,15 @@
+create table IT.SB_BCP_BAR_TMP (
+    COD_BCP          NUMBER(7),       -- Codigo BCP del barrio (max 7 digitos, ej: 9999001)
+    DESCRIPCION      VARCHAR2(60),    -- Descripcion BCP (col 2 del archivo; max 56 chars en muestra)
+    COD_CIUDAD_BCP   VARCHAR2(4),     -- Codigo ciudad BCP zero-padded (col 3, ej: '0101')
+    DES_CIUDAD       VARCHAR2(60),    -- Nombre ciudad (col 4; solo informativo)
+    COD_DEPTO_BCP    VARCHAR2(2),     -- Codigo departamento BCP zero-padded (col 5, ej: '00')
+    DES_DEPARTAMENTO VARCHAR2(60),    -- Nombre departamento (col 6; solo informativo)
+    TIPO_ZONA        VARCHAR2(20)     -- Urbana / Rural / Sub Urbana (col 7)
+) TABLESPACE IT_DATA;
+
+COMMENT ON TABLE IT.SB_BCP_BAR_TMP IS 'Staging: catalogo de barrios BCP (BARRIOS_BCP.CSV / Barrios.xlsx). Transitoria: se purga tras cada carga por PRS_ACT_REF_BARRIOS.';
+
+CREATE PUBLIC SYNONYM SB_BCP_BAR_TMP FOR IT.SB_BCP_BAR_TMP;
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.SB_BCP_BAR_TMP TO IT_CONSULTAS;
+GRANT SELECT, INSERT, UPDATE, DELETE ON IT.SB_BCP_BAR_TMP TO IT_TEMPORAL;

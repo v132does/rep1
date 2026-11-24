@@ -1,0 +1,197 @@
+create table IT.LC_REG_TRANSFERENCIAS
+(
+  nro_referencia      NUMBER(20) not null,
+  cod_tip_referencia  VARCHAR2(3) not null,
+  nro_ref_externa     VARCHAR2(100),
+  nro_operacion       NUMBER(15),
+  fecha               DATE,
+  monto               NUMBER(18,2),
+  cod_moneda          VARCHAR2(10),
+  nro_ope_banco       VARCHAR2(100),
+  nro_ord_pago        VARCHAR2(20),
+  nro_doc_pagador     VARCHAR2(30),
+  tip_doc_pagador     VARCHAR2(30),
+  nro_cta_debito      VARCHAR2(30),
+  cod_bco_destino     VARCHAR2(100),
+  cod_ciu_bco_destino VARCHAR2(10),
+  cod_pai_bco_destino VARCHAR2(10),
+  cod_ciu_ben_destino VARCHAR2(10),
+  cod_pai_ben_destino VARCHAR2(10),
+  nro_cta_ben_destino VARCHAR2(30),
+  nom_beneficiario    VARCHAR2(120),
+  estado              VARCHAR2(50),
+  cod_per_solicitante VARCHAR2(10),
+  enviada             VARCHAR2(1) default 'N',
+  fecha_envio         DATE,
+  hor_envio           VARCHAR2(8),
+  canal               VARCHAR2(100),
+  observacion         VARCHAR2(1000),
+  mensaje             LONG,
+  respuesta           VARCHAR2(4000),
+  cod_ent_bancaria    NUMBER(4) default 1007,
+  cod_sofia           VARCHAR2(100),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_REG_TRANSFERENCIAS
+  is 'Contiene los registros de Transferencias enviadas a DNA';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_referencia
+  is 'Numero de referencia de la transferencia.';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_tip_referencia
+  is 'Codigo de referencia de la transferencia.';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_ref_externa
+  is 'Numero de referencia externa que identifica a la transferencia en el swift.';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_operacion
+  is 'Numero de Operacion.';
+comment on column IT.LC_REG_TRANSFERENCIAS.fecha
+  is 'Fecha de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.monto
+  is 'Importe de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_ope_banco
+  is 'Nro de operacion del banco e envia DNA(Fecha/BIC/Campo 20 de Swift)';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_ord_pago
+  is 'Nro de Orden de Pago(Generado por DNA)';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_doc_pagador
+  is 'Nro de Documento del Pagador';
+comment on column IT.LC_REG_TRANSFERENCIAS.tip_doc_pagador
+  is 'Tipo de Documento de Pagador(CI/RUC/CRC/CRP)';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_cta_debito
+  is 'Nro de Cuenta en la que se realizara el debito(Formato Sipap)';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_bco_destino
+  is 'Entidad financiera destinataria de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_ciu_bco_destino
+  is 'Ciudad del Banco  destinatario de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_pai_bco_destino
+  is 'Pais del Banco destinatario de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_ciu_ben_destino
+  is 'Ciudad del Beneficiario de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_pai_ben_destino
+  is 'Pais del Beneficiario de la transferencia';
+comment on column IT.LC_REG_TRANSFERENCIAS.nro_cta_ben_destino
+  is 'Nro de Cta o IBAN del beneficiario(proveedor)';
+comment on column IT.LC_REG_TRANSFERENCIAS.nom_beneficiario
+  is 'Nombre del beneficiario(Proveedor)';
+comment on column IT.LC_REG_TRANSFERENCIAS.estado
+  is 'Estado de la Registración';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_per_solicitante
+  is 'Código de Persona Solicitante';
+comment on column IT.LC_REG_TRANSFERENCIAS.enviada
+  is 'Indica si fue enviada a la entidad emisora (entidad en Convenio de Transferencias) para transferencias recibidas.';
+comment on column IT.LC_REG_TRANSFERENCIAS.fecha_envio
+  is 'Fecha de envio a DNA';
+comment on column IT.LC_REG_TRANSFERENCIAS.hor_envio
+  is 'Hora de envio de datos a DNA';
+comment on column IT.LC_REG_TRANSFERENCIAS.canal
+  is 'Canal (HBANK/CORE)';
+comment on column IT.LC_REG_TRANSFERENCIAS.observacion
+  is 'Observacion sobre la transferencia.';
+comment on column IT.LC_REG_TRANSFERENCIAS.mensaje
+  is 'Mensaje enviado';
+comment on column IT.LC_REG_TRANSFERENCIAS.respuesta
+  is 'Respuesta recibida';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_ent_bancaria
+  is 'Codigo de Entidad Bancaria BCP';
+comment on column IT.LC_REG_TRANSFERENCIAS.cod_sofia
+  is 'Codigo de Transaccion Sofia';
+comment on column IT.LC_REG_TRANSFERENCIAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_REG_TRANSFERENCIAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_REG_TRANSFERENCIAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_REG_TRANSFERENCIAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create unique index IT.IN_LC_BUSQUEDA on IT.LC_REG_TRANSFERENCIAS (NRO_REFERENCIA, COD_TIP_REFERENCIA, FECHA)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LC_TRA_REG_FEC_OPERACION on IT.LC_REG_TRANSFERENCIAS (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_LTRAN_REG_NRO_OPERACION on IT.LC_REG_TRANSFERENCIAS (NRO_OPERACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_REG_TRANSFERENCIAS
+  add constraint PK_LC_REG_TRANSFERENCIAS primary key (NRO_REFERENCIA, COD_TIP_REFERENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_REG_TRANSFERENCIAS
+  add constraint UK_LCTRA_REG_NRO_REF_EXTERNA unique (NRO_REF_EXTERNA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.LC_REG_TRANSFERENCIAS
+  add constraint UK_NRO_ORD_PAG_DNA unique (NRO_ORD_PAGO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

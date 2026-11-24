@@ -1,0 +1,30 @@
+create table IT.GE_NOM_SOBREGIROS_TMP
+(
+  nro_cuenta      VARCHAR2(15),
+  fec_vencimiento DATE,
+  monto           NUMBER(18,2),
+  tipo            VARCHAR2(10),
+  cod_ente        NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_NOM_SOBREGIROS_TMP.nro_cuenta
+  is 'Número de cuenta vinculada al sobregiro.';
+comment on column IT.GE_NOM_SOBREGIROS_TMP.fec_vencimiento
+  is 'Fecha de vencimiento del sobregiro.';
+comment on column IT.GE_NOM_SOBREGIROS_TMP.monto
+  is 'Monto del Sobregiro.';
+comment on column IT.GE_NOM_SOBREGIROS_TMP.tipo
+  is 'Tipo del Sobregiro: T-emporal, P-ermanente.';
+comment on column IT.GE_NOM_SOBREGIROS_TMP.cod_ente
+  is 'Código de Ente.';
+

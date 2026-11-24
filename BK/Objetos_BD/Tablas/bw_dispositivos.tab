@@ -1,0 +1,63 @@
+create table IT.BW_DISPOSITIVOS
+(
+  id_dispositivo      VARCHAR2(40) not null,
+  os                  VARCHAR2(20),
+  os_version          VARCHAR2(60),
+  marca               VARCHAR2(60),
+  modelo              VARCHAR2(60),
+  emulador            VARCHAR2(1),
+  ult_acceso          DATE default SYSDATE,
+  tip_cli_dispositivo VARCHAR2(40),
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,0,10) not null,
+  fec_modificacion    DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_DISPOSITIVOS.id_dispositivo
+  is 'El identificador del dispositivo';
+comment on column IT.BW_DISPOSITIVOS.os
+  is 'El Sistema Operativo';
+comment on column IT.BW_DISPOSITIVOS.os_version
+  is 'La version del Sistema Operativo';
+comment on column IT.BW_DISPOSITIVOS.marca
+  is 'La marca';
+comment on column IT.BW_DISPOSITIVOS.modelo
+  is 'El modelo';
+comment on column IT.BW_DISPOSITIVOS.emulador
+  is 'Si es un emulador o no';
+comment on column IT.BW_DISPOSITIVOS.ult_acceso
+  is 'Ultimo acceso desde el dispositivo';
+comment on column IT.BW_DISPOSITIVOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.BW_DISPOSITIVOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.BW_DISPOSITIVOS.usu_modificacion
+  is 'Usuario que modificó el registro.';
+comment on column IT.BW_DISPOSITIVOS.fec_modificacion
+  is 'Fecha en que se modificó el registro.';
+alter table IT.BW_DISPOSITIVOS
+  add constraint BW_DISPOSITIVOS_PK primary key (ID_DISPOSITIVO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

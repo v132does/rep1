@@ -1,0 +1,81 @@
+create table IT.CB_MOV_BCO_CLEARING_TMP
+(
+  cod_sucursal   NUMBER(2),
+  nro_cuenta     VARCHAR2(15),
+  fec_valor      DATE,
+  fec_contable   DATE,
+  cod_movimiento NUMBER(3),
+  importe        NUMBER(18,2),
+  tipo           NUMBER(1),
+  concepto       VARCHAR2(30),
+  nro_referencia NUMBER(10),
+  est_conciliado VARCHAR2(1),
+  mes            NUMBER(2),
+  ano            NUMBER(4),
+  ubicado_en     VARCHAR2(20),
+  arc_texto      VARCHAR2(85)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.cod_sucursal
+  is 'Codigo de Sucursal.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.nro_cuenta
+  is 'Nro. de Cuenta.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.fec_valor
+  is 'Fecha Valor.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.fec_contable
+  is 'Fecha Contable.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.cod_movimiento
+  is 'Codigo de movimiento.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.importe
+  is 'Importe.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.tipo
+  is '1-Debe 2-Haber.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.concepto
+  is 'Concepto.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.nro_referencia
+  is 'Nro. de referencia.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.est_conciliado
+  is 'S=Si Encontrado.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.mes
+  is 'Mes.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.ano
+  is 'Año.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.ubicado_en
+  is 'Lugar donde fue ubicado.';
+comment on column IT.CB_MOV_BCO_CLEARING_TMP.arc_texto
+  is 'Linea de texto del archivo.';
+create index IT.IN_CBBCO_ANO5 on IT.CB_MOV_BCO_CLEARING_TMP (ANO, MES)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CBBCO_NRO_REFERENCIA5 on IT.CB_MOV_BCO_CLEARING_TMP (NRO_REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

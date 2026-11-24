@@ -1,0 +1,142 @@
+create table IT.GE_MOV_DAT_ADICIONALES
+(
+  fecha             DATE not null,
+  hora              VARCHAR2(8) not null,
+  hor_referencia    VARCHAR2(8),
+  cod_usuario       VARCHAR2(10) not null,
+  nro_secuencia     NUMBER(3) not null,
+  fec_valor         DATE,
+  cod_modulo        NUMBER(3),
+  cod_modalidad     NUMBER(3),
+  nro_cuenta        VARCHAR2(20),
+  tip_operacion     VARCHAR2(3),
+  cod_tra_padre     NUMBER(4),
+  cod_moneda        VARCHAR2(3),
+  monto             NUMBER(18,2),
+  mto_comision      NUMBER(18,2),
+  cod_extorno       VARCHAR2(2),
+  nro_documento     NUMBER(15),
+  nro_transaccion   NUMBER(15),
+  dat_adicional     VARCHAR2(35),
+  nro_cta_deb_batch VARCHAR2(20),
+  liberado          VARCHAR2(1),
+  fec_acreditacion  DATE,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_DAT_ADICIONALES
+  is 'Datos Adicionales de Movimientos Trasaccionales.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.fecha
+  is 'Fecha.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.hora
+  is 'Hora.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.hor_referencia
+  is 'Hora Referencia.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.cod_usuario
+  is 'Cod. Usuario.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.nro_secuencia
+  is 'Nro Secuencia.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.fec_valor
+  is 'Fecha de Valor.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.cod_modulo
+  is 'Codigo de módulo.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.nro_cuenta
+  is 'Número de cuenta.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.tip_operacion
+  is 'Tipo de Operacion Transaccional (Transaccional / Batch)';
+comment on column IT.GE_MOV_DAT_ADICIONALES.cod_tra_padre
+  is 'Código de Transaccion Padre';
+comment on column IT.GE_MOV_DAT_ADICIONALES.cod_moneda
+  is 'Código de Moneda.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.monto
+  is 'Monto.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.mto_comision
+  is 'Monto de Comision.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.cod_extorno
+  is 'Extorno.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.nro_documento
+  is 'Número de Documento.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.nro_transaccion
+  is 'Número de Transacción.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.dat_adicional
+  is 'Dato Adicional(Forma Cobro).';
+comment on column IT.GE_MOV_DAT_ADICIONALES.nro_cta_deb_batch
+  is 'Nro. Cuenta Debito en Batch';
+comment on column IT.GE_MOV_DAT_ADICIONALES.liberado
+  is 'Liberado.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.fec_acreditacion
+  is 'Fecha de Acreditacion.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.usu_insercion
+  is 'Usuario de Inserción.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.fec_insercion
+  is 'Fecha de Inserción.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.usu_modificacion
+  is 'Usuario de Modificacion.';
+comment on column IT.GE_MOV_DAT_ADICIONALES.fec_modificacion
+  is 'Fecha de Modificacion.';
+create index IT.ID_GMODA_FECHA on IT.GE_MOV_DAT_ADICIONALES (FECHA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ID_GMODA_NRO_CUENTA on IT.GE_MOV_DAT_ADICIONALES (NRO_CUENTA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.ID_GMODA_NRO_TRANSACCION on IT.GE_MOV_DAT_ADICIONALES (NRO_TRANSACCION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_DAT_ADICIONALES
+  add constraint PK_GE_MOV_DAT_ADICIONALES primary key (FECHA, COD_USUARIO, HORA, NRO_SECUENCIA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

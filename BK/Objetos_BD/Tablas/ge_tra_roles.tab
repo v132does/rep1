@@ -1,0 +1,88 @@
+create table IT.GE_TRA_ROLES
+(
+  cod_transaccion  NUMBER(4) not null,
+  cod_modulo       NUMBER(3) not null,
+  cod_modalidad    NUMBER(3) not null,
+  cod_rol          VARCHAR2(20) not null,
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default SYSDATE not null,
+  hor_inicio       VARCHAR2(8),
+  hor_fin          VARCHAR2(8),
+  ope_fec_valor    VARCHAR2(1) default 'N',
+  can_dias         NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TRA_ROLES
+  is 'Contiene los permisos por transacciones que posee cada rol.';
+comment on column IT.GE_TRA_ROLES.cod_transaccion
+  is 'Codigo de Transaccion.';
+comment on column IT.GE_TRA_ROLES.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_TRA_ROLES.cod_modalidad
+  is 'Codigo de la Transaccion.';
+comment on column IT.GE_TRA_ROLES.cod_rol
+  is 'Codigo del Rol.';
+comment on column IT.GE_TRA_ROLES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TRA_ROLES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TRA_ROLES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRA_ROLES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TRA_ROLES.hor_inicio
+  is 'Hora del dia desde la que se puede operar con esta transaccion.';
+comment on column IT.GE_TRA_ROLES.hor_fin
+  is 'Hora del dia hasta la que se puede operar con esta transaccion.';
+comment on column IT.GE_TRA_ROLES.ope_fec_valor
+  is 'Indica si permite operar con Fecha Valor. (S/N).';
+comment on column IT.GE_TRA_ROLES.can_dias
+  is 'Cantidad de Dias hacia atras permitidos para operar con Fecha Valor.';
+alter table IT.GE_TRA_ROLES
+  add constraint PK_GE_TRA_ROLES primary key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, COD_ROL)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TRA_ROLES
+  add constraint FK_GTROL_COD_ROL foreign key (COD_ROL)
+  references IT.BA_ROLES (COD_ROL);
+alter table IT.GE_TRA_ROLES
+  add constraint FK_GTROL_COD_TRANSACCION foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_TRA_ROLES
+  add constraint AVCON_1085010049_COD_M_002
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_TRA_ROLES
+  add constraint AVCON_1085010049_COD_M_003
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_TRA_ROLES
+  add constraint CK_DIAS_FEC_VALOR
+  check ((OPE_FEC_VALOR = 'S' AND CAN_DIAS > 0) OR (OPE_FEC_VALOR = 'N' AND NVL(CAN_DIAS,0) = 0));
+alter table IT.GE_TRA_ROLES
+  add constraint CK_HORA_CAJA
+  check ((cod_modulo <> 9 and hor_inicio is null and hor_fin is null) or cod_modulo = 9);
+alter table IT.GE_TRA_ROLES
+  add constraint CK_RANGO_HORA
+  check ((HOR_INICIO IS NOT NULL AND HOR_FIN IS NOT NULL AND HOR_INICIO <= HOR_FIN) OR HOR_INICIO IS NULL AND HOR_FIN IS NULL);
+

@@ -1,0 +1,59 @@
+create table IT.GE_LOG_REINTEGROS
+(
+  fecha            DATE,
+  hora             VARCHAR2(8),
+  tipo             VARCHAR2(10),
+  nro_operacion    NUMBER,
+  cod_cli_comercio VARCHAR2(30),
+  cod_suc_comercio VARCHAR2(30),
+  cod_comercio     VARCHAR2(30),
+  mto_reintegro    NUMBER,
+  reintegro        VARCHAR2(1),
+  cod_error        VARCHAR2(30),
+  msj_error        VARCHAR2(200),
+  usu_insercion    VARCHAR2(30) default user,
+  fec_insercion    DATE default sysdate,
+  nro_cuenta       VARCHAR2(30)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_LOG_REINTEGROS
+  is 'Tabla de log de reintegros.';
+comment on column IT.GE_LOG_REINTEGROS.fecha
+  is 'Fecha sistema.';
+comment on column IT.GE_LOG_REINTEGROS.hora
+  is 'Hora.';
+comment on column IT.GE_LOG_REINTEGROS.tipo
+  is 'Tipo (QR / TD).';
+comment on column IT.GE_LOG_REINTEGROS.nro_operacion
+  is 'Identificador de la operación o número de documento.';
+comment on column IT.GE_LOG_REINTEGROS.cod_cli_comercio
+  is 'Código de cliente comercio.';
+comment on column IT.GE_LOG_REINTEGROS.cod_suc_comercio
+  is 'Código de Sucursal del comercio.';
+comment on column IT.GE_LOG_REINTEGROS.cod_comercio
+  is 'Código de Comercio.';
+comment on column IT.GE_LOG_REINTEGROS.mto_reintegro
+  is 'Monto a reintegrar';
+comment on column IT.GE_LOG_REINTEGROS.reintegro
+  is 'S/N Indica si realizó o no el reintegro.';
+comment on column IT.GE_LOG_REINTEGROS.cod_error
+  is 'Código de error.';
+comment on column IT.GE_LOG_REINTEGROS.msj_error
+  is 'Mensaje de Error.';
+comment on column IT.GE_LOG_REINTEGROS.usu_insercion
+  is 'Usuario de inserción.';
+comment on column IT.GE_LOG_REINTEGROS.fec_insercion
+  is 'Fecha de inserción.';
+comment on column IT.GE_LOG_REINTEGROS.nro_cuenta
+  is 'Número de Cuenta.';
+

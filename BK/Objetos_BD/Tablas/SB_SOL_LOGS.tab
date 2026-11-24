@@ -1,0 +1,53 @@
+-- =====================================================================
+-- TABLA: IT.SB_SOL_LOGS
+-- Descripción: Logs del proceso de solvencia
+-- =====================================================================
+
+CREATE TABLE IT.SB_SOL_LOGS (
+    id_log                NUMBER,
+    id_ejecucion          VARCHAR2(36)        NOT NULL,
+    ano                   NUMBER(4),
+    mes                   NUMBER(2),
+    fuente_datos          VARCHAR2(100),
+    tipo_log              VARCHAR2(20)        NOT NULL, -- INFO, WARNING, ERROR, SUCCESS
+    mensaje               VARCHAR2(4000)      NOT NULL,
+    detalle_error         CLOB,
+    cantidad_registros    NUMBER,
+    tiempo_ejecucion_ms   NUMBER,
+    usuario               VARCHAR2(100)       DEFAULT USER,
+    fecha_log             TIMESTAMP           DEFAULT SYSTIMESTAMP NOT NULL,
+    CONSTRAINT ck_tipo_log CHECK (tipo_log IN ('INFO', 'WARNING', 'ERROR', 'SUCCESS'))
+)
+LOGGING
+TABLESPACE IT_DATA
+PCTFREE 10
+INITRANS 1
+STORAGE (
+    INITIAL    65536
+    NEXT       1048576
+    MINEXTENTS 1
+    MAXEXTENTS UNLIMITED
+    BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+
+CREATE INDEX IT.IN_SOL_LOG_EJECUCION  ON IT.SB_SOL_LOGS(id_ejecucion) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_LOG_TIPO       ON IT.SB_SOL_LOGS(tipo_log) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_LOG_FECHA      ON IT.SB_SOL_LOGS(fecha_log) TABLESPACE IT_IND;
+CREATE INDEX IT.IN_SOL_LOG_FUENTE     ON IT.SB_SOL_LOGS(fuente_datos) TABLESPACE IT_IND;
+
+COMMENT ON TABLE IT.SB_SOL_LOGS IS 'Registro de mensajes y eventos del proceso de solvencia';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.id_log IS 'Identificador unico del registro de log';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.id_ejecucion IS 'Referencia a la ejecucion del proceso';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.ano IS 'Anno del periodo procesado';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.mes IS 'Mes del periodo procesado';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.fuente_datos IS 'Fuente de datos asociada al mensaje';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.tipo_log IS 'Tipo de mensaje: INFO, WARNING, ERROR, SUCCESS';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.mensaje IS 'Descripcion del evento o mensaje registrado';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.detalle_error IS 'Detalle tecnico del error (stack trace u otro)';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.cantidad_registros IS 'Cantidad de registros involucrados en el evento';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.tiempo_ejecucion_ms IS 'Tiempo de ejecucion de la operacion en milisegundos';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.usuario IS 'Usuario que genero el evento';
+COMMENT ON COLUMN IT.SB_SOL_LOGS.fecha_log IS 'Fecha y hora del evento registrado';

@@ -1,0 +1,68 @@
+create table IT.GE_TELEGRAMAS_DET
+(
+  cod_telegrama    NUMBER(7) not null,
+  nro_cuenta       VARCHAR2(15) not null,
+  nro_cheque       NUMBER(15) not null,
+  fecha            DATE not null,
+  hora             VARCHAR2(8) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mto_pagado       NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_TELEGRAMAS_DET
+  is 'Detalles de telegramas.';
+comment on column IT.GE_TELEGRAMAS_DET.cod_telegrama
+  is 'Codigo del Telegrama.';
+comment on column IT.GE_TELEGRAMAS_DET.nro_cuenta
+  is 'Nro de Cuenta.';
+comment on column IT.GE_TELEGRAMAS_DET.nro_cheque
+  is 'Nro de Cheque.';
+comment on column IT.GE_TELEGRAMAS_DET.fecha
+  is 'Fecha de Devolucion.';
+comment on column IT.GE_TELEGRAMAS_DET.hora
+  is 'Hora de Devolucion.';
+comment on column IT.GE_TELEGRAMAS_DET.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_TELEGRAMAS_DET.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_TELEGRAMAS_DET.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TELEGRAMAS_DET.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_TELEGRAMAS_DET.mto_pagado
+  is 'Monto depositado en Caja.';
+alter table IT.GE_TELEGRAMAS_DET
+  add constraint PK_GE_TELEGRAMAS_DET primary key (NRO_CUENTA, NRO_CHEQUE, FECHA, HORA, COD_TELEGRAMA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_TELEGRAMAS_DET
+  add constraint FK_GTELD_COD_TELEGRAMA foreign key (COD_TELEGRAMA)
+  references IT.GE_TELEGRAMAS (COD_TELEGRAMA) on delete cascade
+  deferrable initially deferred;
+alter table IT.GE_TELEGRAMAS_DET
+  add constraint FK_GTELD_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+

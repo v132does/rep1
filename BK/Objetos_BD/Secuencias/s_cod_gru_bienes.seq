@@ -1,0 +1,7 @@
+create sequence IT.S_COD_GRU_BIENES
+minvalue 0
+maxvalue 999999999
+start with 1481
+increment by 1
+cache 20;
+

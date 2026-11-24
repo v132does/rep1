@@ -1,0 +1,9 @@
+-- Secuencia para parámetros de simulación (fecha programada, negocio, etc.)
+CREATE SEQUENCE IT.S_FEC_SIMULACION
+  START WITH 1
+  INCREMENT BY 1
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  NOCYCLE
+  NOORDER
+  CACHE 20;

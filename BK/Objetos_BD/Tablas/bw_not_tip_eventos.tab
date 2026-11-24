@@ -1,0 +1,44 @@
+create table IT.BW_NOT_TIP_EVENTOS
+(
+  cod_tip_evento   VARCHAR2(10) not null,
+  descripcion      VARCHAR2(200),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  template         VARCHAR2(140),
+  template2        VARCHAR2(140),
+  titulo           VARCHAR2(45)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.BW_NOT_TIP_EVENTOS.cod_tip_evento
+  is 'Codigo del tipo de evento. Tipo de cuenta, tipo de evento';
+comment on column IT.BW_NOT_TIP_EVENTOS.template
+  is 'Template del mensaje';
+comment on column IT.BW_NOT_TIP_EVENTOS.titulo
+  is 'Titulo del template.';
+alter table IT.BW_NOT_TIP_EVENTOS
+  add constraint PK_BW_NOT_TIP_EVENTOS primary key (COD_TIP_EVENTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,97 @@
+create table IT.TA_EXT_CLI_DET_PAG_GP
+(
+  nro_cuenta           VARCHAR2(20),
+  fec_cierre           DATE,
+  dia_mora             NUMBER(20),
+  car_por_comision     NUMBER(35),
+  mon_interes          NUMBER(35),
+  mto_iva_car_comision NUMBER(35),
+  mto_iva_interes      NUMBER(35),
+  tot_factura          NUMBER(35),
+  com_no_financiables  NUMBER(35),
+  gas_financieros      NUMBER(35),
+  com_financiables     NUMBER(35),
+  sal_mora             NUMBER(35),
+  mto_pag_minimo       NUMBER(35),
+  inf_rel_socio        VARCHAR2(200),
+  nro_cod_barra        VARCHAR2(55),
+  int_pun_moratorio    NUMBER(35),
+  cat_bcp              VARCHAR2(10),
+  fec_cat              DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TA_EXT_CLI_DET_PAG_GP
+  is 'informacion_pagos Extracto GP';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.nro_cuenta
+  is 'Numero de Cuenta
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.fec_cierre
+  is 'Fecha de cierre
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.dia_mora
+  is 'Días Mora
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.car_por_comision
+  is 'Cargos por comisión
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.mon_interes
+  is 'Intereses
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.mto_iva_car_comision
+  is 'Iva a cargos por comisión
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.mto_iva_interes
+  is 'Iva por Intereses
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.tot_factura
+  is 'Total Factura
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.com_no_financiables
+  is 'Compras no financiables
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.gas_financieros
+  is 'Gastos financieros
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.com_financiables
+  is 'Porcentaje compras financiables
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.sal_mora
+  is 'Monto de Mora
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.mto_pag_minimo
+  is 'Total mínimo a pagar
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.inf_rel_socio
+  is 'Ofertas y promociones para el socio
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.nro_cod_barra
+  is 'Numero del codigo de Barras
+';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.int_pun_moratorio
+  is 'Interes punitorio moratorio';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.cat_bcp
+  is 'CAT. BCP';
+comment on column IT.TA_EXT_CLI_DET_PAG_GP.fec_cat
+  is 'Fecha Categoria BCP';
+create index IT.IN_TAEXD_NRO_CUENTA on IT.TA_EXT_CLI_DET_PAG_GP (NRO_CUENTA, FEC_CIERRE)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

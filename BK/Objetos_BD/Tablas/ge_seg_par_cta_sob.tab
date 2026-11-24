@@ -1,0 +1,100 @@
+create table IT.GE_SEG_PAR_CTA_SOB
+(
+  cod_seg_cliente   NUMBER(3) not null,
+  cod_moneda        VARCHAR2(3) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  plazo             NUMBER(5) not null,
+  tipo              VARCHAR2(1) not null,
+  monto             NUMBER(18,2) default 0,
+  val_tas_interes   NUMBER(20,4) default 0,
+  dia_tasa          NUMBER(3),
+  tas_preferencial  NUMBER(20,4),
+  dia_sin_costo     NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  cod_sub_modalidad NUMBER(3) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_SEG_PAR_CTA_SOB
+  is 'Parametros de lineas de Sobregiro.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.cod_seg_cliente
+  is 'Numero de Cuenta.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.plazo
+  is 'plazo.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.tipo
+  is 'Tipo de acuerdo, T= Temporal, P= Permanente.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.monto
+  is 'Valor del acuerdo de sobregiro.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.val_tas_interes
+  is 'Valor de la tasa de interes que se aplicara en la liquidacion del sobregiro acordado.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.dia_tasa
+  is 'Dias de tasa preferencial.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.tas_preferencial
+  is 'Tasa de tasa preferencial.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.dia_sin_costo
+  is 'Dias sin costo por utilizacion de linea.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_SEG_PAR_CTA_SOB.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint PK_GE_SEG_PAR_CTA_SOB primary key (COD_SEG_CLIENTE, COD_MODULO, COD_MODALIDAD, PLAZO, TIPO, COD_MONEDA, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint FK_GSPCS_COD_MODULO foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint FK_GSPCS_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint FK_GSPCS_COD_SEG_CLIENTE foreign key (COD_SEG_CLIENTE)
+  references IT.GE_SEG_CLIENTES (COD_SEG_CLIENTE);
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint AVCON_1097167816_COD_M_010
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint AVCON_1097167816_COD_M_011
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint AVCON_1097167816_COD_S_003
+  check (COD_SEG_CLIENTE BETWEEN 0 AND 999);
+alter table IT.GE_SEG_PAR_CTA_SOB
+  add constraint AVCON_1097167816_TIPO_000
+  check (TIPO IN ('T', 'P'));
+

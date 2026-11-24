@@ -1,0 +1,64 @@
+create table IT.BA_DOCUMENTOS
+(
+  nro_secuencia    NUMBER(20),
+  tabla            VARCHAR2(40) not null,
+  clave            VARCHAR2(100) not null,
+  nom_archivo      VARCHAR2(200) not null,
+  tip_archivo      VARCHAR2(100),
+  contenido        BLOB default EMPTY_BLOB(),
+  comentario       VARCHAR2(100),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BA_DOCUMENTOS
+  is 'Documentos anexos a cualquier tabla';
+comment on column IT.BA_DOCUMENTOS.nro_secuencia
+  is 'Código unico identificador del registro';
+comment on column IT.BA_DOCUMENTOS.tabla
+  is 'Nombre de la tabla asociada';
+comment on column IT.BA_DOCUMENTOS.clave
+  is 'Clave primaria de la tabla que identifica al registro. Si es compuesto, los campos van separados por #';
+comment on column IT.BA_DOCUMENTOS.nom_archivo
+  is 'Nombre del archivo guardado';
+comment on column IT.BA_DOCUMENTOS.tip_archivo
+  is 'Tipo de Archivo: DOC, TXT, XLS, ZIP, ARC';
+comment on column IT.BA_DOCUMENTOS.contenido
+  is 'Documento que contiene el archivo';
+comment on column IT.BA_DOCUMENTOS.comentario
+  is 'Comentario del archivo anexo';
+comment on column IT.BA_DOCUMENTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.BA_DOCUMENTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.BA_DOCUMENTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.BA_DOCUMENTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+alter table IT.BA_DOCUMENTOS
+  add constraint PK_BA_DOCUMENTOS primary key (TABLA, CLAVE, NOM_ARCHIVO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

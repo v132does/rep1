@@ -1,0 +1,92 @@
+create table IT.TA_TAR_ENT_MASIVO_TMP
+(
+  nro_cuenta       VARCHAR2(15),
+  nro_tarjeta      VARCHAR2(25),
+  cod_persona      VARCHAR2(10),
+  nom_titular      VARCHAR2(26),
+  msj_respuestas   VARCHAR2(2000),
+  nro_lote         NUMBER(6),
+  est_lote         VARCHAR2(1),
+  fec_pro_lote     DATE,
+  hor_pro_lote     VARCHAR2(10),
+  nro_registro     NUMBER(6),
+  fec_gen_lote     DATE,
+  hor_gen_lote     VARCHAR2(10),
+  est_registro     VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.nro_cuenta
+  is 'Nro.  de Cuenta de la TDC';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.nro_tarjeta
+  is 'Nro de Tarjeta TDC';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.cod_persona
+  is 'Cod persona del titular';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.msj_respuestas
+  is 'respuestas de itgf y bancard';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.nro_lote
+  is 'Nro.  de lote generado';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.est_lote
+  is 'Estado del lote (E = Error, P= procesado, G= Generado';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.fec_pro_lote
+  is 'Fecha de proceso del lote';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.hor_pro_lote
+  is 'Hora proceso del lote';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.nro_registro
+  is 'Nro de registro de TDC';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.fec_gen_lote
+  is 'Fecha generación Lote';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.hor_gen_lote
+  is 'Hora generación Lote';
+comment on column IT.TA_TAR_ENT_MASIVO_TMP.est_registro
+  is 'Estado del registro (E= Error, N= Normal)';
+create index IT.IN_TTMT_COD_PERSONA on IT.TA_TAR_ENT_MASIVO_TMP (COD_PERSONA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TTMT_FEC_PRO_LOTE on IT.TA_TAR_ENT_MASIVO_TMP (FEC_PRO_LOTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_TTMT_NRO_LOTE on IT.TA_TAR_ENT_MASIVO_TMP (NRO_LOTE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

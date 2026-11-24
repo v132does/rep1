@@ -1,0 +1,24 @@
+create table IT.GE_BLO_MASIVOS
+(
+  fecha            DATE,
+  cod_persona      VARCHAR2(10),
+  linea            VARCHAR2(2000),
+  usu_insercion    VARCHAR2(30) default user,
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(30) default user,
+  fec_modificacion DATE default sysdate
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_BLO_MASIVOS
+  is 'Bloqueos Masivos a Clientes que ingresaron a Proceso de Control en batch provenientes de RBAKYC.';
+

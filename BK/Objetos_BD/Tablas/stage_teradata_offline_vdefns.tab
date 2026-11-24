@@ -1,0 +1,9 @@
+create global temporary table IT.STAGE_TERADATA_OFFLINE_VDEFNS
+(
+  index    NUMBER,
+  dbname   VARCHAR2(256),
+  viewname VARCHAR2(256),
+  text     CLOB
+)
+on commit preserve rows;
+

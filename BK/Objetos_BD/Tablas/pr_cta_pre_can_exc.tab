@@ -1,0 +1,36 @@
+create table IT.PR_CTA_PRE_CAN_EXC
+(
+  cod_persona   VARCHAR2(15),
+  cod_oficina   NUMBER(3),
+  nro_cuenta    VARCHAR2(15) not null,
+  cuo_desde     NUMBER(3),
+  cuo_hasta     NUMBER(3),
+  cod_modalidad NUMBER(3),
+  cod_moneda    VARCHAR2(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_CTA_PRE_CAN_EXC
+  add constraint PK_CTA_PRE_EXC primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

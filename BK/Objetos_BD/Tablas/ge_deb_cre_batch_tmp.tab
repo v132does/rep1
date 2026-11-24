@@ -1,0 +1,35 @@
+create table IT.GE_DEB_CRE_BATCH_TMP
+(
+  cod_deb_cre_batch NUMBER(3),
+  nro_cuenta        VARCHAR2(15),
+  monto             NUMBER(18,2),
+  cod_moneda        VARCHAR2(3),
+  cod_oficina       NUMBER(3),
+  cantidad          NUMBER(10)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DEB_CRE_BATCH_TMP
+  is 'Debitos y Creditos en Batch Temporal.';
+comment on column IT.GE_DEB_CRE_BATCH_TMP.cod_deb_cre_batch
+  is 'Codigo de Debito o Credito en Batch.';
+comment on column IT.GE_DEB_CRE_BATCH_TMP.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_DEB_CRE_BATCH_TMP.monto
+  is 'Monto del Debito o Credito.';
+comment on column IT.GE_DEB_CRE_BATCH_TMP.cod_moneda
+  is 'Codigo de Moneda.';
+comment on column IT.GE_DEB_CRE_BATCH_TMP.cod_oficina
+  is 'Codigo de Oficina.';
+comment on column IT.GE_DEB_CRE_BATCH_TMP.cantidad
+  is 'Cantidad.';
+

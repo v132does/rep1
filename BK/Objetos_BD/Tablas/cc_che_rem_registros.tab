@@ -1,0 +1,20 @@
+create table IT.CC_CHE_REM_REGISTROS
+(
+  linea VARCHAR2(2000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CC_CHE_REM_REGISTROS
+  is 'Datos temporales leidos del los cheques remitidos';
+comment on column IT.CC_CHE_REM_REGISTROS.linea
+  is 'un registro del archivo fisico';
+

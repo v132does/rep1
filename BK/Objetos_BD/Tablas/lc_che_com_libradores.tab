@@ -1,0 +1,83 @@
+create table IT.LC_CHE_COM_LIBRADORES
+(
+  nro_operacion     NUMBER(15),
+  cta_libradora     VARCHAR2(20),
+  cod_banco         NUMBER(3),
+  nro_cheque        NUMBER(15),
+  cod_tip_documento NUMBER(3),
+  nro_documento     VARCHAR2(20),
+  nom_completo      VARCHAR2(120),
+  sexo              VARCHAR2(1),
+  cod_rub_primario  VARCHAR2(6),
+  fec_nacimiento    DATE,
+  fec_vto_documento DATE,
+  telefono          VARCHAR2(10),
+  direccion         VARCHAR2(80),
+  observacion       VARCHAR2(1000),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.LC_CHE_COM_LIBRADORES
+  is 'Datos temporales de cheques recibidos para descuentos.';
+comment on column IT.LC_CHE_COM_LIBRADORES.nro_operacion
+  is 'Nro. de operación a la cual pertenecen los cheques.';
+comment on column IT.LC_CHE_COM_LIBRADORES.cta_libradora
+  is 'Cta. libradora del cheque.';
+comment on column IT.LC_CHE_COM_LIBRADORES.cod_banco
+  is 'Codigo de banco.';
+comment on column IT.LC_CHE_COM_LIBRADORES.nro_cheque
+  is 'Numero de cheque.';
+comment on column IT.LC_CHE_COM_LIBRADORES.cod_tip_documento
+  is 'Tipo de documento';
+comment on column IT.LC_CHE_COM_LIBRADORES.nro_documento
+  is 'Número de documento';
+comment on column IT.LC_CHE_COM_LIBRADORES.nom_completo
+  is 'Nombre completo del librador.';
+comment on column IT.LC_CHE_COM_LIBRADORES.sexo
+  is 'Sexo.';
+comment on column IT.LC_CHE_COM_LIBRADORES.cod_rub_primario
+  is 'Código de rubro primario.';
+comment on column IT.LC_CHE_COM_LIBRADORES.fec_nacimiento
+  is 'Fecha de nacimiento.';
+comment on column IT.LC_CHE_COM_LIBRADORES.fec_vto_documento
+  is 'Fecha de vencimiento del documento.';
+comment on column IT.LC_CHE_COM_LIBRADORES.telefono
+  is 'Teléfono Principal.';
+comment on column IT.LC_CHE_COM_LIBRADORES.direccion
+  is 'Dirección Principal.';
+comment on column IT.LC_CHE_COM_LIBRADORES.observacion
+  is 'Observación.';
+comment on column IT.LC_CHE_COM_LIBRADORES.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.LC_CHE_COM_LIBRADORES.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.LC_CHE_COM_LIBRADORES.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.LC_CHE_COM_LIBRADORES.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+create index IT.IN_LCLIB_NRO_OPERACION on IT.LC_CHE_COM_LIBRADORES (NRO_OPERACION, COD_TIP_DOCUMENTO, NRO_DOCUMENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

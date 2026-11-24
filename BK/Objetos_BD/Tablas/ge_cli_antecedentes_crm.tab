@@ -1,0 +1,100 @@
+create table IT.GE_CLI_ANTECEDENTES_CRM
+(
+  cod_persona        VARCHAR2(10) not null,
+  faj_buro           VARCHAR2(1),
+  fec_ult_informconf DATE,
+  sit_infocheck      VARCHAR2(1),
+  fec_ult_infocheck  DATE,
+  mto_pag_minimo     NUMBER(18,2),
+  dia_atraso         NUMBER(5),
+  sit_tarjeta        VARCHAR2(1),
+  fec_ult_bancard    DATE,
+  tot_deu_sistema    NUMBER(18,2),
+  tot_deu_real       NUMBER(18,2),
+  dispuesto          NUMBER(18,2),
+  contingencia       NUMBER(18,2),
+  pro_categoria      NUMBER(1),
+  med_dispuesto      NUMBER(18,2),
+  fec_ult_crc        DATE,
+  fec_crc            DATE,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default current_timestamp not null,
+  cat_sistema        NUMBER(1),
+  tip_accion         VARCHAR2(1)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CLI_ANTECEDENTES_CRM
+  is 'Antecedentes de Clientes';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.cod_persona
+  is 'Código de la Persona.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.faj_buro
+  is 'Faja del Cliente en Informconf.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_ult_informconf
+  is 'Fecha de la Ultima Consulta a Informconf.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.sit_infocheck
+  is 'Situación del Cliente en Infocheck.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_ult_infocheck
+  is 'Fecha de la Ultima Consulta a Infocheck.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.mto_pag_minimo
+  is 'Pago mínimo de las tarjetas del Cliente en el sistema de Bancard.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.dia_atraso
+  is 'Días de Atraso del Cliente en el sistema de Bancard.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.sit_tarjeta
+  is 'Situación de la Tarjeta (A/Activa, I/Inactiva, B/Baja).';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_ult_bancard
+  is 'Fecha de la Ultima Consulta a Bancard.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.tot_deu_sistema
+  is 'Total Deuda del Sistema.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.tot_deu_real
+  is 'Total Deuda Real del Cliente.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.dispuesto
+  is 'Dispuesto del Cliente en el Sistema Financiero';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.contingencia
+  is 'Contingencia del Cliente en el Sistema Financiero';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.pro_categoria
+  is 'Peor categoría del cliente en el BCP de los últimos 6 meses.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.med_dispuesto
+  is 'Media del dispuesto del cliente en el BCP de los últimos 6 meses.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_ult_crc
+  is 'Fecha de la Ultima Consulta de CRC.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_crc
+  is 'Fecha del CRC.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.cat_sistema
+  is 'Categoría del Cliente en el Sistema Financiero.';
+comment on column IT.GE_CLI_ANTECEDENTES_CRM.tip_accion
+  is 'Indica el tipo de accion realizado con el registro en el Core.-';
+alter table IT.GE_CLI_ANTECEDENTES_CRM
+  add constraint PK_GE_CLI_ANTECEDENTES_CRM primary key (FEC_MODIFICACION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

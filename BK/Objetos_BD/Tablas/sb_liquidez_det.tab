@@ -1,0 +1,56 @@
+create table IT.SB_LIQUIDEZ_DET
+(
+  fecha            DATE,
+  descripcion      VARCHAR2(60),
+  cod_moneda       VARCHAR2(3),
+  nro_cuenta       VARCHAR2(15),
+  mto_devengado    NUMBER(18,2),
+  mto_capital      NUMBER(18,2),
+  plazo            NUMBER(7) not null,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  mto_prevision    NUMBER(18,2) default 0,
+  mto_valuacion    NUMBER(18,2) default 0
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_LIQUIDEZ_DET
+  is 'Detalle de Liquidez.';
+comment on column IT.SB_LIQUIDEZ_DET.fecha
+  is 'Fecha.';
+comment on column IT.SB_LIQUIDEZ_DET.descripcion
+  is 'Descripcion de la cuenta afectada.';
+comment on column IT.SB_LIQUIDEZ_DET.cod_moneda
+  is 'Moneda.';
+comment on column IT.SB_LIQUIDEZ_DET.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.SB_LIQUIDEZ_DET.mto_devengado
+  is 'Monto devengado.';
+comment on column IT.SB_LIQUIDEZ_DET.mto_capital
+  is 'Monto capital.';
+comment on column IT.SB_LIQUIDEZ_DET.plazo
+  is 'Plazo de la Cta.';
+comment on column IT.SB_LIQUIDEZ_DET.usu_insercion
+  is 'Usuario que inserto el registro.';
+comment on column IT.SB_LIQUIDEZ_DET.fec_insercion
+  is 'Fecha de insercion del registro.';
+comment on column IT.SB_LIQUIDEZ_DET.usu_modificacion
+  is 'Usuario que modifico el registro.';
+comment on column IT.SB_LIQUIDEZ_DET.fec_modificacion
+  is 'Fecha de modificacion del registro.';
+comment on column IT.SB_LIQUIDEZ_DET.mto_prevision
+  is 'Monto de prevision para activa.';
+comment on column IT.SB_LIQUIDEZ_DET.mto_valuacion
+  is 'Monto de valuacion para activa.';
+

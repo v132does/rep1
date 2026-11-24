@@ -1,0 +1,59 @@
+﻿-- Create table
+create table IT.GE_PAR_TRA_EXCLUIDAS
+(
+  cod_mod_padre     NUMBER(3) not null,
+  cod_mad_padre     NUMBER(3) not null,
+  cod_tra_padre     NUMBER(4) not null,
+  cod_transaccion   NUMBER(4) not null,
+  cod_modulo        NUMBER(3) not null,
+  cod_modalidad     NUMBER(3) not null,
+  cod_sub_modalidad NUMBER(3) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.GE_PAR_TRA_EXCLUIDAS
+  is 'Parametrización de Transacciones que son excluidas en la validación de límite para cuentas bajo riesgo. Esta tabla se utiliza únicamente mediante transacciones generadas por el recurso PAG_MOV, creado específicamente para la API movements-api.';
+-- Add comments to the columns 
+comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_mod_padre
+  is 'Código de Módulo Padre.';
+comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_mad_padre
+  is 'Código de Modalidad Padre.';
+comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_tra_padre
+  is 'Código de Transacción Padre.';
+comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_transaccion
+  is 'Código de Transacción.';
+ comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_modulo
+  is 'Código de Módulo de la cuenta.';
+comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_modalidad
+  is 'Código de Modalidad de la cuenta.';
+   comment on column IT.GE_PAR_TRA_EXCLUIDAS.cod_sub_modalidad
+  is 'Código de Sub modalidad de la cuenta.';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.GE_PAR_TRA_EXCLUIDAS
+  add constraint PK_GE_PAR_TRA_EXCLUIDAS primary key (COD_MOD_PADRE, COD_MAD_PADRE, COD_TRA_PADRE, COD_TRANSACCION, COD_MODULO, COD_MODALIDAD, COD_SUB_MODALIDAD)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

@@ -1,0 +1,142 @@
+create table IT.CR_INF_FONDOS
+(
+  cod_persona         VARCHAR2(10) not null,
+  fon_transferencias  VARCHAR2(1) default 'N' not null,
+  fon_salario         VARCHAR2(1) default 'N' not null,
+  fon_prestamos       VARCHAR2(1) default 'N' not null,
+  fon_vta_activos     VARCHAR2(1) default 'N' not null,
+  fon_ren_financieras VARCHAR2(1) default 'N' not null,
+  fon_herencia        VARCHAR2(1) default 'N' not null,
+  fon_ahorro          VARCHAR2(1) default 'N' not null,
+  fon_otros           VARCHAR2(35),
+  pro_ingresos        VARCHAR2(1) default 'N' not null,
+  pro_ahorros         VARCHAR2(1) default 'N' not null,
+  pro_ven_alq         VARCHAR2(1) default 'N' not null,
+  pro_gas_operativos  VARCHAR2(1) default 'N' not null,
+  pro_otros           VARCHAR2(35),
+  usu_insercion       VARCHAR2(10) not null,
+  fec_insercion       DATE not null,
+  usu_modificacion    VARCHAR2(10) not null,
+  fec_modificacion    DATE not null,
+  tip_ope_otros       VARCHAR2(2000),
+  pep                 VARCHAR2(1),
+  pep_observacion     VARCHAR2(2000),
+  cli_frecuente       VARCHAR2(1) default 'N',
+  fon_propio          VARCHAR2(1) default 'N',
+  ope_giros           VARCHAR2(1) default 'N',
+  ope_cambios         VARCHAR2(1) default 'N'
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CR_INF_FONDOS
+  is 'Informacion adicional acerca de los Fondos de la Persona.';
+comment on column IT.CR_INF_FONDOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.CR_INF_FONDOS.fon_transferencias
+  is 'Transferencias.';
+comment on column IT.CR_INF_FONDOS.fon_salario
+  is 'Salario.';
+comment on column IT.CR_INF_FONDOS.fon_prestamos
+  is 'Prestamos.';
+comment on column IT.CR_INF_FONDOS.fon_vta_activos
+  is 'Venta de Activos.';
+comment on column IT.CR_INF_FONDOS.fon_ren_financieras
+  is 'Renovaciones Financieras.';
+comment on column IT.CR_INF_FONDOS.fon_herencia
+  is 'Herencia.';
+comment on column IT.CR_INF_FONDOS.fon_ahorro
+  is 'Ahorro.';
+comment on column IT.CR_INF_FONDOS.fon_otros
+  is 'Otros.';
+comment on column IT.CR_INF_FONDOS.pro_ingresos
+  is 'Ingresos.';
+comment on column IT.CR_INF_FONDOS.pro_ahorros
+  is 'Ahorros.';
+comment on column IT.CR_INF_FONDOS.pro_ven_alq
+  is 'Venta/Alquileres.';
+comment on column IT.CR_INF_FONDOS.pro_gas_operativos
+  is 'Gastos Operativos. ';
+comment on column IT.CR_INF_FONDOS.pro_otros
+  is 'Otros. ';
+comment on column IT.CR_INF_FONDOS.usu_insercion
+  is 'Usuario que realizo la insercion del Registro.';
+comment on column IT.CR_INF_FONDOS.fec_insercion
+  is 'Fecha en que se inserto el Registro.';
+comment on column IT.CR_INF_FONDOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el Registro.';
+comment on column IT.CR_INF_FONDOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el Registro.';
+comment on column IT.CR_INF_FONDOS.tip_ope_otros
+  is 'Otros Tipos de Operaciones.';
+comment on column IT.CR_INF_FONDOS.pep
+  is 'Si es una Persona Expuesta Politicamente PEP valores S/N.';
+comment on column IT.CR_INF_FONDOS.pep_observacion
+  is 'Observacion sobre PEP.';
+comment on column IT.CR_INF_FONDOS.cli_frecuente
+  is 'Indica si es Cliente Frecuente (S/N).';
+comment on column IT.CR_INF_FONDOS.fon_propio
+  is 'Indica si tiene Fondo Propio (S/N).';
+comment on column IT.CR_INF_FONDOS.ope_giros
+  is 'Indica si opera con Giros o Transferencias (S/N).';
+comment on column IT.CR_INF_FONDOS.ope_cambios
+  is 'Indica si realiza Operaciones de Cambios (S/N).';
+alter table IT.CR_INF_FONDOS
+  add constraint PK_CR_INF_FONDOS primary key (COD_PERSONA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 896K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.CR_INF_FONDOS
+  add constraint FK_RIFON_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_A_000
+  check (FON_AHORRO IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_H_000
+  check (FON_HERENCIA IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_P_000
+  check (FON_PRESTAMOS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_R_000
+  check (FON_REN_FINANCIERAS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_S_000
+  check (FON_SALARIO IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_T_000
+  check (FON_TRANSFERENCIAS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_FON_V_000
+  check (FON_VTA_ACTIVOS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_PRO_A_000
+  check (PRO_AHORROS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_PRO_G_000
+  check (PRO_GAS_OPERATIVOS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_PRO_I_000
+  check (PRO_INGRESOS IN ('S', 'N'));
+alter table IT.CR_INF_FONDOS
+  add constraint AVCON_1165868841_PRO_V_000
+  check (PRO_VEN_ALQ IN ('S', 'N'));
+

@@ -1,0 +1,96 @@
+create table IT.BU_BIE_GRUPOS
+(
+  cod_persona      VARCHAR2(10) not null,
+  cod_oficina      NUMBER(3) not null,
+  fecha            DATE not null,
+  forma            VARCHAR2(1) not null,
+  cod_moneda       VARCHAR2(3) not null,
+  estado           VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate,
+  tot_adjudicacion NUMBER(18,2) not null,
+  tip_aplicacion   VARCHAR2(1),
+  mto_aplicado     NUMBER(18,2),
+  cod_grupo        NUMBER(10) not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.BU_BIE_GRUPOS
+  is 'Adjudicacion de un Bien';
+comment on column IT.BU_BIE_GRUPOS.cod_persona
+  is 'Codigo Persona.';
+comment on column IT.BU_BIE_GRUPOS.cod_oficina
+  is 'Codigo Oficina.';
+comment on column IT.BU_BIE_GRUPOS.fecha
+  is 'Fecha de Adjudicacion.';
+comment on column IT.BU_BIE_GRUPOS.forma
+  is 'Forma de Adjudicacion.';
+comment on column IT.BU_BIE_GRUPOS.cod_moneda
+  is 'Codigo de la Moneda.';
+comment on column IT.BU_BIE_GRUPOS.estado
+  is 'Estado el Grupo de Bienes.';
+comment on column IT.BU_BIE_GRUPOS.usu_insercion
+  is 'Usuario Insercion.';
+comment on column IT.BU_BIE_GRUPOS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.BU_BIE_GRUPOS.usu_modificacion
+  is 'Usuario Modificacion.';
+comment on column IT.BU_BIE_GRUPOS.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.BU_BIE_GRUPOS.tot_adjudicacion
+  is 'Total de la Adjudicacion.';
+comment on column IT.BU_BIE_GRUPOS.tip_aplicacion
+  is 'Aplicación de la adjudicación (Rubro transitorio/Préstamos)';
+comment on column IT.BU_BIE_GRUPOS.mto_aplicado
+  is 'Monto parte del valor del bien aplicado sobre la deuda a cancelar.';
+comment on column IT.BU_BIE_GRUPOS.cod_grupo
+  is 'Código de Grupo de Bienes.';
+alter table IT.BU_BIE_GRUPOS
+  add constraint PK_BU_BIE_GRUPOS primary key (COD_GRUPO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_GRUPOS
+  add constraint UK_BU_BIE_GRUPOS unique (COD_PERSONA, COD_OFICINA, FECHA, FORMA, COD_MONEDA, COD_GRUPO)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.BU_BIE_GRUPOS
+  add constraint FK_UBGRU_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.BU_BIE_GRUPOS
+  add constraint FK_UBGRU_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.BU_BIE_GRUPOS
+  add constraint FK_UBGRU_COD_PERSONA foreign key (COD_PERSONA)
+  references IT.BA_PERSONAS (COD_PERSONA);
+

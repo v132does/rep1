@@ -1,0 +1,19 @@
+create table IT.SIMGIA_ARCLINOMI_BKP
+(
+  clienpagn VARCHAR2(10),
+  cliencobn VARCHAR2(10),
+  clienfum  NUMBER,
+  fecha_his DATE default SYSDATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

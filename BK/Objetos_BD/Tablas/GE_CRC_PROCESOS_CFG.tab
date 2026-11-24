@@ -1,0 +1,118 @@
+--------------------------------------------------------------------------------
+-- Tabla: IT.GE_CRC_PROCESOS_CFG
+-- Descripción: Configuración de procesos CRC a ejecutar en el orquestador
+--              CRC desacoplado.
+--------------------------------------------------------------------------------
+
+CREATE TABLE IT.GE_CRC_PROCESOS_CFG (
+    ID_PROC            NUMBER(10)     NOT NULL,
+    ORDEN              NUMBER(3)      NOT NULL,
+    COD_PROC           VARCHAR2(40)   NOT NULL,
+    DESCRIPCION        VARCHAR2(200)  NOT NULL,
+
+    ACTIVO             CHAR(1)        DEFAULT 'S' NOT NULL,
+    CRITICO            CHAR(1)        DEFAULT 'S' NOT NULL,
+
+    TIPO_EJECUCION     VARCHAR2(10)   DEFAULT 'PROC' NOT NULL, -- PROC | JOB | CHAIN
+    OBJETO_EJECUCION   VARCHAR2(200)  NOT NULL,                 -- Ej: PAS_CRI.PR_CRC_GEN_DATOS
+    PARAMETROS         VARCHAR2(1000) NULL,                     -- Ej: '''D''' para string
+
+    TIMEOUT_MIN        NUMBER(5)      NULL,
+    REINTENTOS         NUMBER(3)      DEFAULT 0 NOT NULL,
+
+    OBSERVACION        VARCHAR2(1000) NULL,
+
+    USU_INSERCION      VARCHAR2(10)   NOT NULL,
+    FEC_INSERCION      DATE           NOT NULL,
+    USU_MODIFICACION   VARCHAR2(10)   NOT NULL,
+    FEC_MODIFICACION   DATE           NOT NULL,
+
+    CONSTRAINT PK_GE_CRC_PROCESOS_CFG
+        PRIMARY KEY (ID_PROC),
+
+    CONSTRAINT UK_GE_CRC_PROCESOS_CFG_01
+        UNIQUE (ORDEN),
+
+    CONSTRAINT UK_GE_CRC_PROCESOS_CFG_02
+        UNIQUE (COD_PROC),
+
+    CONSTRAINT CK_GE_CRC_PROCESOS_CFG_ACT
+        CHECK (ACTIVO IN ('S', 'N')),
+
+    CONSTRAINT CK_GE_CRC_PROCESOS_CFG_CRI
+        CHECK (CRITICO IN ('S', 'N'))
+)
+TABLESPACE IT_DATA;
+
+--------------------------------------------------------------------------------
+-- Comentarios
+--------------------------------------------------------------------------------
+
+COMMENT ON TABLE IT.GE_CRC_PROCESOS_CFG IS
+'Configuración de procesos CRC a ejecutar dentro del paso EJECUTAR_CRC del orquestador desacoplado. Define orden, criticidad, tipo y parámetros de ejecución.';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.ID_PROC IS
+'Identificador único del proceso configurado (PK).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.ORDEN IS
+'Orden secuencial de ejecución del proceso CRC dentro del orquestador. Debe ser único.';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.COD_PROC IS
+'Código lógico del proceso CRC (identificador funcional único).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.DESCRIPCION IS
+'Descripción funcional del proceso CRC.';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.ACTIVO IS
+'Indica si el proceso está habilitado para ejecución (S=Sí, N=No).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.CRITICO IS
+'Indica si el proceso es crítico (S=Sí, N=No). Si es crítico y falla, se detiene el orquestador.';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.TIPO_EJECUCION IS
+'Tipo de ejecución configurado: PROC (procedimiento), JOB (DBMS_SCHEDULER), CHAIN (cadena de jobs).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.OBJETO_EJECUCION IS
+'Nombre del objeto a ejecutar (ej: ESQUEMA.PROCEDIMIENTO o nombre de JOB/CHAIN según tipo).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.PARAMETROS IS
+'Parámetros opcionales a pasar al objeto de ejecución, expresados como texto dinámico.';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.TIMEOUT_MIN IS
+'Tiempo máximo de espera en minutos para la ejecución (aplicable si se implementa control de timeout).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.REINTENTOS IS
+'Cantidad de reintentos automáticos ante errores transitorios (SQLCODE retryable).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.OBSERVACION IS
+'Observaciones adicionales sobre el proceso CRC (uso operativo o documentación interna).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.USU_INSERCION IS
+'Usuario que realizó la inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.FEC_INSERCION IS
+'Fecha de inserción del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.USU_MODIFICACION IS
+'Usuario de última modificación del registro (auditoría).';
+
+COMMENT ON COLUMN IT.GE_CRC_PROCESOS_CFG.FEC_MODIFICACION IS
+'Fecha de última modificación del registro (auditoría).';
+
+--------------------------------------------------------------------------------
+-- Índices
+--------------------------------------------------------------------------------
+
+CREATE INDEX IT.IDX_GE_CRC_PROCESOS_CFG_01
+    ON IT.GE_CRC_PROCESOS_CFG (ACTIVO, ORDEN)
+TABLESPACE IT_IND;
+
+--------------------------------------------------------------------------------
+-- Sinónimos y grants
+--------------------------------------------------------------------------------
+
+CREATE PUBLIC SYNONYM GE_CRC_PROCESOS_CFG FOR IT.GE_CRC_PROCESOS_CFG;
+
+GRANT ALTER, DELETE, INSERT, UPDATE, SELECT
+ON IT.GE_CRC_PROCESOS_CFG
+TO IT_TEMPORAL;

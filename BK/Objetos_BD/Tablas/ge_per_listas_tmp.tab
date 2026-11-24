@@ -1,0 +1,103 @@
+create table IT.GE_PER_LISTAS_TMP
+(
+  orden            NUMBER(10) not null,
+  nom_lista        VARCHAR2(35),
+  nombre           VARCHAR2(4000),
+  cod_persona      VARCHAR2(4000),
+  nacionalidad     VARCHAR2(40),
+  exi_bbva         VARCHAR2(1),
+  procesado        VARCHAR2(1),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  men_error        VARCHAR2(4000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_PER_LISTAS_TMP
+  is 'Temporal de Listado de Comparación de Personas.';
+comment on column IT.GE_PER_LISTAS_TMP.orden
+  is 'Nro. de orden del listado a comparar.';
+comment on column IT.GE_PER_LISTAS_TMP.nom_lista
+  is 'Nombre del archivo a comparar.';
+comment on column IT.GE_PER_LISTAS_TMP.nombre
+  is 'Nombre/Apellido de la persona a comparar.';
+comment on column IT.GE_PER_LISTAS_TMP.cod_persona
+  is 'Código de la persona.';
+comment on column IT.GE_PER_LISTAS_TMP.nacionalidad
+  is 'Nacionalidad a comparar.';
+comment on column IT.GE_PER_LISTAS_TMP.exi_bbva
+  is 'Existe S/N.';
+comment on column IT.GE_PER_LISTAS_TMP.procesado
+  is 'Procesado S/N.';
+comment on column IT.GE_PER_LISTAS_TMP.usu_insercion
+  is 'Usuario que realizo la insercion del Registro.';
+comment on column IT.GE_PER_LISTAS_TMP.fec_insercion
+  is 'Fecha en que se realizo la insercion del Registro.';
+comment on column IT.GE_PER_LISTAS_TMP.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion del Registro.';
+comment on column IT.GE_PER_LISTAS_TMP.fec_modificacion
+  is 'Fecha de la ultima modificacion del Registro.';
+comment on column IT.GE_PER_LISTAS_TMP.men_error
+  is 'Descripción del error';
+create index IT.IN_GPLIS_EXI_BBVA on IT.GE_PER_LISTAS_TMP (EXI_BBVA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPLIS_PRI_NOMBRE on IT.GE_PER_LISTAS_TMP (NOMBRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 167
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GPLIS_PROCESADO on IT.GE_PER_LISTAS_TMP (PROCESADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_PER_LISTAS_TMP
+  add constraint PK_GE_PER_LISTAS_TMP primary key (ORDEN)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

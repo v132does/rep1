@@ -1,0 +1,7 @@
+BEGIN pre_ini_aplicacion; pae_cnf.G_COD_MODULO := 1; END; 
+/
+
+insert into ge_procesos (COD_PROCESO, DESCRIPCION, NRO_ORDEN, OBLIGATORIO, TIPO, HOR_INICIO, HOR_FIN, COD_USUARIO, USU_INSERCION, FEC_INSERCION, USU_MODIFICACION, FEC_MODIFICACION, ERROR, PERMISO, UBI_DESTINO)
+values (151, 'GEN. RETEN. VIRTUAL - CONTINGENCIA', 1, 'N', 'N', null, null, null, 'TI', to_date('26-09-2024 16:30:09', 'dd-mm-yyyy hh24:mi:ss'), 'TI', to_date('26-09-2024 16:30:09', 'dd-mm-yyyy hh24:mi:ss'), null, 'INFORMATICA-INFORMATICA ó ADM. DE SISTEMAS-ADMINISTRADOR DE SISTEMAS', null);
+
+commit;

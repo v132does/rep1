@@ -1,0 +1,80 @@
+create table IT.PR_RUB_ECONOMICOS
+(
+  cod_rub_economico VARCHAR2(6) not null,
+  descripcion       VARCHAR2(60) not null,
+  preferencial      VARCHAR2(1) default 'N' not null,
+  cod_rub_eco_padre VARCHAR2(6),
+  cod_bco_central   VARCHAR2(6),
+  cod_sec_rubro     VARCHAR2(3),
+  referencia        NUMBER(3),
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.PR_RUB_ECONOMICOS
+  is 'Rubros Económicos de Creditos.';
+comment on column IT.PR_RUB_ECONOMICOS.cod_rub_economico
+  is 'Código de Rubro Económico de Crédito.';
+comment on column IT.PR_RUB_ECONOMICOS.descripcion
+  is 'Nombre del rubro.';
+comment on column IT.PR_RUB_ECONOMICOS.preferencial
+  is 'Preferencial. (N=NO / S=SI).';
+comment on column IT.PR_RUB_ECONOMICOS.cod_rub_eco_padre
+  is 'Código de Rubro de Crédito Padre.';
+comment on column IT.PR_RUB_ECONOMICOS.cod_bco_central
+  is 'Código de Sector para informar a BCP.';
+comment on column IT.PR_RUB_ECONOMICOS.cod_sec_rubro
+  is 'Código de Sector para Rubro.';
+comment on column IT.PR_RUB_ECONOMICOS.usu_insercion
+  is 'Usuario que realizó la inserción del registro.';
+comment on column IT.PR_RUB_ECONOMICOS.fec_insercion
+  is 'Fecha en que se insertó el registro.';
+comment on column IT.PR_RUB_ECONOMICOS.usu_modificacion
+  is 'Usuario que realizó la última modificación en el registro.';
+comment on column IT.PR_RUB_ECONOMICOS.fec_modificacion
+  is 'Fecha en que se realizó la última modificación en el registro.';
+create index IT.IN_PRECO_REFERENCIA on IT.PR_RUB_ECONOMICOS (REFERENCIA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_RUB_ECONOMICOS
+  add constraint PK_PR_RUB_ECONOMICOS primary key (COD_RUB_ECONOMICO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.PR_RUB_ECONOMICOS
+  add constraint AVCON_1080845105_COD_S_003
+  check (COD_SEC_RUBRO BETWEEN 1 AND 999);
+alter table IT.PR_RUB_ECONOMICOS
+  add constraint AVCON_1080845105_PREFE_000
+  check (PREFERENCIAL IN ('S', 'N'));
+

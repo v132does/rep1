@@ -1,0 +1,91 @@
+create table IT.MD_COLUMNS
+(
+  id                        NUMBER not null,
+  table_id_fk               NUMBER not null,
+  column_name               VARCHAR2(4000) not null,
+  column_order              NUMBER not null,
+  column_type               VARCHAR2(4000),
+  precision                 NUMBER,
+  scale                     NUMBER,
+  nullable                  CHAR(1) not null,
+  default_value             VARCHAR2(4000),
+  native_sql                CLOB,
+  native_key                VARCHAR2(4000),
+  datatype_transformed_flag CHAR(1),
+  comments                  VARCHAR2(4000),
+  security_group_id         NUMBER default 0 not null,
+  created_by                VARCHAR2(255),
+  created_on                DATE default sysdate not null,
+  last_updated_by           VARCHAR2(255),
+  last_updated_on           DATE
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.MD_COLUMNS
+  is 'Column information is stored in this table.';
+comment on column IT.MD_COLUMNS.id
+  is 'Primary Key';
+comment on column IT.MD_COLUMNS.table_id_fk
+  is 'The table that this column is part of //PARENTFIELD';
+comment on column IT.MD_COLUMNS.column_name
+  is 'The name of the column //OBJECTNAME';
+comment on column IT.MD_COLUMNS.column_order
+  is 'The order this appears in the table';
+comment on column IT.MD_COLUMNS.column_type
+  is 'The type of the column';
+comment on column IT.MD_COLUMNS.precision
+  is 'The precision on the column';
+comment on column IT.MD_COLUMNS.scale
+  is 'The scale of the column';
+comment on column IT.MD_COLUMNS.nullable
+  is 'Yes or No.  Null signifies NO';
+comment on column IT.MD_COLUMNS.default_value
+  is 'Default value on the column';
+comment on column IT.MD_COLUMNS.native_sql
+  is 'The SQL used to create this column at source';
+comment on column IT.MD_COLUMNS.native_key
+  is 'Unique identifier for this object at source';
+comment on column IT.MD_COLUMNS.datatype_transformed_flag
+  is 'This is set to ''Y'' to show if the data type was transformed.  This is useful so we don''t apply more than 1 datatype transformation to a column';
+create index IT.MD_COLUMNS_PERF_IDX on IT.MD_COLUMNS (TABLE_ID_FK, UPPER(TRIM(COLUMN_NAME)), ID)
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 165
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_COLUMNS
+  add constraint MD_COLUMNS_PK primary key (ID)
+  using index 
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.MD_COLUMNS
+  add constraint MD_COLUMNS_MD_TABLES_FK1 foreign key (TABLE_ID_FK)
+  references IT.MD_TABLES (ID) on delete cascade;
+alter table IT.MD_COLUMNS
+  add constraint MD_COLUMNS_NULLABLE_Y_N
+  check ((UPPER(NULLABLE) IN ('Y','N')));
+

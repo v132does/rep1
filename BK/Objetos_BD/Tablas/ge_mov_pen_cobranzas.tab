@@ -1,0 +1,200 @@
+create table IT.GE_MOV_PEN_COBRANZAS
+(
+  nro_cuenta         VARCHAR2(15) not null,
+  fecha              DATE not null,
+  cod_modulo         NUMBER(3) not null,
+  cod_modalidad      NUMBER(3) not null,
+  cod_transaccion    NUMBER(4) not null,
+  cod_mod_padre      NUMBER(3) not null,
+  cod_mad_padre      NUMBER(3) not null,
+  cod_tra_padre      NUMBER(4) not null,
+  monto              NUMBER(18,2) default 0 not null,
+  usu_insercion      VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion      DATE default SYSDATE not null,
+  usu_modificacion   VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion   DATE default SYSDATE not null,
+  hora               VARCHAR2(8) not null,
+  cod_movimiento     NUMBER(20) not null,
+  cod_usuario        VARCHAR2(10) not null,
+  cod_moneda         VARCHAR2(3) not null,
+  cod_oficina        NUMBER(3) not null,
+  cod_error          VARCHAR2(10),
+  estado             VARCHAR2(1),
+  cod_ofi_origen     NUMBER(3) not null,
+  concepto           VARCHAR2(35),
+  cod_tasa           NUMBER(3),
+  val_tasa           NUMBER(20,4),
+  nro_documento      NUMBER(15),
+  saldo              NUMBER(18,2),
+  mto_exonerado      NUMBER(18,2) default 0,
+  cod_usu_exonerador VARCHAR2(10),
+  motivo             VARCHAR2(100),
+  observacion        VARCHAR2(500),
+  cod_persona        VARCHAR2(10),
+  referencia         VARCHAR2(20),
+  car_manual         VARCHAR2(1) default 'N' not null,
+  fec_vencimiento    DATE,
+  cod_ente           NUMBER(10),
+  nro_orden          NUMBER(10),
+  fec_cobro          DATE,
+  cierre             VARCHAR2(1) default 'N',
+  comentario         VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_MOV_PEN_COBRANZAS
+  is 'Movimientos Pendientes de Cobranzas';
+comment on column IT.GE_MOV_PEN_COBRANZAS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.fecha
+  is 'Fecha del movimiento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_modulo
+  is 'Codigo de modulo.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_modalidad
+  is 'Codigo de modalidad.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_transaccion
+  is 'Codigo de transaccion.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_mod_padre
+  is 'Codigo del Modulo padre.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_mad_padre
+  is 'Codigo de la modalidad padre.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_tra_padre
+  is 'Codigo de transaccion padre.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.monto
+  is 'Monto del movimiento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.hora
+  is 'Hora del movimiento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_movimiento
+  is 'Codigo de Movimiento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_usuario
+  is 'Codigo de operador.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_moneda
+  is 'Codigo de moneda.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_oficina
+  is 'Codigo de oficina.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_error
+  is 'Codigo de error.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.estado
+  is 'Estado del movimiento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_ofi_origen
+  is 'Codigo oficina de origen.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.concepto
+  is 'Concepto del movimiento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_tasa
+  is 'Codigo de tasa.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.val_tasa
+  is 'Importe de la tasa.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.nro_documento
+  is 'Numero de documento.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.saldo
+  is 'Saldo pendiente de cobro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.mto_exonerado
+  is 'Sumatoria de monto exonerado.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_usu_exonerador
+  is 'Usuario que realizo la exoneracion del registro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.motivo
+  is 'Motivo de la exoneracion.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.observacion
+  is 'Observacion';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_persona
+  is 'Persona Asociada al Movimiento';
+comment on column IT.GE_MOV_PEN_COBRANZAS.referencia
+  is 'Referencia General';
+comment on column IT.GE_MOV_PEN_COBRANZAS.car_manual
+  is 'Cargo Manual (S=Si, N=No)';
+comment on column IT.GE_MOV_PEN_COBRANZAS.fec_vencimiento
+  is 'Fecha de Vencimiento de Comisiones Diferidas.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cod_ente
+  is 'Codigo de Ente';
+comment on column IT.GE_MOV_PEN_COBRANZAS.nro_orden
+  is 'Nro Orden.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.fec_cobro
+  is 'Fecha de Cobro.';
+comment on column IT.GE_MOV_PEN_COBRANZAS.cierre
+  is 'Cobrado en el Cierre (S/N)';
+comment on column IT.GE_MOV_PEN_COBRANZAS.comentario
+  is 'Comentario.';
+create index IT.IN_GMPENCOB_NRO_CUENTA on IT.GE_MOV_PEN_COBRANZAS (NRO_CUENTA, FECHA, ESTADO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index IT.PK_GE_MOV_PEN_COBRANZAS1 on IT.GE_MOV_PEN_COBRANZAS (COD_MOVIMIENTO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_OFICINA1 foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_OFI_ORIGEN1 foreign key (COD_OFI_ORIGEN)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_TASA1 foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_TRANSACCION1 foreign key (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_TRA_PADRE1 foreign key (COD_TRA_PADRE, COD_MOD_PADRE, COD_MAD_PADRE)
+  references IT.GE_TRANSACCIONES (COD_TRANSACCION, COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_USUARIO1 foreign key (COD_USUARIO)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_COD_USU_EXONERADOR1 foreign key (COD_USU_EXONERADOR)
+  references IT.BA_USUARIOS (COD_USUARIO);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMOPE_NRO_CUENTA1 foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint FK_GMPEN_COD_MONEDA1 foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint AVCON_1102684649_COD_M_090
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint AVCON_1102684649_COD_M_091
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint AVCON_1102684649_COD_M_092
+  check (COD_MOD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint AVCON_1102684649_COD_M_093
+  check (COD_MAD_PADRE BETWEEN 0 AND 999);
+alter table IT.GE_MOV_PEN_COBRANZAS
+  add constraint AVCON_1221593769_ESTAD_094
+  check (ESTADO IN ('P', 'V', 'E', 'I', 'X', 'N'));
+

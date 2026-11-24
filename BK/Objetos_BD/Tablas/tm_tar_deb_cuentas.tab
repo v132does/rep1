@@ -1,0 +1,64 @@
+create table IT.TM_TAR_DEB_CUENTAS
+(
+  cod_entidad   VARCHAR2(3) not null,
+  adherente     VARCHAR2(2) default '00' not null,
+  nro_cuenta    VARCHAR2(15) not null,
+  tip_cuenta    VARCHAR2(1) not null,
+  nro_cuenta_01 VARCHAR2(15),
+  tip_cuenta_01 VARCHAR2(1),
+  nro_cuenta_02 VARCHAR2(15),
+  tip_cuenta_02 VARCHAR2(1),
+  nro_cuenta_03 VARCHAR2(15),
+  tip_cuenta_03 VARCHAR2(1),
+  fec_proceso   VARCHAR2(26)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.TM_TAR_DEB_CUENTAS
+  is 'Cuentas relacionadas con las tarjetas de debito (INFONET).';
+comment on column IT.TM_TAR_DEB_CUENTAS.cod_entidad
+  is 'Codigo de la entidad emisora de la tarjeta de debito.';
+comment on column IT.TM_TAR_DEB_CUENTAS.adherente
+  is '(00) Es principal o (01...) adicional.';
+comment on column IT.TM_TAR_DEB_CUENTAS.nro_cuenta
+  is 'Nro de cuenta Principal.';
+comment on column IT.TM_TAR_DEB_CUENTAS.tip_cuenta
+  is 'Tipo de Cuenta: 0-CC GS, 1-AV GS, 2-CC USD, 4-AV USD.';
+comment on column IT.TM_TAR_DEB_CUENTAS.nro_cuenta_01
+  is 'Nro de cuenta relacionada 01.';
+comment on column IT.TM_TAR_DEB_CUENTAS.tip_cuenta_01
+  is 'Tipo de Cuenta: 0-CC GS, 1-AV GS, 2-CC USD, 4-AV USD.';
+comment on column IT.TM_TAR_DEB_CUENTAS.nro_cuenta_02
+  is 'Nro de cuenta relacionada 02.';
+comment on column IT.TM_TAR_DEB_CUENTAS.tip_cuenta_02
+  is 'Tipo de Cuenta: 0-CC GS, 1-AV GS, 2-CC USD, 4-AV USD.';
+comment on column IT.TM_TAR_DEB_CUENTAS.nro_cuenta_03
+  is 'Nro de cuenta relacionada 03.';
+comment on column IT.TM_TAR_DEB_CUENTAS.tip_cuenta_03
+  is 'Tipo de Cuenta: 0-CC GS, 1-AV GS, 2-CC USD, 4-AV USD.';
+comment on column IT.TM_TAR_DEB_CUENTAS.fec_proceso
+  is 'Fecha de proceso o generacion de datos.';
+alter table IT.TM_TAR_DEB_CUENTAS
+  add constraint PK_TAR_DEB_CUENTAS primary key (COD_ENTIDAD, ADHERENTE, NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 256K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

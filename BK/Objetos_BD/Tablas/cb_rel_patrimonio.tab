@@ -1,0 +1,39 @@
+create table IT.CB_REL_PATRIMONIO
+(
+  fecha                DATE,
+  cod_gru_patrimonio   NUMBER(5),
+  cod_gru_rubro        NUMBER(5),
+  cod_rubro            VARCHAR2(15),
+  sal_mon_local        NUMBER(18,2),
+  nivel                NUMBER(5),
+  nro_cuenta           VARCHAR2(15),
+  referencia           VARCHAR2(100),
+  cod_moneda           VARCHAR2(3),
+  ponderacion          NUMBER(5),
+  mto_ponderado        NUMBER(18,2),
+  sal_mon_loc_original NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_CBREPA_FECHA1 on IT.CB_REL_PATRIMONIO (FECHA, COD_RUBRO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

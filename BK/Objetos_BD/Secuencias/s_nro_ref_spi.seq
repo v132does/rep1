@@ -1,0 +1,8 @@
+create sequence IT.S_NRO_REF_SPI
+minvalue 1
+maxvalue 9999999
+start with 9052672
+increment by 1
+nocache
+cycle;
+

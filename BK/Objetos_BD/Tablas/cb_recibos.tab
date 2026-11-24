@@ -1,0 +1,115 @@
+﻿-- Create table
+create table IT.CB_RECIBOS
+(
+  nro_recibo       NUMBER(15) not null,
+  fecha            DATE,
+  cod_persona      VARCHAR2(10),
+  cod_mod_padre    NUMBER(3),
+  cod_mad_padre    NUMBER(3),
+  cod_tra_padre    NUMBER(4),
+  cod_oficina      NUMBER(3),
+  cod_moneda       VARCHAR2(3),
+  cotizacion       NUMBER(14,8),
+  anulado          VARCHAR2(1),
+  impreso          VARCHAR2(1),
+  tot_recibo       NUMBER(18,2),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  tip_recibo       VARCHAR2(1),
+  nom_completo     VARCHAR2(120),
+  concepto         VARCHAR2(120),
+  nro_documento    VARCHAR2(20),
+  mto_efectivo     NUMBER(18,2),
+  mto_retenido     NUMBER(18,2)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table IT.CB_RECIBOS
+  is 'Cabecera de Recibos de Facturas a Crédito';
+-- Add comments to the columns 
+comment on column IT.CB_RECIBOS.nro_recibo
+  is 'Número de Recibo';
+comment on column IT.CB_RECIBOS.fecha
+  is 'Fecha de Recibo';
+comment on column IT.CB_RECIBOS.cod_persona
+  is 'Código de Persona';
+comment on column IT.CB_RECIBOS.cod_mod_padre
+  is 'Código Módulo Padre';
+comment on column IT.CB_RECIBOS.cod_mad_padre
+  is 'Código Modalidad Padre';
+comment on column IT.CB_RECIBOS.cod_tra_padre
+  is 'Código Transacción Padre';
+comment on column IT.CB_RECIBOS.cod_oficina
+  is 'Código Oficina';
+comment on column IT.CB_RECIBOS.cod_moneda
+  is 'Código Moneda';
+comment on column IT.CB_RECIBOS.cotizacion
+  is 'Cotización';
+comment on column IT.CB_RECIBOS.anulado
+  is 'Anulado';
+comment on column IT.CB_RECIBOS.impreso
+  is 'Impreso';
+comment on column IT.CB_RECIBOS.tot_recibo
+  is 'Total Recibo';
+comment on column IT.CB_RECIBOS.usu_insercion
+  is 'Usuario Inserción';
+comment on column IT.CB_RECIBOS.fec_insercion
+  is 'Fecha Inserción';
+comment on column IT.CB_RECIBOS.usu_modificacion
+  is 'Usuario Modificación';
+comment on column IT.CB_RECIBOS.fec_modificacion
+  is 'Fecha Modificación';
+comment on column IT.CB_RECIBOS.tip_recibo
+  is 'Tipo de Recibo (BA_COD_REFERENCIAS -> TIP_RECIBO)';
+comment on column IT.CB_RECIBOS.nom_completo
+  is 'Nombre de la Persona';
+comment on column IT.CB_RECIBOS.concepto
+  is 'Concepto de Recibo';
+comment on column IT.CB_RECIBOS.nro_documento
+  is 'Nro. de Documento de la Persona';
+comment on column IT.CB_RECIBOS.mto_efectivo
+  is 'Monto Efectivo';
+comment on column IT.CB_RECIBOS.mto_retenido
+  is 'Monto Retenido';
+-- Create/Recreate indexes 
+create index IT.IN_BRECI_TRANSACCIONES on IT.CB_RECIBOS (COD_MOD_PADRE, COD_MAD_PADRE, COD_TRA_PADRE)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table IT.CB_RECIBOS
+  add constraint PK_CB_RECIBOS primary key (NRO_RECIBO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select, insert, update, delete on IT.CB_RECIBOS to IT_TEMPORAL;

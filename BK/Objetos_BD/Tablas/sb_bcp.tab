@@ -1,0 +1,26 @@
+create table IT.SB_BCP
+(
+  cod_rubro  VARCHAR2(15) not null,
+  cla_moneda VARCHAR2(4) default 0 not null,
+  importe    NUMBER(18,2) default 0 not null
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.SB_BCP
+  is 'Tabla auxiliar utilizada en el proceso de planinfo.';
+comment on column IT.SB_BCP.cod_rubro
+  is 'Codigo de la cuenta contable.';
+comment on column IT.SB_BCP.cla_moneda
+  is 'Codigo numerico del importe.';
+comment on column IT.SB_BCP.importe
+  is 'Importe.';
+

@@ -1,0 +1,334 @@
+create table IT.GE_CUENTAS
+(
+  nro_cuenta          VARCHAR2(15) not null,
+  dig_verificador     NUMBER(1) default 0 not null,
+  denominacion        VARCHAR2(120) not null,
+  cod_modulo          NUMBER(3) not null,
+  cod_modalidad       NUMBER(3) not null,
+  cod_oficina         NUMBER(3) not null,
+  estado              VARCHAR2(1) not null,
+  fec_cam_estado      DATE,
+  sal_contable        NUMBER(18,2) default 0 not null,
+  cod_moneda          VARCHAR2(3) not null,
+  fec_apertura        DATE,
+  fec_vencimiento     DATE,
+  cod_cau_cancelacion NUMBER(3),
+  cod_tasa            NUMBER(3),
+  fre_extracto        VARCHAR2(1) default 'M' not null,
+  tas_personalizada   VARCHAR2(1) default 'N' not null,
+  tra_prohibida       VARCHAR2(1) default 'N' not null,
+  ret_personalizada   VARCHAR2(1) default 'N' not null,
+  dia_atraso          NUMBER(5),
+  max_atraso          NUMBER(5),
+  pro_atraso          NUMBER(5),
+  sal_promedio        NUMBER(18,2) default 0,
+  mto_mora            NUMBER(18,2) default 0,
+  usu_insercion       VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion       DATE default SYSDATE not null,
+  usu_modificacion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion    DATE default SYSDATE not null,
+  val_tasa            NUMBER(20,4),
+  cod_usu_verificador VARCHAR2(10),
+  fec_verificacion    DATE,
+  obs_verificacion    VARCHAR2(1000),
+  est_verificacion    VARCHAR2(1) default 'N',
+  cod_ent_juicio      NUMBER(5),
+  fec_juicio          DATE,
+  en_juicio           VARCHAR2(1) default 'N',
+  cod_sit_contable    NUMBER(20),
+  cod_sub_modalidad   NUMBER(3)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 10
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_CUENTAS
+  is 'Consolidado de Cuentas ( Datos Generales de las Cuentas ).';
+comment on column IT.GE_CUENTAS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_CUENTAS.dig_verificador
+  is 'Digito verificador.';
+comment on column IT.GE_CUENTAS.denominacion
+  is 'Nombre de la Cuenta.';
+comment on column IT.GE_CUENTAS.cod_modulo
+  is 'Codigo del Modulo.';
+comment on column IT.GE_CUENTAS.cod_modalidad
+  is 'Codigo de la modalidad.';
+comment on column IT.GE_CUENTAS.cod_oficina
+  is 'Codigo de la Oficina.';
+comment on column IT.GE_CUENTAS.estado
+  is 'Estado de la Cuenta.';
+comment on column IT.GE_CUENTAS.fec_cam_estado
+  is 'Fecha de Cambio de estado.';
+comment on column IT.GE_CUENTAS.sal_contable
+  is 'Saldo Contable.';
+comment on column IT.GE_CUENTAS.cod_moneda
+  is 'Moneda de la Cuenta.';
+comment on column IT.GE_CUENTAS.fec_apertura
+  is 'Fecha de Apertura.';
+comment on column IT.GE_CUENTAS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_CUENTAS.cod_cau_cancelacion
+  is 'Motivo de Cancelacion.';
+comment on column IT.GE_CUENTAS.cod_tasa
+  is 'Codigo de Tasa de Interes.';
+comment on column IT.GE_CUENTAS.fre_extracto
+  is 'Frecuencia de Extracto (D, S, M).';
+comment on column IT.GE_CUENTAS.tas_personalizada
+  is 'Indica si tiene tasa personalizada (S/N).';
+comment on column IT.GE_CUENTAS.tra_prohibida
+  is 'Indica si tiene transaccion prohibida (S/N).';
+comment on column IT.GE_CUENTAS.ret_personalizada
+  is 'Retencion personalizada (S/N).';
+comment on column IT.GE_CUENTAS.dia_atraso
+  is 'Dias de Atraso.';
+comment on column IT.GE_CUENTAS.max_atraso
+  is 'Maximo dias de Atraso.';
+comment on column IT.GE_CUENTAS.pro_atraso
+  is 'Promedio de dias de Atraso.';
+comment on column IT.GE_CUENTAS.sal_promedio
+  is 'Saldo Promedio Actual.';
+comment on column IT.GE_CUENTAS.mto_mora
+  is 'Monto de mora.';
+comment on column IT.GE_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_CUENTAS.val_tasa
+  is 'Valor de la tasa.';
+comment on column IT.GE_CUENTAS.cod_usu_verificador
+  is 'Usuario que realizo la verificacion.';
+comment on column IT.GE_CUENTAS.fec_verificacion
+  is 'Fecha de la Verificacion.';
+comment on column IT.GE_CUENTAS.obs_verificacion
+  is 'Observacion de la verificacion.';
+comment on column IT.GE_CUENTAS.est_verificacion
+  is 'Estado de la Verificacion.';
+comment on column IT.GE_CUENTAS.cod_ent_juicio
+  is 'Ente al cual se derivo el juicio.';
+comment on column IT.GE_CUENTAS.fec_juicio
+  is 'Fecha en la cual paso a juicio.';
+comment on column IT.GE_CUENTAS.en_juicio
+  is 'Indica si la cuenta se encuentra en estado judicial.';
+comment on column IT.GE_CUENTAS.cod_sit_contable
+  is 'Indica la situacion contable actual de la operacion. ';
+comment on column IT.GE_CUENTAS.cod_sub_modalidad
+  is 'Código de Sub Modalidad';
+create index IT.IN_GCUEN_COD_CAU_CANCELACION on IT.GE_CUENTAS (COD_CAU_CANCELACION, COD_MODALIDAD, COD_MODULO, COD_MONEDA, COD_OFICINA, COD_TASA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 16M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_COD_CAU_CANC on IT.GE_CUENTAS (COD_CAU_CANCELACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_COD_MODULO on IT.GE_CUENTAS (COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_COD_MONEDA on IT.GE_CUENTAS (COD_MONEDA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_COD_OFICINA on IT.GE_CUENTAS (COD_OFICINA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_COD_TASA on IT.GE_CUENTAS (COD_TASA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_CUE_EST_MOD_MAD on IT.GE_CUENTAS (NRO_CUENTA, ESTADO, COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_EST_MOD_MAD on IT.GE_CUENTAS (ESTADO, COD_MODULO, COD_MODALIDAD)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_EST_VERIFICACION on IT.GE_CUENTAS (EST_VERIFICACION)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 3M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.IN_GECUE_MOD_MAD on IT.GE_CUENTAS (COD_MODULO, COD_MODALIDAD, MTO_MORA)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.JJ_GRU_ENVIO on IT.GE_CUENTAS ('cod_gru_envios')
+  tablespace IT_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index IT.PK_GE_CUENTAS_BBVA on IT.GE_CUENTAS (COD_MODULO)
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CUENTAS
+  add constraint PK_GE_CUENTAS primary key (NRO_CUENTA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 4M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_CUENTAS
+  add constraint FK_GCUEN_COD_CAU_CANCELACION foreign key (COD_CAU_CANCELACION)
+  references IT.GE_CAUSALES (COD_CAUSA);
+alter table IT.GE_CUENTAS
+  add constraint FK_GCUEN_COD_MODALIDAD foreign key (COD_MODULO, COD_MODALIDAD)
+  references IT.GE_MODALIDADES (COD_MODULO, COD_MODALIDAD);
+alter table IT.GE_CUENTAS
+  add constraint FK_GCUEN_COD_MONEDA foreign key (COD_MONEDA)
+  references IT.BA_MONEDAS (COD_MONEDA);
+alter table IT.GE_CUENTAS
+  add constraint FK_GCUEN_COD_OFICINA foreign key (COD_OFICINA)
+  references IT.BA_OFICINAS (COD_OFICINA);
+alter table IT.GE_CUENTAS
+  add constraint FK_GCUEN_COD_TASA foreign key (COD_TASA)
+  references IT.GE_TASAS (COD_TASA);
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1080843414_RET_P_000
+  check (RET_PERSONALIZADA IN ('S', 'N'));
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1080843414_TAS_P_000
+  check (TAS_PERSONALIZADA IN ('S', 'N'));
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1080843414_TRA_P_000
+  check (TRA_PROHIBIDA IN ('S', 'N'));
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1082384226_COD_C_002
+  check (COD_CAU_CANCELACION BETWEEN 0 AND 999);
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1082384226_COD_M_008
+  check (COD_MODULO BETWEEN 0 AND 999);
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1082384226_COD_M_009
+  check (COD_MODALIDAD BETWEEN 0 AND 999);
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1082384226_COD_O_010
+  check (COD_OFICINA BETWEEN 0 AND 999);
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1082384226_COD_T_004
+  check (COD_TASA BETWEEN 0 AND 999);
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1093528760_FRE_E_000
+  check (FRE_EXTRACTO IN ('M', 'Q','S', 'D', 'm','q','s', 'd'));
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1118254713_EN_JU_000
+  check (EN_JUICIO IN ('S', 'N'));
+alter table IT.GE_CUENTAS
+  add constraint AVCON_1118254713_EST_V_000
+  check (EST_VERIFICACION IN ('N', 'V', 'J'));
+

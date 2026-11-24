@@ -1,0 +1,44 @@
+create table IT.GE_DIR_BANCARD_TMP
+(
+  nro_cuenta  VARCHAR2(15),
+  direccion1  VARCHAR2(50),
+  direccion2  VARCHAR2(50),
+  direccion3  VARCHAR2(50),
+  ciudad      NUMBER(3),
+  fec_proceso DATE default SYSDATE,
+  usu_proceso VARCHAR2(10) default SUBSTR(USER,1,10),
+  procesado   VARCHAR2(1) default 'N',
+  observacion VARCHAR2(500)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_DIR_BANCARD_TMP
+  is 'Tabla temporal donde contiene los datos de las direcciones por Nro. Cuenta de los clientes para actualizar en el sistema ITGF.';
+comment on column IT.GE_DIR_BANCARD_TMP.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_DIR_BANCARD_TMP.direccion1
+  is 'Direccion 1.';
+comment on column IT.GE_DIR_BANCARD_TMP.direccion2
+  is 'Direccion 2.';
+comment on column IT.GE_DIR_BANCARD_TMP.direccion3
+  is 'Direccion 3.';
+comment on column IT.GE_DIR_BANCARD_TMP.ciudad
+  is 'Codigo de ciudad del sistema IT.';
+comment on column IT.GE_DIR_BANCARD_TMP.fec_proceso
+  is 'Fecha/Hora de Proceso.';
+comment on column IT.GE_DIR_BANCARD_TMP.usu_proceso
+  is 'Usuario que realizo el proceso sobre el archivo.';
+comment on column IT.GE_DIR_BANCARD_TMP.procesado
+  is 'Indica si el registro fue procesado ''''S''''==>Procesado, ''''N''''==>No Procesado.';
+comment on column IT.GE_DIR_BANCARD_TMP.observacion
+  is 'Se carga información si hubo o no algún error durante el proceso.';
+

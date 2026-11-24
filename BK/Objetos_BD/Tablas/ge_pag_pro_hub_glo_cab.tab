@@ -1,0 +1,75 @@
+create table IT.GE_PAG_PRO_HUB_GLO_CAB
+(
+  nro_archivo      NUMBER not null,
+  ente             NUMBER not null,
+  can_pagos        NUMBER default 0 not null,
+  mon_total        NUMBER(18,2) not null,
+  nro_cuenta       VARCHAR2(20) not null,
+  fec_pago         DATE not null,
+  archivo          CLOB,
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  nom_agrupado     VARCHAR2(2000),
+  estado           VARCHAR2(5),
+  fec_envio_r1     DATE,
+  fec_envio_r2     DATE,
+  fec_envio_r3     DATE,
+  fec_envio_r4     DATE,
+  nom_mensaje      VARCHAR2(20)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.nro_archivo
+  is 'Numero de archivo';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.ente
+  is 'Codigo de Ente';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.can_pagos
+  is 'Cantidad de pagos';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.mon_total
+  is 'Monto total de pagos';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.nro_cuenta
+  is 'Numero de cuenta del ente';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.fec_pago
+  is 'Fecha de Pago del lote';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.archivo
+  is 'Archivo recibido';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.nom_agrupado
+  is 'Cabecera del archivo agrupado';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.estado
+  is 'R1 Recibido R2.1 Err Estruc R2.2 Err format R2.3 Err Val Cli R2.4 Err Val Sal R3 Espera R4.1 Pagado R4 ';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.fec_envio_r1
+  is 'Fecha de envio respuesta de R1';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.fec_envio_r2
+  is 'Fecha de envio respuesta de R2';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.fec_envio_r3
+  is 'Fecha de envio respuesta de R3';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.fec_envio_r4
+  is 'Fecha de envio respuesta de R4';
+comment on column IT.GE_PAG_PRO_HUB_GLO_CAB.nom_mensaje
+  is 'Nombre del Mensaje.';
+alter table IT.GE_PAG_PRO_HUB_GLO_CAB
+  add constraint PK_GE_HUB_CAB primary key (NRO_ARCHIVO, ENTE, FEC_PAGO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

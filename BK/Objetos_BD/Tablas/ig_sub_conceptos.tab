@@ -1,0 +1,91 @@
+create table IT.IG_SUB_CONCEPTOS
+(
+  cod_concepto     NUMBER(3) not null,
+  cod_sub_concepto NUMBER(4) not null,
+  descripcion      VARCHAR2(100) not null,
+  tab_destino      VARCHAR2(100),
+  cam_destino      VARCHAR2(4000),
+  cam_origen       VARCHAR2(4000),
+  det_sql          VARCHAR2(4000),
+  usu_insercion    VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion    DATE default SYSDATE not null,
+  usu_modificacion VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion DATE default SYSDATE not null,
+  tipo             VARCHAR2(1),
+  tip_valor        VARCHAR2(1),
+  costo            NUMBER(20,4),
+  gru_financiero   VARCHAR2(2),
+  manual           VARCHAR2(1) default 'N',
+  activo           VARCHAR2(1) default 'S',
+  observacion      VARCHAR2(1000)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.IG_SUB_CONCEPTOS
+  is 'Sub Conceptos del Sistema de Gratificacion Periodica (SGP).';
+comment on column IT.IG_SUB_CONCEPTOS.cod_concepto
+  is 'Codigo de concepto para el Sist. de Gratificacion Periodica (SGP).';
+comment on column IT.IG_SUB_CONCEPTOS.cod_sub_concepto
+  is 'Codigo de sub-concepto para el Sist. de Gratificacion Periodica (SGP).';
+comment on column IT.IG_SUB_CONCEPTOS.descripcion
+  is 'Descripcion del sub-concepto.';
+comment on column IT.IG_SUB_CONCEPTOS.tab_destino
+  is 'Nombre de la tabla donde se insertaran los datos.';
+comment on column IT.IG_SUB_CONCEPTOS.cam_destino
+  is 'Campos de la tabla destino.';
+comment on column IT.IG_SUB_CONCEPTOS.cam_origen
+  is 'Campos de la tabla origen a ser insertados.';
+comment on column IT.IG_SUB_CONCEPTOS.det_sql
+  is 'Detalle del query principal utilizado para generar la informacion en las tablas anexas.';
+comment on column IT.IG_SUB_CONCEPTOS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.IG_SUB_CONCEPTOS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.IG_SUB_CONCEPTOS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.IG_SUB_CONCEPTOS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.IG_SUB_CONCEPTOS.tipo
+  is 'Tipo: I-Ingreso C-Costo, A-Ambos.';
+comment on column IT.IG_SUB_CONCEPTOS.tip_valor
+  is 'Tipo de valor: M-Monto, C-Cantidad, F-Formula, P-Porcentaje.';
+comment on column IT.IG_SUB_CONCEPTOS.costo
+  is 'Costo del sub-concepto.';
+comment on column IT.IG_SUB_CONCEPTOS.gru_financiero
+  is 'Grupo Financiero al que corresponde.';
+comment on column IT.IG_SUB_CONCEPTOS.manual
+  is 'Indica si el sub-concepto es manual o automatico. S/N.';
+comment on column IT.IG_SUB_CONCEPTOS.activo
+  is 'Indica si el sub-concepto esta activo o no. S/N.';
+comment on column IT.IG_SUB_CONCEPTOS.observacion
+  is 'Observacion del concepto.';
+alter table IT.IG_SUB_CONCEPTOS
+  add constraint PK_IG_SUB_CONCEPTOS primary key (COD_CONCEPTO, COD_SUB_CONCEPTO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.IG_SUB_CONCEPTOS
+  add constraint FK_ISCON_COD_CONCEPTO foreign key (COD_CONCEPTO)
+  references IT.IG_CONCEPTOS (COD_CONCEPTO);
+alter table IT.IG_SUB_CONCEPTOS
+  add constraint AVCON_1180382034_COD_C_008
+  check (COD_CONCEPTO BETWEEN 0 AND 999);
+

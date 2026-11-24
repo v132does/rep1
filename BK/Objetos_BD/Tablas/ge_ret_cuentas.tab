@@ -1,0 +1,67 @@
+create table IT.GE_RET_CUENTAS
+(
+  cod_retencion     NUMBER(3) not null,
+  nro_cuenta        VARCHAR2(15) not null,
+  can_dia_retencion NUMBER(3) not null,
+  usu_insercion     VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_insercion     DATE default SYSDATE not null,
+  usu_modificacion  VARCHAR2(10) default SUBSTR(USER,1,10) not null,
+  fec_modificacion  DATE default SYSDATE not null,
+  fec_vencimiento   DATE,
+  observaciones     VARCHAR2(100)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_RET_CUENTAS
+  is 'Contiene los dias de retenciones personalizadas por cuenta.';
+comment on column IT.GE_RET_CUENTAS.cod_retencion
+  is 'Codigo  de retencion personalizada.';
+comment on column IT.GE_RET_CUENTAS.nro_cuenta
+  is 'Numero de cuenta.';
+comment on column IT.GE_RET_CUENTAS.can_dia_retencion
+  is 'Dias de retencion personalizado.';
+comment on column IT.GE_RET_CUENTAS.usu_insercion
+  is 'Usuario que realizo la insercion del registro.';
+comment on column IT.GE_RET_CUENTAS.fec_insercion
+  is 'Fecha en que se inserto el registro.';
+comment on column IT.GE_RET_CUENTAS.usu_modificacion
+  is 'Usuario que realizo la ultima modificacion en el registro.';
+comment on column IT.GE_RET_CUENTAS.fec_modificacion
+  is 'Fecha en que se realizo la ultima modificacion en el registro.';
+comment on column IT.GE_RET_CUENTAS.fec_vencimiento
+  is 'Fecha de Vencimiento.';
+comment on column IT.GE_RET_CUENTAS.observaciones
+  is 'Observaciones.';
+alter table IT.GE_RET_CUENTAS
+  add constraint PK_GE_RET_CUENTAS primary key (NRO_CUENTA, COD_RETENCION)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table IT.GE_RET_CUENTAS
+  add constraint FK_GRCUE_COD_RETENCION foreign key (COD_RETENCION)
+  references IT.GE_RETENCIONES (COD_RETENCION);
+alter table IT.GE_RET_CUENTAS
+  add constraint FK_GRCUE_NRO_CUENTA foreign key (NRO_CUENTA)
+  references IT.GE_CUENTAS (NRO_CUENTA);
+alter table IT.GE_RET_CUENTAS
+  add constraint AVCON_1115321056_COD_R_001
+  check (COD_RETENCION BETWEEN 0 AND 999);
+

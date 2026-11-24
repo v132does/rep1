@@ -1,0 +1,24 @@
+create global temporary table IT.STAGE_SYB12_SYSDATABASES
+(
+  svrid_fk        NUMBER,
+  dbid_gen        NUMBER,
+  name            VARCHAR2(255),
+  dbid            NUMBER,
+  db_suid         NUMBER,
+  status          NUMBER,
+  version         NUMBER,
+  logptr          NUMBER(12),
+  crdate          VARCHAR2(255),
+  dumptrdate      VARCHAR2(255),
+  status2         NUMBER,
+  audflags        NUMBER,
+  deftabaud       NUMBER,
+  defvwaud        NUMBER,
+  defpraud        NUMBER,
+  def_remote_type NUMBER,
+  def_remote_loc  VARCHAR2(255),
+  status3         NUMBER,
+  status4         NUMBER
+)
+on commit preserve rows;
+

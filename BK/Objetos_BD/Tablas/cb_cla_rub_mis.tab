@@ -1,0 +1,85 @@
+create table IT.CB_CLA_RUB_MIS
+(
+  cod_rubro        VARCHAR2(15) not null,
+  cod_div_mis      VARCHAR2(4),
+  cod_cap_mis      VARCHAR2(4),
+  cod_gru_mis      VARCHAR2(4),
+  cod_sub_gru_mis  VARCHAR2(4),
+  cod_sector       VARCHAR2(4),
+  cod_act_mis      VARCHAR2(4),
+  cod_sub_act_mis  VARCHAR2(4),
+  cod_gestion      VARCHAR2(7),
+  cod_sub_gestion  VARCHAR2(7),
+  orden            VARCHAR2(120),
+  usu_insercion    VARCHAR2(10) default substr(user,1,10),
+  fec_insercion    DATE default sysdate,
+  usu_modificacion VARCHAR2(10) default substr(user,1,10),
+  fec_modificacion DATE default sysdate,
+  cod_tip_detalle  VARCHAR2(4),
+  cod_tip_saldo    VARCHAR2(4),
+  cod_descalce     VARCHAR2(7)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.CB_CLA_RUB_MIS
+  is 'Tabla que registra la clasificación de los rubros - MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_rubro
+  is 'Código del Rubro Contable.';
+comment on column IT.CB_CLA_RUB_MIS.cod_div_mis
+  is 'Código División MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_cap_mis
+  is 'Código Capitulo MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_gru_mis
+  is 'Código Grupo MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_sub_gru_mis
+  is 'Código Sub-Grupo MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_sector
+  is 'Código Sector.';
+comment on column IT.CB_CLA_RUB_MIS.cod_act_mis
+  is 'Código Actividad MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_sub_act_mis
+  is 'Código Sub-Actividad MIS.';
+comment on column IT.CB_CLA_RUB_MIS.cod_gestion
+  is 'Código de Gestión.';
+comment on column IT.CB_CLA_RUB_MIS.cod_sub_gestion
+  is 'Código de Sub-Gestión.';
+comment on column IT.CB_CLA_RUB_MIS.orden
+  is 'Orden.';
+comment on column IT.CB_CLA_RUB_MIS.usu_insercion
+  is 'Usuario que realizo la inserción.';
+comment on column IT.CB_CLA_RUB_MIS.fec_insercion
+  is 'Fecha de inserción del registro.';
+comment on column IT.CB_CLA_RUB_MIS.usu_modificacion
+  is 'Usuario que realizo la modificación del registro.';
+comment on column IT.CB_CLA_RUB_MIS.fec_modificacion
+  is 'Fecha de modificación del registro.';
+comment on column IT.CB_CLA_RUB_MIS.cod_tip_detalle
+  is 'Código del Detalle.';
+comment on column IT.CB_CLA_RUB_MIS.cod_tip_saldo
+  is 'Código del Tipo de Saldo.';
+comment on column IT.CB_CLA_RUB_MIS.cod_descalce
+  is 'Código de Descalce.';
+alter table IT.CB_CLA_RUB_MIS
+  add constraint PK_CB_CLA_RUB_MIS primary key (COD_RUBRO)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,82 @@
+create table IT.GE_EXT_CLI_MOV_RETENIDOS
+(
+  fec_extracto     DATE not null,
+  cod_retencion    NUMBER(3) not null,
+  nro_documento    NUMBER(15),
+  cod_persona      VARCHAR2(10) not null,
+  monto            NUMBER(18,2),
+  fec_movimiento   DATE not null,
+  fec_liberacion   DATE,
+  nro_cuenta       VARCHAR2(15) not null,
+  cod_modulo       NUMBER(3),
+  cod_modalidad    NUMBER(3),
+  usu_insercion    VARCHAR2(10),
+  fec_insercion    DATE,
+  usu_modificacion VARCHAR2(10),
+  fec_modificacion DATE,
+  fre_extracto     VARCHAR2(1) not null,
+  cod_extracto     NUMBER(5) not null,
+  nro_linea        NUMBER(5)
+)
+tablespace IT_DATA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table IT.GE_EXT_CLI_MOV_RETENIDOS
+  is 'Detalle de Depositos a confirmar en Extractos provisorios. ';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.fec_extracto
+  is 'Fecha del Extracto.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.cod_retencion
+  is 'Codigo de Retencion.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.nro_documento
+  is 'Numero de Boleta.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.cod_persona
+  is 'Codigo de la Persona.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.monto
+  is 'Monto de la Boleta.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.fec_movimiento
+  is 'Fecha del Movimiento.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.fec_liberacion
+  is 'Fecha de Liberacion del Deposito.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.nro_cuenta
+  is 'Numero de Cuenta.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.cod_modulo
+  is 'Codigo del Modulo de la Cuenta.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.cod_modalidad
+  is 'Codigo de la Modalidad de la Cuenta.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.usu_insercion
+  is 'Usuario que inserto el Registro.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.fec_insercion
+  is 'Fecha de Insercion.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.usu_modificacion
+  is 'Usuario que modifico el Registro.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.fec_modificacion
+  is 'Fecha de Modificacion.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.fre_extracto
+  is 'Frecuencia del Extracto.';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.cod_extracto
+  is 'Codigo del Extracto. ';
+comment on column IT.GE_EXT_CLI_MOV_RETENIDOS.nro_linea
+  is 'Numero de Linea.';
+alter table IT.GE_EXT_CLI_MOV_RETENIDOS
+  add constraint UK_GE_EXT_CLI_MOV_RETENIDOS unique (COD_PERSONA, FEC_EXTRACTO, FRE_EXTRACTO, COD_EXTRACTO, NRO_CUENTA, NRO_DOCUMENTO, FEC_MOVIMIENTO, COD_RETENCION, NRO_LINEA)
+  using index 
+  tablespace IT_IND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 512K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
