@@ -1,0 +1,14 @@
+{
+  "name": "mcp-jira-local",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal Jira MCP server for issue lookup and JQL search",
+  "main": "jira-mcp-server.mjs",
+  "scripts": {
+    "start": "node jira-mcp-server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4"
+  }
+}

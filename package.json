@@ -1,7 +1,0 @@
-{
-  "private": true,
-  "scripts": {
-    "review": "node .github/scripts/pr-fetch.mjs",
-    "review:jira": "node .github/scripts/pr-fetch.mjs $npm_config_pr jira"
-  }
-}

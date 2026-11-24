@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "jira": {
+      "command": "node",
+      "args": ["${workspaceFolder}/tools/mcp-jira/jira-mcp-server.mjs"],
+      "env": {
+        "JIRA_BASE_URL": "https://itti-digital.atlassian.net",
+        "JIRA_EMAIL": "raul.zarate@itti.digital"
+      }
+    }
+  }
+}

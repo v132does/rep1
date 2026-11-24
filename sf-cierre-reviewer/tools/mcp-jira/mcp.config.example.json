@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "jira": {
+      "command": "node",
+      "args": [
+        "jira-mcp-server.mjs"
+      ],
+      "cwd": "tools/mcp-jira",
+      "env": {
+        "JIRA_BASE_URL": "https://tu-org.atlassian.net",
+        "JIRA_EMAIL": "you@company.com",
+        "JIRA_API_TOKEN": "<token>"
+      }
+    }
+  }
+}
